@@ -171,9 +171,8 @@
 
 -(void) actionSecret
 {
-
-    
-    NSString *url = [NSString stringWithFormat:@"%@tgwproject/AgreePrivacy",[PDAPI WXSysRouteAPI]];
+    //NSString *url = [NSString stringWithFormat:@"%@tgwproject/AgreePrivacy",[PDAPI WXSysRouteAPI]];
+    NSString *url = [NSString stringWithFormat:@"https://www.baidu.com",[PDAPI WXSysRouteAPI]];
     [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"隐私协议"];
     
 }

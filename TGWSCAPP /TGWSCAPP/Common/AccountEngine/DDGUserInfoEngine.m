@@ -10,6 +10,7 @@
 #import "DDGJsonParseManager.h"
 #import "CommonInfo.h"
 #import "LoginViewController.h"
+#import "LoginVC.h"
 
 static DDGUserInfoEngine *singleton;
 
@@ -65,7 +66,7 @@ static DDGUserInfoEngine *singleton;
 - (void)manualLogin{
 
     _isLogging = YES;
-    self.loginViewController = [[LoginViewController alloc] init];
+    self.loginViewController = [[LoginVC alloc] init];
     UINavigationController *navigationController =
     [[UINavigationController alloc] initWithRootViewController:self.loginViewController];
     [navigationController setNavigationBarHidden:NO];       // 使导航条有效

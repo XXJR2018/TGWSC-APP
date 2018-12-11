@@ -143,6 +143,10 @@
  */
 + (UIColor *)viewBackgroundColor;
 
+
+// 主色调
++ (UIColor *) mainColor;
+
 // 提示语颜色
 + (UIColor *)color_0;
 

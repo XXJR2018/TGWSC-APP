@@ -11,6 +11,7 @@
 		3D6EC135E4A46D7E2C5CD5F9 /* libPods-TGWSCAPP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A4B4C8AB5DBDC9E7E293B5 /* libPods-TGWSCAPP.a */; };
 		9B97EFDC6ED4E37075A67963 /* libPods-TGWSCAPP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBA4DD24E459D4913624CFA /* libPods-TGWSCAPP.a */; };
 		AA78C88A01E4A707B158F4E0 /* libPods-TGWSCAPPUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76031F71D9C1512F49FA60B5 /* libPods-TGWSCAPPUITests.a */; };
+		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C20525DE21BE6E1D00E13893 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525DD21BE6E1D00E13893 /* TabBarViewController.m */; };
 		C20525F021BE6E5C00E13893 /* TabViewController_4.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525E221BE6E5C00E13893 /* TabViewController_4.xib */; };
 		C20525F121BE6E5C00E13893 /* TabViewController_4.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525E321BE6E5C00E13893 /* TabViewController_4.m */; };
@@ -220,6 +221,8 @@
 		A1BF7B237F6B5F1E0CBC2A84 /* Pods-TGWSCAPPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGWSCAPPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TGWSCAPPTests/Pods-TGWSCAPPTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A55762B01C0EAB6F71094525 /* Pods-TGWSCAPPUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGWSCAPPUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TGWSCAPPUITests/Pods-TGWSCAPPUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AAAC5B9CD5ED42F9A79E9082 /* Pods-TGWSCAPPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGWSCAPPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TGWSCAPPTests/Pods-TGWSCAPPTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
+		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C20525DC21BE6E1D00E13893 /* TabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		C20525DD21BE6E1D00E13893 /* TabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		C20525E121BE6E5C00E13893 /* TabViewController_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController_4.h; sourceTree = "<group>"; };
@@ -791,6 +794,8 @@
 		C25044BD21BA579100DA9C72 /* LoginViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */,
+				C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */,
 				C25044C321BA579100DA9C72 /* LoginViewController.h */,
 				C25044BF21BA579100DA9C72 /* LoginViewController.m */,
 				C25044C121BA579100DA9C72 /* LoginViewController.xib */,
@@ -1798,6 +1803,7 @@
 				C250476121BA715500DA9C72 /* UIDevice+Additions.m in Sources */,
 				C250476C21BA715500DA9C72 /* Json+Utils.m in Sources */,
 				C250475F21BA715500DA9C72 /* UIImageView+Addtions.m in Sources */,
+				C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */,
 				C250476521BA715500DA9C72 /* NSObject+Additions.m in Sources */,
 				C25045FF21BA711E00DA9C72 /* CCWebViewController.m in Sources */,
 				C25047B321BA715500DA9C72 /* UIAlertView+AFNetworking.m in Sources */,

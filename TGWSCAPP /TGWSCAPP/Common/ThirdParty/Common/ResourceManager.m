@@ -511,6 +511,18 @@ static int colorAtIndex(int index){
     return color;
 }
 
+
+// 主色调
++ (UIColor *) mainColor
+{
+    static UIColor *color;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        color = UIColorFromRGB(0x704a18);
+    });
+    return color;
+}
+
 // 提示语颜色
 + (UIColor *)color_0
 {

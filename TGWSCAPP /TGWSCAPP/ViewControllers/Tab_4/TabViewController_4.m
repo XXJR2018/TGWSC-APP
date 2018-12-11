@@ -9,6 +9,15 @@
 #import "TabViewController_4.h"
 
 @interface TabViewController_4 ()
+{
+
+    
+}
+
+@property(nonatomic, strong)UITableView *tableView;
+
+@property(nonatomic, strong)UIView *headView;
+
 
 @end
 
@@ -30,10 +39,30 @@
     self.hideBackButton = YES;
     [self layoutNaviBarViewWithTitle:@"个人中心"];
     
+    [self layoutUI];
+    
 }
 
+-(void)layoutUI{
+    
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - TabbarHeight)];
+    [self.view addSubview:self.tableView];
+    self.tableView.mj_header = [MJRefreshHeader headerWithRefreshingBlock:^{
+        
+    }];
+    
+    self.headView = [UIView new];
+    [self.tableView setTableHeaderView:self.headView];
+    [self.tableView setTableFooterView:[UIView new]];
+    
+    [self headViewUI];
+    
+}
 
-
+#pragma mark--headViewUI
+-(void)headViewUI{
+    
+}
 
 
 -(void)addButtonView{

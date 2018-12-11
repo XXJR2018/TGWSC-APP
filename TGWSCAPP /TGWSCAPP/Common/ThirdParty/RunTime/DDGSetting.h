@@ -20,6 +20,12 @@
  */
 @property (nonatomic, copy) NSString *uid;
 
+/*!
+ @property  NSString
+ @brief     signId
+ */
+@property (nonatomic, copy) NSString *signId;
+
 /**
  *  accountViewNeedRefresh 帐户页面是否需要刷新
  */

@@ -110,6 +110,21 @@ static DDGAccountManager *_sharedManager = nil;
 //    self.user = [controller getUserByUserId:[self.user.user_id integerValue]];
 }
 
+- (BOOL)isLoggedIn{
+    if ([DDGSetting sharedSettings].signId && [DDGSetting sharedSettings].signId.length > 1) {
+        NSString *singIdStr = [NSString stringWithFormat:@"%@",[DDGSetting sharedSettings].signId];
+        if([singIdStr rangeOfString:@"noApp"].location !=NSNotFound ||
+           [singIdStr rangeOfString:@"noWx"].location !=NSNotFound)
+         {
+            return NO;
+         }else{
+             return YES;
+         }
+        return YES;
+    }
+    return NO;
+}
+
 -(BOOL)isInfoFinished{
     if ([self.user.mobile isKindOfClass:[NSNull class]] || self.user.mobile == nil || self.user.mobile.length < 11) {
         return NO;

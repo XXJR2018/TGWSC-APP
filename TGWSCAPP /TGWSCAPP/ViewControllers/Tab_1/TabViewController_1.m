@@ -35,11 +35,22 @@
 
 -(void)layoutUI{
     
-   
+    UIButton *btn =[[UIButton alloc]initWithFrame:CGRectMake(100, 300, 100, 100)];
+    [self.view addSubview:btn];
+    btn.backgroundColor = [UIColor purpleColor];
+    [btn addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
 }
 
-
-
+-(void) share
+{
+    //开始登录
+    if (![[DDGAccountManager sharedManager] isLoggedIn])
+     {
+        [DDGUserInfoEngine engine].parentViewController = self;
+        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+        return;
+     }
+}
 
 
 

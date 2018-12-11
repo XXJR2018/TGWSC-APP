@@ -35,23 +35,7 @@
 
 -(void)layoutUI{
     
-    UIButton *btn =[[UIButton alloc]initWithFrame:CGRectMake(100, 300, 100, 100)];
-    [self.view addSubview:btn];
-    btn.backgroundColor = [UIColor purpleColor];
-    [btn addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
-    
-}
-
--(void)share{
-    UIImage *image = [UIImage imageNamed:@"Login-1"];
-    [[DDGShareManager shareManager] share:ShareContentTypeNews items:@{@"title":@"title", @"subTitle":@"subTitle",@"image":UIImageJPEGRepresentation(image,1.0),@"url": @"www.baidu.com"} types:@[DDGShareTypeWeChat_haoyou,DDGShareTypeWeChat_pengyouquan,DDGShareTypeQQ,DDGShareTypeQQqzone,DDGShareTypeCopyUrl] showIn:self block:^(id result){
-        NSDictionary *dic = (NSDictionary *)result;
-        if ([[dic objectForKey:@"success"] boolValue]) {
-            [MBProgressHUD showSuccessWithStatus:@"分享成功" toView:self.view];
-        }else{
-            [MBProgressHUD showErrorWithStatus:@"分享失败" toView:self.view];
-        }
-    }];
+  
 }
 
 

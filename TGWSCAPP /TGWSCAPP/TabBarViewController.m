@@ -34,7 +34,6 @@
  */
 @property (nonatomic, strong) NSString *APP_URL;
 
-//#define  APP_URL       @"https://itunes.apple.com/us/app/xiao-xiao-dai-kuan/id1342482847?l=zh&ls=1&mt=8"
 
 @end
 
@@ -93,7 +92,6 @@
     self = [super init];
     
     if (self) {
-        
         self.view.frame = [[UIScreen mainScreen] bounds];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -131,7 +129,7 @@
     [super viewDidLoad];
    
     // 版本检测
-//    [self onCheckVersion];
+    [self onCheckVersion];
     
     //UI处理
     [self layoutViews];

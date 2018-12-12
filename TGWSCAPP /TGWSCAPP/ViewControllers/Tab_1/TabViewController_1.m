@@ -14,6 +14,7 @@
 
 @implementation TabViewController_1
 
+#pragma mark  ---   lifcycle
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"首页"];
@@ -27,12 +28,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hideBackButton = YES;
-    [self layoutNaviBarViewWithTitle:@"首页"];
     
     [self layoutUI];
 }
 
+
+#pragma mark --- 布局UI
 -(void)layoutUI{
     
     UIButton *btn =[[UIButton alloc]initWithFrame:CGRectMake(100, 300, 100, 100)];

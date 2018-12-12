@@ -24,7 +24,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    // 启动图片延时: 1秒
+    [NSThread sleepForTimeInterval:2];
     // 友盟统计
     [self umengTrack];
     
@@ -37,7 +38,6 @@
 #pragma mark == 从其他APP跳转回自己APP回调
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
     //  此处接收外部信息
-    
     NSDictionary *dic = options;
     NSString *soureKey = [dic objectForKey:@"UIApplicationOpenURLOptionsSourceApplicationKey"];
     if ([soureKey isEqualToString:@"com.tencent.xin"]){

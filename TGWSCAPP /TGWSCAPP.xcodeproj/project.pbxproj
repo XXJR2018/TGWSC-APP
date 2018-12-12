@@ -24,7 +24,6 @@
 		C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */; };
 		C250435521BA51FC00DA9C72 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C250435421BA51FC00DA9C72 /* AppDelegate.mm */; };
 		C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435921BA51FC00DA9C72 /* Main.storyboard */; };
-		C250435D21BA51FD00DA9C72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C250435C21BA51FD00DA9C72 /* Assets.xcassets */; };
 		C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435E21BA51FD00DA9C72 /* LaunchScreen.storyboard */; };
 		C250436321BA51FD00DA9C72 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C250436221BA51FD00DA9C72 /* main.m */; };
 		C250436D21BA51FD00DA9C72 /* TGWSCAPPTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C250436C21BA51FD00DA9C72 /* TGWSCAPPTests.m */; };
@@ -53,8 +52,6 @@
 		C25045FA21BA711E00DA9C72 /* XHDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045A421BA711E00DA9C72 /* XHDatePickerView.m */; };
 		C25045FB21BA711E00DA9C72 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045A821BA711E00DA9C72 /* NSDate+Extension.m */; };
 		C25045FC21BA711E00DA9C72 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045A921BA711E00DA9C72 /* UIView+Extension.m */; };
-		C25045FD21BA711E00DA9C72 /* SIAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045AB21BA711E00DA9C72 /* SIAlertView.m */; };
-		C25045FE21BA711E00DA9C72 /* SIEditAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045AE21BA711E00DA9C72 /* SIEditAlertView.m */; };
 		C25045FF21BA711E00DA9C72 /* CCWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045B021BA711E00DA9C72 /* CCWebViewController.m */; };
 		C250460021BA711E00DA9C72 /* WebviewProgressLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045B321BA711E00DA9C72 /* WebviewProgressLine.m */; };
 		C250460121BA711E00DA9C72 /* RefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045B621BA711E00DA9C72 /* RefreshTableView.m */; };
@@ -244,7 +241,6 @@
 		C250435321BA51FC00DA9C72 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C250435421BA51FC00DA9C72 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		C250435A21BA51FC00DA9C72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C250435C21BA51FD00DA9C72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C250435F21BA51FD00DA9C72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C250436121BA51FD00DA9C72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C250436221BA51FD00DA9C72 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -298,10 +294,6 @@
 		C25045A721BA711E00DA9C72 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		C25045A821BA711E00DA9C72 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		C25045A921BA711E00DA9C72 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
-		C25045AB21BA711E00DA9C72 /* SIAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIAlertView.m; sourceTree = "<group>"; };
-		C25045AC21BA711E00DA9C72 /* SIEditAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIEditAlertView.h; sourceTree = "<group>"; };
-		C25045AD21BA711E00DA9C72 /* SIAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIAlertView.h; sourceTree = "<group>"; };
-		C25045AE21BA711E00DA9C72 /* SIEditAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIEditAlertView.m; sourceTree = "<group>"; };
 		C25045B021BA711E00DA9C72 /* CCWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCWebViewController.m; sourceTree = "<group>"; };
 		C25045B121BA711E00DA9C72 /* WebviewProgressLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebviewProgressLine.h; sourceTree = "<group>"; };
 		C25045B221BA711E00DA9C72 /* CCWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCWebViewController.h; sourceTree = "<group>"; };
@@ -762,7 +754,6 @@
 				C2AEB47821BE48260078E788 /* APPConstants.h */,
 				C287FE7721BF4ACB00B8D682 /* Images-Default.xcassets */,
 				C287FE7821BF4ACB00B8D682 /* Images.xcassets */,
-				C250435C21BA51FD00DA9C72 /* Assets.xcassets */,
 				C250435921BA51FC00DA9C72 /* Main.storyboard */,
 				C250435E21BA51FD00DA9C72 /* LaunchScreen.storyboard */,
 				C250436121BA51FD00DA9C72 /* Info.plist */,
@@ -891,7 +882,6 @@
 			children = (
 				C2AEB45D21BE3CB00078E788 /* CanvasAnimation */,
 				C25045A021BA711E00DA9C72 /* XHDatePicker */,
-				C25045AA21BA711E00DA9C72 /* SIAlertView */,
 				C25045AF21BA711E00DA9C72 /* CCWebView */,
 				C25045B421BA711E00DA9C72 /* RefreshTableView */,
 				C25045B721BA711E00DA9C72 /* CustomNavifationBar */,
@@ -935,17 +925,6 @@
 				C25045A921BA711E00DA9C72 /* UIView+Extension.m */,
 			);
 			path = Tools;
-			sourceTree = "<group>";
-		};
-		C25045AA21BA711E00DA9C72 /* SIAlertView */ = {
-			isa = PBXGroup;
-			children = (
-				C25045AD21BA711E00DA9C72 /* SIAlertView.h */,
-				C25045AB21BA711E00DA9C72 /* SIAlertView.m */,
-				C25045AC21BA711E00DA9C72 /* SIEditAlertView.h */,
-				C25045AE21BA711E00DA9C72 /* SIEditAlertView.m */,
-			);
-			path = SIAlertView;
 			sourceTree = "<group>";
 		};
 		C25045AF21BA711E00DA9C72 /* CCWebView */ = {
@@ -1630,7 +1609,6 @@
 				C250450D21BA579100DA9C72 /* LoginViewController.xib in Resources */,
 				C250451321BA579100DA9C72 /* CitysViewController.xib in Resources */,
 				C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */,
-				C250435D21BA51FD00DA9C72 /* Assets.xcassets in Resources */,
 				C25047A321BA715500DA9C72 /* blackArrow.png in Resources */,
 				C25045F921BA711E00DA9C72 /* XHDatePickerView.xib in Resources */,
 				C25047AC21BA715500DA9C72 /* 37x-Checkmark.png in Resources */,
@@ -1767,7 +1745,6 @@
 				C250476321BA715500DA9C72 /* UIViewController+DDGExtras.m in Sources */,
 				C250476721BA715500DA9C72 /* NSDate+Additions.m in Sources */,
 				C250480621BA73B800DA9C72 /* AFSecurityPolicy.m in Sources */,
-				C25045FE21BA711E00DA9C72 /* SIEditAlertView.m in Sources */,
 				C2AEB46321BE3CB00078E788 /* CSAnimation.m in Sources */,
 				C250475E21BA715500DA9C72 /* UIView+DDGExtras.m in Sources */,
 				C25047A221BA715500DA9C72 /* EGORefreshTableHeaderView.m in Sources */,
@@ -1854,7 +1831,6 @@
 				C2AEB46221BE3CB00078E788 /* CSAnimationView.m in Sources */,
 				C250461321BA711E00DA9C72 /* TAAbstractDotView.m in Sources */,
 				C250477021BA715500DA9C72 /* NSURL+Additions.m in Sources */,
-				C25045FD21BA711E00DA9C72 /* SIAlertView.m in Sources */,
 				C250461221BA711E00DA9C72 /* TAAnimatedDotView.m in Sources */,
 				C250451921BA579100DA9C72 /* CustomerServiceManager.m in Sources */,
 				C250461921BA711E00DA9C72 /* BaseLineView.m in Sources */,
@@ -2060,6 +2036,7 @@
 			baseConfigurationReference = 09F21D3746F5B0AEDFD41468 /* Pods-TGWSCAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S79W2S3535;
 				ENABLE_BITCODE = NO;
@@ -2134,6 +2111,7 @@
 			baseConfigurationReference = 42B6F2051A68381FF6368E6A /* Pods-TGWSCAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S79W2S3535;
 				ENABLE_BITCODE = NO;

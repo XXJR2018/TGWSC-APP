@@ -35,8 +35,6 @@
 // iOS11以下的系统
 #define iOS11Less  ( [[[UIDevice currentDevice] systemVersion] floatValue] < 11.0f)
 
-#define NavHeight   (IS_IPHONE_X_MORE ? 88.f : 64.f)
-
 //状态栏高度
 #define StatusBarHeight   [[UIApplication sharedApplication] statusBarFrame].size.height
 
@@ -45,8 +43,8 @@
 
 
 #define kBorder 10
-#define ScaleSize SCREEN_WIDTH/320.f
-
+#define ScaleSize SCREEN_WIDTH/375.f
+#define NavHeight   (IS_IPHONE_X_MORE ? 88.f : 64.f)
 #define TabbarHeight   (IS_IPHONE_X_MORE ? 83.f : 49.f)
 #define TableViewEdgeOffset 20.f
 
@@ -57,6 +55,9 @@
 #define CornerRadius    4.0
 #define LineHeight      0.60
 
+// 设备屏幕的大小
+#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 
 
 

@@ -90,10 +90,4 @@ code;                                                                       \
 _Pragma("clang diagnostic pop")                                             \
 ((void)0)
 
-// 设备屏幕的大小
-#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
-#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
-
-
-
 #endif

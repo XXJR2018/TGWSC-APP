@@ -20,13 +20,13 @@
 #define  ZYHT_StatusBarHeight      20.f
 
 // Navigation bar height.
-#define  ZYHT_NavigationBarHeight  44.f
+#define  ZYHT_NavigationBarHeight  44.f +10.f
 
 // Tabbar height.
-#define  ZYHT_TabbarHeight         49.f
+#define  ZYHT_TabbarHeight         49.f + 10.f
 
 // Status bar & navigation bar height.
-#define  ZYHT_StatusBarAndNavigationBarHeight   (20.f + 44.f)
+#define  ZYHT_StatusBarAndNavigationBarHeight   (20.f + 44.f +10.f)
 
 
 /*----------------------------------------------------------------------------------

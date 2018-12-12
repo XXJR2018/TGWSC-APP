@@ -83,7 +83,7 @@
     if (!_rightOneBtn) {
 
         _rightOneBtn = ({
-            UIButton *rightOneBtn = [[UIButton alloc] initWithFrame:CGRectMake(ZYHT_ScreenWidth-leftRightIconWH, ZYHT_StatusBarHeight, leftRightIconWH, leftRightIconWH)];
+            UIButton *rightOneBtn = [[UIButton alloc] initWithFrame:CGRectMake(ZYHT_ScreenWidth-leftRightIconWH, ZYHT_StatusBarHeight + 5, leftRightIconWH, leftRightIconWH)];
             rightOneBtn.titleLabel.font = ZYHT_F_NormalFontOfSize(13);
             [rightOneBtn addTarget:self action:@selector(rightOneBtnOnCkick:) forControlEvents:UIControlEventTouchUpInside];
             rightOneBtn.hidden = YES;

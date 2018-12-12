@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/Common/ThirdParty/RunTime/Manager/DDGAccountManager.m"
-            timestampString = "566294507.174067"
+            timestampString = "566296859.8740309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/Common/ThirdParty/RunTime/Manager/DDGAccountManager.m"
-            timestampString = "566294507.174143"
+            timestampString = "566296859.874139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "114"
@@ -122,60 +122,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "566294507.174359"
+            timestampString = "566296859.8744251"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "-share"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "-actionSearch1"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__28-[TabViewController_1 share]_block_invoke_2"
-                  moduleName = "TGWSCAPP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xxjr02/Desktop/WORK_CODE/%E5%95%86%E5%9F%8EApp/TGWSCAPP%20/TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-                  timestampString = "566294362.551761"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
-                  offsetFromSymbolStart = "111">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__28-[TabViewController_1 share]_block_invoke_3"
-                  moduleName = "TGWSCAPP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xxjr02/Desktop/WORK_CODE/%E5%95%86%E5%9F%8EApp/TGWSCAPP%20/TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-                  timestampString = "566294362.555297"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
-                  offsetFromSymbolStart = "12">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_"
-                  moduleName = "TGWSCAPP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xxjr02/Desktop/WORK_CODE/%E5%95%86%E5%9F%8EApp/TGWSCAPP%20/TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-                  timestampString = "566294362.557956"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

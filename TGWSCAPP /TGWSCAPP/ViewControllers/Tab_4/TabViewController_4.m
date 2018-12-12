@@ -10,7 +10,8 @@
 
 @interface TabViewController_4 ()
 {
-
+    UIImageView *_headImgView;
+    UILabel *_phoneLabel;
     
 }
 
@@ -62,7 +63,25 @@
 #pragma mark--headViewUI
 -(void)headViewUI{
     
+    UIImageView *backdropImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 300 * ScaleSize)];
+    [self.view addSubview:backdropImgView];
+    backdropImgView.image = [UIImage imageNamed:@""];
+    backdropImgView.userInteractionEnabled = YES;
+    
+    
+ 
+    
+    
 }
+
+
+
+
+
+
+
+
+
 
 
 -(void)addButtonView{

@@ -14,6 +14,8 @@
 
 NSString *const kDesKeyString = @"desKeyString";
 
+NSString *const kTGWKeyString = @"xxjrxxxjabd345";
+
 @implementation NSString(DesEncrypt)
 
 //static Byte iv[] = {1, 1, 1, 1, 1, 1, 1, 1};
@@ -123,6 +125,23 @@ NSString *const kDesKeyString = @"desKeyString";
     // MD5 编码后返回
     return [[decryptString dataUsingEncoding:NSUTF8StringEncoding] md5Hash];
 
+}
+
+/////////////// ************  天狗窝加密方式   ************** ///////////////
+-(NSString *)stringTGWToMD5
+{
+    NSString *inputTemp = self;
+    NSString *inputStr = [inputTemp stringByAppendingString:kTGWKeyString];
+    const char *cStr = [inputStr UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(cStr, (CC_LONG)strlen(cStr), result);
+    NSString *resultStr = [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+                           result[0], result[1], result[2], result[3],
+                           result[4], result[5], result[6], result[7],
+                           result[8], result[9], result[10], result[11],
+                           result[12], result[13], result[14], result[15]
+                           ];
+    return [resultStr lowercaseString];
 }
 
 

@@ -34,7 +34,8 @@ FOUNDATION_EXPORT NSString *const kDesKeyString;
 + (NSString *)decryptUseDDG:(NSString *)string, ...;
 
 
-
+/////////////// ************  天狗窝加密方式   ************** ///////////////
+-(NSString *)stringTGWToMD5;
 
 /////////////// ************  袋袋金核心加密方式   ************** ///////////////
 /**

@@ -7,6 +7,7 @@
 //
 
 #import "TabViewController_1.h"
+#import "SearchVC.h"
 
 @interface TabViewController_1 ()
 
@@ -36,6 +37,8 @@
 #pragma mark --- 布局UI
 -(void)layoutUI{
     
+    
+    
     UIButton *btn =[[UIButton alloc]initWithFrame:CGRectMake(100, 300, 100, 100)];
     [self.view addSubview:btn];
     btn.backgroundColor = [UIColor purpleColor];
@@ -45,13 +48,16 @@
 -(void) share
 {
     
-    //开始登录
-    if (![[DDGAccountManager sharedManager] isLoggedIn])
-     {
-        [DDGUserInfoEngine engine].parentViewController = self;
-        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
-        return;
-     }
+//    //开始登录
+//    if (![[DDGAccountManager sharedManager] isLoggedIn])
+//     {
+//        [DDGUserInfoEngine engine].parentViewController = self;
+//        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+//        return;
+//     }
+    
+    SearchVC *VC = [[SearchVC alloc] init];
+    [self.navigationController pushViewController:VC animated:YES];
 }
 
 

@@ -43,6 +43,7 @@
 
 -(void) share
 {
+    
     //开始登录
     if (![[DDGAccountManager sharedManager] isLoggedIn])
      {
@@ -51,10 +52,6 @@
         return;
      }
 }
-
-
-
-
 
 
 

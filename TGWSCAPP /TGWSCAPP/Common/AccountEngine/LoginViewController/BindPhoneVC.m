@@ -1,19 +1,16 @@
 //
-//  LoginVC.m
-//  XXJR
+//  BindPhoneVC.m
+//  TGWSCAPP
 //
-//  Created by xxjr02 on 2018/12/11.
-//  Copyright © 2018 Cary. All rights reserved.
+//  Created by xxjr02 on 2018/12/12.
+//  Copyright © 2018 xxjr03. All rights reserved.
 //
 
-#import "LoginVC.h"
-#import "CCWebViewController.h"
 #import "BindPhoneVC.h"
 
-@interface LoginVC ()
+@interface BindPhoneVC ()
 {
     UILabel *labelTitle; // 标题text
-    
     
     UITextField  *fieldPhone;   // 手机号码
     UITextField  *fieldCode;    // 验证码
@@ -27,16 +24,13 @@
     
     NSString *smsTokenId;
 }
-
-@property(nonatomic, strong)NSString *unionid;
-
 @end
 
-@implementation LoginVC
+@implementation BindPhoneVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+   
     [self layoutUI];
 }
 
@@ -56,7 +50,7 @@
     [self.view addSubview:labelTitle];
     labelTitle.font = [UIFont systemFontOfSize:20];
     labelTitle.textColor = [ResourceManager color_1];
-    labelTitle.text = @"欢迎登录天狗窝商城";
+    labelTitle.text = @"HI,请关联您的手机号码";
     
     
     iTopY += labelTitle.height + 30;
@@ -100,91 +94,51 @@
     iTopY += 50;
     btnOK = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH- 2*iLeftX, 40)];
     [self.view addSubview:btnOK];
-    btnOK.backgroundColor = UIColorFromRGB(0xc4bab1);
+    btnOK.backgroundColor =  [ResourceManager mainColor];//UIColorFromRGB(0xc4bab1);
     btnOK.cornerRadius = btnOK.height/2;
     btnOK.titleLabel.font = [UIFont systemFontOfSize:15];
     [btnOK setTitle:@"进入商城" forState:UIControlStateNormal];
     [btnOK addTarget:self action:@selector(actionDL) forControlEvents:UIControlEventTouchUpInside];
-    btnOK.userInteractionEnabled = NO;
-    isCheck = NO;
+    //btnOK.userInteractionEnabled = NO;
+    //isCheck = NO;
     
-    iTopY += btnOK.height + 20;
-    btnCheck = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX+20, iTopY, 20, 20)];
-    [self.view addSubview:btnCheck];
-    //btnCheck.backgroundColor = [UIColor yellowColor];
-    [btnCheck setImage:[UIImage imageNamed:@"com_gou1"] forState:UIControlStateNormal];
-    [btnCheck addTarget:self action:@selector(actionCheck) forControlEvents:UIControlEventTouchUpInside];
-    
-    iLeftX += 20 + btnCheck.width +10;
-    labelXY = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX , iTopY, SCREEN_WIDTH - iLeftX -15, 20)];
-    [self.view addSubview:labelXY];
-    labelXY.font = [UIFont systemFontOfSize:12];
-    labelXY.textColor = [ResourceManager color_1];
-    labelXY.text = @"我已阅读并同意 \"用户协议\"和\"隐私协议\"";
-    
-    
-    UIButton *btnUser = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX + 90, iTopY, 60, 20)];
-    [self.view addSubview:btnUser];
-    //btnUser.backgroundColor = [UIColor yellowColor];
-    [btnUser addTarget:self action:@selector(actionUser) forControlEvents:UIControlEventTouchUpInside];
-    
-    iLeftX += 90 + btnUser.width +10;
-    UIButton *btnSecret = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 60, 20)];
-    [self.view addSubview:btnSecret];
-    //btnSecret.backgroundColor = [UIColor blueColor];
-    [btnSecret addTarget:self action:@selector(actionSecret) forControlEvents:UIControlEventTouchUpInside];
-    
-    iTopY = SCREEN_HEIGHT -  150;
-    UILabel *labelWX = [[UILabel alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 20)];
-    [self.view addSubview:labelWX];
-    labelWX.font = [UIFont systemFontOfSize:11];
-    labelWX.textColor = [ResourceManager lightGrayColor];
-    labelWX.textAlignment = NSTextAlignmentCenter;
-    labelWX.text = @"您还可以用以下方式登录";
-    
-    int iFGWidth = 90;
-    int iFGLeftX = 20;
-    if (IS_IPHONE_5_OR_LESS)
-     {
-        iFGWidth = 70;
-     }
-    UIView *viewFGLeft = [[UIView alloc] initWithFrame:CGRectMake(iFGLeftX, iTopY+10, iFGWidth, 1)];
-    [self.view addSubview:viewFGLeft];
-    viewFGLeft.backgroundColor = [ResourceManager color_5];
-    
-    UIView *viewFGRight = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - iFGWidth - iFGLeftX, iTopY+10, iFGWidth, 1)];
-    [self.view addSubview:viewFGRight];
-    viewFGRight.backgroundColor = [ResourceManager color_5];
-    
-    iTopY += labelWX.height + 20;
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 46)/2, iTopY, 46, 40)];
-    [self.view addSubview:imgView];
-    imgView.image = [UIImage imageNamed:@"Login_WX"];
-    
-    iTopY +=imgView.height + 15;
-    UILabel *labelWXDL = [[UILabel alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 20)];
-    [self.view addSubview:labelWXDL];
-    labelWXDL.font = [UIFont systemFontOfSize:11];
-    labelWXDL.textColor = [ResourceManager lightGrayColor];
-    labelWXDL.textAlignment = NSTextAlignmentCenter;
-    labelWXDL.text = @"微信登录";
-    
-    
-    UIButton *btnWXDL = [[UIButton alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT -  150, SCREEN_WIDTH, 150)];
-    [self.view addSubview:btnWXDL];
-    [btnWXDL addTarget:self action:@selector(actionWXDL) forControlEvents:UIControlEventTouchUpInside];
+//    iTopY += btnOK.height + 20;
+//    btnCheck = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX+20, iTopY, 20, 20)];
+//    [self.view addSubview:btnCheck];
+//    //btnCheck.backgroundColor = [UIColor yellowColor];
+//    [btnCheck setImage:[UIImage imageNamed:@"com_gou1"] forState:UIControlStateNormal];
+//    [btnCheck addTarget:self action:@selector(actionCheck) forControlEvents:UIControlEventTouchUpInside];
+//
+//    iLeftX += 20 + btnCheck.width +10;
+//    labelXY = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX , iTopY, SCREEN_WIDTH - iLeftX -15, 20)];
+//    [self.view addSubview:labelXY];
+//    labelXY.font = [UIFont systemFontOfSize:12];
+//    labelXY.textColor = [ResourceManager color_1];
+//    labelXY.text = @"我已阅读并同意 \"用户协议\"和\"隐私协议\"";
+//
+//
+//    UIButton *btnUser = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX + 90, iTopY, 60, 20)];
+//    [self.view addSubview:btnUser];
+//    //btnUser.backgroundColor = [UIColor yellowColor];
+//    [btnUser addTarget:self action:@selector(actionUser) forControlEvents:UIControlEventTouchUpInside];
+//
+//    iLeftX += 90 + btnUser.width +10;
+//    UIButton *btnSecret = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 60, 20)];
+//    [self.view addSubview:btnSecret];
+//    //btnSecret.backgroundColor = [UIColor blueColor];
+//    [btnSecret addTarget:self action:@selector(actionSecret) forControlEvents:UIControlEventTouchUpInside];
     
     
     
     
 }
 
-
-#pragma mark ---   action
+#pragma mark  ---  action
 //添加手势点击空白处隐藏键盘
 -(void)TouchViewKeyBoard{
     [self.view endEditing:YES];
 }
+
 
 -(void) actionCode
 {
@@ -212,63 +166,8 @@
         }
     });
     dispatch_resume(_timer);
-    
-    [self getSMSFrist];
 }
 
--(void) actionUser
-{
-
-    NSString *url = [NSString stringWithFormat:@"%@tgwproject/AgreePrivacy",[PDAPI WXSysRouteAPI]];
-    [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"用户协议"];
-}
-
--(void) actionSecret
-{
-    NSString *url = [NSString stringWithFormat:@"%@tgwproject/AgreePrivacy",[PDAPI WXSysRouteAPI]];
-    //NSString *url = [NSString stringWithFormat:@"https://www.baidu.com",[PDAPI WXSysRouteAPI]];
-    [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"隐私协议"];
-    
-}
-
-
--(void) actionCheck
-{
-    isCheck = !isCheck;
-    if (isCheck )
-     {
-        [btnCheck setImage:[UIImage imageNamed:@"com_gou2"] forState:UIControlStateNormal];
-        btnOK.backgroundColor = [ResourceManager mainColor];
-        btnOK.userInteractionEnabled = YES;
-     }
-    else
-     {
-        [btnCheck setImage:[UIImage imageNamed:@"com_gou1"] forState:UIControlStateNormal];
-        btnOK.backgroundColor = UIColorFromRGB(0xc4bab1);
-        btnOK.userInteractionEnabled = NO;
-     }
-}
-
--(void) actionWXDL
-{
-    //BindPhoneVC  *VC = [[BindPhoneVC alloc] init];
-    //[self.navigationController pushViewController:VC animated:YES];
-    
-    [self.view endEditing:YES];
-    if (!isCheck) {
-        [MBProgressHUD showErrorWithStatus:@"请阅读并同意用户协议" toView:self.view];
-        return;
-    }
-    
-    [[DDGShareManager shareManager] loginType:2 block:^(id obj){
-        NSDictionary *dic = (NSDictionary *)obj;
-        self.unionid = [NSString stringWithFormat:@"%@",[dic objectForKey:@"unionid"]];
-        if (self.unionid.length > 0) {
-            [self wxLoginUrl:self.unionid];
-        }
-    } view:self.view];
-    
-}
 
 -(void) actionDL
 {
@@ -284,39 +183,9 @@
         return;
      }
     
-    [self loginUrl];
-//    //跳转首页
-//    //[self.navigationController popToRootViewControllerAnimated:YES];
-//    [[DDGUserInfoEngine engine] finishDoBlock];
-//    [[DDGUserInfoEngine engine] dismissFinishUserInfoController:nil];
-    
 }
-
 
 #pragma mark --- 网络通讯
-// 手机登录
--(void)loginUrl
-{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    params[@"telephone"] = fieldPhone.text;
-    params[@"randomNo"] =  fieldCode.text;
-    // 渠道来源
-    params[@"sourceType"] = @"tgwsc";
-    params[@"downloadSource"] = @"AppStore";
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[PDAPI userKJLoginInfoAPI]
-                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
-                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
-                                                                                      [self handleData:operation];
-                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
-                                                                                      [self handleErrorData:operation];
-                                                                                  }];
-    operation.tag = 1000;
-    [operation start];
-}
-
-
 -(void)getSMSFrist
 {
     smsTokenId = @"";
@@ -365,32 +234,32 @@
 }
 
 
-//微信登录
-- (void)wxLoginUrl:(NSString *)unionid{
-    [self.view endEditing:YES];
-    
+//绑定手机
+-(void)bindPhoneUrl{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    params[@"unionid"] = unionid;
-    //渠道来源
+    params[@"telephone"] = fieldPhone.text;
+    params[@"randomNo"] = fieldCode.text;
+    params[@"unionid"] = self.unionid;
+    // 渠道来源
     params[@"sourceType"] = @"tgwsc";
     params[@"downloadSource"] = @"AppStore";
-    
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[PDAPI userWXLoginInfoAPI]
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@fx/cust/app/wxLoginBind",[PDAPI getBaseUrlString]]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       [self handleData:operation];
-                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
-                                                                                      [self handleErrorData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [MBProgressHUD hideHUDForView:self.view animated:NO];
+                                                                                      [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
                                                                                   }];
-    operation.tag = 1001;
+    operation.tag = 1000;
     [operation start];
 }
 
--(void)handleData:(DDGAFHTTPRequestOperation *)operation
-{
-    [self.view endEditing:YES];
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    if (operation.tag == 998)
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
+    if (998 == operation.tag )
      {
         NSDictionary *dic = operation.jsonResult.attr;
         if (dic)
@@ -398,21 +267,22 @@
             smsTokenId =  [NSString stringWithFormat:@"%@", dic[@"smsTokenId"]];
             [self getSMSSecond];
          }
-        
      }
-    else if (operation.tag == 1000) {
-        
+    if (1000 == operation.tag)
+     {
+        //登陆成功,发送通知更新用户信息
+        [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
         //跳转首页
-        [self.navigationController popToRootViewControllerAnimated:YES];
         [[DDGUserInfoEngine engine] finishDoBlock];
         [[DDGUserInfoEngine engine] dismissFinishUserInfoController:nil];
-        
-    }
+     }
+
 }
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
     [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
 }
+
 
 @end

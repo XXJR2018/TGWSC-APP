@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 
 
+// 发送短信接口一（拿到SmsTokenID）
+static NSString *const kDDGgetSmsToken = @"tgw/smsAction/getSmsToken/custLogin";
+// 发送短信接口二（发送短信）
+static NSString *const kDDGnologin = @"tgw/smsAction/nologin/custLogin";
+
 //房价评估
 
 // 所在城市列表

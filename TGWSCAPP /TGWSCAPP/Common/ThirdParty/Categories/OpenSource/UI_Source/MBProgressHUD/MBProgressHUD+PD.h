@@ -11,38 +11,33 @@
 @interface MBProgressHUD (PD)
 
 /*!
- @property  <#class#> <#name#>
- @brief     <#abstract#>
+ @property  <#class#>
+ @brief     只弹出菊花
  */
 + (id)showHUDAddedTo:(UIView *)view;
 /*!
- @property  <#class#> <#name#>
- @brief     <#abstract#>
+ @property  <#class#>
+ @brief     网络出错时弹出提示文字
  */
 + (id)showNoNetworkHUDToView:(UIView *)view;
 /*!
  @property  <#class#> <#name#>
- @brief     <#abstract#>
- */
-+ (id)showSuccessWithStatus:(NSString *)string toView:(UIView *)view;
-/*!
- @property  <#class#> <#name#>
- @brief     <#abstract#>
+ @brief     弹出菊花和文字
  */
 + (id)showWithStatus:(NSString *)string toView:(UIView *)view;
 /*!
  @property  <#class#> <#name#>
- @brief     <#abstract#>
+ @brief     成功状态弹出对号加文字
+ */
++ (id)showSuccessWithStatus:(NSString *)string toView:(UIView *)view;
+/*!
+ @property  <#class#> <#name#>
+ @brief     失败状态弹窗哭脸加文字
  */
 + (id)showErrorWithStatus:(NSString *)string toView:(UIView *)view;
-
-/**
- *  仅显示文本信息
- *
- *  @param string 字符串信息
- *  @param view   父view
- *
- *  @return MBProgressHUD对象
+/*!
+ @property  <#class#> <#name#>
+ @brief     仅显示文本信息
  */
 + (id)showOnlyText:(NSString *)string toView:(UIView *)view;
 

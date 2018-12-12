@@ -82,6 +82,7 @@
     btnOK.cornerRadius = btnOK.height/2;
     btnOK.titleLabel.font = [UIFont systemFontOfSize:15];
     [btnOK setTitle:@"进入商城" forState:UIControlStateNormal];
+    [btnOK addTarget:self action:@selector(actionDL) forControlEvents:UIControlEventTouchUpInside];
     
     iTopY += btnOK.height + 20;
     UIButton *btnCheck = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX+20, iTopY, 20, 20)];
@@ -129,6 +130,26 @@
     [self.view addSubview:viewFGRight];
     viewFGRight.backgroundColor = [ResourceManager color_5];
     
+    iTopY += labelWX.height + 20;
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 46)/2, iTopY, 46, 40)];
+    [self.view addSubview:imgView];
+    imgView.image = [UIImage imageNamed:@"Login_WX"];
+    
+    iTopY +=imgView.height + 15;
+    UILabel *labelWXDL = [[UILabel alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 20)];
+    [self.view addSubview:labelWXDL];
+    labelWXDL.font = [UIFont systemFontOfSize:11];
+    labelWXDL.textColor = [ResourceManager lightGrayColor];
+    labelWXDL.textAlignment = NSTextAlignmentCenter;
+    labelWXDL.text = @"微信登录";
+    
+    
+    UIButton *btnWXDL = [[UIButton alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT -  150, SCREEN_WIDTH, 150)];
+    [self.view addSubview:btnWXDL];
+    [btnWXDL addTarget:self action:@selector(actionWXDL) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
     
 }
 
@@ -171,9 +192,20 @@
 
 -(void) actionSecret
 {
-    //NSString *url = [NSString stringWithFormat:@"%@tgwproject/AgreePrivacy",[PDAPI WXSysRouteAPI]];
-    NSString *url = [NSString stringWithFormat:@"https://www.baidu.com",[PDAPI WXSysRouteAPI]];
+    NSString *url = [NSString stringWithFormat:@"%@tgwproject/AgreePrivacy",[PDAPI WXSysRouteAPI]];
+    //NSString *url = [NSString stringWithFormat:@"https://www.baidu.com",[PDAPI WXSysRouteAPI]];
     [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"隐私协议"];
+    
+}
+
+
+-(void) actionWXDL
+{
+    
+}
+
+-(void) actionDL
+{
     
 }
 

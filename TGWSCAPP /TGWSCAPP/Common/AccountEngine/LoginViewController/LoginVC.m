@@ -11,7 +11,14 @@
 
 @interface LoginVC ()
 {
-    UIButton *btnCode;
+    UITextField  *fieldPhone;   // 手机号码
+    UITextField  *fieldCode;    // 验证码
+    UIButton *btnCode; // 验证码按钮
+    
+    UIButton *btnOK;  // 进入商城按钮
+    
+    UIButton *btnCheck; // 勾选协议按钮
+    BOOL  isCheck;
 }
 @end
 
@@ -38,7 +45,7 @@
     
     
     iTopY += labelTitle.height + 30;
-    UITextField  *fieldPhone = [[UITextField alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - 2 *iLeftX, 30)];
+    fieldPhone = [[UITextField alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - 2 *iLeftX, 30)];
     [self.view addSubview:fieldPhone];
     fieldPhone.font = [UIFont systemFontOfSize:14];
     fieldPhone.textColor = [ResourceManager color_1];
@@ -50,7 +57,7 @@
     viewFG1.backgroundColor = [ResourceManager color_5];
     
     iTopY += 20;
-    UITextField  *fieldCode = [[UITextField alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - 2 *iLeftX - 105, 30)];
+    fieldCode = [[UITextField alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - 2 *iLeftX - 105, 30)];
     [self.view addSubview:fieldCode];
     //fieldCode.backgroundColor = [UIColor yellowColor];
     fieldCode.font = [UIFont systemFontOfSize:14];
@@ -76,18 +83,22 @@
     viewFG2.backgroundColor = [ResourceManager color_5];
     
     iTopY += 50;
-    UIButton *btnOK = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH- 2*iLeftX, 40)];
+    btnOK = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH- 2*iLeftX, 40)];
     [self.view addSubview:btnOK];
     btnOK.backgroundColor = UIColorFromRGB(0xc4bab1);
     btnOK.cornerRadius = btnOK.height/2;
     btnOK.titleLabel.font = [UIFont systemFontOfSize:15];
     [btnOK setTitle:@"进入商城" forState:UIControlStateNormal];
     [btnOK addTarget:self action:@selector(actionDL) forControlEvents:UIControlEventTouchUpInside];
+    btnOK.userInteractionEnabled = NO;
+    isCheck = NO;
     
     iTopY += btnOK.height + 20;
-    UIButton *btnCheck = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX+20, iTopY, 20, 20)];
+    btnCheck = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX+20, iTopY, 20, 20)];
     [self.view addSubview:btnCheck];
-    btnCheck.backgroundColor = [UIColor yellowColor];
+    //btnCheck.backgroundColor = [UIColor yellowColor];
+    [btnCheck setImage:[UIImage imageNamed:@"com_gou1"] forState:UIControlStateNormal];
+    [btnCheck addTarget:self action:@selector(actionCheck) forControlEvents:UIControlEventTouchUpInside];
     
     iLeftX += 20 + btnCheck.width +10;
     UILabel *labelXY = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX , iTopY, SCREEN_WIDTH - iLeftX -15, 20)];
@@ -199,6 +210,23 @@
 }
 
 
+-(void) actionCheck
+{
+    isCheck = !isCheck;
+    if (isCheck )
+     {
+        [btnCheck setImage:[UIImage imageNamed:@"com_gou2"] forState:UIControlStateNormal];
+        btnOK.backgroundColor = [ResourceManager mainColor];
+        btnOK.userInteractionEnabled = YES;
+     }
+    else
+     {
+        [btnCheck setImage:[UIImage imageNamed:@"com_gou1"] forState:UIControlStateNormal];
+        btnOK.backgroundColor = UIColorFromRGB(0xc4bab1);
+        btnOK.userInteractionEnabled = NO;
+     }
+}
+
 -(void) actionWXDL
 {
     
@@ -206,6 +234,12 @@
 
 -(void) actionDL
 {
+    if (fieldPhone.text &&
+        ![fieldPhone.text isMobileNumber])
+     {
+        [MBProgressHUD showErrorWithStatus:@"请输入正确的手机号码" toView:self.view];
+        return;
+     }
     
 }
 

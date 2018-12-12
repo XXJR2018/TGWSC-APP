@@ -14,6 +14,11 @@
  @property  <#class#> <#name#>
  @brief     <#abstract#>
  */
++ (id)showHUDAddedTo:(UIView *)view;
+/*!
+ @property  <#class#> <#name#>
+ @brief     <#abstract#>
+ */
 + (id)showNoNetworkHUDToView:(UIView *)view;
 /*!
  @property  <#class#> <#name#>

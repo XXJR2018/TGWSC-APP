@@ -189,7 +189,7 @@
 
 //验证码登陆
 -(void)VFLoginUrl{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [MBProgressHUD showHUDAddedTo:self.view];
 
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params[@"telephone"] = self.phoneTextField.text;

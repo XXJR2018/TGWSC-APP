@@ -101,7 +101,7 @@
 
 //绑定手机
 -(void)bindPhoneUrl{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params[@"telephone"] = _phoneTextField.text;
     params[@"randomNo"] = _VerifyTextField.text;

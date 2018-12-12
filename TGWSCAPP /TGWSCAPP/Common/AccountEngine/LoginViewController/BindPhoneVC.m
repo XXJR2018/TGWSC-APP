@@ -189,7 +189,7 @@
 -(void)getSMSFrist
 {
     smsTokenId = @"";
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [MBProgressHUD showHUDAddedTo:self.view];
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBaseUrlString], kDDGgetSmsToken];
     NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
     parmas[@"telephone"] = fieldPhone.text;
@@ -211,7 +211,7 @@
 
 -(void)getSMSSecond
 {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [MBProgressHUD showHUDAddedTo:self.view];
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBaseUrlString], kDDGnologin];
     NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
     parmas[@"telephone"] = fieldPhone.text;
@@ -236,7 +236,7 @@
 
 //绑定手机
 -(void)bindPhoneUrl{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params[@"telephone"] = fieldPhone.text;
     params[@"randomNo"] = fieldCode.text;

@@ -16,10 +16,10 @@
     UILabel *_phoneLabel;
     
     UIImageView *_orderImgView;
-    JXButton *_dfkOrderBtn;
-    JXButton *_dfhOrderBtn;
-    JXButton *_yfhOrderBtn;
-    JXButton *_tkOrderBtn;
+    UILabel *_dfkNumLabel;
+    UILabel *_dfhNumLabel;
+    UILabel *_yfhNumLabel;
+    UILabel *_tkNumLabel;
     
     
 }
@@ -140,6 +140,17 @@
         [orderBtn setTitle:titleArr[i] forState:UIControlStateNormal];
         [orderBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
         [orderBtn setImage:[UIImage imageNamed:imgArr[i]] forState:UIControlStateNormal];
+        if (i == 0) {
+            _dfkNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth - 33, 5, 12, 12)];
+            [orderBtn addSubview:_dfkNumLabel];
+            _dfkNumLabel.clipsToBounds = YES;
+            _dfkNumLabel.layer.cornerRadius = 12/2;
+            _dfkNumLabel.backgroundColor = [UIColor redColor];
+            _dfkNumLabel.textColor = [UIColor whiteColor];
+            _dfkNumLabel.textAlignment = NSTextAlignmentCenter;
+            _dfkNumLabel.font = [UIFont systemFontOfSize:8];
+            _dfkNumLabel.text = @"1";
+        }
     }
     
     

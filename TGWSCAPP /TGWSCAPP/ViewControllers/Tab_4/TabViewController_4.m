@@ -109,7 +109,10 @@
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 7)];
     [self.footView addSubview:view];
     view.backgroundColor = [ResourceManager viewBackgroundColor];
+    
 }
+
+
 
 
 -(void)userInfo{

@@ -24,8 +24,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    // 启动图片延时: 1秒
-    [NSThread sleepForTimeInterval:2];
+    
     // 友盟统计
     [self umengTrack];
     

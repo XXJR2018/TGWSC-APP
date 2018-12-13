@@ -24,8 +24,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+<<<<<<< .merge_file_qu1lPr
     // 启动图片延时: 1秒
     [NSThread sleepForTimeInterval:2];
+=======
+    
+>>>>>>> .merge_file_Wy8nqR
     // 友盟统计
     [self umengTrack];
     
@@ -38,6 +42,10 @@
 #pragma mark == 从其他APP跳转回自己APP回调
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
     //  此处接收外部信息
+<<<<<<< .merge_file_qu1lPr
+=======
+    
+>>>>>>> .merge_file_Wy8nqR
     NSDictionary *dic = options;
     NSString *soureKey = [dic objectForKey:@"UIApplicationOpenURLOptionsSourceApplicationKey"];
     if ([soureKey isEqualToString:@"com.tencent.xin"]){

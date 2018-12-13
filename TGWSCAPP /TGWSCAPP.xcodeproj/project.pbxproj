@@ -55,7 +55,6 @@
 		C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */; };
 		C250435521BA51FC00DA9C72 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C250435421BA51FC00DA9C72 /* AppDelegate.mm */; };
 		C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435921BA51FC00DA9C72 /* Main.storyboard */; };
-		C250435D21BA51FD00DA9C72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C250435C21BA51FD00DA9C72 /* Assets.xcassets */; };
 		C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435E21BA51FD00DA9C72 /* LaunchScreen.storyboard */; };
 		C250436321BA51FD00DA9C72 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C250436221BA51FD00DA9C72 /* main.m */; };
 		C250436D21BA51FD00DA9C72 /* TGWSCAPPTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C250436C21BA51FD00DA9C72 /* TGWSCAPPTests.m */; };
@@ -333,7 +332,6 @@
 		C250435321BA51FC00DA9C72 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C250435421BA51FC00DA9C72 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		C250435A21BA51FC00DA9C72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C250435C21BA51FD00DA9C72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C250435F21BA51FD00DA9C72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C250436121BA51FD00DA9C72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C250436221BA51FD00DA9C72 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1045,7 +1043,6 @@
 				C2AEB47821BE48260078E788 /* APPConstants.h */,
 				C287FE7721BF4ACB00B8D682 /* Images-Default.xcassets */,
 				C287FE7821BF4ACB00B8D682 /* Images.xcassets */,
-				C250435C21BA51FD00DA9C72 /* Assets.xcassets */,
 				C250435921BA51FC00DA9C72 /* Main.storyboard */,
 				C250435E21BA51FD00DA9C72 /* LaunchScreen.storyboard */,
 				C250436121BA51FD00DA9C72 /* Info.plist */,
@@ -1916,7 +1913,6 @@
 				C250450D21BA579100DA9C72 /* LoginViewController.xib in Resources */,
 				C250451321BA579100DA9C72 /* CitysViewController.xib in Resources */,
 				C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */,
-				C250435D21BA51FD00DA9C72 /* Assets.xcassets in Resources */,
 				C25047A321BA715500DA9C72 /* blackArrow.png in Resources */,
 				C25045F921BA711E00DA9C72 /* XHDatePickerView.xib in Resources */,
 				C25047AC21BA715500DA9C72 /* 37x-Checkmark.png in Resources */,

@@ -53,6 +53,7 @@
 		C20525F521BE6E5C00E13893 /* TabViewController_2.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EA21BE6E5C00E13893 /* TabViewController_2.xib */; };
 		C20525F621BE6E5C00E13893 /* TabViewController_1.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525ED21BE6E5C00E13893 /* TabViewController_1.m */; };
 		C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */; };
+		C229345821C20D6200FEE3E2 /* JXButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C229345721C20D6100FEE3E2 /* JXButton.m */; };
 		C250435521BA51FC00DA9C72 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C250435421BA51FC00DA9C72 /* AppDelegate.mm */; };
 		C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435921BA51FC00DA9C72 /* Main.storyboard */; };
 		C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435E21BA51FD00DA9C72 /* LaunchScreen.storyboard */; };
@@ -326,6 +327,8 @@
 		C20525ED21BE6E5C00E13893 /* TabViewController_1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController_1.m; sourceTree = "<group>"; };
 		C20525EE21BE6E5C00E13893 /* TabViewController_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController_1.h; sourceTree = "<group>"; };
 		C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabViewController_1.xib; sourceTree = "<group>"; };
+		C229345621C20D6100FEE3E2 /* JXButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXButton.h; sourceTree = "<group>"; };
+		C229345721C20D6100FEE3E2 /* JXButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXButton.m; sourceTree = "<group>"; };
 		C250435021BA51FC00DA9C72 /* TGWSCAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGWSCAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C250435321BA51FC00DA9C72 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C250435421BA51FC00DA9C72 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
@@ -977,6 +980,15 @@
 			path = Tab_1;
 			sourceTree = "<group>";
 		};
+		C229345521C20D6100FEE3E2 /* JXButton */ = {
+			isa = PBXGroup;
+			children = (
+				C229345621C20D6100FEE3E2 /* JXButton.h */,
+				C229345721C20D6100FEE3E2 /* JXButton.m */,
+			);
+			path = JXButton;
+			sourceTree = "<group>";
+		};
 		C250434721BA51FC00DA9C72 = {
 			isa = PBXGroup;
 			children = (
@@ -1163,6 +1175,7 @@
 		C250459F21BA711E00DA9C72 /* CommonView */ = {
 			isa = PBXGroup;
 			children = (
+				C229345521C20D6100FEE3E2 /* JXButton */,
 				C2AEB45D21BE3CB00078E788 /* CanvasAnimation */,
 				C25045A021BA711E00DA9C72 /* XHDatePicker */,
 				C25045AF21BA711E00DA9C72 /* CCWebView */,
@@ -2135,6 +2148,7 @@
 				C25047DB21BA715500DA9C72 /* BaseController.m in Sources */,
 				C25047C421BA715500DA9C72 /* RsaUtil.m in Sources */,
 				C25047FF21BA73B800DA9C72 /* AFHTTPSessionManager.m in Sources */,
+				C229345821C20D6200FEE3E2 /* JXButton.m in Sources */,
 				C250475B21BA715500DA9C72 /* DDGJsonParseManager.m in Sources */,
 				C25047B721BA715500DA9C72 /* UIImageView+AFNetworking.m in Sources */,
 				C2AEB46221BE3CB00078E788 /* CSAnimationView.m in Sources */,

@@ -9,6 +9,8 @@
 #import "TabViewController_1.h"
 #import "HistoryAndCategorySearchVC.h"
 #import "HistorySearchVC.h"
+#import "CKSlideMenu.h"
+#import "SlideParentVC.h"
 
 @interface TabViewController_1 ()
 
@@ -84,13 +86,30 @@
     labelSearch.textColor = [ResourceManager lightGrayColor];
     labelSearch.text = @"百里挑一的好货";
     
-    
-    
     // 消息按钮
     UIButton *btnMessage = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 30, iTopY, 18, 20)];
     [self.view addSubview:btnMessage];
     [btnMessage setBackgroundImage:[UIImage imageNamed:@"Tab1_Message"] forState:UIControlStateNormal];
     [btnMessage addTarget: self action:@selector(actionMessage) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    // 滚动菜单
+    iTopY += viewSearch.height ;
+    //NSArray *titles = @[@"推荐",@"母婴",@"洗护",@"食品",@"医疗",@"粉丝",@"阿萨德",@"爱迪生",@"暗示",@"说的"];
+    NSArray *titles = @[@"推荐",@"母婴",@"洗护",@"食品",@"医疗"];
+    NSMutableArray *arr = [NSMutableArray array];
+    for (int i = 0; i <titles.count ; i++) {
+        [arr addObject:[[SlideParentVC alloc] init] ];
+    }
+    
+
+    
+
+    CKSlideMenu *slideMenu = [[CKSlideMenu alloc]initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 40) titles:titles controllers:arr];
+    slideMenu.bodyFrame = CGRectMake(0,  iTopY + 40, self.view.frame.size.width, SCREEN_HEIGHT - 40 - iTopY- TabbarHeight);
+    [slideMenu scrollToIndex:0];
+    [self.view addSubview:slideMenu];
+    
 }
 
 

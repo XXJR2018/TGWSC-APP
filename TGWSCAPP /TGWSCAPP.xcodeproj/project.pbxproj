@@ -196,7 +196,7 @@
 		C250480421BA73B800DA9C72 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C25047F921BA73B800DA9C72 /* AFHTTPRequestOperation.m */; };
 		C250480521BA73B800DA9C72 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C25047FB21BA73B800DA9C72 /* AFNetworkReachabilityManager.m */; };
 		C250480621BA73B800DA9C72 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C25047FC21BA73B800DA9C72 /* AFSecurityPolicy.m */; };
-		C279EAE621C1EC33009AF3FB /* Images-Default.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C279EAE521C1EC33009AF3FB /* Images-Default.xcassets */; };
+		C287FE7921BF4ACB00B8D682 /* Images-Default.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C287FE7721BF4ACB00B8D682 /* Images-Default.xcassets */; };
 		C287FE7A21BF4ACB00B8D682 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C287FE7821BF4ACB00B8D682 /* Images.xcassets */; };
 		C2A08F6A21BF4563005753F6 /* TabBarSelectButtn.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A08F6921BF4563005753F6 /* TabBarSelectButtn.m */; };
 		C2A71B8521BE53F9007D849F /* DDGUserInfoEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A71B8421BE53F9007D849F /* DDGUserInfoEngine.m */; };
@@ -603,7 +603,7 @@
 		C25047FB21BA73B800DA9C72 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		C25047FC21BA73B800DA9C72 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
 		C25047FD21BA73B800DA9C72 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
-		C279EAE521C1EC33009AF3FB /* Images-Default.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-Default.xcassets"; sourceTree = "<group>"; };
+		C287FE7721BF4ACB00B8D682 /* Images-Default.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-Default.xcassets"; sourceTree = "<group>"; };
 		C287FE7821BF4ACB00B8D682 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C2A08F6821BF4563005753F6 /* TabBarSelectButtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarSelectButtn.h; sourceTree = "<group>"; };
 		C2A08F6921BF4563005753F6 /* TabBarSelectButtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarSelectButtn.m; sourceTree = "<group>"; };
@@ -1035,7 +1035,7 @@
 				C2D2B19321BDF45F00FE810C /* Header.h */,
 				C250454521BA5D4E00DA9C72 /* PrefixHeader.pch */,
 				C2AEB47821BE48260078E788 /* APPConstants.h */,
-				C279EAE521C1EC33009AF3FB /* Images-Default.xcassets */,
+				C287FE7721BF4ACB00B8D682 /* Images-Default.xcassets */,
 				C287FE7821BF4ACB00B8D682 /* Images.xcassets */,
 				C250435921BA51FC00DA9C72 /* Main.storyboard */,
 				C250435E21BA51FD00DA9C72 /* LaunchScreen.storyboard */,
@@ -1881,11 +1881,11 @@
 				C25047AA21BA715500DA9C72 /* grayArrow@2x.png in Resources */,
 				C25047AE21BA715500DA9C72 /* 37x-Checkmark@2x.png in Resources */,
 				C0CCC7E121C0F150009352E0 /* search@3x.png in Resources */,
-				C279EAE621C1EC33009AF3FB /* Images-Default.xcassets in Resources */,
 				C25047B121BA715500DA9C72 /* success.png in Resources */,
 				C25047A521BA715500DA9C72 /* grayArrow.png in Resources */,
 				C250460621BA711E00DA9C72 /* SGQRCode.bundle in Resources */,
 				C25047A421BA715500DA9C72 /* blueArrow@2x.png in Resources */,
+				C287FE7921BF4ACB00B8D682 /* Images-Default.xcassets in Resources */,
 				C250479521BA715500DA9C72 /* CHANGELOG.md in Resources */,
 				C25047B021BA715500DA9C72 /* error.png in Resources */,
 				C25047A821BA715500DA9C72 /* blackArrow@2x.png in Resources */,
@@ -2350,7 +2350,7 @@
 			baseConfigurationReference = 09F21D3746F5B0AEDFD41468 /* Pods-TGWSCAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S79W2S3535;
 				ENABLE_BITCODE = NO;
@@ -2425,7 +2425,7 @@
 			baseConfigurationReference = 42B6F2051A68381FF6368E6A /* Pods-TGWSCAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S79W2S3535;
 				ENABLE_BITCODE = NO;

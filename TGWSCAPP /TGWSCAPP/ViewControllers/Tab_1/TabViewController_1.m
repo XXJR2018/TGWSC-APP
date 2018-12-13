@@ -39,6 +39,11 @@
 #pragma mark --- 布局UI
 -(void)layoutUI{
     
+    int iTopY =  IS_IPHONE_X_MORE? 40:30;
+    int iLeftX = 15;
+    UIImageView *imgICON = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 60, 30)];
+    [self.view addSubview:imgICON];
+    imgICON.backgroundColor = [UIColor yellowColor];
     
     
     UIButton *btn =[[UIButton alloc]initWithFrame:CGRectMake(100, 300, 100, 100)];

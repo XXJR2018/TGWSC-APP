@@ -58,7 +58,7 @@
     // 布局头部
     int iTopY =  IS_IPHONE_X_MORE? 40:30;
     int iLeftX = 15;
-    UIImageView *imgICON = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 60, 20)];
+    UIImageView *imgICON = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY +2, 50, 17)];
     [self.view addSubview:imgICON];
     imgICON.image = [UIImage imageNamed:@"Tab1_TGW"];
     
@@ -69,16 +69,25 @@
     viewSearch.cornerRadius = 5;
     viewSearch.backgroundColor = [ResourceManager viewBackgroundColor];
     
-    //添加手势
     UITapGestureRecognizer * gestureSearch = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(actionSearch1)];
     gestureSearch.numberOfTapsRequired  = 1;
     viewSearch.userInteractionEnabled = YES;
     [viewSearch addGestureRecognizer:gestureSearch];
     
+    UIImageView *imgSearch = [[UIImageView alloc] initWithFrame:CGRectMake(10, 7, 17, 17)];
+    [viewSearch addSubview:imgSearch];
+    imgSearch.image = [UIImage imageNamed:@"Tab1_Search"];
+    
+    UILabel *labelSearch = [[UILabel alloc] initWithFrame:CGRectMake(30, 5, viewSearch.width - 35, 20)];
+    [viewSearch addSubview:labelSearch];
+    labelSearch.font = [UIFont systemFontOfSize:14];
+    labelSearch.textColor = [ResourceManager lightGrayColor];
+    labelSearch.text = @"百里挑一的好货";
+    
     
     
     // 消息按钮
-    UIButton *btnMessage = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 30, iTopY, 20, 20)];
+    UIButton *btnMessage = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 30, iTopY, 18, 20)];
     [self.view addSubview:btnMessage];
     [btnMessage setBackgroundImage:[UIImage imageNamed:@"Tab1_Message"] forState:UIControlStateNormal];
     [btnMessage addTarget: self action:@selector(actionMessage) forControlEvents:UIControlEventTouchUpInside];

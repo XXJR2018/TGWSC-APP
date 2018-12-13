@@ -43,6 +43,7 @@
 		C0CCC83221C1FD21009352E0 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CCC82E21C1FD21009352E0 /* search@2x.png */; };
 		C0CCC83321C1FD21009352E0 /* search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CCC82F21C1FD21009352E0 /* search@3x.png */; };
 		C0CCC83421C1FD21009352E0 /* clearImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CCC83021C1FD21009352E0 /* clearImage@3x.png */; };
+		C0CCC83821C25810009352E0 /* JXButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC83721C25801009352E0 /* JXButton.m */; };
 		C20525DE21BE6E1D00E13893 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525DD21BE6E1D00E13893 /* TabBarViewController.m */; };
 		C20525F021BE6E5C00E13893 /* TabViewController_4.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525E221BE6E5C00E13893 /* TabViewController_4.xib */; };
 		C20525F121BE6E5C00E13893 /* TabViewController_4.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525E321BE6E5C00E13893 /* TabViewController_4.m */; };
@@ -52,7 +53,6 @@
 		C20525F521BE6E5C00E13893 /* TabViewController_2.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EA21BE6E5C00E13893 /* TabViewController_2.xib */; };
 		C20525F621BE6E5C00E13893 /* TabViewController_1.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525ED21BE6E5C00E13893 /* TabViewController_1.m */; };
 		C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */; };
-		C229345821C20D6200FEE3E2 /* JXButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C229345721C20D6100FEE3E2 /* JXButton.m */; };
 		C250435521BA51FC00DA9C72 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C250435421BA51FC00DA9C72 /* AppDelegate.mm */; };
 		C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435921BA51FC00DA9C72 /* Main.storyboard */; };
 		C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435E21BA51FD00DA9C72 /* LaunchScreen.storyboard */; };
@@ -310,6 +310,8 @@
 		C0CCC82E21C1FD21009352E0 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		C0CCC82F21C1FD21009352E0 /* search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@3x.png"; sourceTree = "<group>"; };
 		C0CCC83021C1FD21009352E0 /* clearImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clearImage@3x.png"; sourceTree = "<group>"; };
+		C0CCC83621C25801009352E0 /* JXButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXButton.h; sourceTree = "<group>"; };
+		C0CCC83721C25801009352E0 /* JXButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXButton.m; sourceTree = "<group>"; };
 		C20525DC21BE6E1D00E13893 /* TabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		C20525DD21BE6E1D00E13893 /* TabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		C20525E121BE6E5C00E13893 /* TabViewController_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController_4.h; sourceTree = "<group>"; };
@@ -324,8 +326,6 @@
 		C20525ED21BE6E5C00E13893 /* TabViewController_1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController_1.m; sourceTree = "<group>"; };
 		C20525EE21BE6E5C00E13893 /* TabViewController_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController_1.h; sourceTree = "<group>"; };
 		C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabViewController_1.xib; sourceTree = "<group>"; };
-		C229345621C20D6100FEE3E2 /* JXButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXButton.h; sourceTree = "<group>"; };
-		C229345721C20D6100FEE3E2 /* JXButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXButton.m; sourceTree = "<group>"; };
 		C250435021BA51FC00DA9C72 /* TGWSCAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGWSCAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C250435321BA51FC00DA9C72 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C250435421BA51FC00DA9C72 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
@@ -908,6 +908,15 @@
 			path = search_icon;
 			sourceTree = "<group>";
 		};
+		C0CCC83521C25801009352E0 /* JXButton */ = {
+			isa = PBXGroup;
+			children = (
+				C0CCC83621C25801009352E0 /* JXButton.h */,
+				C0CCC83721C25801009352E0 /* JXButton.m */,
+			);
+			path = JXButton;
+			sourceTree = "<group>";
+		};
 		C20525DB21BE6A6E00E13893 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -973,15 +982,6 @@
 				C0CCC7B121C0E237009352E0 /* SearchViewController */,
 			);
 			path = Tab_1;
-			sourceTree = "<group>";
-		};
-		C229345521C20D6100FEE3E2 /* JXButton */ = {
-			isa = PBXGroup;
-			children = (
-				C229345621C20D6100FEE3E2 /* JXButton.h */,
-				C229345721C20D6100FEE3E2 /* JXButton.m */,
-			);
-			path = JXButton;
 			sourceTree = "<group>";
 		};
 		C250434721BA51FC00DA9C72 = {
@@ -1170,7 +1170,7 @@
 		C250459F21BA711E00DA9C72 /* CommonView */ = {
 			isa = PBXGroup;
 			children = (
-				C229345521C20D6100FEE3E2 /* JXButton */,
+				C0CCC83521C25801009352E0 /* JXButton */,
 				C2AEB45D21BE3CB00078E788 /* CanvasAnimation */,
 				C25045A021BA711E00DA9C72 /* XHDatePicker */,
 				C25045AF21BA711E00DA9C72 /* CCWebView */,
@@ -2060,6 +2060,7 @@
 				C250460A21BA711E00DA9C72 /* WCAlertview2.m in Sources */,
 				C250460021BA711E00DA9C72 /* WebviewProgressLine.m in Sources */,
 				C20525F121BE6E5C00E13893 /* TabViewController_4.m in Sources */,
+				C0CCC83821C25810009352E0 /* JXButton.m in Sources */,
 				C250476221BA715500DA9C72 /* UIView+Additions.m in Sources */,
 				C25045FB21BA711E00DA9C72 /* NSDate+Extension.m in Sources */,
 				C250476E21BA715500DA9C72 /* NSArray+Additions.m in Sources */,
@@ -2142,7 +2143,6 @@
 				C25047DB21BA715500DA9C72 /* BaseController.m in Sources */,
 				C25047C421BA715500DA9C72 /* RsaUtil.m in Sources */,
 				C25047FF21BA73B800DA9C72 /* AFHTTPSessionManager.m in Sources */,
-				C229345821C20D6200FEE3E2 /* JXButton.m in Sources */,
 				C250475B21BA715500DA9C72 /* DDGJsonParseManager.m in Sources */,
 				C25047B721BA715500DA9C72 /* UIImageView+AFNetworking.m in Sources */,
 				C2AEB46221BE3CB00078E788 /* CSAnimationView.m in Sources */,

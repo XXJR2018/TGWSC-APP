@@ -43,7 +43,7 @@
     int iLeftX = 15;
     UIImageView *imgICON = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 60, 30)];
     [self.view addSubview:imgICON];
-    imgICON.backgroundColor = [UIColor yellowColor];
+    imgICON.image = [UIImage imageNamed:@"Tab1_TGW"];
     
     
     UIButton *btn =[[UIButton alloc]initWithFrame:CGRectMake(100, 300, 100, 100)];

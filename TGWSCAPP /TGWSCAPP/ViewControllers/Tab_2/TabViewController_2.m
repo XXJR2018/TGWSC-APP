@@ -9,7 +9,9 @@
 #import "TabViewController_2.h"
 
 @interface TabViewController_2 ()
-
+{
+    NSMutableArray *_sortFirstArr;
+}
 @end
 
 @implementation TabViewController_2
@@ -28,6 +30,7 @@
     [super viewDidLoad];
     self.hideBackButton = YES;
     [self layoutNaviBarViewWithTitle:@"分类"];
+    
     
     [self layoutUI];
 }

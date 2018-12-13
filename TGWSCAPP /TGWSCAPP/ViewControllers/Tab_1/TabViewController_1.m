@@ -7,7 +7,6 @@
 //
 
 #import "TabViewController_1.h"
-#import "SearchVC.h"
 #import "HistoryAndCategorySearchVC.h"
 #import "HistorySearchVC.h"
 
@@ -39,17 +38,55 @@
 #pragma mark --- 布局UI
 -(void)layoutUI{
     
-    int iTopY =  IS_IPHONE_X_MORE? 40:30;
-    int iLeftX = 15;
-    UIImageView *imgICON = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 60, 30)];
-    [self.view addSubview:imgICON];
-    imgICON.image = [UIImage imageNamed:@"Tab1_TGW"];
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    // 布局头部
+    [self layoutHead];
     
     
     UIButton *btn =[[UIButton alloc]initWithFrame:CGRectMake(100, 300, 100, 100)];
     [self.view addSubview:btn];
     btn.backgroundColor = [UIColor purpleColor];
     [btn addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+}
+
+-(void) layoutHead
+{
+    // 布局头部
+    int iTopY =  IS_IPHONE_X_MORE? 40:30;
+    int iLeftX = 15;
+    UIImageView *imgICON = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 60, 20)];
+    [self.view addSubview:imgICON];
+    imgICON.image = [UIImage imageNamed:@"Tab1_TGW"];
+    
+    // 搜索框
+    iLeftX += imgICON.width + 10;
+    UIView *viewSearch = [[UIView alloc] initWithFrame:CGRectMake(iLeftX , iTopY-5, SCREEN_WIDTH - iLeftX - 40, 30)];
+    [self.view addSubview:viewSearch];
+    viewSearch.cornerRadius = 5;
+    viewSearch.backgroundColor = [ResourceManager viewBackgroundColor];
+    
+    //添加手势
+    UITapGestureRecognizer * gestureSearch = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(actionSearch1)];
+    gestureSearch.numberOfTapsRequired  = 1;
+    viewSearch.userInteractionEnabled = YES;
+    [viewSearch addGestureRecognizer:gestureSearch];
+    
+    
+    
+    // 消息按钮
+    UIButton *btnMessage = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 30, iTopY, 20, 20)];
+    [self.view addSubview:btnMessage];
+    [btnMessage setBackgroundImage:[UIImage imageNamed:@"Tab1_Message"] forState:UIControlStateNormal];
+    [btnMessage addTarget: self action:@selector(actionMessage) forControlEvents:UIControlEventTouchUpInside];
+}
+
+
+-(void)addButtonView{
+    [self.view addSubview:self.tabBar];
 }
 
 -(void) share
@@ -72,15 +109,21 @@
     
 }
 
+
+#pragma mark ---  action
+-(void) actionMessage
+{
+    NSLog(@"actionMessage");
+}
+
 -(void) actionSearch1
 {
     HistorySearchVC *searShopVC = [HistorySearchVC alloc];
     
     
-    //@LLWeakObj(searShopVC);
+
     //(1)点击分类 (2)用户点击键盘"搜索"按钮  (3)点击历史搜索记录
     [searShopVC beginSearch:^(NaviBarSearchType searchType,NBSSearchShopCategoryViewCellP *categorytagP,UILabel *historyTagLabel,LLSearchBar *searchBar) {
-        //@LLStrongObj(searShopVC);
         
         NSLog(@"historyTagLabel:%@--->searchBar:%@--->categotyTitle:%@--->%@",historyTagLabel.text,searchBar.text,categorytagP.categotyTitle,categorytagP.categotyID);
         
@@ -99,7 +142,6 @@
     
     
     [searShopVC searchbarDidChange:^(NaviBarSearchType searchType, LLSearchBar *searchBar, NSString *searchText) {
-        //@LLStrongObj(searShopVC);
         
         //FIXME:这里模拟网络请求数据!!!
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -117,7 +159,6 @@
     HistoryAndCategorySearchVC *searShopVC = [HistoryAndCategorySearchVC alloc];
     //(1)点击分类 (2)用户点击键盘"搜索"按钮  (3)点击历史搜索记录
     [searShopVC beginSearch:^(NaviBarSearchType searchType,NBSSearchShopCategoryViewCellP *categorytagP,UILabel *historyTagLabel,LLSearchBar *searchBar) {
-        //            @LLStrongObj(self);
         
         NSLog(@"historyTagLabel:%@--->searchBar:%@--->categotyTitle:%@--->%@",historyTagLabel.text,searchBar.text,categorytagP.categotyTitle,categorytagP.categotyID);
         
@@ -125,21 +166,17 @@
     
     //点击了即时匹配选项
     [searShopVC resultListViewDidSelectedIndex:^(UITableView *tableView, NSInteger index) {
-        //            @LLStrongObj(self);
-        //NSLog(@"点击了即时搜索内容第%zd行的%@数据",index,tempArray[index]);
         
+        //NSLog(@"点击了即时搜索内容第%zd行的%@数据",index,tempArray[index]);
         NSLog(@"点击了即时搜索内容第%zd行的%@数据",index,searShopVC.resultListArray[index]);
         
     }];
     
     //执行即时搜索匹配
     NSArray *tempArray =  @[@"Java", @"Python", @"Objective-C", @"Swift", @"C", @"C++", @"PHP", @"C#", @"Perl", @"Go", @"JavaScript", @"R", @"Ruby", @"MATLAB"];
-    
-    
-    //@LLWeakObj(searShopVC);
+
     [searShopVC searchbarDidChange:^(NaviBarSearchType searchType, LLSearchBar *searchBar, NSString *searchText) {
-        //@LLStrongObj(searShopVC);
-        
+
         //FIXME:这里模拟网络请求数据!!!
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             searShopVC.resultListArray = tempArray;
@@ -151,24 +188,11 @@
     [self.navigationController presentViewController:searShopVC animated:NO completion:nil];
 }
 
--(void)addButtonView{
-    [self.view addSubview:self.tabBar];
-}
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+
+
 
 @end

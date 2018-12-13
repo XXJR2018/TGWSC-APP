@@ -13,12 +13,7 @@
 		AA78C88A01E4A707B158F4E0 /* libPods-TGWSCAPPUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76031F71D9C1512F49FA60B5 /* libPods-TGWSCAPPUITests.a */; };
 		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
-		C0CCC7B421C0E292009352E0 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B321C0E292009352E0 /* SearchVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
-		C0CCC7DF21C0F150009352E0 /* clearImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CCC7BB21C0F150009352E0 /* clearImage@2x.png */; };
-		C0CCC7E021C0F150009352E0 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CCC7BC21C0F150009352E0 /* search@2x.png */; };
-		C0CCC7E121C0F150009352E0 /* search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CCC7BD21C0F150009352E0 /* search@3x.png */; };
-		C0CCC7E221C0F150009352E0 /* clearImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CCC7BE21C0F150009352E0 /* clearImage@3x.png */; };
 		C0CCC7E321C0F150009352E0 /* LLNaviSearchHistorySaveBasePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7C021C0F150009352E0 /* LLNaviSearchHistorySaveBasePresenter.m */; };
 		C0CCC7E421C0F150009352E0 /* NBSSearchShopCategoryViewCellP.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7C421C0F150009352E0 /* NBSSearchShopCategoryViewCellP.m */; };
 		C0CCC7E521C0F150009352E0 /* LLSearchResultListView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7C921C0F150009352E0 /* LLSearchResultListView.m */; };
@@ -44,6 +39,10 @@
 		C0CCC82421C0F47D009352E0 /* CategoryAndHistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC81E21C0F47C009352E0 /* CategoryAndHistoryVC.m */; };
 		C0CCC82921C0F4C5009352E0 /* HistorySearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC82621C0F4C5009352E0 /* HistorySearchVC.m */; };
 		C0CCC82A21C0F4C5009352E0 /* HistoryAndCategorySearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC82821C0F4C5009352E0 /* HistoryAndCategorySearchVC.m */; };
+		C0CCC83121C1FD21009352E0 /* clearImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CCC82D21C1FD21009352E0 /* clearImage@2x.png */; };
+		C0CCC83221C1FD21009352E0 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CCC82E21C1FD21009352E0 /* search@2x.png */; };
+		C0CCC83321C1FD21009352E0 /* search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CCC82F21C1FD21009352E0 /* search@3x.png */; };
+		C0CCC83421C1FD21009352E0 /* clearImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CCC83021C1FD21009352E0 /* clearImage@3x.png */; };
 		C20525DE21BE6E1D00E13893 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525DD21BE6E1D00E13893 /* TabBarViewController.m */; };
 		C20525F021BE6E5C00E13893 /* TabViewController_4.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525E221BE6E5C00E13893 /* TabViewController_4.xib */; };
 		C20525F121BE6E5C00E13893 /* TabViewController_4.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525E321BE6E5C00E13893 /* TabViewController_4.m */; };
@@ -255,14 +254,8 @@
 		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
 		C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BindPhoneVC.m; sourceTree = "<group>"; };
-		C0CCC7B221C0E292009352E0 /* SearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
-		C0CCC7B321C0E292009352E0 /* SearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
 		C0CCC7B821C0F150009352E0 /* LLSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSearchBar.h; sourceTree = "<group>"; };
 		C0CCC7B921C0F150009352E0 /* LLSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSearchBar.m; sourceTree = "<group>"; };
-		C0CCC7BB21C0F150009352E0 /* clearImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clearImage@2x.png"; sourceTree = "<group>"; };
-		C0CCC7BC21C0F150009352E0 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
-		C0CCC7BD21C0F150009352E0 /* search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@3x.png"; sourceTree = "<group>"; };
-		C0CCC7BE21C0F150009352E0 /* clearImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clearImage@3x.png"; sourceTree = "<group>"; };
 		C0CCC7C021C0F150009352E0 /* LLNaviSearchHistorySaveBasePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLNaviSearchHistorySaveBasePresenter.m; sourceTree = "<group>"; };
 		C0CCC7C121C0F150009352E0 /* LLNaviSearchHistorySaveBasePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLNaviSearchHistorySaveBasePresenter.h; sourceTree = "<group>"; };
 		C0CCC7C321C0F150009352E0 /* NBSSearchShopCategoryViewCellP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBSSearchShopCategoryViewCellP.h; sourceTree = "<group>"; };
@@ -313,6 +306,10 @@
 		C0CCC82621C0F4C5009352E0 /* HistorySearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistorySearchVC.m; sourceTree = "<group>"; };
 		C0CCC82721C0F4C5009352E0 /* HistoryAndCategorySearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryAndCategorySearchVC.h; sourceTree = "<group>"; };
 		C0CCC82821C0F4C5009352E0 /* HistoryAndCategorySearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryAndCategorySearchVC.m; sourceTree = "<group>"; };
+		C0CCC82D21C1FD21009352E0 /* clearImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clearImage@2x.png"; sourceTree = "<group>"; };
+		C0CCC82E21C1FD21009352E0 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
+		C0CCC82F21C1FD21009352E0 /* search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@3x.png"; sourceTree = "<group>"; };
+		C0CCC83021C1FD21009352E0 /* clearImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clearImage@3x.png"; sourceTree = "<group>"; };
 		C20525DC21BE6E1D00E13893 /* TabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		C20525DD21BE6E1D00E13893 /* TabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		C20525E121BE6E5C00E13893 /* TabViewController_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController_4.h; sourceTree = "<group>"; };
@@ -727,8 +724,6 @@
 				C0CCC82821C0F4C5009352E0 /* HistoryAndCategorySearchVC.m */,
 				C0CCC82521C0F4C5009352E0 /* HistorySearchVC.h */,
 				C0CCC82621C0F4C5009352E0 /* HistorySearchVC.m */,
-				C0CCC7B221C0E292009352E0 /* SearchVC.h */,
-				C0CCC7B321C0E292009352E0 /* SearchVC.m */,
 				C0CCC7B521C0F0E3009352E0 /* SearchComponent */,
 			);
 			path = SearchViewController;
@@ -750,8 +745,8 @@
 		C0CCC7B621C0F150009352E0 /* LLSearchViewControllerBase */ = {
 			isa = PBXGroup;
 			children = (
+				C0CCC82C21C1FD21009352E0 /* search_icon */,
 				C0CCC7B721C0F150009352E0 /* SearchBar */,
-				C0CCC7BA21C0F150009352E0 /* search_icon */,
 				C0CCC7BF21C0F150009352E0 /* SearchSavePresenter */,
 				C0CCC7C221C0F150009352E0 /* ExtensionPresenter */,
 				C0CCC7C521C0F150009352E0 /* ExtensionView */,
@@ -769,17 +764,6 @@
 				C0CCC7B921C0F150009352E0 /* LLSearchBar.m */,
 			);
 			path = SearchBar;
-			sourceTree = "<group>";
-		};
-		C0CCC7BA21C0F150009352E0 /* search_icon */ = {
-			isa = PBXGroup;
-			children = (
-				C0CCC7BB21C0F150009352E0 /* clearImage@2x.png */,
-				C0CCC7BC21C0F150009352E0 /* search@2x.png */,
-				C0CCC7BD21C0F150009352E0 /* search@3x.png */,
-				C0CCC7BE21C0F150009352E0 /* clearImage@3x.png */,
-			);
-			path = search_icon;
 			sourceTree = "<group>";
 		};
 		C0CCC7BF21C0F150009352E0 /* SearchSavePresenter */ = {
@@ -911,6 +895,17 @@
 				C0CCC81E21C0F47C009352E0 /* CategoryAndHistoryVC.m */,
 			);
 			path = CommonVC;
+			sourceTree = "<group>";
+		};
+		C0CCC82C21C1FD21009352E0 /* search_icon */ = {
+			isa = PBXGroup;
+			children = (
+				C0CCC82D21C1FD21009352E0 /* clearImage@2x.png */,
+				C0CCC82E21C1FD21009352E0 /* search@2x.png */,
+				C0CCC82F21C1FD21009352E0 /* search@3x.png */,
+				C0CCC83021C1FD21009352E0 /* clearImage@3x.png */,
+			);
+			path = search_icon;
 			sourceTree = "<group>";
 		};
 		C20525DB21BE6A6E00E13893 /* Frameworks */ = {
@@ -1889,22 +1884,21 @@
 				C287FE7A21BF4ACB00B8D682 /* Images.xcassets in Resources */,
 				C25047AF21BA715500DA9C72 /* success@2x.png in Resources */,
 				C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */,
-				C0CCC7E021C0F150009352E0 /* search@2x.png in Resources */,
 				C25047A621BA715500DA9C72 /* whiteArrow@2x.png in Resources */,
 				C25047AA21BA715500DA9C72 /* grayArrow@2x.png in Resources */,
 				C25047AE21BA715500DA9C72 /* 37x-Checkmark@2x.png in Resources */,
-				C0CCC7E121C0F150009352E0 /* search@3x.png in Resources */,
 				C25047B121BA715500DA9C72 /* success.png in Resources */,
 				C25047A521BA715500DA9C72 /* grayArrow.png in Resources */,
 				C250460621BA711E00DA9C72 /* SGQRCode.bundle in Resources */,
 				C25047A421BA715500DA9C72 /* blueArrow@2x.png in Resources */,
 				C287FE7921BF4ACB00B8D682 /* Images-Default.xcassets in Resources */,
+				C0CCC83221C1FD21009352E0 /* search@2x.png in Resources */,
 				C250479521BA715500DA9C72 /* CHANGELOG.md in Resources */,
+				C0CCC83421C1FD21009352E0 /* clearImage@3x.png in Resources */,
 				C25047B021BA715500DA9C72 /* error.png in Resources */,
 				C25047A821BA715500DA9C72 /* blackArrow@2x.png in Resources */,
 				C20525F021BE6E5C00E13893 /* TabViewController_4.xib in Resources */,
 				C25047A721BA715500DA9C72 /* whiteArrow.png in Resources */,
-				C0CCC7DF21C0F150009352E0 /* clearImage@2x.png in Resources */,
 				C250450D21BA579100DA9C72 /* LoginViewController.xib in Resources */,
 				C250451321BA579100DA9C72 /* CitysViewController.xib in Resources */,
 				C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */,
@@ -1912,8 +1906,9 @@
 				C25045F921BA711E00DA9C72 /* XHDatePickerView.xib in Resources */,
 				C25047AC21BA715500DA9C72 /* 37x-Checkmark.png in Resources */,
 				C250450C21BA579100DA9C72 /* BindPhoneViewController.xib in Resources */,
+				C0CCC83321C1FD21009352E0 /* search@3x.png in Resources */,
+				C0CCC83121C1FD21009352E0 /* clearImage@2x.png in Resources */,
 				C250479721BA715500DA9C72 /* README.md in Resources */,
-				C0CCC7E221C0F150009352E0 /* clearImage@3x.png in Resources */,
 				C25047A921BA715500DA9C72 /* blueArrow.png in Resources */,
 				C250451221BA579100DA9C72 /* SelectCityViewController.xib in Resources */,
 				C2AEB46821BE45CD0078E788 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
@@ -2106,7 +2101,6 @@
 				C250460821BA711E00DA9C72 /* SGQRCodeObtain.m in Sources */,
 				C0CCC7E521C0F150009352E0 /* LLSearchResultListView.m in Sources */,
 				C250461721BA711E00DA9C72 /* RadioButtonView.m in Sources */,
-				C0CCC7B421C0E292009352E0 /* SearchVC.m in Sources */,
 				C250475C21BA715500DA9C72 /* DDGSetting.m in Sources */,
 				C0CCC81421C0F30F009352E0 /* ZYHTFileNameConst.m in Sources */,
 				C250460221BA711E00DA9C72 /* CustomNavigationBarView.m in Sources */,

@@ -8,13 +8,19 @@
 
 #import "TabViewController_2.h"
 
-@interface TabViewController_2 ()
+#import "ProductCollectionViewCell.h"
+
+
+@interface TabViewController_2 ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 {
     UIScrollView *_scView;
     UIButton *_sortFirstBtn;
     UIView *_sortFristView;
     NSMutableArray *_sortFirstTitleArr;
     NSMutableArray *_sortFirstBtnArr;
+    
+    UICollectionView *_collectView;
+    UIView *_headerView;
 }
 @end
 
@@ -37,6 +43,7 @@
     _sortFirstBtnArr = [NSMutableArray array];
     _sortFirstTitleArr = [NSMutableArray arrayWithArray:@[@"冬季专区",@"爆品专区",@"新品专区",@"居家",@"鞋包配饰",@"服装",@"洗护",@"饮食",@"母婴",@"餐厨",@"保健",@"文体",@"12.12专区",@"特色区"]];
     [self layoutUI];
+    [self rightListUI];
 }
 
 -(void)layoutUI{
@@ -74,6 +81,40 @@
     
 }
 
+#pragma mark- 右边商品列表布局
+-(void)rightListUI{
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.minimumLineSpacing = 50/4 * ScaleSize;
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    
+    _collectView = [[UICollectionView alloc]initWithFrame:CGRectMake(100, NavHeight, SCREEN_WIDTH - 100, SCREEN_HEIGHT - TabbarHeight - NavHeight) collectionViewLayout:flowLayout];
+    _collectView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_collectView];
+    _collectView.showsVerticalScrollIndicator = NO;
+    _collectView.delegate = self;
+    _collectView.dataSource = self;
+    //以xib方式注册cell
+    [_collectView registerNib:[UINib nibWithNibName:@"ProductCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"ProductCell_ID"];
+    //注册头视图，相当于段头
+    [_collectView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView"];
+    
+    [self headerViewUI];
+}
+
+#pragma mark-collectView头部布局
+-(void)headerViewUI{
+    _headerView = [[UIView alloc]init];
+    _headerView.backgroundColor = [UIColor whiteColor];
+    
+    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH - 130, 100)];
+    [_headerView addSubview:imgView];
+    imgView.image = [UIImage imageNamed:@"Tab_4-9"];
+    
+    _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(imgView.frame));
+    
+}
+
+
 #pragma mark-一级菜单点击事件
 -(void)sortFirstTouch:(UIButton *)sender{
     
@@ -92,6 +133,114 @@
     _sortFirstBtn.selected = YES;
     _sortFristView.frame = CGRectMake(0, (50 - 20)/2 + (sender.tag - 100) * 50, 2, 20);
 }
+
+#pragma mark -- UICollectionViewDataSource
+//定义展示的UICollectionViewCell的个数
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    if (section == 0) {
+         return  4;
+    }else if (section == 1) {
+        return  5;
+    }else{
+        return  11;
+    }
+    
+}
+
+//定义展示的Section的个数
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 3;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+         UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"headerView"forIndexPath:indexPath];
+      
+        if (indexPath.section == 0) {
+            UIView*headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 100, 50)];
+            headerView.backgroundColor = [UIColor whiteColor];
+            UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, SCREEN_WIDTH - 130, 100)];
+            [headerView addSubview:imgView];
+            imgView.image = [UIImage imageNamed:@"Tab_4-9"];
+            
+            UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(imgView.frame), 150, 50)];
+            titleLabel.text = @"我是标题";
+            titleLabel.font= [UIFont boldSystemFontOfSize:15];
+            titleLabel.textColor = [ResourceManager color_1];
+            [headerView addSubview:titleLabel];
+            
+            UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(titleLabel.frame), SCREEN_WIDTH - 130, 0.5)];
+            [headerView addSubview:viewX];
+            viewX.backgroundColor = [ResourceManager color_5];
+            
+            //头视图添加view
+            [header addSubview:headerView];
+        }else{
+            //添加头视图的内容
+            UIView*headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 100, 50)];
+            headerView.backgroundColor = [UIColor whiteColor];
+            UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 150, 50)];
+            titleLabel.text = @"我是标题";
+            titleLabel.font= [UIFont boldSystemFontOfSize:15];
+            titleLabel.textColor = [ResourceManager color_1];
+            [headerView addSubview:titleLabel];
+            
+            UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(titleLabel.frame), SCREEN_WIDTH - 130, 0.5)];
+            [headerView addSubview:viewX];
+            viewX.backgroundColor = [ResourceManager color_5];
+    
+            //头视图添加view
+            [header addSubview:headerView];
+        }
+       
+         return header;
+    }
+    return nil;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    CGSize size = CGSizeZero;
+    if (section == 0) {
+        size = CGSizeMake(SCREEN_WIDTH - 100, CGRectGetMaxY(_headerView.frame) + 50);
+    }else{
+        size = CGSizeMake(SCREEN_WIDTH - 100, 50);
+    }
+    return size;
+}
+
+//每个UICollectionView展示的内容
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    ProductCollectionViewCell * cell;
+    cell = (ProductCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"ProductCell_ID" forIndexPath:indexPath];
+//    cell.dataDicionary = self.dataArray[indexPath.row];
+    
+    return cell;
+    
+}
+
+#pragma mark- FlowDelegate
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return CGSizeMake(70 * ScaleSize, 100 * ScaleSize);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    return UIEdgeInsetsMake(5, 5, 5, 5);
+}
+
+#pragma mark --UICollectionViewDelegate
+//返回这个UICollectionView是否可以被选择
+-(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+//UICollectionView被选中时调用的方法
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    ProductCollectionViewCell * cell = (ProductCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.backgroundColor = [UIColor whiteColor];
+   
+}
+
+
 
 -(void)addButtonView{
     [self.view addSubview:self.tabBar];

@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ShopModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AdvertingShopListView : UIView
+
+-(AdvertingShopListView*)initWithTitle:(NSString *)title  itemArray:(NSArray *)items origin_Y:(CGFloat)origin_Y;
+
+-(void) drawList;
+
+@property (nonatomic,strong) ShopModel  *shopModel;
 
 @end
 

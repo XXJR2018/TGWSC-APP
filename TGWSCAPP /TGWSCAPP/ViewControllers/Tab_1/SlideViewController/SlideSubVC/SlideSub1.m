@@ -8,6 +8,8 @@
 
 #import "SlideSub1.h"
 #import "SDCycleScrollView.h"
+#import "ShopListView.h"
+#import "AdvertingShopListView.h"
 
 #define  BANNER_HEIGHT       (170*ScaleSize)      // Banner的高度
 
@@ -75,7 +77,10 @@
     imgViewSPSM.image = imgSPSM;
 
     
-    
+    iTopY += imgViewSPSM.height;
+    //AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH, 200)];
+    AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"" itemArray:nil origin_Y:iTopY];
+    [scView addSubview:adListView];
 
 }
 

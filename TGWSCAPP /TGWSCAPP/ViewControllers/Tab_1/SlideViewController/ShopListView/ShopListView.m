@@ -10,12 +10,12 @@
 
 @implementation ShopListView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+
+
+-(void)initWithTitle:(NSString *)title  itemArray:(NSArray *)items origin_Y:(CGFloat)origin_Y
+{
+   [super initWithFrame:CGRectMake(0, origin_Y, SCREEN_WIDTH, 200)];
 }
-*/
+
 
 @end

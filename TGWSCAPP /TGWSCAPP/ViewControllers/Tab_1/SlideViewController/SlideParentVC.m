@@ -30,8 +30,18 @@
     [super viewDidLayoutSubviews];
     
     // update by baicai
-    NSLog(@"CkViewController  frame:%f", self.view.frame.size.height);
+    NSLog(@"SlideParentVC  frame:%f", self.view.frame.size.height);
     self.view.backgroundColor = [UIColor colorWithRed:(arc4random()%255 / 255.0) green:(arc4random()%255 / 255.0) blue:(arc4random()%255 / 255.0) alpha:1];
+    
+
+
+//    UIViewController *vc = _controllers[i];
+//
+//    // update by baicai
+//    vc.view.frame =  _bodyScrollView.bounds;
+//    vc.view.center = CGPointMake(CGRectGetWidth(_bodyScrollView.frame)*(i+0.5), _bodyScrollView.frame.size.height/2);
+//    [_bodyScrollView addSubview:vc.view];
+
     
     
     UILabel *viewTail = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 20, 100, 18)];
@@ -39,6 +49,28 @@
     viewTail.backgroundColor = [UIColor yellowColor];
     viewTail.textColor = [UIColor blueColor];
     viewTail.text = _slideModel.strSlideName;
+    
+    
+    // 真正加载子页面
+    if (_slideModel.iSlideID %2 == 0)
+     {
+        SlideSub1 *VC = [[SlideSub1 alloc] init];
+        VC.view.frame = self.view.bounds;
+        VC.slideModel = [[SlideModel alloc] init];
+        VC.slideModel = _slideModel;
+        [self.view addSubview:VC.view];
+        
+     }
+//    else if (_slideModel.iSlideID %2 == 1)
+//     {
+//        SlideSub1 *VC = [[SlideSub1 alloc] init];
+//        VC.view.frame = self.view.bounds;
+//        [self.view addSubview:VC.view];
+//        
+//     }
+    
+    
+
 }
 
 @end

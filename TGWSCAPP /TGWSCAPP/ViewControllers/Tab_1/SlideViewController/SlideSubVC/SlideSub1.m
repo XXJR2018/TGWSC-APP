@@ -17,16 +17,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    //NSLog(@"SlideSub1  frame:%f", self.view.frame.size.height);
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark --- 布局UI
+// view 已经布局其 Subviews
+- (void)viewDidLayoutSubviews
+{
+    NSLog(@"SlideSub1  frame:%f", self.view.frame.size.height);
+    
+    
+    UILabel *viewTail = [[UILabel alloc] initWithFrame:CGRectMake(200, self.view.frame.size.height - 20, 100, 18)];
+    [self.view addSubview:viewTail];
+    viewTail.backgroundColor = [UIColor yellowColor];
+    viewTail.textColor = [UIColor blueColor];
+    viewTail.text = _slideModel.strSlideName;
 }
-*/
 
 @end

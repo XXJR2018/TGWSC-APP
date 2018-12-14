@@ -10,9 +10,9 @@
 #import "WXApi.h"
 #import "WXApiObject.h"
 
-//小小攒钱
-#define APPID_WC @"wx8b1da8781c9e9ef0"
-#define APPSecret_WC @"55a30323f3ab8c02fee27847fdbff608"
+//天狗窝商城
+#define APPID_WC @"wx886c67d0eb472528"
+#define APPSecret_WC @"872cdef6daf3483c7af8859be318b255"
 
 @class WXPayModel;
 

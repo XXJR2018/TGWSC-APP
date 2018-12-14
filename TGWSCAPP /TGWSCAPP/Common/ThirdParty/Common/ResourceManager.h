@@ -118,9 +118,14 @@
 + (UIFont *)fontCellSubtitle;
 
 /*
- icon大标题
+ icon大标题  (主标题)
  */
 + (UIFont *)fontTitle;
+
+/*
+ 主要的font
+ */
++ (UIFont *)mainFont;
 
 
 

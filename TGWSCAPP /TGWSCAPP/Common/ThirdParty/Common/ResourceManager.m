@@ -336,6 +336,17 @@ static int fontAtIndex(int index){
     return font;
 }
 
+/*
+ 主要的font
+ */
++ (UIFont *)mainFont{
+    static UIFont *font;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        font = [UIFont fontWithName:Font_Hiragino_Sans_GB_W3 size:14.f];
+    });
+    return font;
+}
 
 
 #pragma mark -

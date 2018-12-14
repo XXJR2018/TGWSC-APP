@@ -49,6 +49,9 @@
 		C0CCC84A21C33E37009352E0 /* SlideModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC84921C33E37009352E0 /* SlideModel.m */; };
 		C0CCC84E21C345C5009352E0 /* SlideSub1.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC84D21C345C5009352E0 /* SlideSub1.m */; };
 		C0CCC85121C3461D009352E0 /* SlideSub2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC85021C3461D009352E0 /* SlideSub2.m */; };
+		C0CCC85621C390F7009352E0 /* ShopListView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC85521C390F7009352E0 /* ShopListView.m */; };
+		C0CCC85921C391C2009352E0 /* AdvertingShopListView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC85821C391C2009352E0 /* AdvertingShopListView.m */; };
+		C0CCC85C21C391F1009352E0 /* ShopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC85B21C391F1009352E0 /* ShopModel.m */; };
 		C20525DE21BE6E1D00E13893 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525DD21BE6E1D00E13893 /* TabBarViewController.m */; };
 		C20525F021BE6E5C00E13893 /* TabViewController_4.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525E221BE6E5C00E13893 /* TabViewController_4.xib */; };
 		C20525F121BE6E5C00E13893 /* TabViewController_4.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525E321BE6E5C00E13893 /* TabViewController_4.m */; };
@@ -329,6 +332,12 @@
 		C0CCC84D21C345C5009352E0 /* SlideSub1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlideSub1.m; sourceTree = "<group>"; };
 		C0CCC84F21C3461D009352E0 /* SlideSub2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlideSub2.h; sourceTree = "<group>"; };
 		C0CCC85021C3461D009352E0 /* SlideSub2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlideSub2.m; sourceTree = "<group>"; };
+		C0CCC85421C390F7009352E0 /* ShopListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopListView.h; sourceTree = "<group>"; };
+		C0CCC85521C390F7009352E0 /* ShopListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopListView.m; sourceTree = "<group>"; };
+		C0CCC85721C391C2009352E0 /* AdvertingShopListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdvertingShopListView.h; sourceTree = "<group>"; };
+		C0CCC85821C391C2009352E0 /* AdvertingShopListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdvertingShopListView.m; sourceTree = "<group>"; };
+		C0CCC85A21C391F1009352E0 /* ShopModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopModel.h; sourceTree = "<group>"; };
+		C0CCC85B21C391F1009352E0 /* ShopModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopModel.m; sourceTree = "<group>"; };
 		C20525DC21BE6E1D00E13893 /* TabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		C20525DD21BE6E1D00E13893 /* TabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		C20525E121BE6E5C00E13893 /* TabViewController_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController_4.h; sourceTree = "<group>"; };
@@ -953,6 +962,7 @@
 				C0CCC84521C261C2009352E0 /* SlideParentVC.m */,
 				C0CCC84B21C34580009352E0 /* SlideSubVC */,
 				C0CCC84721C33DF1009352E0 /* SlideModel */,
+				C0CCC85321C39092009352E0 /* ShopListView */,
 			);
 			path = SlideViewController;
 			sourceTree = "<group>";
@@ -975,6 +985,19 @@
 				C0CCC85021C3461D009352E0 /* SlideSub2.m */,
 			);
 			path = SlideSubVC;
+			sourceTree = "<group>";
+		};
+		C0CCC85321C39092009352E0 /* ShopListView */ = {
+			isa = PBXGroup;
+			children = (
+				C0CCC85421C390F7009352E0 /* ShopListView.h */,
+				C0CCC85521C390F7009352E0 /* ShopListView.m */,
+				C0CCC85721C391C2009352E0 /* AdvertingShopListView.h */,
+				C0CCC85821C391C2009352E0 /* AdvertingShopListView.m */,
+				C0CCC85A21C391F1009352E0 /* ShopModel.h */,
+				C0CCC85B21C391F1009352E0 /* ShopModel.m */,
+			);
+			path = ShopListView;
 			sourceTree = "<group>";
 		};
 		C20525DB21BE6A6E00E13893 /* Frameworks */ = {
@@ -1205,10 +1228,10 @@
 			children = (
 				C25044E021BA579100DA9C72 /* DDGShareManager.h */,
 				C25044E621BA579100DA9C72 /* DDGShareManager.m */,
-				C25044E421BA579100DA9C72 /* ShareView.h */,
-				C25044E221BA579100DA9C72 /* ShareView.m */,
 				C25044E121BA579100DA9C72 /* DDGQQ.h */,
 				C25044E521BA579100DA9C72 /* DDGQQ.m */,
+				C25044E421BA579100DA9C72 /* ShareView.h */,
+				C25044E221BA579100DA9C72 /* ShareView.m */,
 				C25044E321BA579100DA9C72 /* DDGWeChat.h */,
 				C25044E721BA579100DA9C72 /* DDGWeChat.m */,
 			);
@@ -2133,6 +2156,7 @@
 				C250476E21BA715500DA9C72 /* NSArray+Additions.m in Sources */,
 				C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */,
 				C250451A21BA579100DA9C72 /* RemoteNTFManager.m in Sources */,
+				C0CCC85C21C391F1009352E0 /* ShopModel.m in Sources */,
 				C25047B621BA715500DA9C72 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				C25047E821BA715500DA9C72 /* DDGAssert.m in Sources */,
 				C20525F221BE6E5C00E13893 /* TabViewController_3.m in Sources */,
@@ -2150,6 +2174,7 @@
 				C0CCC82221C0F47D009352E0 /* HistoryVC.m in Sources */,
 				C25047DD21BA715500DA9C72 /* XXJRModalView.m in Sources */,
 				C2A08F6A21BF4563005753F6 /* TabBarSelectButtn.m in Sources */,
+				C0CCC85621C390F7009352E0 /* ShopListView.m in Sources */,
 				C25047B821BA715500DA9C72 /* UIButton+AFNetworking.m in Sources */,
 				C250451821BA579100DA9C72 /* CalculatorManager.m in Sources */,
 				C250460721BA711E00DA9C72 /* SGQRCodeObtainConfigure.m in Sources */,
@@ -2214,6 +2239,7 @@
 				C250475B21BA715500DA9C72 /* DDGJsonParseManager.m in Sources */,
 				C25047B721BA715500DA9C72 /* UIImageView+AFNetworking.m in Sources */,
 				C2AEB46221BE3CB00078E788 /* CSAnimationView.m in Sources */,
+				C0CCC85921C391C2009352E0 /* AdvertingShopListView.m in Sources */,
 				C250461321BA711E00DA9C72 /* TAAbstractDotView.m in Sources */,
 				C250477021BA715500DA9C72 /* NSURL+Additions.m in Sources */,
 				C250461221BA711E00DA9C72 /* TAAnimatedDotView.m in Sources */,

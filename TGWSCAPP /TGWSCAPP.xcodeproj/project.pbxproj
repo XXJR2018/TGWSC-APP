@@ -46,6 +46,9 @@
 		C0CCC83821C25810009352E0 /* JXButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC83721C25801009352E0 /* JXButton.m */; };
 		C0CCC84121C2603E009352E0 /* CKSlideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC83F21C2603E009352E0 /* CKSlideMenu.m */; };
 		C0CCC84621C261C2009352E0 /* SlideParentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC84521C261C2009352E0 /* SlideParentVC.m */; };
+		C0CCC84A21C33E37009352E0 /* SlideModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC84921C33E37009352E0 /* SlideModel.m */; };
+		C0CCC84E21C345C5009352E0 /* SlideSub1.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC84D21C345C5009352E0 /* SlideSub1.m */; };
+		C0CCC85121C3461D009352E0 /* SlideSub2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC85021C3461D009352E0 /* SlideSub2.m */; };
 		C20525DE21BE6E1D00E13893 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525DD21BE6E1D00E13893 /* TabBarViewController.m */; };
 		C20525F021BE6E5C00E13893 /* TabViewController_4.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525E221BE6E5C00E13893 /* TabViewController_4.xib */; };
 		C20525F121BE6E5C00E13893 /* TabViewController_4.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525E321BE6E5C00E13893 /* TabViewController_4.m */; };
@@ -318,6 +321,12 @@
 		C0CCC83F21C2603E009352E0 /* CKSlideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSlideMenu.m; sourceTree = "<group>"; };
 		C0CCC84421C261C2009352E0 /* SlideParentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlideParentVC.h; sourceTree = "<group>"; };
 		C0CCC84521C261C2009352E0 /* SlideParentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlideParentVC.m; sourceTree = "<group>"; };
+		C0CCC84821C33E37009352E0 /* SlideModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlideModel.h; sourceTree = "<group>"; };
+		C0CCC84921C33E37009352E0 /* SlideModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlideModel.m; sourceTree = "<group>"; };
+		C0CCC84C21C345C5009352E0 /* SlideSub1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlideSub1.h; sourceTree = "<group>"; };
+		C0CCC84D21C345C5009352E0 /* SlideSub1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlideSub1.m; sourceTree = "<group>"; };
+		C0CCC84F21C3461D009352E0 /* SlideSub2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlideSub2.h; sourceTree = "<group>"; };
+		C0CCC85021C3461D009352E0 /* SlideSub2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlideSub2.m; sourceTree = "<group>"; };
 		C20525DC21BE6E1D00E13893 /* TabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		C20525DD21BE6E1D00E13893 /* TabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		C20525E121BE6E5C00E13893 /* TabViewController_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController_4.h; sourceTree = "<group>"; };
@@ -937,8 +946,30 @@
 			children = (
 				C0CCC84421C261C2009352E0 /* SlideParentVC.h */,
 				C0CCC84521C261C2009352E0 /* SlideParentVC.m */,
+				C0CCC84B21C34580009352E0 /* SlideSubVC */,
+				C0CCC84721C33DF1009352E0 /* SlideModel */,
 			);
 			path = SlideViewController;
+			sourceTree = "<group>";
+		};
+		C0CCC84721C33DF1009352E0 /* SlideModel */ = {
+			isa = PBXGroup;
+			children = (
+				C0CCC84821C33E37009352E0 /* SlideModel.h */,
+				C0CCC84921C33E37009352E0 /* SlideModel.m */,
+			);
+			path = SlideModel;
+			sourceTree = "<group>";
+		};
+		C0CCC84B21C34580009352E0 /* SlideSubVC */ = {
+			isa = PBXGroup;
+			children = (
+				C0CCC84C21C345C5009352E0 /* SlideSub1.h */,
+				C0CCC84D21C345C5009352E0 /* SlideSub1.m */,
+				C0CCC84F21C3461D009352E0 /* SlideSub2.h */,
+				C0CCC85021C3461D009352E0 /* SlideSub2.m */,
+			);
+			path = SlideSubVC;
 			sourceTree = "<group>";
 		};
 		C20525DB21BE6A6E00E13893 /* Frameworks */ = {
@@ -2059,6 +2090,7 @@
 				C25047E421BA715500DA9C72 /* PDAPI.m in Sources */,
 				C250479821BA715500DA9C72 /* DAOverlayView.m in Sources */,
 				C250461021BA711E00DA9C72 /* TADotView.m in Sources */,
+				C0CCC85121C3461D009352E0 /* SlideSub2.m in Sources */,
 				C250480021BA73B800DA9C72 /* AFURLConnectionOperation.m in Sources */,
 				C250460421BA711E00DA9C72 /* TTRangeSlider.m in Sources */,
 				C20525DE21BE6E1D00E13893 /* TabBarViewController.m in Sources */,
@@ -2193,6 +2225,7 @@
 				C25047D921BA715500DA9C72 /* DDGUser.m in Sources */,
 				C25047DA21BA715500DA9C72 /* JsonResult.m in Sources */,
 				C250480121BA73B800DA9C72 /* AFURLSessionManager.m in Sources */,
+				C0CCC84A21C33E37009352E0 /* SlideModel.m in Sources */,
 				C250477521BA715500DA9C72 /* RSA.m in Sources */,
 				C25047E021BA715500DA9C72 /* MBProgressHUD+PD.m in Sources */,
 				C250476921BA715500DA9C72 /* NSString+Additions.m in Sources */,
@@ -2200,6 +2233,7 @@
 				C25045FC21BA711E00DA9C72 /* UIView+Extension.m in Sources */,
 				C25047DE21BA715500DA9C72 /* XXJRNetWorkCoverView.m in Sources */,
 				C250451D21BA579100DA9C72 /* DDGQQ.m in Sources */,
+				C0CCC84E21C345C5009352E0 /* SlideSub1.m in Sources */,
 				C0CCC82321C0F47D009352E0 /* HistoryAnimationVC.m in Sources */,
 				C0CCC7FC21C0F1CB009352E0 /* HistoryAndCategorySearchHistroyViewP.m in Sources */,
 				C250475D21BA715500DA9C72 /* BaseBLCManager.m in Sources */,

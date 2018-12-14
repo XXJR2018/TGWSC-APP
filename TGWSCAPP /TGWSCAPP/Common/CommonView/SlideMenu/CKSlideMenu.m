@@ -87,10 +87,10 @@ static NSString *textMaxX_Key;
 //初始化参数
 - (void)initSetting
 {
-    _selectedColor = [UIColor redColor];
-    _unselectedColor = [UIColor blackColor];
+    _selectedColor =   [ResourceManager mainColor]; //[UIColor redColor];
+    _unselectedColor = [ResourceManager color_1]; //[UIColor blackColor];
     _indicatorColor = _selectedColor;
-    _indicatorWidth = 20;
+    _indicatorWidth = 30;
     _indicatorHeight = 2;
     _indicatorOffsety = 0;
     _itemPadding = 15;
@@ -235,14 +235,7 @@ static NSString *textMaxX_Key;
             UIViewController *vc = _controllers[i];
             
             // update by baicai
-            //vc.view.frame = CGRectMake(0, 0, _bodyScrollView.contentSize.width , _bodyScrollView.contentSize.height);  //_bodyScrollView.bounds;
-            
             vc.view.frame =  _bodyScrollView.bounds;
-            
-            NSLog(@"CKSliedMenu _bodyScrollView.bounds.size.height :%f", _bodyScrollView.bounds.size.height);
-            
-            
-            
             vc.view.center = CGPointMake(CGRectGetWidth(_bodyScrollView.frame)*(i+0.5), _bodyScrollView.frame.size.height/2);
             [_bodyScrollView addSubview:vc.view];
         }
@@ -359,7 +352,7 @@ static NSString *textMaxX_Key;
     }
     
     void (^completeAction)() = ^(){
-        [_bodyScrollView setContentOffset:CGPointMake(_bodyScrollView.frame.size.width*toIndex, 0) animated:NO];
+        [self.bodyScrollView setContentOffset:CGPointMake(self.bodyScrollView.frame.size.width*toIndex, 0) animated:NO];
         [self resetTabScrollViewFrame];
     };
     

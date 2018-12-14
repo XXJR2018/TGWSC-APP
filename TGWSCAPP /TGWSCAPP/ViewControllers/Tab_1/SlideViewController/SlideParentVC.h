@@ -7,10 +7,12 @@
 //
 
 #import "CommonViewController.h"
-
+#import "SlideModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SlideParentVC : CommonViewController
+
+@property (nonatomic,strong) SlideModel  *slideModel;
 
 @end
 

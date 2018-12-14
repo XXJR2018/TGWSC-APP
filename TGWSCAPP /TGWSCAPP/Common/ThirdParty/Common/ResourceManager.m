@@ -8,7 +8,8 @@
 
 #import "ResourceManager.h"
 
-#define Font_Hiragino_Sans_GB_W3            @"Hiragino Kaku Gothic ProN"
+#define Font_Hiragino_Sans_GB_W3            @"Hiragino Kaku Gothic ProN-Bold"
+
 
 @implementation ResourceManager
 
@@ -331,7 +332,7 @@ static int fontAtIndex(int index){
     static UIFont *font;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        font = [UIFont fontWithName:Font_Hiragino_Sans_GB_W3 size:15.f];
+        font = [UIFont fontWithName:@"Arial" size:16.f];
     });
     return font;
 }
@@ -343,7 +344,7 @@ static int fontAtIndex(int index){
     static UIFont *font;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        font = [UIFont fontWithName:Font_Hiragino_Sans_GB_W3 size:14.f];
+        font = [UIFont systemFontOfSize:14.f];
     });
     return font;
 }

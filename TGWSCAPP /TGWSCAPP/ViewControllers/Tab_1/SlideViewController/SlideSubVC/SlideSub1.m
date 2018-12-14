@@ -58,7 +58,7 @@
     int iTopY = 0;
     int iLeftX = 0;
     if (!_scrollView){
-        _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, BANNER_HEIGHT) imageNamesGroup:@[@"Tab1_Banner",@"Tab1_Banner"]];
+        _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH, BANNER_HEIGHT) imageNamesGroup:@[@"Tab1_Banner",@"Tab1_Banner"]];
         [scView addSubview:_scrollView];
     }
     _bannerTitleArr = [NSMutableArray arrayWithArray:@[@"商品1",@"商品2"]];
@@ -78,8 +78,8 @@
 
     
     iTopY += imgViewSPSM.height;
-    //AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH, 200)];
-    AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"" itemArray:nil origin_Y:iTopY];
+    NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP"];
+    AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"推荐商品" itemArray:arrImg origin_Y:iTopY];
     [scView addSubview:adListView];
 
 }

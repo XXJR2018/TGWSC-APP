@@ -32,12 +32,68 @@
 
 -(void) drawList
 {
-    int iTopY = 0;
-    int iLeftX = 15*ScaleSize;
-    int iTitleHeight = 40;
-    UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - iLeftX - 100, iTitleHeight)];
+    float fTopY = 0;
+    float fLeftX = 15*ScaleSize;
+    int iTitleHeight = 50;
+    UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(fLeftX, fTopY, SCREEN_WIDTH - fLeftX - 100, iTitleHeight)];
     [self addSubview:labelTitle];
-    labelTitle.font = [ResourceManager font_1];
+    labelTitle.font = [ResourceManager fontTitle];
+    labelTitle.textColor = [ResourceManager color_1];
+    labelTitle.text = _title;
+    
+    
+    UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 80, fTopY, 80, iTitleHeight)];
+    [self addSubview:btnRight];
+    [btnRight setTitleColor:[ResourceManager lightGrayColor] forState:UIControlStateNormal];
+    [btnRight setTitle:@"更多>" forState:UIControlStateNormal];
+    btnRight.titleLabel.font = [ResourceManager mainFont];
+    
+    
+    fTopY +=labelTitle.height;
+    
+    if (_items &&
+        [_items count])
+     {
+        UIImage *imgTemp = [UIImage imageNamed:_items[0]];
+        
+        
+        float fImgHeight = imgTemp.size.height *ScaleSize;
+        float fImgWidth = imgTemp.size.width *ScaleSize;
+        float fImgTopY = fTopY;
+        float fImgBettewn = 5 *ScaleSize;
+        fLeftX = (SCREEN_WIDTH  - 2 *fImgWidth - fImgBettewn)/2;
+        float fImgLeftX = fLeftX;
+        
+        for (int i = 0; i < [_items count]; i++)
+         {
+            UIImageView *imgViewTemp = [[UIImageView alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY, fImgWidth, fImgHeight)];
+            [self  addSubview:imgViewTemp];
+            imgViewTemp.image  = [UIImage imageNamed:_items[i]];
+            
+            if ((i +1) %2 == 0)
+             {
+                fImgTopY += fImgHeight + fImgBettewn;
+                fImgLeftX = fLeftX;
+             }
+            else
+             {
+                fImgLeftX += fImgBettewn + fImgWidth;
+             }
+            
+            
+            
+         }
+//        NSLog(@"imgTemp.size.height: %f, imgTest.size.width: %f" ,fImgHeight,fImgWidth);
+//        UIImageView *imgViewLeft = [[UIImageView alloc] initWithFrame:CGRectMake(fLeftX, fTopY, fImgWidth, fImgHeight)];
+//        [self  addSubview:imgViewLeft];
+//        imgViewLeft.image  = imgTemp;
+//
+//        UIImageView *imgViewRight = [[UIImageView alloc] initWithFrame:CGRectMake(2*fLeftX+ fImgWidth, fTopY, fImgWidth, fImgHeight)];
+//        [self  addSubview:imgViewRight];
+//        imgViewRight.image  = imgTemp;
+     }
+    
+    
     
     
     

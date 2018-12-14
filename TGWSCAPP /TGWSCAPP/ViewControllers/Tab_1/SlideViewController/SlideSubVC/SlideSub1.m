@@ -50,27 +50,33 @@
     scView.bounces = NO;
     scView.showsVerticalScrollIndicator = FALSE;
     scView.showsHorizontalScrollIndicator = FALSE;
-    scView.backgroundColor = [ResourceManager viewBackgroundColor];
+    scView.backgroundColor = [UIColor whiteColor];//[ResourceManager viewBackgroundColor];
     
-    
-    
-    
+    // banner （商品）
+    int iTopY = 0;
+    int iLeftX = 0;
     if (!_scrollView){
-        _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, BANNER_HEIGHT) imageNamesGroup:@[@"Tab1_Banner"]];
+        _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, BANNER_HEIGHT) imageNamesGroup:@[@"Tab1_Banner",@"Tab1_Banner"]];
         [scView addSubview:_scrollView];
     }
-    _bannerTitleArr = [NSMutableArray arrayWithArray:@[@"邀请好友"]];
-    
+    _bannerTitleArr = [NSMutableArray arrayWithArray:@[@"商品1",@"商品2"]];
     _scrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     _scrollView.delegate = self;
     _scrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
     
+    // 底部商品说明
+    iTopY += _scrollView.height;
+    UIImage *imgSPSM = [UIImage imageNamed:@"Tab1_SPSM"];
+    float fImgHeight = imgSPSM.size.height;
+    NSLog(@"imgTest.size.height: %f, imgTest.size.width: %f" ,imgSPSM.size.height,imgSPSM.size.width);
     
-    UILabel *viewTail = [[UILabel alloc] initWithFrame:CGRectMake(200, self.view.frame.size.height +50, 100, 18)];
-    [scView addSubview:viewTail];
-    viewTail.backgroundColor = [UIColor yellowColor];
-    viewTail.textColor = [UIColor blueColor];
-    viewTail.text = _slideModel.strSlideName;
+    UIImageView *imgViewSPSM = [[UIImageView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, fImgHeight *ScaleSize)];
+    [scView addSubview:imgViewSPSM];
+    imgViewSPSM.image = imgSPSM;
+
+    
+    
+
 }
 
 

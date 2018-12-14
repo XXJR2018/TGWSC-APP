@@ -19,21 +19,37 @@
                 <rect key="frame" x="0.0" y="0.0" width="70" height="100"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="商品名称" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmW-uK-ZYK">
-                        <rect key="frame" x="0.0" y="71" width="70" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <nil key="textColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品名称" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmW-uK-ZYK">
+                        <rect key="frame" x="0.0" y="70" width="70" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="fBe-cs-QcI"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Tab_4-8" translatesAutoresizingMaskIntoConstraints="NO" id="cKS-7J-3Sl">
-                        <rect key="frame" x="10" y="11" width="50" height="50"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tab_4-8" translatesAutoresizingMaskIntoConstraints="NO" id="cKS-7J-3Sl">
+                        <rect key="frame" x="10" y="10" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="bjL-vp-2id"/>
+                            <constraint firstAttribute="height" constant="50" id="ir2-k5-JUR"/>
+                        </constraints>
                     </imageView>
                 </subviews>
             </view>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" red="0.97647058819999999" green="0.63921568630000003" blue="0.27450980390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="TmW-uK-ZYK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="3dX-7G-bgA"/>
+                <constraint firstAttribute="trailing" secondItem="TmW-uK-ZYK" secondAttribute="trailing" id="GXi-R5-iLe"/>
+                <constraint firstItem="cKS-7J-3Sl" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="GgG-J9-Gek"/>
+                <constraint firstItem="TmW-uK-ZYK" firstAttribute="top" secondItem="cKS-7J-3Sl" secondAttribute="bottom" constant="10" id="eXP-3t-bPm"/>
+                <constraint firstItem="cKS-7J-3Sl" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="heq-r6-kjF"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
+            <connections>
+                <outlet property="iconImg" destination="cKS-7J-3Sl" id="ozG-Ms-CcT"/>
+                <outlet property="productNameLabel" destination="TmW-uK-ZYK" id="k62-eD-Yeh"/>
+            </connections>
             <point key="canvasLocation" x="40" y="46.776611694152926"/>
         </collectionViewCell>
     </objects>

@@ -14,6 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) NSDictionary *dataDicionary;
 
+@property (weak, nonatomic) IBOutlet UIImageView *iconImg;
+
+@property (weak, nonatomic) IBOutlet UILabel *productNameLabel;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

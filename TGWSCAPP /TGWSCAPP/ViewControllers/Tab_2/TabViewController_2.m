@@ -19,8 +19,12 @@
     NSMutableArray *_sortFirstTitleArr;
     NSMutableArray *_sortFirstBtnArr;
     
+    
     UICollectionView *_collectView;
     UIView *_headerView;
+    
+    NSMutableArray *_sortSecondTitleArr;
+    NSMutableArray *_sortSecondDataArr;
 }
 @end
 
@@ -40,8 +44,15 @@
     [super viewDidLoad];
     self.hideBackButton = YES;
     [self layoutNaviBarViewWithTitle:@"分类"];
+    
     _sortFirstBtnArr = [NSMutableArray array];
     _sortFirstTitleArr = [NSMutableArray arrayWithArray:@[@"冬季专区",@"爆品专区",@"新品专区",@"居家",@"鞋包配饰",@"服装",@"洗护",@"饮食",@"母婴",@"餐厨",@"保健",@"文体",@"12.12专区",@"特色区"]];
+    _sortSecondTitleArr = [NSMutableArray arrayWithArray:@[@[@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"包包"}],
+  @[@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"箱子"}],
+  @[@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"包包"}]]];
+    
+    _sortSecondDataArr = [NSMutableArray arrayWithArray:_sortSecondTitleArr];
+    
     [self layoutUI];
     [self rightListUI];
 }
@@ -84,7 +95,7 @@
 #pragma mark- 右边商品列表布局
 -(void)rightListUI{
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.minimumLineSpacing = 50/4 * ScaleSize;
+    flowLayout.minimumLineSpacing = (SCREEN_WIDTH - 100 - 210)/6 * ScaleSize;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
     _collectView = [[UICollectionView alloc]initWithFrame:CGRectMake(100, NavHeight, SCREEN_WIDTH - 100, SCREEN_HEIGHT - TabbarHeight - NavHeight) collectionViewLayout:flowLayout];
@@ -98,21 +109,9 @@
     //注册头视图，相当于段头
     [_collectView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView"];
     
-    [self headerViewUI];
 }
 
-#pragma mark-collectView头部布局
--(void)headerViewUI{
-    _headerView = [[UIView alloc]init];
-    _headerView.backgroundColor = [UIColor whiteColor];
-    
-    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH - 130, 100)];
-    [_headerView addSubview:imgView];
-    imgView.image = [UIImage imageNamed:@"Tab_4-9"];
-    
-    _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(imgView.frame));
-    
-}
+
 
 
 #pragma mark-一级菜单点击事件
@@ -142,7 +141,7 @@
     }else if (section == 1) {
         return  5;
     }else{
-        return  11;
+        return  8;
     }
     
 }
@@ -157,40 +156,42 @@
          UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"headerView"forIndexPath:indexPath];
       
         if (indexPath.section == 0) {
-            UIView*headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 100, 50)];
-            headerView.backgroundColor = [UIColor whiteColor];
+            _headerView = [[UIView alloc] init];
+            _headerView.backgroundColor = [UIColor whiteColor];
             UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, SCREEN_WIDTH - 130, 100)];
-            [headerView addSubview:imgView];
+            [_headerView addSubview:imgView];
             imgView.image = [UIImage imageNamed:@"Tab_4-9"];
             
-            UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(imgView.frame), 150, 50)];
+            UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(imgView.frame), 150, 40)];
             titleLabel.text = @"我是标题";
             titleLabel.font= [UIFont boldSystemFontOfSize:15];
             titleLabel.textColor = [ResourceManager color_1];
-            [headerView addSubview:titleLabel];
+            [_headerView addSubview:titleLabel];
             
             UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(titleLabel.frame), SCREEN_WIDTH - 130, 0.5)];
-            [headerView addSubview:viewX];
+            [_headerView addSubview:viewX];
             viewX.backgroundColor = [ResourceManager color_5];
+            _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH - 100, CGRectGetMaxY(viewX.frame));
             
             //头视图添加view
-            [header addSubview:headerView];
+            [header addSubview:_headerView];
         }else{
             //添加头视图的内容
-            UIView*headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 100, 50)];
-            headerView.backgroundColor = [UIColor whiteColor];
-            UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 150, 50)];
+            _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 100, 40)];
+            _headerView.backgroundColor = [UIColor whiteColor];
+            UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 150, 40)];
             titleLabel.text = @"我是标题";
             titleLabel.font= [UIFont boldSystemFontOfSize:15];
             titleLabel.textColor = [ResourceManager color_1];
-            [headerView addSubview:titleLabel];
+            [_headerView addSubview:titleLabel];
             
             UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(titleLabel.frame), SCREEN_WIDTH - 130, 0.5)];
-            [headerView addSubview:viewX];
+            [_headerView addSubview:viewX];
             viewX.backgroundColor = [ResourceManager color_5];
-    
+            _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH - 100, CGRectGetMaxY(viewX.frame));
+            
             //头视图添加view
-            [header addSubview:headerView];
+            [header addSubview:_headerView];
         }
        
          return header;
@@ -201,9 +202,9 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     CGSize size = CGSizeZero;
     if (section == 0) {
-        size = CGSizeMake(SCREEN_WIDTH - 100, CGRectGetMaxY(_headerView.frame) + 50);
+        size = CGSizeMake(SCREEN_WIDTH - 100, 140);
     }else{
-        size = CGSizeMake(SCREEN_WIDTH - 100, 50);
+        size = CGSizeMake(SCREEN_WIDTH - 100, 40);
     }
     return size;
 }
@@ -212,7 +213,17 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ProductCollectionViewCell * cell;
     cell = (ProductCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"ProductCell_ID" forIndexPath:indexPath];
-//    cell.dataDicionary = self.dataArray[indexPath.row];
+    
+    if (indexPath.section == 0) {
+        NSArray *arr = _sortSecondTitleArr[0];
+        cell.dataDicionary = arr[indexPath.row];
+    }else if (indexPath.section == 1) {
+        NSArray *arr = _sortSecondTitleArr[1];
+        cell.dataDicionary = arr[indexPath.row];
+    }else{
+        NSArray *arr = _sortSecondTitleArr[2];
+        cell.dataDicionary = arr[indexPath.row];
+    }
     
     return cell;
     
@@ -224,7 +235,7 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    return UIEdgeInsetsMake(5, 5, 5, 5);
+    return UIEdgeInsetsMake(10, (SCREEN_WIDTH - 100 - 70 * 3)/6, 5, (SCREEN_WIDTH - 100 - 70 * 3)/6);
 }
 
 #pragma mark --UICollectionViewDelegate
@@ -247,19 +258,6 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

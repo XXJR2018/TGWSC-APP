@@ -10,9 +10,27 @@
 
 @implementation ProductCollectionViewCell
 
+
+-(void)setDataDicionary:(NSDictionary *)dataDicionary{
+    _dataDicionary = dataDicionary;
+    
+    [self layoutSubviews];
+}
+
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    
+    self.productNameLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"title"]];
+    
+}
+
+
+
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
+
 
 @end

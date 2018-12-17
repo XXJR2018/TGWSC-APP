@@ -135,6 +135,7 @@
     if ([self.delegate respondsToSelector:@selector(didShopClickButtonAtObejct:)]) {
         ShopModel *mode = [[ShopModel alloc] init];
         mode.iShopID = -1;
+        mode.strShopName = _title;
         [self.delegate didShopClickButtonAtObejct:mode];
     }
 }

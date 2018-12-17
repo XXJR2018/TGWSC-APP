@@ -13,7 +13,7 @@
 
 #define  BANNER_HEIGHT       (170*ScaleSize)      // Banner的高度
 
-@interface SlideSub1 ()<SDCycleScrollViewDelegate,AdvertingShopListViewDelegate>
+@interface SlideSub1 ()<SDCycleScrollViewDelegate,AdvertingShopListViewDelegate,ShopListViewDelegate>
 {
     UIScrollView *scView;
     
@@ -95,7 +95,7 @@
     
     
     // 热销商品
-    [tempArr removeAllObjects];
+    NSMutableArray  *tempArr1 = [[NSMutableArray alloc] init];
     for (int i = 0;  i < 6; i++)
      {
         ShopModel *sModel = [[ShopModel alloc] init];
@@ -103,15 +103,16 @@
         sModel.strShopImgUrl = @"Tab1_RMSP";
         sModel.strShopName = @"凯尔德乐婴儿";
         sModel.strPrice = @"¥ 13.90";
-        [tempArr addObject:sModel];
+        [tempArr1 addObject:sModel];
      }
     iTopY += adListView.height;
-    ShopListView  *shopListView1 = [[ShopListView alloc] initWithTitle:@"热销商品" itemArray:tempArr  columnCount:3  origin_Y:iTopY];
+    ShopListView  *shopListView1 = [[ShopListView alloc] initWithTitle:@"热销商品" itemArray:tempArr1  columnCount:3  origin_Y:iTopY];
     [scView addSubview:shopListView1];
+    shopListView1.delegate = self;
     
     
     // 热销商品
-    [tempArr removeAllObjects];
+    NSMutableArray  *tempArr2 = [[NSMutableArray alloc] init];
     for (int i = 0;  i < 6; i++)
      {
         ShopModel *sModel = [[ShopModel alloc] init];
@@ -119,11 +120,12 @@
         sModel.strShopImgUrl = @"Tab1_RMSP";
         sModel.strShopName = @"凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿";
         sModel.strPrice = @"¥ 13.90";
-        [tempArr addObject:sModel];
+        [tempArr2 addObject:sModel];
      }
     iTopY += shopListView1.height;
-    ShopListView  *shopListView2 = [[ShopListView alloc] initWithTitle:@"新品发售" itemArray:tempArr  columnCount:3  origin_Y:iTopY];
+    ShopListView  *shopListView2 = [[ShopListView alloc] initWithTitle:@"新品发售" itemArray:tempArr2  columnCount:3  origin_Y:iTopY];
     [scView addSubview:shopListView2];
+    shopListView2.delegate = self;
     
     
     
@@ -237,7 +239,8 @@
 }
 
 
-#pragma mark - SDCycleScrollViewDelegate
+#pragma mark - delegate
+//SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     NSString *titleStr = _bannerTitleArr[index];
@@ -283,7 +286,7 @@
 }
 
 
-#pragma mark - AdvertingShopListViewDelegate
+// AdvertingShopListViewDelegate
 -(void)didClickButtonAtObejct:(ShopModel*)clickObj
 {
     if (clickObj)
@@ -302,7 +305,27 @@
      }
 }
 
-#pragma mark --- action
+
+
+// ShopListViewDelegate
+-(void)didShopClickButtonAtObejct:(ShopModel*)clickObj
+{
+    if (clickObj)
+     {
+        int iShopID = clickObj.iShopID;
+        // 点击更多按钮
+        if (-1 == iShopID)
+         {
+            NSLog(@"Click More :%@", clickObj.strShopName);
+         }
+        else
+         {
+            NSLog(@"ShopID:%d", iShopID);
+            NSLog(@"strShopName:%@", clickObj.strShopName);
+         }
+        
+     }
+}
 
 
 @end

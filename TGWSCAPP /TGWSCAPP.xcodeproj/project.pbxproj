@@ -223,6 +223,7 @@
 		C2AEB47721BE47380078E788 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AEB47621BE47370078E788 /* libz.tbd */; };
 		C2B51AF121C3462500AC76FB /* ProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */; };
 		C2B51AF221C3462500AC76FB /* ProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */; };
+		C2E3382621C7554D00D9C213 /* ProductViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E3382521C7554D00D9C213 /* ProductViewCell.m */; };
 		E33967D271FF073A04BE5646 /* libPods-TGWSCAPPTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D61764B54B6E69C56E919970 /* libPods-TGWSCAPPTests.a */; };
 		EB710248CB1419DCCDA0AB56 /* libPods-TGWSCAPPTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BE632134DE2F9281044FA7 /* libPods-TGWSCAPPTests.a */; };
 /* End PBXBuildFile section */
@@ -657,6 +658,8 @@
 		C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductCollectionViewCell.m; sourceTree = "<group>"; };
 		C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCollectionViewCell.xib; sourceTree = "<group>"; };
 		C2D2B19321BDF45F00FE810C /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		C2E3382421C7554D00D9C213 /* ProductViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewCell.h; sourceTree = "<group>"; };
+		C2E3382521C7554D00D9C213 /* ProductViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewCell.m; sourceTree = "<group>"; };
 		CC3A69CCFB0BBFED009A07A1 /* Pods-TGWSCAPP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGWSCAPP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TGWSCAPP/Pods-TGWSCAPP.debug.xcconfig"; sourceTree = "<group>"; };
 		D61764B54B6E69C56E919970 /* libPods-TGWSCAPPTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TGWSCAPPTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4A4B4C8AB5DBDC9E7E293B5 /* libPods-TGWSCAPP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TGWSCAPP.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1055,6 +1058,8 @@
 				C2B51AEE21C3462500AC76FB /* ProductCollectionViewCell.h */,
 				C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */,
 				C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */,
+				C2E3382421C7554D00D9C213 /* ProductViewCell.h */,
+				C2E3382521C7554D00D9C213 /* ProductViewCell.m */,
 			);
 			path = Tab_2;
 			sourceTree = "<group>";
@@ -2280,6 +2285,7 @@
 				C250450B21BA579100DA9C72 /* LoginViewController.m in Sources */,
 				C25047E121BA715500DA9C72 /* XXJRInfoCoverView.m in Sources */,
 				C0CCC84621C261C2009352E0 /* SlideParentVC.m in Sources */,
+				C2E3382621C7554D00D9C213 /* ProductViewCell.m in Sources */,
 				C2A71B8521BE53F9007D849F /* DDGUserInfoEngine.m in Sources */,
 				C250451621BA579100DA9C72 /* MJRefreshViewController.m in Sources */,
 				C0CCC7EB21C0F150009352E0 /* LLSearchVCConst.m in Sources */,

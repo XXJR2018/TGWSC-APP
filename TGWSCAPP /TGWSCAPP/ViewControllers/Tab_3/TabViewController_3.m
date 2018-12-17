@@ -25,6 +25,7 @@
     
     
     NSMutableArray *_sortSecondTitleArr;
+    CGFloat _cellHeight;
 }
 
 
@@ -115,7 +116,8 @@
     [self.view addSubview:_tableView];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    [_tableView setTableHeaderView:[UIView new]];
+//    _tableView.rowHeight = UITableViewAutomaticDimension;
+//    _tableView.estimatedRowHeight = SCREEN_HEIGHT - NavHeight - TabbarHeight;
     
 }
 
@@ -154,12 +156,13 @@
     _collectView.showsVerticalScrollIndicator = NO;
     _collectView.delegate = self;
     _collectView.dataSource = self;
-//    _collectView.scrollEnabled = NO;
+    _collectView.scrollEnabled = NO;
     
     //以xib方式注册cell
     [_collectView registerNib:[UINib nibWithNibName:@"ProductCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"ProductCell_ID"];
     //注册头视图，相当于段头
     [_collectView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView"];
+    
 }
 
 #pragma mark === UITableViewDataSource
@@ -168,7 +171,22 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return (SCREEN_HEIGHT - NavHeight - TabbarHeight);
+    NSArray *arr = self.dataArray[indexPath.row];
+
+    CGFloat height1;
+    CGFloat height;
+    for (NSArray *arr1 in arr) {
+        if (arr1.count%3 == 0) {
+            height1 = 40 + 100 * ScaleSize *(arr1.count/3);
+        }else{
+            height1 = 40 + 100 * ScaleSize *(arr1.count/3 + 1);
+        }
+        height = height + height1;
+    }
+    height = 100 + height;
+    
+    return height;
+
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -177,18 +195,11 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     _sortSecondTitleArr = self.dataArray[indexPath.row];
     [self collectionViewUI];
     [cell.contentView addSubview:_collectView];
     
     return cell;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //（这种是没有点击后的阴影效果)
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 }
 
 
@@ -269,7 +280,7 @@
     NSArray *arr = _sortSecondTitleArr[indexPath.section];
     NSDictionary *dic = arr[indexPath.row];
     cell.dataDicionary = dic;
-    
+   
     return cell;
     
 }
@@ -283,8 +294,7 @@
     return UIEdgeInsetsMake(10, (SCREEN_WIDTH - 100 - 70 * 3)/6, 5, (SCREEN_WIDTH - 100 - 70 * 3)/6);
 }
 
-#pragma mark --UICollectionViewDelegate
-//返回这个UICollectionView是否可以被选择
+//返回这个UICollectioncell是否可以被选择
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     return YES;
 }

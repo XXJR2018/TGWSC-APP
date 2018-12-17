@@ -316,6 +316,11 @@ usingVerticalAlign: (VerticalAlignment) vertAlign;
 + (id)replaceNilObject:(id)objectIfNil withObject:(id)replaceObject;
 
 
+
+#pragma mark ==== 获取图片  =====
+// 从网络URL或者本地加载图片
++(UIImage*) getImgFromStr:(NSString*) strImg;
+
 @end
 
 NS_ASSUME_NONNULL_END

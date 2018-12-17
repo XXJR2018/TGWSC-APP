@@ -696,4 +696,23 @@ static NSString *currentIP = nil;
 }
 
 
+// 从网络URL或者本地加载图片
++(UIImage*) getImgFromStr:(NSString*) strImg
+{
+    UIImage *img = nil;
+    
+    NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:strImg]];
+    if (imgData)
+     {
+        // 从URL 加载图片
+        img = [UIImage imageWithData:imgData];// 拿到image
+     }
+    else
+     {
+        // 从本地加载
+        img = [UIImage imageNamed:strImg];
+     }
+    
+    return  img;
+}
 @end

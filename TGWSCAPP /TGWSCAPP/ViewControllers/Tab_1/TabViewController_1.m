@@ -46,13 +46,6 @@
     [self layoutHead];
     
     
-    UIButton *btn =[[UIButton alloc]initWithFrame:CGRectMake(100, 300, 100, 100)];
-    [self.view addSubview:btn];
-    btn.backgroundColor = [UIColor purpleColor];
-    [btn addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    
 }
 
 -(void) layoutHead
@@ -84,7 +77,7 @@
     [viewSearch addSubview:labelSearch];
     labelSearch.font = [UIFont systemFontOfSize:14];
     labelSearch.textColor = [ResourceManager lightGrayColor];
-    labelSearch.text = @"百里挑一的好货";
+    labelSearch.text = @"百里挑一的好商品";
     
     // 消息按钮
     UIButton *btnMessage = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 30, iTopY, 18, 20)];
@@ -109,7 +102,8 @@
 
     
 
-    CKSlideMenu *slideMenu = [[CKSlideMenu alloc]initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 40) titles:titles controllers:arr];
+    CKSlideMenu *slideMenu = [[CKSlideMenu alloc]initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH-30, 40) titles:titles controllers:arr];
+    //slideMenu.backgroundColor = [UIColor yellowColor];
     if ([titles count] <= 5)
      {
         slideMenu.isFixed = TRUE; // 菜单固定
@@ -118,6 +112,19 @@
     [slideMenu scrollToIndex:0];
     [self.view addSubview:slideMenu];
     
+    
+    UIButton *btnDonw = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-40, iTopY, 40, 40)];
+    [self.view addSubview:btnDonw];
+    //btnDonw.backgroundColor = [UIColor blueColor];
+    //[btnAll setBackgroundImage:[UIImage imageNamed:@"com_down"] forState:UIControlStateNormal];
+   
+    UIImageView *imgDown = [[UIImageView alloc] initWithFrame:CGRectMake(18, 18, 12, 7)];
+    [btnDonw addSubview:imgDown];
+    imgDown.image = [UIImage imageNamed:@"com_down"];
+    
+    
+    
+    
 }
 
 
@@ -125,26 +132,12 @@
     [self.view addSubview:self.tabBar];
 }
 
--(void) share
+
+
+-(void) popMenu
 {
     
-    //开始登录
-//    if (![[DDGAccountManager sharedManager] isLoggedIn])
-//     {
-//        [DDGUserInfoEngine engine].parentViewController = self;
-//        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
-//        return;
-//     }
-//
-//    SearchVC *VC = [[SearchVC alloc] init];
-//    [self.navigationController pushViewController:VC animated:YES];
-    
-    
-    
-    [self actionSearch1];
-    
 }
-
 
 #pragma mark ---  action
 -(void) actionMessage

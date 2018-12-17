@@ -30,6 +30,7 @@
     return self;
 }
 
+
 -(void) drawList
 {
     float fTopY = 0;
@@ -42,24 +43,31 @@
     labelTitle.text = _title;
     
     
-    UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 80, fTopY, 80, iTitleHeight)];
+    UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 80, fTopY+3, 80, iTitleHeight)];
     [self addSubview:btnRight];
     [btnRight setTitleColor:[ResourceManager lightGrayColor] forState:UIControlStateNormal];
     [btnRight setTitle:@"更多>" forState:UIControlStateNormal];
     btnRight.titleLabel.font = [ResourceManager mainFont];
+    [btnRight addTarget:self action:@selector(actionMore) forControlEvents:UIControlEventTouchUpInside];
     
     
     fTopY +=labelTitle.height;
     
+    float fImgTopY = fTopY;
     if (_items &&
         [_items count])
      {
-        UIImage *imgTemp = [UIImage imageNamed:_items[0]];
-        
+        ShopModel *sModel= _items[0];
+        NSString *strImgName = sModel.strShopImgUrl;
+        UIImage *imgTemp = [ToolsUtlis getImgFromStr:strImgName];
+        if (!imgTemp)
+         {
+            return;
+         }
         
         float fImgHeight = imgTemp.size.height *ScaleSize;
         float fImgWidth = imgTemp.size.width *ScaleSize;
-        float fImgTopY = fTopY;
+        fImgTopY = fTopY;
         float fImgBettewn = 5 *ScaleSize;
         fLeftX = (SCREEN_WIDTH  - 2 *fImgWidth - fImgBettewn)/2;
         float fImgLeftX = fLeftX;
@@ -68,7 +76,16 @@
          {
             UIImageView *imgViewTemp = [[UIImageView alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY, fImgWidth, fImgHeight)];
             [self  addSubview:imgViewTemp];
-            imgViewTemp.image  = [UIImage imageNamed:_items[i]];
+            
+            ShopModel *sModel= _items[i];
+            NSString *strImgName = sModel.strShopImgUrl;
+            imgTemp = [ToolsUtlis getImgFromStr:strImgName];
+            imgViewTemp.image  = imgTemp;
+            
+            UIButton *btnTemp = [[UIButton alloc] initWithFrame:imgViewTemp.frame];
+            [self addSubview:btnTemp];
+            btnTemp.tag = i;
+            [btnTemp addTarget:self action:@selector(actionImg:) forControlEvents:UIControlEventTouchUpInside];
             
             if ((i +1) %2 == 0)
              {
@@ -80,24 +97,36 @@
                 fImgLeftX += fImgBettewn + fImgWidth;
              }
             
-            
-            
          }
-//        NSLog(@"imgTemp.size.height: %f, imgTest.size.width: %f" ,fImgHeight,fImgWidth);
-//        UIImageView *imgViewLeft = [[UIImageView alloc] initWithFrame:CGRectMake(fLeftX, fTopY, fImgWidth, fImgHeight)];
-//        [self  addSubview:imgViewLeft];
-//        imgViewLeft.image  = imgTemp;
-//
-//        UIImageView *imgViewRight = [[UIImageView alloc] initWithFrame:CGRectMake(2*fLeftX+ fImgWidth, fTopY, fImgWidth, fImgHeight)];
-//        [self  addSubview:imgViewRight];
-//        imgViewRight.image  = imgTemp;
+
      }
     
+    self.height = fImgTopY;
     
     
     
-    
-    
+}
+
+#pragma mark --- action
+-(void) actionMore
+{
+    if ([self.delegate respondsToSelector:@selector(didClickButtonAtObejct:)]) {
+        ShopModel *mode = [[ShopModel alloc] init];
+        mode.iShopID = -1;
+        [self.delegate didClickButtonAtObejct:mode];
+    }
+}
+
+-(void) actionImg:(UIButton*) sender
+{
+    int iTag = (int)sender.tag;
+    if (iTag < [_items count])
+     {
+        ShopModel *sModel = _items[iTag];
+        if ([self.delegate respondsToSelector:@selector(didClickButtonAtObejct:)]) {
+            [self.delegate didClickButtonAtObejct:sModel];
+        }
+     }
 }
 
 @end

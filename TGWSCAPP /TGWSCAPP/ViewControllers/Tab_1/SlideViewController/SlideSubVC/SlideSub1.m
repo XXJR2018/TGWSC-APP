@@ -13,7 +13,7 @@
 
 #define  BANNER_HEIGHT       (170*ScaleSize)      // Banner的高度
 
-@interface SlideSub1 ()<SDCycleScrollViewDelegate>
+@interface SlideSub1 ()<SDCycleScrollViewDelegate,AdvertingShopListViewDelegate>
 {
     UIScrollView *scView;
     
@@ -77,10 +77,21 @@
     imgViewSPSM.image = imgSPSM;
 
     
+    // 推荐商品
     iTopY += imgViewSPSM.height;
-    NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP"];
-    AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"推荐商品" itemArray:arrImg origin_Y:iTopY];
+    //NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP"];
+    NSMutableArray  *tempArr = [[NSMutableArray alloc] init];
+    for (int i = 0;  i < 4; i++)
+     {
+        ShopModel *sModel = [[ShopModel alloc] init];
+        sModel.iShopID = i;
+        sModel.strShopImgUrl = @"Tab1_TJSP";
+        [tempArr addObject:sModel];
+     }
+    //NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP"];
+    AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"推荐商品" itemArray:tempArr origin_Y:iTopY];
     [scView addSubview:adListView];
+    adListView.delegate = self;
 
 }
 
@@ -232,6 +243,25 @@
 //    }
 }
 
+
+#pragma mark - AdvertingShopListViewDelegate
+-(void)didClickButtonAtObejct:(ShopModel*)clickObj
+{
+    if (clickObj)
+     {
+        int iShopID = clickObj.iShopID;
+        // 点击更多按钮
+        if (-1 == iShopID)
+         {
+            NSLog(@"Click More");
+         }
+        else
+         {
+            NSLog(@"ShopID:%d", iShopID);
+         }
+        
+     }
+}
 
 #pragma mark --- action
 

@@ -81,7 +81,7 @@
     iTopY += imgViewSPSM.height;
     //NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP"];
     NSMutableArray  *tempArr = [[NSMutableArray alloc] init];
-    for (int i = 0;  i < 4; i++)
+    for (int i = 0;  i < 6; i++)
      {
         ShopModel *sModel = [[ShopModel alloc] init];
         sModel.iShopID = i;
@@ -92,6 +92,45 @@
     AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"推荐商品" itemArray:tempArr origin_Y:iTopY];
     [scView addSubview:adListView];
     adListView.delegate = self;
+    
+    
+    // 热销商品
+    [tempArr removeAllObjects];
+    for (int i = 0;  i < 6; i++)
+     {
+        ShopModel *sModel = [[ShopModel alloc] init];
+        sModel.iShopID = i;
+        sModel.strShopImgUrl = @"Tab1_RMSP";
+        sModel.strShopName = @"凯尔德乐婴儿";
+        sModel.strPrice = @"¥ 13.90";
+        [tempArr addObject:sModel];
+     }
+    iTopY += adListView.height;
+    ShopListView  *shopListView1 = [[ShopListView alloc] initWithTitle:@"热销商品" itemArray:tempArr  columnCount:3  origin_Y:iTopY];
+    [scView addSubview:shopListView1];
+    
+    
+    // 热销商品
+    [tempArr removeAllObjects];
+    for (int i = 0;  i < 6; i++)
+     {
+        ShopModel *sModel = [[ShopModel alloc] init];
+        sModel.iShopID = i;
+        sModel.strShopImgUrl = @"Tab1_RMSP";
+        sModel.strShopName = @"凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿";
+        sModel.strPrice = @"¥ 13.90";
+        [tempArr addObject:sModel];
+     }
+    iTopY += shopListView1.height;
+    ShopListView  *shopListView2 = [[ShopListView alloc] initWithTitle:@"新品发售" itemArray:tempArr  columnCount:3  origin_Y:iTopY];
+    [scView addSubview:shopListView2];
+    
+    
+    
+    iTopY += shopListView2.height;
+    scView.contentSize = CGSizeMake(0, iTopY);
+    
+    
 
 }
 

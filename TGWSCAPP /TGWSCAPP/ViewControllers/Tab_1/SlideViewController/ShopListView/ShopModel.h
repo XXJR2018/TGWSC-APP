@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *strShopID;
 @property (nonatomic,copy) NSString *strShopName;
 @property (nonatomic,copy) NSString *strShopImgUrl;
+@property (nonatomic,copy) NSString *strPrice;
 
 
 @end

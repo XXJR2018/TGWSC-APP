@@ -47,7 +47,7 @@
     [self addSubview:btnRight];
     [btnRight setTitleColor:[ResourceManager lightGrayColor] forState:UIControlStateNormal];
     [btnRight setTitle:@"更多>" forState:UIControlStateNormal];
-    btnRight.titleLabel.font = [ResourceManager mainFont];
+    btnRight.titleLabel.font = [UIFont systemFontOfSize:13];
     [btnRight addTarget:self action:@selector(actionMore) forControlEvents:UIControlEventTouchUpInside];
     
     

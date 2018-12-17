@@ -11,11 +11,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+@protocol ShopListViewDelegate<NSObject>
+@optional
+
+-(void)didShopClickButtonAtObejct:(ShopModel*)clickObj;
+
+@end
+
 @interface ShopListView : UIView
 
--(void)initWithTitle:(NSString *)title  itemArray:(NSArray *)items origin_Y:(CGFloat)origin_Y;
+-(ShopListView*)initWithTitle:(NSString *)title  itemArray:(NSArray *)items  columnCount:(int)columnCount  origin_Y:(CGFloat)origin_Y;
 
 -(void) drawList;
+
+@property (nonatomic, strong) id<ShopListViewDelegate> delegate;
 
 @property (nonatomic,strong) ShopModel  *shopModel;
 

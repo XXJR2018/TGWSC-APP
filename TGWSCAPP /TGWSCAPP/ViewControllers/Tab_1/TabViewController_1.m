@@ -13,7 +13,14 @@
 #import "SlideParentVC.h"
 
 @interface TabViewController_1 ()
-
+{
+    CKSlideMenu *slideMenu;   // 菜单控件
+    NSArray *titles;  // 菜单标题
+    UIButton *selMenuBtn;  // 选择的菜单按钮
+    
+    
+    UIView *background;  //弹框背景
+}
 @end
 
 @implementation TabViewController_1
@@ -89,7 +96,7 @@
     // 滚动菜单
     iTopY += viewSearch.height ;
     //NSArray *titles = @[@"推荐",@"母婴",@"洗护",@"食品",@"医疗",@"粉丝",@"阿萨德",@"爱迪生",@"暗示",@"说的"];
-    NSArray *titles = @[@"推荐",@"母婴",@"洗护",@"食品",@"医疗",@"医疗1",@"医疗2"];
+    titles = @[@"推荐",@"母婴",@"洗护",@"食品",@"医疗",@"医疗1",@"医疗2"];
     NSMutableArray *arr = [NSMutableArray array];
     for (int i = 0; i <titles.count ; i++) {
         SlideParentVC *VC = [[SlideParentVC alloc] init];
@@ -102,7 +109,7 @@
 
     
 
-    CKSlideMenu *slideMenu = [[CKSlideMenu alloc]initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH-30, 40) titles:titles controllers:arr];
+    slideMenu = [[CKSlideMenu alloc]initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH-30, 40) titles:titles controllers:arr];
     //slideMenu.backgroundColor = [UIColor yellowColor];
     if ([titles count] <= 5)
      {
@@ -115,12 +122,14 @@
     
     UIButton *btnDonw = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-40, iTopY, 40, 40)];
     [self.view addSubview:btnDonw];
+    [btnDonw addTarget:self action:@selector(popMenu) forControlEvents:UIControlEventTouchUpInside];
     //btnDonw.backgroundColor = [UIColor blueColor];
     //[btnAll setBackgroundImage:[UIImage imageNamed:@"com_down"] forState:UIControlStateNormal];
    
     UIImageView *imgDown = [[UIImageView alloc] initWithFrame:CGRectMake(18, 18, 12, 7)];
     [btnDonw addSubview:imgDown];
     imgDown.image = [UIImage imageNamed:@"com_down"];
+    
     
     
     
@@ -136,7 +145,102 @@
 
 -(void) popMenu
 {
+    //创建一个黑色背景
+    //初始化一个用来当做背景的View
+    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    background = bgView;
+    //bgView.backgroundColor =  [[UIColor blackColor]colorWithAlphaComponent:0.6];//[UIColor clearColor];
+    [self.view addSubview:bgView];
     
+    int iTopY = slideMenu.top;
+    UIView *viewTail = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, SCREEN_HEIGHT - iTopY)];
+    [bgView addSubview:viewTail];
+    viewTail.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.6];
+    
+    
+    UIView *viewMenu = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 200)];
+    [bgView addSubview:viewMenu];
+    viewMenu.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH, 40)];
+    [viewMenu addSubview:labelTitle];
+    labelTitle.font = [UIFont systemFontOfSize:15];
+    labelTitle.textColor = [ResourceManager color_1];
+    labelTitle.text = @"全部分类";
+    
+    
+    UIButton  *btnUp = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 40, 0, 40, 40)];
+    [viewMenu addSubview:btnUp];
+    btnUp.userInteractionEnabled = NO;
+    
+    UIImageView *imgUp = [[UIImageView alloc] initWithFrame:CGRectMake(18, 18, 12, 7)];
+    [btnUp addSubview:imgUp];
+    imgUp.image = [UIImage imageNamed:@"com_up"];
+    
+    
+    int iBtnBetween = 15;
+    int iBtnWdith = (SCREEN_WIDTH - 5 * iBtnBetween)/4;
+    int iBtnHeight = 25;
+    int iBtnLeftX = iBtnBetween;
+    int iBtnTopY = 40 + 5;
+    int iTitleCount = (int)[titles count];
+    
+    for (int i = 0; i < iTitleCount; i++)
+     {
+        UIButton *btnTemp = [[UIButton alloc] initWithFrame:CGRectMake(iBtnLeftX, iBtnTopY, iBtnWdith, iBtnHeight)];
+        [viewMenu addSubview:btnTemp];
+        //btnTemp.backgroundColor = [UIColor yellowColor];
+        [btnTemp setTitle:titles[i] forState:UIControlStateNormal];
+        [btnTemp setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
+        btnTemp.titleLabel.font = [UIFont systemFontOfSize:12];
+        btnTemp.layer.borderColor = [ResourceManager lightGrayColor].CGColor;
+        btnTemp.layer.borderWidth = 1;
+        btnTemp.tag = i;
+        [btnTemp addTarget:self action:@selector(actionMenu:) forControlEvents:UIControlEventTouchUpInside];
+        
+        if (i == [slideMenu getScrollIndex])
+         {
+            selMenuBtn = btnTemp;
+            selMenuBtn.layer.borderColor = [ResourceManager mainColor].CGColor;
+            [selMenuBtn setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
+         }
+        
+        if ((i + 1 )% 4 == 0)
+         {
+            iBtnTopY += iBtnHeight + iBtnBetween;
+            iBtnLeftX = iBtnBetween ;
+            
+         }
+        else
+         {
+            iBtnLeftX += iBtnBetween + iBtnWdith;
+         }
+     }
+    
+    if (iTitleCount > 0 &&
+        iTitleCount%4 != 0)
+     {
+        iBtnTopY += iBtnHeight + iBtnBetween;
+     }
+    viewMenu.height = iBtnTopY;
+    
+    
+    
+
+    
+    
+    
+    bgView.userInteractionEnabled = YES;
+    //添加点击手势（点击任意地方，退出全屏）
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeView)];
+    [bgView addGestureRecognizer:tapGesture];
+    
+    //[self shakeToShow:bgView];//放大过程中的动画
+}
+
+-(void) closeView
+{
+    [background removeFromSuperview];
 }
 
 #pragma mark ---  action
@@ -218,6 +322,25 @@
 }
 
 
+-(void) actionMenu:(UIButton*) sender
+{
+    int iTag = (int)sender.tag;
+    
+    if (selMenuBtn)
+     {
+        //selMenuBtn = btnTemp;
+        selMenuBtn.layer.borderColor = [ResourceManager lightGrayColor].CGColor;
+        [selMenuBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
+     }
+    
+    selMenuBtn = sender;
+    selMenuBtn.layer.borderColor = [ResourceManager mainColor].CGColor;
+    [selMenuBtn setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
+    
+    [slideMenu scrollToIndex:iTag];
+    
+    [self closeView];
+}
 
 
 

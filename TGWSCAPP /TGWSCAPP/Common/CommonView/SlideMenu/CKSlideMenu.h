@@ -90,6 +90,16 @@ typedef NS_ENUM(NSInteger,SlideMenuIndicatorStyle){
  */
 - (void)scrollToIndex:(NSInteger)toIndex;
 
+
+/**
+滚动的对应位置
+ 
+ */
+- (int ) getScrollIndex;
+
+
+
+
 @end
 
 

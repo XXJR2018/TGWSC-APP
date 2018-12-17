@@ -418,6 +418,12 @@ static NSString *textMaxX_Key;
     }
 }
 
+
+- (int ) getScrollIndex
+{
+    return  (int)_currentIndex;
+}
+
 - (void)updateIndicatorStyle:(CGFloat)relativeLocation
 {
     if (self.indicatorView.hidden) {

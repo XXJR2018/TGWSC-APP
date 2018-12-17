@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+// 首页页面相关接口
+// 获取首页菜单
+static NSString *const kURLqueryCateList = @"appMall/category/queryCateList";
+// 获取首页子Tab中各个页面的元素
+static NSString *const kURLqueryShowTypeList = @"appMall//home/queryShowTypeList";
+
+
 
 // 发送短信接口一（拿到SmsTokenID）
 static NSString *const kDDGgetSmsToken = @"tgw/smsAction/getSmsToken/custLogin";

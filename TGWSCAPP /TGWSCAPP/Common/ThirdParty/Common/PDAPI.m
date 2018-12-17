@@ -102,8 +102,9 @@ static NSString *const kDDGUserWXLoginAPIString= @"fx/cust/app/wxLogin";
 // 跳转微信端h5路径
 + (NSString *)WXSysRouteAPI{
 #if DEBUG
-    return @"https://www.tiangouwo.com/";
-//    return @"http://192.168.10.182:3000/";
+//    return @"https://www.tiangouwo.com/";
+//    return @"http://192.168.10.182:3000/";   // 测试环境
+    return  @"http://192.168.10.130:9999/";     // 邹全洪
 #else
     return kBaseURL;
 #endif

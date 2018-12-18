@@ -12,8 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SlideModel : NSObject
 
-@property (nonatomic,assign) int   iSlideID;
-@property (nonatomic,copy) NSString *strSlideName;
+@property (nonatomic,assign) int   iSlideID; // 本地的序号，和后台无关
+@property (nonatomic,copy) NSString *cateName;
+@property (nonatomic,copy) NSString *cateCode;
+
 
 
 @end

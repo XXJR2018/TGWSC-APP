@@ -48,12 +48,14 @@
     [self.view addSubview:viewTail];
     viewTail.backgroundColor = [UIColor yellowColor];
     viewTail.textColor = [UIColor blueColor];
-    viewTail.text = _slideModel.strSlideName;
+    viewTail.text = _slideModel.cateName;
     
     
     // 真正加载子页面
-    if (_slideModel.iSlideID %2 == 0)
+    if (_slideModel.iSlideID == -1 ||
+        _slideModel.iSlideID %2 == 0)
      {
+        // 加载推荐页面
         SlideSub1 *VC = [[SlideSub1 alloc] init];
         VC.view.frame = self.view.bounds;
         VC.slideModel = [[SlideModel alloc] init];

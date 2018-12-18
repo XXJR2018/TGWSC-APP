@@ -14,8 +14,9 @@
 
 @interface TabViewController_1 ()
 {
+    int iMenuTopY;   // 菜单控件的顶点坐标
     CKSlideMenu *slideMenu;   // 菜单控件
-    NSArray *titles;  // 菜单标题
+    NSMutableArray *titles;  // 菜单标题
     UIButton *selMenuBtn;  // 选择的菜单按钮
     
     
@@ -39,10 +40,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self initData];
     
     [self layoutUI];
 }
 
+-(void)initData
+{
+    titles = [[NSMutableArray alloc] init];
+}
 
 #pragma mark --- 布局UI
 -(void)layoutUI{
@@ -98,19 +105,78 @@
     
     // 滚动菜单
     iTopY += viewSearch.height ;
-    titles = @[@"推荐",@"母婴",@"洗护",@"食品",@"医疗"];
+    iMenuTopY = iTopY;
+    //[self layoutMenu];
+    
+   
+    
+    
+    
+    
+    
+}
+
+
+-(void) layoutMenu:(NSArray *) arrMenu
+{
+
+    int iTopY = iMenuTopY;
+    
+    int iCount = (int)[arrMenu count];
     NSMutableArray *arr = [NSMutableArray array];
-    for (int i = 0; i <titles.count ; i++) {
-        SlideParentVC *VC = [[SlideParentVC alloc] init];
-        VC.slideModel = [[SlideModel alloc] init];
-        VC.slideModel.iSlideID = i;
-        VC.slideModel.strSlideName = titles[i];
-        [arr addObject:VC];
-    }
     
-
+    // 手动加入推荐菜单 和 推荐页面
+    [titles addObject:@"推荐"];
+    SlideParentVC *VC = [[SlideParentVC alloc] init];
+    VC.slideModel = [[SlideModel alloc] init];
+    VC.slideModel.iSlideID = -1;
+    VC.slideModel.cateName = @"推荐";
+    VC.slideModel.cateCode = @"000000";
+    [arr addObject:VC];
     
+    for (int i = 0; i <iCount ; i++)
+     {
 
+        NSDictionary *dicObject = arrMenu[i];
+        NSString *cateName = dicObject[@"cateName"];
+        NSString *cateCode = dicObject[@"cateCode"];
+
+        if (cateCode &&
+            cateName)
+         {
+            SlideParentVC *VC = [[SlideParentVC alloc] init];
+            VC.slideModel = [[SlideModel alloc] init];
+            VC.slideModel.iSlideID = i;
+            VC.slideModel.cateName = cateName;
+            VC.slideModel.cateCode = cateCode;
+
+            [arr addObject:VC];
+            [titles addObject:cateName];
+         }
+     }
+////
+////    // 重置
+////    [slideMenu reloadTitles:titles controllers:arr atIndex: 0];
+//
+//    int iTopY = iMenuTopY;
+//    [titles addObject:@"推荐"];
+//    [titles addObject:@"母婴"];
+//    [titles addObject:@"洗护"];
+//    [titles addObject:@"食品"];
+//    [titles addObject:@"医疗"];
+//
+//    NSMutableArray *arr = [NSMutableArray array];
+//    for (int i = 0; i <titles.count ; i++) {
+//        SlideParentVC *VC = [[SlideParentVC alloc] init];
+//        VC.slideModel = [[SlideModel alloc] init];
+//        VC.slideModel.iSlideID = i;
+//        VC.slideModel.cateName = titles[i];
+//        [arr addObject:VC];
+//    }
+    
+    
+    
+    
     slideMenu = [[CKSlideMenu alloc]initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH-30, 40) titles:titles controllers:arr];
     //slideMenu.backgroundColor = [UIColor yellowColor];
     if ([titles count] <= 5)
@@ -127,15 +193,10 @@
     [btnDonw addTarget:self action:@selector(popMenu) forControlEvents:UIControlEventTouchUpInside];
     //btnDonw.backgroundColor = [UIColor blueColor];
     //[btnAll setBackgroundImage:[UIImage imageNamed:@"com_down"] forState:UIControlStateNormal];
-   
+    
     UIImageView *imgDown = [[UIImageView alloc] initWithFrame:CGRectMake(18, 18, 12, 7)];
     [btnDonw addSubview:imgDown];
     imgDown.image = [UIImage imageNamed:@"com_down"];
-    
-    
-    
-    
-    
 }
 
 
@@ -350,7 +411,7 @@
 -(void) getMenuFromWeb
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBaseUrlString],kURLqueryCateList];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLqueryCateList];
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
@@ -368,8 +429,22 @@
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     if (operation.tag == 1000)
      {
-        NSDictionary *dic = operation.jsonResult.attr;
-        
+        NSArray *arrTitles   = operation.jsonResult.rows;
+        if (arrTitles&&
+            [arrTitles count] > 0)
+         {
+            
+            
+            int iCount = (int)[arrTitles count];
+            if (iCount > 0)
+             {
+                [titles removeAllObjects];
+                
+                [self layoutMenu:arrTitles];
+                
+                
+               }
+         }
      }
     else if (operation.tag == 1001) {
         

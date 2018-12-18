@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+/*!
+ @brief 首页头部菜单滚动通知
+ */
+FOUNDATION_EXPORT  NSString *const   SliedScrollNotification;
+
 typedef NS_ENUM(NSInteger,SlideMenuTitleStyle){
     SlideMenuTitleStyleNormal,           //默认 无效果
     SlideMenuTitleStyleGradient,         //颜色渐变

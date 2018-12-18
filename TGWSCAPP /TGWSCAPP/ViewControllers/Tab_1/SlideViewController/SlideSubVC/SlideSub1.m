@@ -7,6 +7,7 @@
 //
 
 #import "SlideSub1.h"
+#import "CKSlideMenu.h"
 #import "SDCycleScrollView.h"
 #import "ShopListView.h"
 #import "AdvertingShopListView.h"
@@ -25,11 +26,20 @@
 
 @implementation SlideSub1
 
+#pragma mark --- lifecylce
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self getUIformWeb];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifScroll) name:SliedScrollNotification object:nil];
     //NSLog(@"SlideSub1  frame:%f", self.view.frame.size.height);
+    
     
     // 首页只有一个sub时， 从此函数布局UI
     self.view.height = SCREEN_HEIGHT - 70  - TabbarHeight;
@@ -267,7 +277,7 @@
 // AdvertingShopListViewDelegate
 -(void)didClickButtonAtObejct:(ShopModel*)clickObj
 {
-    if (clickObj)
+    if ([clickObj  isKindOfClass:[ShopModel class]])
      {
         int iShopID = clickObj.iShopID;
         // 点击更多按钮
@@ -282,12 +292,12 @@
         
         
         //开始登录
-            //if (![[DDGAccountManager sharedManager] isLoggedIn])
-             {
-                [DDGUserInfoEngine engine].parentViewController = self;
-                [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
-                return;
-             }
+        if (![[DDGAccountManager sharedManager] isLoggedIn])
+         {
+            [DDGUserInfoEngine engine].parentViewController = self;
+            [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+            return;
+         }
         
      }
 }
@@ -297,7 +307,7 @@
 // ShopListViewDelegate
 -(void)didShopClickButtonAtObejct:(ShopModel*)clickObj
 {
-    if (clickObj)
+    if ([clickObj  isKindOfClass:[ShopModel class]])
      {
         int iShopID = clickObj.iShopID;
         // 点击更多按钮
@@ -312,6 +322,12 @@
          }
         
      }
+}
+
+#pragma mark  ---  Notification
+-(void) notifScroll
+{
+    [self getUIformWeb];
 }
 
 

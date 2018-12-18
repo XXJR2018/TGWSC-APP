@@ -9,6 +9,11 @@
 #import "CKSlideMenu.h"
 #import <objc/runtime.h>
 
+/*!
+ @brief 首页头部菜单滚动通知
+ */
+NSString *const  SliedScrollNotification = @"SliedScrollNotification";
+
 // 在运行时关联的关键方法
 static NSString *textWidth_Key;
 static NSString *textMinX_Key;
@@ -334,6 +339,9 @@ static NSString *textMaxX_Key;
         return;
     }
     
+    // 滚动改变菜单的view， 发送通知
+    [[NSNotificationCenter defaultCenter] postNotificationName:SliedScrollNotification object:nil];
+    
     UIButton *fromItem = _itemArr[_currentIndex];
     UIButton *toItem = _itemArr[toIndex];
     
@@ -598,6 +606,10 @@ static NSString *textMaxX_Key;
     if (scrollView == self.bodyScrollView) {
         _currentIndex = scrollView.contentOffset.x / scrollView.frame.size.width;
         [self resetTabScrollViewFrame];
+        
+        
+        // 滚动改变菜单的view， 发送通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:SliedScrollNotification object:nil];
     }
 }
 

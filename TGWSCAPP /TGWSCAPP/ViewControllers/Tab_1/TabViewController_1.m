@@ -15,6 +15,11 @@
 
 @interface TabViewController_1 ()
 {
+    // 子viewController
+    SlideSub1 *vcSub1 ;  // 首页
+    NSMutableArray  *arrSubViewController;
+    
+    
     int iMenuTopY;   // 菜单控件的顶点坐标
     CKSlideMenu *slideMenu;   // 菜单控件
     NSMutableArray *titles;  // 菜单标题
@@ -49,6 +54,7 @@
 -(void)initData
 {
     titles = [[NSMutableArray alloc] init];
+    arrSubViewController = [[NSMutableArray alloc] init];
 }
 
 #pragma mark --- 布局UI
@@ -60,7 +66,7 @@
     [self layoutHead];
     
     // 请求菜单数据  （屏蔽掉菜单分类）
-    //[self getMenuFromWeb];
+    [self getMenuFromWeb];
     
     // 布局中间
     
@@ -107,10 +113,8 @@
     // 滚动菜单
     iTopY += viewSearch.height ;
     iMenuTopY = iTopY;
-    //[self layoutMenu];
     
-   
-    [self layoutMain];
+    //[self layoutMain];
     
     
     
@@ -131,13 +135,15 @@
 //    [self addChildViewController:VC];
     
     // 加载推荐页面
-    SlideSub1 *VC = [[SlideSub1 alloc] init];
-    [self.view addSubview:VC.view];
-    VC.view.frame = self.view.bounds;
-    VC.view.top = iMenuTopY;
-    VC.view.height = SCREEN_HEIGHT - iMenuTopY - TabbarHeight-100;
-    VC.slideModel = [[SlideModel alloc] init];
-    VC.view.backgroundColor = [UIColor yellowColor];
+    vcSub1 = [[SlideSub1 alloc] init];
+    [self.view addSubview:vcSub1.view];
+    [self addChildViewController:vcSub1];  // 加了这句，才能让子ViewController响应生命周期函数
+    
+    vcSub1.view.frame = self.view.bounds;
+    vcSub1.view.top = iMenuTopY;
+    vcSub1.view.height = SCREEN_HEIGHT - iMenuTopY - TabbarHeight-100;
+    vcSub1.slideModel = [[SlideModel alloc] init];
+    vcSub1.view.backgroundColor = [UIColor yellowColor];
     //VC.slideModel = _slideModel;
     
 
@@ -152,6 +158,10 @@
     int iCount = (int)[arrMenu count];
     NSMutableArray *arr = [NSMutableArray array];
     
+    
+    [titles removeAllObjects];
+    [arrSubViewController removeAllObjects];
+    
     // 手动加入推荐菜单 和 推荐页面
     [titles addObject:@"推荐"];
     SlideParentVC *VC = [[SlideParentVC alloc] init];
@@ -160,6 +170,7 @@
     VC.slideModel.cateName = @"推荐";
     VC.slideModel.cateCode = @"000000";
     [arr addObject:VC];
+    [arrSubViewController addObject:VC];
     
     for (int i = 0; i <iCount ; i++)
      {
@@ -177,8 +188,11 @@
             VC.slideModel.cateName = cateName;
             VC.slideModel.cateCode = cateCode;
 
-            [arr addObject:VC];
+            
             [titles addObject:cateName];
+            
+            [arr addObject:VC];
+            [arrSubViewController addObject:VC];
          }
      }
 ////
@@ -213,6 +227,7 @@
     slideMenu.bodyFrame = CGRectMake(0,  iTopY + 40, self.view.frame.size.width, SCREEN_HEIGHT - 40 - iTopY- TabbarHeight);
     [slideMenu scrollToIndex:0];
     [self.view addSubview:slideMenu];
+    //[self addChildViewController:slideMenu];
     
     
     UIButton *btnDonw = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-40, iTopY, 40, 40)];
@@ -430,6 +445,13 @@
     [slideMenu scrollToIndex:iTag];
     
     [self closeView];
+    
+    
+    for (int i = 0; i < [arrSubViewController count]; i++)
+     {
+        UIViewController *VC = arrSubViewController[i];
+        [VC viewWillAppear:YES];
+     }
 }
 
 

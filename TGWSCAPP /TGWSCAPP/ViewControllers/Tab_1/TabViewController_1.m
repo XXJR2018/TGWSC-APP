@@ -52,6 +52,9 @@
     // 布局头部
     [self layoutHead];
     
+    // 请求菜单数据
+    [self getMenuFromWeb];
+    
     
 }
 
@@ -95,12 +98,11 @@
     
     // 滚动菜单
     iTopY += viewSearch.height ;
-    //NSArray *titles = @[@"推荐",@"母婴",@"洗护",@"食品",@"医疗",@"粉丝",@"阿萨德",@"爱迪生",@"暗示",@"说的"];
-    titles = @[@"推荐",@"母婴",@"洗护",@"食品",@"医疗",@"医疗1",@"医疗2"];
+    titles = @[@"推荐",@"母婴",@"洗护",@"食品",@"医疗"];
     NSMutableArray *arr = [NSMutableArray array];
     for (int i = 0; i <titles.count ; i++) {
         SlideParentVC *VC = [[SlideParentVC alloc] init];
-        VC.slideModel = [SlideModel new];
+        VC.slideModel = [[SlideModel alloc] init];
         VC.slideModel.iSlideID = i;
         VC.slideModel.strSlideName = titles[i];
         [arr addObject:VC];
@@ -343,6 +345,42 @@
 }
 
 
+
+#pragma mark ---  网络通讯
+-(void) getMenuFromWeb
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBaseUrlString],kURLqueryCateList];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1000;
+    [operation start];
+}
+
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation
+{
+    [self.view endEditing:YES];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    if (operation.tag == 1000)
+     {
+        NSDictionary *dic = operation.jsonResult.attr;
+        
+     }
+    else if (operation.tag == 1001) {
+        
+        
+    }
+}
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    //[MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
+}
 
 
 

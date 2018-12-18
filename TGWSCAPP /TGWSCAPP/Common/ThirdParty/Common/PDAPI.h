@@ -65,7 +65,14 @@ static NSString *const kDDGGetNologinKjlogAPIString = @"xxcust/smsAction/newNolo
  @brief     服务器地址
  @return    base url string
  */
-+ (NSString *)getBaseUrlString;  
++ (NSString *)getBaseUrlString;
+
+
+/*!
+ @brief     服务器地址 （业务）
+ @return    base url string
+ */
++ (NSString *)getBusiUrlString;
 
 /*!
  @brief     跳转h5路径

@@ -123,6 +123,19 @@ static NSString *const kDDGUserWXLoginAPIString= @"fx/cust/app/wxLogin";
 #endif
 }
 
++ (NSString *)getBusiUrlString
+{
+#if DEBUG
+    //    return @"https://www.tiangouwo.com/";     //生产环境
+    //    return @"http://192.168.10.182/";        //测试环境
+    //    return @"http://192.168.10.129:82/";        //刘利伟服务器
+    return  @"http://192.168.10.130:9999/";     // 邹全洪
+    
+#else
+    return kBaseURL;
+#endif
+}
+
 /*!
  @brief     获取完整api的url
  @param     urlString url的名称

@@ -400,6 +400,9 @@
      }
     else if (operation.tag == 1000) {
         
+        //登陆成功,发送通知更新用户信息
+        [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
+        
         //跳转首页
         [self.navigationController popToRootViewControllerAnimated:YES];
         [[DDGUserInfoEngine engine] finishDoBlock];

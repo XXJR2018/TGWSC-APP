@@ -34,7 +34,7 @@ static NSString *const kDDGUserBorrowVersionAPIString= @"fx/cust/app/upgradeInfo
 static NSString *const kDDGGetSendFileAPIString = @"busi/uploadAction/uploadFile";
 
 // 查询用户信息
-static NSString *const kDDGGetUserBaseInfoAPIString = @"fx/account/info/getCustInfo";
+static NSString *const kDDGGetUserBaseInfoAPIString = @"appMall/account/cust/info/getCustInfo";
 
 
 //征信查询

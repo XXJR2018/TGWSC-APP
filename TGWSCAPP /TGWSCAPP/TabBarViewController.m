@@ -118,6 +118,9 @@
         // 首页切换到别的页面的通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchTab:) name:DDGSwitchTabNotification object:nil];
         
+        // token过期通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenOutOfData:) name:DDGUserTokenOutOfDataNotification object:nil];
+        
        
     }
     
@@ -224,6 +227,22 @@
     
     [DDGUserInfoEngine engine].parentViewController = self;
     [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+}
+
+
+-(void)tokenOutOfData:(NSNotification *)notification{
+    // 注销推送
+    //[APService setAlias:@"" callbackSelector:nil object:nil];
+    
+    [[DDGAccountManager sharedManager] deleteUserData];
+    
+    [self loginSucess:nil];
+    
+    [DDGUserInfoEngine engine].parentViewController = self;
+    [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+    if ([[DDGAccountManager sharedManager] isLoggedIn]) {
+        [MBProgressHUD showErrorWithStatus:@"登录超时，请重新登录" toView:[DDGUserInfoEngine engine].loginViewController.view];
+    }
 }
 
 /*
@@ -413,6 +432,8 @@
         }
     }
     [CommonInfo setUserInfo:dic];
+    
+    
     //用户信息保存成功，发送更改显示用户信息
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NotificationChangeUserInfo" object:nil];
 }

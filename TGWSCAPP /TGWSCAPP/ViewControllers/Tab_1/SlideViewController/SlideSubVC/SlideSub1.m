@@ -282,7 +282,7 @@
         
         
         //开始登录
-            if (![[DDGAccountManager sharedManager] isLoggedIn])
+            //if (![[DDGAccountManager sharedManager] isLoggedIn])
              {
                 [DDGUserInfoEngine engine].parentViewController = self;
                 [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];

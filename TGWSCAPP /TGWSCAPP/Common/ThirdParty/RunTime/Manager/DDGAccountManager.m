@@ -90,6 +90,8 @@ static DDGAccountManager *_sharedManager = nil;
     [NSKeyedArchiver archiveRootObject:nil toFile:AccountFile];
     [self deleteMemoryData];
     
+    [CommonInfo setUserInfo:nil];
+    
 }
 
 - (void)deleteMemoryData{

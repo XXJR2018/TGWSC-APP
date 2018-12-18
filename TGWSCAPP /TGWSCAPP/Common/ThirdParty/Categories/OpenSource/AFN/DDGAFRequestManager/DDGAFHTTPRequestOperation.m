@@ -20,9 +20,9 @@ NSString *RSAPublickKey =
 
 -(DDGAFHTTPRequestOperation *)initWithURL:(NSString *)url parameters:(id)parameters HTTPCookies:(NSArray *)cookies success:(void (^)(DDGAFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(DDGAFHTTPRequestOperation *operation, NSError *error))failure{
     NSMutableDictionary *parame = [[NSMutableDictionary alloc]initWithDictionary:parameters];
-//    if ([CommonInfo signId] && [CommonInfo signId].length > 1) {
-//        parame[@"signId"] = [CommonInfo signId];
-//    }
+    if ([CommonInfo signId] && [CommonInfo signId].length > 1) {
+        parame[@"signId"] = [CommonInfo signId];
+    }
     if (!parame[kUUID] || [NSString stringWithFormat:@"%@",parame[kUUID]].length == 0 || [parame[kUUID] intValue] == 0) {
         parame[kUUID] = [DDGSetting sharedSettings].UUID_MD5;
     }

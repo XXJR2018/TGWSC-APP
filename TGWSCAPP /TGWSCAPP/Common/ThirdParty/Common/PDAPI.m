@@ -103,8 +103,8 @@ static NSString *const kDDGUserWXLoginAPIString= @"fx/cust/app/wxLogin";
 + (NSString *)WXSysRouteAPI{
 #if DEBUG
 //    return @"https://www.tiangouwo.com/";
-//    return @"http://192.168.10.182:3000/";   // 测试环境
-    return  @"http://192.168.10.130:9999/";     // 邹全洪
+    return @"http://192.168.10.182:3000/";   // 测试环境
+    
 #else
     return kBaseURL;
 #endif
@@ -114,8 +114,9 @@ static NSString *const kDDGUserWXLoginAPIString= @"fx/cust/app/wxLogin";
 + (NSString *)getBaseUrlString{
 #if DEBUG
 //    return @"https://www.tiangouwo.com/";     //生产环境
-    return @"http://192.168.10.182/";        //测试环境
+//    return @"http://192.168.10.182/";        //测试环境
 //    return @"http://192.168.10.129:82/";        //刘利伟服务器
+    return  @"http://192.168.10.130:9999/";     // 邹全洪
     
 #else
     return kBaseURL;

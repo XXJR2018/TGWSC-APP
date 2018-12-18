@@ -66,7 +66,7 @@
     [self layoutHead];
     
     // 请求菜单数据  （屏蔽掉菜单分类）
-    [self getMenuFromWeb];
+    //[self getMenuFromWeb];
     
     // 布局中间
     
@@ -114,7 +114,7 @@
     iTopY += viewSearch.height ;
     iMenuTopY = iTopY;
     
-    //[self layoutMain];
+    [self layoutMain];
     
     
     
@@ -156,8 +156,6 @@
     int iTopY = iMenuTopY;
     
     int iCount = (int)[arrMenu count];
-    NSMutableArray *arr = [NSMutableArray array];
-    
     
     [titles removeAllObjects];
     [arrSubViewController removeAllObjects];
@@ -169,7 +167,6 @@
     VC.slideModel.iSlideID = -1;
     VC.slideModel.cateName = @"推荐";
     VC.slideModel.cateCode = @"000000";
-    [arr addObject:VC];
     [arrSubViewController addObject:VC];
     
     for (int i = 0; i <iCount ; i++)
@@ -190,8 +187,6 @@
 
             
             [titles addObject:cateName];
-            
-            [arr addObject:VC];
             [arrSubViewController addObject:VC];
          }
      }
@@ -218,7 +213,7 @@
     
     
     
-    slideMenu = [[CKSlideMenu alloc]initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH-30, 40) titles:titles controllers:arr];
+    slideMenu = [[CKSlideMenu alloc]initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH-30, 40) titles:titles controllers:arrSubViewController];
     //slideMenu.backgroundColor = [UIColor yellowColor];
     if ([titles count] <= 5)
      {

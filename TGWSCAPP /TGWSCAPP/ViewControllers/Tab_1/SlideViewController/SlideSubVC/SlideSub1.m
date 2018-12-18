@@ -155,6 +155,103 @@
 }
 
 
+
+-(void) layoutUIByData:(NSDictionary*) dicUI
+{
+    NSLog(@"SlideSub1  frame:%f", self.view.frame.size.height);
+    
+    scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0.f, 0.f, SCREEN_WIDTH, self.view.frame.size.height)];
+    [self.view addSubview:scView];
+    scView.contentSize = CGSizeMake(0, 1000);
+    scView.pagingEnabled = NO;
+    scView.bounces = NO;
+    scView.showsVerticalScrollIndicator = FALSE;
+    scView.showsHorizontalScrollIndicator = FALSE;
+    scView.backgroundColor = [UIColor whiteColor];//[ResourceManager viewBackgroundColor];
+    
+    // banner （商品）
+    int iTopY = 0;
+    int iLeftX = 0;
+    if (!_scrollView){
+        _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH, BANNER_HEIGHT) imageNamesGroup:@[@"Tab1_Banner",@"Tab1_Banner"]];
+        [scView addSubview:_scrollView];
+    }
+    _bannerTitleArr = [NSMutableArray arrayWithArray:@[@"商品1",@"商品2"]];
+    _scrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    _scrollView.delegate = self;
+    _scrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
+    
+//    // 底部商品说明
+//    iTopY += _scrollView.height;
+//    UIImage *imgSPSM = [UIImage imageNamed:@"Tab1_SPSM"];
+//    float fImgHeight = imgSPSM.size.height;
+//    NSLog(@"imgTest.size.height: %f, imgTest.size.width: %f" ,imgSPSM.size.height,imgSPSM.size.width);
+//    
+//    UIImageView *imgViewSPSM = [[UIImageView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, fImgHeight *ScaleSize)];
+//    [scView addSubview:imgViewSPSM];
+//    imgViewSPSM.image = imgSPSM;
+//    
+//    
+//    // 推荐商品
+//    iTopY += imgViewSPSM.height;
+//    //NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP"];
+//    NSMutableArray  *tempArr = [[NSMutableArray alloc] init];
+//    for (int i = 0;  i < 6; i++)
+//     {
+//        ShopModel *sModel = [[ShopModel alloc] init];
+//        sModel.iShopID = i;
+//        sModel.strShopImgUrl = @"Tab1_TJSP";
+//        [tempArr addObject:sModel];
+//     }
+//    //NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP"];
+//    AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"推荐商品" itemArray:tempArr origin_Y:iTopY];
+//    [scView addSubview:adListView];
+//    adListView.delegate = self;
+//    
+//    
+//    // 热销商品
+//    NSMutableArray  *tempArr1 = [[NSMutableArray alloc] init];
+//    for (int i = 0;  i < 6; i++)
+//     {
+//        ShopModel *sModel = [[ShopModel alloc] init];
+//        sModel.iShopID = i;
+//        sModel.strShopImgUrl = @"Tab1_RMSP";
+//        sModel.strShopName = @"凯尔德乐婴儿";
+//        sModel.strPrice = @"¥ 13.90";
+//        [tempArr1 addObject:sModel];
+//     }
+//    iTopY += adListView.height;
+//    ShopListView  *shopListView1 = [[ShopListView alloc] initWithTitle:@"热销商品" itemArray:tempArr1  columnCount:3  origin_Y:iTopY];
+//    [scView addSubview:shopListView1];
+//    shopListView1.delegate = self;
+//    
+//    
+//    // 热销商品
+//    NSMutableArray  *tempArr2 = [[NSMutableArray alloc] init];
+//    for (int i = 0;  i < 6; i++)
+//     {
+//        ShopModel *sModel = [[ShopModel alloc] init];
+//        sModel.iShopID = i;
+//        sModel.strShopImgUrl = @"Tab1_RMSP";
+//        sModel.strShopName = @"凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿";
+//        sModel.strPrice = @"¥ 13.90";
+//        [tempArr2 addObject:sModel];
+//     }
+//    iTopY += shopListView1.height;
+//    ShopListView  *shopListView2 = [[ShopListView alloc] initWithTitle:@"新品发售" itemArray:tempArr2  columnCount:3  origin_Y:iTopY];
+//    [scView addSubview:shopListView2];
+//    shopListView2.delegate = self;
+//    
+//    
+//    
+//    iTopY += shopListView2.height;
+//    scView.contentSize = CGSizeMake(0, iTopY);
+    
+    
+    
+}
+
+
 /**
  *  banner 请求完成之后做布局
  */

@@ -303,8 +303,7 @@
     params[@"telephone"] = fieldPhone.text;
     params[@"randomNo"] =  fieldCode.text;
     // 渠道来源
-    params[@"sourceType"] = @"tgwsc";
-    params[@"downloadSource"] = @"AppStore";
+    params[@"sourceType"] = @"AppStore";
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[PDAPI userKJLoginInfoAPI]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
@@ -372,8 +371,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params[@"unionid"] = unionid;
     //渠道来源
-    params[@"sourceType"] = @"tgwsc";
-    params[@"downloadSource"] = @"AppStore";
+    params[@"sourceType"] = @"AppStore";
     
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[PDAPI userWXLoginInfoAPI]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray

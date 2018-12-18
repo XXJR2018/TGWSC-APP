@@ -242,8 +242,7 @@
     params[@"randomNo"] = fieldCode.text;
     params[@"unionid"] = self.unionid;
     // 渠道来源
-    params[@"sourceType"] = @"tgwsc";
-    params[@"downloadSource"] = @"AppStore";
+    params[@"sourceType"] = @"AppStore";
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@fx/cust/app/wxLoginBind",[PDAPI getBaseUrlString]]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){

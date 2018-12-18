@@ -92,7 +92,7 @@ static NSString *const kDDGUserChangeLoginPwdAPIString= @"xxcust/account/info/ch
 #pragma mark 登陆
 
 // 验证码登陆
-static NSString *const kDDGUserKJLoginAPIString= @"fx/cust/app/kjlogin";
+static NSString *const kDDGUserKJLoginAPIString= @"appMall/login/kjLogin";
 
 // 微信登陆
 static NSString *const kDDGUserWXLoginAPIString= @"fx/cust/app/wxLogin";
@@ -115,8 +115,9 @@ static NSString *const kDDGUserWXLoginAPIString= @"fx/cust/app/wxLogin";
 #if DEBUG
 //    return @"https://www.tiangouwo.com/";     //生产环境
 //    return @"http://192.168.10.182/";        //测试环境
+    return  @"http://192.168.10.132:9999/";        //方然青服务器
 //    return @"http://192.168.10.129:82/";        //刘利伟服务器
-    return  @"http://192.168.10.130:9999/";     // 邹全洪
+//    return  @"http://192.168.10.130:9999/";     // 邹全洪
     
 #else
     return kBaseURL;

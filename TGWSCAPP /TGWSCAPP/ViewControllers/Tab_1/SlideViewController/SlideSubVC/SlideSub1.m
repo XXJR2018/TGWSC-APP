@@ -30,6 +30,11 @@
     // Do any additional setup after loading the view.
     
     //NSLog(@"SlideSub1  frame:%f", self.view.frame.size.height);
+    
+    // 首页只有一个sub时， 从此函数布局UI
+    self.view.height = SCREEN_HEIGHT - 70  - TabbarHeight;
+    
+    [self layoutUI];
 }
 
 
@@ -37,7 +42,10 @@
 // view 已经布局其 Subviews
 - (void)viewDidLayoutSubviews
 {
-    [self layoutUI];
+    NSLog(@"SlideSub1 viewDidLayoutSubviews");
+    //[self getUIformWeb];
+    
+    //[self layoutUI];
 }
 
 
@@ -174,62 +182,32 @@
 
 
 #pragma mark --- 网络通讯
--(void)fetchBanner{
-    
-    
+-(void)getUIformWeb
+{
     //NSString *strUrl = [PDAPI getBannerAPI];
-    NSString *strUrl = @"https://newapp.xxjr.com/xxcust/comm/queryTheBanner";
-    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLqueryShowTypeList];
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
-                                                                               parameters:@{@"type":@(2)} HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
-                                                                                      
                                                                                       [self handleData:operation];
-                                                                                  }
-                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
-                                                                                      
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
                                                                                   }];
-    operation.tag = 1003;
+    operation.tag = 1000;
     [operation start];
 }
 
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     
-//    if (operation.tag == 1001)
-//     {
-//
-//        _arrayProduct = operation.jsonResult.rows;
-//        NSLog(@"_arrayProduct:%@", _arrayProduct);
-//
-//        [self setFrameAll];
-//
-//        [_produtTableView reloadData];
-//
-//
-//     }
-//    if (operation.tag == 1002)
-//     {
-//
-//
-//        NSArray *arr = operation.jsonResult.rows;
-//        NSLog(@"arr:%@", arr);
-//        [self setFKXX:arr];
-//
-//     }
-    
-    if (operation.tag == 1003)
+    if (operation.tag == 1000)
      {
-        NSArray *arr = [operation.jsonResult.attr objectForKey:@"bannerList"];
-        NSLog(@"arr:%@", arr);
-        // banner图返回数目大于等于2，才用后台的设置
-        
 
-//        if ([arr count] >=2)
-//         {
-//
-//            [self layoutScrollViewAfter:arr];
-//         }
+
      }
+
+    
+
 }
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
@@ -302,6 +280,15 @@
             NSLog(@"ShopID:%d", iShopID);
          }
         
+        
+        //开始登录
+            if (![[DDGAccountManager sharedManager] isLoggedIn])
+             {
+                [DDGUserInfoEngine engine].parentViewController = self;
+                [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+                return;
+             }
+        
      }
 }
 
@@ -326,6 +313,13 @@
         
      }
 }
+
+
+
+
+
+
+
 
 
 @end

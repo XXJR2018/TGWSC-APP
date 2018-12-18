@@ -111,18 +111,7 @@ static DDGAccountManager *_sharedManager = nil;
 }
 
 - (BOOL)isLoggedIn{
-    if ([DDGSetting sharedSettings].signId && [DDGSetting sharedSettings].signId.length > 1) {
-        NSString *singIdStr = [NSString stringWithFormat:@"%@",[DDGSetting sharedSettings].signId];
-        if([singIdStr rangeOfString:@"noApp"].location !=NSNotFound ||
-           [singIdStr rangeOfString:@"noWx"].location !=NSNotFound)
-         {
-            return NO;
-         }else{
-             return YES;
-         }
-        return YES;
-    }
-    return NO;
+    return [CommonInfo isLoggedIn];
 }
 
 -(BOOL)isInfoFinished{

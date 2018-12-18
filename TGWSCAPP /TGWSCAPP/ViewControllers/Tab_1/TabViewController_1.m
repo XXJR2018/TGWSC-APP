@@ -11,6 +11,7 @@
 #import "HistorySearchVC.h"
 #import "CKSlideMenu.h"
 #import "SlideParentVC.h"
+#import "SlideSub1.h"
 
 @interface TabViewController_1 ()
 {
@@ -18,7 +19,6 @@
     CKSlideMenu *slideMenu;   // 菜单控件
     NSMutableArray *titles;  // 菜单标题
     UIButton *selMenuBtn;  // 选择的菜单按钮
-    
     
     UIView *background;  //弹框背景
 }
@@ -59,9 +59,10 @@
     // 布局头部
     [self layoutHead];
     
-    // 请求菜单数据
-    [self getMenuFromWeb];
+    // 请求菜单数据  （屏蔽掉菜单分类）
+    //[self getMenuFromWeb];
     
+    // 布局中间
     
 }
 
@@ -109,11 +110,37 @@
     //[self layoutMenu];
     
    
+    [self layoutMain];
     
     
     
     
+}
+
+-(void) layoutMain
+{
+//    // 加载推荐页面
+//    SlideSub1 *VC = [[SlideSub1 alloc] init];
+//    VC.view.frame = CGRectMake(0, iMenuTopY, SCREEN_WIDTH, SCREEN_HEIGHT - iMenuTopY - TabbarHeight);
+//    VC.slideModel = [[SlideModel alloc] init];
+//    VC.view.backgroundColor = [UIColor yellowColor];
+//
+//
+//    //[self.view addSubview:VC.view];
+//
+//    [self addChildViewController:VC];
     
+    // 加载推荐页面
+    SlideSub1 *VC = [[SlideSub1 alloc] init];
+    [self.view addSubview:VC.view];
+    VC.view.frame = self.view.bounds;
+    VC.view.top = iMenuTopY;
+    VC.view.height = SCREEN_HEIGHT - iMenuTopY - TabbarHeight-100;
+    VC.slideModel = [[SlideModel alloc] init];
+    VC.view.backgroundColor = [UIColor yellowColor];
+    //VC.slideModel = _slideModel;
+    
+
 }
 
 

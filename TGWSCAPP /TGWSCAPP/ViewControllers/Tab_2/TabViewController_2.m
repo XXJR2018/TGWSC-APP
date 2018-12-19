@@ -21,13 +21,10 @@
     
     UITableView *_tableView;
     UICollectionView *_collectView;
-    UIView *_headerView;
-    
-    
-    
+
     NSMutableArray *_sortSecondTitleArr;
     NSInteger cellCount;   //当前的cell是第几个
-    BOOL ToRowSuccess;   //是否可以进行跳cell
+
 }
 @end
 
@@ -139,13 +136,13 @@
     _tableView.dataSource = self;
     _tableView.scrollEnabled = NO;
     [self.view addSubview:_tableView];
-    
+
     //初始化加载显示第0个cell
     cellCount = 0;
-    ToRowSuccess = YES;
+
 }
 
--(void)collectionViewUI:(NSInteger)section{
+-(void)collectionViewUI{
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.minimumLineSpacing = (SCREEN_WIDTH - 100 - 210)/6 * ScaleSize;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -154,6 +151,33 @@
     _collectView.backgroundColor = [UIColor whiteColor];
     _collectView.delegate = self;
     _collectView.dataSource = self;
+
+//    _collectView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        [self pullDown];
+//    }];
+    //设置特殊样式的下拉刷新控件
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullDown)];
+    // 设置菊花样式颜色
+    header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    // 设置提示文字颜色
+    header.stateLabel.textColor = [UIColor clearColor];
+    // 隐藏上次刷新时间
+    header.lastUpdatedTimeLabel.hidden = YES;
+    // 设置header
+    _collectView.mj_header = header;
+    
+//    _collectView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+//        [self SlideUp];
+//    }];
+    //设置特殊样式的上拉加载控件
+    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(SlideUp)];
+    // 设置菊花样式颜色
+    footer.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    // 设置提示文字颜色
+    footer.stateLabel.textColor = [UIColor clearColor];
+    // 设置footer
+    _collectView.mj_footer = footer;
+  
     //以xib方式注册cell
     [_collectView registerNib:[UINib nibWithNibName:@"ProductCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"ProductCell_ID"];
     //注册头视图，相当于段头
@@ -177,7 +201,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     _sortSecondTitleArr = self.dataArray[indexPath.row];
-    [self collectionViewUI:indexPath.section];
+    [self collectionViewUI];
     [cell.contentView addSubview:_collectView];
     
     
@@ -201,45 +225,38 @@
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"headerView"forIndexPath:indexPath];
         
+        UIView *headerView = [[UIView alloc] init];
+        headerView.backgroundColor = [UIColor whiteColor];
         if (indexPath.section == 0) {
-            _headerView = [[UIView alloc] init];
-            _headerView.backgroundColor = [UIColor whiteColor];
             UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 15, SCREEN_WIDTH - 115, 100)];
-            [_headerView addSubview:imgView];
+            [headerView addSubview:imgView];
             imgView.image = [UIImage imageNamed:@"Tab_4-9"];
             
-            UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(imgView.frame), 150, 40)];
+            UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(imgView.frame), 150, 40)];
             titleLabel.text = @"我是标题";
             titleLabel.font= [UIFont boldSystemFontOfSize:15];
             titleLabel.textColor = [ResourceManager color_1];
-            [_headerView addSubview:titleLabel];
+            [headerView addSubview:titleLabel];
             
-            UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(titleLabel.frame) - 0.5, SCREEN_WIDTH - 130, 0.5)];
-            [_headerView addSubview:viewX];
+            UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(titleLabel.frame) - 0.5, SCREEN_WIDTH - 120, 0.5)];
+            [headerView addSubview:viewX];
             viewX.backgroundColor = [ResourceManager color_5];
-            _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH - 110, CGRectGetMaxY(viewX.frame));
-            
-            //头视图添加view
-            [header addSubview:_headerView];
+            headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH - 101, CGRectGetMaxY(viewX.frame));
         }else{
-            //添加头视图的内容
-            _headerView = [[UIView alloc] init];
-            _headerView.backgroundColor = [UIColor whiteColor];
-            UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 150, 40)];
+            UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 150, 40)];
             titleLabel.text = @"我是标题";
             titleLabel.font= [UIFont boldSystemFontOfSize:15];
             titleLabel.textColor = [ResourceManager color_1];
-            [_headerView addSubview:titleLabel];
+            [headerView addSubview:titleLabel];
             
-            UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(titleLabel.frame) - 0.5, SCREEN_WIDTH - 130, 0.5)];
-            [_headerView addSubview:viewX];
+            UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(titleLabel.frame) - 0.5, SCREEN_WIDTH - 130, 0.5)];
+            [headerView addSubview:viewX];
             viewX.backgroundColor = [ResourceManager color_5];
-            _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH - 110, CGRectGetMaxY(viewX.frame));
-            
-            //头视图添加view
-            [header addSubview:_headerView];
+            headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH - 101, CGRectGetMaxY(viewX.frame));
         }
         
+        //头视图添加view
+        [header addSubview:headerView];
         return header;
     }
     return nil;
@@ -289,38 +306,25 @@
 }
 
 
-#pragma mark-UIScrollViewDelegate
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
-    if (!ToRowSuccess) {
-        return;
+#pragma mark-上下滑动collectView跳至相应cell
+-(void)pullDown{
+     [_collectView.mj_header endRefreshing]; // 结束刷新
+    if (cellCount > 0) {
+        NSLog(@"跳到上一个cell");
+        cellCount = cellCount - 1;
+        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:cellCount inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        [self sortFirstTouch:_sortFirstBtnArr[cellCount]];
     }
-    CGFloat height = scrollView.frame.size.height;
-    CGFloat contentOffset = scrollView.contentOffset.y;
-    CGFloat distanceFromBottom = scrollView.contentSize.height - height;
-    if (contentOffset - 100 < 0) {
-        if (cellCount > 0) {
-            NSLog(@"跳到上一个cell");
-            cellCount = cellCount - 1;
-            ToRowSuccess = NO;
-            [self performSelector:@selector(tableViewToRow) withObject:nil afterDelay:0.2];
-        }
-    }
-    
-    if (contentOffset > distanceFromBottom + 100) {
-        if (cellCount < self.dataArray.count - 1) {
-            NSLog(@"跳到下一个cell");
-            cellCount = cellCount + 1;
-            ToRowSuccess = NO;
-            [self performSelector:@selector(tableViewToRow) withObject:nil afterDelay:0.2];
-        }
-    }
-    
 }
 
--(void)tableViewToRow{
-    [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:cellCount inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    [self sortFirstTouch:_sortFirstBtnArr[cellCount]];
-    ToRowSuccess = YES;
+-(void)SlideUp{
+     [_collectView.mj_footer endRefreshing]; // 结束刷新
+    if (cellCount < self.dataArray.count - 1) {
+        NSLog(@"跳到下一个cell");
+        cellCount = cellCount + 1;
+        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:cellCount inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        [self sortFirstTouch:_sortFirstBtnArr[cellCount]];
+    }
 }
 
 

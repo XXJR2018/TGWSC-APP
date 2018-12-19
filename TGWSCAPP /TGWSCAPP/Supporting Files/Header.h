@@ -44,6 +44,8 @@
 
 #define kBorder 10
 #define ScaleSize SCREEN_WIDTH/375.f
+#define WebScaleSize 375.f/750.f    // 美工切图的标准尺寸是 750*1134
+
 #define NavHeight   (IS_IPHONE_X_MORE ? 88.f : 64.f)
 #define TabbarHeight   (IS_IPHONE_X_MORE ? 83.f : 49.f)
 #define TableViewEdgeOffset 20.f

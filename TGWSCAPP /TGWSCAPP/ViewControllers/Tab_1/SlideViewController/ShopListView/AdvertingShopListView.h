@@ -22,7 +22,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AdvertingShopListView : UIView
 
+
+// 固定每行2个元素
 -(AdvertingShopListView*)initWithTitle:(NSString *)title  itemArray:(NSArray *)items origin_Y:(CGFloat)origin_Y;
+
+//  columnOneCount - 第一行的元素个数
+//  columnTwoCount - 第二行之后的 每行的元素个数
+-(AdvertingShopListView*)initWithTitle:(NSString *)title  itemArray:(NSArray *)items origin_Y:(CGFloat)origin_Y
+                        columnOneCount:(int)columnOneCount  columnTwoCount:(int)columnTwoCount;
 
 -(void) drawList;
 

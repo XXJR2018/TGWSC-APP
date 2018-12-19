@@ -207,9 +207,23 @@
     
     // 推荐商品
     iTopY += imgViewSPSM.height;
-    //NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP"];
+    NSArray *arrTypeList =  dicUI[@"typeList"];
+    if (!arrTypeList ||
+        [arrTypeList count] <= 0)
+     {
+        return;
+     }
+    
+    for (int i = 0; i < [arrTypeList count]; i++)
+     {
+        NSDictionary *dicType = arrTypeList[i];
+        
+     }
+    
+    
+   
     NSMutableArray  *tempArr = [[NSMutableArray alloc] init];
-    for (int i = 0;  i < 6; i++)
+    for (int i = 0;  i < 9; i++)
      {
         ShopModel *sModel = [[ShopModel alloc] init];
         sModel.iShopID = i;
@@ -217,7 +231,9 @@
         [tempArr addObject:sModel];
      }
     //NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP"];
-    AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"推荐商品" itemArray:tempArr origin_Y:iTopY];
+    //AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"推荐商品" itemArray:tempArr origin_Y:iTopY];
+    AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"推荐商品" itemArray:tempArr origin_Y:iTopY
+                                                                       columnOneCount:1  columnTwoCount:2];
     [scView addSubview:adListView];
     adListView.delegate = self;
 

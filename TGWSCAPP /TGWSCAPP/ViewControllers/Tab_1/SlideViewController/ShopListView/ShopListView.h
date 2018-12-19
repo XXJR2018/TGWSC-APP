@@ -21,7 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ShopListView : UIView
 
+// columnCount  每一行元素的个数
 -(ShopListView*)initWithTitle:(NSString *)title  itemArray:(NSArray *)items  columnCount:(int)columnCount  origin_Y:(CGFloat)origin_Y;
+
+//  columnOneCount - 第一行的元素个数
+//  columnTwoCount - 第二行之后的 每行的元素个数
+-(ShopListView*)initWithTitle:(NSString *)title  itemArray:(NSArray *)items origin_Y:(CGFloat)origin_Y
+                        columnOneCount:(int)columnOneCount  columnTwoCount:(int)columnTwoCount;
 
 -(void) drawList;
 

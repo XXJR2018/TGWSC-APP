@@ -42,9 +42,11 @@
     
     
     // 首页只有一个sub时， 从此函数布局UI
-    self.view.height = SCREEN_HEIGHT - 70  - TabbarHeight;
+    //self.view.height = SCREEN_HEIGHT - 70  - TabbarHeight;
     
-    [self layoutUI];
+    [self getUIformWeb];
+    
+    //[self layoutUI];
 }
 
 
@@ -61,11 +63,11 @@
 
 -(void) layoutUI
 {
-    NSLog(@"SlideSub1  frame:%f", self.view.frame.size.height);
+    //NSLog(@"SlideSub1  frame:%f", self.view.frame.size.height);
     
     scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0.f, 0.f, SCREEN_WIDTH, self.view.frame.size.height)];
     [self.view addSubview:scView];
-    scView.contentSize = CGSizeMake(0, 1000);
+    scView.contentSize = CGSizeMake(0, 2000);
     scView.pagingEnabled = NO;
     scView.bounces = NO;
     scView.showsVerticalScrollIndicator = FALSE;
@@ -181,71 +183,82 @@
     _scrollView.delegate = self;
     _scrollView.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
     
-//    // 底部商品说明
-//    iTopY += _scrollView.height;
-//    UIImage *imgSPSM = [UIImage imageNamed:@"Tab1_SPSM"];
-//    float fImgHeight = imgSPSM.size.height;
-//    NSLog(@"imgTest.size.height: %f, imgTest.size.width: %f" ,imgSPSM.size.height,imgSPSM.size.width);
-//    
-//    UIImageView *imgViewSPSM = [[UIImageView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, fImgHeight *ScaleSize)];
-//    [scView addSubview:imgViewSPSM];
-//    imgViewSPSM.image = imgSPSM;
-//    
-//    
-//    // 推荐商品
-//    iTopY += imgViewSPSM.height;
-//    //NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP"];
-//    NSMutableArray  *tempArr = [[NSMutableArray alloc] init];
-//    for (int i = 0;  i < 6; i++)
-//     {
-//        ShopModel *sModel = [[ShopModel alloc] init];
-//        sModel.iShopID = i;
-//        sModel.strShopImgUrl = @"Tab1_TJSP";
-//        [tempArr addObject:sModel];
-//     }
-//    //NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP"];
-//    AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"推荐商品" itemArray:tempArr origin_Y:iTopY];
-//    [scView addSubview:adListView];
-//    adListView.delegate = self;
-//    
-//    
-//    // 热销商品
-//    NSMutableArray  *tempArr1 = [[NSMutableArray alloc] init];
-//    for (int i = 0;  i < 6; i++)
-//     {
-//        ShopModel *sModel = [[ShopModel alloc] init];
-//        sModel.iShopID = i;
-//        sModel.strShopImgUrl = @"Tab1_RMSP";
-//        sModel.strShopName = @"凯尔德乐婴儿";
-//        sModel.strPrice = @"¥ 13.90";
-//        [tempArr1 addObject:sModel];
-//     }
-//    iTopY += adListView.height;
-//    ShopListView  *shopListView1 = [[ShopListView alloc] initWithTitle:@"热销商品" itemArray:tempArr1  columnCount:3  origin_Y:iTopY];
-//    [scView addSubview:shopListView1];
-//    shopListView1.delegate = self;
-//    
-//    
-//    // 热销商品
-//    NSMutableArray  *tempArr2 = [[NSMutableArray alloc] init];
-//    for (int i = 0;  i < 6; i++)
-//     {
-//        ShopModel *sModel = [[ShopModel alloc] init];
-//        sModel.iShopID = i;
-//        sModel.strShopImgUrl = @"Tab1_RMSP";
-//        sModel.strShopName = @"凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿";
-//        sModel.strPrice = @"¥ 13.90";
-//        [tempArr2 addObject:sModel];
-//     }
-//    iTopY += shopListView1.height;
-//    ShopListView  *shopListView2 = [[ShopListView alloc] initWithTitle:@"新品发售" itemArray:tempArr2  columnCount:3  origin_Y:iTopY];
-//    [scView addSubview:shopListView2];
-//    shopListView2.delegate = self;
-//    
-//    
-//    
-//    iTopY += shopListView2.height;
-//    scView.contentSize = CGSizeMake(0, iTopY);
+    NSArray *arrBannr = dicUI[@"bannerList"];
+    
+    [self layoutScrollViewAfter:arrBannr];
+    
+    
+    // 底部商品说明
+    iTopY += _scrollView.height;
+    NSString *strSPSM = dicUI[@"dissemImg"];
+    strSPSM = strSPSM ? strSPSM:@"Tab1_SPSM";
+    
+    
+    UIImage *imgSPSM = [ToolsUtlis getImgFromStr:strSPSM];
+    
+    //CGFloat fixelW = CGImageGetWidth(imgSPSM.CGImage);
+    CGFloat fixelH = CGImageGetHeight(imgSPSM.CGImage);
+    float fImgHeight = fixelH*FixelScaleSize;
+    
+    UIImageView *imgViewSPSM = [[UIImageView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, fImgHeight *ScaleSize)];
+    [scView addSubview:imgViewSPSM];
+    imgViewSPSM.image = imgSPSM;
+
+    
+    // 推荐商品
+    iTopY += imgViewSPSM.height;
+    //NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP",@"Tab1_TJSP"];
+    NSMutableArray  *tempArr = [[NSMutableArray alloc] init];
+    for (int i = 0;  i < 6; i++)
+     {
+        ShopModel *sModel = [[ShopModel alloc] init];
+        sModel.iShopID = i;
+        sModel.strShopImgUrl = @"Tab1_TJSP";
+        [tempArr addObject:sModel];
+     }
+    //NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP"];
+    AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"推荐商品" itemArray:tempArr origin_Y:iTopY];
+    [scView addSubview:adListView];
+    adListView.delegate = self;
+
+    
+    // 热销商品
+    NSMutableArray  *tempArr1 = [[NSMutableArray alloc] init];
+    for (int i = 0;  i < 6; i++)
+     {
+        ShopModel *sModel = [[ShopModel alloc] init];
+        sModel.iShopID = i;
+        sModel.strShopImgUrl = @"Tab1_RMSP";
+        sModel.strShopName = @"凯尔德乐婴儿";
+        sModel.strPrice = @"¥ 13.90";
+        [tempArr1 addObject:sModel];
+     }
+    iTopY += adListView.height;
+    ShopListView  *shopListView1 = [[ShopListView alloc] initWithTitle:@"热销商品" itemArray:tempArr1  columnCount:3  origin_Y:iTopY];
+    [scView addSubview:shopListView1];
+    shopListView1.delegate = self;
+    
+    
+    // 热销商品
+    NSMutableArray  *tempArr2 = [[NSMutableArray alloc] init];
+    for (int i = 0;  i < 6; i++)
+     {
+        ShopModel *sModel = [[ShopModel alloc] init];
+        sModel.iShopID = i;
+        sModel.strShopImgUrl = @"Tab1_RMSP";
+        sModel.strShopName = @"凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿";
+        sModel.strPrice = @"¥ 13.90";
+        [tempArr2 addObject:sModel];
+     }
+    iTopY += shopListView1.height;
+    ShopListView  *shopListView2 = [[ShopListView alloc] initWithTitle:@"新品发售" itemArray:tempArr2  columnCount:3  origin_Y:iTopY];
+    [scView addSubview:shopListView2];
+    shopListView2.delegate = self;
+    
+    
+    
+    iTopY += shopListView2.height;
+    scView.contentSize = CGSizeMake(0, iTopY);
     
     
     
@@ -264,8 +277,8 @@
     
     //请求接口后banner加载后台数据
     [_scrollView removeAllSubviews];
-    _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake( 0, 15 *ScaleSize, SCREEN_WIDTH, BANNER_HEIGHT) delegate:nil placeholderImage:[UIImage imageNamed:@"Tab1_Banner"]];
-    [self.view addSubview:_scrollView];
+    _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake( 0, 0, SCREEN_WIDTH, BANNER_HEIGHT) delegate:nil placeholderImage:[UIImage imageNamed:@"Tab1_Banner"]];
+    [scView addSubview:_scrollView];
     
     NSMutableArray *imgArr = [[NSMutableArray alloc] init];
     _bannerTitleArr = [[NSMutableArray alloc] init];
@@ -273,9 +286,9 @@
     
     for (NSDictionary * dic in arr)
      {
-        NSString *name = dic[@"imgName"];
+        NSString *name = dic[@"bannerName"];
         NSString *imgUrl = dic[@"imgUrl"];
-        NSString *skipUrl = dic[@"skipUrl"];
+        NSString *skipUrl = dic[@"targetUrl"];
         [imgArr addObject:imgUrl];
         [_bannerTitleArr addObject:name];
         [_bannerUrlArr addObject:skipUrl];
@@ -310,7 +323,8 @@
     if (operation.tag == 1000)
      {
 
-
+        NSDictionary *dicUI = operation.jsonResult.attr;
+        [self layoutUIByData:dicUI];
      }
 
     
@@ -328,6 +342,10 @@
 //SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
+    if (index >= [_bannerTitleArr count])
+     {
+        return;
+     }
     NSString *titleStr = _bannerTitleArr[index];
 //    if ([titleStr isEqualToString:@"抢单规则"]) {
 //        [self ljqdAction];
@@ -395,6 +413,7 @@
             [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
             return;
          }
+
         
      }
 }

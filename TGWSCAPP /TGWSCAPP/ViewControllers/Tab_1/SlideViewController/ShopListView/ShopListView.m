@@ -66,8 +66,10 @@
             return;
          }
         
-        float fImgHeight = imgTemp.size.height *ScaleSize;
-        float fImgWidth = imgTemp.size.width *ScaleSize;
+        CGFloat fixelH = CGImageGetHeight(imgTemp.CGImage);
+        CGFloat fixelW = CGImageGetWidth(imgTemp.CGImage);
+        float fImgHeight = fixelH *FixelScaleSize*ScaleSize;
+        float fImgWidth = fixelW *FixelScaleSize*ScaleSize;
         fImgTopY = fTopY;
         float fImgBettewn = 5 *ScaleSize;
         //fLeftX = (SCREEN_WIDTH  - 2 *fImgWidth - fImgBettewn)/2;

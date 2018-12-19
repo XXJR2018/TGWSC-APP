@@ -139,9 +139,15 @@
     [self.view addSubview:vcSub1.view];
     [self addChildViewController:vcSub1];  // 加了这句，才能让子ViewController响应生命周期函数
     
-    vcSub1.view.frame = self.view.bounds;
-    vcSub1.view.top = iMenuTopY;
-    vcSub1.view.height = SCREEN_HEIGHT - iMenuTopY - TabbarHeight-100;
+    
+    // 设置了很多方法，只有这样设置才能正确设置子sub的view的大小
+    CGRect frameTemp = self.view.frame;
+    frameTemp.origin.y = iMenuTopY;
+    frameTemp.size.height = self.view.frame.size.height - iMenuTopY - TabbarHeight;
+    vcSub1.view.frame = frameTemp;
+
+    
+    
     vcSub1.slideModel = [[SlideModel alloc] init];
     vcSub1.view.backgroundColor = [UIColor whiteColor];
     //VC.slideModel = _slideModel;

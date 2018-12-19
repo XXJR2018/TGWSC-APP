@@ -143,7 +143,7 @@
     vcSub1.view.top = iMenuTopY;
     vcSub1.view.height = SCREEN_HEIGHT - iMenuTopY - TabbarHeight-100;
     vcSub1.slideModel = [[SlideModel alloc] init];
-    vcSub1.view.backgroundColor = [UIColor yellowColor];
+    vcSub1.view.backgroundColor = [UIColor whiteColor];
     //VC.slideModel = _slideModel;
     
 

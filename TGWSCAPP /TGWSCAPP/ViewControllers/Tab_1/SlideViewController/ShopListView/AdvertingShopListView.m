@@ -100,7 +100,7 @@
             [self  addSubview:imgViewTemp];
             
             ShopModel *sModel= _items[i];
-            NSString *strImgName = sModel.strShopImgUrl;
+            NSString *strImgName = sModel.strGoodsImgUrl;
             imgTemp = [ToolsUtlis getImgFromStr:strImgName];
             imgViewTemp.image  = imgTemp;
             
@@ -183,7 +183,7 @@
             [self  addSubview:imgViewTemp];
             
             ShopModel *sModel= _items[i];
-            NSString *strImgName = sModel.strShopImgUrl;
+            NSString *strImgName = sModel.strGoodsImgUrl;
             imgTemp = [ToolsUtlis getImgFromStr:strImgName];
             imgViewTemp.image  = imgTemp;
             
@@ -234,7 +234,7 @@
             [self  addSubview:imgViewTemp];
             
             ShopModel *sModel= _items[i];
-            NSString *strImgName = sModel.strShopImgUrl;
+            NSString *strImgName = sModel.strGoodsImgUrl;
             imgTemp = [ToolsUtlis getImgFromStr:strImgName];
             imgViewTemp.image  = imgTemp;
             
@@ -266,8 +266,9 @@
 {
     if ([self.delegate respondsToSelector:@selector(didClickButtonAtObejct:)]) {
         ShopModel *mode = [[ShopModel alloc] init];
-        mode.iShopID = -1;
-        [self.delegate didClickButtonAtObejct:mode];
+        mode = _shopModel;
+        _shopModel.iShopID = -1;
+        [self.delegate didClickButtonAtObejct:_shopModel];
     }
 }
 

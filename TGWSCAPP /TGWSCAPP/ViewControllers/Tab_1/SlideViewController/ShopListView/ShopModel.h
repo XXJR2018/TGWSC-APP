@@ -13,10 +13,18 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ShopModel : NSObject
 
 @property (nonatomic,assign) int   iShopID;
-@property (nonatomic,copy) NSString *strShopID;
-@property (nonatomic,copy) NSString *strShopName;
-@property (nonatomic,copy) NSString *strShopImgUrl;
-@property (nonatomic,copy) NSString *strPrice;
+
+@property (nonatomic,copy) NSString *strTypeCode;
+@property (nonatomic,copy) NSString *strTypeName;
+
+
+@property (nonatomic,copy) NSString *strCateCode;
+@property (nonatomic,copy) NSString *strCateName;
+@property (nonatomic,copy) NSString *strGoodsCode;
+@property (nonatomic,copy) NSString *strGoodsName;
+@property (nonatomic,copy) NSString *strGoodsImgUrl;
+@property (nonatomic,copy) NSString *strMaxPrice;
+@property (nonatomic,copy) NSString *strMinPrice;
 
 
 @end

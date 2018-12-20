@@ -268,7 +268,7 @@
         fImgHeight = fixelH *FixelScaleSize*ScaleSize;
         fImgWidth = fixelW *FixelScaleSize*ScaleSize;
         //fImgTopY = fTopY;
-        fImgTopY += fImgHeight + fImgBettewn;
+        fImgTopY += fImgHeight + fImgBettewn + fLabelNameHeight + fLablePriceHeight + fImgBettewn;
         fImgBettewn = 5 *ScaleSize;
         fLeftX = (SCREEN_WIDTH  - _columnTwoCount *fImgWidth - (_columnTwoCount -1)* fImgBettewn)/2;
         fImgLeftX = fLeftX;

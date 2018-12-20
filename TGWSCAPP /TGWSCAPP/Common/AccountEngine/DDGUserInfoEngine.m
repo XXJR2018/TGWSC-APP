@@ -8,9 +8,9 @@
 
 #import "DDGUserInfoEngine.h"
 #import "DDGJsonParseManager.h"
-#import "CommonInfo.h"
+
 #import "LoginViewController.h"
-#import "LoginVC.h"
+
 
 static DDGUserInfoEngine *singleton;
 
@@ -66,7 +66,7 @@ static DDGUserInfoEngine *singleton;
 - (void)manualLogin{
 
     _isLogging = YES;
-    self.loginViewController = [[LoginVC alloc] init];
+    self.loginViewController = [[LoginViewController alloc] init];
     UINavigationController *navigationController =
     [[UINavigationController alloc] initWithRootViewController:self.loginViewController];
     [navigationController setNavigationBarHidden:NO];       // 使导航条有效
@@ -77,9 +77,6 @@ static DDGUserInfoEngine *singleton;
     [navigationController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     [self.parentViewController presentViewController:navigationController animated:YES completion:nil];
     
-//    LoginViewController *ctl = [[LoginViewController alloc]init];
-//    ctl.loginType = YES;
-//    [self.parentViewController presentViewController:ctl animated:YES completion:nil];
 }
 
 - (void)finishDoBlock

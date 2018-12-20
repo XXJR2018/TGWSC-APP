@@ -20,18 +20,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;//手机号
 @property (weak, nonatomic) IBOutlet UITextField *VerifyTextField;//验证码
 @property (weak, nonatomic) IBOutlet UIButton *VerifyBtn;
+@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
+@property (weak, nonatomic) IBOutlet UIButton *agreeTreatyBtn;
 @property (weak, nonatomic) IBOutlet UIView *wxLoginView;
-@property (weak, nonatomic) IBOutlet UIButton *wxLoginBtn;
-@property (weak, nonatomic) IBOutlet UIButton *agreeBtn_YH;
-@property (weak, nonatomic) IBOutlet UIButton *agreeBtn_YS;
-
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutLoginBtnWidth;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutLoginBtnHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutbackImgHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutWXLoginBtnWidth;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutWXLoginBtnHeight;
-
 
 @property(nonatomic, strong)NSString *unionid;
 
@@ -42,16 +33,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.layoutLoginBtnWidth.constant = 290  * ScaleSize;
-    self.layoutLoginBtnHeight.constant = 45  * ScaleSize;
-    self.layoutWXLoginBtnWidth.constant = 290  * ScaleSize;
-    self.layoutWXLoginBtnHeight.constant = 45  * ScaleSize;
-     self.layoutbackImgHeight.constant = 120  * ScaleSize;
-    self.wxLoginBtn.layer.borderWidth = 0.5;
-    self.wxLoginBtn.layer.borderColor = [ResourceManager color_5].CGColor;
-    
+
     //判断是否安装微信
     [self isWeiXin];
+    
+    [self.phoneTextField addTarget:self action:@selector(textFieldTextChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.VerifyTextField addTarget:self action:@selector(textFieldTextChange:) forControlEvents:UIControlEventEditingChanged];
     
     //添加手势点击空白处隐藏键盘
     UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(TouchViewKeyBoard)];
@@ -78,15 +65,16 @@
     }
 }
 
-- (IBAction)agreeBtn_YH:(UIButton *)sender {
+- (IBAction)back:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)agreetreaty:(UIButton *)sender {
     [self.view endEditing:YES];
     sender.selected = !sender.selected;
 }
 
-- (IBAction)agreeBtn_YS:(UIButton *)sender {
-    [self.view endEditing:YES];
-    sender.selected = !sender.selected;
-}
+
 
 - (IBAction)treaty_YH:(UIButton *)sender {
     [self.view endEditing:YES];
@@ -101,11 +89,11 @@
 //验证码登录
 - (IBAction)LoginBtn:(id)sender {
     [self.view endEditing:YES];
-    if (!self.agreeBtn_YH.selected) {
-        [MBProgressHUD showErrorWithStatus:@"请阅读并同意用户协议" toView:self.view];
+    if (!self.loginBtn.selected) {
         return;
-    }if (!self.agreeBtn_YS.selected) {
-        [MBProgressHUD showErrorWithStatus:@"请阅读并同意隐私协议" toView:self.view];
+    }
+    if (!self.agreeTreatyBtn.selected) {
+        [MBProgressHUD showErrorWithStatus:@"请阅读并同意协议" toView:self.view];
         return;
     }
     //验证码登录
@@ -124,11 +112,8 @@
 //微信登录
 - (IBAction)WXLogin:(id)sender {
     [self.view endEditing:YES];
-    if (!self.agreeBtn_YH.selected) {
-        [MBProgressHUD showErrorWithStatus:@"请阅读并同意用户协议" toView:self.view];
-        return;
-    }if (!self.agreeBtn_YS.selected) {
-        [MBProgressHUD showErrorWithStatus:@"请阅读并同意隐私协议" toView:self.view];
+    if (!self.agreeTreatyBtn.selected) {
+        [MBProgressHUD showErrorWithStatus:@"请阅读并同意协议" toView:self.view];
         return;
     }
     
@@ -195,8 +180,7 @@
     params[@"telephone"] = self.phoneTextField.text;
     params[@"randomNo"] = self.VerifyTextField.text;
     // 渠道来源
-    params[@"sourceType"] = @"xxzqios";
-    params[@"downloadSource"] = @"AppStore";
+    params[@"sourceType"] = @"AppStore";
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[PDAPI userKJLoginInfoAPI]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
@@ -214,10 +198,6 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params[@"unionid"] = unionid;
-    //渠道来源
-    params[@"sourceType"] = @"xxzqios";
-    params[@"downloadSource"] = @"AppStore";
-    
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[PDAPI userWXLoginInfoAPI]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
@@ -231,7 +211,7 @@
 
 //获取用户信息
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
-     [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
+     [MBProgressHUD hideHUDForView:self.view animated:NO];
     
     if (operation.tag == 1001) {
         //验证码登录
@@ -258,8 +238,19 @@
 }
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
-    [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
     [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
+}
+
+#pragma mark- 监听输入框内容改变按钮颜色
+-(void)textFieldTextChange:(UITextField *)textField{
+    if (self.phoneTextField.text.length != 0 && self.VerifyTextField.text.length != 0) {
+        self.loginBtn.selected = YES;
+        self.loginBtn.backgroundColor = [ResourceManager mainColor];
+    }else{
+        self.loginBtn.selected = NO;
+        self.loginBtn.backgroundColor = UIColorFromRGB(0xC4BAB1);
+    }
 }
 
 

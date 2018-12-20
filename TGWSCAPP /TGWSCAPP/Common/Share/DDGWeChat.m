@@ -181,14 +181,14 @@ static DDGWeChat *weChatShare;
                     NSLog(@"error ");
                     return ;
                 }
-                if([_delegate respondsToSelector:@selector(weChatLoginFinishedWithResult:)])
+                if([self.delegate respondsToSelector:@selector(weChatLoginFinishedWithResult:)])
                 {
                    //NSDictionary *result = @{@"code":@(1),
                    //                          @"openId":resultDic[@"openid"],
                    //                          @"accessToken":resultDic[@"access_token"]};
 //                    [_delegate weChatLoginFinishedWithResult:result];
                     
-                    [_delegate weChatLoginFinishedWithResult:resultDic];
+                    [self.delegate weChatLoginFinishedWithResult:resultDic];
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSDictionary *result = @{@"code":@(-1),

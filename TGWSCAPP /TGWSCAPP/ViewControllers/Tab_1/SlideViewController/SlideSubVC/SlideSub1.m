@@ -157,10 +157,11 @@
 }
 
 
-
+// 根据网络 或者本地数据，画UI
 -(void) layoutUIByData:(NSDictionary*) dicUI
 {
     NSLog(@"SlideSub1  frame:%f", self.view.frame.size.height);
+    NSLog(@"Draw Home  Begin");
     
     if (scView)
      {
@@ -234,6 +235,7 @@
         
         // 显示数组为空， continue
         NSArray *arrShowList  = dicType[@"showIdList"];
+        //arrShowList = nil;
         if (!arrShowList ||
             [arrShowList count] == 0)
          {
@@ -242,12 +244,13 @@
 
         // 获取每种类型需要显示的商品list
         NSMutableArray  *tempArr = [[NSMutableArray alloc] init];
+
         for (int i = 0;  i < [arrShowList count]; i++)
          {
             NSDictionary *dicObject = arrShowList[i];
             ShopModel *sModel = [[ShopModel alloc] init];
             sModel.iShopID = i;
-            sModel.strGoodsImgUrl = [NSString stringWithFormat:@"%@",dicObject[@"imgUrl"]];
+            sModel.strGoodsImgUrl = @"Tab1_TJSP";//[NSString stringWithFormat:@"%@",dicObject[@"imgUrl"]];
             sModel.strMinPrice = [NSString stringWithFormat:@"%@",dicObject[@"minPrice"]];
             sModel.strMaxPrice = [NSString stringWithFormat:@"%@",dicObject[@"maxPrice"]];
             sModel.strGoodsCode = [NSString stringWithFormat:@"%@",dicObject[@"goodsCode"]];
@@ -293,7 +296,7 @@
 
     scView.contentSize = CGSizeMake(0, iTopY);
     
-    
+    NSLog(@"Draw Home  End");
     
 }
 
@@ -415,10 +418,12 @@
 //            return;
 //        }
 //
-//    }else{
-//        //如果不是以上两个，跳转相应h5页面
-//        [CCWebViewController showWithContro:self withUrlStr:_bannerUrlArr[index] withTitle:_bannerTitleArr[index]];
 //    }
+//     else
+     {
+        //如果不是以上两个，跳转相应h5页面
+        [CCWebViewController showWithContro:self withUrlStr:_bannerUrlArr[index] withTitle:_bannerTitleArr[index]];
+     }
 }
 
 

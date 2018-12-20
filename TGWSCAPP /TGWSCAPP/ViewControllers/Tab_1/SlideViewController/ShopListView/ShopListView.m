@@ -125,7 +125,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopPrice.font = [UIFont systemFontOfSize:15];
             labelShopPrice.textColor = UIColorFromRGB(0x9f1421);
-            labelShopPrice.text = sModel.strMaxPrice;
+            labelShopPrice.text = [NSString stringWithFormat:@"￥%@", sModel.strMaxPrice];//sModel.strMaxPrice;
             labelShopPrice.numberOfLines = 0;
             
             UIButton *btnTemp = [[UIButton alloc] initWithFrame:imgViewTemp.frame];
@@ -180,7 +180,7 @@
     if (_items &&
         [_items count])
      {
-        int iShopCount = [_items count];
+        int iShopCount = (int)[_items count];
         
         // 画第一行
         ShopModel *sModel= _items[0];
@@ -229,7 +229,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopPrice.font = [UIFont systemFontOfSize:15];
             labelShopPrice.textColor = UIColorFromRGB(0x9f1421);
-            labelShopPrice.text = sModel.strMaxPrice;
+            labelShopPrice.text =  [NSString stringWithFormat:@"￥%@", sModel.strMaxPrice];
             labelShopPrice.numberOfLines = 0;
             
             UIButton *btnTemp = [[UIButton alloc] initWithFrame:imgViewTemp.frame];
@@ -300,7 +300,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopPrice.font = [UIFont systemFontOfSize:15];
             labelShopPrice.textColor = UIColorFromRGB(0x9f1421);
-            labelShopPrice.text = sModel.strMaxPrice;
+            labelShopPrice.text = [NSString stringWithFormat:@"￥%@", sModel.strMaxPrice];//sModel.strMaxPrice;
             labelShopPrice.numberOfLines = 0;
 
             UIButton *btnTemp = [[UIButton alloc] initWithFrame:imgViewTemp.frame];

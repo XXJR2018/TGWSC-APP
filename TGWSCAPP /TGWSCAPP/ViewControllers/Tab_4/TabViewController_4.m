@@ -51,6 +51,8 @@
     
     [self layoutUI];
     
+    // 更新用户头像等信息
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeUserInfo) name:@"NotificationChangeUserInfo" object:nil];
 }
 
 -(void)layoutUI{
@@ -185,7 +187,10 @@
     
 }
 
-
+#pragma mark-- 更新用户信息
+-(void)changeUserInfo{
+    
+}
 
 
 -(void)userInfo{

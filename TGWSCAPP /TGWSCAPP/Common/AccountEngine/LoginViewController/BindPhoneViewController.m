@@ -16,9 +16,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *VerifyTextField;//验证码
 @property (weak, nonatomic) IBOutlet UIButton *VerifyBtn;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutNextBtnHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutNextBtnWidth;
-
 @end
 
 @implementation BindPhoneViewController
@@ -26,9 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self layoutNaviBarViewWithTitle:@"绑定手机号"];
-    self.layoutNextBtnWidth.constant = 290 * ScaleSize;
-    self.layoutNextBtnHeight.constant = 45  * ScaleSize;
+
 
     //添加手势点击空白处隐藏键盘
     UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(TouchViewKeyBoard)];
@@ -106,10 +101,8 @@
     params[@"telephone"] = _phoneTextField.text;
     params[@"randomNo"] = _VerifyTextField.text;
     params[@"unionid"] = self.unionid;
-    // 渠道来源
-    params[@"sourceType"] = @"xxzqios";
-    params[@"downloadSource"] = @"AppStore";
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@fx/cust/app/wxLoginBind",[PDAPI getBaseUrlString]]
+    params[@"sourceType"] = @"AppStore";
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/login/wxLoginBind",[PDAPI getBaseUrlString]]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       [self handleData:operation];

@@ -50,11 +50,32 @@
     _scView.pagingEnabled = NO;
     _scView.showsVerticalScrollIndicator = NO;
     
+    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 170, 100)];
+    [_scView addSubview:loginBtn];
+    loginBtn.backgroundColor = [UIColor darkGrayColor];
+    [loginBtn addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *loginOutBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 240, 170, 100)];
+    [_scView addSubview:loginOutBtn];
+    loginOutBtn.backgroundColor = [UIColor orangeColor];
+    [loginOutBtn addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
+-(void)login{
+    if (![CommonInfo isLoggedIn]) {
+        [DDGUserInfoEngine engine].parentViewController = self;
+        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+        return;
+    }
+}
 
-
+-(void)loginOut{
+    [CommonInfo AllDeleteInfo];
+    //发送退出登录通知
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGAccountEngineDidLogoutNotification object:nil];
+    
+}
 
 -(void)addButtonView{
     [self.view addSubview:self.tabBar];

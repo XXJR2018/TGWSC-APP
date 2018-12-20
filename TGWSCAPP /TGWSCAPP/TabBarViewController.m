@@ -433,8 +433,7 @@
     }
     [CommonInfo setUserInfo:dic];
     
-    
-    //用户信息保存成功，发送更改显示用户信息
+    //用户信息保存成功，更新显示用户信息
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NotificationChangeUserInfo" object:nil];
 }
 

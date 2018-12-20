@@ -40,6 +40,14 @@
 +(void)setUserInfo:(NSDictionary *)userInfo{
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[userInfo change] forKey:kUser_Info];
+    
+    
+    // 设置 [DDGSetting sharedSettings].uid
+    if (userInfo)
+     {
+        NSString *encryptCustId = userInfo[@"encryptCustId"];
+        [DDGSetting sharedSettings].uid = encryptCustId;
+     }
 }
 
 +(NSDictionary *)userInfo{

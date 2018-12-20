@@ -19,30 +19,31 @@
                 <rect key="frame" x="0.0" y="0.0" width="70" height="100"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品名称" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmW-uK-ZYK">
-                        <rect key="frame" x="0.0" y="70" width="70" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmW-uK-ZYK">
+                        <rect key="frame" x="0.0" y="67" width="70" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="fBe-cs-QcI"/>
+                            <constraint firstAttribute="height" constant="30" id="fBe-cs-QcI"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tab_4-8" translatesAutoresizingMaskIntoConstraints="NO" id="cKS-7J-3Sl">
-                        <rect key="frame" x="10" y="10" width="50" height="50"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cKS-7J-3Sl">
+                        <rect key="frame" x="11.5" y="10" width="47" height="52"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="50" id="bjL-vp-2id"/>
-                            <constraint firstAttribute="height" constant="50" id="ir2-k5-JUR"/>
+                            <constraint firstAttribute="width" constant="47" id="bjL-vp-2id"/>
+                            <constraint firstAttribute="height" constant="52" id="ir2-k5-JUR"/>
                         </constraints>
                     </imageView>
                 </subviews>
             </view>
-            <color key="backgroundColor" red="0.97647058819999999" green="0.63921568630000003" blue="0.27450980390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="TmW-uK-ZYK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="3dX-7G-bgA"/>
                 <constraint firstAttribute="trailing" secondItem="TmW-uK-ZYK" secondAttribute="trailing" id="GXi-R5-iLe"/>
                 <constraint firstItem="cKS-7J-3Sl" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="GgG-J9-Gek"/>
-                <constraint firstItem="TmW-uK-ZYK" firstAttribute="top" secondItem="cKS-7J-3Sl" secondAttribute="bottom" constant="10" id="eXP-3t-bPm"/>
+                <constraint firstItem="TmW-uK-ZYK" firstAttribute="top" secondItem="cKS-7J-3Sl" secondAttribute="bottom" constant="5" id="eXP-3t-bPm"/>
                 <constraint firstItem="cKS-7J-3Sl" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="heq-r6-kjF"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
@@ -53,7 +54,4 @@
             <point key="canvasLocation" x="40" y="46.776611694152926"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="Tab_4-8" width="35" height="35"/>
-    </resources>
 </document>

@@ -122,7 +122,7 @@
 }
 
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
-    [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
     //登陆成功,发送通知更新用户信息
     [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
     //跳转首页

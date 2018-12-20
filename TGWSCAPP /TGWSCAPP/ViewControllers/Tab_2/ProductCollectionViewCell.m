@@ -19,9 +19,8 @@
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    
-    self.productNameLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"title"]];
-    
+    self.productNameLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"cateName"]];
+    [self.iconImg sd_setImageWithURL:[NSURL URLWithString:[_dataDicionary objectForKey:@"imgUrl"]]];
 }
 
 

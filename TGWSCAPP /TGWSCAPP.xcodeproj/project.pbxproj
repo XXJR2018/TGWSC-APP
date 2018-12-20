@@ -61,6 +61,7 @@
 		C20525F521BE6E5C00E13893 /* TabViewController_2.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EA21BE6E5C00E13893 /* TabViewController_2.xib */; };
 		C20525F621BE6E5C00E13893 /* TabViewController_1.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525ED21BE6E5C00E13893 /* TabViewController_1.m */; };
 		C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */; };
+		C246D75C21CB9CE50054D7A0 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */; };
 		C250435521BA51FC00DA9C72 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C250435421BA51FC00DA9C72 /* AppDelegate.mm */; };
 		C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435921BA51FC00DA9C72 /* Main.storyboard */; };
 		C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435E21BA51FD00DA9C72 /* LaunchScreen.storyboard */; };
@@ -352,6 +353,8 @@
 		C20525ED21BE6E5C00E13893 /* TabViewController_1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController_1.m; sourceTree = "<group>"; };
 		C20525EE21BE6E5C00E13893 /* TabViewController_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController_1.h; sourceTree = "<group>"; };
 		C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabViewController_1.xib; sourceTree = "<group>"; };
+		C246D75A21CB9CE50054D7A0 /* ProductListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductListViewController.h; sourceTree = "<group>"; };
+		C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductListViewController.m; sourceTree = "<group>"; };
 		C250435021BA51FC00DA9C72 /* TGWSCAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGWSCAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C250435321BA51FC00DA9C72 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C250435421BA51FC00DA9C72 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
@@ -1052,6 +1055,8 @@
 				C20525EB21BE6E5C00E13893 /* TabViewController_2.h */,
 				C20525E921BE6E5C00E13893 /* TabViewController_2.m */,
 				C20525EA21BE6E5C00E13893 /* TabViewController_2.xib */,
+				C246D75A21CB9CE50054D7A0 /* ProductListViewController.h */,
+				C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */,
 				C2B51AEE21C3462500AC76FB /* ProductCollectionViewCell.h */,
 				C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */,
 				C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */,
@@ -2270,6 +2275,7 @@
 				C25047DE21BA715500DA9C72 /* XXJRNetWorkCoverView.m in Sources */,
 				C250451D21BA579100DA9C72 /* DDGQQ.m in Sources */,
 				C0CCC84E21C345C5009352E0 /* SlideSub1.m in Sources */,
+				C246D75C21CB9CE50054D7A0 /* ProductListViewController.m in Sources */,
 				C0CCC82321C0F47D009352E0 /* HistoryAnimationVC.m in Sources */,
 				C0CCC7FC21C0F1CB009352E0 /* HistoryAndCategorySearchHistroyViewP.m in Sources */,
 				C250475D21BA715500DA9C72 /* BaseBLCManager.m in Sources */,

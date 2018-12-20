@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *strCateName;
 @property (nonatomic,copy) NSString *strGoodsCode;
 @property (nonatomic,copy) NSString *strGoodsName;
+@property (nonatomic,copy) NSString *strGoodsSubName;
 @property (nonatomic,copy) NSString *strGoodsImgUrl;
 @property (nonatomic,copy) NSString *strMaxPrice;
 @property (nonatomic,copy) NSString *strMinPrice;

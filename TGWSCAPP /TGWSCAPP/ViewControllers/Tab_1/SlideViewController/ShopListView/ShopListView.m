@@ -116,7 +116,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopName.font = [UIFont systemFontOfSize:13];
             labelShopName.textColor = [ResourceManager color_1];
-            labelShopName.text = sModel.strGoodsName;
+            labelShopName.text = sModel.strGoodsSubName;
             labelShopName.numberOfLines = 0;
             
             
@@ -220,7 +220,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopName.font = [UIFont systemFontOfSize:13];
             labelShopName.textColor = [ResourceManager color_1];
-            labelShopName.text = sModel.strGoodsName;
+            labelShopName.text = sModel.strGoodsSubName;
             labelShopName.numberOfLines = 0;
             
             
@@ -291,7 +291,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopName.font = [UIFont systemFontOfSize:13];
             labelShopName.textColor = [ResourceManager color_1];
-            labelShopName.text = sModel.strGoodsName;
+            labelShopName.text = sModel.strGoodsSubName;
             labelShopName.numberOfLines = 0;
 
 
@@ -333,8 +333,8 @@
 {
     if ([self.delegate respondsToSelector:@selector(didShopClickButtonAtObejct:)]) {
         ShopModel *mode = [[ShopModel alloc] init];
+        mode = _shopModel;
         mode.iShopID = -1;
-        mode.strGoodsName = _title;
         [self.delegate didShopClickButtonAtObejct:mode];
     }
 }

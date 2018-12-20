@@ -250,9 +250,9 @@
             sModel.strGoodsImgUrl = [NSString stringWithFormat:@"%@",dicObject[@"imgUrl"]];
             sModel.strMinPrice = [NSString stringWithFormat:@"%@",dicObject[@"minPrice"]];
             sModel.strMaxPrice = [NSString stringWithFormat:@"%@",dicObject[@"maxPrice"]];
-            sModel.strGoodsName = [NSString stringWithFormat:@"%@",dicObject[@"goodsName"]];
             sModel.strGoodsCode = [NSString stringWithFormat:@"%@",dicObject[@"goodsCode"]];
             sModel.strGoodsName = [NSString stringWithFormat:@"%@",dicObject[@"goodsName"]];
+            sModel.strGoodsSubName = [NSString stringWithFormat:@"%@",dicObject[@"goodsSubName"]];
             sModel.strCateCode = [NSString stringWithFormat:@"%@",dicObject[@"cateCode"]];
             sModel.strCateName = [NSString stringWithFormat:@"%@",dicObject[@"cateName"]];
             [tempArr addObject:sModel];
@@ -285,69 +285,12 @@
             iTopY += shopListView.height;
          }
 
-        //NSArray *arr
-
-
-
 
      }
     
     
    
-//    NSMutableArray  *tempArr = [[NSMutableArray alloc] init];
-//    for (int i = 0;  i < 4; i++)
-//     {
-//        ShopModel *sModel = [[ShopModel alloc] init];
-//        sModel.iShopID = i;
-//        sModel.strShopImgUrl = @"Tab1_TJSP";
-//        [tempArr addObject:sModel];
-//     }
-//    //NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP"];
-//    //AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"推荐商品" itemArray:tempArr origin_Y:iTopY];
-//    AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"推荐商品" itemArray:tempArr origin_Y:iTopY
-//                                                                       columnOneCount:2  columnTwoCount:2];
-//    [scView addSubview:adListView];
-//    adListView.delegate = self;
-//
-//
-//    // 热销商品
-//    NSMutableArray  *tempArr1 = [[NSMutableArray alloc] init];
-//    for (int i = 0;  i < 6; i++)
-//     {
-//        ShopModel *sModel = [[ShopModel alloc] init];
-//        sModel.iShopID = i;
-//        sModel.strShopImgUrl = @"Tab1_RMSP";
-//        sModel.strGoodsName = @"凯尔德乐婴儿";
-//        sModel.strMaxPrice = @"¥ 13.90";
-//        [tempArr1 addObject:sModel];
-//     }
-//    iTopY += adListView.height;
-//    //ShopListView  *shopListView1 = [[ShopListView alloc] initWithTitle:@"热销商品" itemArray:tempArr1  columnCount:3  origin_Y:iTopY];
-//    ShopListView  *shopListView1 = [[ShopListView alloc] initWithTitle:@"热销商品" itemArray:tempArr1   origin_Y:iTopY
-//                                    columnOneCount:2  columnTwoCount:2];
-//    [scView addSubview:shopListView1];
-//    shopListView1.delegate = self;
-//
-//
-//    // 热销商品
-//    NSMutableArray  *tempArr2 = [[NSMutableArray alloc] init];
-//    for (int i = 0;  i < 6; i++)
-//     {
-//        ShopModel *sModel = [[ShopModel alloc] init];
-//        sModel.iShopID = i;
-//        sModel.strShopImgUrl = @"Tab1_RMSP";
-//        sModel.strGoodsName = @"凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿";
-//        sModel.strMaxPrice = @"¥ 13.90";
-//        [tempArr2 addObject:sModel];
-//     }
-//    iTopY += shopListView1.height;
-//    ShopListView  *shopListView2 = [[ShopListView alloc] initWithTitle:@"新品发售" itemArray:tempArr2  columnCount:3  origin_Y:iTopY];
-//    [scView addSubview:shopListView2];
-//    shopListView2.delegate = self;
-    
-    
-    
-    //iTopY += shopListView2.height;
+
     scView.contentSize = CGSizeMake(0, iTopY);
     
     
@@ -494,7 +437,7 @@
         else
          {
             NSLog(@"ShopID:%d", iShopID);
-            NSLog(@"strGoodsCode:%@  strGoodsName:%@", clickObj.strCateCode,clickObj.strCateName);
+            NSLog(@"strCateCode:%@  strCateName:%@", clickObj.strCateCode,clickObj.strCateName);
          }
         
         
@@ -521,12 +464,13 @@
         // 点击更多按钮
         if (-1 == iShopID)
          {
-            NSLog(@"Click More :%@", clickObj.strGoodsName);
+            NSLog(@"Click More ");
+            NSLog(@"strGoodsName:%@  strTypeCode:%@", clickObj.strTypeCode,clickObj.strTypeName);
          }
         else
          {
             NSLog(@"ShopID:%d", iShopID);
-            NSLog(@"strGoodsName:%@", clickObj.strGoodsName);
+            NSLog(@"strGoodsName:%@ strGoodsSubName:%@  strGoodsCode:%@", clickObj.strGoodsName,clickObj.strGoodsSubName,clickObj.strGoodsCode);
          }
         
      }

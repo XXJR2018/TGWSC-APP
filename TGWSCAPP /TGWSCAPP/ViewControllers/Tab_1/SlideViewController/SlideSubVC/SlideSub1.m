@@ -29,7 +29,7 @@
 #pragma mark --- lifecylce
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self getUIformWeb];
+    //[self getUIformWeb];
 }
 
 - (void)viewDidLoad {
@@ -105,7 +105,7 @@
      {
         ShopModel *sModel = [[ShopModel alloc] init];
         sModel.iShopID = i;
-        sModel.strShopImgUrl = @"Tab1_TJSP";
+        sModel.strGoodsImgUrl = @"Tab1_TJSP";
         [tempArr addObject:sModel];
      }
     //NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP"];
@@ -120,9 +120,9 @@
      {
         ShopModel *sModel = [[ShopModel alloc] init];
         sModel.iShopID = i;
-        sModel.strShopImgUrl = @"Tab1_RMSP";
-        sModel.strShopName = @"凯尔德乐婴儿";
-        sModel.strPrice = @"¥ 13.90";
+        sModel.strGoodsImgUrl = @"Tab1_RMSP";
+        sModel.strGoodsName = @"凯尔德乐婴儿";
+        sModel.strMaxPrice = @"¥ 13.90";
         [tempArr1 addObject:sModel];
      }
     iTopY += adListView.height;
@@ -137,9 +137,9 @@
      {
         ShopModel *sModel = [[ShopModel alloc] init];
         sModel.iShopID = i;
-        sModel.strShopImgUrl = @"Tab1_RMSP";
-        sModel.strShopName = @"凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿";
-        sModel.strPrice = @"¥ 13.90";
+        sModel.strGoodsImgUrl = @"Tab1_RMSP";
+        sModel.strGoodsName = @"凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿";
+        sModel.strMaxPrice = @"¥ 13.90";
         [tempArr2 addObject:sModel];
      }
     iTopY += shopListView1.height;
@@ -157,10 +157,16 @@
 }
 
 
-
+// 根据网络 或者本地数据，画UI
 -(void) layoutUIByData:(NSDictionary*) dicUI
 {
     NSLog(@"SlideSub1  frame:%f", self.view.frame.size.height);
+    NSLog(@"Draw Home  Begin");
+    
+    if (scView)
+     {
+        [scView removeAllSubviews];
+     }
     
     scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0.f, 0.f, SCREEN_WIDTH, self.view.frame.size.height)];
     [self.view addSubview:scView];
@@ -205,7 +211,7 @@
     imgViewSPSM.image = imgSPSM;
 
     
-    // 推荐商品
+    // 各种商品列表
     iTopY += imgViewSPSM.height;
     NSArray *arrTypeList =  dicUI[@"typeList"];
     if (!arrTypeList ||
@@ -218,65 +224,79 @@
      {
         NSDictionary *dicType = arrTypeList[i];
         
+        int iShowType = [dicType[@"showType"] intValue]; //展示内容类型0-商品1-类目 2-活动 3-品牌
+        
+        NSString  *strTypeTitle = [NSString stringWithFormat:@"%@",dicType[@"typeTitle"]]; // 类别标题
+        NSString  *strTypeCode = [NSString stringWithFormat:@"%@",dicType[@"typeCode"]];    // 类别code
+        
+        int iColumnOneCount = [dicType[@"oneRowStyle"] intValue];  // 第一行的元素个数
+        int iColumnTwoCount = [dicType[@"twoRowStyle"] intValue];  // 第二行之后的元素个数
+        
+        
+        // 显示数组为空， continue
+        NSArray *arrShowList  = dicType[@"showIdList"];
+        //arrShowList = nil;
+        if (!arrShowList ||
+            [arrShowList count] == 0)
+         {
+            continue;
+         }
+
+        // 获取每种类型需要显示的商品list
+        NSMutableArray  *tempArr = [[NSMutableArray alloc] init];
+
+        for (int i = 0;  i < [arrShowList count]; i++)
+         {
+            NSDictionary *dicObject = arrShowList[i];
+            ShopModel *sModel = [[ShopModel alloc] init];
+            sModel.iShopID = i;
+            sModel.strGoodsImgUrl = @"Tab1_TJSP";//[NSString stringWithFormat:@"%@",dicObject[@"imgUrl"]];
+            sModel.strMinPrice = [NSString stringWithFormat:@"%@",dicObject[@"minPrice"]];
+            sModel.strMaxPrice = [NSString stringWithFormat:@"%@",dicObject[@"maxPrice"]];
+            sModel.strGoodsCode = [NSString stringWithFormat:@"%@",dicObject[@"goodsCode"]];
+            sModel.strGoodsName = [NSString stringWithFormat:@"%@",dicObject[@"goodsName"]];
+            sModel.strGoodsSubName = [NSString stringWithFormat:@"%@",dicObject[@"goodsSubName"]];
+            sModel.strCateCode = [NSString stringWithFormat:@"%@",dicObject[@"cateCode"]];
+            sModel.strCateName = [NSString stringWithFormat:@"%@",dicObject[@"cateName"]];
+            [tempArr addObject:sModel];
+         }
+
+        // 目前，只有 商品 和  类目 两种  商品就是全部显示图片
+        if (1 == iShowType)
+         {
+            AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:strTypeTitle itemArray:tempArr origin_Y:iTopY
+                                                                                   columnOneCount:iColumnOneCount  columnTwoCount:iColumnTwoCount];
+            [scView addSubview:adListView];
+            ShopModel *sModel = [[ShopModel alloc] init];
+            sModel.strTypeName = strTypeTitle;
+            sModel.strTypeCode = strTypeCode;
+            adListView.delegate = self;
+            adListView.shopModel = sModel;
+            iTopY += adListView.height;
+         }
+        //else if (0 == iShowType)
+        else
+         {
+            ShopListView  *shopListView = [[ShopListView alloc] initWithTitle:strTypeTitle itemArray:tempArr origin_Y:iTopY
+                                                                               columnOneCount:iColumnOneCount  columnTwoCount:iColumnTwoCount];
+            [scView addSubview:shopListView];
+            ShopModel *sModel = [[ShopModel alloc] init];
+            sModel.strTypeName = strTypeTitle;
+            sModel.strTypeCode = strTypeCode;
+            shopListView.delegate = self;
+            shopListView.shopModel = sModel;
+            iTopY += shopListView.height;
+         }
+
+
      }
     
     
    
-    NSMutableArray  *tempArr = [[NSMutableArray alloc] init];
-    for (int i = 0;  i < 9; i++)
-     {
-        ShopModel *sModel = [[ShopModel alloc] init];
-        sModel.iShopID = i;
-        sModel.strShopImgUrl = @"Tab1_TJSP";
-        [tempArr addObject:sModel];
-     }
-    //NSArray *arrImg =@[@"Tab1_TJSP",@"Tab1_TJSP"];
-    //AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"推荐商品" itemArray:tempArr origin_Y:iTopY];
-    AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:@"推荐商品" itemArray:tempArr origin_Y:iTopY
-                                                                       columnOneCount:1  columnTwoCount:2];
-    [scView addSubview:adListView];
-    adListView.delegate = self;
 
-    
-    // 热销商品
-    NSMutableArray  *tempArr1 = [[NSMutableArray alloc] init];
-    for (int i = 0;  i < 6; i++)
-     {
-        ShopModel *sModel = [[ShopModel alloc] init];
-        sModel.iShopID = i;
-        sModel.strShopImgUrl = @"Tab1_RMSP";
-        sModel.strShopName = @"凯尔德乐婴儿";
-        sModel.strPrice = @"¥ 13.90";
-        [tempArr1 addObject:sModel];
-     }
-    iTopY += adListView.height;
-    ShopListView  *shopListView1 = [[ShopListView alloc] initWithTitle:@"热销商品" itemArray:tempArr1  columnCount:3  origin_Y:iTopY];
-    [scView addSubview:shopListView1];
-    shopListView1.delegate = self;
-    
-    
-    // 热销商品
-    NSMutableArray  *tempArr2 = [[NSMutableArray alloc] init];
-    for (int i = 0;  i < 6; i++)
-     {
-        ShopModel *sModel = [[ShopModel alloc] init];
-        sModel.iShopID = i;
-        sModel.strShopImgUrl = @"Tab1_RMSP";
-        sModel.strShopName = @"凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿凯尔德乐婴儿";
-        sModel.strPrice = @"¥ 13.90";
-        [tempArr2 addObject:sModel];
-     }
-    iTopY += shopListView1.height;
-    ShopListView  *shopListView2 = [[ShopListView alloc] initWithTitle:@"新品发售" itemArray:tempArr2  columnCount:3  origin_Y:iTopY];
-    [scView addSubview:shopListView2];
-    shopListView2.delegate = self;
-    
-    
-    
-    iTopY += shopListView2.height;
     scView.contentSize = CGSizeMake(0, iTopY);
     
-    
+    NSLog(@"Draw Home  End");
     
 }
 
@@ -398,10 +418,12 @@
 //            return;
 //        }
 //
-//    }else{
-//        //如果不是以上两个，跳转相应h5页面
-//        [CCWebViewController showWithContro:self withUrlStr:_bannerUrlArr[index] withTitle:_bannerTitleArr[index]];
 //    }
+//     else
+     {
+        //如果不是以上两个，跳转相应h5页面
+        [CCWebViewController showWithContro:self withUrlStr:_bannerUrlArr[index] withTitle:_bannerTitleArr[index]];
+     }
 }
 
 
@@ -415,10 +437,12 @@
         if (-1 == iShopID)
          {
             NSLog(@"Click More");
+            NSLog(@"strGoodsName:%@  strTypeCode:%@", clickObj.strTypeCode,clickObj.strTypeName);
          }
         else
          {
             NSLog(@"ShopID:%d", iShopID);
+            NSLog(@"strCateCode:%@  strCateName:%@", clickObj.strCateCode,clickObj.strCateName);
          }
         
         
@@ -445,12 +469,13 @@
         // 点击更多按钮
         if (-1 == iShopID)
          {
-            NSLog(@"Click More :%@", clickObj.strShopName);
+            NSLog(@"Click More ");
+            NSLog(@"strGoodsName:%@  strTypeCode:%@", clickObj.strTypeCode,clickObj.strTypeName);
          }
         else
          {
             NSLog(@"ShopID:%d", iShopID);
-            NSLog(@"strShopName:%@", clickObj.strShopName);
+            NSLog(@"strGoodsName:%@ strGoodsSubName:%@  strGoodsCode:%@", clickObj.strGoodsName,clickObj.strGoodsSubName,clickObj.strGoodsCode);
          }
         
      }

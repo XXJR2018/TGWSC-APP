@@ -81,7 +81,7 @@
         [_items count])
      {
         ShopModel *sModel= _items[0];
-        NSString *strImgName = sModel.strShopImgUrl;
+        NSString *strImgName = sModel.strGoodsImgUrl;
         UIImage *imgTemp = [ToolsUtlis getImgFromStr:strImgName];
         if (!imgTemp)
          {
@@ -107,7 +107,7 @@
             [self  addSubview:imgViewTemp];
             
             ShopModel *sModel= _items[i];
-            NSString *strImgName = sModel.strShopImgUrl;
+            NSString *strImgName = sModel.strGoodsImgUrl;
             imgTemp = [ToolsUtlis getImgFromStr:strImgName];
             imgViewTemp.image  = imgTemp;
             
@@ -116,7 +116,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopName.font = [UIFont systemFontOfSize:13];
             labelShopName.textColor = [ResourceManager color_1];
-            labelShopName.text = sModel.strShopName;
+            labelShopName.text = sModel.strGoodsSubName;
             labelShopName.numberOfLines = 0;
             
             
@@ -125,7 +125,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopPrice.font = [UIFont systemFontOfSize:15];
             labelShopPrice.textColor = UIColorFromRGB(0x9f1421);
-            labelShopPrice.text = sModel.strPrice;
+            labelShopPrice.text = sModel.strMaxPrice;
             labelShopPrice.numberOfLines = 0;
             
             UIButton *btnTemp = [[UIButton alloc] initWithFrame:imgViewTemp.frame];
@@ -189,6 +189,7 @@
         UIImage *imgTemp = [ToolsUtlis getImgFromStr:strImgName];
         if (!imgTemp)
          {
+            self.height = fImgTopY;
             return;
          }
         
@@ -198,7 +199,7 @@
         float fImgWidth = fixelW *FixelScaleSize*ScaleSize;
         fImgTopY = fTopY;
         float fImgBettewn = 5 *ScaleSize;
-        fLeftX = (SCREEN_WIDTH  - _columnOneCount *fImgWidth - fImgBettewn)/_columnCount;
+        fLeftX = (SCREEN_WIDTH  - _columnOneCount *fImgWidth - (_columnOneCount -1)* fImgBettewn)/2;
         float fImgLeftX = fLeftX;
         
         float fLabelNameHeight = 45.f;
@@ -210,7 +211,7 @@
             [self  addSubview:imgViewTemp];
             
             ShopModel *sModel= _items[i];
-            NSString *strImgName = sModel.strShopImgUrl;
+            NSString *strImgName = sModel.strGoodsImgUrl;
             imgTemp = [ToolsUtlis getImgFromStr:strImgName];
             imgViewTemp.image  = imgTemp;
             
@@ -219,7 +220,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopName.font = [UIFont systemFontOfSize:13];
             labelShopName.textColor = [ResourceManager color_1];
-            labelShopName.text = sModel.strShopName;
+            labelShopName.text = sModel.strGoodsSubName;
             labelShopName.numberOfLines = 0;
             
             
@@ -228,7 +229,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopPrice.font = [UIFont systemFontOfSize:15];
             labelShopPrice.textColor = UIColorFromRGB(0x9f1421);
-            labelShopPrice.text = sModel.strPrice;
+            labelShopPrice.text = sModel.strMaxPrice;
             labelShopPrice.numberOfLines = 0;
             
             UIButton *btnTemp = [[UIButton alloc] initWithFrame:imgViewTemp.frame];
@@ -236,7 +237,78 @@
             btnTemp.tag = i;
             [btnTemp addTarget:self action:@selector(actionImg:) forControlEvents:UIControlEventTouchUpInside];
             
-            if ((i +1) %_columnCount == 0)
+            fImgLeftX += fImgBettewn + fImgWidth;
+            
+            
+         }
+        
+        
+        // 如果只有一排
+        if (_columnOneCount == iShopCount)
+         {
+            fImgTopY += fImgHeight + fImgBettewn;
+            self.height = fImgTopY;
+            return;
+         }
+        
+         // 画第二行
+        ShopModel *sModel2= _items[_columnOneCount];
+        //NSString *strImgName2 = sModel2.strShopImgUrl;
+        NSString *strImgName2 = @"Tab1_RMSP";
+        UIImage *imgTemp2 = [ToolsUtlis getImgFromStr:strImgName2];
+        if (!imgTemp2)
+         {
+            self.height = fImgTopY;
+            return;
+         }
+        
+        
+        fixelH = CGImageGetHeight(imgTemp2.CGImage);
+        fixelW = CGImageGetWidth(imgTemp2.CGImage);
+        fImgHeight = fixelH *FixelScaleSize*ScaleSize;
+        fImgWidth = fixelW *FixelScaleSize*ScaleSize;
+        //fImgTopY = fTopY;
+        fImgTopY += fImgHeight + fImgBettewn + fLabelNameHeight + fLablePriceHeight + fImgBettewn;
+        fImgBettewn = 5 *ScaleSize;
+        fLeftX = (SCREEN_WIDTH  - _columnTwoCount *fImgWidth - (_columnTwoCount -1)* fImgBettewn)/2;
+        fImgLeftX = fLeftX;
+
+        fLabelNameHeight = 45.f;
+        fLablePriceHeight = 20.f;
+
+        for (int i = _columnOneCount; i < iShopCount; i++)
+         {
+            UIImageView *imgViewTemp = [[UIImageView alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY, fImgWidth, fImgHeight)];
+            [self  addSubview:imgViewTemp];
+
+            ShopModel *sModel= _items[i];
+            NSString *strImgName = sModel.strGoodsImgUrl;
+            imgTemp = [ToolsUtlis getImgFromStr:strImgName];
+            imgViewTemp.image  = imgTemp;
+
+            UILabel *labelShopName = [[UILabel alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY + fImgHeight, fImgWidth, fLabelNameHeight)];
+            [self addSubview:labelShopName];
+            //labelShopName.backgroundColor = [UIColor yellowColor];
+            labelShopName.font = [UIFont systemFontOfSize:13];
+            labelShopName.textColor = [ResourceManager color_1];
+            labelShopName.text = sModel.strGoodsSubName;
+            labelShopName.numberOfLines = 0;
+
+
+            UILabel *labelShopPrice = [[UILabel alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY + fImgHeight + fLabelNameHeight, fImgWidth, fLablePriceHeight)];
+            [self addSubview:labelShopPrice];
+            //labelShopName.backgroundColor = [UIColor yellowColor];
+            labelShopPrice.font = [UIFont systemFontOfSize:15];
+            labelShopPrice.textColor = UIColorFromRGB(0x9f1421);
+            labelShopPrice.text = sModel.strMaxPrice;
+            labelShopPrice.numberOfLines = 0;
+
+            UIButton *btnTemp = [[UIButton alloc] initWithFrame:imgViewTemp.frame];
+            [self addSubview:btnTemp];
+            btnTemp.tag = i;
+            [btnTemp addTarget:self action:@selector(actionImg:) forControlEvents:UIControlEventTouchUpInside];
+
+            if ((i +1 - _columnOneCount) %_columnTwoCount == 0)
              {
                 fImgTopY += fImgHeight + fImgBettewn + fLabelNameHeight + fLablePriceHeight + fImgBettewn;
                 fImgLeftX = fLeftX;
@@ -245,66 +317,8 @@
              {
                 fImgLeftX += fImgBettewn + fImgWidth;
              }
-            
+
          }
-        
-         // 画第二行
-//        CGFloat fixelH = CGImageGetHeight(imgTemp.CGImage);
-//        CGFloat fixelW = CGImageGetWidth(imgTemp.CGImage);
-//        float fImgHeight = fixelH *FixelScaleSize*ScaleSize;
-//        float fImgWidth = fixelW *FixelScaleSize*ScaleSize;
-//        fImgTopY = fTopY;
-//        float fImgBettewn = 5 *ScaleSize;
-//        //fLeftX = (SCREEN_WIDTH  - 2 *fImgWidth - fImgBettewn)/2;
-//        fLeftX = (SCREEN_WIDTH  - _columnCount *fImgWidth - fImgBettewn)/_columnCount;
-//        float fImgLeftX = fLeftX;
-//
-//        float fLabelNameHeight = 45.f;
-//        float fLablePriceHeight = 20.f;
-//
-//        for (int i = 0; i < [_items count]; i++)
-//         {
-//            UIImageView *imgViewTemp = [[UIImageView alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY, fImgWidth, fImgHeight)];
-//            [self  addSubview:imgViewTemp];
-//
-//            ShopModel *sModel= _items[i];
-//            NSString *strImgName = sModel.strShopImgUrl;
-//            imgTemp = [ToolsUtlis getImgFromStr:strImgName];
-//            imgViewTemp.image  = imgTemp;
-//
-//            UILabel *labelShopName = [[UILabel alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY + fImgHeight, fImgWidth, fLabelNameHeight)];
-//            [self addSubview:labelShopName];
-//            //labelShopName.backgroundColor = [UIColor yellowColor];
-//            labelShopName.font = [UIFont systemFontOfSize:13];
-//            labelShopName.textColor = [ResourceManager color_1];
-//            labelShopName.text = sModel.strShopName;
-//            labelShopName.numberOfLines = 0;
-//
-//
-//            UILabel *labelShopPrice = [[UILabel alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY + fImgHeight + fLabelNameHeight, fImgWidth, fLablePriceHeight)];
-//            [self addSubview:labelShopPrice];
-//            //labelShopName.backgroundColor = [UIColor yellowColor];
-//            labelShopPrice.font = [UIFont systemFontOfSize:15];
-//            labelShopPrice.textColor = UIColorFromRGB(0x9f1421);
-//            labelShopPrice.text = sModel.strPrice;
-//            labelShopPrice.numberOfLines = 0;
-//
-//            UIButton *btnTemp = [[UIButton alloc] initWithFrame:imgViewTemp.frame];
-//            [self addSubview:btnTemp];
-//            btnTemp.tag = i;
-//            [btnTemp addTarget:self action:@selector(actionImg:) forControlEvents:UIControlEventTouchUpInside];
-//
-//            if ((i +1) %_columnCount == 0)
-//             {
-//                fImgTopY += fImgHeight + fImgBettewn + fLabelNameHeight + fLablePriceHeight + fImgBettewn;
-//                fImgLeftX = fLeftX;
-//             }
-//            else
-//             {
-//                fImgLeftX += fImgBettewn + fImgWidth;
-//             }
-//
-//         }
         
      }
     
@@ -319,8 +333,8 @@
 {
     if ([self.delegate respondsToSelector:@selector(didShopClickButtonAtObejct:)]) {
         ShopModel *mode = [[ShopModel alloc] init];
+        mode = _shopModel;
         mode.iShopID = -1;
-        mode.strShopName = _title;
         [self.delegate didShopClickButtonAtObejct:mode];
     }
 }

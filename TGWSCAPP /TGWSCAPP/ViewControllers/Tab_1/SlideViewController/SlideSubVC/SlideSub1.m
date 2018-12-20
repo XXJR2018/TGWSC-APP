@@ -29,7 +29,7 @@
 #pragma mark --- lifecylce
 -(void)viewWillAppear:(BOOL)animated
 {
-    //[self getUIformWeb];
+    [self getUIformWeb];
 }
 
 - (void)viewDidLoad {
@@ -43,6 +43,13 @@
     
     // 首页只有一个sub时， 从此函数布局UI
     //self.view.height = SCREEN_HEIGHT - 70  - TabbarHeight;
+    
+    // 先用本地缓存的数据 来刷新UI
+    NSDictionary *dicUI = [CommonInfo getKeyOfDic:K_Home_TJ_UIData];
+    if (dicUI)
+     {
+        [self layoutUIByData:dicUI];
+     }
     
     [self getUIformWeb];
     
@@ -360,7 +367,27 @@
      {
 
         NSDictionary *dicUI = operation.jsonResult.attr;
-        [self layoutUIByData:dicUI];
+        
+        NSDictionary *dicLocalUI = [CommonInfo getKeyOfDic:K_Home_TJ_UIData];
+        
+        if (dicLocalUI &&
+            [dicLocalUI isEqual:dicUI])
+         {
+            // 如果网络数据 和 本地数据一摸一样， 直接退出，不再刷新UI 
+            return;
+         }
+        
+        
+        if (dicUI)
+         {
+            [CommonInfo setKey:K_Home_TJ_UIData withDicValue:dicUI];
+            [self layoutUIByData:dicUI];
+         }
+        else
+         {
+            [MBProgressHUD showErrorWithStatus:@"数据加载失败，请检查网络配置" toView:self.view];
+         }
+        
      }
 
     

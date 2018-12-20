@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+
+#define  K_Home_TJ_UIData  @"K_Home_TJ_UIData" // 首页-推荐子页面的数据KEY
+
 @interface CommonInfo : NSObject
 
 
@@ -52,6 +55,13 @@
 
 // 根据KEY来得到VALUE (函数内部为此KEY值会加上UID， 每个用户都是唯一的)
 +(NSDictionary*)getKeyOfDic:(NSString *) strkey;
+
+
+// 根据KEY来设置VALUE (函数内部为此KEY值会加上UID， 每个用户都是唯一的)
++(void)setKey:(NSString *) strkey withArrayValue:(NSArray*) aryValue;
+
+// 根据KEY来得到VALUE (函数内部为此KEY值会加上UID， 每个用户都是唯一的)
++(NSArray*)getKeyOfArray:(NSString *) strkey;
 
 // 千分符来格式化字符串
 +(NSString*) formatString:(NSString*) str;

@@ -128,6 +128,39 @@
     
 }
 
+
+// 根据KEY来设置VALUE (函数内部为此KEY值会加上UID， 每个用户都是唯一的)
++(void)setKey:(NSString *) strkey withArrayValue:(NSArray*) aryValue
+{
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString * strUserKey = [self SetNotNull:strkey];
+    NSString * strUid = [DDGSetting sharedSettings].uid;
+    if (strUid.length > 8)
+     {
+        strUid = [strUid substringFromIndex:8];
+     }
+    strUserKey = [strUserKey stringByAppendingString:strUid];
+    [defaults setObject:aryValue forKey:strUserKey];
+}
+
+// 根据KEY来得到VALUE (函数内部为此KEY值会加上UID， 每个用户都是唯一的)
++(NSArray*)getKeyOfArray:(NSString *) strkey
+{
+    NSArray * arrayRet = nil;
+    NSString * strUserKey = [self SetNotNull:strkey];
+    NSString * strUid = [DDGSetting sharedSettings].uid;
+    if (strUid.length > 8)
+     {
+        strUid = [strUid substringFromIndex:8];
+     }
+    strUserKey = [strUserKey stringByAppendingString:strUid];
+    arrayRet = [[NSUserDefaults standardUserDefaults]objectForKey:strUserKey];
+    
+    
+    return arrayRet;
+}
+
+
 // 设置字符串为非空
 +(NSString*) SetNotNull:(NSString*) strValue
 {

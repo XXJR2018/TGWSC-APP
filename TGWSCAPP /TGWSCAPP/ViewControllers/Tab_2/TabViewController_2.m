@@ -9,30 +9,70 @@
 #import "TabViewController_2.h"
 
 #import "ProductCollectionViewCell.h"
+#import "HistorySearchVC.h"
 
+
+#define  leftListWidth   80
+#define  rightListWidth  [UIScreen mainScreen].bounds.size.width - 80
 
 @interface TabViewController_2 ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 {
     UIScrollView *_scView;
     UIButton *_sortFirstBtn;
     UIView *_sortFristView;
-    NSMutableArray *_sortFirstTitleArr;
     NSMutableArray *_sortFirstBtnArr;
     
     UITableView *_tableView;
     UICollectionView *_collectView;
 
-    NSMutableArray *_sortSecondTitleArr;
+    NSMutableArray *_sortSecondDataArr;  //第二季菜单数据
     NSInteger cellCount;   //当前的cell是第几个
 
+    NSString *_bannerImgUrlStr;
+    NSInteger _menuNumType;   //当前cell是几级菜单
 }
 @end
 
 @implementation TabViewController_2
 
+-(void)loadData{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/category/queryCateList",[PDAPI getBaseUrlString]]
+                                                                               parameters:nil HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+}
+
+#pragma mark 数据操作
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [self.dataArray removeAllObjects];
+    [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
+   
+    [self scViewUI];
+    [_tableView reloadData];
+}
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
+}
+
+
+
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"分类"];
+    //没有数据时切换页面重新请求接口
+    if (self.dataArray.count == 0) {
+        [self loadData];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -42,37 +82,44 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hideBackButton = YES;
-    [self layoutNaviBarViewWithTitle:@"分类"];
-    
+
+    self.view.backgroundColor = [UIColor whiteColor];
     _sortFirstBtnArr = [NSMutableArray array];
-    _sortFirstTitleArr = [NSMutableArray arrayWithArray:@[@"冬季专区",@"爆品专区",@"新品专区",@"居家",@"鞋包配饰",@"服装",@"洗护",@"饮食",@"母婴",@"餐厨",@"保健",@"文体",@"12.12专区",@"特色区"]];
-    _sortSecondTitleArr = [NSMutableArray array];
+    _sortSecondDataArr = [NSMutableArray array];
     
-    NSArray *arr1 = @[@[@{@"title":@"箱子1"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"包包"}],
-                      @[@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"箱子"}],
-                      @[@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"包包"}]];
-    NSArray *arr2 = @[@[@{@"title":@"箱子2"}],
-                      @[@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"箱子"}],
-                      @[@{@"title":@"箱子"},@{@"title":@"包包"}]];
-    NSArray *arr3 = @[@[@{@"title":@"箱子3"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"箱子"}],
-                      @[@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"包包"}],
-                      @[@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"包包"}]];
-    NSArray *arr4 = @[@[@{@"title":@"箱子4"},@{@"title":@"箱子"},@{@"title":@"包包"}],
-                      @[@{@"title":@"箱子"},@{@"title":@"包包"}],
-                      @[@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"包包"},@{@"title":@"包包"},@{@"title":@"箱子"},@{@"title":@"包包"}]];
-    [self.dataArray addObject:arr1];
-    [self.dataArray addObject:arr2];
-    [self.dataArray addObject:arr3];
-    [self.dataArray addObject:arr4];
-    
+    [self searchViewUI];
     [self layoutUI];
-    [self rightListUI];
+    
 }
 
--(void)layoutUI{
+#pragma mark- 顶部搜索功能
+-(void)searchViewUI{
+    UIView *searchView = [[UIView alloc] initWithFrame:CGRectMake(15 , StatusBarHeight + 5, SCREEN_WIDTH - 30, NavHeight - StatusBarHeight - 10)];
+    [self.view addSubview:searchView];
+    searchView.cornerRadius = 5;
+    searchView.backgroundColor = [ResourceManager viewBackgroundColor];
     
-    _scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, NavHeight, 100, SCREEN_HEIGHT - NavHeight - TabbarHeight)];
+    UIButton *searchBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 170, searchView.frame.size.height)];
+    [searchView addSubview:searchBtn];
+    [searchBtn setTitle:@"百里挑一的好商品" forState:UIControlStateNormal];
+    [searchBtn setTitleColor:[ResourceManager color_6] forState:UIControlStateNormal];
+    searchBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [searchBtn setImage:[UIImage imageNamed:@"Tab1_Search"] forState:UIControlStateNormal];
+    [searchBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+    searchBtn.userInteractionEnabled = NO;
+    
+    UITapGestureRecognizer * gestureSearch = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(searchTouch)];
+    gestureSearch.numberOfTapsRequired  = 1;
+    searchView.userInteractionEnabled = YES;
+    [searchView addGestureRecognizer:gestureSearch];
+    
+    UIView *viewX = [[UIView alloc] initWithFrame:CGRectMake(0 , NavHeight - 0.5, SCREEN_WIDTH, 0.5)];
+    [self.view addSubview:viewX];
+    viewX.backgroundColor = [ResourceManager color_5];
+}
+
+-(void)scViewUI{
+    _scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, NavHeight, leftListWidth, SCREEN_HEIGHT - NavHeight - TabbarHeight)];
     [self.view addSubview:_scView];
     _scView.backgroundColor = [UIColor whiteColor];
     _scView.bounces = NO;
@@ -83,42 +130,67 @@
     [_scView addSubview:viewX];
     viewX.backgroundColor = [ResourceManager color_5];
     
-    for (int i = 0; i < _sortFirstTitleArr.count; i ++) {
-        _sortFirstBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 50 * i, 100, 50)];
+    for (int i = 0; i < self.dataArray.count; i ++) {
+        NSDictionary *dic = self.dataArray[i];
+        _sortFirstBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 50 * i, leftListWidth, 50)];
         [_scView addSubview:_sortFirstBtn];
         _sortFirstBtn.tag = i;
-        [_sortFirstBtn setTitle:_sortFirstTitleArr[i] forState:UIControlStateNormal];
+        
+        NSString *title = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cateName"]];
+        [_sortFirstBtn setTitle:title forState:UIControlStateNormal];
         [_sortFirstBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
-        [_sortFirstBtn setTitleColor:[ResourceManager redColor1] forState:UIControlStateSelected];
+        [_sortFirstBtn setTitleColor:UIColorFromRGB(0x704a18) forState:UIControlStateSelected];
         _sortFirstBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_sortFirstBtn addTarget:self action:@selector(sortFirstTouch:) forControlEvents:UIControlEventTouchUpInside];
         
         [_sortFirstBtnArr addObject:_sortFirstBtn];
-        
     }
     
     _scView.contentSize =CGSizeMake(0, CGRectGetMaxY(_sortFirstBtn.frame) + 10);
     ((UIButton *)_sortFirstBtnArr[0]).selected = YES;
     _sortFristView = [[UIView alloc]initWithFrame:CGRectMake(0, (50 - 20)/2, 2, 20)];
     [_scView addSubview:_sortFristView];
-    _sortFristView.backgroundColor = [ResourceManager redColor1];
+    _sortFristView.backgroundColor = UIColorFromRGB(0x704a18);
+    
+}
+
+#pragma mark- 顶部搜索框触发事件
+-(void)searchTouch{
+    
+    HistorySearchVC *searShopVC = [HistorySearchVC alloc];
+    //(1)点击分类 (2)用户点击键盘"搜索"按钮  (3)点击历史搜索记录
+    [searShopVC beginSearch:^(NaviBarSearchType searchType,NBSSearchShopCategoryViewCellP *categorytagP,UILabel *historyTagLabel,LLSearchBar *searchBar) {
+        NSLog(@"historyTagLabel:%@--->searchBar:%@--->categotyTitle:%@--->%@",historyTagLabel.text,searchBar.text,categorytagP.categotyTitle,categorytagP.categotyID);
+        searShopVC.searchBarText = @"你选择的搜索内容显示到这里";
+    }];
+    
+    //点击了即时匹配选项
+    [searShopVC resultListViewDidSelectedIndex:^(UITableView *tableView, NSInteger index) {
+        NSLog(@"点击了即时搜索内容第%zd行的%@数据",index,searShopVC.resultListArray[index]);
+    }];
+    
+    //执行即时搜索匹配
+    NSArray *tempArray = @[@"Java", @"Python"];
+    [searShopVC searchbarDidChange:^(NaviBarSearchType searchType, LLSearchBar *searchBar, NSString *searchText) {
+        //FIXME:这里模拟网络请求数据!!!
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            searShopVC.resultListArray = tempArray;
+        });
+    }];
+    
+    [self.navigationController presentViewController:searShopVC animated:nil completion:nil];
     
 }
 
 #pragma mark-一级菜单点击事件
 -(void)sortFirstTouch:(UIButton *)sender{
-    
-    if (sender == _sortFirstBtn) {
+    if (sender.selected) {
         return;
     }
-    NSLog(@"%@",_sortFirstTitleArr[sender.tag]);
     ((UIButton *)_sortFirstBtnArr[0]).selected = NO;
     if (sender != _sortFirstBtn) {
         _sortFirstBtn.selected = NO;
         _sortFirstBtn = sender;
-    }else{
-        //避免重复点击
-        return;
     }
     _sortFirstBtn.selected = YES;
     _sortFristView.frame = CGRectMake(0, (50 - 20)/2 + (sender.tag) * 50, 2, 20);
@@ -126,28 +198,33 @@
     /* 滚动指定段的指定row  到 指定位置*/
     [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:sender.tag inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     cellCount = sender.tag;
+   
 }
 
 #pragma mark- 右边商品列表布局
--(void)rightListUI{
+-(void)layoutUI{
     
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(100, NavHeight, SCREEN_WIDTH - 100, SCREEN_HEIGHT - TabbarHeight - NavHeight)];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(leftListWidth, NavHeight, rightListWidth, SCREEN_HEIGHT - TabbarHeight - NavHeight)];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.scrollEnabled = NO;
     [self.view addSubview:_tableView];
-
+    [_tableView setTableFooterView:[UIView new]];
+//    [_tableView setSeparatorInset:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [_tableView setSeparatorColor:[UIColor clearColor]];
+    
     //初始化加载显示第0个cell
     cellCount = 0;
-
 }
 
 -(void)collectionViewUI{
+    [_collectView removeFromSuperview];
+    
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.minimumLineSpacing = (SCREEN_WIDTH - 100 - 210)/6 * ScaleSize;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
-    _collectView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 100, SCREEN_HEIGHT - NavHeight - TabbarHeight) collectionViewLayout:flowLayout];
+    _collectView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, rightListWidth, SCREEN_HEIGHT - NavHeight - TabbarHeight) collectionViewLayout:flowLayout];
     _collectView.backgroundColor = [UIColor whiteColor];
     _collectView.delegate = self;
     _collectView.dataSource = self;
@@ -200,59 +277,93 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-    _sortSecondTitleArr = self.dataArray[indexPath.row];
+    NSDictionary *dic = self.dataArray[indexPath.row];
+    _bannerImgUrlStr = [NSString stringWithFormat:@"%@",[dic objectForKey:@"imgUrl"]];
+    _sortSecondDataArr = [dic objectForKey:@"subCate"];
+    if ([[dic objectForKey:@"havSubCount"] intValue] == 2) {
+        _menuNumType = 3;
+    }else{
+        _menuNumType = 2;
+    }
+    
     [self collectionViewUI];
     [cell.contentView addSubview:_collectView];
-    
     
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //（这种是没有点击后的阴影效果)
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+}
 
 #pragma mark -- UICollectionViewDataSource
 //定义展示的UICollectionViewCell的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    NSDictionary *dic = _sortSecondTitleArr[section];
-    return  dic.count;
+    if (_menuNumType == 3) {
+        NSDictionary *dic = _sortSecondDataArr[section];
+        NSArray *arr = [dic objectForKey:@"subCate"];
+        return  arr.count;
+    }else{
+        return _sortSecondDataArr.count;
+    }
+    
 }
 
 //定义展示的Section的个数
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return _sortSecondTitleArr.count;
+    if (_menuNumType == 3) {
+        return _sortSecondDataArr.count;
+    }else{
+        return  1;
+    }
+    
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"headerView"forIndexPath:indexPath];
-        
+        NSDictionary *dic = _sortSecondDataArr[indexPath.row];
+        UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView" forIndexPath:indexPath];
+        for (UIView *view in header.subviews) {
+            [view removeFromSuperview];
+        }
         UIView *headerView = [[UIView alloc] init];
         headerView.backgroundColor = [UIColor whiteColor];
-        if (indexPath.section == 0) {
-            UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 15, SCREEN_WIDTH - 115, 100)];
-            [headerView addSubview:imgView];
-            imgView.image = [UIImage imageNamed:@"Tab_4-9"];
-            
-            UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(imgView.frame), 150, 40)];
-            titleLabel.text = @"我是标题";
-            titleLabel.font= [UIFont boldSystemFontOfSize:15];
-            titleLabel.textColor = [ResourceManager color_1];
-            [headerView addSubview:titleLabel];
-            
-            UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(titleLabel.frame) - 0.5, SCREEN_WIDTH - 120, 0.5)];
-            [headerView addSubview:viewX];
-            viewX.backgroundColor = [ResourceManager color_5];
-            headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH - 101, CGRectGetMaxY(viewX.frame));
+        if (_menuNumType == 3) {
+             //三级菜单头视图
+            if (indexPath.section == 0) {
+                UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, rightListWidth - 29, 90 * ScaleSize)];
+                [headerView addSubview:imgView];
+                imgView.backgroundColor = UIColorFromRGB(0xf6f6f6);
+                [imgView sd_setImageWithURL:[NSURL URLWithString:_bannerImgUrlStr]];
+                
+                UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(imgView.frame) + 10, 150, 30)];
+                titleLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cateName"]];
+                titleLabel.font= [UIFont boldSystemFontOfSize:15];
+                titleLabel.textColor = [ResourceManager color_1];
+                [headerView addSubview:titleLabel];
+                
+                UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(titleLabel.frame) - 0.5, rightListWidth - 29, 0.5)];
+                [headerView addSubview:viewX];
+                viewX.backgroundColor = [ResourceManager color_5];
+            }else{
+                UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 150, 30)];
+                titleLabel.text = @"我是标题";
+                titleLabel.font= [UIFont boldSystemFontOfSize:15];
+                titleLabel.textColor = [ResourceManager color_1];
+                [headerView addSubview:titleLabel];
+                
+                UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(titleLabel.frame) - 0.5, rightListWidth - 29, 0.5)];
+                [headerView addSubview:viewX];
+                viewX.backgroundColor = [ResourceManager color_5];
+            }
         }else{
-            UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 150, 40)];
-            titleLabel.text = @"我是标题";
-            titleLabel.font= [UIFont boldSystemFontOfSize:15];
-            titleLabel.textColor = [ResourceManager color_1];
-            [headerView addSubview:titleLabel];
-            
-            UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(titleLabel.frame) - 0.5, SCREEN_WIDTH - 130, 0.5)];
-            [headerView addSubview:viewX];
-            viewX.backgroundColor = [ResourceManager color_5];
-            headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH - 101, CGRectGetMaxY(viewX.frame));
+            //二级菜单头视图
+            UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, rightListWidth - 29, 90 * ScaleSize)];
+            [headerView addSubview:imgView];
+             imgView.backgroundColor = UIColorFromRGB(0xf6f6f6);
+            [imgView sd_setImageWithURL:[NSURL URLWithString:_bannerImgUrlStr]];
         }
         
         //头视图添加view
@@ -264,11 +375,16 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     CGSize size = CGSizeZero;
-    if (section == 0) {
-        size = CGSizeMake(SCREEN_WIDTH - 100, 155);
+    if (_menuNumType == 3) {
+        if (section == 0) {
+            size = CGSizeMake(rightListWidth, 90 * ScaleSize + 55);
+        }else{
+            size = CGSizeMake(rightListWidth, 30);
+        }
     }else{
-        size = CGSizeMake(SCREEN_WIDTH - 100, 40);
+        size = CGSizeMake(rightListWidth, 90 * ScaleSize + 20);
     }
+    
     return size;
 }
 
@@ -276,9 +392,15 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ProductCollectionViewCell * cell;
     cell = (ProductCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"ProductCell_ID" forIndexPath:indexPath];
-    NSArray *arr = _sortSecondTitleArr[indexPath.section];
-    NSDictionary *dic = arr[indexPath.row];
-    cell.dataDicionary = dic;
+    
+    if (_menuNumType == 3) {
+        NSDictionary *dic = _sortSecondDataArr[indexPath.section];
+        NSArray *arr = [dic objectForKey:@"subCate"];
+        cell.dataDicionary = arr[indexPath.row];
+    }else{
+        NSDictionary *dic = _sortSecondDataArr[indexPath.section];
+        cell.dataDicionary = dic;
+    }
     
     return cell;
     
@@ -302,6 +424,18 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ProductCollectionViewCell * cell = (ProductCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
+    NSDictionary *selectDataDic;
+    NSInteger cateId;
+    if (_menuNumType == 3) {
+        NSDictionary *dic = _sortSecondDataArr[indexPath.section];
+        NSArray *arr = [dic objectForKey:@"subCate"];
+        selectDataDic = arr[indexPath.row];
+    }else{
+        selectDataDic = _sortSecondDataArr[indexPath.section];
+    }
+    
+    cateId = [[selectDataDic objectForKey:@"cateId"] intValue];
+    NSLog(@"cateId = %ld",cateId);
     
 }
 
@@ -314,6 +448,8 @@
         cellCount = cellCount - 1;
         [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:cellCount inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         [self sortFirstTouch:_sortFirstBtnArr[cellCount]];
+    }else{
+        [self loadData];
     }
 }
 

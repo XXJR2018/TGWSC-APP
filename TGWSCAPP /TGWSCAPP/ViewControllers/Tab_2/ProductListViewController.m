@@ -8,91 +8,128 @@
 
 #import "ProductListViewController.h"
 
-@interface ProductListViewController ()
+#import "SortProductCollectionViewCell.h"
+
+@interface ProductListViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 {
     UIButton *_sortBtn;
     NSMutableArray *_sortBtnArr;
     UIView *_sortViewX;
 }
+
+@property(nonatomic, strong)UICollectionView *collectionView;
+
+
 @end
 
+
 @implementation ProductListViewController
+
+-(void)loadData{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"cateCode"] = self.cateCode;
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/goods/queryGoodsList",[PDAPI getBaseUrlString]]
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+}
+
+#pragma mark 数据操作
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [_collectionView.mj_header endRefreshing];
+    [self.dataArray removeAllObjects];
+    [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
+    [_collectionView reloadData];
+}
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [_collectionView.mj_header endRefreshing];
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"分类列表点击"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"分类列表点击"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self layoutNaviBarViewWithTitle:@"母婴"];
-    
-    _sortBtnArr = [NSMutableArray array];
-    
     [self layoutUI];
-    [self scViewUI];
-    
+   
 }
 
 -(void)layoutUI{
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.minimumLineSpacing = 0;
+    flowLayout.minimumInteritemSpacing = 0;
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, SCREEN_HEIGHT - NavHeight - 50) collectionViewLayout:flowLayout];
+    _collectionView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_collectionView];
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    //以xib方式注册cell
+    [_collectionView registerNib:[UINib nibWithNibName:@"SortProductCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"SortProductCell_ID"];
+    _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self loadData];
+    }];
     
 }
 
--(void)scViewUI{
-   UIScrollView *scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, 40)];
-    [self.view addSubview:scView];
-    scView.backgroundColor = [UIColor whiteColor];
-    scView.bounces = NO;
-    scView.pagingEnabled = NO;
-    scView.showsVerticalScrollIndicator = NO;
-    
-    
-    
-    for (int i = 0; i < self.dataArray.count; i ++) {
-        NSDictionary *dic = self.sortDataArr[i];
-        _sortBtn = [[UIButton alloc]initWithFrame:CGRectMake(80 * i, 0, 80, 40)];
-        [scView addSubview:_sortBtn];
-        _sortBtn.tag = i;
-        
-        NSString *title = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cateName"]];
-        [_sortBtn setTitle:title forState:UIControlStateNormal];
-        [_sortBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
-        [_sortBtn setTitleColor:UIColorFromRGB(0x704a18) forState:UIControlStateSelected];
-        _sortBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_sortBtn addTarget:self action:@selector(sortFirstTouch:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [_sortBtnArr addObject:_sortBtn];
-    }
-    
-    scView.contentSize =CGSizeMake(CGRectGetMaxX(_sortBtn.frame) , 0);
-    ((UIButton *)_sortBtnArr[0]).selected = YES;
-    _sortViewX = [[UIView alloc]initWithFrame:CGRectMake(10, 40 -1, 60, 1)];
-    [scView addSubview:_sortViewX];
-    _sortViewX.backgroundColor = UIColorFromRGB(0x704a18);
-    
+#
+#pragma mark -- UICollectionViewDataSource
+//定义展示的UICollectionViewCell的个数
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+   return self.dataArray.count;
 }
 
-
-#pragma mark-一级菜单点击事件
--(void)sortFirstTouch:(UIButton *)sender{
-    if (sender.selected) {
-        return;
-    }
-    ((UIButton *)_sortBtnArr[0]).selected = NO;
-    if (sender != _sortBtn) {
-        _sortBtn.selected = NO;
-        _sortBtn = sender;
-    }
-    _sortBtn.selected = YES;
-    _sortViewX.frame = CGRectMake(80 * sender.tag + 10, 40 - 1, 60, 1);
-    
+//定义展示的Section的个数
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+     return  1;
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+//每个UICollectionView展示的内容
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    SortProductCollectionViewCell *cell = (SortProductCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"SortProductCell_ID" forIndexPath:indexPath];
+    cell.dataDicionary = self.dataArray[indexPath.row];
+    return cell;
 }
-*/
+
+#pragma mark- FlowDelegate
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+     return CGSizeMake(SCREEN_WIDTH/2, 230 * ScaleSize);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+   return UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+//返回这个UICollectioncell是否可以被选择
+-(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+   return YES;
+}
+
+//UICollectionView被选中时调用的方法
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.backgroundColor = [UIColor whiteColor];
+    NSDictionary *dic = self.dataArray[indexPath.row];
+}
+
 
 @end

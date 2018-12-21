@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProductListViewController : CommonViewController
 
-@property(nonatomic, copy)NSArray *sortDataArr;
+@property(nonatomic, copy)NSString *cateCode;
 
 @end
 

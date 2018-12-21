@@ -33,13 +33,6 @@
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PDb-oT-5AF">
-                    <rect key="frame" x="15" y="305" width="345" height="0.5"/>
-                    <color key="backgroundColor" red="0.87058823529999996" green="0.87450980389999999" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="0.5" id="LBJ-QI-OcT"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eSN-Nt-RbK">
                     <rect key="frame" x="20" y="245" width="335" height="0.5"/>
                     <color key="backgroundColor" red="0.87058823529999996" green="0.87450980389999999" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -47,12 +40,19 @@
                         <constraint firstAttribute="height" constant="0.5" id="gNp-va-xLE"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PDb-oT-5AF">
+                    <rect key="frame" x="15" y="305" width="345" height="0.5"/>
+                    <color key="backgroundColor" red="0.87058823529999996" green="0.87450980389999999" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="LBJ-QI-OcT"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2FF-45-yvH">
                     <rect key="frame" x="218" y="272" width="1" height="20"/>
                     <color key="backgroundColor" red="0.87058823529999996" green="0.87450980389999999" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="1" id="1kI-1M-FTc"/>
-                        <constraint firstAttribute="height" constant="20" id="gDH-jx-hJi"/>
+                        <constraint firstAttribute="width" constant="1" id="0i7-7O-RNb"/>
+                        <constraint firstAttribute="height" constant="20" id="wI2-gB-g3g"/>
                     </constraints>
                 </view>
                 <textField opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1wl-lm-Ptg">
@@ -123,11 +123,11 @@
                 <constraint firstItem="DQE-lI-lMK" firstAttribute="trailing" secondItem="IxK-2X-EkF" secondAttribute="trailing" constant="45" id="3Eg-Eh-vPc"/>
                 <constraint firstItem="DQE-lI-lMK" firstAttribute="trailing" secondItem="1wl-lm-Ptg" secondAttribute="trailing" constant="105" id="9Fe-wr-lPo"/>
                 <constraint firstItem="IxK-2X-EkF" firstAttribute="top" secondItem="eSN-Nt-RbK" secondAttribute="bottom" constant="21.5" id="Atg-bZ-KXW"/>
-                <constraint firstItem="2FF-45-yvH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="272" id="Bjr-JK-Zrr"/>
                 <constraint firstItem="PDb-oT-5AF" firstAttribute="top" secondItem="iih-sb-dfS" secondAttribute="bottom" id="CJq-NS-YMt"/>
                 <constraint firstItem="DQE-lI-lMK" firstAttribute="trailing" secondItem="4EZ-bn-G96" secondAttribute="trailing" constant="20" id="Cuo-1g-m38"/>
                 <constraint firstItem="4EZ-bn-G96" firstAttribute="leading" secondItem="DQE-lI-lMK" secondAttribute="leading" constant="20" id="DXc-XW-mSS"/>
                 <constraint firstAttribute="trailing" secondItem="PDb-oT-5AF" secondAttribute="trailing" constant="15" id="J1N-85-IdW"/>
+                <constraint firstItem="IxK-2X-EkF" firstAttribute="leading" secondItem="2FF-45-yvH" secondAttribute="trailing" constant="21" id="Luh-2R-9TV"/>
                 <constraint firstItem="M1I-bv-DDe" firstAttribute="top" secondItem="DQE-lI-lMK" secondAttribute="top" constant="80" id="RIr-dp-1NH"/>
                 <constraint firstItem="iih-sb-dfS" firstAttribute="top" secondItem="eSN-Nt-RbK" secondAttribute="bottom" constant="14.5" id="UV2-tl-ezC"/>
                 <constraint firstAttribute="trailing" secondItem="eSN-Nt-RbK" secondAttribute="trailing" constant="20" id="aUo-Gm-Zvc"/>
@@ -137,8 +137,8 @@
                 <constraint firstItem="eSN-Nt-RbK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="j46-yW-68A"/>
                 <constraint firstItem="eSN-Nt-RbK" firstAttribute="top" secondItem="1wl-lm-Ptg" secondAttribute="bottom" id="lh8-kQ-Q3c"/>
                 <constraint firstItem="M1I-bv-DDe" firstAttribute="leading" secondItem="DQE-lI-lMK" secondAttribute="leading" constant="20" id="qgz-en-t9C"/>
-                <constraint firstItem="IxK-2X-EkF" firstAttribute="leading" secondItem="2FF-45-yvH" secondAttribute="trailing" constant="21" id="rJJ-C3-A06"/>
                 <constraint firstItem="PDb-oT-5AF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="u6e-Sh-f0d"/>
+                <constraint firstItem="2FF-45-yvH" firstAttribute="top" secondItem="eSN-Nt-RbK" secondAttribute="bottom" constant="26.5" id="ubg-gE-7r8"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="DQE-lI-lMK"/>
             <point key="canvasLocation" x="39.200000000000003" y="46.326836581709152"/>

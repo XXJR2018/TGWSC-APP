@@ -67,6 +67,13 @@
 		C20525F521BE6E5C00E13893 /* TabViewController_2.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EA21BE6E5C00E13893 /* TabViewController_2.xib */; };
 		C20525F621BE6E5C00E13893 /* TabViewController_1.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525ED21BE6E5C00E13893 /* TabViewController_1.m */; };
 		C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */; };
+		C244950721CCB3AC00F8698B /* SortProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C244950521CCB3AC00F8698B /* SortProductCollectionViewCell.m */; };
+		C244950821CCB3AC00F8698B /* SortProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C244950621CCB3AC00F8698B /* SortProductCollectionViewCell.xib */; };
+		C244952221CCC6E100F8698B /* LSPTitleStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = C244951A21CCC6E100F8698B /* LSPTitleStyle.m */; };
+		C244952321CCC6E100F8698B /* LSPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C244951B21CCC6E100F8698B /* LSPPageView.m */; };
+		C244952421CCC6E100F8698B /* LSPContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C244951C21CCC6E100F8698B /* LSPContentView.m */; };
+		C244952521CCC6E100F8698B /* LSPTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C244951D21CCC6E100F8698B /* LSPTitleView.m */; };
+		C244952821CCC75D00F8698B /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C244952721CCC75D00F8698B /* MenuViewController.m */; };
 		C246D75C21CB9CE50054D7A0 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */; };
 		C250435521BA51FC00DA9C72 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C250435421BA51FC00DA9C72 /* AppDelegate.mm */; };
 		C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435921BA51FC00DA9C72 /* Main.storyboard */; };
@@ -367,6 +374,19 @@
 		C20525ED21BE6E5C00E13893 /* TabViewController_1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController_1.m; sourceTree = "<group>"; };
 		C20525EE21BE6E5C00E13893 /* TabViewController_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController_1.h; sourceTree = "<group>"; };
 		C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabViewController_1.xib; sourceTree = "<group>"; };
+		C244950421CCB3AC00F8698B /* SortProductCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SortProductCollectionViewCell.h; sourceTree = "<group>"; };
+		C244950521CCB3AC00F8698B /* SortProductCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SortProductCollectionViewCell.m; sourceTree = "<group>"; };
+		C244950621CCB3AC00F8698B /* SortProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SortProductCollectionViewCell.xib; sourceTree = "<group>"; };
+		C244951A21CCC6E100F8698B /* LSPTitleStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPTitleStyle.m; sourceTree = "<group>"; };
+		C244951B21CCC6E100F8698B /* LSPPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPPageView.m; sourceTree = "<group>"; };
+		C244951C21CCC6E100F8698B /* LSPContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPContentView.m; sourceTree = "<group>"; };
+		C244951D21CCC6E100F8698B /* LSPTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPTitleView.m; sourceTree = "<group>"; };
+		C244951E21CCC6E100F8698B /* LSPContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPContentView.h; sourceTree = "<group>"; };
+		C244951F21CCC6E100F8698B /* LSPPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPPageView.h; sourceTree = "<group>"; };
+		C244952021CCC6E100F8698B /* LSPTitleStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPTitleStyle.h; sourceTree = "<group>"; };
+		C244952121CCC6E100F8698B /* LSPTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPTitleView.h; sourceTree = "<group>"; };
+		C244952621CCC75D00F8698B /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		C244952721CCC75D00F8698B /* MenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		C246D75A21CB9CE50054D7A0 /* ProductListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductListViewController.h; sourceTree = "<group>"; };
 		C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductListViewController.m; sourceTree = "<group>"; };
 		C250435021BA51FC00DA9C72 /* TGWSCAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGWSCAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1100,11 +1120,16 @@
 				C20525EB21BE6E5C00E13893 /* TabViewController_2.h */,
 				C20525E921BE6E5C00E13893 /* TabViewController_2.m */,
 				C20525EA21BE6E5C00E13893 /* TabViewController_2.xib */,
+				C244952621CCC75D00F8698B /* MenuViewController.h */,
+				C244952721CCC75D00F8698B /* MenuViewController.m */,
 				C246D75A21CB9CE50054D7A0 /* ProductListViewController.h */,
 				C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */,
 				C2B51AEE21C3462500AC76FB /* ProductCollectionViewCell.h */,
 				C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */,
 				C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */,
+				C244950421CCB3AC00F8698B /* SortProductCollectionViewCell.h */,
+				C244950521CCB3AC00F8698B /* SortProductCollectionViewCell.m */,
+				C244950621CCB3AC00F8698B /* SortProductCollectionViewCell.xib */,
 			);
 			path = Tab_2;
 			sourceTree = "<group>";
@@ -1120,6 +1145,21 @@
 				C0CCC7B121C0E237009352E0 /* SearchViewController */,
 			);
 			path = Tab_1;
+			sourceTree = "<group>";
+		};
+		C244951921CCC6E100F8698B /* PageView */ = {
+			isa = PBXGroup;
+			children = (
+				C244951E21CCC6E100F8698B /* LSPContentView.h */,
+				C244951C21CCC6E100F8698B /* LSPContentView.m */,
+				C244951F21CCC6E100F8698B /* LSPPageView.h */,
+				C244951B21CCC6E100F8698B /* LSPPageView.m */,
+				C244952021CCC6E100F8698B /* LSPTitleStyle.h */,
+				C244951A21CCC6E100F8698B /* LSPTitleStyle.m */,
+				C244952121CCC6E100F8698B /* LSPTitleView.h */,
+				C244951D21CCC6E100F8698B /* LSPTitleView.m */,
+			);
+			path = PageView;
 			sourceTree = "<group>";
 		};
 		C250434721BA51FC00DA9C72 = {
@@ -1308,6 +1348,7 @@
 		C250459F21BA711E00DA9C72 /* CommonView */ = {
 			isa = PBXGroup;
 			children = (
+				C244951921CCC6E100F8698B /* PageView */,
 				C0CCC83C21C2603E009352E0 /* SlideMenu */,
 				C0CCC83521C25801009352E0 /* JXButton */,
 				C2AEB45D21BE3CB00078E788 /* CanvasAnimation */,
@@ -2044,6 +2085,7 @@
 				C250450D21BA579100DA9C72 /* LoginViewController.xib in Resources */,
 				C02C5F9B21CC991A0056A32E /* icon_video@3x.png in Resources */,
 				C250451321BA579100DA9C72 /* CitysViewController.xib in Resources */,
+				C244950821CCB3AC00F8698B /* SortProductCollectionViewCell.xib in Resources */,
 				C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */,
 				C25047A321BA715500DA9C72 /* blackArrow.png in Resources */,
 				C25045F921BA711E00DA9C72 /* XHDatePickerView.xib in Resources */,
@@ -2181,10 +2223,12 @@
 				C250480021BA73B800DA9C72 /* AFURLConnectionOperation.m in Sources */,
 				C250460421BA711E00DA9C72 /* TTRangeSlider.m in Sources */,
 				C20525DE21BE6E1D00E13893 /* TabBarViewController.m in Sources */,
+				C244952421CCC6E100F8698B /* LSPContentView.m in Sources */,
 				C250461821BA711E00DA9C72 /* PickerView.m in Sources */,
 				C0CCC7E821C0F150009352E0 /* LLNaviSearchBaseVC.m in Sources */,
 				C250476321BA715500DA9C72 /* UIViewController+DDGExtras.m in Sources */,
 				C250476721BA715500DA9C72 /* NSDate+Additions.m in Sources */,
+				C244952221CCC6E100F8698B /* LSPTitleStyle.m in Sources */,
 				C250480621BA73B800DA9C72 /* AFSecurityPolicy.m in Sources */,
 				C0CCC7FA21C0F1CB009352E0 /* HistoryAndCategorySearchCategoryViewP.m in Sources */,
 				C0CCC81321C0F30F009352E0 /* BaseCommonSearchVC.m in Sources */,
@@ -2220,6 +2264,7 @@
 				C250461C21BA711E00DA9C72 /* UIBezierPath+BasicShapes.m in Sources */,
 				C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */,
 				C250451521BA579100DA9C72 /* SelectCityViewController.m in Sources */,
+				C244952321CCC6E100F8698B /* LSPPageView.m in Sources */,
 				C250460B21BA711E00DA9C72 /* WCAlertview.m in Sources */,
 				C250461121BA711E00DA9C72 /* TAPageControl.m in Sources */,
 				C25047B921BA715500DA9C72 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
@@ -2259,6 +2304,7 @@
 				C0CCC7E921C0F150009352E0 /* UIView+LLRect.m in Sources */,
 				C0CCC82021C0F47D009352E0 /* LLTestViewController.m in Sources */,
 				C250451421BA579100DA9C72 /* CitysViewController.m in Sources */,
+				C244952821CCC75D00F8698B /* MenuViewController.m in Sources */,
 				C0CCC7EE21C0F150009352E0 /* LLSearchNaviBarView.m in Sources */,
 				C25047E321BA715500DA9C72 /* PDNotifications.m in Sources */,
 				C250479621BA715500DA9C72 /* JSONKit.m in Sources */,
@@ -2318,6 +2364,7 @@
 				C25047D921BA715500DA9C72 /* DDGUser.m in Sources */,
 				C25047DA21BA715500DA9C72 /* JsonResult.m in Sources */,
 				C250480121BA73B800DA9C72 /* AFURLSessionManager.m in Sources */,
+				C244952521CCC6E100F8698B /* LSPTitleView.m in Sources */,
 				C0CCC84A21C33E37009352E0 /* SlideModel.m in Sources */,
 				C250477521BA715500DA9C72 /* RSA.m in Sources */,
 				C25047E021BA715500DA9C72 /* MBProgressHUD+PD.m in Sources */,
@@ -2338,6 +2385,7 @@
 				C250450B21BA579100DA9C72 /* LoginViewController.m in Sources */,
 				C25047E121BA715500DA9C72 /* XXJRInfoCoverView.m in Sources */,
 				C0CCC84621C261C2009352E0 /* SlideParentVC.m in Sources */,
+				C244950721CCB3AC00F8698B /* SortProductCollectionViewCell.m in Sources */,
 				C2A71B8521BE53F9007D849F /* DDGUserInfoEngine.m in Sources */,
 				C250451621BA579100DA9C72 /* MJRefreshViewController.m in Sources */,
 				C0CCC7EB21C0F150009352E0 /* LLSearchVCConst.m in Sources */,

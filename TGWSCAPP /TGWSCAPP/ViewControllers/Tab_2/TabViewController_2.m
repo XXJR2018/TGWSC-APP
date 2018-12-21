@@ -10,7 +10,7 @@
 
 #import "ProductCollectionViewCell.h"
 #import "HistorySearchVC.h"
-#import "ProductListViewController.h"
+#import "MenuViewController.h"
 
 #define  leftListWidth   80
 #define  rightListWidth  [UIScreen mainScreen].bounds.size.width - 80
@@ -27,9 +27,13 @@
 
     NSMutableArray *_sortSecondDataArr;  //第二季菜单数据
     NSInteger cellCount;   //当前的cell是第几个
-
     NSString *_bannerImgUrlStr;
     NSInteger _menuNumType;   //当前cell是几级菜单
+    
+    NSString *_leftMenuStr;
+    NSString *_cateCode;
+    NSInteger _cateId;
+    
 }
 @end
 
@@ -46,16 +50,47 @@
                                                                                       [self handleErrorData:operation];
                                                                                   }];
     [operation start];
+    operation.tag = 1000;
+}
+
+-(void)CateListUrl{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (_cateCode.length > 0 && _cateId > 0) {
+        params[@"cateCode"] = _cateCode;
+    }
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/category/queryMinCateList",[PDAPI getBaseUrlString]]
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+    operation.tag = 1001;
 }
 
 #pragma mark 数据操作
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
-    [self.dataArray removeAllObjects];
-    [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
-   
-    [self scViewUI];
-    [_tableView reloadData];
+    if (operation.tag == 1000) {
+        [self.dataArray removeAllObjects];
+        [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
+        
+        [self scViewUI];
+        [_tableView reloadData];
+    }else if (operation.tag == 1001) {
+        if (_cateId > 0) {
+            MenuViewController *ctl = [[MenuViewController alloc]init];
+            ctl.sortDataArr = operation.jsonResult.rows;
+            ctl.titleStr = _leftMenuStr;
+            ctl.cateId = _cateId;
+            _cateId = 0;
+            [self.navigationController pushViewController:ctl animated:YES];
+        }
+    }
+    
 }
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
@@ -150,7 +185,32 @@
     _sortFristView = [[UIView alloc]initWithFrame:CGRectMake(0, (50 - 20)/2, 2, 20)];
     [_scView addSubview:_sortFristView];
     _sortFristView.backgroundColor = UIColorFromRGB(0x704a18);
+    NSDictionary *dic = self.dataArray[0];
+    _leftMenuStr = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cateName"]];
+    _cateCode = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cateCode"]];
+    NSLog(@"cateCode = %@",_cateCode);
+}
+
+#pragma mark-一级菜单点击事件
+-(void)sortFirstTouch:(UIButton *)sender{
+    if (sender.selected) {
+        return;
+    }
+    ((UIButton *)_sortFirstBtnArr[0]).selected = NO;
+    if (sender != _sortFirstBtn) {
+        _sortFirstBtn.selected = NO;
+        _sortFirstBtn = sender;
+    }
+    _sortFirstBtn.selected = YES;
+    _sortFristView.frame = CGRectMake(0, (50 - 20)/2 + (sender.tag) * 50, 2, 20);
     
+    /* 滚动指定段的指定row  到 指定位置*/
+    [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:sender.tag inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    cellCount = sender.tag;
+    NSDictionary *dic = self.dataArray[cellCount];
+    _leftMenuStr = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cateName"]];
+    _cateCode = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cateCode"]];
+    NSLog(@"cateCode = %@",_cateCode);
 }
 
 #pragma mark- 顶部搜索框触发事件
@@ -181,25 +241,6 @@
     
 }
 
-#pragma mark-一级菜单点击事件
--(void)sortFirstTouch:(UIButton *)sender{
-    if (sender.selected) {
-        return;
-    }
-    ((UIButton *)_sortFirstBtnArr[0]).selected = NO;
-    if (sender != _sortFirstBtn) {
-        _sortFirstBtn.selected = NO;
-        _sortFirstBtn = sender;
-    }
-    _sortFirstBtn.selected = YES;
-    _sortFristView.frame = CGRectMake(0, (50 - 20)/2 + (sender.tag) * 50, 2, 20);
-    
-    /* 滚动指定段的指定row  到 指定位置*/
-    [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:sender.tag inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    cellCount = sender.tag;
-   
-}
-
 #pragma mark- 右边商品列表布局
 -(void)layoutUI{
     
@@ -220,7 +261,7 @@
     [_collectView removeFromSuperview];
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.minimumLineSpacing = (SCREEN_WIDTH - 100 - 210)/6 * ScaleSize;
+    flowLayout.minimumLineSpacing = (SCREEN_WIDTH - 100 - 210 * ScaleSize)/6;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
     _collectView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, rightListWidth, SCREEN_HEIGHT - NavHeight - TabbarHeight) collectionViewLayout:flowLayout];
@@ -228,6 +269,11 @@
     _collectView.delegate = self;
     _collectView.dataSource = self;
 
+    //以xib方式注册cell
+    [_collectView registerNib:[UINib nibWithNibName:@"ProductCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"ProductCell_ID"];
+    //注册头视图，相当于段头
+    [_collectView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView"];
+    
 //    _collectView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
 //        [self pullDown];
 //    }];
@@ -253,11 +299,6 @@
     footer.stateLabel.textColor = [UIColor clearColor];
     // 设置footer
     _collectView.mj_footer = footer;
-  
-    //以xib方式注册cell
-    [_collectView registerNib:[UINib nibWithNibName:@"ProductCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"ProductCell_ID"];
-    //注册头视图，相当于段头
-    [_collectView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView"];
     
 }
 
@@ -322,14 +363,11 @@
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        NSDictionary *dic = _sortSecondDataArr[indexPath.row];
         UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView" forIndexPath:indexPath];
-        for (UIView *view in header.subviews) {
-            [view removeFromSuperview];
-        }
         UIView *headerView = [[UIView alloc] init];
         headerView.backgroundColor = [UIColor whiteColor];
         if (_menuNumType == 3) {
+            NSDictionary *dic = _sortSecondDataArr[indexPath.section];
              //三级菜单头视图
             if (indexPath.section == 0) {
                 UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, rightListWidth - 29, 90 * ScaleSize)];
@@ -348,7 +386,7 @@
                 viewX.backgroundColor = [ResourceManager color_5];
             }else{
                 UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 150, 30)];
-                titleLabel.text = @"我是标题";
+                titleLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cateName"]];;
                 titleLabel.font= [UIFont boldSystemFontOfSize:15];
                 titleLabel.textColor = [ResourceManager color_1];
                 [headerView addSubview:titleLabel];
@@ -397,7 +435,7 @@
         NSArray *arr = [dic objectForKey:@"subCate"];
         cell.dataDicionary = arr[indexPath.row];
     }else{
-        NSDictionary *dic = _sortSecondDataArr[indexPath.section];
+        NSDictionary *dic = _sortSecondDataArr[indexPath.row];
         cell.dataDicionary = dic;
     }
     
@@ -424,19 +462,20 @@
     ProductCollectionViewCell * cell = (ProductCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     NSDictionary *selectDataDic;
-    NSInteger cateId;
     if (_menuNumType == 3) {
         NSDictionary *dic = _sortSecondDataArr[indexPath.section];
         NSArray *arr = [dic objectForKey:@"subCate"];
         selectDataDic = arr[indexPath.row];
     }else{
-        selectDataDic = _sortSecondDataArr[indexPath.section];
+        selectDataDic = _sortSecondDataArr[indexPath.row];
     }
     
-    cateId = [[selectDataDic objectForKey:@"cateId"] intValue];
-    NSLog(@"cateId = %ld",cateId);
-    ProductListViewController *ctl = [[ProductListViewController alloc]init];
-    [self.navigationController pushViewController:ctl animated:YES];
+    _cateId = [[selectDataDic objectForKey:@"cateId"] intValue];
+    NSLog(@"cateId = %ld",_cateId);
+    if (_cateId > 0) {
+        [self CateListUrl];
+    }
+   
 }
 
 

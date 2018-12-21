@@ -71,7 +71,7 @@ static  NSString *GetAdaptImage(NSString *imageName){
 }
 
 + (UIImage *)arrow_return{
-    return [UIImage imageNamed:@"arrow_left_white"];
+    return [UIImage imageNamed:@"return"];
 }
 
 

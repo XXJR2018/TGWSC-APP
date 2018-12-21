@@ -44,12 +44,7 @@
     // 首页只有一个sub时， 从此函数布局UI
     //self.view.height = SCREEN_HEIGHT - 70  - TabbarHeight;
     
-    // 先用本地缓存的数据 来刷新UI
-    NSDictionary *dicUI = [CommonInfo getKeyOfDic:K_Home_TJ_UIData];
-    if (dicUI)
-     {
-        [self layoutUIByData:dicUI];
-     }
+    
     
     [self getUIformWeb];
     
@@ -58,6 +53,18 @@
 
 
 #pragma mark --- 布局UI
+
+ //使用本地数据来布局UI
+- (void)darwUIOfLcalUI
+{
+    // 先用本地缓存的数据 来刷新UI
+    NSDictionary *dicUI = [CommonInfo getKeyOfDic:K_Home_TJ_UIData];
+    if (dicUI)
+     {
+        [self layoutUIByData:dicUI];
+     }
+}
+
 // view 已经布局其 Subviews
 - (void)viewDidLayoutSubviews
 {
@@ -65,6 +72,8 @@
     //[self getUIformWeb];
     
     //[self layoutUI];
+    
+    [self darwUIOfLcalUI];
 }
 
 

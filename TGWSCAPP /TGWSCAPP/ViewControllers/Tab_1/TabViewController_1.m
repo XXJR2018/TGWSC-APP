@@ -104,7 +104,7 @@
     labelSearch.text = @"百里挑一的好商品";
     
     // 消息按钮
-    UIButton *btnMessage = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 30, iTopY, 18, 20)];
+    UIButton *btnMessage = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 30, iTopY+1, 17 * ScaleSize, 18 * ScaleSize)];
     [self.view addSubview:btnMessage];
     [btnMessage setBackgroundImage:[UIImage imageNamed:@"Tab1_Message"] forState:UIControlStateNormal];
     [btnMessage addTarget: self action:@selector(actionMessage) forControlEvents:UIControlEventTouchUpInside];
@@ -145,12 +145,9 @@
     frameTemp.origin.y = iMenuTopY;
     frameTemp.size.height = self.view.frame.size.height - iMenuTopY - TabbarHeight;
     vcSub1.view.frame = frameTemp;
-
-    
-    
-    vcSub1.slideModel = [[SlideModel alloc] init];
+    vcSub1.slideModel = [[SlideModel alloc] init];  // 一定要初始化， 否则赋值会失败
     vcSub1.view.backgroundColor = [UIColor whiteColor];
-    //VC.slideModel = _slideModel;
+
     
 
 }

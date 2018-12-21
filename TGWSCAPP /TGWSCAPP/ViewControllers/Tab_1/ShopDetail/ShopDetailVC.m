@@ -24,15 +24,30 @@
 
 @implementation ShopDetailVC
 
+#pragma mark --- lifecylce
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self layoutNaviBarViewWithTitle:@"商品详情"];
     
-    [self initialControlUnit];
+    [self layoutUI];
+    
+    [self getDataFromWeb];
 }
 
-#pragma mark  --- 
+//清除缓存必须写
+-(void)dealloc
+{
+    [self.video clearCache];
+}
+
+#pragma mark  ---   布局UI
+-(void) layoutUI
+{
+    // 布局头部文件
+    [self initialControlUnit];
+    
+}
 -(void)initialControlUnit
 {
     int iTopY = 40;
@@ -77,27 +92,92 @@
 
 
 
-//清除缓存必须写
--(void)dealloc
+#pragma mark --- 网络通讯
+-(void) getDataFromWeb
 {
-    [self.video clearCache];
+    [self queryGoodsBaseInfo];
+    //[self queryGoodsDetailInfo];
+}
+
+// 获取商品基本信息
+-(void) queryGoodsBaseInfo
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"goodsCode"] = _shopModel.strGoodsCode;
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLqueryGoodsBaseInfo];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1000;
+    [operation start];
+}
+
+// 获取商品附加信息
+-(void) queryGoodsDetailInfo
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"goodsCode"] = _shopModel.strGoodsCode;
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLqueryGoodsDetailInfo];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1001;
+    [operation start];
+}
+
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation
+{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    if (operation.tag == 1000)
+     {
+//        NSArray *arrTitles   = operation.jsonResult.rows;
+//        if (arrTitles&&
+//            [arrTitles count] > 0)
+//         {
+//
+//
+//            int iCount = (int)[arrTitles count];
+//            if (iCount > 0)
+//             {
+//                [titles removeAllObjects];
+//
+//                [self layoutMenu:arrTitles];
+//
+//
+//             }
+//         }
+     }
+    else if (operation.tag == 1001) {
+        
+        
+    }
+}
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    //[MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
 }
 
 
+
 #pragma mark - delegate
-//TSVideoPlaybackDelegate
+//TSVideoPlaybackDelegate  点击图片或者相片时，相应函数
 -(void)videoView:(TSVideoPlayback *)view didSelectItemAtIndexPath:(NSInteger)index
 {
     NSLog(@"%ld",(long)index);
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+
+
 
 @end

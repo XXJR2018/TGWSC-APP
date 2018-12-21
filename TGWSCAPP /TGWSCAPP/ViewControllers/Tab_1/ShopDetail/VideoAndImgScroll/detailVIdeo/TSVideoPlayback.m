@@ -81,7 +81,9 @@
             else{
                 UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(i*self.frame.size.width, 0, self.frame.size.width, self.frame.size.height)];
                 img.userInteractionEnabled = YES;
+                
                 [img sd_setImageWithURL:[NSURL URLWithString:self.dataArray[i]] placeholderImage:[UIImage imageNamed:@"icon_video"]];
+                [img sd_setImageWithURL:[NSURL URLWithString:self.dataArray[i]] ];
                 [self.scrolView addSubview:img];
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgTapClick)];
                 [img addGestureRecognizer:tap];
@@ -99,6 +101,7 @@
         }else{//全图片
             UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(i*self.frame.size.width, 0, self.frame.size.width, self.frame.size.height)];
             [img sd_setImageWithURL:[NSURL URLWithString:self.dataArray[i]] placeholderImage:[UIImage imageNamed:@"icon_video"]];
+            //[img sd_setImageWithURL:[NSURL URLWithString:self.dataArray[i]] ];
             img.userInteractionEnabled = YES;
             [self.scrolView addSubview:img];
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgTapClick)];
@@ -287,7 +290,10 @@
     [self.scrolView addGestureRecognizer:tap];
     
     self.placeholderImg = [[UIImageView alloc]init];
+    
+    //  baicai  此处可以修改 视频的占位图片
     self.placeholderImg.image = [UIImage imageNamed:@"icon_play"];
+    
     self.placeholderImg.contentMode = UIViewContentModeScaleAspectFill;
     self.placeholderImg.userInteractionEnabled = YES;
     self.placeholderImg.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
@@ -301,8 +307,8 @@
     self.playBtn.frame = CGRectMake((self.frame.size.width - 60)/2.0, (self.frame.size.height - 60)/2.0, 60, 60);
     
     _indexLab = [[UILabel alloc]init];
-    _indexLab.textColor = [UIColor whiteColor];
-    _indexLab.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.3];
+    _indexLab.textColor = [ResourceManager color_1];
+    _indexLab.backgroundColor = [[ResourceManager viewBackgroundColor] colorWithAlphaComponent:0.3];//[[UIColor blackColor]colorWithAlphaComponent:0.3];
     _indexLab.font = [UIFont systemFontOfSize:11];
     _indexLab.textAlignment = 1;
     _indexLab.layer.cornerRadius = 24/2;

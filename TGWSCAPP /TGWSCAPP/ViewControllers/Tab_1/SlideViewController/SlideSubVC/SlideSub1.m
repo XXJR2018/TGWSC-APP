@@ -515,6 +515,7 @@
             NSLog(@"strGoodsName:%@ strGoodsSubName:%@  strGoodsCode:%@", clickObj.strGoodsName,clickObj.strGoodsSubName,clickObj.strGoodsCode);
             
             ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
+            VC.shopModel = clickObj;
             [self.navigationController pushViewController:VC animated:YES];
             
          }

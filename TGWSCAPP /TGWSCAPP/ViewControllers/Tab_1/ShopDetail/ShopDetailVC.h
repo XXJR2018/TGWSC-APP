@@ -7,10 +7,13 @@
 //
 
 #import "CommonViewController.h"
+#import "ShopModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ShopDetailVC : CommonViewController
+
+@property (nonatomic,strong) ShopModel  *shopModel;
 
 @end
 

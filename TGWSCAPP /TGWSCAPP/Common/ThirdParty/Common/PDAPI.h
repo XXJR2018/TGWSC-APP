@@ -8,18 +8,30 @@
 
 #import <Foundation/Foundation.h>
 
-// 首页页面相关接口
-// 获取首页菜单
-static NSString *const kURLqueryCateList = @"appMall/category/queryCateList";
-// 获取首页子Tab中各个页面的元素
-static NSString *const kURLqueryShowTypeList = @"appMall//home/queryShowTypeList";
-
-
-
 // 发送短信接口一（拿到SmsTokenID）
 static NSString *const kDDGgetSmsToken = @"tgw/smsAction/getSmsToken/custLogin";
 // 发送短信接口二（发送短信）
 static NSString *const kDDGnologin = @"tgw/smsAction/nologin/custLogin";
+
+#pragma mark --- 首页页面相关接口
+// 获取首页菜单
+static NSString *const kURLqueryCateList = @"appMall/category/queryCateList";
+// 获取首页子Tab中各个页面的元素
+static NSString *const kURLqueryShowTypeList = @"appMall/home/queryShowTypeList";
+
+
+#pragma mark ---  商品详情页面相关接口
+// 获取商品基本信息
+static NSString *const kURLqueryGoodsBaseInfo = @"appMall/goods/queryGoodsBaseInfo";
+// 获取商品的附加信息
+static NSString *const kURLqueryGoodsDetailInfo = @"appMall/goods/queryGoodsDetailInfo";
+
+
+
+
+
+
+
 
 //房价评估
 

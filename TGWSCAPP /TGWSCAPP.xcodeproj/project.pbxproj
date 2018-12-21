@@ -12,6 +12,11 @@
 		9B97EFDC6ED4E37075A67963 /* libPods-TGWSCAPP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBA4DD24E459D4913624CFA /* libPods-TGWSCAPP.a */; };
 		AA78C88A01E4A707B158F4E0 /* libPods-TGWSCAPPUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76031F71D9C1512F49FA60B5 /* libPods-TGWSCAPPUITests.a */; };
 		C02C5F7821CC79530056A32E /* ShopDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C02C5F7721CC79530056A32E /* ShopDetailVC.m */; };
+		C02C5F9721CC991A0056A32E /* TSVideoPlayback.m in Sources */ = {isa = PBXBuildFile; fileRef = C02C5F8921CC991A0056A32E /* TSVideoPlayback.m */; };
+		C02C5F9821CC991A0056A32E /* icon_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8A21CC991A0056A32E /* icon_play@2x.png */; };
+		C02C5F9921CC991A0056A32E /* icon_play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8B21CC991A0056A32E /* icon_play@3x.png */; };
+		C02C5F9A21CC991A0056A32E /* icon_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8C21CC991A0056A32E /* icon_video@2x.png */; };
+		C02C5F9B21CC991A0056A32E /* icon_video@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8E21CC991A0056A32E /* icon_video@3x.png */; };
 		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
@@ -264,6 +269,12 @@
 		AAAC5B9CD5ED42F9A79E9082 /* Pods-TGWSCAPPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGWSCAPPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TGWSCAPPTests/Pods-TGWSCAPPTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C02C5F7621CC79530056A32E /* ShopDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopDetailVC.h; sourceTree = "<group>"; };
 		C02C5F7721CC79530056A32E /* ShopDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopDetailVC.m; sourceTree = "<group>"; };
+		C02C5F8921CC991A0056A32E /* TSVideoPlayback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSVideoPlayback.m; sourceTree = "<group>"; };
+		C02C5F8A21CC991A0056A32E /* icon_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_play@2x.png"; sourceTree = "<group>"; };
+		C02C5F8B21CC991A0056A32E /* icon_play@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_play@3x.png"; sourceTree = "<group>"; };
+		C02C5F8C21CC991A0056A32E /* icon_video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video@2x.png"; sourceTree = "<group>"; };
+		C02C5F8D21CC991A0056A32E /* TSVideoPlayback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSVideoPlayback.h; sourceTree = "<group>"; };
+		C02C5F8E21CC991A0056A32E /* icon_video@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video@3x.png"; sourceTree = "<group>"; };
 		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
@@ -757,8 +768,30 @@
 			children = (
 				C02C5F7621CC79530056A32E /* ShopDetailVC.h */,
 				C02C5F7721CC79530056A32E /* ShopDetailVC.m */,
+				C02C5F7921CC991A0056A32E /* VideoAndImgScroll */,
 			);
 			path = ShopDetail;
+			sourceTree = "<group>";
+		};
+		C02C5F7921CC991A0056A32E /* VideoAndImgScroll */ = {
+			isa = PBXGroup;
+			children = (
+				C02C5F8821CC991A0056A32E /* detailVIdeo */,
+			);
+			path = VideoAndImgScroll;
+			sourceTree = "<group>";
+		};
+		C02C5F8821CC991A0056A32E /* detailVIdeo */ = {
+			isa = PBXGroup;
+			children = (
+				C02C5F8D21CC991A0056A32E /* TSVideoPlayback.h */,
+				C02C5F8921CC991A0056A32E /* TSVideoPlayback.m */,
+				C02C5F8A21CC991A0056A32E /* icon_play@2x.png */,
+				C02C5F8B21CC991A0056A32E /* icon_play@3x.png */,
+				C02C5F8C21CC991A0056A32E /* icon_video@2x.png */,
+				C02C5F8E21CC991A0056A32E /* icon_video@3x.png */,
+			);
+			path = detailVIdeo;
 			sourceTree = "<group>";
 		};
 		C0CCC7B121C0E237009352E0 /* SearchViewController */ = {
@@ -1988,6 +2021,7 @@
 			files = (
 				C20525F321BE6E5C00E13893 /* TabViewController_3.xib in Resources */,
 				C287FE7A21BF4ACB00B8D682 /* Images.xcassets in Resources */,
+				C02C5F9921CC991A0056A32E /* icon_play@3x.png in Resources */,
 				C2B51AF221C3462500AC76FB /* ProductCollectionViewCell.xib in Resources */,
 				C25047AF21BA715500DA9C72 /* success@2x.png in Resources */,
 				C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */,
@@ -1996,6 +2030,7 @@
 				C25047AE21BA715500DA9C72 /* 37x-Checkmark@2x.png in Resources */,
 				C25047B121BA715500DA9C72 /* success.png in Resources */,
 				C25047A521BA715500DA9C72 /* grayArrow.png in Resources */,
+				C02C5F9821CC991A0056A32E /* icon_play@2x.png in Resources */,
 				C250460621BA711E00DA9C72 /* SGQRCode.bundle in Resources */,
 				C25047A421BA715500DA9C72 /* blueArrow@2x.png in Resources */,
 				C287FE7921BF4ACB00B8D682 /* Images-Default.xcassets in Resources */,
@@ -2007,6 +2042,7 @@
 				C20525F021BE6E5C00E13893 /* TabViewController_4.xib in Resources */,
 				C25047A721BA715500DA9C72 /* whiteArrow.png in Resources */,
 				C250450D21BA579100DA9C72 /* LoginViewController.xib in Resources */,
+				C02C5F9B21CC991A0056A32E /* icon_video@3x.png in Resources */,
 				C250451321BA579100DA9C72 /* CitysViewController.xib in Resources */,
 				C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */,
 				C25047A321BA715500DA9C72 /* blackArrow.png in Resources */,
@@ -2020,6 +2056,7 @@
 				C250451221BA579100DA9C72 /* SelectCityViewController.xib in Resources */,
 				C2AEB46821BE45CD0078E788 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */,
+				C02C5F9A21CC991A0056A32E /* icon_video@2x.png in Resources */,
 				C20525F521BE6E5C00E13893 /* TabViewController_2.xib in Resources */,
 				C25047AD21BA715500DA9C72 /* error@2x.png in Resources */,
 			);
@@ -2186,6 +2223,7 @@
 				C250460B21BA711E00DA9C72 /* WCAlertview.m in Sources */,
 				C250461121BA711E00DA9C72 /* TAPageControl.m in Sources */,
 				C25047B921BA715500DA9C72 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				C02C5F9721CC991A0056A32E /* TSVideoPlayback.m in Sources */,
 				C250461A21BA711E00DA9C72 /* RangeSliderView.m in Sources */,
 				C250476821BA715500DA9C72 /* ExceptionCatch.m in Sources */,
 				C250451F21BA579100DA9C72 /* DDGWeChat.m in Sources */,

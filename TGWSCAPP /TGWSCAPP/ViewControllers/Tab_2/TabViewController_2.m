@@ -10,7 +10,7 @@
 
 #import "ProductCollectionViewCell.h"
 #import "HistorySearchVC.h"
-
+#import "ProductListViewController.h"
 
 #define  leftListWidth   80
 #define  rightListWidth  [UIScreen mainScreen].bounds.size.width - 80
@@ -110,7 +110,6 @@
     
     UITapGestureRecognizer * gestureSearch = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(searchTouch)];
     gestureSearch.numberOfTapsRequired  = 1;
-    searchView.userInteractionEnabled = YES;
     [searchView addGestureRecognizer:gestureSearch];
     
     UIView *viewX = [[UIView alloc] initWithFrame:CGRectMake(0 , NavHeight - 0.5, SCREEN_WIDTH, 0.5)];
@@ -436,7 +435,8 @@
     
     cateId = [[selectDataDic objectForKey:@"cateId"] intValue];
     NSLog(@"cateId = %ld",cateId);
-    
+    ProductListViewController *ctl = [[ProductListViewController alloc]init];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 

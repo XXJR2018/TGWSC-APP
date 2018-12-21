@@ -218,7 +218,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.397222"
+            timestampString = "567066152.2952909"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "42"
@@ -234,7 +234,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/AdvertingShopListView.m"
-            timestampString = "566982695.487043"
+            timestampString = "567066152.29573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "74"
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/AdvertingShopListView.m"
-            timestampString = "566982695.4871989"
+            timestampString = "567066152.295794"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "-drawListTwo"
             landmarkType = "7">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/AdvertingShopListView.m"
-            timestampString = "566982695.487366"
+            timestampString = "567066152.295845"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288">
+            startingLineNumber = "291"
+            endingLineNumber = "291">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -280,7 +280,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.397789"
+            timestampString = "567066152.2958961"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "470"
@@ -296,7 +296,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/AdvertingShopListView.m"
-            timestampString = "566982695.487747"
+            timestampString = "567066152.296193"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "99"
@@ -312,7 +312,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/AdvertingShopListView.m"
-            timestampString = "566982695.487855"
+            timestampString = "567066152.296248"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "24"
@@ -328,7 +328,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/AdvertingShopListView.m"
-            timestampString = "566982695.487955"
+            timestampString = "567066152.296298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "55"
@@ -344,11 +344,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/AdvertingShopListView.m"
-            timestampString = "566982695.4880559"
+            timestampString = "567066152.2963459"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288">
+            startingLineNumber = "291"
+            endingLineNumber = "291">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -358,7 +358,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/ShopListView.m"
-            timestampString = "566984823.404428"
+            timestampString = "567066152.2963949"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "96"
@@ -374,11 +374,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/ShopListView.m"
-            timestampString = "566984823.4045269"
+            timestampString = "567066152.2964489"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
+            startingLineNumber = "348"
+            endingLineNumber = "348"
             landmarkName = "-actionImg:"
             landmarkType = "7">
          </BreakpointContent>
@@ -422,7 +422,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.398368"
+            timestampString = "567066152.296574"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "361"
@@ -438,7 +438,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.3986779"
+            timestampString = "567066152.296874"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "37"
@@ -454,7 +454,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.39898"
+            timestampString = "567066152.297177"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "46"
@@ -470,7 +470,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.3992831"
+            timestampString = "567066152.297482"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
@@ -486,7 +486,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.3995841"
+            timestampString = "567066152.297796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "492"
@@ -566,7 +566,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.3999881"
+            timestampString = "567066152.298241"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "33"
@@ -598,7 +598,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.40036"
+            timestampString = "567066152.298571"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "72"
@@ -678,7 +678,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.400753"
+            timestampString = "567066152.298992"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "180"
@@ -694,7 +694,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.401029"
+            timestampString = "567066152.29931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "376"
@@ -710,7 +710,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.401286"
+            timestampString = "567066152.299579"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "216"
@@ -726,7 +726,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.401544"
+            timestampString = "567066152.2998559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "217"
@@ -742,7 +742,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.401803"
+            timestampString = "567066152.300118"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "83"
@@ -774,11 +774,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/AdvertingShopListView.m"
-            timestampString = "566982695.491412"
+            timestampString = "567066152.300421"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "-drawListTwo"
             landmarkType = "7">
          </BreakpointContent>
@@ -790,11 +790,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/ShopListView.m"
-            timestampString = "566984823.413514"
+            timestampString = "567066152.30048"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "-drawListTwo"
             landmarkType = "7">
          </BreakpointContent>
@@ -806,11 +806,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/ShopListView.m"
-            timestampString = "566984823.413595"
+            timestampString = "567066152.300532"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
             landmarkName = "-drawListTwo"
             landmarkType = "7">
          </BreakpointContent>
@@ -822,7 +822,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.402205"
+            timestampString = "567066152.300583"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "250"
@@ -838,11 +838,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/AdvertingShopListView.m"
-            timestampString = "566982695.492146"
+            timestampString = "567066152.30085"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288">
+            startingLineNumber = "291"
+            endingLineNumber = "291">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -852,11 +852,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/AdvertingShopListView.m"
-            timestampString = "566982695.4922"
+            timestampString = "567066152.300905"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288">
+            startingLineNumber = "291"
+            endingLineNumber = "291">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -866,7 +866,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.402526"
+            timestampString = "567066152.300956"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "287"
@@ -882,11 +882,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/ShopListView/AdvertingShopListView.m"
-            timestampString = "566982695.492314"
+            timestampString = "567066152.30123"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288">
+            startingLineNumber = "291"
+            endingLineNumber = "291">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -896,7 +896,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.402818"
+            timestampString = "567066152.301283"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "505"
@@ -912,7 +912,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.403103"
+            timestampString = "567066152.301558"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "381"
@@ -928,7 +928,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/SlideViewController/SlideSubVC/SlideSub1.m"
-            timestampString = "567048672.403368"
+            timestampString = "567066152.301882"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "379"
@@ -950,6 +950,38 @@
             startingLineNumber = "124"
             endingLineNumber = "124"
             landmarkName = "+getKeyOfDic:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/VideoAndImgScroll/detailVIdeo/TSVideoPlayback.m"
+            timestampString = "567066152.302385"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
+            landmarkName = "-changeBtnClick:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
+            timestampString = "567066152.302471"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "-initialControlUnit"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

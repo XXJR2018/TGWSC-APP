@@ -10,6 +10,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "UIImageView+WebCache.h"
 
+#define    SEL_CORLR    UIColorFromRGB(0x9f1421)
+
 
 @interface TSVideoPlayback ()<UIScrollViewDelegate>
 {
@@ -192,7 +194,7 @@
     if (btn.tag == 1) {
         self.videoBtn.selected = YES;
         self.imgBtn.selected = NO;
-        self.videoBtn.backgroundColor = UIColorFromRGB(0x9f1421);//[UIColor orangeColor];
+        self.videoBtn.backgroundColor = SEL_CORLR;//[UIColor orangeColor];
         self.imgBtn.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.5];
         
         if ([self.scrolView.delegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)]) {
@@ -209,7 +211,7 @@
         self.imgBtn.selected = YES;
         
         self.videoBtn.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.5];
-        self.imgBtn.backgroundColor = UIColorFromRGB(0x9f1421);//[UIColor orangeColor];
+        self.imgBtn.backgroundColor = SEL_CORLR;//[UIColor orangeColor];
         if (self.scrolView.contentOffset.x < self.frame.size.width) {
             if ([self.scrolView.delegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)]) {
                 [self.scrolView setContentOffset:CGPointMake(self.frame.size.width, 0) animated:NO];
@@ -254,13 +256,13 @@
         if (self.scrolView.contentOffset.x < self.frame.size.width) {
             self.videoBtn.selected = YES;
             self.imgBtn.selected = NO;
-            self.videoBtn.backgroundColor = [UIColor orangeColor];
+            self.videoBtn.backgroundColor = SEL_CORLR;//[UIColor orangeColor];
             self.imgBtn.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.5];
         } else{
             self.videoBtn.selected = NO;
             self.imgBtn.selected = YES;
             self.videoBtn.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.5];
-            self.imgBtn.backgroundColor = [UIColor orangeColor];
+            self.imgBtn.backgroundColor = SEL_CORLR;// [UIColor orangeColor];
             [self.myPlayer pause];
             [self.playBtn setSelected:NO];
         }
@@ -312,7 +314,7 @@
     _videoBtn = [[UIButton alloc]init];
     [_videoBtn setTitle:@"视频" forState:UIControlStateNormal];
     [_videoBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-    [_videoBtn setBackgroundColor:[UIColor orangeColor]];
+    [_videoBtn setBackgroundColor:SEL_CORLR];
     _videoBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [_videoBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     _videoBtn.layer.cornerRadius = 24/2;

@@ -32,7 +32,7 @@
     [self initialControlUnit];
 }
 
-
+#pragma mark  --- 
 -(void)initialControlUnit
 {
     int iTopY = 40;
@@ -41,6 +41,7 @@
     
     self.video = [[TSVideoPlayback alloc] initWithFrame:CGRectMake(0, iTopY, self.view.frame.size.width, 300) ];
     self.video.delegate = self;
+    self.type = 0;
     if (self.type == 1)
      {
         self.title = @"纯图片详情";

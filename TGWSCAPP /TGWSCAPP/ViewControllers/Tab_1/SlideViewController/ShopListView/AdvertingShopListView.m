@@ -101,8 +101,9 @@
             
             ShopModel *sModel= _items[i];
             NSString *strImgName = sModel.strGoodsImgUrl;
-            imgTemp = [ToolsUtlis getImgFromStr:strImgName];
-            imgViewTemp.image  = imgTemp;
+            //imgTemp = [ToolsUtlis getImgFromStr:strImgName];
+            //imgViewTemp.image  = imgTemp;
+            [imgViewTemp sd_setImageWithURL:[NSURL URLWithString:strImgName] placeholderImage:[UIImage imageNamed:strImgName]];
             
             UIButton *btnTemp = [[UIButton alloc] initWithFrame:imgViewTemp.frame];
             [self addSubview:btnTemp];
@@ -184,8 +185,9 @@
             
             ShopModel *sModel= _items[i];
             NSString *strImgName = sModel.strGoodsImgUrl;
-            imgTemp = [ToolsUtlis getImgFromStr:strImgName];
-            imgViewTemp.image  = imgTemp;
+            //imgTemp = [ToolsUtlis getImgFromStr:strImgName];
+            //imgViewTemp.image  = imgTemp;
+            [imgViewTemp sd_setImageWithURL:[NSURL URLWithString:strImgName] placeholderImage:[UIImage imageNamed:strImgName]];
             
             UIButton *btnTemp = [[UIButton alloc] initWithFrame:imgViewTemp.frame];
             [self addSubview:btnTemp];
@@ -235,8 +237,9 @@
             
             ShopModel *sModel= _items[i];
             NSString *strImgName = sModel.strGoodsImgUrl;
-            imgTemp = [ToolsUtlis getImgFromStr:strImgName];
-            imgViewTemp.image  = imgTemp;
+            //imgTemp = [ToolsUtlis getImgFromStr:strImgName];
+            //imgViewTemp.image  = imgTemp;
+            [imgViewTemp sd_setImageWithURL:[NSURL URLWithString:strImgName] placeholderImage:[UIImage imageNamed:strImgName]];
             
             UIButton *btnTemp = [[UIButton alloc] initWithFrame:imgViewTemp.frame];
             [self addSubview:btnTemp];

@@ -108,8 +108,9 @@
             
             ShopModel *sModel= _items[i];
             NSString *strImgName = sModel.strGoodsImgUrl;
-            imgTemp = [ToolsUtlis getImgFromStr:strImgName];
-            imgViewTemp.image  = imgTemp;
+//            imgTemp = [ToolsUtlis getImgFromStr:strImgName];
+//            imgViewTemp.image  = imgTemp;
+            [imgViewTemp sd_setImageWithURL:[NSURL URLWithString:strImgName] placeholderImage:[UIImage imageNamed:strImgName]];
             
             UILabel *labelShopName = [[UILabel alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY + fImgHeight, fImgWidth, fLabelNameHeight)];
             [self addSubview:labelShopName];
@@ -212,8 +213,10 @@
             
             ShopModel *sModel= _items[i];
             NSString *strImgName = sModel.strGoodsImgUrl;
-            imgTemp = [ToolsUtlis getImgFromStr:strImgName];
-            imgViewTemp.image  = imgTemp;
+            //imgTemp = [ToolsUtlis getImgFromStr:strImgName];
+            //imgViewTemp.image  = imgTemp;
+            [imgViewTemp sd_setImageWithURL:[NSURL URLWithString:strImgName] placeholderImage:[UIImage imageNamed:strImgName]];
+            
             
             UILabel *labelShopName = [[UILabel alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY + fImgHeight, fImgWidth, fLabelNameHeight)];
             [self addSubview:labelShopName];
@@ -283,8 +286,9 @@
 
             ShopModel *sModel= _items[i];
             NSString *strImgName = sModel.strGoodsImgUrl;
-            imgTemp = [ToolsUtlis getImgFromStr:strImgName];
-            imgViewTemp.image  = imgTemp;
+            //imgTemp = [ToolsUtlis getImgFromStr:strImgName];
+            //imgViewTemp.image  = imgTemp;
+            [imgViewTemp sd_setImageWithURL:[NSURL URLWithString:strImgName] placeholderImage:[UIImage imageNamed:strImgName]];
 
             UILabel *labelShopName = [[UILabel alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY + fImgHeight, fImgWidth, fLabelNameHeight)];
             [self addSubview:labelShopName];

@@ -11,6 +11,7 @@
 #import "SDCycleScrollView.h"
 #import "ShopListView.h"
 #import "AdvertingShopListView.h"
+#import "ShopDetailVC.h"
 
 #define  BANNER_HEIGHT       (170*ScaleSize)      // Banner的高度
 
@@ -512,6 +513,10 @@
          {
             NSLog(@"ShopID:%d", iShopID);
             NSLog(@"strGoodsName:%@ strGoodsSubName:%@  strGoodsCode:%@", clickObj.strGoodsName,clickObj.strGoodsSubName,clickObj.strGoodsCode);
+            
+            ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
+            [self.navigationController pushViewController:VC animated:YES];
+            
          }
         
      }

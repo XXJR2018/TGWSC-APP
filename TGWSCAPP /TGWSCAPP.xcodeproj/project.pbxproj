@@ -11,6 +11,7 @@
 		3D6EC135E4A46D7E2C5CD5F9 /* libPods-TGWSCAPP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A4B4C8AB5DBDC9E7E293B5 /* libPods-TGWSCAPP.a */; };
 		9B97EFDC6ED4E37075A67963 /* libPods-TGWSCAPP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBA4DD24E459D4913624CFA /* libPods-TGWSCAPP.a */; };
 		AA78C88A01E4A707B158F4E0 /* libPods-TGWSCAPPUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76031F71D9C1512F49FA60B5 /* libPods-TGWSCAPPUITests.a */; };
+		C02C5F7821CC79530056A32E /* ShopDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C02C5F7721CC79530056A32E /* ShopDetailVC.m */; };
 		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
@@ -261,6 +262,8 @@
 		A1BF7B237F6B5F1E0CBC2A84 /* Pods-TGWSCAPPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGWSCAPPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TGWSCAPPTests/Pods-TGWSCAPPTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A55762B01C0EAB6F71094525 /* Pods-TGWSCAPPUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGWSCAPPUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TGWSCAPPUITests/Pods-TGWSCAPPUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AAAC5B9CD5ED42F9A79E9082 /* Pods-TGWSCAPPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGWSCAPPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TGWSCAPPTests/Pods-TGWSCAPPTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C02C5F7621CC79530056A32E /* ShopDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopDetailVC.h; sourceTree = "<group>"; };
+		C02C5F7721CC79530056A32E /* ShopDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopDetailVC.m; sourceTree = "<group>"; };
 		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
@@ -749,6 +752,15 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		C02C5F7521CC78BE0056A32E /* ShopDetail */ = {
+			isa = PBXGroup;
+			children = (
+				C02C5F7621CC79530056A32E /* ShopDetailVC.h */,
+				C02C5F7721CC79530056A32E /* ShopDetailVC.m */,
+			);
+			path = ShopDetail;
+			sourceTree = "<group>";
+		};
 		C0CCC7B121C0E237009352E0 /* SearchViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1070,6 +1082,7 @@
 				C20525EE21BE6E5C00E13893 /* TabViewController_1.h */,
 				C20525ED21BE6E5C00E13893 /* TabViewController_1.m */,
 				C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */,
+				C02C5F7521CC78BE0056A32E /* ShopDetail */,
 				C0CCC84321C2616F009352E0 /* SlideViewController */,
 				C0CCC7B121C0E237009352E0 /* SearchViewController */,
 			);
@@ -2179,6 +2192,7 @@
 				C0CCC82221C0F47D009352E0 /* HistoryVC.m in Sources */,
 				C25047DD21BA715500DA9C72 /* XXJRModalView.m in Sources */,
 				C2A08F6A21BF4563005753F6 /* TabBarSelectButtn.m in Sources */,
+				C02C5F7821CC79530056A32E /* ShopDetailVC.m in Sources */,
 				C0CCC85621C390F7009352E0 /* ShopListView.m in Sources */,
 				C25047B821BA715500DA9C72 /* UIButton+AFNetworking.m in Sources */,
 				C250451821BA579100DA9C72 /* CalculatorManager.m in Sources */,

@@ -267,7 +267,8 @@
             NSDictionary *dicObject = arrShowList[i];
             ShopModel *sModel = [[ShopModel alloc] init];
             sModel.iShopID = i;
-            sModel.strGoodsImgUrl = [NSString stringWithFormat:@"%@",dicObject[@"imgUrl"]]; //@"Tab1_TJSP";
+            sModel.strGoodsImgUrl = @"Tab1_TJSP";
+            //sModel.strGoodsImgUrl =  [NSString stringWithFormat:@"%@",dicObject[@"imgUrl"]];
             sModel.strMinPrice = [NSString stringWithFormat:@"%@",dicObject[@"minPrice"]];
             sModel.strMaxPrice = [NSString stringWithFormat:@"%@",dicObject[@"maxPrice"]];
             sModel.strGoodsCode = [NSString stringWithFormat:@"%@",dicObject[@"goodsCode"]];
@@ -419,7 +420,7 @@
      {
         return;
      }
-    NSString *titleStr = _bannerTitleArr[index];
+//    NSString *titleStr = _bannerTitleArr[index];
 //    if ([titleStr isEqualToString:@"抢单规则"]) {
 //        [self ljqdAction];
 //

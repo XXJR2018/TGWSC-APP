@@ -10,8 +10,12 @@
 #import <AVFoundation/AVFoundation.h>
 #import "TSVideoPlayback.h"
 
+
+#define   BannerHeight     300
+
 @interface ShopDetailVC ()<TSVideoPlaybackDelegate>
 {
+    UIScrollView *scView;
 }
 
 @property (strong, nonatomic)AVPlayer *myPlayer;//播放器
@@ -30,8 +34,6 @@
     // Do any additional setup after loading the view.
     [self layoutNaviBarViewWithTitle:@"商品详情"];
     
-    [self layoutUI];
-    
     [self getDataFromWeb];
 }
 
@@ -42,19 +44,55 @@
 }
 
 #pragma mark  ---   布局UI
--(void) layoutUI
-{
-    // 布局头部文件
-    [self initialControlUnit];
-    
-}
--(void)initialControlUnit
+-(void) layoutUI:(NSDictionary*) dicUI
 {
     int iTopY = 40;
     iTopY = NavHeight;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.video = [[TSVideoPlayback alloc] initWithFrame:CGRectMake(0, iTopY, self.view.frame.size.width, 300) ];
+    
+    scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0.f, iTopY, SCREEN_WIDTH, SCREEN_HEIGHT-NavHeight)];
+    [self.view addSubview:scView];
+    scView.contentSize = CGSizeMake(0, 2000);
+    scView.pagingEnabled = NO;
+    scView.bounces = NO;
+    scView.showsVerticalScrollIndicator = FALSE;
+    scView.showsHorizontalScrollIndicator = FALSE;
+    scView.backgroundColor = [UIColor whiteColor];//[ResourceManager viewBackgroundColor];
+    
+    // 布局头部banner
+    [self initialControlUnit];
+    
+    
+    NSDictionary *dicBaseGoods = dicUI[@"baseGoods"];
+    if(!dicBaseGoods ||
+       [dicBaseGoods count] == 0)
+     {
+        return;
+     }
+    
+    iTopY =  BannerHeight + 10;
+    int iLeftX = 15;
+    // 设置标题
+    UILabel *lableTitle = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - 2*iLeftX, 25)];
+    [scView addSubview:lableTitle];
+    lableTitle.font = [UIFont systemFontOfSize:16];
+    lableTitle.textColor = [ResourceManager color_1];
+    lableTitle.text = dicBaseGoods[@"goodsName"];
+    
+    iTopY += lableTitle.height + 10;
+    // 设置副标题
+    UILabel *lableSubTitle = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - 2*iLeftX, 15)];
+    [scView addSubview:lableSubTitle];
+    lableSubTitle.font = [UIFont systemFontOfSize:13];
+    lableSubTitle.textColor = [ResourceManager midGrayColor];
+    lableSubTitle.text = dicBaseGoods[@"goodsSubName"];
+    
+    
+}
+-(void)initialControlUnit
+{
+    self.video = [[TSVideoPlayback alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, BannerHeight) ];
     self.video.delegate = self;
     self.type = 0;
     if (self.type == 1)
@@ -62,14 +100,14 @@
         self.title = @"纯图片详情";
         [self.video setWithIsVideo:TSDETAILTYPEIMAGE andDataArray:[self imgArray]];
      }
-    else{
+    else
+     {
         self.title = @"视频图片详情";
         [self.video setWithIsVideo:TSDETAILTYPEVIDEO andDataArray:[self bannerArray]];
-    }
-    [self.view addSubview:self.video];
+     }
+    [scView addSubview:self.video];
     
-    
-    //UIView *viewTest = [UIView alloc] initWithFrame:CGRectMake(0, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+
 }
 
 -(NSArray *)bannerArray
@@ -102,6 +140,8 @@
 // 获取商品基本信息
 -(void) queryGoodsBaseInfo
 {
+    [MBProgressHUD showHUDAddedTo:self.view];
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params[@"goodsCode"] = _shopModel.strGoodsCode;
     
@@ -140,6 +180,13 @@
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     if (operation.tag == 1000)
      {
+        NSDictionary *dicUI = operation.jsonResult.attr;
+        if (!dicUI)
+         {
+            [MBProgressHUD showErrorWithStatus:@"服务器忙，请稍后" toView:self.view];
+            return;
+         }
+        [self layoutUI:dicUI];
 //        NSArray *arrTitles   = operation.jsonResult.rows;
 //        if (arrTitles&&
 //            [arrTitles count] > 0)
@@ -165,7 +212,10 @@
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
-    //[MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
+    if (1000 == operation.tag)
+     {
+        [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
+     }
 }
 
 

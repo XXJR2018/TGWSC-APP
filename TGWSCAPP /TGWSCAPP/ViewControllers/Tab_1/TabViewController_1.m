@@ -100,7 +100,7 @@
     UILabel *labelSearch = [[UILabel alloc] initWithFrame:CGRectMake(30, 5, viewSearch.width - 35, 20)];
     [viewSearch addSubview:labelSearch];
     labelSearch.font = [UIFont systemFontOfSize:14];
-    labelSearch.textColor = [ResourceManager lightGrayColor];
+    labelSearch.textColor = [ResourceManager midGrayColor];
     labelSearch.text = @"百里挑一的好商品";
     
     // 消息按钮
@@ -296,7 +296,7 @@
         [btnTemp setTitle:titles[i] forState:UIControlStateNormal];
         [btnTemp setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
         btnTemp.titleLabel.font = [UIFont systemFontOfSize:12];
-        btnTemp.layer.borderColor = [ResourceManager lightGrayColor].CGColor;
+        btnTemp.layer.borderColor = [ResourceManager midGrayColor].CGColor;
         btnTemp.layer.borderWidth = 1;
         btnTemp.tag = i;
         [btnTemp addTarget:self action:@selector(actionMenu:) forControlEvents:UIControlEventTouchUpInside];
@@ -432,7 +432,7 @@
     if (selMenuBtn)
      {
         //selMenuBtn = btnTemp;
-        selMenuBtn.layer.borderColor = [ResourceManager lightGrayColor].CGColor;
+        selMenuBtn.layer.borderColor = [ResourceManager midGrayColor].CGColor;
         [selMenuBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
      }
     

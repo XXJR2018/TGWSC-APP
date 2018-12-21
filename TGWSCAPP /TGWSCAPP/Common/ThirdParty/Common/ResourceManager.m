@@ -720,13 +720,13 @@ static int colorAtIndex(int index){
 }
 
 /**
- *  中度灰的  #0xd6d6d6
+ *  中度灰的  #0x666666
  */
 + (UIColor *)midGrayColor{
     static UIColor *color;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        color = UIColorFromRGB(0xd6d6d6);
+        color = UIColorFromRGB(0x666666);
     });
     return color;
 }

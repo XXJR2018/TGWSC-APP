@@ -27,10 +27,7 @@
 
     if (@available(iOS 11.0, *)) {
         //解决iOS11以后tableView顶部状态栏空白问题
-        UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        UITableView.appearance.estimatedRowHeight = 0;
-        UITableView.appearance.estimatedSectionHeaderHeight = 0;
-        UITableView.appearance.estimatedSectionFooterHeight = 0;
+        [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     }
     
     // 友盟统计

@@ -8,7 +8,10 @@
 
 #import "TabViewController_4.h"
 
+#import "UserInfoViewController.h"
+
 #import "JXButton.h"
+
 
 @interface TabViewController_4 ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
@@ -23,7 +26,10 @@
     
     UILabel *_balanceNumLabel;  //余额
     UILabel *_pointsNumLabel;   // 积分
+    UILabel *_couponNumLabel;   // 优惠券
+    UILabel *_collectNumLabel;   // 收藏
     UIButton *_couponBtn;   //优惠券按钮
+    
     
 }
 
@@ -55,22 +61,34 @@
         _phoneLabel.text = @"请登录";
     }
     //余额
-    if ([[dic objectForKey:@""] intValue] > 0) {
-        _balanceNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]];
-    }else{
-        _balanceNumLabel.text = @"";
-    }
-    //积分
-    if ([[dic objectForKey:@""] intValue] > 0) {
-        _pointsNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]];
-    }else{
-        _pointsNumLabel.text = @"";
-    }
+//    if ([[dic objectForKey:@""] intValue] > 0) {
+//        _balanceNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]];
+//    }else{
+//        _balanceNumLabel.text = @"";
+//    }
+//    //积分
+//    if ([[dic objectForKey:@""] intValue] > 0) {
+//        _pointsNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]];
+//    }else{
+//        _pointsNumLabel.text = @"";
+//    }
+//    //优惠券
+//    if ([[dic objectForKey:@""] intValue] > 0) {
+//        _couponNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]];
+//    }else{
+//        _couponNumLabel.text = @"";
+//    }
+//    //收藏
+//    if ([[dic objectForKey:@""] intValue] > 0) {
+//        _collectNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]];
+//    }else{
+//        _collectNumLabel.text = @"";
+//    }
     //优惠券按钮
     if ([[dic objectForKey:@""] intValue] > 0) {
-        [_couponBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        [_couponBtn setImage:[UIImage imageNamed:@"Tab_4-18"] forState:UIControlStateNormal];
     }else{
-        [_couponBtn setImage:[UIImage imageNamed:@"4-12"] forState:UIControlStateNormal];
+        [_couponBtn setImage:[UIImage imageNamed:@"Tab_4-14"] forState:UIControlStateNormal];
     }
     
 }
@@ -93,6 +111,7 @@
     
     [self layoutUI];
     
+    [self changeUserInfo];
     // 更新用户头像等信息
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeUserInfo) name:@"NotificationChangeUserInfo" object:nil];
 }
@@ -106,6 +125,7 @@
         //发送通知更新用户信息
         [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
         [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
     }];
 
     self.headView = [UIView new];
@@ -120,7 +140,7 @@
 #pragma mark--headViewUI
 -(void)headViewUI{
     
-    UIImageView *backdropImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 360 * ScaleSize)];
+    UIImageView *backdropImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 275 * ScaleSize)];
     [self.headView addSubview:backdropImgView];
     backdropImgView.image = [UIImage imageNamed:@"Tab_4-1"];
     backdropImgView.userInteractionEnabled = YES;
@@ -129,6 +149,10 @@
     [backdropImgView addSubview:_headImgView];
     _headImgView.image = [UIImage imageNamed:@"Tab_4-2"];
     _headImgView.userInteractionEnabled = YES;
+    // 没这句话倒不了角
+    _headImgView.layer.masksToBounds = YES;
+    _headImgView.layer.cornerRadius = 50 * ScaleSize/2;
+    
     
     UITapGestureRecognizer * gestureSearch = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(uploadImg)];
     gestureSearch.numberOfTapsRequired  = 1;
@@ -150,10 +174,6 @@
     _orderImgView.image = [UIImage imageNamed:@"Tab_4-4"];
     backdropImgView.userInteractionEnabled = YES;
     
-    UIImageView *bannerImgView = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 350 * ScaleSize)/2, CGRectGetMaxY(_orderImgView.frame), 350 * ScaleSize, 83 * ScaleSize)];
-    [backdropImgView addSubview:bannerImgView];
-    bannerImgView.image = [UIImage imageNamed:@"Tab_4-9"];
-    bannerImgView.userInteractionEnabled = YES;
 
     self.headView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(backdropImgView.frame));
     
@@ -245,7 +265,8 @@
     view.backgroundColor = [ResourceManager viewBackgroundColor];
     
     CGFloat btnWidth = SCREEN_WIDTH/4;
-    NSArray *imgArr = @[@"Tab_4-10",@"Tab_4-11",@"Tab_4-10",@"Tab_4-11",@"Tab_4-10",@"Tab_4-11"];
+    CGFloat currentHeight = 0;
+    NSArray *imgArr = @[@"Tab_4-12",@"Tab_4-13",@"Tab_4-14",@"Tab_4-15",@"Tab_4-16",@"Tab_4-17"];
     NSArray *titleArr = @[@"我的余额",@"我的积分",@"优惠券",@"我的收藏",@"地址管理",@"客服中心"];
     for (int i = 0; i < 4; i ++) {
         for (int j = 0; j < 4; j ++) {
@@ -258,6 +279,13 @@
                     [_couponBtn setTitle:titleArr[i * 4 + j] forState:UIControlStateNormal];
                     [_couponBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
                     [_couponBtn setImage:[UIImage imageNamed:imgArr[i * 4 + j]] forState:UIControlStateNormal];
+                    
+                    _couponNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, btnWidth - 20, btnWidth, 15)];
+                    [_couponBtn addSubview:_couponNumLabel];
+                    _couponNumLabel.textAlignment = NSTextAlignmentCenter;
+                    _couponNumLabel.textColor = [ResourceManager mainColor];
+                    _couponNumLabel.font = [UIFont systemFontOfSize:12];
+                    _couponNumLabel.text = @"2";
                 }else{
                     JXButton *functBtn = [[JXButton alloc]initWithFrame:CGRectMake(btnWidth * j, btnWidth * i + 20 * (i + 1), btnWidth, btnWidth)];
                     [self.footView addSubview:functBtn];
@@ -280,20 +308,38 @@
                         _pointsNumLabel.textAlignment = NSTextAlignmentCenter;
                         _pointsNumLabel.textColor = [ResourceManager mainColor];
                         _pointsNumLabel.font = [UIFont systemFontOfSize:12];
-                        _pointsNumLabel.text = @"2540";
+                        _pointsNumLabel.text = @"125";
+                    }else if (i * 4 + j == 3) {
+                        _collectNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, btnWidth - 20, btnWidth, 15)];
+                        [functBtn addSubview:_collectNumLabel];
+                        _collectNumLabel.textAlignment = NSTextAlignmentCenter;
+                        _collectNumLabel.textColor = [ResourceManager mainColor];
+                        _collectNumLabel.font = [UIFont systemFontOfSize:12];
+                        _collectNumLabel.text = @"19";
                     }
-                    
-                     self.footView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(functBtn.frame) + 20);
+                    currentHeight = CGRectGetMaxY(functBtn.frame);
                 }
             }
-            
         }
     }
+    
+    UIImageView *bannerImgView = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 338.5 * ScaleSize)/2, currentHeight + 10, 338.5 * ScaleSize, 78 * ScaleSize)];
+    [_footView addSubview:bannerImgView];
+    bannerImgView.image = [UIImage imageNamed:@"Tab_4-9"];
+    bannerImgView.userInteractionEnabled = YES;
+    
+    self.footView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(bannerImgView.frame) + 10);
     
 }
 
 -(void)userInfo{
-    
+    if (![CommonInfo isLoggedIn]) {
+        [DDGUserInfoEngine engine].parentViewController = self;
+        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+        return;
+    }
+    UserInfoViewController *ctl = [[UserInfoViewController alloc]init];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 #pragma mark----订单按钮点击事件orderTouch
@@ -336,61 +382,52 @@
 
 #pragma mark========  上传头像
 -(void)uploadImg{
-if (![[DDGAccountManager sharedManager] isLoggedIn]) {
-    [DDGUserInfoEngine engine].parentViewController = self;
-    [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
-    return;
-}
-UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"选择" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
+    if (![CommonInfo isLoggedIn]) {
+        [DDGUserInfoEngine engine].parentViewController = self;
+        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
         return;
     }
-    UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
-    pickerController.delegate = self;
-    pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    pickerController.allowsEditing = YES;
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        pickerController.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:
-                                       UIImagePickerControllerSourceTypeCamera];
-        pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    [self.navigationController presentViewController:pickerController animated:YES completion:nil];
-    
-}];
-UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
-        return;
-    }
-    UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
-    pickerController.delegate = self;
-    pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    pickerController.allowsEditing = YES;
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        if (iOS7) {
-            pickerController.navigationBar.barTintColor = [ResourceManager redColor2];
-        }else if(iOS11){
-            pickerController.navigationBar.tintColor = [ResourceManager redColor2];
-            //去除毛玻璃效果，解决照片被导航条遮挡问题
-            pickerController.navigationBar.translucent = NO;
-            pickerController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-        }else{
-            pickerController.navigationBar.tintColor = [ResourceManager redColor2];
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"选择" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
+            return;
         }
-    }
-    [self.navigationController presentViewController:pickerController animated:YES completion:nil];
-    
-}];
-UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-}];
+        UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+        pickerController.delegate = self;
+        pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        pickerController.allowsEditing = YES;
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+            pickerController.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:
+                                           UIImagePickerControllerSourceTypeCamera];
+            pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        }
+        [self.navigationController presentViewController:pickerController animated:YES completion:nil];
+        
+    }];
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
+            return;
+        }
+        UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+        pickerController.editing=YES;
+        pickerController.delegate=self;
+        pickerController.allowsEditing=YES;
+        pickerController.navigationBar.translucent=NO;   //去除毛玻璃效果
+        pickerController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+        pickerController.navigationBar.tintColor = [ResourceManager mainColor];
+        [self.navigationController presentViewController:pickerController animated:YES completion:nil];
+        
+    }];
+    UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
 
-//把action添加到actionSheet里
-[actionSheet addAction:action1];
-[actionSheet addAction:action2];
-[actionSheet addAction:action3];
+    //把action添加到actionSheet里
+    [actionSheet addAction:action1];
+    [actionSheet addAction:action2];
+    [actionSheet addAction:action3];
 
-//相当于之前的[actionSheet show];
-[self presentViewController:actionSheet animated:YES completion:nil];
+    //相当于之前的[actionSheet show];
+    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 #pragma mark -
@@ -489,14 +526,14 @@ UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertA
 }
 
 -(void)upLoadImgData{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"fileType"] = @"xxjrHead";
-    params[@"signId"] = [DDGSetting sharedSettings].signId;
+    params[@"fileType"] = @"headImg";
+    params[@"signId"] = [CommonInfo signId];
     params[kUUID] = [DDGSetting sharedSettings].UUID_MD5;
     NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
     NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
-    NSString *versionStr = [NSString stringWithFormat:@"xxjrIOS%@",currentVersion];
+    NSString *versionStr = [NSString stringWithFormat:@"tgwscIOS-%@",currentVersion];
     params[@"appVersion"] = versionStr;
     
     AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
@@ -507,14 +544,14 @@ UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertA
     } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:NO];
         id json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        if ([[(NSDictionary *)json objectForKey:@"state"] isEqualToString:@"SUCCESS"]) {
+        if ([(NSDictionary *)json objectForKey:@"success"]) {
             [MBProgressHUD showSuccessWithStatus:@"上传成功" toView:self.view];
             [DDGSetting sharedSettings].accountNeedRefresh = YES;
-            
-            NSString *imgUrlStr = [(NSDictionary *)json objectForKey:@"fileId"];
+            NSDictionary *dic = [(NSDictionary *)json objectForKey:@"attr"];
+            NSString *imgUrlStr = [dic objectForKey:@"url"];
             [self uploadHeadImgUrl:imgUrlStr];
         }else{
-            [MBProgressHUD showErrorWithStatus:[(NSDictionary *)json objectForKey:@"statusText"] toView:self.view];
+            [MBProgressHUD showErrorWithStatus:[(NSDictionary *)json objectForKey:@"message"] toView:self.view];
         }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         [MBProgressHUD hideHUDForView:self.view animated:NO];

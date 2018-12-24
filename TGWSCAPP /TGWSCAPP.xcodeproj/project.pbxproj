@@ -67,6 +67,8 @@
 		C20525F521BE6E5C00E13893 /* TabViewController_2.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EA21BE6E5C00E13893 /* TabViewController_2.xib */; };
 		C20525F621BE6E5C00E13893 /* TabViewController_1.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525ED21BE6E5C00E13893 /* TabViewController_1.m */; };
 		C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */; };
+		C233DCB021D0C2F800762BDD /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C233DCAE21D0C2F800762BDD /* UserInfoViewController.m */; };
+		C233DCB121D0C2F800762BDD /* UserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C233DCAF21D0C2F800762BDD /* UserInfoViewController.xib */; };
 		C244950721CCB3AC00F8698B /* SortProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C244950521CCB3AC00F8698B /* SortProductCollectionViewCell.m */; };
 		C244950821CCB3AC00F8698B /* SortProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C244950621CCB3AC00F8698B /* SortProductCollectionViewCell.xib */; };
 		C244952221CCC6E100F8698B /* LSPTitleStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = C244951A21CCC6E100F8698B /* LSPTitleStyle.m */; };
@@ -374,6 +376,9 @@
 		C20525ED21BE6E5C00E13893 /* TabViewController_1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController_1.m; sourceTree = "<group>"; };
 		C20525EE21BE6E5C00E13893 /* TabViewController_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController_1.h; sourceTree = "<group>"; };
 		C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabViewController_1.xib; sourceTree = "<group>"; };
+		C233DCAD21D0C2F800762BDD /* UserInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
+		C233DCAE21D0C2F800762BDD /* UserInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
+		C233DCAF21D0C2F800762BDD /* UserInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserInfoViewController.xib; sourceTree = "<group>"; };
 		C244950421CCB3AC00F8698B /* SortProductCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SortProductCollectionViewCell.h; sourceTree = "<group>"; };
 		C244950521CCB3AC00F8698B /* SortProductCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SortProductCollectionViewCell.m; sourceTree = "<group>"; };
 		C244950621CCB3AC00F8698B /* SortProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SortProductCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1100,6 +1105,7 @@
 				C20525E121BE6E5C00E13893 /* TabViewController_4.h */,
 				C20525E321BE6E5C00E13893 /* TabViewController_4.m */,
 				C20525E221BE6E5C00E13893 /* TabViewController_4.xib */,
+				C233DCAC21D0C2E500762BDD /* userInfo */,
 			);
 			path = Tab_4;
 			sourceTree = "<group>";
@@ -1145,6 +1151,16 @@
 				C0CCC7B121C0E237009352E0 /* SearchViewController */,
 			);
 			path = Tab_1;
+			sourceTree = "<group>";
+		};
+		C233DCAC21D0C2E500762BDD /* userInfo */ = {
+			isa = PBXGroup;
+			children = (
+				C233DCAD21D0C2F800762BDD /* UserInfoViewController.h */,
+				C233DCAE21D0C2F800762BDD /* UserInfoViewController.m */,
+				C233DCAF21D0C2F800762BDD /* UserInfoViewController.xib */,
+			);
+			path = userInfo;
 			sourceTree = "<group>";
 		};
 		C244951921CCC6E100F8698B /* PageView */ = {
@@ -2069,6 +2085,7 @@
 				C25047A621BA715500DA9C72 /* whiteArrow@2x.png in Resources */,
 				C25047AA21BA715500DA9C72 /* grayArrow@2x.png in Resources */,
 				C25047AE21BA715500DA9C72 /* 37x-Checkmark@2x.png in Resources */,
+				C233DCB121D0C2F800762BDD /* UserInfoViewController.xib in Resources */,
 				C25047B121BA715500DA9C72 /* success.png in Resources */,
 				C25047A521BA715500DA9C72 /* grayArrow.png in Resources */,
 				C02C5F9821CC991A0056A32E /* icon_play@2x.png in Resources */,
@@ -2277,6 +2294,7 @@
 				C2A08F6A21BF4563005753F6 /* TabBarSelectButtn.m in Sources */,
 				C02C5F7821CC79530056A32E /* ShopDetailVC.m in Sources */,
 				C0CCC85621C390F7009352E0 /* ShopListView.m in Sources */,
+				C233DCB021D0C2F800762BDD /* UserInfoViewController.m in Sources */,
 				C25047B821BA715500DA9C72 /* UIButton+AFNetworking.m in Sources */,
 				C250451821BA579100DA9C72 /* CalculatorManager.m in Sources */,
 				C250460721BA711E00DA9C72 /* SGQRCodeObtainConfigure.m in Sources */,

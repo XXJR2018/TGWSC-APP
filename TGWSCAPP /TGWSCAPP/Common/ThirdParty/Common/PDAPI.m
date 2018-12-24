@@ -31,7 +31,7 @@ static NSString *const kStatURLinUserDefaultsString     = @"kStatURLinUserDefaul
 static NSString *const kDDGUserBorrowVersionAPIString= @"fx/cust/app/upgradeInfo";
 
 // 上传材料、头像
-static NSString *const kDDGGetSendFileAPIString = @"busi/uploadAction/uploadFile";
+static NSString *const kDDGGetSendFileAPIString = @"appMall/upload/uploadImage";
 
 // 查询用户信息
 static NSString *const kDDGGetUserBaseInfoAPIString = @"appMall/account/cust/info/getCustInfo";
@@ -115,7 +115,7 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
 #if DEBUG
 //    return @"https://www.tiangouwo.com/";     //生产环境
 //    return @"http://192.168.10.182/";        //测试环境
-    return  @"http://192.168.10.132:9999/";        //方然青服务器
+    return  @"http://192.168.10.132:9991/";        //方然青服务器
 //    return @"http://192.168.10.129:82/";        //刘利伟服务器
 //    return  @"http://192.168.10.208/";     // 邹全洪
     

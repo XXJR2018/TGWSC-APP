@@ -23,7 +23,10 @@
     
     UILabel *_balanceNumLabel;  //余额
     UILabel *_pointsNumLabel;   // 积分
+    UILabel *_couponNumLabel;   // 优惠券
+    UILabel *_collectNumLabel;   // 收藏
     UIButton *_couponBtn;   //优惠券按钮
+    
     
 }
 
@@ -245,7 +248,7 @@
     view.backgroundColor = [ResourceManager viewBackgroundColor];
     
     CGFloat btnWidth = SCREEN_WIDTH/4;
-    NSArray *imgArr = @[@"Tab_4-10",@"Tab_4-11",@"Tab_4-10",@"Tab_4-11",@"Tab_4-10",@"Tab_4-11"];
+    NSArray *imgArr = @[@"Tab_4-12",@"Tab_4-13",@"Tab_4-14",@"Tab_4-15",@"Tab_4-16",@"Tab_4-17"];
     NSArray *titleArr = @[@"我的余额",@"我的积分",@"优惠券",@"我的收藏",@"地址管理",@"客服中心"];
     for (int i = 0; i < 4; i ++) {
         for (int j = 0; j < 4; j ++) {

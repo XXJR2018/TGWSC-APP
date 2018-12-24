@@ -49,7 +49,7 @@
     hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
     hud.bezelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
     hud.contentColor = [UIColor whiteColor];
-    [hud hideAnimated:YES afterDelay:2.0];
+    //[hud hideAnimated:YES afterDelay:2.0];
 	return hud;
 }
 

@@ -17,6 +17,8 @@
 @interface ShopDetailVC ()<TSVideoPlaybackDelegate>
 {
     UIScrollView *scView;
+    
+    NSMutableArray *arrTailIMG;   // 底部的图片数组
 }
 
 @property (strong, nonatomic)AVPlayer *myPlayer;//播放器
@@ -35,7 +37,14 @@
     // Do any additional setup after loading the view.
     [self layoutNaviBarViewWithTitle:@"商品详情"];
     
+    [self initData];
+    
     [self getDataFromWeb];
+}
+
+-(void) initData
+{
+    arrTailIMG = [[NSMutableArray alloc] init];;
 }
 
 //清除缓存必须写
@@ -149,7 +158,7 @@
     viewFG1.backgroundColor = [ResourceManager color_5];
     
     // 设置包邮的价格
-    iTopY += 15;
+    iTopY += 10;
     UILabel *labelBY = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY+3, 31, 15)];
     [scView addSubview:labelBY];
     labelBY.layer.masksToBounds = YES;
@@ -166,17 +175,17 @@
     labelBYJG.text =  [NSString stringWithFormat:@"满%@元包邮", dicUI[@"maxPostFree"]];
     
     // 分割块
-    iTopY += labelBY.height + 20;
+    iTopY += labelBY.height + 15;
     UIView *viewFGK1 = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 10)];
     [scView addSubview:viewFGK1];
     viewFGK1.backgroundColor = [ResourceManager viewBackgroundColor];
     
     // 优惠布局
     iTopY += viewFGK1.height + 10;
-    UILabel *labelYHTitle = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 40, 20)];
+    UILabel *labelYHTitle = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY+1, 40, 20)];
     [scView addSubview:labelYHTitle];
     labelYHTitle.textColor = [ResourceManager midGrayColor];
-    labelYHTitle.font = [UIFont systemFontOfSize:12];
+    labelYHTitle.font = [UIFont systemFontOfSize:13];
     labelYHTitle.text = @"优惠:";
     
     iLeftX += 40 ;
@@ -198,6 +207,14 @@
     labelGMJG.text =  [NSString stringWithFormat:@"购买可得%d积分",  [dicBaseGoods[@"maxPrice"] intValue]];
     
 
+    UIImageView *imgRight1 = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 20, iTopY+3, 10, 15)];
+    [scView addSubview:imgRight1];
+    imgRight1.image = [UIImage imageNamed:@"arrow_right"];
+    
+    UIButton *btnYH = [[UIButton alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 20)];
+    [scView addSubview:btnYH];
+    //btnYH.backgroundColor = [UIColor blueColor];
+    [btnYH addTarget:self action:@selector(actionYHSM) forControlEvents:UIControlEventTouchUpInside];
     
     // 分割块
     iTopY += labelGMJG.height + 10;
@@ -206,10 +223,79 @@
     viewFGK2.backgroundColor = [ResourceManager viewBackgroundColor];
     
     // 已选布局
-
-
+    iTopY += viewFGK1.height + 10;
+    iLeftX = 15;
+    UILabel *labelYXTitle = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY+1, 40, 20)];
+    [scView addSubview:labelYXTitle];
+    labelYXTitle.textColor = [ResourceManager midGrayColor];
+    labelYXTitle.font = [UIFont systemFontOfSize:13];
+    labelYXTitle.text = @"已选:";
+    iLeftX += 40;
+    UILabel *labelYX = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - iLeftX - 20, 20)];
+    [scView addSubview:labelYX];
+    //labelYX.backgroundColor = [UIColor yellowColor];
+    labelYX.textColor = [ResourceManager color_1];
+    labelYX.font = [UIFont systemFontOfSize:15];
+    labelYX.text =  [NSString stringWithFormat:@"购买可得%d积分",  [dicBaseGoods[@"maxPrice"] intValue]];
+    
+    UIImageView *imgRight2 = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 20, iTopY+3, 10, 15)];
+    [scView addSubview:imgRight2];
+    imgRight2.image = [UIImage imageNamed:@"arrow_right"];
+    
+    UIButton *btnSelModel = [[UIButton alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 20)];
+    [scView addSubview:btnSelModel];
+    //btnYH.backgroundColor = [UIColor blueColor];
+    [btnSelModel addTarget:self action:@selector(actionSelModel) forControlEvents:UIControlEventTouchUpInside];
     
     
+    // 分割块
+    iTopY += labelYX.height + 10;
+    UIView *viewFGK3 = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 10)];
+    [scView addSubview:viewFGK3];
+    viewFGK3.backgroundColor = [ResourceManager viewBackgroundColor];
+    
+    
+    // 已选布局
+    iTopY += viewFGK3.height + 10;
+    iLeftX = 15;
+    UILabel *labelSMTitle = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY+1, 40, 20)];
+    [scView addSubview:labelSMTitle];
+    labelSMTitle.textColor = [ResourceManager midGrayColor];
+    labelSMTitle.font = [UIFont systemFontOfSize:13];
+    labelSMTitle.text = @"说明:";
+    iLeftX += 40;
+    
+    UIImageView *imgSM = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 20, 20)];
+    [scView addSubview:imgSM];
+    imgSM.image = [UIImage imageNamed:@"com_gou2"];
+    
+    iLeftX += imgSM.width + 5;
+    UILabel *labelSM = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - iLeftX - 20, 20)];
+    [scView addSubview:labelSM];
+    //labelYX.backgroundColor = [UIColor yellowColor];
+    labelSM.textColor = [ResourceManager color_1];
+    labelSM.font = [UIFont systemFontOfSize:15];
+    labelSM.text =  [NSString stringWithFormat:@"支持%d天无理由退货",  7];
+    
+    
+    UIImageView *imgRight3 = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 20, iTopY+3, 10, 15)];
+    [scView addSubview:imgRight3];
+    imgRight3.image = [UIImage imageNamed:@"arrow_right"];
+    
+    UIButton *btnShuoMing = [[UIButton alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 20)];
+    [scView addSubview:btnShuoMing];
+    //btnYH.backgroundColor = [UIColor blueColor];
+    [btnShuoMing addTarget:self action:@selector(actionShuoMing) forControlEvents:UIControlEventTouchUpInside];
+    
+    // 分割块
+    iTopY += labelSM.height + 10;
+    UIView *viewFGK4 = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 10)];
+    [scView addSubview:viewFGK4];
+    viewFGK4.backgroundColor = [ResourceManager viewBackgroundColor];
+
+    
+    iTopY += 10;
+    [self layoutTailJPG:dicUI atTop:iTopY];
     
 }
 -(void)initialControlUnit
@@ -250,6 +336,98 @@
              @"http://img.ptocool.com/3332-1518523974124-26"];
 }
 
+
+-(void) layoutTailJPG:(NSDictionary *)dicUI   atTop:(int)iCurTop
+{
+     __block int  iTopY = iCurTop;
+    __block  NSMutableArray *_bArrImg = arrTailIMG;
+    __block  UIScrollView *_bSCView = scView;
+    
+    
+    NSArray *arrMediaList = dicUI[@"mediaList"];
+    
+    if (!arrMediaList ||
+        0 == [arrMediaList count])
+     {
+        scView.contentSize = CGSizeMake(0, iTopY);
+        return;
+     }
+    
+    
+
+    scView.contentSize = CGSizeMake(0, iTopY+300);
+    __block  UIView *viewShowLoad = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/4, iTopY, SCREEN_WIDTH/2, 200)];
+    [scView addSubview:viewShowLoad];
+    [MBProgressHUD showWithStatus:@"正在加载图片" toView:viewShowLoad];
+    
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        // 线程中国中 加载图片
+        for (int i = 0; i < [arrMediaList count]; i++)
+         {
+            NSDictionary *dicObj = arrMediaList[i];
+            NSString *strImgUrl = dicObj[@"imgUrl"];
+            
+            // 异步方式加载图片
+            UIImage *imgTemp =  [ToolsUtlis getImgFromStr:strImgUrl];
+            
+            if (imgTemp)
+             {
+                
+                CGFloat fixelH = CGImageGetHeight(imgTemp.CGImage);
+                //CGFloat fixelW = CGImageGetWidth(imgTemp.CGImage);
+                float fImgHeight = fixelH *FixelScaleSize*ScaleSize;
+                //float fImgWidth = fixelW *FixelScaleSize*ScaleSize;
+                
+                [_bArrImg addObject:@(fImgHeight)];
+                
+             }
+            else
+             {
+                [_bArrImg addObject:@(0)];
+             }
+            
+            
+         }
+        
+        //[MBProgressHUD hideHUDForView:viewShowLoad animated:YES];
+        
+        //跳回主队列执行
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            
+            for (int i = 0; i < [arrMediaList count]; i++)
+             {
+                NSDictionary *dicObj = arrMediaList[i];
+                NSString *strImgUrl = dicObj[@"imgUrl"];
+                float  fImgHeight =  [_bArrImg[i] floatValue];
+                
+                UIImageView *imgViewTemp = [[UIImageView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, fImgHeight)];
+                [_bSCView addSubview:imgViewTemp];
+                [imgViewTemp setImageWithURL:[NSURL URLWithString:strImgUrl]];
+                
+                iTopY += imgViewTemp.height;
+                
+                _bSCView.contentSize = CGSizeMake(0, iTopY);
+             }
+
+            
+        });
+        
+        
+        
+        
+    });
+            
+            
+
+        
+    
+    
+    //scView.contentSize = CGSizeMake(0, iTopY);
+    
+}
 
 -(void) layoutTabber
 {
@@ -366,9 +544,11 @@
 
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
 {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
     if (operation.tag == 1000)
      {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
         NSDictionary *dicUI = operation.jsonResult.attr;
         if (!dicUI)
          {
@@ -423,16 +603,34 @@
     NSLog(@"iTag :%d", iTag);
 }
 
+// 立即购买
 -(void) actionLJGM
 {
     
 }
 
+// 加入购物车
 -(void) actionJRGWC
 {
     
 }
 
+// 优惠说明
+-(void) actionYHSM
+{
+    
+}
+
+// 选择规格
+-(void) actionSelModel
+{
+    
+}
 
 
+// 说明
+-(void) actionShuoMing
+{
+    
+}
 @end

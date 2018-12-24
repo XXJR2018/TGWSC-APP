@@ -126,7 +126,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopPrice.font = [UIFont systemFontOfSize:15];
             labelShopPrice.textColor = UIColorFromRGB(0x9f1421);
-            labelShopPrice.text = [NSString stringWithFormat:@"￥%@", sModel.strMaxPrice];//sModel.strMaxPrice;
+            labelShopPrice.text = [NSString stringWithFormat:@"￥%@", sModel.strMinPrice];//sModel.strMaxPrice;
             labelShopPrice.numberOfLines = 0;
             
             UIButton *btnTemp = [[UIButton alloc] initWithFrame:imgViewTemp.frame];
@@ -232,7 +232,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopPrice.font = [UIFont systemFontOfSize:15];
             labelShopPrice.textColor = UIColorFromRGB(0x9f1421);
-            labelShopPrice.text =  [NSString stringWithFormat:@"￥%@", sModel.strMaxPrice];
+            labelShopPrice.text =  [NSString stringWithFormat:@"￥%@", sModel.strMinPrice];
             labelShopPrice.numberOfLines = 0;
             
             UIButton *btnTemp = [[UIButton alloc] initWithFrame:imgViewTemp.frame];
@@ -304,7 +304,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopPrice.font = [UIFont systemFontOfSize:15];
             labelShopPrice.textColor = UIColorFromRGB(0x9f1421);
-            labelShopPrice.text = [NSString stringWithFormat:@"￥%@", sModel.strMaxPrice];//sModel.strMaxPrice;
+            labelShopPrice.text = [NSString stringWithFormat:@"￥%@", sModel.strMinPrice];//sModel.strMaxPrice;
             labelShopPrice.numberOfLines = 0;
 
             UIButton *btnTemp = [[UIButton alloc] initWithFrame:imgViewTemp.frame];

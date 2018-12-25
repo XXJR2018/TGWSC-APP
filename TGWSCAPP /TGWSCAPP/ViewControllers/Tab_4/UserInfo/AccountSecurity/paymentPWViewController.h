@@ -1,5 +1,5 @@
 //
-//  AccountSecurityViewController.h
+//  paymentPWViewController.h
 //  TGWSCAPP
 //
 //  Created by xxjr03 on 2018/12/25.
@@ -10,7 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AccountSecurityViewController : CommonViewController
+@interface paymentPWViewController : CommonViewController
+
+@property(nonatomic, copy)NSString *titleStr;
 
 @end
 

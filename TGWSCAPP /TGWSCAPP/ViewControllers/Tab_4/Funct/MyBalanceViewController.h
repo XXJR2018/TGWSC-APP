@@ -1,5 +1,5 @@
 //
-//  PhoneCheckViewController.h
+//  MyBalanceViewController.h
 //  TGWSCAPP
 //
 //  Created by xxjr03 on 2018/12/25.
@@ -10,9 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PhoneCheckViewController : CommonViewController
-
-@property(nonatomic, copy)NSString *titleStr;
+@interface MyBalanceViewController : CommonViewController
 
 @end
 

@@ -34,6 +34,8 @@ static const CGFloat buttonHeight = 35;
 @property (strong,nonatomic)NSString * imgUrl;
 @property (strong,nonatomic)NSString * strTime;
 
+@property (assign,nonatomic)long  longTime;
+
 @property (strong,nonatomic)NSString * cancelButtonTitle;
 @property (strong,nonatomic)NSString * okButtonTitle;
 @property (strong,nonatomic)UIImage * image;
@@ -99,6 +101,8 @@ static const CGFloat buttonHeight = 35;
     [MBProgressHUD showHUDAddedTo:self animated:NO];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"telephone"] = _strPhone? _strPhone:@"18688952105";
+  
+    _strTime = [NSString stringWithFormat:@"%ld_%@",_longTime , [DDGSetting sharedSettings].UUID_MD5];// 当前时间戳
     params[@"page"] = _strTime;
     params[@"imageCode"] = _label1_text.text;
     params[@"appkjType"] = @"1";
@@ -194,7 +198,8 @@ static const CGFloat buttonHeight = 35;
     
     NSDate *senddate = [NSDate date];
     //_strTime = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];// 当前时间戳
-    _strTime = [NSString stringWithFormat:@"%ld_%@", (long)[senddate timeIntervalSince1970], [DDGSetting sharedSettings].UUID_MD5];// 当前时间戳
+    _longTime = (long)[senddate timeIntervalSince1970];
+    _strTime = [NSString stringWithFormat:@"%ld_%@",_longTime , [DDGSetting sharedSettings].UUID_MD5];// 当前时间戳
     _imgUrl = [NSString stringWithFormat:@"%@%@?page=%@", [PDAPI getBaseUrlString], @"appMall/smsAction/tgImageCode",_strTime];
     [_imageview sd_setImageWithURL:[NSURL URLWithString:_imgUrl] placeholderImage:[UIImage imageNamed:@"tab4_ddsx"]];
     [self.alertview addSubview:_imageview];
@@ -257,7 +262,8 @@ static const CGFloat buttonHeight = 35;
         NSLog(@"清除 %@ 图片缓存成功", _imgUrl);
         
         NSDate *senddate = [NSDate date];
-        _strTime = [NSString stringWithFormat:@"%ld_%@", (long)[senddate timeIntervalSince1970], [DDGSetting sharedSettings].UUID_MD5];// 当前时间戳
+        _longTime = (long)[senddate timeIntervalSince1970];
+        _strTime = [NSString stringWithFormat:@"%ld_%@", _longTime, [DDGSetting sharedSettings].UUID_MD5];// 当前时间戳
         _imgUrl = [NSString stringWithFormat:@"%@%@?page=%@", [PDAPI getBaseUrlString], @"xxcust/smsAction/imageCode",_strTime];
         
         [_imageview sd_setImageWithURL:[NSURL URLWithString:_imgUrl] placeholderImage:[UIImage imageNamed:@"tab4_ddsx"]];

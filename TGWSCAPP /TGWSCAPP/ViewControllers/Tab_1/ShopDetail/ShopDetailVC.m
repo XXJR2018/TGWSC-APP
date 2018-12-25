@@ -24,6 +24,9 @@
     
     int  iTailViewTopY; // 底部图片Top坐标
     NSMutableArray *arrTailIMG;   // 底部的图片数组
+    
+    NSArray *arrSku;
+    NSArray *arrSkuShow;
 }
 
 @property (strong, nonatomic)AVPlayer *myPlayer;//播放器
@@ -51,6 +54,9 @@
 {
     arrTopIMG = [[NSMutableArray alloc] init];
     arrTailIMG = [[NSMutableArray alloc] init];
+    
+    arrSku = nil;
+    arrSkuShow = nil;
     
     iTailViewTopY = 0;
 }
@@ -534,6 +540,8 @@
 {
     [self queryGoodsBaseInfo];
     [self queryGoodsDetailInfo];
+    [self querySkuProList];
+    [self querySkuList];
 }
 
 // 获取商品基本信息
@@ -574,6 +582,43 @@
     [operation start];
 }
 
+// 查询商品SKU展示规格列表 （展示）
+-(void) querySkuProList
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"goodsCode"] = _shopModel.strGoodsCode;
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLquerySkuProList];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1002;
+    [operation start];
+}
+
+
+// 查询商品SKU所有列表
+-(void) querySkuList
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"goodsCode"] = _shopModel.strGoodsCode;
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLquerySkuList];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1003;
+    [operation start];
+}
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
 {
     
@@ -590,7 +635,8 @@
         [self layoutUI:dicUI];
 
      }
-    else if (operation.tag == 1001) {
+    else if (operation.tag == 1001)
+     {
         
         NSDictionary *dicTemp = operation.jsonResult.attr;
         if (!dicTemp)
@@ -613,6 +659,14 @@
             [self performSelector:@selector(delayMethod:) withObject:detailGoods afterDelay:2.0];// 延迟执行
          }
     }
+    else if (1002 == operation.tag)
+     {
+        arrSkuShow =  operation.jsonResult.rows;
+     }
+    else if (1003 == operation.tag)
+     {
+        arrSku = operation.jsonResult.rows;
+     }
 }
 
 -(void) delayMethod:(NSDictionary*)dic
@@ -647,7 +701,19 @@
 // 立即购买
 -(void) actionLJGM
 {
+    if (!arrSku ||
+        !arrSkuShow)
+     {
+        [self querySkuList];
+        [self querySkuProList];
+        [MBProgressHUD showErrorWithStatus:@"获取规格参数失败" toView:self.view];
+        return;
+     }
+    
     PopSelShopView  *popView = [[PopSelShopView alloc] init];
+    popView.shopModel = _shopModel;
+    popView.arrSku = arrSku;
+    popView.arrSkuShow = arrSkuShow;
     [popView show];
 }
 

@@ -40,6 +40,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
+    [self drawUI];
 }
 
 
@@ -68,6 +69,12 @@
 }
 
 
+-(void) drawUI
+{
+    NSLog(@"self.shopModel:%@",self.shopModel);
+    NSLog(@"self.arrSku:%@",self.arrSku);
+}
+
 #pragma mark - Public
 
 /*! @brief 指向指定的View来显示弹窗 */
@@ -84,8 +91,11 @@
     
     //弹出动画
     [UIView animateWithDuration:0.25f delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        // 从底部弹出
         self.frame = CGRectMake(0, self.windowHeight - currentH, self.windowWidth, currentH);
-
+        
+        // 从顶部弹出
+        //self.frame = CGRectMake(0, 0, self.windowWidth, currentH);
     } completion:^(BOOL finished) {
         
     }];
@@ -94,8 +104,13 @@
 
 -(void) hide {
     [UIView animateWithDuration:0.25f delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.alpha = 0.f;
+
+        // 从底部消失
         self.frame = CGRectMake(0, self.windowHeight, self.windowWidth, self.tailView.height);
+        
+        // 从顶部消失
+        //self.frame = CGRectMake(0, -self.windowHeight, self.windowWidth, self.tailView.height);
+        
     } completion:^(BOOL finished) {
         [self.shadeView removeFromSuperview];
         [self removeFromSuperview];

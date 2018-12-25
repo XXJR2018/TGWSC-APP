@@ -13,7 +13,7 @@
 }
 
 @property (nonatomic, weak) UIWindow *keyWindow; ///< 当前窗口
-@property (nonatomic, strong) UIView *tailView;
+@property (nonatomic, strong) UIView *tailView;  // 底部的弹出View
 @property (nonatomic, strong) UIView *shadeView; ///< 遮罩层
 @property (nonatomic, weak) UITapGestureRecognizer *tapGesture; ///< 点击背景阴影的手
 
@@ -73,6 +73,23 @@
 {
     NSLog(@"self.shopModel:%@",self.shopModel);
     NSLog(@"self.arrSku:%@",self.arrSku);
+    
+    int iLeftX = 15;
+    int iTopY = 20;
+    int iIMGWdith = 120 *ScaleSize;
+    UIImageView *imgShop = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, iIMGWdith, iIMGWdith)];
+    [_tailView addSubview:imgShop];
+    imgShop.backgroundColor = [UIColor yellowColor];
+    [imgShop setImageWithURL:[NSURL URLWithString:_shopModel.strGoodsImgUrl]];
+    
+    iLeftX += imgShop.width + 10;
+    UILabel *labelName = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - iLeftX - 10, 20)];
+    [_tailView addSubview:labelName];
+    labelName.font = [UIFont systemFontOfSize:14];
+    labelName.textColor = [ResourceManager color_1];
+    labelName.text = self.shopModel.strGoodsSubName;
+    
+    
 }
 
 #pragma mark - Public

@@ -9,6 +9,7 @@
 #import "ShopDetailVC.h"
 #import <AVFoundation/AVFoundation.h>
 #import "TSVideoPlayback.h"
+#import "PopSelShopView.h"
 
 
 #define   BannerHeight     300
@@ -18,6 +19,10 @@
 {
     UIScrollView *scView;
     
+    NSMutableArray *arrTopIMG; // 顶部的 视频和图片 数组
+    int iTopType;    //   0 - 表示全图片，  1 -  表示为首张为视频，剩下的为图片
+    
+    int  iTailViewTopY; // 底部图片Top坐标
     NSMutableArray *arrTailIMG;   // 底部的图片数组
 }
 
@@ -44,7 +49,10 @@
 
 -(void) initData
 {
-    arrTailIMG = [[NSMutableArray alloc] init];;
+    arrTopIMG = [[NSMutableArray alloc] init];
+    arrTailIMG = [[NSMutableArray alloc] init];
+    
+    iTailViewTopY = 0;
 }
 
 //清除缓存必须写
@@ -71,7 +79,7 @@
     scView.backgroundColor = [UIColor whiteColor];//[ResourceManager viewBackgroundColor];
     
     // 布局头部banner
-    [self initialControlUnit];
+    [self initialControlUnit:dicUI];
     
     // 布局底部的tabbar
     [self layoutTabber];
@@ -225,18 +233,18 @@
     // 已选布局
     iTopY += viewFGK1.height + 10;
     iLeftX = 15;
-    UILabel *labelYXTitle = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY+1, 40, 20)];
+    UILabel *labelYXTitle = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY+1, 150, 20)];
     [scView addSubview:labelYXTitle];
-    labelYXTitle.textColor = [ResourceManager midGrayColor];
+    labelYXTitle.textColor = [ResourceManager color_1];
     labelYXTitle.font = [UIFont systemFontOfSize:13];
-    labelYXTitle.text = @"已选:";
+    labelYXTitle.text = @"请选择规格和数量";
     iLeftX += 40;
     UILabel *labelYX = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - iLeftX - 20, 20)];
     [scView addSubview:labelYX];
     //labelYX.backgroundColor = [UIColor yellowColor];
     labelYX.textColor = [ResourceManager color_1];
     labelYX.font = [UIFont systemFontOfSize:15];
-    labelYX.text =  [NSString stringWithFormat:@"购买可得%d积分",  [dicBaseGoods[@"maxPrice"] intValue]];
+    labelYX.text = @""; //[NSString stringWithFormat:@"购买可得%d积分",  [dicBaseGoods[@"maxPrice"] intValue]];
     
     UIImageView *imgRight2 = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 20, iTopY+3, 10, 15)];
     [scView addSubview:imgRight2];
@@ -295,23 +303,49 @@
 
     
     iTopY += 10;
-    [self layoutTailJPG:dicUI atTop:iTopY];
+    iTailViewTopY = iTopY;
+    
+    scView.contentSize = CGSizeMake(0, iTopY);
+    //[self layoutTailJPG:dicUI atTop:iTopY];
     
 }
--(void)initialControlUnit
+-(void)initialControlUnit:(NSDictionary*) dicUI
 {
+    
+    NSArray *arrMediaList  = dicUI[@"mediaList"];
+    iTopType = 0;
+    [arrTopIMG removeAllObjects];
+    if (arrMediaList &&
+        [arrMediaList count] > 0)
+     {
+        for (int i = 0; i < [arrMediaList count]; i++)
+         {
+            NSDictionary *dicObj = arrMediaList[i];
+            NSString *strImgUrl = dicObj[@"imgUrl"];
+            if (i == 0)
+             {
+                iTopType = [dicObj[@"mediaType"] intValue];
+             }
+            
+            [arrTopIMG addObject:strImgUrl];
+         }
+     }
+    
+    
     self.video = [[TSVideoPlayback alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, BannerHeight) ];
     self.video.delegate = self;
-    self.type = 1;
-    if (self.type == 1)
+    self.type = 0;
+    if (self.type == 0)
      {
         self.title = @"纯图片详情";
-        [self.video setWithIsVideo:TSDETAILTYPEIMAGE andDataArray:[self imgArray]];
+        //[self.video setWithIsVideo:TSDETAILTYPEIMAGE andDataArray:[self imgArray]];
+        [self.video setWithIsVideo:TSDETAILTYPEIMAGE andDataArray:arrTopIMG];
      }
     else
      {
         self.title = @"视频图片详情";
-        [self.video setWithIsVideo:TSDETAILTYPEVIDEO andDataArray:[self bannerArray]];
+        //[self.video setWithIsVideo:TSDETAILTYPEVIDEO andDataArray:[self bannerArray]];
+        [self.video setWithIsVideo:TSDETAILTYPEVIDEO andDataArray:arrTopIMG];
      }
     [scView addSubview:self.video];
     
@@ -344,7 +378,7 @@
     __block  UIScrollView *_bSCView = scView;
     
     
-    NSArray *arrMediaList = dicUI[@"mediaList"];
+    NSArray *arrMediaList = dicUI[@"imageList"];
     
     if (!arrMediaList ||
         0 == [arrMediaList count])
@@ -367,7 +401,7 @@
         for (int i = 0; i < [arrMediaList count]; i++)
          {
             NSDictionary *dicObj = arrMediaList[i];
-            NSString *strImgUrl = dicObj[@"imgUrl"];
+            NSString *strImgUrl = dicObj[@"url"];
             
             // 异步方式加载图片
             UIImage *imgTemp =  [ToolsUtlis getImgFromStr:strImgUrl];
@@ -391,16 +425,17 @@
             
          }
         
-        //[MBProgressHUD hideHUDForView:viewShowLoad animated:YES];
         
         //跳回主队列执行
         dispatch_async(dispatch_get_main_queue(), ^{
             
+            // 必须在主线程中隐藏 加载动画
+            [MBProgressHUD hideHUDForView:viewShowLoad animated:YES];
             
             for (int i = 0; i < [arrMediaList count]; i++)
              {
                 NSDictionary *dicObj = arrMediaList[i];
-                NSString *strImgUrl = dicObj[@"imgUrl"];
+                NSString *strImgUrl = dicObj[@"url"];
                 float  fImgHeight =  [_bArrImg[i] floatValue];
                 
                 UIImageView *imgViewTemp = [[UIImageView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, fImgHeight)];
@@ -501,7 +536,7 @@
 -(void) getDataFromWeb
 {
     [self queryGoodsBaseInfo];
-    //[self queryGoodsDetailInfo];
+    [self queryGoodsDetailInfo];
 }
 
 // 获取商品基本信息
@@ -556,26 +591,30 @@
             return;
          }
         [self layoutUI:dicUI];
-//        NSArray *arrTitles   = operation.jsonResult.rows;
-//        if (arrTitles&&
-//            [arrTitles count] > 0)
-//         {
-//
-//
-//            int iCount = (int)[arrTitles count];
-//            if (iCount > 0)
-//             {
-//                [titles removeAllObjects];
-//
-//                [self layoutMenu:arrTitles];
-//
-//
-//             }
-//         }
+
      }
     else if (operation.tag == 1001) {
         
+        NSDictionary *dicTemp = operation.jsonResult.attr;
+        if (!dicTemp)
+         {
+            return;
+         }
         
+        NSDictionary *detailGoods = dicTemp[@"detailGoods"];
+        if (!detailGoods)
+         {
+            return;
+         }
+        
+        if  (iTailViewTopY)
+         {
+            [self layoutTailJPG:detailGoods atTop:iTailViewTopY];
+         }
+        else
+         {
+            
+         }
     }
 }
 
@@ -606,7 +645,8 @@
 // 立即购买
 -(void) actionLJGM
 {
-    
+    PopSelShopView  *popView = [[PopSelShopView alloc] init];
+    [popView show];
 }
 
 // 加入购物车

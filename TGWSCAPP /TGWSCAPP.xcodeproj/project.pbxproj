@@ -17,6 +17,7 @@
 		C02C5F9921CC991A0056A32E /* icon_play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8B21CC991A0056A32E /* icon_play@3x.png */; };
 		C02C5F9A21CC991A0056A32E /* icon_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8C21CC991A0056A32E /* icon_video@2x.png */; };
 		C02C5F9B21CC991A0056A32E /* icon_video@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8E21CC991A0056A32E /* icon_video@3x.png */; };
+		C0A48A6D21D1F969002AF226 /* PopSelShopView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A6C21D1F969002AF226 /* PopSelShopView.m */; };
 		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
@@ -284,6 +285,8 @@
 		C02C5F8C21CC991A0056A32E /* icon_video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video@2x.png"; sourceTree = "<group>"; };
 		C02C5F8D21CC991A0056A32E /* TSVideoPlayback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSVideoPlayback.h; sourceTree = "<group>"; };
 		C02C5F8E21CC991A0056A32E /* icon_video@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video@3x.png"; sourceTree = "<group>"; };
+		C0A48A6B21D1F969002AF226 /* PopSelShopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopSelShopView.h; sourceTree = "<group>"; };
+		C0A48A6C21D1F969002AF226 /* PopSelShopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopSelShopView.m; sourceTree = "<group>"; };
 		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
@@ -793,6 +796,7 @@
 			children = (
 				C02C5F7621CC79530056A32E /* ShopDetailVC.h */,
 				C02C5F7721CC79530056A32E /* ShopDetailVC.m */,
+				C0A48A6A21D1F907002AF226 /* PopSelShop */,
 				C02C5F7921CC991A0056A32E /* VideoAndImgScroll */,
 			);
 			path = ShopDetail;
@@ -817,6 +821,15 @@
 				C02C5F8E21CC991A0056A32E /* icon_video@3x.png */,
 			);
 			path = detailVIdeo;
+			sourceTree = "<group>";
+		};
+		C0A48A6A21D1F907002AF226 /* PopSelShop */ = {
+			isa = PBXGroup;
+			children = (
+				C0A48A6B21D1F969002AF226 /* PopSelShopView.h */,
+				C0A48A6C21D1F969002AF226 /* PopSelShopView.m */,
+			);
+			path = PopSelShop;
 			sourceTree = "<group>";
 		};
 		C0CCC7B121C0E237009352E0 /* SearchViewController */ = {
@@ -2287,6 +2300,7 @@
 				C25047B921BA715500DA9C72 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				C02C5F9721CC991A0056A32E /* TSVideoPlayback.m in Sources */,
 				C250461A21BA711E00DA9C72 /* RangeSliderView.m in Sources */,
+				C0A48A6D21D1F969002AF226 /* PopSelShopView.m in Sources */,
 				C250476821BA715500DA9C72 /* ExceptionCatch.m in Sources */,
 				C250451F21BA579100DA9C72 /* DDGWeChat.m in Sources */,
 				C0CCC82221C0F47D009352E0 /* HistoryVC.m in Sources */,

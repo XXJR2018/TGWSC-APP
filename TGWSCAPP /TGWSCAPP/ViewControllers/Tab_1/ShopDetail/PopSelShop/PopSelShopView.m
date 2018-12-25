@@ -1,0 +1,104 @@
+//
+//  PopSelShopView.m
+//  TGWSCAPP
+//
+//  Created by xxjr02 on 2018/12/25.
+//  Copyright © 2018 xxjr03. All rights reserved.
+//
+
+#import "PopSelShopView.h"
+
+@interface PopSelShopView ()
+{
+}
+
+@property (nonatomic, weak) UIWindow *keyWindow; ///< 当前窗口
+@property (nonatomic, strong) UIView *tailView;
+@property (nonatomic, strong) UIView *shadeView; ///< 遮罩层
+@property (nonatomic, weak) UITapGestureRecognizer *tapGesture; ///< 点击背景阴影的手
+
+@property (nonatomic, assign) CGFloat windowWidth; ///< 窗口宽度
+@property (nonatomic, assign) CGFloat windowHeight; ///< 窗口高度
+
+@end
+
+@implementation PopSelShopView
+
+
+
+#pragma mark - Lift Cycle
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (!(self = [super initWithFrame:frame])) return nil;
+    [self initialize];
+    return self;
+}
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self initialize];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+}
+
+
+#pragma mark - Private
+/*! @brief 初始化相关 */
+- (void)initialize {
+
+    // current view
+    self.backgroundColor = [UIColor whiteColor];
+    // keyWindow
+    _keyWindow = [UIApplication sharedApplication].keyWindow;
+    _windowWidth = CGRectGetWidth(_keyWindow.bounds);
+    _windowHeight = CGRectGetHeight(_keyWindow.bounds);
+    // shadeView
+    _shadeView = [[UIView alloc] initWithFrame:_keyWindow.bounds];
+    //[self setShowShade:NO];
+    
+    // tailview
+    _tailView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _windowWidth, _windowHeight*2/3)];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
+    [_shadeView addGestureRecognizer:tapGesture];
+    _tapGesture = tapGesture;
+
+    [self addSubview:_tailView];
+}
+
+
+#pragma mark - Public
+
+/*! @brief 指向指定的View来显示弹窗 */
+- (void)show {
+
+    // 遮罩层
+    _shadeView.backgroundColor = [UIColor blackColor];
+    _shadeView.alpha = 0.4f;
+    [_keyWindow addSubview:_shadeView];
+
+    CGFloat currentH = _tailView.height;
+    self.frame = CGRectMake(0, _windowHeight, _windowWidth, currentH);
+    [_keyWindow addSubview:self];
+    
+    //弹出动画
+    [UIView animateWithDuration:0.25f delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.frame = CGRectMake(0, self.windowHeight - currentH, self.windowWidth, currentH);
+
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+
+-(void) hide {
+    [UIView animateWithDuration:0.25f delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.alpha = 0.f;
+        self.frame = CGRectMake(0, self.windowHeight, self.windowWidth, self.tailView.height);
+    } completion:^(BOOL finished) {
+        [self.shadeView removeFromSuperview];
+        [self removeFromSuperview];
+    }];
+}
+@end

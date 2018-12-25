@@ -25,8 +25,10 @@ static NSString *const kURLqueryShowTypeList = @"appMall/home/queryShowTypeList"
 static NSString *const kURLqueryGoodsBaseInfo = @"appMall/goods/queryGoodsBaseInfo";
 // 获取商品的附加信息
 static NSString *const kURLqueryGoodsDetailInfo = @"appMall/goods/queryGoodsDetailInfo";
-
-
+// 查询商品SKU展示规格列表 （展示）
+static NSString *const kURLquerySkuProList = @"appMall/sku/querySkuProList";
+// 查询商品SKU所有列表
+static NSString *const kURLquerySkuList = @"appMall/sku/querySkuList";
 
 
 

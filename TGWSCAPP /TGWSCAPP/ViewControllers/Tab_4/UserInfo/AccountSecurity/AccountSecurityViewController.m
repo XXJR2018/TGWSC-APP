@@ -8,6 +8,9 @@
 
 #import "AccountSecurityViewController.h"
 
+#import "PhoneCheckViewController.h"
+#import "paymentPWViewController.h"
+
 @interface AccountSecurityViewController ()
 
 @end
@@ -88,15 +91,21 @@
     switch (sender.tag) {
         case 101:{
             //设置密码
-            
+            PhoneCheckViewController *ctl = [[PhoneCheckViewController alloc]init];
+            ctl.titleStr = @"设置支付密码";
+            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 102:{
             //修改密码
-            
+            paymentPWViewController *ctl = [[paymentPWViewController alloc]init];
+            ctl.titleStr = @"修改支付密码";
+            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 103:{
             //忘记密码
-            
+            PhoneCheckViewController *ctl = [[PhoneCheckViewController alloc]init];
+            ctl.titleStr = @"忘记支付密码";
+            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         default:
             break;

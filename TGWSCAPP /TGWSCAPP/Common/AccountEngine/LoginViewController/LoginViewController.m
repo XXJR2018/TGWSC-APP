@@ -140,7 +140,7 @@
                                                                     OkButton:@"取消"];
         alert.parentVC = self;
         alert.strPhone = _phoneTextField.text;
-        alert.strRequestURL = @"fx/smsAction/newNologin/kjLogin";
+        alert.strRequestURL = @"appMall/smsAction/login/forgetTrade";
         [alert show];
     }else{
         [MBProgressHUD showErrorWithStatus:@"请输入正确的手机号码" toView:self.view];

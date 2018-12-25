@@ -36,10 +36,9 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lar-AZ-IP8">
                     <rect key="frame" x="0.0" y="130" width="375" height="50"/>
                     <subviews>
-                        <textField opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5aF-U2-5v0">
-                            <rect key="frame" x="20" y="0.0" width="200" height="50"/>
+                        <textField opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5aF-U2-5v0">
+                            <rect key="frame" x="70" y="0.0" width="174" height="50"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="200" id="YtO-6G-hrb"/>
                                 <constraint firstAttribute="height" constant="50" id="bnU-P1-PGq"/>
                             </constraints>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -47,7 +46,7 @@
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gku-le-Xb5">
-                            <rect key="frame" x="240" y="15" width="1" height="20"/>
+                            <rect key="frame" x="254" y="15" width="1" height="20"/>
                             <color key="backgroundColor" red="0.87058823529999996" green="0.87450980389999999" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="JH6-g8-U1k"/>
@@ -82,16 +81,17 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="AKE-We-odb"/>
-                        <constraint firstItem="5aF-U2-5v0" firstAttribute="leading" secondItem="lar-AZ-IP8" secondAttribute="leading" constant="20" id="L74-rn-Ddw"/>
+                        <constraint firstItem="5aF-U2-5v0" firstAttribute="leading" secondItem="lar-AZ-IP8" secondAttribute="leading" constant="70" id="L74-rn-Ddw"/>
+                        <constraint firstItem="gku-le-Xb5" firstAttribute="leading" secondItem="5aF-U2-5v0" secondAttribute="trailing" constant="10" id="NgK-DK-Kxp"/>
                         <constraint firstItem="3Zy-7A-5az" firstAttribute="top" secondItem="lar-AZ-IP8" secondAttribute="top" id="Nh3-fb-JBe"/>
                         <constraint firstItem="5aF-U2-5v0" firstAttribute="top" secondItem="lar-AZ-IP8" secondAttribute="top" id="OY4-an-N64"/>
                         <constraint firstAttribute="trailing" secondItem="3Zy-7A-5az" secondAttribute="trailing" constant="20" id="PoO-14-dZa"/>
                         <constraint firstItem="gku-le-Xb5" firstAttribute="top" secondItem="lar-AZ-IP8" secondAttribute="top" constant="15" id="Tmj-cI-BZv"/>
-                        <constraint firstItem="3Zy-7A-5az" firstAttribute="leading" secondItem="gku-le-Xb5" secondAttribute="trailing" constant="24" id="ZAJ-o6-FWj"/>
+                        <constraint firstItem="3Zy-7A-5az" firstAttribute="leading" secondItem="gku-le-Xb5" secondAttribute="trailing" constant="10" id="ZAJ-o6-FWj"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZR-ct-G4h">
-                    <rect key="frame" x="20" y="230" width="335" height="50"/>
+                    <rect key="frame" x="20" y="220" width="335" height="50"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="SrL-xs-OQU"/>
@@ -102,7 +102,7 @@
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="self.layer.cornerRadius">
-                            <integer key="value" value="25"/>
+                            <integer key="value" value="3"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -114,7 +114,7 @@
             <constraints>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="VZR-ct-G4h" secondAttribute="trailing" constant="20" id="Age-KD-7kN"/>
                 <constraint firstItem="DAs-Iq-mQc" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="EEC-nG-X4U"/>
-                <constraint firstItem="VZR-ct-G4h" firstAttribute="top" secondItem="lar-AZ-IP8" secondAttribute="bottom" constant="50" id="N5a-ox-PeT"/>
+                <constraint firstItem="VZR-ct-G4h" firstAttribute="top" secondItem="lar-AZ-IP8" secondAttribute="bottom" constant="40" id="N5a-ox-PeT"/>
                 <constraint firstItem="lar-AZ-IP8" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="Q6a-tA-eAo"/>
                 <constraint firstItem="DAs-Iq-mQc" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="SKe-Dm-3sN"/>
                 <constraint firstItem="lar-AZ-IP8" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="UyR-B4-UzQ"/>

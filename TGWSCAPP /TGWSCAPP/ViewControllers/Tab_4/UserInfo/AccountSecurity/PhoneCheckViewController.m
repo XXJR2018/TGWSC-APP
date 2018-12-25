@@ -8,6 +8,7 @@
 
 #import "PhoneCheckViewController.h"
 
+#import "paymentPWViewController.h"
 #import "IdentifyAlertView.h"
 
 @interface PhoneCheckViewController ()
@@ -17,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *VerifyBtn;
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 
-
 @end
 
 @implementation PhoneCheckViewController
@@ -26,7 +26,7 @@
     [super viewDidLoad];
     
     [self layoutNaviBarViewWithTitle:self.titleStr];
-    
+
     self.nextBtn.layer.borderWidth = 0.5;
     self.nextBtn.layer.borderColor = [ResourceManager mainColor].CGColor;
     
@@ -35,11 +35,44 @@
 }
 
 - (IBAction)nextTouch:(id)sender {
+    [self.view endEditing:YES];
     if (self.VerifyTextField.text.length == 0) {
         [MBProgressHUD showErrorWithStatus:@"验证码不能为空" toView:self.view];
         return;
     }
-    
+    [self forgetTradeUrl];
+}
+
+-(void)forgetTradeUrl{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"randomNo"] = self.VerifyTextField.text;
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/smsAction/valid/login/forgetTrade",[PDAPI getBaseUrlString]]
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+}
+
+#pragma mark 数据操作
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    paymentPWViewController *ctl = [[paymentPWViewController alloc]init];
+    if ([self.titleStr isEqualToString:@"设置支付密码"]) {
+        ctl.titleStr = @"设置支付密码";
+    }else{
+        ctl.titleStr = @"重置支付密码";
+    }
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
 }
 
 
@@ -55,7 +88,7 @@
                                                                     OkButton:@"取消"];
         alert.parentVC = self;
         alert.strPhone = [[CommonInfo userInfo] objectForKey:@"telephone"];
-        alert.strRequestURL = @"fx/smsAction/newNologin/kjLogin";
+        alert.strRequestURL = @"appMall/smsAction/login/forgetTrade";
         [alert show];
     }else{
         [MBProgressHUD showErrorWithStatus:@"请输入正确的手机号码" toView:self.view];

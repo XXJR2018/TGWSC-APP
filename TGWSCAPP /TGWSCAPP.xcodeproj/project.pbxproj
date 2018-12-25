@@ -68,11 +68,15 @@
 		C20525F521BE6E5C00E13893 /* TabViewController_2.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EA21BE6E5C00E13893 /* TabViewController_2.xib */; };
 		C20525F621BE6E5C00E13893 /* TabViewController_1.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525ED21BE6E5C00E13893 /* TabViewController_1.m */; };
 		C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */; };
-		C222C36D21D1BF7300DD9797 /* AccountSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C36C21D1BF7300DD9797 /* AccountSecurityViewController.m */; };
-		C222C37221D1C6E000DD9797 /* PhoneCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C37021D1C6E000DD9797 /* PhoneCheckViewController.m */; };
-		C222C37321D1C6E000DD9797 /* PhoneCheckViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C222C37121D1C6E000DD9797 /* PhoneCheckViewController.xib */; };
-		C233DCB021D0C2F800762BDD /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C233DCAE21D0C2F800762BDD /* UserInfoViewController.m */; };
-		C233DCB121D0C2F800762BDD /* UserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C233DCAF21D0C2F800762BDD /* UserInfoViewController.xib */; };
+		C222C37A21D2187700DD9797 /* MyBalanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C37921D2187700DD9797 /* MyBalanceViewController.m */; };
+		C222C38A21D2235700DD9797 /* paymentPWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C38021D2235700DD9797 /* paymentPWViewController.m */; };
+		C222C38B21D2235700DD9797 /* PhoneCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C38221D2235700DD9797 /* PhoneCheckViewController.m */; };
+		C222C38C21D2235700DD9797 /* PhoneCheckViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C222C38321D2235700DD9797 /* PhoneCheckViewController.xib */; };
+		C222C38D21D2235700DD9797 /* AccountSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C38521D2235700DD9797 /* AccountSecurityViewController.m */; };
+		C222C38E21D2235700DD9797 /* UserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C222C38621D2235700DD9797 /* UserInfoViewController.xib */; };
+		C222C38F21D2235700DD9797 /* NickNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C222C38721D2235700DD9797 /* NickNameViewController.xib */; };
+		C222C39021D2235700DD9797 /* NickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C38821D2235700DD9797 /* NickNameViewController.m */; };
+		C222C39121D2235700DD9797 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C38921D2235700DD9797 /* UserInfoViewController.m */; };
 		C244950721CCB3AC00F8698B /* SortProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C244950521CCB3AC00F8698B /* SortProductCollectionViewCell.m */; };
 		C244950821CCB3AC00F8698B /* SortProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C244950621CCB3AC00F8698B /* SortProductCollectionViewCell.xib */; };
 		C244952221CCC6E100F8698B /* LSPTitleStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = C244951A21CCC6E100F8698B /* LSPTitleStyle.m */; };
@@ -224,8 +228,6 @@
 		C250480421BA73B800DA9C72 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C25047F921BA73B800DA9C72 /* AFHTTPRequestOperation.m */; };
 		C250480521BA73B800DA9C72 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C25047FB21BA73B800DA9C72 /* AFNetworkReachabilityManager.m */; };
 		C250480621BA73B800DA9C72 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C25047FC21BA73B800DA9C72 /* AFSecurityPolicy.m */; };
-		C2550F2F21D0D7060005F2B9 /* NickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2550F2D21D0D7060005F2B9 /* NickNameViewController.m */; };
-		C2550F3021D0D7060005F2B9 /* NickNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2550F2E21D0D7060005F2B9 /* NickNameViewController.xib */; };
 		C287FE7921BF4ACB00B8D682 /* Images-Default.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C287FE7721BF4ACB00B8D682 /* Images-Default.xcassets */; };
 		C287FE7A21BF4ACB00B8D682 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C287FE7821BF4ACB00B8D682 /* Images.xcassets */; };
 		C2A08F6A21BF4563005753F6 /* TabBarSelectButtn.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A08F6921BF4563005753F6 /* TabBarSelectButtn.m */; };
@@ -384,14 +386,21 @@
 		C20525ED21BE6E5C00E13893 /* TabViewController_1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController_1.m; sourceTree = "<group>"; };
 		C20525EE21BE6E5C00E13893 /* TabViewController_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController_1.h; sourceTree = "<group>"; };
 		C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabViewController_1.xib; sourceTree = "<group>"; };
-		C222C36B21D1BF7300DD9797 /* AccountSecurityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountSecurityViewController.h; sourceTree = "<group>"; };
-		C222C36C21D1BF7300DD9797 /* AccountSecurityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountSecurityViewController.m; sourceTree = "<group>"; };
-		C222C36F21D1C6E000DD9797 /* PhoneCheckViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneCheckViewController.h; sourceTree = "<group>"; };
-		C222C37021D1C6E000DD9797 /* PhoneCheckViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneCheckViewController.m; sourceTree = "<group>"; };
-		C222C37121D1C6E000DD9797 /* PhoneCheckViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneCheckViewController.xib; sourceTree = "<group>"; };
-		C233DCAD21D0C2F800762BDD /* UserInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
-		C233DCAE21D0C2F800762BDD /* UserInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
-		C233DCAF21D0C2F800762BDD /* UserInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserInfoViewController.xib; sourceTree = "<group>"; };
+		C222C37821D2187700DD9797 /* MyBalanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyBalanceViewController.h; sourceTree = "<group>"; };
+		C222C37921D2187700DD9797 /* MyBalanceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyBalanceViewController.m; sourceTree = "<group>"; };
+		C222C37C21D2235700DD9797 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
+		C222C37D21D2235700DD9797 /* NickNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NickNameViewController.h; sourceTree = "<group>"; };
+		C222C37F21D2235700DD9797 /* PhoneCheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneCheckViewController.h; sourceTree = "<group>"; };
+		C222C38021D2235700DD9797 /* paymentPWViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = paymentPWViewController.m; sourceTree = "<group>"; };
+		C222C38121D2235700DD9797 /* AccountSecurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountSecurityViewController.h; sourceTree = "<group>"; };
+		C222C38221D2235700DD9797 /* PhoneCheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneCheckViewController.m; sourceTree = "<group>"; };
+		C222C38321D2235700DD9797 /* PhoneCheckViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhoneCheckViewController.xib; sourceTree = "<group>"; };
+		C222C38421D2235700DD9797 /* paymentPWViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = paymentPWViewController.h; sourceTree = "<group>"; };
+		C222C38521D2235700DD9797 /* AccountSecurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountSecurityViewController.m; sourceTree = "<group>"; };
+		C222C38621D2235700DD9797 /* UserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoViewController.xib; sourceTree = "<group>"; };
+		C222C38721D2235700DD9797 /* NickNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NickNameViewController.xib; sourceTree = "<group>"; };
+		C222C38821D2235700DD9797 /* NickNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NickNameViewController.m; sourceTree = "<group>"; };
+		C222C38921D2235700DD9797 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		C244950421CCB3AC00F8698B /* SortProductCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SortProductCollectionViewCell.h; sourceTree = "<group>"; };
 		C244950521CCB3AC00F8698B /* SortProductCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SortProductCollectionViewCell.m; sourceTree = "<group>"; };
 		C244950621CCB3AC00F8698B /* SortProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SortProductCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -684,9 +693,6 @@
 		C25047FB21BA73B800DA9C72 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		C25047FC21BA73B800DA9C72 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
 		C25047FD21BA73B800DA9C72 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
-		C2550F2C21D0D7060005F2B9 /* NickNameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NickNameViewController.h; sourceTree = "<group>"; };
-		C2550F2D21D0D7060005F2B9 /* NickNameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NickNameViewController.m; sourceTree = "<group>"; };
-		C2550F2E21D0D7060005F2B9 /* NickNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NickNameViewController.xib; sourceTree = "<group>"; };
 		C287FE7721BF4ACB00B8D682 /* Images-Default.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-Default.xcassets"; sourceTree = "<group>"; };
 		C287FE7821BF4ACB00B8D682 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C2A08F6821BF4563005753F6 /* TabBarSelectButtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarSelectButtn.h; sourceTree = "<group>"; };
@@ -1128,10 +1134,11 @@
 		C20525E021BE6E5C00E13893 /* Tab_4 */ = {
 			isa = PBXGroup;
 			children = (
+				C222C37B21D2235700DD9797 /* UserInfo */,
+				C222C37721D217F800DD9797 /* Funct */,
 				C20525E121BE6E5C00E13893 /* TabViewController_4.h */,
 				C20525E321BE6E5C00E13893 /* TabViewController_4.m */,
 				C20525E221BE6E5C00E13893 /* TabViewController_4.xib */,
-				C233DCAC21D0C2E500762BDD /* userInfo */,
 			);
 			path = Tab_4;
 			sourceTree = "<group>";
@@ -1179,30 +1186,41 @@
 			path = Tab_1;
 			sourceTree = "<group>";
 		};
-		C222C36E21D1C3E400DD9797 /* AccountSecurity */ = {
+		C222C37721D217F800DD9797 /* Funct */ = {
 			isa = PBXGroup;
 			children = (
-				C222C36B21D1BF7300DD9797 /* AccountSecurityViewController.h */,
-				C222C36C21D1BF7300DD9797 /* AccountSecurityViewController.m */,
-				C222C36F21D1C6E000DD9797 /* PhoneCheckViewController.h */,
-				C222C37021D1C6E000DD9797 /* PhoneCheckViewController.m */,
-				C222C37121D1C6E000DD9797 /* PhoneCheckViewController.xib */,
+				C222C37821D2187700DD9797 /* MyBalanceViewController.h */,
+				C222C37921D2187700DD9797 /* MyBalanceViewController.m */,
 			);
-			path = AccountSecurity;
+			path = Funct;
 			sourceTree = "<group>";
 		};
-		C233DCAC21D0C2E500762BDD /* userInfo */ = {
+		C222C37B21D2235700DD9797 /* UserInfo */ = {
 			isa = PBXGroup;
 			children = (
-				C222C36E21D1C3E400DD9797 /* AccountSecurity */,
-				C233DCAD21D0C2F800762BDD /* UserInfoViewController.h */,
-				C233DCAE21D0C2F800762BDD /* UserInfoViewController.m */,
-				C233DCAF21D0C2F800762BDD /* UserInfoViewController.xib */,
-				C2550F2C21D0D7060005F2B9 /* NickNameViewController.h */,
-				C2550F2D21D0D7060005F2B9 /* NickNameViewController.m */,
-				C2550F2E21D0D7060005F2B9 /* NickNameViewController.xib */,
+				C222C37C21D2235700DD9797 /* UserInfoViewController.h */,
+				C222C37D21D2235700DD9797 /* NickNameViewController.h */,
+				C222C37E21D2235700DD9797 /* AccountSecurity */,
+				C222C38621D2235700DD9797 /* UserInfoViewController.xib */,
+				C222C38721D2235700DD9797 /* NickNameViewController.xib */,
+				C222C38821D2235700DD9797 /* NickNameViewController.m */,
+				C222C38921D2235700DD9797 /* UserInfoViewController.m */,
 			);
-			path = userInfo;
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		C222C37E21D2235700DD9797 /* AccountSecurity */ = {
+			isa = PBXGroup;
+			children = (
+				C222C37F21D2235700DD9797 /* PhoneCheckViewController.h */,
+				C222C38021D2235700DD9797 /* paymentPWViewController.m */,
+				C222C38121D2235700DD9797 /* AccountSecurityViewController.h */,
+				C222C38221D2235700DD9797 /* PhoneCheckViewController.m */,
+				C222C38321D2235700DD9797 /* PhoneCheckViewController.xib */,
+				C222C38421D2235700DD9797 /* paymentPWViewController.h */,
+				C222C38521D2235700DD9797 /* AccountSecurityViewController.m */,
+			);
+			path = AccountSecurity;
 			sourceTree = "<group>";
 		};
 		C244951921CCC6E100F8698B /* PageView */ = {
@@ -2125,20 +2143,20 @@
 				C25047AF21BA715500DA9C72 /* success@2x.png in Resources */,
 				C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */,
 				C25047A621BA715500DA9C72 /* whiteArrow@2x.png in Resources */,
+				C222C38E21D2235700DD9797 /* UserInfoViewController.xib in Resources */,
 				C25047AA21BA715500DA9C72 /* grayArrow@2x.png in Resources */,
 				C25047AE21BA715500DA9C72 /* 37x-Checkmark@2x.png in Resources */,
-				C233DCB121D0C2F800762BDD /* UserInfoViewController.xib in Resources */,
 				C25047B121BA715500DA9C72 /* success.png in Resources */,
 				C25047A521BA715500DA9C72 /* grayArrow.png in Resources */,
 				C02C5F9821CC991A0056A32E /* icon_play@2x.png in Resources */,
 				C250460621BA711E00DA9C72 /* SGQRCode.bundle in Resources */,
 				C25047A421BA715500DA9C72 /* blueArrow@2x.png in Resources */,
 				C287FE7921BF4ACB00B8D682 /* Images-Default.xcassets in Resources */,
+				C222C38F21D2235700DD9797 /* NickNameViewController.xib in Resources */,
 				C0CCC83221C1FD21009352E0 /* search@2x.png in Resources */,
 				C250479521BA715500DA9C72 /* CHANGELOG.md in Resources */,
 				C0CCC83421C1FD21009352E0 /* clearImage@3x.png in Resources */,
 				C25047B021BA715500DA9C72 /* error.png in Resources */,
-				C2550F3021D0D7060005F2B9 /* NickNameViewController.xib in Resources */,
 				C25047A821BA715500DA9C72 /* blackArrow@2x.png in Resources */,
 				C20525F021BE6E5C00E13893 /* TabViewController_4.xib in Resources */,
 				C25047A721BA715500DA9C72 /* whiteArrow.png in Resources */,
@@ -2154,11 +2172,11 @@
 				C0CCC83321C1FD21009352E0 /* search@3x.png in Resources */,
 				C0CCC83121C1FD21009352E0 /* clearImage@2x.png in Resources */,
 				C250479721BA715500DA9C72 /* README.md in Resources */,
+				C222C38C21D2235700DD9797 /* PhoneCheckViewController.xib in Resources */,
 				C25047A921BA715500DA9C72 /* blueArrow.png in Resources */,
 				C250451221BA579100DA9C72 /* SelectCityViewController.xib in Resources */,
 				C2AEB46821BE45CD0078E788 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */,
-				C222C37321D1C6E000DD9797 /* PhoneCheckViewController.xib in Resources */,
 				C02C5F9A21CC991A0056A32E /* icon_video@2x.png in Resources */,
 				C20525F521BE6E5C00E13893 /* TabViewController_2.xib in Resources */,
 				C25047AD21BA715500DA9C72 /* error@2x.png in Resources */,
@@ -2293,6 +2311,7 @@
 				C250480621BA73B800DA9C72 /* AFSecurityPolicy.m in Sources */,
 				C0CCC7FA21C0F1CB009352E0 /* HistoryAndCategorySearchCategoryViewP.m in Sources */,
 				C0CCC81321C0F30F009352E0 /* BaseCommonSearchVC.m in Sources */,
+				C222C37A21D2187700DD9797 /* MyBalanceViewController.m in Sources */,
 				C2AEB46321BE3CB00078E788 /* CSAnimation.m in Sources */,
 				C250475E21BA715500DA9C72 /* UIView+DDGExtras.m in Sources */,
 				C25047A221BA715500DA9C72 /* EGORefreshTableHeaderView.m in Sources */,
@@ -2326,6 +2345,7 @@
 				C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */,
 				C250451521BA579100DA9C72 /* SelectCityViewController.m in Sources */,
 				C244952321CCC6E100F8698B /* LSPPageView.m in Sources */,
+				C222C39121D2235700DD9797 /* UserInfoViewController.m in Sources */,
 				C250460B21BA711E00DA9C72 /* WCAlertview.m in Sources */,
 				C250461121BA711E00DA9C72 /* TAPageControl.m in Sources */,
 				C25047B921BA715500DA9C72 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
@@ -2339,7 +2359,6 @@
 				C2A08F6A21BF4563005753F6 /* TabBarSelectButtn.m in Sources */,
 				C02C5F7821CC79530056A32E /* ShopDetailVC.m in Sources */,
 				C0CCC85621C390F7009352E0 /* ShopListView.m in Sources */,
-				C233DCB021D0C2F800762BDD /* UserInfoViewController.m in Sources */,
 				C25047B821BA715500DA9C72 /* UIButton+AFNetworking.m in Sources */,
 				C250451821BA579100DA9C72 /* CalculatorManager.m in Sources */,
 				C250460721BA711E00DA9C72 /* SGQRCodeObtainConfigure.m in Sources */,
@@ -2366,7 +2385,6 @@
 				C0CCC7ED21C0F150009352E0 /* LLSearchHistorySaveUtils.m in Sources */,
 				C0CCC7E921C0F150009352E0 /* UIView+LLRect.m in Sources */,
 				C0CCC82021C0F47D009352E0 /* LLTestViewController.m in Sources */,
-				C222C36D21D1BF7300DD9797 /* AccountSecurityViewController.m in Sources */,
 				C250451421BA579100DA9C72 /* CitysViewController.m in Sources */,
 				C244952821CCC75D00F8698B /* MenuViewController.m in Sources */,
 				C0CCC7EE21C0F150009352E0 /* LLSearchNaviBarView.m in Sources */,
@@ -2392,11 +2410,10 @@
 				C0CCC82A21C0F4C5009352E0 /* HistoryAndCategorySearchVC.m in Sources */,
 				C250460E21BA711E00DA9C72 /* UIView+SDExtension.m in Sources */,
 				C250450E21BA579100DA9C72 /* BindPhoneViewController.m in Sources */,
-				C2550F2F21D0D7060005F2B9 /* NickNameViewController.m in Sources */,
 				C250451C21BA579100DA9C72 /* ShareView.m in Sources */,
 				C0CCC7F921C0F1CB009352E0 /* TagTypeModel.m in Sources */,
 				C250461621BA711E00DA9C72 /* TextFieldView.m in Sources */,
-				C222C37221D1C6E000DD9797 /* PhoneCheckViewController.m in Sources */,
+				C222C39021D2235700DD9797 /* NickNameViewController.m in Sources */,
 				C25047C721BA715500DA9C72 /* Encryption.m in Sources */,
 				C25047C621BA715500DA9C72 /* DDGAFRequestManager.m in Sources */,
 				C250451021BA579100DA9C72 /* CommonViewController.m in Sources */,
@@ -2412,6 +2429,7 @@
 				C250461321BA711E00DA9C72 /* TAAbstractDotView.m in Sources */,
 				C250477021BA715500DA9C72 /* NSURL+Additions.m in Sources */,
 				C250461221BA711E00DA9C72 /* TAAnimatedDotView.m in Sources */,
+				C222C38A21D2235700DD9797 /* paymentPWViewController.m in Sources */,
 				C250451921BA579100DA9C72 /* CustomerServiceManager.m in Sources */,
 				C250461921BA711E00DA9C72 /* BaseLineView.m in Sources */,
 				C250480321BA73B800DA9C72 /* AFURLRequestSerialization.m in Sources */,
@@ -2432,6 +2450,7 @@
 				C250480121BA73B800DA9C72 /* AFURLSessionManager.m in Sources */,
 				C244952521CCC6E100F8698B /* LSPTitleView.m in Sources */,
 				C0CCC84A21C33E37009352E0 /* SlideModel.m in Sources */,
+				C222C38B21D2235700DD9797 /* PhoneCheckViewController.m in Sources */,
 				C250477521BA715500DA9C72 /* RSA.m in Sources */,
 				C25047E021BA715500DA9C72 /* MBProgressHUD+PD.m in Sources */,
 				C250476921BA715500DA9C72 /* NSString+Additions.m in Sources */,
@@ -2455,6 +2474,7 @@
 				C2A71B8521BE53F9007D849F /* DDGUserInfoEngine.m in Sources */,
 				C250451621BA579100DA9C72 /* MJRefreshViewController.m in Sources */,
 				C0CCC7EB21C0F150009352E0 /* LLSearchVCConst.m in Sources */,
+				C222C38D21D2235700DD9797 /* AccountSecurityViewController.m in Sources */,
 				C25047DF21BA715500DA9C72 /* XXJRCellBackgroundView.m in Sources */,
 				C20525F621BE6E5C00E13893 /* TabViewController_1.m in Sources */,
 			);

@@ -9,6 +9,8 @@
 #import "TabViewController_4.h"
 
 #import "UserInfoViewController.h"
+#import "MyBalanceViewController.h"
+
 
 #import "JXButton.h"
 
@@ -268,17 +270,22 @@
     CGFloat currentHeight = 0;
     NSArray *imgArr = @[@"Tab_4-12",@"Tab_4-13",@"Tab_4-14",@"Tab_4-15",@"Tab_4-16",@"Tab_4-17"];
     NSArray *titleArr = @[@"我的余额",@"我的积分",@"优惠券",@"我的收藏",@"地址管理",@"客服中心"];
+   
     for (int i = 0; i < 4; i ++) {
         for (int j = 0; j < 4; j ++) {
-            if (i * 4 + j < imgArr.count) {
-                if (i * 4 + j == 2) {
+            NSInteger count = i * 4 + j;
+            if ([[[CommonInfo userInfo] objectForKey:@"isEmployee"] intValue] != 0) {
+                count = i * 4 + j + 1;
+            }
+            if (count < imgArr.count) {
+                if (count == 2) {
                     _couponBtn = [[JXButton alloc]initWithFrame:CGRectMake(btnWidth * j, btnWidth * i + 20 * (i + 1), btnWidth, btnWidth)];
                     [self.footView addSubview:_couponBtn];
-                    _couponBtn.tag = i * 4 + j;
+                    _couponBtn.tag = count;
                     [_couponBtn addTarget:self action:@selector(functTouch:) forControlEvents:UIControlEventTouchUpInside];
-                    [_couponBtn setTitle:titleArr[i * 4 + j] forState:UIControlStateNormal];
+                    [_couponBtn setTitle:titleArr[count] forState:UIControlStateNormal];
                     [_couponBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
-                    [_couponBtn setImage:[UIImage imageNamed:imgArr[i * 4 + j]] forState:UIControlStateNormal];
+                    [_couponBtn setImage:[UIImage imageNamed:imgArr[count]] forState:UIControlStateNormal];
                     
                     _couponNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, btnWidth - 20, btnWidth, 15)];
                     [_couponBtn addSubview:_couponNumLabel];
@@ -289,27 +296,27 @@
                 }else{
                     JXButton *functBtn = [[JXButton alloc]initWithFrame:CGRectMake(btnWidth * j, btnWidth * i + 20 * (i + 1), btnWidth, btnWidth)];
                     [self.footView addSubview:functBtn];
-                    functBtn.tag = i * 4 + j;
+                    functBtn.tag = count;
                     [functBtn addTarget:self action:@selector(functTouch:) forControlEvents:UIControlEventTouchUpInside];
-                    [functBtn setTitle:titleArr[i * 4 + j] forState:UIControlStateNormal];
+                    [functBtn setTitle:titleArr[count] forState:UIControlStateNormal];
                     [functBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
-                    [functBtn setImage:[UIImage imageNamed:imgArr[i * 4 + j]] forState:UIControlStateNormal];
+                    [functBtn setImage:[UIImage imageNamed:imgArr[count]] forState:UIControlStateNormal];
                     
-                    if (i * 4 + j == 0) {
+                    if (count == 0) {
                         _balanceNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, btnWidth - 20, btnWidth, 15)];
                         [functBtn addSubview:_balanceNumLabel];
                         _balanceNumLabel.textAlignment = NSTextAlignmentCenter;
                         _balanceNumLabel.textColor = [ResourceManager mainColor];
                         _balanceNumLabel.font = [UIFont systemFontOfSize:12];
                         _balanceNumLabel.text = @"200.00";
-                    }else if (i * 4 + j == 1) {
+                    }else if (count == 1) {
                         _pointsNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, btnWidth - 20, btnWidth, 15)];
                         [functBtn addSubview:_pointsNumLabel];
                         _pointsNumLabel.textAlignment = NSTextAlignmentCenter;
                         _pointsNumLabel.textColor = [ResourceManager mainColor];
                         _pointsNumLabel.font = [UIFont systemFontOfSize:12];
                         _pointsNumLabel.text = @"125";
-                    }else if (i * 4 + j == 3) {
+                    }else if (count == 3) {
                         _collectNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, btnWidth - 20, btnWidth, 15)];
                         [functBtn addSubview:_collectNumLabel];
                         _collectNumLabel.textAlignment = NSTextAlignmentCenter;
@@ -369,9 +376,23 @@
     NSLog(@"%ld",sender.tag);
     switch (sender.tag) {
         case 0:{
-            
+            //我的余额
+            MyBalanceViewController *ctl = [[MyBalanceViewController alloc]init];
+            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 1:{
+            
+        }break;
+        case 2:{
+            
+        }break;
+        case 3:{
+            
+        }break;
+        case 4:{
+            
+        }break;
+        case 5:{
             
         }break;
         default:

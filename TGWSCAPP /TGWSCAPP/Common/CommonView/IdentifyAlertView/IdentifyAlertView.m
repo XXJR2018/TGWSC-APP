@@ -195,14 +195,14 @@ static const CGFloat buttonHeight = 35;
     NSDate *senddate = [NSDate date];
     //_strTime = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];// 当前时间戳
     _strTime = [NSString stringWithFormat:@"%ld_%@", (long)[senddate timeIntervalSince1970], [DDGSetting sharedSettings].UUID_MD5];// 当前时间戳
-    _imgUrl = [NSString stringWithFormat:@"%@%@?page=%@", [PDAPI getBaseUrlString], @"fx/smsAction/imageCode",_strTime]; 
+    _imgUrl = [NSString stringWithFormat:@"%@%@?page=%@", [PDAPI getBaseUrlString], @"appMall/smsAction/tgImageCode",_strTime];
     [_imageview sd_setImageWithURL:[NSURL URLWithString:_imgUrl] placeholderImage:[UIImage imageNamed:@"tab4_ddsx"]];
     [self.alertview addSubview:_imageview];
     
     
     UIButton * buttonSX = [[UIButton alloc] initWithFrame:CGRectMake(fLeftX + imageviewWdith + 5, fTopY+5, 80, 30)];
     //设置button正常状态下的图片
-    [buttonSX setImage:[UIImage imageNamed:@"tab4_gengxin"] forState:UIControlStateNormal];
+//    [buttonSX setImage:[UIImage imageNamed:@"tab4_gengxin"] forState:UIControlStateNormal];
     //button图片的偏移量，距上左下右分别(10, 10, 10, 60)像素点
     buttonSX.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
     [buttonSX setTitle:@"换一张" forState:UIControlStateNormal];

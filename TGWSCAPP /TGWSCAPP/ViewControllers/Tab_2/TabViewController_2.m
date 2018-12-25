@@ -24,11 +24,7 @@
     
     UITableView *_tableView;
     UICollectionView *_collectView;
-
-    NSMutableArray *_sortSecondDataArr;  //第二季菜单数据
     NSInteger cellCount;   //当前的cell是第几个
-    NSString *_bannerImgUrlStr;
-    NSInteger _menuNumType;   //当前cell是几级菜单
     
     NSString *_leftMenuStr;
     NSString *_cateCode;
@@ -99,8 +95,6 @@
 }
 
 
-
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"分类"];
@@ -120,7 +114,6 @@
 
     self.view.backgroundColor = [UIColor whiteColor];
     _sortFirstBtnArr = [NSMutableArray array];
-    _sortSecondDataArr = [NSMutableArray array];
     
     [self searchViewUI];
     [self layoutUI];
@@ -153,6 +146,7 @@
 }
 
 -(void)scViewUI{
+    [_scView removeFromSuperview];
     _scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, NavHeight, leftListWidth, SCREEN_HEIGHT - NavHeight - TabbarHeight)];
     [self.view addSubview:_scView];
     _scView.backgroundColor = [UIColor whiteColor];
@@ -258,8 +252,7 @@
 }
 
 -(void)collectionViewUI{
-    [_collectView removeFromSuperview];
-    
+
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.minimumLineSpacing = (SCREEN_WIDTH - 100 - 210 * ScaleSize)/6;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -317,15 +310,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-    NSDictionary *dic = self.dataArray[indexPath.row];
-    _bannerImgUrlStr = [NSString stringWithFormat:@"%@",[dic objectForKey:@"imgUrl"]];
-    _sortSecondDataArr = [dic objectForKey:@"subCate"];
-    if ([[dic objectForKey:@"havSubCount"] intValue] == 2) {
-        _menuNumType = 3;
-    }else{
-        _menuNumType = 2;
-    }
-    
+  
     [self collectionViewUI];
     [cell.contentView addSubview:_collectView];
     
@@ -338,23 +323,28 @@
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 }
 
+
 #pragma mark -- UICollectionViewDataSource
 //定义展示的UICollectionViewCell的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    if (_menuNumType == 3) {
-        NSDictionary *dic = _sortSecondDataArr[section];
+    NSDictionary *firstDataDic = self.dataArray[cellCount];
+    NSArray *secondDataArr = [firstDataDic objectForKey:@"subCate"];
+    if ([[firstDataDic objectForKey:@"havSubCount"] intValue] == 2) {
+        NSDictionary *dic = secondDataArr[section];
         NSArray *arr = [dic objectForKey:@"subCate"];
         return  arr.count;
     }else{
-        return _sortSecondDataArr.count;
+        return secondDataArr.count;
     }
     
 }
 
 //定义展示的Section的个数
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    if (_menuNumType == 3) {
-        return _sortSecondDataArr.count;
+    NSDictionary *firstDataDic = self.dataArray[cellCount];
+    NSArray *secondDataArr = [firstDataDic objectForKey:@"subCate"];
+    if ([[firstDataDic objectForKey:@"havSubCount"] intValue] == 2) {
+        return secondDataArr.count;
     }else{
         return  1;
     }
@@ -366,17 +356,19 @@
         UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView" forIndexPath:indexPath];
         UIView *headerView = [[UIView alloc] init];
         headerView.backgroundColor = [UIColor whiteColor];
-        if (_menuNumType == 3) {
-            NSDictionary *dic = _sortSecondDataArr[indexPath.section];
+        NSDictionary *firstDataDic = self.dataArray[cellCount];
+        NSArray *secondDataArr = [firstDataDic objectForKey:@"subCate"];
+        if ([[firstDataDic objectForKey:@"havSubCount"] intValue] == 2) {
+            NSDictionary *thirdDic = secondDataArr[indexPath.section];
              //三级菜单头视图
             if (indexPath.section == 0) {
                 UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, rightListWidth - 29, 90 * ScaleSize)];
                 [headerView addSubview:imgView];
                 imgView.backgroundColor = UIColorFromRGB(0xf6f6f6);
-                [imgView sd_setImageWithURL:[NSURL URLWithString:_bannerImgUrlStr]];
+                [imgView sd_setImageWithURL:[NSURL URLWithString:[firstDataDic objectForKey:@"imgUrl"]]];
                 
                 UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(imgView.frame) + 10, 150, 30)];
-                titleLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cateName"]];
+                titleLabel.text = [NSString stringWithFormat:@"%@",[thirdDic objectForKey:@"cateName"]];
                 titleLabel.font= [UIFont boldSystemFontOfSize:15];
                 titleLabel.textColor = [ResourceManager color_1];
                 [headerView addSubview:titleLabel];
@@ -386,7 +378,7 @@
                 viewX.backgroundColor = [ResourceManager color_5];
             }else{
                 UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 150, 30)];
-                titleLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cateName"]];;
+                titleLabel.text = [NSString stringWithFormat:@"%@",[thirdDic objectForKey:@"cateName"]];;
                 titleLabel.font= [UIFont boldSystemFontOfSize:15];
                 titleLabel.textColor = [ResourceManager color_1];
                 [headerView addSubview:titleLabel];
@@ -400,7 +392,7 @@
             UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, rightListWidth - 29, 90 * ScaleSize)];
             [headerView addSubview:imgView];
              imgView.backgroundColor = UIColorFromRGB(0xf6f6f6);
-            [imgView sd_setImageWithURL:[NSURL URLWithString:_bannerImgUrlStr]];
+            [imgView sd_setImageWithURL:[NSURL URLWithString:[firstDataDic objectForKey:@"imgUrl"]]];
         }
         
         //头视图添加view
@@ -412,7 +404,8 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     CGSize size = CGSizeZero;
-    if (_menuNumType == 3) {
+    NSDictionary *firstDataDic = self.dataArray[cellCount];
+    if ([[firstDataDic objectForKey:@"havSubCount"] intValue] == 2) {
         if (section == 0) {
             size = CGSizeMake(rightListWidth, 90 * ScaleSize + 55);
         }else{
@@ -430,12 +423,14 @@
     ProductCollectionViewCell * cell;
     cell = (ProductCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"ProductCell_ID" forIndexPath:indexPath];
     
-    if (_menuNumType == 3) {
-        NSDictionary *dic = _sortSecondDataArr[indexPath.section];
-        NSArray *arr = [dic objectForKey:@"subCate"];
+    NSDictionary *firstDataDic = self.dataArray[cellCount];
+    NSArray *secondDataArr = [firstDataDic objectForKey:@"subCate"];
+    if ([[firstDataDic objectForKey:@"havSubCount"] intValue] == 2) {
+        NSDictionary *thirdDic = secondDataArr[indexPath.section];
+        NSArray *arr = [thirdDic objectForKey:@"subCate"];
         cell.dataDicionary = arr[indexPath.row];
     }else{
-        NSDictionary *dic = _sortSecondDataArr[indexPath.row];
+        NSDictionary *dic = secondDataArr[indexPath.row];
         cell.dataDicionary = dic;
     }
     
@@ -462,12 +457,14 @@
     ProductCollectionViewCell * cell = (ProductCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     NSDictionary *selectDataDic;
-    if (_menuNumType == 3) {
-        NSDictionary *dic = _sortSecondDataArr[indexPath.section];
-        NSArray *arr = [dic objectForKey:@"subCate"];
+    NSDictionary *firstDataDic = self.dataArray[cellCount];
+    NSArray *secondDataArr = [firstDataDic objectForKey:@"subCate"];
+    if ([[firstDataDic objectForKey:@"havSubCount"] intValue] == 2) {
+        NSDictionary *thirdDic = secondDataArr[indexPath.section];
+        NSArray *arr = [thirdDic objectForKey:@"subCate"];
         selectDataDic = arr[indexPath.row];
     }else{
-        selectDataDic = _sortSecondDataArr[indexPath.row];
+        selectDataDic = secondDataArr[indexPath.row];
     }
     
     _cateId = [[selectDataDic objectForKey:@"cateId"] intValue];

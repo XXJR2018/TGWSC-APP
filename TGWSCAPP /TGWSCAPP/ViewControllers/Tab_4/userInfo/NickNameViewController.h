@@ -1,5 +1,5 @@
 //
-//  UserInfoViewController.h
+//  NickNameViewController.h
 //  TGWSCAPP
 //
 //  Created by xxjr03 on 2018/12/24.
@@ -10,12 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UserInfoViewController : CommonViewController
+@interface NickNameViewController : CommonViewController
 
-/*!
- @brief     需要上传的图片
- */
-@property (nonatomic, strong) NSData *imageData;
+@property(nonatomic, copy)Block_String nickNameBlock;
 
 @end
 

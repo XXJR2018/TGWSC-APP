@@ -26,6 +26,10 @@
     [super layoutSubviews];
     self.layer.borderWidth = 0.5;
     self.layer.borderColor = [ResourceManager color_5].CGColor;
+    self.selloutLabel.clipsToBounds = YES;
+    self.selloutLabel.layer.cornerRadius = 25;
+    self.selloutLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+    
     
     [self.productImgView sd_setImageWithURL:[NSURL URLWithString:[_dataDicionary objectForKey:@"imgUrl"]]];
     self.productNameLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"goodsName"]];
@@ -48,6 +52,13 @@
         self.priceLabel.text = [NSString stringWithFormat:@"￥%@",[_dataDicionary objectForKey:@"minPrice"]];
     }
     
+    if ([[_dataDicionary objectForKey:@"isSellOut"] intValue] == 0) {
+        self.selloutLabel.hidden = NO;
+    }
+    
 }
+
+
+
 
 @end

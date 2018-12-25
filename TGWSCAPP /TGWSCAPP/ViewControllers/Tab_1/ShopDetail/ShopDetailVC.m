@@ -387,13 +387,10 @@
         return;
      }
     
-    
-
     scView.contentSize = CGSizeMake(0, iTopY+300);
     __block  UIView *viewShowLoad = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/4, iTopY, SCREEN_WIDTH/2, 200)];
     [scView addSubview:viewShowLoad];
     [MBProgressHUD showWithStatus:@"正在加载图片" toView:viewShowLoad];
-    
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
@@ -613,9 +610,14 @@
          }
         else
          {
-            
+            [self performSelector:@selector(delayMethod:) withObject:detailGoods afterDelay:2.0];// 延迟执行
          }
     }
+}
+
+-(void) delayMethod:(NSDictionary*)dic
+{
+    [self layoutTailJPG:dic atTop:iTailViewTopY];
 }
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{

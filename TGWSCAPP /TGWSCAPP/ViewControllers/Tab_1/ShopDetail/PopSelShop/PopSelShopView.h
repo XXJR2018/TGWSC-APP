@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PopSelShopView : UIView
 
+@property (nonatomic,strong) ShopModel  *shopModel;
 
 -(void) show;
 

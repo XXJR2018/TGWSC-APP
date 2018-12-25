@@ -68,13 +68,25 @@
                             <constraint firstAttribute="height" constant="50" id="qtD-Tu-zll"/>
                         </constraints>
                     </view>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已售罄" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCe-wI-XFX">
+                        <rect key="frame" x="69" y="55" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="5tt-Bg-DxV"/>
+                            <constraint firstAttribute="height" constant="50" id="IS9-DU-8FP"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="cfM-Ff-bWG" secondAttribute="trailing" constant="8.5" id="4du-I9-HUz"/>
+                <constraint firstItem="mCe-wI-XFX" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="EiI-HO-FIt"/>
                 <constraint firstAttribute="bottom" secondItem="coG-yu-yix" secondAttribute="bottom" constant="2" id="IHT-HD-soj"/>
                 <constraint firstItem="ezK-9X-Krn" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="30" id="NG7-0X-0bo"/>
+                <constraint firstItem="mCe-wI-XFX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="55" id="Nld-DQ-XcB"/>
                 <constraint firstItem="cfM-Ff-bWG" firstAttribute="top" secondItem="ezK-9X-Krn" secondAttribute="bottom" constant="20" id="Q6V-Tf-2db"/>
                 <constraint firstItem="coG-yu-yix" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="UU6-3P-31Y"/>
                 <constraint firstItem="cfM-Ff-bWG" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="9" id="cot-G0-ee5"/>
@@ -87,6 +99,7 @@
                 <outlet property="productImgView" destination="ezK-9X-Krn" id="7Ub-Wz-oxe"/>
                 <outlet property="productNameLabel" destination="cfM-Ff-bWG" id="sS1-Nh-4qT"/>
                 <outlet property="productSubNameLabel" destination="foT-KW-MXH" id="5DJ-dy-VOQ"/>
+                <outlet property="selloutLabel" destination="mCe-wI-XFX" id="nnz-ZZ-rwC"/>
             </connections>
             <point key="canvasLocation" x="40" y="46.326836581709152"/>
         </collectionViewCell>

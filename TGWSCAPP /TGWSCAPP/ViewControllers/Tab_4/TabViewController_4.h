@@ -11,10 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TabViewController_4 : CommonViewController
-/*!
- @brief     需要上传的图片
- */
-@property (nonatomic, strong) NSData *imageData;
 
 @property(nonatomic,strong) UIView *tabBar;
 

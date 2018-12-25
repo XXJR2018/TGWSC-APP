@@ -13,7 +13,7 @@
 #import "JXButton.h"
 
 
-@interface TabViewController_4 ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface TabViewController_4 ()
 {
     UIImageView *_headImgView;
     UILabel *_phoneLabel;
@@ -54,12 +54,17 @@
     }else{
         _headImgView.image = [UIImage imageNamed:@"Tab_4-2"];
     }
-    //电话
-    if ([NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]].length == 11) {
-        _phoneLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]];
+    //昵称/电话
+    if ([NSString stringWithFormat:@"%@",[dic objectForKey:@"nickName"]].length > 0) {
+        _phoneLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"nickName"]];
     }else{
-        _phoneLabel.text = @"请登录";
+        if ([NSString stringWithFormat:@"%@",[dic objectForKey:@"hideTelephone"]].length > 0) {
+            _phoneLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"hideTelephone"]];
+        }else{
+            _phoneLabel.text = @"请登录";
+        }
     }
+    
     //余额
 //    if ([[dic objectForKey:@""] intValue] > 0) {
 //        _balanceNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]];
@@ -153,18 +158,13 @@
     _headImgView.layer.masksToBounds = YES;
     _headImgView.layer.cornerRadius = 50 * ScaleSize/2;
     
-    
-    UITapGestureRecognizer * gestureSearch = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(uploadImg)];
-    gestureSearch.numberOfTapsRequired  = 1;
-    [_headImgView addGestureRecognizer:gestureSearch];
-    
     _phoneLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_headImgView.frame) + 15, CGRectGetMidY(_headImgView.frame) - 10, 100, 20)];
     [backdropImgView addSubview:_phoneLabel];
     _phoneLabel.textColor = [UIColor whiteColor];
     _phoneLabel.font = [UIFont systemFontOfSize:15];
     _phoneLabel.text = @"请登录";
     
-    UIButton *userInfoBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(backdropImgView.frame) - 40, CGRectGetMidY(_headImgView.frame) - 10, 10, 20)];
+    UIButton *userInfoBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(backdropImgView.frame) - 50, CGRectGetMidY(_headImgView.frame) - 15, 30, 30)];
     [backdropImgView addSubview:userInfoBtn];
     [userInfoBtn setImage:[UIImage imageNamed:@"Tab_4-3"] forState:UIControlStateNormal];
     [userInfoBtn addTarget:self action:@selector(userInfo) forControlEvents:UIControlEventTouchUpInside];
@@ -380,204 +380,7 @@
     
 }
 
-#pragma mark========  上传头像
--(void)uploadImg{
-    if (![CommonInfo isLoggedIn]) {
-        [DDGUserInfoEngine engine].parentViewController = self;
-        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
-        return;
-    }
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"选择" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
-            return;
-        }
-        UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
-        pickerController.delegate = self;
-        pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        pickerController.allowsEditing = YES;
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-            pickerController.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:
-                                           UIImagePickerControllerSourceTypeCamera];
-            pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        }
-        [self.navigationController presentViewController:pickerController animated:YES completion:nil];
-        
-    }];
-    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
-            return;
-        }
-        UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
-        pickerController.editing=YES;
-        pickerController.delegate=self;
-        pickerController.allowsEditing=YES;
-        pickerController.navigationBar.translucent=NO;   //去除毛玻璃效果
-        pickerController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-        pickerController.navigationBar.tintColor = [ResourceManager mainColor];
-        [self.navigationController presentViewController:pickerController animated:YES completion:nil];
-        
-    }];
-    UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-    }];
 
-    //把action添加到actionSheet里
-    [actionSheet addAction:action1];
-    [actionSheet addAction:action2];
-    [actionSheet addAction:action3];
-
-    //相当于之前的[actionSheet show];
-    [self presentViewController:actionSheet animated:YES completion:nil];
-}
-
-#pragma mark -
-#pragma mark UINavigationControllerDelegate
-/**
- *  解决取消按钮点击不灵敏问题
- */
--(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
-    if ([UIDevice currentDevice].systemVersion.floatValue < 11){
-        return;
-    }
-    if ([viewController isKindOfClass:NSClassFromString(@"PUPhotoPickerHostViewController")]){
-        [viewController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop){
-            // iOS 11之后，图片编辑界面最上层会出现一个宽度<42的view，会遮盖住左下方的cancel按钮，使cancel按钮很难被点击到，故改变该view的层级结构
-            if (obj.frame.size.width < 42){
-                [viewController.view sendSubviewToBack:obj];
-                *stop = YES;
-            }
-        }];
-    }
-}
-#pragma mark -
-#pragma mark UIImagePickerViewControllerDelegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-#define dataSize 1024.0f
-#define imageSize CGSizeMake(600.0f, 600.0f)
-    //先把原图保存到图片库
-    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera){
-        UIImage *originalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-        UIImageWriteToSavedPhotosAlbum(originalImage, nil, nil, nil);
-    }
-    //获取用户选取的图片并转换成NSData
-    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    //缩小图片的size
-    image = [self imageByRedraw:image];
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
-    if (imageData){
-        self.imageData = imageData;
-        // 上传
-        [self upLoadImgData];
-        [picker dismissViewControllerAnimated:YES completion:nil];
-    }
-}
-/**
- *  截图
- *  @return UIImage
- */
-- (UIImage *)imageByRedraw:(UIImage *)image
-{
-    if (image.size.width == image.size.height)
-    {
-        UIGraphicsBeginImageContext(imageSize);
-        CGRect rect = CGRectZero;
-        rect.size = imageSize;
-        CGContextRef ctx = UIGraphicsGetCurrentContext();
-        CGContextSetFillColorWithColor(ctx, [UIColor blackColor].CGColor);
-        CGContextFillRect(ctx, rect);
-        [image drawInRect:rect];
-        image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    }else{
-        CGFloat ratio = image.size.width / image.size.height;
-        CGSize size = CGSizeZero;
-        
-        if (image.size.width > imageSize.width)
-        {
-            size.width = imageSize.width;
-            size.height = size.width / ratio;
-        }
-        else if (image.size.height > imageSize.height)
-        {
-            size.height = imageSize.height;
-            size.width = size.height * ratio;
-        }
-        else
-        {
-            size.width = image.size.width;
-            size.height = image.size.height;
-        }
-        //这里的size是最终获取到的图片的大小
-        UIGraphicsBeginImageContext(imageSize);
-        CGRect rect = CGRectZero;
-        rect.size = imageSize;
-        //先填充整个图片区域的颜色为黑色
-        CGContextRef ctx = UIGraphicsGetCurrentContext();
-        CGContextSetFillColorWithColor(ctx, [UIColor blackColor].CGColor);
-        CGContextFillRect(ctx, rect);
-        rect.origin = CGPointMake((imageSize.width - size.width)/2, (imageSize.height - size.height)/2);
-        rect.size = size;
-        //画图
-        [image drawInRect:rect];
-        image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    }
-    return image;
-}
-
--(void)upLoadImgData{
-    [MBProgressHUD showHUDAddedTo:self.view];
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"fileType"] = @"headImg";
-    params[@"signId"] = [CommonInfo signId];
-    params[kUUID] = [DDGSetting sharedSettings].UUID_MD5;
-    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-    NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
-    NSString *versionStr = [NSString stringWithFormat:@"tgwscIOS-%@",currentVersion];
-    params[@"appVersion"] = versionStr;
-    
-    AFHTTPRequestOperationManager *requestManager = [AFHTTPRequestOperationManager manager];
-    requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    requestManager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    [requestManager POST:[PDAPI getSendFileAPI] parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        [formData appendPartWithFileData:self.imageData name:@"img" fileName:@"head.jpg" mimeType:@"image/jpg"];
-    } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        [MBProgressHUD hideHUDForView:self.view animated:NO];
-        id json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        if ([(NSDictionary *)json objectForKey:@"success"]) {
-            [MBProgressHUD showSuccessWithStatus:@"上传成功" toView:self.view];
-            [DDGSetting sharedSettings].accountNeedRefresh = YES;
-            NSDictionary *dic = [(NSDictionary *)json objectForKey:@"attr"];
-            NSString *imgUrlStr = [dic objectForKey:@"url"];
-            [self uploadHeadImgUrl:imgUrlStr];
-        }else{
-            [MBProgressHUD showErrorWithStatus:[(NSDictionary *)json objectForKey:@"message"] toView:self.view];
-        }
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-        [MBProgressHUD hideHUDForView:self.view animated:NO];
-        [MBProgressHUD showErrorWithStatus:[operation.error localizedDescription] toView:self.view];
-        self.imageData = nil;
-    }];
-}
-
-//图片提交到数据库
--(void)uploadHeadImgUrl:(NSString *)imgUrlStr{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/cust/info/changeCustInfo",[PDAPI getBaseUrlString]]
-                                                                               parameters:@{@"headImgUrl":imgUrlStr} HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
-                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
-                                                                                      [MBProgressHUD hideHUDForView:self.view animated:NO];
-                                                                                      //上传成功展示新头像
-                                                                                      [_headImgView sd_setImageWithURL:[NSURL URLWithString:imgUrlStr]];
-                                                                                      //发送通知更新用户信息
-                                                                                      [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
-                                                                                  }
-                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
-                                                                                      [MBProgressHUD hideHUDForView:self.view animated:NO];
-                                                                                      [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
-                                                                                  }];
-    [operation start];
-}
 
 
 

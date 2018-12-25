@@ -120,7 +120,7 @@
         _rightImage.image = [UIImage imageNamed:@"arrow_down"];
     }else{
         _rightImage.image = [UIImage imageNamed:@"arrow_right"];
-        _rightImage.frame = CGRectMake(self.width - 20, (CellHeight44 - 15)/2, 10, 15);
+        _rightImage.frame = CGRectMake(self.width - 20, (CellHeight44 - 16)/2, 9, 16);
     }
     [self addSubview:_rightImage];
 }

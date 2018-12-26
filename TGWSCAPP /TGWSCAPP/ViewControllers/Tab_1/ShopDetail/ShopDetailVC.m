@@ -706,7 +706,7 @@
      {
         [self querySkuList];
         [self querySkuProList];
-        [MBProgressHUD showErrorWithStatus:@"获取规格参数失败" toView:self.view];
+        [MBProgressHUD showErrorWithStatus:@"获取规格参数失败，请稍后再试" toView:self.view];
         return;
      }
     
@@ -732,6 +732,20 @@
 // 选择规格
 -(void) actionSelModel
 {
+    if (!arrSku ||
+        !arrSkuShow)
+     {
+        [self querySkuList];
+        [self querySkuProList];
+        [MBProgressHUD showErrorWithStatus:@"获取规格参数失败, 请稍后再试" toView:self.view];
+        return;
+     }
+    
+    PopSelShopView  *popView = [[PopSelShopView alloc] init];
+    popView.shopModel = _shopModel;
+    popView.arrSku = arrSku;
+    popView.arrSkuShow = arrSkuShow;
+    [popView show];
     
 }
 

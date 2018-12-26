@@ -8,8 +8,11 @@
 
 #import "PopSelShopView.h"
 
+#define   ShopRedColor     UIColorFromRGB(0x9f1421)
+
 @interface PopSelShopView ()
 {
+    UIScrollView  *scView;
 }
 
 @property (nonatomic, weak) UIWindow *keyWindow; ///< 当前窗口
@@ -66,28 +69,64 @@
     _tapGesture = tapGesture;
 
     [self addSubview:_tailView];
+    
 }
 
 
 -(void) drawUI
 {
     NSLog(@"self.shopModel:%@",self.shopModel);
+    NSLog(@"_shopModel.strGoodsImgUrl:%@",_shopModel.strGoodsImgUrl);
+    
     NSLog(@"self.arrSku:%@",self.arrSku);
     
     int iLeftX = 15;
     int iTopY = 20;
-    int iIMGWdith = 120 *ScaleSize;
-    UIImageView *imgShop = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, iIMGWdith, iIMGWdith)];
+    int iIMGWdith = 100;
+    int iIMGHeight = 100;
+    UIImageView *imgShop = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, iIMGWdith, iIMGHeight)];
     [_tailView addSubview:imgShop];
-    imgShop.backgroundColor = [UIColor yellowColor];
+    //imgShop.backgroundColor = [UIColor yellowColor];
     [imgShop setImageWithURL:[NSURL URLWithString:_shopModel.strGoodsImgUrl]];
     
     iLeftX += imgShop.width + 10;
-    UILabel *labelName = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - iLeftX - 10, 20)];
+    UILabel *labelName = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - iLeftX - 10, 50)];
     [_tailView addSubview:labelName];
-    labelName.font = [UIFont systemFontOfSize:14];
+    labelName.font = [UIFont systemFontOfSize:15];
     labelName.textColor = [ResourceManager color_1];
-    labelName.text = self.shopModel.strGoodsSubName;
+    labelName.numberOfLines = 0;
+    labelName.text =  self.shopModel.strGoodsSubName;
+    
+    iTopY += 50;
+    UILabel *labelCurPrice = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - iLeftX - 10, 20)];
+    [_tailView addSubview:labelCurPrice];
+    labelCurPrice.font = [UIFont systemFontOfSize:16];
+    labelCurPrice.textColor = ShopRedColor;
+    labelCurPrice.text =  [NSString stringWithFormat:@"¥%@",self.shopModel.strMinPrice];//self.shopModel.strGoodsSubName;
+    
+    
+    iTopY += labelCurPrice.height + 10;
+    UILabel *labelCurSel = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - iLeftX - 10, 20)];
+    [_tailView addSubview:labelCurSel];
+    labelCurSel.font = [UIFont systemFontOfSize:13];
+    labelCurSel.textColor = [ResourceManager midGrayColor];
+    labelCurSel.text = @"请选择规格属性";// self.shopModel.strGoodsSubName;
+    
+    iTopY += labelCurSel.height + 10;
+    // 加入滚动view
+    scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0.f, iTopY, SCREEN_WIDTH, _tailView.height - iTopY - 60 )];
+    [_tailView addSubview:scView];
+    scView.contentSize = CGSizeMake(0, 2000);
+    scView.pagingEnabled = NO;
+    scView.bounces = NO;
+    scView.showsVerticalScrollIndicator = FALSE;
+    scView.showsHorizontalScrollIndicator = FALSE;
+    scView.backgroundColor = [UIColor yellowColor];
+    
+    
+    int iBtnWidth = (SCREEN_WIDTH - 30)/2;
+    int iBtnHegiht = 30;
+    
     
     
 }

@@ -267,8 +267,8 @@
             NSDictionary *dicObject = arrShowList[i];
             ShopModel *sModel = [[ShopModel alloc] init];
             sModel.iShopID = i;
-            sModel.strGoodsImgUrl = @"Tab1_TJSP";
-            //sModel.strGoodsImgUrl =  [NSString stringWithFormat:@"%@",dicObject[@"imgUrl"]];
+            //sModel.strGoodsImgUrl = @"Tab1_TJSP";
+            sModel.strGoodsImgUrl =  [NSString stringWithFormat:@"%@",dicObject[@"imgUrl"]];
             sModel.strMinPrice = [NSString stringWithFormat:@"%@",dicObject[@"minPrice"]];
             sModel.strMaxPrice = [NSString stringWithFormat:@"%@",dicObject[@"maxPrice"]];
             sModel.strGoodsCode = [NSString stringWithFormat:@"%@",dicObject[@"goodsCode"]];
@@ -276,6 +276,7 @@
             sModel.strGoodsSubName = [NSString stringWithFormat:@"%@",dicObject[@"goodsSubName"]];
             sModel.strCateCode = [NSString stringWithFormat:@"%@",dicObject[@"cateCode"]];
             sModel.strCateName = [NSString stringWithFormat:@"%@",dicObject[@"cateName"]];
+            sModel.iIsSellOut = [dicObject[@"isSellOut"] intValue];
             [tempArr addObject:sModel];
          }
 

@@ -18,6 +18,7 @@
 @interface ShopDetailVC ()<TSVideoPlaybackDelegate>
 {
     UIScrollView *scView;
+    UIImageView *imgShouCang;
     
     NSMutableArray *arrTopIMG; // 顶部的 视频和图片 数组
     int iTopType;    //   0 - 表示全图片，  1 -  表示为首张为视频，剩下的为图片
@@ -27,6 +28,9 @@
     
     NSArray *arrSku;
     NSArray *arrSkuShow;
+    
+    int  maxPostFree;  // 包邮免费金额
+    bool isFavorite;   // 是否收藏
 }
 
 @property (strong, nonatomic)AVPlayer *myPlayer;//播放器
@@ -59,6 +63,8 @@
     arrSkuShow = nil;
     
     iTailViewTopY = 0;
+    
+    isFavorite = false;
 }
 
 //清除缓存必须写
@@ -483,6 +489,11 @@
     NSArray *arrTitle =  @[@"客 服",@"收 藏",@"购物车"];
     NSArray *arrImg =  @[@"Shop_kf",@"Shop_shoucang",@"Shop_che"];
     
+    if (isFavorite)
+     {
+        arrImg =  @[@"Shop_kf",@"Shop_shoucang2",@"Shop_che"];
+     }
+    
     int iLeftX = 12;
     iTopY = 13;
     for (int i = 0; i < [arrTitle count]; i++)
@@ -490,6 +501,12 @@
         UIImageView *imgKF = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 16, 16)];
         [viewTabber addSubview:imgKF];
         imgKF.image = [UIImage imageNamed:arrImg[i]];
+        
+        // 收藏图标 赋值
+        if (1 == i)
+         {
+            imgShouCang = imgKF;
+         }
         
         UILabel *labelKF = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX - 10 , iTopY + 20, 40 , 15)];
         [viewTabber addSubview:labelKF];
@@ -619,6 +636,8 @@
 }
 
 
+
+
 // 查询商品SKU所有列表
 -(void) querySkuList
 {
@@ -637,6 +656,45 @@
     [operation start];
 }
 
+// 添加收藏
+-(void) addFavorite
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"goodsCode"] = _shopModel.strGoodsCode;
+    
+    //状态status参数， 添加收藏 status = 1   取消就是 status=0
+    if (!isFavorite)
+     {
+        params[@"status"] = @(1);
+     }
+    else
+     {
+        params[@"status"] = @(0);
+     }
+    
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLaddFavorite];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    if (!isFavorite)
+     {
+        operation.tag = 1005;
+     }
+    else
+     {
+        operation.tag = 1006;
+     }
+    [operation start];
+}
+
+
+
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
 {
     
@@ -650,6 +708,28 @@
             [MBProgressHUD showErrorWithStatus:@"服务器忙，请稍后" toView:self.view];
             return;
          }
+        
+        isFavorite = [dicUI[@"isFavorite"] boolValue];
+        maxPostFree = [dicUI[@"maxPostFree"] intValue];
+        // 必须这样赋值一遍，外面传入参数有可能不完整，只传入了goodsCode
+        NSDictionary *baseGoods = dicUI[@"baseGoods"];
+        if (baseGoods &&
+            [baseGoods count] > 0)
+         {
+            NSDictionary *dicObject = baseGoods;
+            ShopModel *sModel = [[ShopModel alloc] init];
+
+            sModel.strGoodsImgUrl =  [NSString stringWithFormat:@"%@",dicObject[@"imgUrl"]];
+            sModel.strMinPrice = [NSString stringWithFormat:@"%@",dicObject[@"minPrice"]];
+            sModel.strMaxPrice = [NSString stringWithFormat:@"%@",dicObject[@"maxPrice"]];
+            sModel.strGoodsCode = [NSString stringWithFormat:@"%@",dicObject[@"goodsCode"]];
+            sModel.strGoodsName = [NSString stringWithFormat:@"%@",dicObject[@"goodsName"]];
+            sModel.strGoodsSubName = [NSString stringWithFormat:@"%@",dicObject[@"goodsSubName"]];
+            sModel.strCateCode = [NSString stringWithFormat:@"%@",dicObject[@"cateCode"]];
+            sModel.strCateName = [NSString stringWithFormat:@"%@",dicObject[@"cateName"]];
+            sModel.iIsSellOut = [dicObject[@"isSellOut"] intValue];
+         }
+        
         [self layoutUI:dicUI];
 
      }
@@ -685,6 +765,18 @@
      {
         arrSku = operation.jsonResult.rows;
      }
+    else if (1005 == operation.tag)
+     {
+        isFavorite = true;
+        imgShouCang.image = [UIImage imageNamed:@"Shop_shoucang2"];
+        [MBProgressHUD showSuccessWithStatus:@"收藏成功" toView:self.view];
+     }
+    else if (1006 == operation.tag)
+     {
+        isFavorite = false;
+        imgShouCang.image = [UIImage imageNamed:@"Shop_shoucang"];
+        [MBProgressHUD showErrorWithStatus:@"取消收藏" toView:self.view];
+     }
 }
 
 -(void) delayMethod:(NSDictionary*)dic
@@ -694,7 +786,9 @@
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
-    if (1000 == operation.tag)
+    if (1000 == operation.tag ||
+        1005 == operation.tag ||
+        1006 == operation.tag)
      {
         [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
      }
@@ -714,6 +808,22 @@
 {
     int iTag = (int)sender.tag;
     NSLog(@"iTag :%d", iTag);
+    
+    //NSArray *arrTitle =  @[@"客 服",@"收 藏",@"购物车"];
+    if (0 == iTag)
+     {
+        
+     }
+    else if (1 == iTag)
+     {
+        //收藏 或者 取消收藏
+        [self addFavorite];
+       
+     }
+    else if (2 == iTag)
+     {
+        
+     }
 }
 
 // 立即购买

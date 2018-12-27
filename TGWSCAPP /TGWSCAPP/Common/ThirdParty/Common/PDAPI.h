@@ -29,6 +29,9 @@ static NSString *const kURLqueryGoodsDetailInfo = @"appMall/goods/queryGoodsDeta
 static NSString *const kURLquerySkuProList = @"appMall/sku/querySkuProList";
 // 查询商品SKU所有列表
 static NSString *const kURLquerySkuList = @"appMall/sku/querySkuList";
+// 收藏商品，取消商品
+static NSString *const kURLaddFavorite = @"appMall/account/cust/favorite/addFavorite";
+
 
 
 

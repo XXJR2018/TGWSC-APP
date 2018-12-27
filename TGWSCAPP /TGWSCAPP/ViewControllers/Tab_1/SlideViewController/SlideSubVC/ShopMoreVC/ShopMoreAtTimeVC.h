@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ShopMoreAtTimeVC : CommonViewController
 
+@property (nonatomic,strong) NSString  *strTypeCode;
+@property (nonatomic,strong) NSString  *strTypeName;
+@property (nonatomic,assign) bool   isGoodType;  // 是商品类型的查询
+
 @end
 
 NS_ASSUME_NONNULL_END

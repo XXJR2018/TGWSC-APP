@@ -435,6 +435,12 @@
             int isShowTime = [dic[@"isShowTime"] intValue];
             if (1 == isShowTime)
              {
+                
+                ShopMoreAtTimeVC *ctl = [[ShopMoreAtTimeVC alloc] init];
+                ctl.strTypeCode = [NSString stringWithFormat:@"%@",myClickObj.strTypeCode];
+                ctl.strTypeName = myClickObj.strTypeName;
+                [self.navigationController pushViewController:ctl animated:YES];
+                
                 return;
              }
          }
@@ -533,6 +539,13 @@
          {
             NSLog(@"ShopID:%d", iShopID);
             NSLog(@"strCateCode:%@  strCateName:%@", clickObj.strCateCode,clickObj.strCateName);
+            
+            
+            ShopMoreVC *ctl = [[ShopMoreVC alloc] init];
+            ctl.strTypeCode = [NSString stringWithFormat:@"%@",clickObj.strCateCode];
+            ctl.strTypeName = clickObj.strCateName;
+            ctl.isGoodType = true;
+            [self.navigationController pushViewController:ctl animated:YES];
          }
         
         

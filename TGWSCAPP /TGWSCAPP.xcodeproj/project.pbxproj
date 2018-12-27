@@ -20,6 +20,7 @@
 		C0A48A6D21D1F969002AF226 /* PopSelShopView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A6C21D1F969002AF226 /* PopSelShopView.m */; };
 		C0A48A7721D4A62A002AF226 /* ShopMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7621D4A62A002AF226 /* ShopMoreVC.m */; };
 		C0A48A7A21D4A64A002AF226 /* ShopMoreAtTimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7921D4A64A002AF226 /* ShopMoreAtTimeVC.m */; };
+		C0A48A7D21D4BE37002AF226 /* HeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7C21D4BE37002AF226 /* HeaderCollectionReusableView.m */; };
 		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
@@ -308,6 +309,8 @@
 		C0A48A7621D4A62A002AF226 /* ShopMoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopMoreVC.m; sourceTree = "<group>"; };
 		C0A48A7821D4A64A002AF226 /* ShopMoreAtTimeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopMoreAtTimeVC.h; sourceTree = "<group>"; };
 		C0A48A7921D4A64A002AF226 /* ShopMoreAtTimeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopMoreAtTimeVC.m; sourceTree = "<group>"; };
+		C0A48A7B21D4BE37002AF226 /* HeaderCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderCollectionReusableView.h; sourceTree = "<group>"; };
+		C0A48A7C21D4BE37002AF226 /* HeaderCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderCollectionReusableView.m; sourceTree = "<group>"; };
 		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
@@ -885,6 +888,8 @@
 				C0A48A7621D4A62A002AF226 /* ShopMoreVC.m */,
 				C0A48A7821D4A64A002AF226 /* ShopMoreAtTimeVC.h */,
 				C0A48A7921D4A64A002AF226 /* ShopMoreAtTimeVC.m */,
+				C0A48A7B21D4BE37002AF226 /* HeaderCollectionReusableView.h */,
+				C0A48A7C21D4BE37002AF226 /* HeaderCollectionReusableView.m */,
 			);
 			name = ShopMoreVC;
 			path = SlideSubVC/ShopMoreVC;
@@ -2489,6 +2494,7 @@
 				C250451021BA579100DA9C72 /* CommonViewController.m in Sources */,
 				C250477621BA715500DA9C72 /* Reachability.m in Sources */,
 				C250460C21BA711E00DA9C72 /* IdentifyAlertView.m in Sources */,
+				C0A48A7D21D4BE37002AF226 /* HeaderCollectionReusableView.m in Sources */,
 				C25047DB21BA715500DA9C72 /* BaseController.m in Sources */,
 				C25047C421BA715500DA9C72 /* RsaUtil.m in Sources */,
 				C25047FF21BA73B800DA9C72 /* AFHTTPSessionManager.m in Sources */,

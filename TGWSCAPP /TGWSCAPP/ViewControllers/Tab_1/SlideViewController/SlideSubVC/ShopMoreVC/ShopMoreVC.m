@@ -86,7 +86,12 @@
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"typeCode"] = _strTypeCode;
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString],kURLqueryTypeMoreInfoList]
+    params[@"cateCode"] = _strTypeCode;
+   
+    NSString *strURL = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString],kURLqueryTypeMoreInfoList];
+
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strURL
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       [self handleData:operation];
@@ -117,6 +122,7 @@
 //定义展示的UICollectionViewCell的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.dataArray.count;
+
 }
 
 //定义展示的Section的个数

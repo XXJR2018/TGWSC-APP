@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) NSString  *strTypeCode;
 @property (nonatomic,strong) NSString  *strTypeName;
+@property (nonatomic,assign) bool   isGoodType;  // 是商品类型的查询
 
 @end
 

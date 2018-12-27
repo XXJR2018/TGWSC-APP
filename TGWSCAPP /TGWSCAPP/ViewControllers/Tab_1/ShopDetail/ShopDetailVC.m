@@ -509,28 +509,46 @@
         
      }
     
-    int iBtnWidth =  (SCREEN_WIDTH - iLeftX  - 3*10) /2;
-    UIButton *btnLJGM = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, 10, iBtnWidth, 40)];
-    [viewTabber addSubview:btnLJGM];
-    btnLJGM.layer.borderColor = [ResourceManager mainColor].CGColor;
-    btnLJGM.layer.borderWidth = 1;
-    btnLJGM.cornerRadius = btnLJGM.height/2;
-    [btnLJGM setTitle:@"立即购买" forState:UIControlStateNormal];
-    [btnLJGM setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
-    btnLJGM.titleLabel.font = [UIFont systemFontOfSize:15];
-    [btnLJGM addTarget:self action:@selector(actionLJGM) forControlEvents:UIControlEventTouchUpInside];
+    int iIsSellOut = _shopModel.iIsSellOut; //  "isSellOut": 0 代表售罄 1代表尚有库存
+    if (iIsSellOut == 0)
+     {
+        int iBtnWidth =  (SCREEN_WIDTH - iLeftX  - 10);
+        UIButton *btnSellOut = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, 10, iBtnWidth, 40)];
+        [viewTabber addSubview:btnSellOut];
+        btnSellOut.cornerRadius = btnSellOut.height/2;
+        btnSellOut.backgroundColor = [ResourceManager lightGrayColor];
+        [btnSellOut setTitle:@"已经售罄" forState:UIControlStateNormal];
+        [btnSellOut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        btnSellOut.titleLabel.font = [UIFont systemFontOfSize:15];
+     }
+    else
+     {
+        int iBtnWidth =  (SCREEN_WIDTH - iLeftX  - 3*10) /2;
+        UIButton *btnLJGM = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, 10, iBtnWidth, 40)];
+        [viewTabber addSubview:btnLJGM];
+        btnLJGM.layer.borderColor = [ResourceManager mainColor].CGColor;
+        btnLJGM.layer.borderWidth = 1;
+        btnLJGM.cornerRadius = btnLJGM.height/2;
+        [btnLJGM setTitle:@"立即购买" forState:UIControlStateNormal];
+        [btnLJGM setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
+        btnLJGM.titleLabel.font = [UIFont systemFontOfSize:15];
+        [btnLJGM addTarget:self action:@selector(actionLJGM) forControlEvents:UIControlEventTouchUpInside];
+        
+        iLeftX += iBtnWidth + 10;
+        UIButton *btnJRGWC = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, 10, iBtnWidth, 40)];
+        [viewTabber addSubview:btnJRGWC];
+        //btnLJGM.layer.borderColor = [ResourceManager mainColor].CGColor;
+        //btnLJGM.layer.borderWidth = 1;
+        btnJRGWC.cornerRadius = btnJRGWC.height/2;
+        btnJRGWC.backgroundColor = ShopRedColor;
+        [btnJRGWC setTitle:@"加入购物车" forState:UIControlStateNormal];
+        [btnJRGWC setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        btnJRGWC.titleLabel.font = [UIFont systemFontOfSize:15];
+        [btnJRGWC addTarget:self action:@selector(actionJRGWC) forControlEvents:UIControlEventTouchUpInside];
+     }
     
-    iLeftX += iBtnWidth + 10;
-    UIButton *btnJRGWC = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, 10, iBtnWidth, 40)];
-    [viewTabber addSubview:btnJRGWC];
-    //btnLJGM.layer.borderColor = [ResourceManager mainColor].CGColor;
-    //btnLJGM.layer.borderWidth = 1;
-    btnJRGWC.cornerRadius = btnJRGWC.height/2;
-    btnJRGWC.backgroundColor = ShopRedColor;
-    [btnJRGWC setTitle:@"加入购物车" forState:UIControlStateNormal];
-    [btnJRGWC setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    btnJRGWC.titleLabel.font = [UIFont systemFontOfSize:15];
-    [btnJRGWC addTarget:self action:@selector(actionJRGWC) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     
 }
 
@@ -720,7 +738,20 @@
 // 加入购物车
 -(void) actionJRGWC
 {
+    if (!arrSku ||
+        !arrSkuShow)
+     {
+        [self querySkuList];
+        [self querySkuProList];
+        [MBProgressHUD showErrorWithStatus:@"获取规格参数失败，请稍后再试" toView:self.view];
+        return;
+     }
     
+    PopSelShopView  *popView = [[PopSelShopView alloc] init];
+    popView.shopModel = _shopModel;
+    popView.arrSku = arrSku;
+    popView.arrSkuShow = arrSkuShow;
+    [popView show];
 }
 
 // 优惠说明

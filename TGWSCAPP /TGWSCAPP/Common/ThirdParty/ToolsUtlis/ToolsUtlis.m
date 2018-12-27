@@ -715,4 +715,14 @@ static NSString *currentIP = nil;
     
     return  img;
 }
+
+
+// 计算字符长度和高度，根据frame 和 font
++  (CGSize) getSizeWithString:(NSString*) string withFrame:(CGRect) rect withFontSize:(int)fontSize
+{
+    CGSize titleSize = [string boundingRectWithSize:rect.size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]} context:nil].size;
+    
+    return titleSize;
+}
+
 @end

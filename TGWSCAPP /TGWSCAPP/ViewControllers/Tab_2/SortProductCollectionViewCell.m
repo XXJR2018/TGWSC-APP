@@ -55,6 +55,10 @@
     if ([[_dataDicionary objectForKey:@"isSellOut"] intValue] == 0) {
         self.selloutLabel.hidden = NO;
     }
+    else
+     {
+        self.selloutLabel.hidden = YES;
+     }
     
 }
 

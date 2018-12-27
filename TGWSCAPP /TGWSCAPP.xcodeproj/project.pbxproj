@@ -241,6 +241,11 @@
 		C29ABBDB21D4655300428407 /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C29ABBDA21D4655300428407 /* MyCollectViewController.m */; };
 		C29ABBE421D466D600428407 /* MyCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C29ABBE221D466D600428407 /* MyCollectCell.m */; };
 		C29ABBE521D466D600428407 /* MyCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C29ABBE321D466D600428407 /* MyCollectCell.xib */; };
+		C29ABBE821D4755B00428407 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C29ABBE721D4755B00428407 /* AddressViewController.m */; };
+		C29ABBEC21D4766F00428407 /* AddressViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C29ABBEA21D4766F00428407 /* AddressViewCell.m */; };
+		C29ABBED21D4766F00428407 /* AddressViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C29ABBEB21D4766F00428407 /* AddressViewCell.xib */; };
+		C29ABBF121D4776A00428407 /* AddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C29ABBEF21D4776A00428407 /* AddAddressViewController.m */; };
+		C29ABBF221D4776A00428407 /* AddAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C29ABBF021D4776A00428407 /* AddAddressViewController.xib */; };
 		C2A08F6A21BF4563005753F6 /* TabBarSelectButtn.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A08F6921BF4563005753F6 /* TabBarSelectButtn.m */; };
 		C2A71B8521BE53F9007D849F /* DDGUserInfoEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A71B8421BE53F9007D849F /* DDGUserInfoEngine.m */; };
 		C2A71BBF21BE5FB6007D849F /* NSObject+Property.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A71BBE21BE5FB6007D849F /* NSObject+Property.m */; };
@@ -725,6 +730,14 @@
 		C29ABBE121D466D600428407 /* MyCollectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectCell.h; sourceTree = "<group>"; };
 		C29ABBE221D466D600428407 /* MyCollectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectCell.m; sourceTree = "<group>"; };
 		C29ABBE321D466D600428407 /* MyCollectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCollectCell.xib; sourceTree = "<group>"; };
+		C29ABBE621D4755B00428407 /* AddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
+		C29ABBE721D4755B00428407 /* AddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
+		C29ABBE921D4766F00428407 /* AddressViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressViewCell.h; sourceTree = "<group>"; };
+		C29ABBEA21D4766F00428407 /* AddressViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressViewCell.m; sourceTree = "<group>"; };
+		C29ABBEB21D4766F00428407 /* AddressViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressViewCell.xib; sourceTree = "<group>"; };
+		C29ABBEE21D4776A00428407 /* AddAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddAddressViewController.h; sourceTree = "<group>"; };
+		C29ABBEF21D4776A00428407 /* AddAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAddressViewController.m; sourceTree = "<group>"; };
+		C29ABBF021D4776A00428407 /* AddAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAddressViewController.xib; sourceTree = "<group>"; };
 		C2A08F6821BF4563005753F6 /* TabBarSelectButtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarSelectButtn.h; sourceTree = "<group>"; };
 		C2A08F6921BF4563005753F6 /* TabBarSelectButtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarSelectButtn.m; sourceTree = "<group>"; };
 		C2A71B8321BE53F9007D849F /* DDGUserInfoEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDGUserInfoEngine.h; sourceTree = "<group>"; };
@@ -1241,6 +1254,11 @@
 				C23EAF4521D32D4500B271A7 /* CouponViewController.m */,
 				C29ABBD921D4655300428407 /* MyCollectViewController.h */,
 				C29ABBDA21D4655300428407 /* MyCollectViewController.m */,
+				C29ABBE621D4755B00428407 /* AddressViewController.h */,
+				C29ABBE721D4755B00428407 /* AddressViewController.m */,
+				C29ABBEE21D4776A00428407 /* AddAddressViewController.h */,
+				C29ABBEF21D4776A00428407 /* AddAddressViewController.m */,
+				C29ABBF021D4776A00428407 /* AddAddressViewController.xib */,
 			);
 			path = Funct;
 			sourceTree = "<group>";
@@ -1285,6 +1303,9 @@
 				C29ABBE121D466D600428407 /* MyCollectCell.h */,
 				C29ABBE221D466D600428407 /* MyCollectCell.m */,
 				C29ABBE321D466D600428407 /* MyCollectCell.xib */,
+				C29ABBE921D4766F00428407 /* AddressViewCell.h */,
+				C29ABBEA21D4766F00428407 /* AddressViewCell.m */,
+				C29ABBEB21D4766F00428407 /* AddressViewCell.xib */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2206,6 +2227,7 @@
 				C287FE7A21BF4ACB00B8D682 /* Images.xcassets in Resources */,
 				C02C5F9921CC991A0056A32E /* icon_play@3x.png in Resources */,
 				C2B51AF221C3462500AC76FB /* ProductCollectionViewCell.xib in Resources */,
+				C29ABBF221D4776A00428407 /* AddAddressViewController.xib in Resources */,
 				C25047AF21BA715500DA9C72 /* success@2x.png in Resources */,
 				C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */,
 				C25047A621BA715500DA9C72 /* whiteArrow@2x.png in Resources */,
@@ -2239,6 +2261,7 @@
 				C250450C21BA579100DA9C72 /* BindPhoneViewController.xib in Resources */,
 				C0CCC83321C1FD21009352E0 /* search@3x.png in Resources */,
 				C0CCC83121C1FD21009352E0 /* clearImage@2x.png in Resources */,
+				C29ABBED21D4766F00428407 /* AddressViewCell.xib in Resources */,
 				C250479721BA715500DA9C72 /* README.md in Resources */,
 				C222C38C21D2235700DD9797 /* PhoneCheckViewController.xib in Resources */,
 				C25047A921BA715500DA9C72 /* blueArrow.png in Resources */,
@@ -2518,6 +2541,7 @@
 				C25047E921BA715500DA9C72 /* ResourceManager.m in Sources */,
 				C0CCC82121C0F47D009352E0 /* ViewController.m in Sources */,
 				C250435521BA51FC00DA9C72 /* AppDelegate.mm in Sources */,
+				C29ABBF121D4776A00428407 /* AddAddressViewController.m in Sources */,
 				C25047E521BA715500DA9C72 /* LanguageManager.m in Sources */,
 				C250451E21BA579100DA9C72 /* DDGShareManager.m in Sources */,
 				C250451721BA579100DA9C72 /* LocationManager.m in Sources */,
@@ -2531,6 +2555,7 @@
 				C25047E021BA715500DA9C72 /* MBProgressHUD+PD.m in Sources */,
 				C29ABBE421D466D600428407 /* MyCollectCell.m in Sources */,
 				C250476921BA715500DA9C72 /* NSString+Additions.m in Sources */,
+				C29ABBEC21D4766F00428407 /* AddressViewCell.m in Sources */,
 				C25047E621BA715500DA9C72 /* CommonInfo.m in Sources */,
 				C25045FC21BA711E00DA9C72 /* UIView+Extension.m in Sources */,
 				C25047DE21BA715500DA9C72 /* XXJRNetWorkCoverView.m in Sources */,
@@ -2542,6 +2567,7 @@
 				C250475D21BA715500DA9C72 /* BaseBLCManager.m in Sources */,
 				C25047B221BA715500DA9C72 /* ZYQAssetPickerController.m in Sources */,
 				C20525F421BE6E5C00E13893 /* TabViewController_2.m in Sources */,
+				C29ABBE821D4755B00428407 /* AddressViewController.m in Sources */,
 				C0CCC7E621C0F150009352E0 /* NBSSearchShopCategoryView.m in Sources */,
 				C250460321BA711E00DA9C72 /* XXJRLineChartView.m in Sources */,
 				C250450B21BA579100DA9C72 /* LoginViewController.m in Sources */,

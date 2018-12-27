@@ -12,7 +12,7 @@
 #import "MyBalanceViewController.h"
 #import "CouponViewController.h"
 #import "MyCollectViewController.h"
-
+#import "AddressViewController.h"
 
 #import "JXButton.h"
 
@@ -396,7 +396,9 @@
             [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 4:{
-            
+            //地址管理
+            AddressViewController *ctl = [[AddressViewController alloc]init];
+            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 5:{
             

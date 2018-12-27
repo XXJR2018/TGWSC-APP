@@ -10,6 +10,8 @@
 
 #import "UserInfoViewController.h"
 #import "MyBalanceViewController.h"
+#import "CouponViewController.h"
+#import "MyCollectViewController.h"
 
 
 #import "JXButton.h"
@@ -384,10 +386,14 @@
             
         }break;
         case 2:{
-            
+            //优惠券
+            CouponViewController *ctl = [[CouponViewController alloc]init];
+            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 3:{
-            
+            //我的收藏
+            MyCollectViewController *ctl = [[MyCollectViewController alloc]init];
+            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 4:{
             

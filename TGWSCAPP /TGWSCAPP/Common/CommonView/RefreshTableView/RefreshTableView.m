@@ -215,9 +215,8 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+    cell.contentView.backgroundColor = [UIColor whiteColor];
     [self noDataViewOnCell:cell.contentView];
-//    cell.contentView.backgroundColor = RandomColor;
     return cell;
 }
 

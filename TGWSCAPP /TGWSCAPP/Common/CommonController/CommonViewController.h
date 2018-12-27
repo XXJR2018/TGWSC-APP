@@ -74,7 +74,6 @@
 
 /*!
  @brief     移除CoverView
- @return    void
  */
 - (void)removeCoverView;
 

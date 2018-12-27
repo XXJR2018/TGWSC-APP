@@ -192,7 +192,7 @@
     {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
     }
-    
+    cell.contentView.backgroundColor = [UIColor whiteColor];
     [self noDataView:cell.contentView];
     cell.backgroundColor = [UIColor clearColor];
     return cell;
@@ -201,8 +201,8 @@
 -(void)noDataView:(UIView *)view{
     [view removeAllSubviews];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 120.f)/2, 50.f, 120.f, 120.f)];
-    imageView.image = [UIImage imageNamed:@"interim"];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 125)/2, 150, 125, 147.5)];
+    imageView.image = [UIImage imageNamed:@"noDataImg"];
     [view addSubview:imageView];
 }
 

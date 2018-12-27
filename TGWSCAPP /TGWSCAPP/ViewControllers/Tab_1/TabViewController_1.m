@@ -93,7 +93,7 @@
     viewSearch.userInteractionEnabled = YES;
     [viewSearch addGestureRecognizer:gestureSearch];
     
-    UIImageView *imgSearch = [[UIImageView alloc] initWithFrame:CGRectMake(10, 7, 17, 17)];
+    UIImageView *imgSearch = [[UIImageView alloc] initWithFrame:CGRectMake(10, 8, 15, 15)];
     [viewSearch addSubview:imgSearch];
     imgSearch.image = [UIImage imageNamed:@"Tab1_Search"];
     

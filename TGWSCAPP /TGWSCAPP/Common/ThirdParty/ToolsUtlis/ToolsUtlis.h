@@ -321,6 +321,10 @@ usingVerticalAlign: (VerticalAlignment) vertAlign;
 // 从网络URL或者本地加载图片
 +(UIImage*) getImgFromStr:(NSString*) strImg;
 
+
+#pragma mark ==== 计算字符长度和高度，根据frame 和 font====
++  (CGSize) getSizeWithString:(NSString*) string withFrame:(CGRect) rect withFontSize:(int)fontSize;
+
 @end
 
 NS_ASSUME_NONNULL_END

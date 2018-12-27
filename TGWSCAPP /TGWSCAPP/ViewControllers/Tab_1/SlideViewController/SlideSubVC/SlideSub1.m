@@ -12,6 +12,9 @@
 #import "ShopListView.h"
 #import "AdvertingShopListView.h"
 #import "ShopDetailVC.h"
+#import "ProductListViewController.h"
+#import "ShopMoreVC.h"
+#import "ShopMoreAtTimeVC.h"
 
 #define  BANNER_HEIGHT       (170*ScaleSize)      // Banner的高度
 
@@ -22,6 +25,8 @@
     SDCycleScrollView *_scrollView;      // 头部banner
     NSMutableArray *_bannerUrlArr;
     NSMutableArray *_bannerTitleArr;
+    
+    ShopModel *myClickObj;
 }
 @end
 
@@ -90,6 +95,7 @@
     scView.showsVerticalScrollIndicator = FALSE;
     scView.showsHorizontalScrollIndicator = FALSE;
     scView.backgroundColor = [UIColor whiteColor];//[ResourceManager viewBackgroundColor];
+    
     
     // banner （商品）
     int iTopY = 0;
@@ -193,6 +199,7 @@
     scView.showsVerticalScrollIndicator = FALSE;
     scView.showsHorizontalScrollIndicator = FALSE;
     scView.backgroundColor = [UIColor whiteColor];//[ResourceManager viewBackgroundColor];
+    
     
     // banner （商品）
     int iTopY = 0;
@@ -373,6 +380,24 @@
     [operation start];
 }
 
+-(void)queryTypeMoreInfoList:(NSString*) strTypeCode
+{
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"typeCode"] = strTypeCode;
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLqueryTypeMoreInfoList];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1001;
+    [operation start];
+}
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     
     if (operation.tag == 1000)
@@ -401,7 +426,27 @@
          }
         
      }
-
+    
+    if (1001 == operation.tag)
+     {
+        NSDictionary *dic = operation.jsonResult.attr;
+        if (dic)
+         {
+            int isShowTime = [dic[@"isShowTime"] intValue];
+            if (1 == isShowTime)
+             {
+                return;
+             }
+         }
+        
+        
+        ShopMoreVC *ctl = [[ShopMoreVC alloc] init];
+        ctl.strTypeCode = [NSString stringWithFormat:@"%@",myClickObj.strTypeCode];
+        ctl.strTypeName = myClickObj.strTypeName;
+        [self.navigationController pushViewController:ctl animated:YES];
+        
+        
+     }
     
 
 }
@@ -477,6 +522,12 @@
          {
             NSLog(@"Click More");
             NSLog(@"strGoodsName:%@  strTypeCode:%@", clickObj.strTypeCode,clickObj.strTypeName);
+            //[self queryTypeMoreInfoList:clickObj.strTypeCode];
+            
+            ShopMoreVC *ctl = [[ShopMoreVC alloc] init];
+            ctl.strTypeCode = [NSString stringWithFormat:@"%@",clickObj.strTypeCode];
+            ctl.strTypeName = clickObj.strTypeName;
+            [self.navigationController pushViewController:ctl animated:YES];
          }
         else
          {
@@ -485,13 +536,13 @@
          }
         
         
-        //开始登录
-        if (![[DDGAccountManager sharedManager] isLoggedIn])
-         {
-            [DDGUserInfoEngine engine].parentViewController = self;
-            [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
-            return;
-         }
+//        //开始登录
+//        if (![[DDGAccountManager sharedManager] isLoggedIn])
+//         {
+//            [DDGUserInfoEngine engine].parentViewController = self;
+//            [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+//            return;
+//         }
 
         
      }
@@ -508,8 +559,12 @@
         // 点击更多按钮
         if (-1 == iShopID)
          {
+            myClickObj = clickObj;
+            
             NSLog(@"Click More ");
             NSLog(@"strGoodsName:%@  strTypeCode:%@", clickObj.strTypeCode,clickObj.strTypeName);
+            [self queryTypeMoreInfoList:clickObj.strTypeCode];
+
          }
         else
          {

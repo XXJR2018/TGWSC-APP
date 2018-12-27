@@ -18,6 +18,8 @@
 		C02C5F9A21CC991A0056A32E /* icon_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8C21CC991A0056A32E /* icon_video@2x.png */; };
 		C02C5F9B21CC991A0056A32E /* icon_video@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8E21CC991A0056A32E /* icon_video@3x.png */; };
 		C0A48A6D21D1F969002AF226 /* PopSelShopView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A6C21D1F969002AF226 /* PopSelShopView.m */; };
+		C0A48A7721D4A62A002AF226 /* ShopMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7621D4A62A002AF226 /* ShopMoreVC.m */; };
+		C0A48A7A21D4A64A002AF226 /* ShopMoreAtTimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7921D4A64A002AF226 /* ShopMoreAtTimeVC.m */; };
 		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
@@ -302,6 +304,10 @@
 		C02C5F8E21CC991A0056A32E /* icon_video@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video@3x.png"; sourceTree = "<group>"; };
 		C0A48A6B21D1F969002AF226 /* PopSelShopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopSelShopView.h; sourceTree = "<group>"; };
 		C0A48A6C21D1F969002AF226 /* PopSelShopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopSelShopView.m; sourceTree = "<group>"; };
+		C0A48A7521D4A62A002AF226 /* ShopMoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopMoreVC.h; sourceTree = "<group>"; };
+		C0A48A7621D4A62A002AF226 /* ShopMoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopMoreVC.m; sourceTree = "<group>"; };
+		C0A48A7821D4A64A002AF226 /* ShopMoreAtTimeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopMoreAtTimeVC.h; sourceTree = "<group>"; };
+		C0A48A7921D4A64A002AF226 /* ShopMoreAtTimeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopMoreAtTimeVC.m; sourceTree = "<group>"; };
 		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
@@ -872,6 +878,18 @@
 			path = PopSelShop;
 			sourceTree = "<group>";
 		};
+		C0A48A6E21D4A2AF002AF226 /* ShopMoreVC */ = {
+			isa = PBXGroup;
+			children = (
+				C0A48A7521D4A62A002AF226 /* ShopMoreVC.h */,
+				C0A48A7621D4A62A002AF226 /* ShopMoreVC.m */,
+				C0A48A7821D4A64A002AF226 /* ShopMoreAtTimeVC.h */,
+				C0A48A7921D4A64A002AF226 /* ShopMoreAtTimeVC.m */,
+			);
+			name = ShopMoreVC;
+			path = SlideSubVC/ShopMoreVC;
+			sourceTree = "<group>";
+		};
 		C0CCC7B121C0E237009352E0 /* SearchViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1087,6 +1105,7 @@
 				C0CCC84421C261C2009352E0 /* SlideParentVC.h */,
 				C0CCC84521C261C2009352E0 /* SlideParentVC.m */,
 				C0CCC84B21C34580009352E0 /* SlideSubVC */,
+				C0A48A6E21D4A2AF002AF226 /* ShopMoreVC */,
 				C0CCC84721C33DF1009352E0 /* SlideModel */,
 				C0CCC85321C39092009352E0 /* ShopListView */,
 			);
@@ -2343,7 +2362,9 @@
 				C25047E421BA715500DA9C72 /* PDAPI.m in Sources */,
 				C250479821BA715500DA9C72 /* DAOverlayView.m in Sources */,
 				C250461021BA711E00DA9C72 /* TADotView.m in Sources */,
+				C0A48A7A21D4A64A002AF226 /* ShopMoreAtTimeVC.m in Sources */,
 				C0CCC85121C3461D009352E0 /* SlideSub2.m in Sources */,
+				C0A48A7721D4A62A002AF226 /* ShopMoreVC.m in Sources */,
 				C250480021BA73B800DA9C72 /* AFURLConnectionOperation.m in Sources */,
 				C250460421BA711E00DA9C72 /* TTRangeSlider.m in Sources */,
 				C20525DE21BE6E1D00E13893 /* TabBarViewController.m in Sources */,

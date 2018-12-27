@@ -63,7 +63,7 @@
     
     
     UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 80, fTopY+3, 80, iTitleHeight)];
-    [self addSubview:btnRight];
+    //[self addSubview:btnRight];
     [btnRight setTitleColor:[ResourceManager lightGrayColor] forState:UIControlStateNormal];
     [btnRight setTitle:@"更多>" forState:UIControlStateNormal];
     btnRight.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -145,7 +145,7 @@
     UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 80, fTopY+3, 80, iTitleHeight)];
     [self addSubview:btnRight];
     [btnRight setTitleColor:[ResourceManager lightGrayColor] forState:UIControlStateNormal];
-    [btnRight setTitle:@"更多>" forState:UIControlStateNormal];
+    //[btnRight setTitle:@"更多>" forState:UIControlStateNormal];
     btnRight.titleLabel.font = [UIFont systemFontOfSize:13];
     [btnRight addTarget:self action:@selector(actionMore) forControlEvents:UIControlEventTouchUpInside];
     

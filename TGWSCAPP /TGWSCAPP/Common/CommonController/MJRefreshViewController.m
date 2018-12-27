@@ -144,8 +144,8 @@
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
     self.pageIndex = self.pageIndex > 1 ? self.pageIndex - 1 : 1 ;
     [self loadFinish];
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    [MBProgressHUD hideAllHUDsForView:self.tableView animated:YES];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [MBProgressHUD hideHUDForView:self.tableView animated:YES];
     if ( ![ToolsUtlis isNetworkReachable])
     {
         [MBProgressHUD showNoNetworkHUDToView:self.view];

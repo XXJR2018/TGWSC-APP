@@ -160,7 +160,7 @@
         @LLStrongObj(self);
         
         [searchNaviBarView.naviSearchBar resignFirstResponder];
-        [self dismissViewControllerAnimated:NO completion:nil];
+        [self dismissVC];
     }];
     
     
@@ -168,7 +168,8 @@
         @LLStrongObj(self);
         
         [searchNaviBarView.naviSearchBar resignFirstResponder];
-        [self dismissViewControllerAnimated:NO completion:nil];
+        //[self dismissViewControllerAnimated:NO completion:nil];
+        [self dismissVC];
     }];
     
     //开始搜索导航条输入
@@ -283,7 +284,7 @@
         _searchSubView.strSeacrhKey = tagLabel.text;
      }
     
-    //[_searchSubView loadWebData];
+    [_searchSubView loadData];
     
     _myBGScrollView.hidden = YES;
     if (_myBGScrollView)
@@ -301,6 +302,7 @@
 - (void)dismissVC{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self dismissViewControllerAnimated:NO completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

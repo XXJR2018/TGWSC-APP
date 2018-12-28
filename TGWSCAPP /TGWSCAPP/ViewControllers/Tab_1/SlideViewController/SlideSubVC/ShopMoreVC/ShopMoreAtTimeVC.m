@@ -102,7 +102,8 @@
         });
     }];
     
-    [self.navigationController presentViewController:searShopVC animated:nil completion:nil];
+    //[self.navigationController presentViewController:searShopVC animated:nil completion:nil];
+    [self.navigationController pushViewController:searShopVC animated:YES];
 }
 
 #pragma mark 网络请求

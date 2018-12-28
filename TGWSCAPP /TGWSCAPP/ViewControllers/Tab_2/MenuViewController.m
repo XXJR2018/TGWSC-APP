@@ -60,10 +60,8 @@
     
 }
 
-
 #pragma mark - LSPPageViewDelegate
-- (void)pageViewScollEndView:(LSPPageView *)pageView WithIndex:(NSInteger)index
-{
+- (void)pageViewScollEndView:(LSPPageView *)pageView WithIndex:(NSInteger)index{
     NSLog(@"第%zd个",index);
 }
 

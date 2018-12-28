@@ -65,7 +65,14 @@
     if (!_backBtn) {
         //左按钮
         _backBtn = ({
-            UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, ZYHT_StatusBarHeight, leftRightIconWH, leftRightIconWH)];
+            
+            int iTemp = 0;
+            if (IS_IPHONE_X_MORE)
+             {
+                iTemp = 5;
+             }
+            
+            UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, ZYHT_StatusBarHeight + iTemp, leftRightIconWH, leftRightIconWH)];
             [backBtn setImage:[UIImage imageNamed:@"navi_back_w"] forState:UIControlStateNormal];
             [backBtn addTarget:self action:@selector(backBtnOnCLick:) forControlEvents:UIControlEventTouchUpInside];
             backBtn.hidden = YES;

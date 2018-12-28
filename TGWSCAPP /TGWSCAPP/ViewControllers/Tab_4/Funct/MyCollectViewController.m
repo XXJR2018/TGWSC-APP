@@ -116,6 +116,7 @@
     NSString *goodsCode = [NSString stringWithFormat:@"%@",[dic objectForKey:@"goodsCode"]];
     if (goodsCode.length > 0) {
         ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
+        VC.shopModel = [[ShopModel alloc] init];
         VC.shopModel.strGoodsCode = goodsCode;
         [self.navigationController pushViewController:VC animated:YES];
     }

@@ -9,6 +9,7 @@
 #import "TabViewController_4.h"
 
 #import "UserInfoViewController.h"
+#import "OrderViewController.h"
 #import "MyBalanceViewController.h"
 #import "MyScoresViewController.h"
 #import "CouponViewController.h"
@@ -99,26 +100,6 @@
         }
     }
     
-    //余额
-//    if ([[dic objectForKey:@""] intValue] > 0) {
-//        _balanceNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]];
-//    }else{
-//        _balanceNumLabel.text = @"";
-//    }
-//    //积分
-//    if ([[dic objectForKey:@""] intValue] > 0) {
-//        _pointsNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]];
-//    }else{
-//        _pointsNumLabel.text = @"";
-//    }
-//    //优惠券
-//    if ([[dic objectForKey:@""] intValue] > 0) {
-//        _couponNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]];
-//    }else{
-//        _couponNumLabel.text = @"";
-//    }
-  
-    
 }
 
 #pragma mark-- 刷新订单信息
@@ -140,22 +121,34 @@
         _dfhNumLabel.text = @"";
     }
     //已发货
-    if ([[dic objectForKey:@"noPayOrderCount"] intValue] > 0) {
+    if ([[dic objectForKey:@"sendOrderCount"] intValue] > 0) {
         _yfhNumLabel.hidden = NO;
-        _yfhNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"noPayOrderCount"]];
+        _yfhNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"sendOrderCount"]];
     }else{
         _yfhNumLabel.hidden = YES;
         _yfhNumLabel.text = @"";
     }
-    //退款/售后
-    if ([[dic objectForKey:@"noPayOrderCount"] intValue] > 0) {
-        _tkNumLabel.hidden = NO;
-        _tkNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"noPayOrderCount"]];
-    }else{
-        _tkNumLabel.hidden = YES;
-        _tkNumLabel.text = @"";
-    }
+//    //退款/售后
+//    if ([[dic objectForKey:@"noPayOrderCount"] intValue] > 0) {
+//        _tkNumLabel.hidden = NO;
+//        _tkNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"noPayOrderCount"]];
+//    }else{
+//        _tkNumLabel.hidden = YES;
+//        _tkNumLabel.text = @"";
+//    }
     
+    //余额
+    if ([[dic objectForKey:@"totalScore"] floatValue] > 0) {
+        _balanceNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"totalScore"]];
+    }else{
+        _balanceNumLabel.text = @"";
+    }
+    //积分
+    if ([[dic objectForKey:@""] intValue] > 0) {
+        _pointsNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]];
+    }else{
+        _pointsNumLabel.text = @"";
+    }
     //优惠券按钮
     if ([[dic objectForKey:@"cardCount"] intValue] > 0) {
         _couponNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cardCount"]];
@@ -260,7 +253,7 @@
     _orderImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_headImgView.frame) + 10, SCREEN_WIDTH, 168 * ScaleSize)];
     [backdropImgView addSubview:_orderImgView];
     _orderImgView.image = [UIImage imageNamed:@"Tab_4-4"];
-    backdropImgView.userInteractionEnabled = YES;
+    _orderImgView.userInteractionEnabled = YES;
     
     _logisticsView = [[UIImageView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_orderImgView.frame), SCREEN_WIDTH, 0)];
     [self.headView addSubview:_logisticsView];
@@ -272,8 +265,6 @@
 
 #pragma mark 订单按钮布局
 -(void)orderViewUI{
-    [_orderImgView removeAllSubviews];
- 
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 340 * ScaleSize)/2 + 15, 25 * ScaleSize, 150, 30)];
     [_orderImgView addSubview:titleLabel];
     titleLabel.font = [UIFont boldSystemFontOfSize:15];
@@ -442,17 +433,35 @@
     }
     NSLog(@"%ld",sender.tag);
     switch (sender.tag) {
+        case 99:{
+            //全部订单
+            OrderViewController *ctl = [[OrderViewController alloc]init];
+            ctl.orderIndex = 0;
+            [self.navigationController pushViewController:ctl animated:YES];
+        }break;
         case 100:{
-            
+            //代付款
+            OrderViewController *ctl = [[OrderViewController alloc]init];
+            ctl.orderIndex = 1;
+            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 101:{
-            
+            //代发货
+            OrderViewController *ctl = [[OrderViewController alloc]init];
+            ctl.orderIndex = 2;
+            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 102:{
-            
+            //已发货
+            OrderViewController *ctl = [[OrderViewController alloc]init];
+            ctl.orderIndex = 3;
+            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 103:{
-            
+            //已完成
+            OrderViewController *ctl = [[OrderViewController alloc]init];
+            ctl.orderIndex = 4;
+            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         default:
             break;

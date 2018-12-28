@@ -52,7 +52,6 @@
         self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",[[_dataDicionary objectForKey:@"minPrice"]floatValue]];
     }
 
-    
     if ([[_dataDicionary objectForKey:@"isSellOut"] intValue] == 0) {
         self.selloutLabel.hidden = NO;
     }

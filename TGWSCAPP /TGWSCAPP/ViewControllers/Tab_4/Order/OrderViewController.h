@@ -1,5 +1,5 @@
 //
-//  MyScoresViewController.h
+//  OrderViewController.h
 //  TGWSCAPP
 //
 //  Created by xxjr03 on 2018/12/28.
@@ -10,7 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MyScoresViewController : CommonViewController
+@interface OrderViewController : CommonViewController
+
+@property(nonatomic, assign)NSInteger orderIndex;
 
 @end
 

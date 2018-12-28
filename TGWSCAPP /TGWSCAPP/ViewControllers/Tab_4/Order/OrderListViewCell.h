@@ -1,5 +1,5 @@
 //
-//  ScoresViewCell.h
+//  OrderListViewCell.h
 //  TGWSCAPP
 //
 //  Created by xxjr03 on 2018/12/28.
@@ -10,9 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ScoresViewCell : UITableViewCell
-
-@property (nonatomic,strong) NSDictionary *dataDicionary;
+@interface OrderListViewCell : UITableViewCell
 
 @end
 

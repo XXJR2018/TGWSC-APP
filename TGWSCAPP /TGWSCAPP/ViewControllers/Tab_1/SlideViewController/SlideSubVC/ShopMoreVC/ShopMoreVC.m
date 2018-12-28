@@ -32,6 +32,9 @@
     [searchBtn setImage:[UIImage imageNamed:@"Tab1_Search"] forState:UIControlStateNormal];
     [searchBtn addTarget:self action:@selector(searchProduct) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    _cellDic = [[NSMutableDictionary alloc] init];
+    
     [self layoutUI];
 }
 
@@ -79,7 +82,8 @@
         });
     }];
     
-    [self.navigationController presentViewController:searShopVC animated:nil completion:nil];
+    //[self.navigationController presentViewController:searShopVC animated:nil completion:nil];
+    [self.navigationController pushViewController:searShopVC animated:YES];
 }
 
 #pragma mark 网络请求

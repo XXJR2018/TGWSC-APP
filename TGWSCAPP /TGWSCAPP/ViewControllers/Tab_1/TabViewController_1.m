@@ -387,7 +387,9 @@
     
     
     
-    [self.navigationController presentViewController:searShopVC animated:nil completion:nil];
+    //[self.navigationController presentViewController:searShopVC animated:nil completion:nil];
+    
+    [self.navigationController pushViewController:searShopVC animated:YES];
 }
 
 -(void) actionSearch2
@@ -419,9 +421,8 @@
         });
     }];
     
-
     
-    [self.navigationController presentViewController:searShopVC animated:NO completion:nil];
+    [self.navigationController pushViewController:searShopVC animated:YES];
 }
 
 

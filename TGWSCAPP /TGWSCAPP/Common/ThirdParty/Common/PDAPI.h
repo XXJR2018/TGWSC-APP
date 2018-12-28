@@ -33,6 +33,8 @@ static NSString *const kURLquerySkuList = @"appMall/sku/querySkuList";
 static NSString *const kURLaddFavorite = @"appMall/account/cust/favorite/addFavorite";
 // 查询更多商品 (按类型查)
 static NSString *const kURLqueryTypeMoreInfoList = @"appMall/home/queryTypeMoreInfoList";
+// 按名称和条件查询商品详情
+static NSString *const kURLqueryGoodsByCondition = @"appMall/goods/queryGoodsByCondition";
 
 
 

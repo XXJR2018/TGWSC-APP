@@ -12,6 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SearchSubVC : CommonViewController
 
+-(void) loadWebData;
+
+@property (nonatomic, strong) NSString *strSeacrhKey;
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

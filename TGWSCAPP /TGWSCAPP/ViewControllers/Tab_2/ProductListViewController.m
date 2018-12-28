@@ -70,6 +70,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _cellDic = [[NSMutableDictionary alloc] init];
+    
     [self layoutUI];
    
 }

@@ -32,6 +32,9 @@
     [searchBtn setImage:[UIImage imageNamed:@"Tab1_Search"] forState:UIControlStateNormal];
     [searchBtn addTarget:self action:@selector(searchProduct) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    _cellDic = [[NSMutableDictionary alloc] init];
+    
     [self layoutUI];
 }
 

@@ -240,18 +240,18 @@
 
 #pragma mark ---  !!!!!真正的搜索响应函数 ， （下拉列表的搜索，不在此处响应）
 - (void)beignToSearch:(NaviBarSearchType)searchType cellP:(NBSSearchShopCategoryViewCellP *)cellP tagLabel:(UILabel *)tagLabel searchBar:(LLSearchBar *)searchBar{
-    if (searchType == NaviBarSearchTypeDefault)
-    {
-        LLBLOCK_EXEC(self.beginSearchBlock,searchType,nil,nil,searchBar);
-    }
-    else if (searchType == NaviBarSearchTypeCategory)
-    {
-        LLBLOCK_EXEC(self.beginSearchBlock,searchType,cellP,nil,searchBar);
-    }
-    else  if (searchType == NaviBarSearchTypeHistory)
-    {
-        LLBLOCK_EXEC(self.beginSearchBlock,searchType,nil,tagLabel,nil);
-    }
+//    if (searchType == NaviBarSearchTypeDefault)
+//    {
+//        LLBLOCK_EXEC(self.beginSearchBlock,searchType,nil,nil,searchBar);
+//    }
+//    else if (searchType == NaviBarSearchTypeCategory)
+//    {
+//        LLBLOCK_EXEC(self.beginSearchBlock,searchType,cellP,nil,searchBar);
+//    }
+//    else  if (searchType == NaviBarSearchTypeHistory)
+//    {
+//        LLBLOCK_EXEC(self.beginSearchBlock,searchType,nil,tagLabel,nil);
+//    }
     
     //退出
     //[self dismissVC];
@@ -261,11 +261,36 @@
         SearchSubVC *VC = [[SearchSubVC alloc] init];
         VC.view.frame = CGRectMake(0, ZYHT_StatusBarAndNavigationBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT - ZYHT_StatusBarAndNavigationBarHeight);
         [self.view addSubview:VC.view];
+        [self addChildViewController:VC];  // 加了这句，才能让子ViewController响应生命周期函数
         
         _searchSubView = VC;
      }
+    _searchSubView.strSeacrhKey = @"";
+    
+    if (searchType == NaviBarSearchTypeDefault)
+     {
+        //LLBLOCK_EXEC(self.beginSearchBlock,searchType,nil,nil,searchBar);
+        _searchSubView.strSeacrhKey = searchBar.text;
+     }
+    else if (searchType == NaviBarSearchTypeCategory)
+     {
+        //LLBLOCK_EXEC(self.beginSearchBlock,searchType,cellP,nil,searchBar);
+        _searchSubView.strSeacrhKey = cellP.categotyTitle;
+     }
+    else  if (searchType == NaviBarSearchTypeHistory)
+     {
+        //LLBLOCK_EXEC(self.beginSearchBlock,searchType,nil,tagLabel,nil);
+        _searchSubView.strSeacrhKey = tagLabel.text;
+     }
+    
+    //[_searchSubView loadWebData];
     
     _myBGScrollView.hidden = YES;
+    if (_myBGScrollView)
+     {
+        [_myBGScrollView removeFromSuperview];
+        _myBGScrollView = nil;
+     }
     
     [self.view endEditing:YES];
         

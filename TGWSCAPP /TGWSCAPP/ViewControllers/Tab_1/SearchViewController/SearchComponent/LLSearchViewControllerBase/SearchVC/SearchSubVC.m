@@ -11,6 +11,8 @@
 #import "LLSearchVCConst.h"
 #import "ShopDetailVC.h"
 
+#define  HeadBtnViewHegiht    40
+
 @interface SearchSubVC ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 {
     
@@ -63,16 +65,19 @@
 
 -(void)layoutUI
 {
-    self.view.backgroundColor = [UIColor yellowColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
-    NSLog(@"SearchSubVC  frame:%f", self.view.frame.size.height);
+    //NSLog(@"SearchSubVC  frame:%f", self.view.frame.size.height);
+    [self layoutHeadBtn];
     
+
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.minimumLineSpacing = 0;
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+
     
-    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 100, SCREEN_WIDTH, self.view.height-100 - ZYHT_StatusBarAndNavigationBarHeight) collectionViewLayout:flowLayout];
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, HeadBtnViewHegiht, SCREEN_WIDTH, self.view.height-HeadBtnViewHegiht - ZYHT_StatusBarAndNavigationBarHeight) collectionViewLayout:flowLayout];
     _collectionView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_collectionView];
     _collectionView.delegate = self;
@@ -90,6 +95,17 @@
     }];
     
     //[self loadWebData];
+    
+}
+
+-(void) layoutHeadBtn
+{
+    UIView *viewHead = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, HeadBtnViewHegiht)];
+    [self.view addSubview:viewHead];
+    
+    int iBtnWidth = SCREEN_WIDTH/3;
+    //UIButton *btnOne = [UIButton alloc] initWithFrame:CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+    
     
 }
 
@@ -121,7 +137,6 @@
 
 /*!
  @brief     刷新数据
- @return    void
  */
 - (void)reloadData
 {
@@ -158,7 +173,6 @@
 
 /*!
  @brief     刷新
- @return    void
  */
 - (void)refreshTableViewWithArray:(NSArray *)array
 {
@@ -177,7 +191,6 @@
 
 /*!
  @brief     加载更多
- @return    void
  */
 - (void)refreshTableViewWithMoreArray:(NSArray *)array
 {
@@ -213,6 +226,11 @@
         if (self.pageIndex >= 1) {
             [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
         }
+        else
+         {
+            [self reloadTableViewWithArray:operation.jsonResult.rows];
+         }
+        
     }
 }
 
@@ -288,6 +306,8 @@
     
     NSString *goodsCode = [NSString stringWithFormat:@"%@",[dic objectForKey:@"goodsCode"]];
     if (goodsCode.length > 0) {
+        [self.view endEditing:YES];
+        
         ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
         VC.shopModel = [[ShopModel alloc] init];
         VC.shopModel.strGoodsCode = goodsCode;

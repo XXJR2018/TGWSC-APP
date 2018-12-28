@@ -47,7 +47,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.searchBar becomeFirstResponder];
+    //[self.searchBar becomeFirstResponder];
+    [self.view endEditing:YES];
 }
 
 - (void)viewDidLoad {

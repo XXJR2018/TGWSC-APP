@@ -16,6 +16,7 @@
 #import "HistoryAndCategorySearchHistroyViewP.h"
 #import "LLSearchVCConst.h"
 #import "UIView+LLRect.h"
+#import "SearchSubVC.h"
 
 
 @interface LLNaviSearchBaseVC () <UIScrollViewDelegate>
@@ -160,6 +161,14 @@
         [self dismissViewControllerAnimated:NO completion:nil];
     }];
     
+    
+    [searchNaviBarView showbackBtnWith:[UIImage imageNamed:@"return"] onClick:^(UIButton *btn) {
+        @LLStrongObj(self);
+        
+        [searchNaviBarView.naviSearchBar resignFirstResponder];
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }];
+    
     //开始搜索导航条输入
     [searchNaviBarView keyBoardSearchBtnOnClick:^(LLSearchBar *searchBar) {
         @LLStrongObj(self);
@@ -169,10 +178,20 @@
         [self.shopHistoryP saveSearchCache:searchBar.text result:nil];
     }];
     
+    
     //搜索框即时输入捕捉
     [searchNaviBarView textOfSearchBarDidChangeBlock:^(LLSearchBar *searchBar, NSString *searchText) {
-        @LLStrongObj(self);
-        LLBLOCK_EXEC(self.srdidChangeBlock,NaviBarSearchTypesearchBarDidChange,searchBar,searchText)
+        //@LLStrongObj(self);
+        //LLBLOCK_EXEC(self.srdidChangeBlock,NaviBarSearchTypesearchBarDidChange,searchBar,searchText)
+        
+        //执行即时搜索匹配
+        NSArray *tempArray = nil;//@[@"Java111", @"Python222"];
+        
+        //FIXME:这里模拟网络请求数据!!!
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.resultListArray = tempArray;
+        });
+        
     }];
     
     
@@ -216,7 +235,7 @@
     return _myBGScrollView;
 }
 
-
+#pragma mark ---  !!!!!真正的搜索响应函数 ， （下拉列表的搜索，不在此处响应）
 - (void)beignToSearch:(NaviBarSearchType)searchType cellP:(NBSSearchShopCategoryViewCellP *)cellP tagLabel:(UILabel *)tagLabel searchBar:(LLSearchBar *)searchBar{
     if (searchType == NaviBarSearchTypeDefault)
     {
@@ -232,7 +251,7 @@
     }
     
     //退出
-    [self dismissVC];
+    //[self dismissVC];
 }
 
 - (void)dismissVC{
@@ -247,6 +266,8 @@
     if (!_resultListView) {
         _resultListView = [[LLSearchResultListView alloc] init];
         
+        
+#pragma mark  ---   !!!!!真正的搜索响应函数， 下拉列表的点击搜索
         //列表被点击
         @LLWeakObj(self);
         [_resultListView  resultListViewDidSelectedIndex:^(UITableView *tableView, NSInteger index) {

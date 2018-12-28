@@ -300,8 +300,8 @@
             adListView.shopModel = sModel;
             iTopY += adListView.height;
          }
-        //else if (0 == iShowType)
-        else
+        else if (0 == iShowType)
+        //else
          {
             ShopListView  *shopListView = [[ShopListView alloc] initWithTitle:strTypeTitle itemArray:tempArr origin_Y:iTopY
                                                                                columnOneCount:iColumnOneCount  columnTwoCount:iColumnTwoCount];

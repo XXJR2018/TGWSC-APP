@@ -21,6 +21,7 @@
 		C0A48A7721D4A62A002AF226 /* ShopMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7621D4A62A002AF226 /* ShopMoreVC.m */; };
 		C0A48A7A21D4A64A002AF226 /* ShopMoreAtTimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7921D4A64A002AF226 /* ShopMoreAtTimeVC.m */; };
 		C0A48A7D21D4BE37002AF226 /* HeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7C21D4BE37002AF226 /* HeaderCollectionReusableView.m */; };
+		C0A48A8021D5C380002AF226 /* SearchSubVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7F21D5C380002AF226 /* SearchSubVC.m */; };
 		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
@@ -318,6 +319,8 @@
 		C0A48A7921D4A64A002AF226 /* ShopMoreAtTimeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopMoreAtTimeVC.m; sourceTree = "<group>"; };
 		C0A48A7B21D4BE37002AF226 /* HeaderCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderCollectionReusableView.h; sourceTree = "<group>"; };
 		C0A48A7C21D4BE37002AF226 /* HeaderCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderCollectionReusableView.m; sourceTree = "<group>"; };
+		C0A48A7E21D5C380002AF226 /* SearchSubVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchSubVC.h; sourceTree = "<group>"; };
+		C0A48A7F21D5C380002AF226 /* SearchSubVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchSubVC.m; sourceTree = "<group>"; };
 		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
@@ -996,8 +999,10 @@
 		C0CCC7CC21C0F150009352E0 /* SearchVC */ = {
 			isa = PBXGroup;
 			children = (
-				C0CCC7CD21C0F150009352E0 /* LLNaviSearchBaseVC.m */,
 				C0CCC7CE21C0F150009352E0 /* LLNaviSearchBaseVC.h */,
+				C0CCC7CD21C0F150009352E0 /* LLNaviSearchBaseVC.m */,
+				C0A48A7E21D5C380002AF226 /* SearchSubVC.h */,
+				C0A48A7F21D5C380002AF226 /* SearchSubVC.m */,
 			);
 			path = SearchVC;
 			sourceTree = "<group>";
@@ -1006,10 +1011,10 @@
 			isa = PBXGroup;
 			children = (
 				C0CCC7D021C0F150009352E0 /* Category */,
-				C0CCC7D721C0F150009352E0 /* LLTagViewUtils.m */,
-				C0CCC7D821C0F150009352E0 /* LLSearchHistorySaveUtils.m */,
 				C0CCC7D921C0F150009352E0 /* LLTagViewUtils.h */,
+				C0CCC7D721C0F150009352E0 /* LLTagViewUtils.m */,
 				C0CCC7DA21C0F150009352E0 /* LLSearchHistorySaveUtils.h */,
+				C0CCC7D821C0F150009352E0 /* LLSearchHistorySaveUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1017,11 +1022,11 @@
 		C0CCC7D021C0F150009352E0 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				C0CCC7D521C0F150009352E0 /* UIView+LLRect.h */,
 				C0CCC7D121C0F150009352E0 /* UIView+LLRect.m */,
+				C0CCC7D421C0F150009352E0 /* UIColor+LLHex.h */,
 				C0CCC7D221C0F150009352E0 /* UIColor+LLHex.m */,
 				C0CCC7D321C0F150009352E0 /* LLSearchVCConst.h */,
-				C0CCC7D421C0F150009352E0 /* UIColor+LLHex.h */,
-				C0CCC7D521C0F150009352E0 /* UIView+LLRect.h */,
 				C0CCC7D621C0F150009352E0 /* LLSearchVCConst.m */,
 			);
 			path = Category;
@@ -2403,6 +2408,7 @@
 				C0CCC85121C3461D009352E0 /* SlideSub2.m in Sources */,
 				C0A48A7721D4A62A002AF226 /* ShopMoreVC.m in Sources */,
 				C250480021BA73B800DA9C72 /* AFURLConnectionOperation.m in Sources */,
+				C0A48A8021D5C380002AF226 /* SearchSubVC.m in Sources */,
 				C250460421BA711E00DA9C72 /* TTRangeSlider.m in Sources */,
 				C20525DE21BE6E1D00E13893 /* TabBarViewController.m in Sources */,
 				C244952421CCC6E100F8698B /* LSPContentView.m in Sources */,

@@ -11,8 +11,8 @@
 #import "WXApiObject.h"
 
 //天狗窝商城
-#define APPID_WC @"wx886c67d0eb472528"
-#define APPSecret_WC @"872cdef6daf3483c7af8859be318b255"
+#define APPID_WC @"wx06afab08425bd34e"
+#define APPSecret_WC @"920ffb536569908cfbfac5725296f1e5"
 
 @class WXPayModel;
 

@@ -80,7 +80,23 @@
     operation.tag = 1001;
 }
 
-
+-(void)delectAddressUrl{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (self.addressDic.count > 0) {
+        params[@"addrId"] = [NSString stringWithFormat:@"%@",[_addressDic objectForKey:@"addrId"]];
+    }
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/custAddr/delete",[PDAPI getBaseUrlString]]
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+    operation.tag = 1002;
+}
 #pragma mark 数据操作
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
@@ -91,7 +107,15 @@
             _districtArr = [(NSDictionary *)_cityArr[0] objectForKey:@"districts"];
         }
     }else if (operation.tag == 1001) {
-        [MBProgressHUD showSuccessWithStatus:@"修改地址成功成功" toView:self.view];
+        [MBProgressHUD showSuccessWithStatus:@"修改地址成功" toView:self.view];
+        //发送通知更新用户信息
+        [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
+        self.addressBlock();
+        [self performBlock:^{
+            [self.navigationController popViewControllerAnimated:YES];
+        } afterDelay:1];
+    }else{
+        [MBProgressHUD showSuccessWithStatus:@"删除地址成功" toView:self.view];
         //发送通知更新用户信息
         [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
         self.addressBlock();
@@ -109,11 +133,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self layoutNaviBarViewWithTitle:self.titleStr];
+    CustomNavigationBarView *naviBarView  = [self layoutNaviBarViewWithTitle:self.titleStr];
     
+    if ([self.titleStr isEqualToString:@"修改地址"]) {
+        UIButton *delectBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 60, NavHeight - 35, 60, 30)];
+        [naviBarView addSubview:delectBtn];
+        [delectBtn setTitle:@"删除" forState:UIControlStateNormal];
+        delectBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [delectBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
+        [delectBtn addTarget:self action:@selector(delectAddressUrl) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    [self layoutUI];
+    
+}
+
+-(void)layoutUI{
     self.saveBtn.layer.borderWidth = 0.5;
     self.saveBtn.layer.borderColor = [ResourceManager mainColor].CGColor;
-
+    
     if (self.addressDic.count > 0) {
         self.nameField.text = [NSString stringWithFormat:@"%@",[_addressDic objectForKey:@"receiveName"]];
         self.phoneField.text = [NSString stringWithFormat:@"%@",[_addressDic objectForKey:@"receiveTel"]];
@@ -132,7 +170,6 @@
     UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(TouchViewKeyBoard)];
     gesture.numberOfTapsRequired  = 1;
     [self.view addGestureRecognizer:gesture];
-    
 }
 
 //添加手势点击空白处隐藏键盘

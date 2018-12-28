@@ -13,6 +13,7 @@
 #import "CouponViewController.h"
 #import "MyCollectViewController.h"
 #import "AddressViewController.h"
+#import "CustomerServiceViewController.h"
 
 #import "JXButton.h"
 
@@ -276,7 +277,7 @@
     for (int i = 0; i < 4; i ++) {
         for (int j = 0; j < 4; j ++) {
             NSInteger count = i * 4 + j;
-            if ([[[CommonInfo userInfo] objectForKey:@"isEmployee"] intValue] != 0) {
+            if ([[[CommonInfo userInfo] objectForKey:@"isEmployee"] intValue] == 0) {
                 count = i * 4 + j + 1;
             }
             if (count < imgArr.count) {
@@ -353,6 +354,11 @@
 
 #pragma mark----订单按钮点击事件orderTouch
 -(void)orderTouch:(UIButton *)sender{
+    if (![CommonInfo isLoggedIn]) {
+        [DDGUserInfoEngine engine].parentViewController = self;
+        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+        return;
+    }
     NSLog(@"%ld",sender.tag);
     switch (sender.tag) {
         case 100:{
@@ -375,6 +381,11 @@
 
 #pragma mark----funct底部功能按钮点击事件
 -(void)functTouch:(UIButton *)sender{
+    if (![CommonInfo isLoggedIn]) {
+        [DDGUserInfoEngine engine].parentViewController = self;
+        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+        return;
+    }
     NSLog(@"%ld",sender.tag);
     switch (sender.tag) {
         case 0:{
@@ -401,7 +412,9 @@
             [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 5:{
-            
+            //客服中心
+            CustomerServiceViewController *ctl = [[CustomerServiceViewController alloc]init];
+            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         default:
             break;

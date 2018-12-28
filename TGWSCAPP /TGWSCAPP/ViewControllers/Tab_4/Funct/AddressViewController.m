@@ -55,6 +55,16 @@
     [_tableView.mj_footer endRefreshing];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"地址管理"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"地址管理"];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

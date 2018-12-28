@@ -17,6 +17,16 @@
 
 @implementation AccountSecurityViewController
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"账户安全"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"账户安全"];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

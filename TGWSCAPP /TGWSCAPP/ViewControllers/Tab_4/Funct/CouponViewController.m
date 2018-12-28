@@ -63,6 +63,15 @@
     [_tableView.mj_footer endRefreshing];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"优惠券"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"优惠券"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

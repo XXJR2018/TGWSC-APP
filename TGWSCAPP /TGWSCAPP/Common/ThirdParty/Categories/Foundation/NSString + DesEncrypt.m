@@ -14,7 +14,7 @@
 
 NSString *const kDesKeyString = @"desKeyString";
 
-NSString *const kTGWKeyString = @"xxjrxxxjabd345";
+NSString *const kTGWKeyString =  @"xxjrMallabd345"; //@"xxjrxxxjabd345";
 
 @implementation NSString(DesEncrypt)
 

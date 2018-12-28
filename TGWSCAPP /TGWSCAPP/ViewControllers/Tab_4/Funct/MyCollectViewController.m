@@ -56,6 +56,15 @@
     [_tableView.mj_footer endRefreshing];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"我的收藏"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"我的收藏"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

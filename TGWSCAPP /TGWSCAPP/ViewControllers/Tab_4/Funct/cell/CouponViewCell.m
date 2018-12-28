@@ -62,6 +62,8 @@
   
     if ([[_dataDicionary objectForKey:@"usableFlag"] intValue] == 1) {
         self.employBtn.hidden = NO;
+    }else{
+        self.employBtn.hidden = YES;
     }
     if ([[_dataDicionary objectForKey:@"status"] intValue] == 2) {
         self.bgImgView.image = [UIImage imageNamed:@"Tab_4-20"];

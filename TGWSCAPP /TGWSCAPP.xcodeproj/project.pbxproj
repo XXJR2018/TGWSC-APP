@@ -261,6 +261,8 @@
 		C2AEB47321BE47050078E788 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AEB47221BE47050078E788 /* libsqlite3.tbd */; };
 		C2AEB47521BE470E0078E788 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AEB47421BE470E0078E788 /* CoreTelephony.framework */; };
 		C2AEB47721BE47380078E788 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AEB47621BE47370078E788 /* libz.tbd */; };
+		C2B41C1021D5CAA100944A86 /* CustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B41C0E21D5CAA100944A86 /* CustomerServiceViewController.m */; };
+		C2B41C1121D5CAA100944A86 /* CustomerServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2B41C0F21D5CAA100944A86 /* CustomerServiceViewController.xib */; };
 		C2B51AF121C3462500AC76FB /* ProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */; };
 		C2B51AF221C3462500AC76FB /* ProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */; };
 		E33967D271FF073A04BE5646 /* libPods-TGWSCAPPTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D61764B54B6E69C56E919970 /* libPods-TGWSCAPPTests.a */; };
@@ -760,6 +762,9 @@
 		C2AEB47421BE470E0078E788 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		C2AEB47621BE47370078E788 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C2AEB47821BE48260078E788 /* APPConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APPConstants.h; sourceTree = "<group>"; };
+		C2B41C0D21D5CAA100944A86 /* CustomerServiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerServiceViewController.h; sourceTree = "<group>"; };
+		C2B41C0E21D5CAA100944A86 /* CustomerServiceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerServiceViewController.m; sourceTree = "<group>"; };
+		C2B41C0F21D5CAA100944A86 /* CustomerServiceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomerServiceViewController.xib; sourceTree = "<group>"; };
 		C2B51AEE21C3462500AC76FB /* ProductCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductCollectionViewCell.h; sourceTree = "<group>"; };
 		C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductCollectionViewCell.m; sourceTree = "<group>"; };
 		C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1259,6 +1264,9 @@
 				C29ABBEE21D4776A00428407 /* AddAddressViewController.h */,
 				C29ABBEF21D4776A00428407 /* AddAddressViewController.m */,
 				C29ABBF021D4776A00428407 /* AddAddressViewController.xib */,
+				C2B41C0D21D5CAA100944A86 /* CustomerServiceViewController.h */,
+				C2B41C0E21D5CAA100944A86 /* CustomerServiceViewController.m */,
+				C2B41C0F21D5CAA100944A86 /* CustomerServiceViewController.xib */,
 			);
 			path = Funct;
 			sourceTree = "<group>";
@@ -2243,6 +2251,7 @@
 				C222C38F21D2235700DD9797 /* NickNameViewController.xib in Resources */,
 				C0CCC83221C1FD21009352E0 /* search@2x.png in Resources */,
 				C29ABBE521D466D600428407 /* MyCollectCell.xib in Resources */,
+				C2B41C1121D5CAA100944A86 /* CustomerServiceViewController.xib in Resources */,
 				C250479521BA715500DA9C72 /* CHANGELOG.md in Resources */,
 				C0CCC83421C1FD21009352E0 /* clearImage@3x.png in Resources */,
 				C25047B021BA715500DA9C72 /* error.png in Resources */,
@@ -2403,6 +2412,7 @@
 				C250476721BA715500DA9C72 /* NSDate+Additions.m in Sources */,
 				C244952221CCC6E100F8698B /* LSPTitleStyle.m in Sources */,
 				C250480621BA73B800DA9C72 /* AFSecurityPolicy.m in Sources */,
+				C2B41C1021D5CAA100944A86 /* CustomerServiceViewController.m in Sources */,
 				C0CCC7FA21C0F1CB009352E0 /* HistoryAndCategorySearchCategoryViewP.m in Sources */,
 				C0CCC81321C0F30F009352E0 /* BaseCommonSearchVC.m in Sources */,
 				C222C37A21D2187700DD9797 /* MyBalanceViewController.m in Sources */,

@@ -85,6 +85,15 @@
     [_tableView.mj_footer endRefreshing];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"我的余额"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"我的余额"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -268,6 +277,7 @@
         cell.dataDicionary = self.dataArray[indexPath.row];
         return cell;
     }else if (_lqListBtn.selected) {
+        
         NSString *cellID = [NSString stringWithFormat:@"%ld_cell",indexPath.row];
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
         if (!cell) {

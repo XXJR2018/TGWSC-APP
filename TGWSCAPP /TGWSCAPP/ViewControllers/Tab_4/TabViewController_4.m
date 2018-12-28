@@ -10,6 +10,7 @@
 
 #import "UserInfoViewController.h"
 #import "MyBalanceViewController.h"
+#import "MyScoresViewController.h"
 #import "CouponViewController.h"
 #import "MyCollectViewController.h"
 #import "AddressViewController.h"
@@ -35,7 +36,7 @@
     UILabel *_collectNumLabel;   // 收藏
     UIButton *_couponBtn;   //优惠券按钮
     
-    
+    UIView *_logisticsView;   //物流信息布局
 }
 
 @property(nonatomic, strong)UITableView *tableView;
@@ -46,6 +47,34 @@
 @end
 
 @implementation TabViewController_4
+
+-(void)loadData{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/cust/info/custSummary",[PDAPI getBaseUrlString]]
+                                                                               parameters:nil HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+}
+
+#pragma mark 数据操作
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [_tableView.mj_header endRefreshing];
+    if (operation.jsonResult.attr.count > 0) {
+        [self changeOrderInfo:operation.jsonResult.attr];
+    }
+}
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
+    [_tableView.mj_header endRefreshing];
+}
 
 #pragma mark-- 刷新用户数据更新用户信息显示
 -(void)changeUserInfo{
@@ -88,18 +117,72 @@
 //    }else{
 //        _couponNumLabel.text = @"";
 //    }
-//    //收藏
-//    if ([[dic objectForKey:@""] intValue] > 0) {
-//        _collectNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]];
-//    }else{
-//        _collectNumLabel.text = @"";
-//    }
+  
+    
+}
+
+#pragma mark-- 刷新订单信息
+-(void)changeOrderInfo:(NSDictionary *)dic{
+    //代付款
+    if ([[dic objectForKey:@"noPayOrderCount"] intValue] > 0) {
+        _dfkNumLabel.hidden = NO;
+        _dfkNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"noPayOrderCount"]];
+    }else{
+        _dfkNumLabel.hidden = YES;
+        _dfkNumLabel.text = @"";
+    }
+    //代发货
+    if ([[dic objectForKey:@"noSendOrderCount"] intValue] > 0) {
+        _dfhNumLabel.hidden = NO;
+        _dfhNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"noSendOrderCount"]];
+    }else{
+        _dfhNumLabel.hidden = YES;
+        _dfhNumLabel.text = @"";
+    }
+    //已发货
+    if ([[dic objectForKey:@"noPayOrderCount"] intValue] > 0) {
+        _yfhNumLabel.hidden = NO;
+        _yfhNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"noPayOrderCount"]];
+    }else{
+        _yfhNumLabel.hidden = YES;
+        _yfhNumLabel.text = @"";
+    }
+    //退款/售后
+    if ([[dic objectForKey:@"noPayOrderCount"] intValue] > 0) {
+        _tkNumLabel.hidden = NO;
+        _tkNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"noPayOrderCount"]];
+    }else{
+        _tkNumLabel.hidden = YES;
+        _tkNumLabel.text = @"";
+    }
+    
     //优惠券按钮
-    if ([[dic objectForKey:@""] intValue] > 0) {
+    if ([[dic objectForKey:@"cardCount"] intValue] > 0) {
+        _couponNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cardCount"]];
         [_couponBtn setImage:[UIImage imageNamed:@"Tab_4-18"] forState:UIControlStateNormal];
     }else{
+        _couponNumLabel.text = @"";
         [_couponBtn setImage:[UIImage imageNamed:@"Tab_4-14"] forState:UIControlStateNormal];
     }
+    //收藏
+    if ([[dic objectForKey:@"favoriteCount"] intValue] > 0) {
+        _collectNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"favoriteCount"]];
+    }else{
+        _collectNumLabel.text = @"";
+    }
+   
+    NSArray *sticsListArr = [dic objectForKey:@"logisticsList"];
+    if (sticsListArr.count == 0) {
+        _logisticsView.frame = CGRectMake(0, CGRectGetMaxY(_orderImgView.frame), SCREEN_WIDTH, 0);
+        self.headView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_logisticsView.frame));
+    }else{
+         _logisticsView.frame = CGRectMake(0, CGRectGetMaxY(_orderImgView.frame), SCREEN_WIDTH, 120);
+        
+        
+        
+    }
+    self.headView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_logisticsView.frame));
+    [_tableView reloadData];
     
 }
 
@@ -134,7 +217,7 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         //发送通知更新用户信息
         [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
-        [self.tableView.mj_header endRefreshing];
+        [self loadData];
         [self.tableView reloadData];
     }];
 
@@ -179,8 +262,10 @@
     _orderImgView.image = [UIImage imageNamed:@"Tab_4-4"];
     backdropImgView.userInteractionEnabled = YES;
     
+    _logisticsView = [[UIImageView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_orderImgView.frame), SCREEN_WIDTH, 0)];
+    [self.headView addSubview:_logisticsView];
 
-    self.headView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(backdropImgView.frame));
+    self.headView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_logisticsView.frame));
     
     [self orderViewUI];
 }
@@ -224,7 +309,7 @@
             _dfkNumLabel.textColor = [UIColor whiteColor];
             _dfkNumLabel.textAlignment = NSTextAlignmentCenter;
             _dfkNumLabel.font = [UIFont systemFontOfSize:8];
-            _dfkNumLabel.text = @"1";
+            _dfkNumLabel.hidden = YES;
         }else if (i == 1) {
             _dfhNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth - 33, 5, 12, 12)];
             [orderBtn addSubview:_dfhNumLabel];
@@ -234,7 +319,7 @@
             _dfhNumLabel.textColor = [UIColor whiteColor];
             _dfhNumLabel.textAlignment = NSTextAlignmentCenter;
             _dfhNumLabel.font = [UIFont systemFontOfSize:8];
-            _dfhNumLabel.text = @"99";
+            _dfhNumLabel.hidden = YES;
         }else if (i == 2) {
             _yfhNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth - 33, 5, 12, 12)];
             [orderBtn addSubview:_yfhNumLabel];
@@ -244,7 +329,7 @@
             _yfhNumLabel.textColor = [UIColor whiteColor];
             _yfhNumLabel.textAlignment = NSTextAlignmentCenter;
             _yfhNumLabel.font = [UIFont systemFontOfSize:8];
-            _yfhNumLabel.text = @"21";
+            _yfhNumLabel.hidden = YES;
         }else if (i == 3) {
             _tkNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth - 33, 5, 12, 12)];
             [orderBtn addSubview:_tkNumLabel];
@@ -254,7 +339,7 @@
             _tkNumLabel.textColor = [UIColor whiteColor];
             _tkNumLabel.textAlignment = NSTextAlignmentCenter;
             _tkNumLabel.font = [UIFont systemFontOfSize:8];
-            _tkNumLabel.text = @"10";
+             _tkNumLabel.hidden = YES;
         }
     }
     
@@ -295,7 +380,6 @@
                     _couponNumLabel.textAlignment = NSTextAlignmentCenter;
                     _couponNumLabel.textColor = [ResourceManager mainColor];
                     _couponNumLabel.font = [UIFont systemFontOfSize:12];
-                    _couponNumLabel.text = @"2";
                 }else{
                     JXButton *functBtn = [[JXButton alloc]initWithFrame:CGRectMake(btnWidth * j, btnWidth * i + 20 * (i + 1), btnWidth, btnWidth)];
                     [self.footView addSubview:functBtn];
@@ -311,21 +395,18 @@
                         _balanceNumLabel.textAlignment = NSTextAlignmentCenter;
                         _balanceNumLabel.textColor = [ResourceManager mainColor];
                         _balanceNumLabel.font = [UIFont systemFontOfSize:12];
-                        _balanceNumLabel.text = @"200.00";
                     }else if (count == 1) {
                         _pointsNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, btnWidth - 20, btnWidth, 15)];
                         [functBtn addSubview:_pointsNumLabel];
                         _pointsNumLabel.textAlignment = NSTextAlignmentCenter;
                         _pointsNumLabel.textColor = [ResourceManager mainColor];
                         _pointsNumLabel.font = [UIFont systemFontOfSize:12];
-                        _pointsNumLabel.text = @"125";
                     }else if (count == 3) {
                         _collectNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, btnWidth - 20, btnWidth, 15)];
                         [functBtn addSubview:_collectNumLabel];
                         _collectNumLabel.textAlignment = NSTextAlignmentCenter;
                         _collectNumLabel.textColor = [ResourceManager mainColor];
                         _collectNumLabel.font = [UIFont systemFontOfSize:12];
-                        _collectNumLabel.text = @"19";
                     }
                     currentHeight = CGRectGetMaxY(functBtn.frame);
                 }
@@ -394,7 +475,9 @@
             [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 1:{
-            
+            //我的积分
+            MyScoresViewController *ctl = [[MyScoresViewController alloc]init];
+            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 2:{
             //优惠券

@@ -99,7 +99,7 @@
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4EZ-bn-G96">
                     <rect key="frame" x="20" y="359" width="335" height="50"/>
-                    <color key="backgroundColor" red="0.76862745099999996" green="0.72941176470000002" blue="0.69411764710000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.4392156862745098" green="0.29019607843137252" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="zJS-7Y-2AB"/>
                     </constraints>

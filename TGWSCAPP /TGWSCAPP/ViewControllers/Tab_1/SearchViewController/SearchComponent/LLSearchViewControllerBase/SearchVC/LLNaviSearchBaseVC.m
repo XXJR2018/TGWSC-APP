@@ -27,6 +27,8 @@
 @property (nonatomic,strong) NBSSearchShopCategoryView *shopCategoryView;
 @property (nonatomic,strong) NBSSearchShopHistoryView *shopHistoryView;
 
+@property (nonatomic,strong) SearchSubVC *searchSubView;  // 搜索子页面
+
 
 @property (nonatomic,copy) beginSearchBlock beginSearchBlock;
 @property (nonatomic,copy) searchBarDidChangeBlock srdidChangeBlock;
@@ -184,14 +186,15 @@
         //@LLStrongObj(self);
         //LLBLOCK_EXEC(self.srdidChangeBlock,NaviBarSearchTypesearchBarDidChange,searchBar,searchText)
         
+        // baicai  update at 2018-12-28
         //执行即时搜索匹配
-        NSArray *tempArray = nil;//@[@"Java111", @"Python222"];
-        
-        //FIXME:这里模拟网络请求数据!!!
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.resultListArray = tempArray;
-        });
-        
+//        NSArray *tempArray = nil;//@[@"Java111", @"Python222"];
+//
+//        //FIXME:这里模拟网络请求数据!!!
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            self.resultListArray = tempArray;
+//        });
+        // baicai update  end
     }];
     
     
@@ -252,6 +255,22 @@
     
     //退出
     //[self dismissVC];
+    
+    if (!_searchSubView)
+     {
+        SearchSubVC *VC = [[SearchSubVC alloc] init];
+        VC.view.frame = CGRectMake(0, ZYHT_StatusBarAndNavigationBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT - ZYHT_StatusBarAndNavigationBarHeight);
+        [self.view addSubview:VC.view];
+        
+        _searchSubView = VC;
+     }
+    
+    _myBGScrollView.hidden = YES;
+    
+    [self.view endEditing:YES];
+        
+    
+
 }
 
 - (void)dismissVC{
@@ -268,6 +287,8 @@
         
         
 #pragma mark  ---   !!!!!真正的搜索响应函数， 下拉列表的点击搜索
+        __block  SearchSubVC *_blockSearchSubView = _searchSubView;
+         __block  UIView *_blockScrollView = _myBGScrollView;
         //列表被点击
         @LLWeakObj(self);
         [_resultListView  resultListViewDidSelectedIndex:^(UITableView *tableView, NSInteger index) {
@@ -278,7 +299,18 @@
             LLBLOCK_EXEC(self.myCellDidClickBlock,tableView,index);
             
             //退出搜索控制器
-            [self dismissVC];
+            //[self dismissVC];
+            if (!_blockSearchSubView)
+             {
+                SearchSubVC *VC = [[SearchSubVC alloc] init];
+                VC.view.frame = CGRectMake(0, 200, SCREEN_WIDTH, 100);
+                [self.view addSubview:VC.view];
+                
+                _blockSearchSubView = VC;
+             }
+            
+             _blockScrollView.hidden = YES;
+            
         }];
         
         

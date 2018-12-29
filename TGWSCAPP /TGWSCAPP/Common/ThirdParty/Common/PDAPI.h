@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 // 发送短信接口一（拿到SmsTokenID）
-static NSString *const kDDGgetSmsToken = @"tgw/smsAction/getSmsToken/custLogin";
+static NSString *const kDDGgetSmsToken = @"appMall/smsSend/getSmsToken/kjLogin";
 // 发送短信接口二（发送短信）
-static NSString *const kDDGnologin = @"tgw/smsAction/nologin/custLogin";
+static NSString *const kDDGnologin = @"appMall/smsSend/nologin/kjLogin";
 
 #pragma mark --- 首页页面相关接口
 // 获取首页菜单

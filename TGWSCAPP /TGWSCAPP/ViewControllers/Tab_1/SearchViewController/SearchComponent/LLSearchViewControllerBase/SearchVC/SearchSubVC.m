@@ -103,8 +103,29 @@
     UIView *viewHead = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, HeadBtnViewHegiht)];
     [self.view addSubview:viewHead];
     
-    int iBtnWidth = SCREEN_WIDTH/3;
-    //UIButton *btnOne = [UIButton alloc] initWithFrame:CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+    NSArray *arrTitle = @[@"综合",@"价格",@"销量"];
+    int iBtnWidth = SCREEN_WIDTH/[arrTitle count];
+    int iBtnLeftX = 0;
+    for (int i = 0; i < [arrTitle count]; i ++)
+     {
+        UIButton *btnOne = [[UIButton alloc] initWithFrame:CGRectMake(iBtnLeftX, 0, iBtnWidth, HeadBtnViewHegiht)];
+        [self.view addSubview:btnOne];
+        [btnOne setTitle:arrTitle[i] forState:UIControlStateNormal];
+        [btnOne setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
+        btnOne.titleLabel.font = [UIFont systemFontOfSize:14];
+        
+        if (i == 1)
+         {
+            [btnOne setImage:[UIImage imageNamed:@"Shop_search_price3"] forState:UIControlStateNormal];
+            
+            btnOne.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;//使图片和文字水平居中显示
+            [btnOne setTitleEdgeInsets:UIEdgeInsetsMake(btnOne.imageView.frame.size.height ,-btnOne.imageView.frame.size.width, 0.0,0.0)];//文字距离上边框的距离增加imageView的高度，距离左边框减少imageView的宽度，距离下边框和右边框距离不变
+            [btnOne setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,0.0, -btnOne.titleLabel.bounds.size.width)];//图片距离右边框距离减少图片的宽度，其它不边
+
+         }
+        
+        iBtnLeftX += iBtnWidth;
+     }
     
     
 }

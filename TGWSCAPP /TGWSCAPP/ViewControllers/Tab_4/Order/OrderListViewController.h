@@ -6,11 +6,11 @@
 //  Copyright © 2018 xxjr03. All rights reserved.
 //
 
-#import "CommonViewController.h"
+#import "MJRefreshViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface OrderListViewController : CommonViewController
+@interface OrderListViewController : MJRefreshViewController
 
 @end
 

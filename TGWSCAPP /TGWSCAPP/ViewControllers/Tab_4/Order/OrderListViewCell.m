@@ -10,6 +10,17 @@
 
 @implementation OrderListViewCell
 
+-(void)setDataDicionary:(NSDictionary *)dataDicionary{
+    _dataDicionary = dataDicionary;
+    [self layoutSubviews];
+}
+
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    
+    
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

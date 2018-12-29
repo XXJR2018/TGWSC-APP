@@ -48,8 +48,8 @@
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥178.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKw-jX-Bbq">
-                                <rect key="frame" x="10" y="25" width="57.5" height="25"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKw-jX-Bbq">
+                                <rect key="frame" x="10" y="25" width="127.5" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="E8G-fY-oMp"/>
                                 </constraints>
@@ -61,6 +61,7 @@
                         <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="foT-KW-MXH" firstAttribute="leading" secondItem="coG-yu-yix" secondAttribute="leading" constant="10" id="25s-k6-Tu5"/>
+                            <constraint firstAttribute="trailing" secondItem="xKw-jX-Bbq" secondAttribute="trailing" constant="50" id="HkU-Iy-wu7"/>
                             <constraint firstItem="xKw-jX-Bbq" firstAttribute="top" secondItem="coG-yu-yix" secondAttribute="top" constant="25" id="RU5-uB-QPs"/>
                             <constraint firstItem="foT-KW-MXH" firstAttribute="top" secondItem="coG-yu-yix" secondAttribute="top" id="Wdx-80-qgs"/>
                             <constraint firstItem="xKw-jX-Bbq" firstAttribute="leading" secondItem="coG-yu-yix" secondAttribute="leading" constant="10" id="liY-wi-z7R"/>

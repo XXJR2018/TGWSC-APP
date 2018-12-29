@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderListViewCell : UITableViewCell
 
+@property (nonatomic,strong) NSDictionary *dataDicionary;
+
 @end
 
 NS_ASSUME_NONNULL_END

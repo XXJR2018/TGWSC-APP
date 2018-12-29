@@ -138,14 +138,14 @@
 //    }
     
     //余额
-    if ([[dic objectForKey:@"totalScore"] floatValue] > 0) {
-        _balanceNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"totalScore"]];
+    if ([[dic objectForKey:@"usableAmount"] floatValue] > 0) {
+        _balanceNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"usableAmount"]];
     }else{
         _balanceNumLabel.text = @"";
     }
     //积分
-    if ([[dic objectForKey:@""] intValue] > 0) {
-        _pointsNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"telephone"]];
+    if ([[dic objectForKey:@"totalScore"] intValue] > 0) {
+        _pointsNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"totalScore"]];
     }else{
         _pointsNumLabel.text = @"";
     }

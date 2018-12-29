@@ -15,7 +15,13 @@
 
 @interface SearchSubVC ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 {
+    UIButton *btnPrice;  // 价格按钮
     
+    NSMutableArray *arrBtn;
+    
+    int iSelPrice;   // 0-未选中  1-选中
+    
+    int orderNum;   // 0-综合  1-价格升序 2-价格降序 3-销量降序
 }
 
 @property(nonatomic, strong) UICollectionView *collectionView;
@@ -58,9 +64,14 @@
 -(void) initData
 {
     _cellDic = [[NSMutableDictionary alloc] init];
+    arrBtn = [[NSMutableArray alloc] init];
+    
     _pageSizeCount = 50;
     _pageIndex = 1;
     _pullDown = YES;
+    iSelPrice = 0;
+    orderNum = 0;
+    
 }
 
 -(void)layoutUI
@@ -103,6 +114,8 @@
     UIView *viewHead = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, HeadBtnViewHegiht)];
     [self.view addSubview:viewHead];
     
+    [arrBtn removeAllObjects];
+    
     NSArray *arrTitle = @[@"综合",@"价格",@"销量"];
     int iBtnWidth = SCREEN_WIDTH/[arrTitle count];
     int iBtnLeftX = 0;
@@ -113,22 +126,28 @@
         [btnOne setTitle:arrTitle[i] forState:UIControlStateNormal];
         [btnOne setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
         btnOne.titleLabel.font = [UIFont systemFontOfSize:14];
+        btnOne.tag = i;
         
         if (i == 1)
          {
             [btnOne setImage:[UIImage imageNamed:@"Shop_search_price3"] forState:UIControlStateNormal];
-            
             btnOne.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;//使图片和文字水平居中显示
-            [btnOne setTitleEdgeInsets:UIEdgeInsetsMake(btnOne.imageView.frame.size.height ,-btnOne.imageView.frame.size.width, 0.0,0.0)];//文字距离上边框的距离增加imageView的高度，距离左边框减少imageView的宽度，距离下边框和右边框距离不变
-            [btnOne setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,0.0, -btnOne.titleLabel.bounds.size.width)];//图片距离右边框距离减少图片的宽度，其它不边
+            [btnOne setImageEdgeInsets:UIEdgeInsetsMake(0.0, btnOne.titleLabel.left + btnOne.titleLabel.width + 10,0.0, 0)];//图片距离右边框距离减少图片的宽度，其它不边
+            
+            btnPrice = btnOne;
 
          }
         
+        
+        [arrBtn addObject:btnOne];
+        [btnOne addTarget:self action:@selector(actionHead:) forControlEvents:UIControlEventTouchUpInside];
         iBtnLeftX += iBtnWidth;
      }
     
     
 }
+
+
 
 #pragma mark 网络请求
 -(void)loadData{
@@ -140,7 +159,7 @@
      {
         params[@"goodsName"] = _strSeacrhKey;//_strTypeCode;
      }
-    //params[@"orderNum"] = @(1);  //1-价格升序 2-价格降序 3-销量降序
+    params[@"orderNum"] = @(orderNum);  //1-价格升序 2-价格降序 3-销量降序
     
     NSString *strURL = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString],kURLqueryGoodsByCondition];
     
@@ -335,6 +354,65 @@
         [self.navigationController pushViewController:VC animated:YES];
         
     }
+}
+
+#pragma mark  --- action
+-(void) actionHead:(UIButton*) sender
+{
+    for (int i = 0; i < [arrBtn count]; i++)
+     {
+        UIButton *btnTemp = arrBtn[i];
+        [btnTemp setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
+     }
+    [btnPrice setImage:[UIImage imageNamed:@"Shop_search_price3"] forState:UIControlStateNormal];
+    
+    [sender setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
+    
+    // 1-价格升序 2-价格降序 3-销量降序
+    int iTag = (int)sender.tag;
+    if (0 == iTag)
+     {
+        // 综合
+        orderNum = 0;
+        iSelPrice = 0;
+        [self reloadData];
+        
+        
+     }
+    else if (1 == iTag)
+     {
+        // 价格
+        // 如果已经选中了价格按钮
+        if (iSelPrice == 1)
+         {
+            if (orderNum == 1)
+             {
+                orderNum = 2;
+                [btnPrice setImage:[UIImage imageNamed:@"Shop_search_price1"] forState:UIControlStateNormal];
+             }
+            else
+             {
+                orderNum = 1;
+                [btnPrice setImage:[UIImage imageNamed:@"Shop_search_price2"] forState:UIControlStateNormal];
+             }
+         }
+        
+        if (iSelPrice == 0)
+         {
+            iSelPrice = 1;
+            orderNum = 1;
+            [btnPrice setImage:[UIImage imageNamed:@"Shop_search_price2"] forState:UIControlStateNormal];
+         }
+        
+        [self reloadData];
+     }
+    else if (2 == iTag)
+     {
+        // 销量
+        orderNum = 3;
+        iSelPrice = 0;
+        [self reloadData];
+     }
 }
 
 @end

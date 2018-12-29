@@ -35,7 +35,8 @@ static NSString *const kURLaddFavorite = @"appMall/account/cust/favorite/addFavo
 static NSString *const kURLqueryTypeMoreInfoList = @"appMall/home/queryTypeMoreInfoList";
 // 按名称和条件查询商品详情
 static NSString *const kURLqueryGoodsByCondition = @"appMall/goods/queryGoodsByCondition";
-
+// 搜索时，即时匹配的字符
+static NSString *const kURLqueryGoodsKey = @"appMall/goodskey/queryGoodsKey";
 
 
 

@@ -389,6 +389,7 @@
     if (iKCCount <= 0)
      {
         viewSelCount.hidden = YES;
+        iSelCount = -1;
      }
     else
      {
@@ -449,7 +450,20 @@
 
 -(void) actionShopCart
 {
+
+    if (strSKUCode.length <= 0)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请选择正确的规格参数" toView:_keyWindow];
+        return;
+     }
     
+    if (iSelCount < 1)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请选择购物数量" toView:_keyWindow];
+        return;
+     }
+    
+    [self addOrderInfo];
 }
 
 -(void) actionSub
@@ -567,6 +581,48 @@
          }
      }
  
+}
+
+#pragma mark --- 网络通讯
+// 添加到购物车
+-(void) addOrderInfo
+{
+    [MBProgressHUD showHUDAddedTo:_keyWindow];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"goodsCode"] = _shopModel.strGoodsCode;
+    params[@"num"] = @(iSelCount);
+    params[@"skuCode"] = strSKUCode;
+    
+
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLsingleOrderInfo];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+
+    operation.tag = 1000;
+
+    [operation start];
+}
+
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation
+{
+    [MBProgressHUD hideHUDForView:_keyWindow animated:YES];
+
+    if (operation.tag == 1000)
+    {
+    }
+}
+
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:_keyWindow animated:NO];
+    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:_keyWindow];
+    
 }
 
 @end

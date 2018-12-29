@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "TSVideoPlayback.h"
 #import "PopSelShopView.h"
+#import "ShopCartVC.h"
 
 
 #define   BannerHeight     300
@@ -822,7 +823,8 @@
      }
     else if (2 == iTag)
      {
-        
+        ShopCartVC *VC = [[ShopCartVC alloc] init];
+        [self.navigationController pushViewController:VC animated:YES];
      }
 }
 

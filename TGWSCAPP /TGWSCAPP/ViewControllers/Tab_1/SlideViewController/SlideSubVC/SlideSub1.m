@@ -469,7 +469,7 @@
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
     
-    
+    [scView.mj_header endRefreshing];
     
 }
 

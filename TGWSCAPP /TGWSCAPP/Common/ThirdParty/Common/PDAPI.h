@@ -39,6 +39,21 @@ static NSString *const kURLqueryGoodsByCondition = @"appMall/goods/queryGoodsByC
 static NSString *const kURLqueryGoodsKey = @"appMall/goodskey/queryGoodsKey";
 
 
+#pragma mark ---- 购物车相关
+//  商品详情页面中，加入购物车
+static NSString *const kURLsingleOrderInfo = @"appMall/account/commitOrder/singleOrderInfo";
+
+//  购物车列表
+static NSString *const kURLorderCartList = @"appMall/account/orderCart/list";
+//  购物车面中，加入购物车
+static NSString *const kURLorderCartAdd = @"appMall/account/orderCart/add";
+//  修改购物车
+static NSString *const kURLorderCartUpdate = @"appMall/account/orderCart/update";
+//  删除购物车
+static NSString *const kURLorderCartDelete = @"appMall/account/orderCart/delete";
+// 购物车页面 的抬头
+static NSString *const kURLgetSaleTitle = @"appMall/account/orderCart/getSaleTitle";
+
 
 
 //房价评估

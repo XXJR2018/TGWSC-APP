@@ -18,9 +18,46 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    _tableView.backgroundColor = [UIColor whiteColor];
+    [_tableView setTableFooterView:[UIView new]];
+    [_tableView registerNib:[UINib nibWithNibName:@"OrderListViewCell" bundle:nil] forCellReuseIdentifier:@"OrderList_Cell"];
+    [_tableView setSeparatorInset:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [_tableView setSeparatorColor:[UIColor clearColor]];
 }
 
+#pragma mark === UITableViewDataSource
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataArray.count;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 80;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.dataArray.count == 0) {
+        return  [self noDataCell:tableView];
+    }
+    OrderListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderList_Cell"];
+    if (!cell) {
+        cell = [[OrderListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"OrderList_Cell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    cell.dataDicionary = self.dataArray[indexPath.row];
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //（这种是没有点击后的阴影效果)
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    NSDictionary *dic = self.dataArray[indexPath.row];
+    NSString *goodsCode = [NSString stringWithFormat:@"%@",[dic objectForKey:@"goodsCode"]];
+    if (goodsCode.length > 0) {
+        
+    }
+}
 /*
 #pragma mark - Navigation
 

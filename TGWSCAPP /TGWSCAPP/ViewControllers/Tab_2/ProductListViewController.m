@@ -9,6 +9,7 @@
 #import "ProductListViewController.h"
 
 #import "SortProductCollectionViewCell.h"
+#import "ShopDetailVC.h"
 
 @interface ProductListViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 {
@@ -148,6 +149,13 @@
     UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     NSDictionary *dic = self.dataArray[indexPath.row];
+    NSString *goodsCode = [NSString stringWithFormat:@"%@",[dic objectForKey:@"goodsCode"]];
+    if (goodsCode.length > 0) {
+        ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
+        VC.shopModel = [[ShopModel alloc] init];
+        VC.shopModel.strGoodsCode = goodsCode;
+        [self.navigationController pushViewController:VC animated:YES];
+    }
 }
 
 

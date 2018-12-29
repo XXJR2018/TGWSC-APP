@@ -22,6 +22,7 @@
 		C0A48A7A21D4A64A002AF226 /* ShopMoreAtTimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7921D4A64A002AF226 /* ShopMoreAtTimeVC.m */; };
 		C0A48A7D21D4BE37002AF226 /* HeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7C21D4BE37002AF226 /* HeaderCollectionReusableView.m */; };
 		C0A48A8021D5C380002AF226 /* SearchSubVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7F21D5C380002AF226 /* SearchSubVC.m */; };
+		C0A48A8421D74CB7002AF226 /* ShopCartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A8321D74CB7002AF226 /* ShopCartVC.m */; };
 		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
@@ -326,6 +327,8 @@
 		C0A48A7C21D4BE37002AF226 /* HeaderCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderCollectionReusableView.m; sourceTree = "<group>"; };
 		C0A48A7E21D5C380002AF226 /* SearchSubVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchSubVC.h; sourceTree = "<group>"; };
 		C0A48A7F21D5C380002AF226 /* SearchSubVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchSubVC.m; sourceTree = "<group>"; };
+		C0A48A8221D74CB7002AF226 /* ShopCartVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopCartVC.h; sourceTree = "<group>"; };
+		C0A48A8321D74CB7002AF226 /* ShopCartVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopCartVC.m; sourceTree = "<group>"; };
 		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
@@ -930,6 +933,15 @@
 			path = SlideSubVC/ShopMoreVC;
 			sourceTree = "<group>";
 		};
+		C0A48A8121D74C35002AF226 /* ShopCart */ = {
+			isa = PBXGroup;
+			children = (
+				C0A48A8221D74CB7002AF226 /* ShopCartVC.h */,
+				C0A48A8321D74CB7002AF226 /* ShopCartVC.m */,
+			);
+			path = ShopCart;
+			sourceTree = "<group>";
+		};
 		C0CCC7B121C0E237009352E0 /* SearchViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1232,6 +1244,7 @@
 				C20525E521BE6E5C00E13893 /* TabViewController_3.h */,
 				C20525E621BE6E5C00E13893 /* TabViewController_3.m */,
 				C20525E721BE6E5C00E13893 /* TabViewController_3.xib */,
+				C0A48A8121D74C35002AF226 /* ShopCart */,
 			);
 			path = Tab_3;
 			sourceTree = "<group>";
@@ -2533,6 +2546,7 @@
 				C0CCC7E921C0F150009352E0 /* UIView+LLRect.m in Sources */,
 				C0CCC82021C0F47D009352E0 /* LLTestViewController.m in Sources */,
 				C250451421BA579100DA9C72 /* CitysViewController.m in Sources */,
+				C0A48A8421D74CB7002AF226 /* ShopCartVC.m in Sources */,
 				C244952821CCC75D00F8698B /* MenuViewController.m in Sources */,
 				C0CCC7EE21C0F150009352E0 /* LLSearchNaviBarView.m in Sources */,
 				C25047E321BA715500DA9C72 /* PDNotifications.m in Sources */,

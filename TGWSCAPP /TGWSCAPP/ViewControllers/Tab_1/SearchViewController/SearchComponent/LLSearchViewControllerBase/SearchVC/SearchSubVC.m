@@ -15,7 +15,9 @@
 
 @interface SearchSubVC ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 {
+    NSMutableArray *arrBtn;
     
+    int iSelPrice;   // 0 未选中
 }
 
 @property(nonatomic, strong) UICollectionView *collectionView;
@@ -61,6 +63,8 @@
     _pageSizeCount = 50;
     _pageIndex = 1;
     _pullDown = YES;
+    
+    arrBtn = [[NSMutableArray alloc] init];
 }
 
 -(void)layoutUI
@@ -103,6 +107,8 @@
     UIView *viewHead = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, HeadBtnViewHegiht)];
     [self.view addSubview:viewHead];
     
+    [arrBtn removeAllObjects];
+    
     NSArray *arrTitle = @[@"综合",@"价格",@"销量"];
     int iBtnWidth = SCREEN_WIDTH/[arrTitle count];
     int iBtnLeftX = 0;
@@ -113,22 +119,26 @@
         [btnOne setTitle:arrTitle[i] forState:UIControlStateNormal];
         [btnOne setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
         btnOne.titleLabel.font = [UIFont systemFontOfSize:14];
+        btnOne.tag = i;
         
         if (i == 1)
          {
             [btnOne setImage:[UIImage imageNamed:@"Shop_search_price3"] forState:UIControlStateNormal];
-            
             btnOne.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;//使图片和文字水平居中显示
-            [btnOne setTitleEdgeInsets:UIEdgeInsetsMake(btnOne.imageView.frame.size.height ,-btnOne.imageView.frame.size.width, 0.0,0.0)];//文字距离上边框的距离增加imageView的高度，距离左边框减少imageView的宽度，距离下边框和右边框距离不变
-            [btnOne setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,0.0, -btnOne.titleLabel.bounds.size.width)];//图片距离右边框距离减少图片的宽度，其它不边
+            [btnOne setImageEdgeInsets:UIEdgeInsetsMake(0.0, btnOne.titleLabel.left + btnOne.titleLabel.width + 10,0.0, 0)];//图片距离右边框距离减少图片的宽度，其它不边
 
          }
         
+        
+        [arrBtn addObject:btnOne];
+        [btnOne addTarget:self action:@selector(actionHead:) forControlEvents:UIControlEventTouchUpInside];
         iBtnLeftX += iBtnWidth;
      }
     
     
 }
+
+
 
 #pragma mark 网络请求
 -(void)loadData{
@@ -335,6 +345,18 @@
         [self.navigationController pushViewController:VC animated:YES];
         
     }
+}
+
+#pragma mark  --- action
+-(void) actionHead:(UIButton*) sender
+{
+    for (int i = 0; i < [arrBtn count]; i++)
+     {
+        UIButton *btnTemp = arrBtn[i];
+        [btnTemp setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
+     }
+    
+    [sender setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
 }
 
 @end

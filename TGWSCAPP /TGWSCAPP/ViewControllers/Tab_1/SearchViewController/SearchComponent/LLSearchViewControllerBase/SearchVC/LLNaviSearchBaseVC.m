@@ -20,7 +20,9 @@
 
 
 @interface LLNaviSearchBaseVC () <UIScrollViewDelegate>
-
+{
+    NSMutableArray  *arrLinkKey;  //  搜索框匹配到的Key
+}
 @property (nonatomic,strong) LLSearchNaviBarView *searchNaviBarView;
 @property (nonatomic,strong) LLSearchBar *searchBar;
 
@@ -67,6 +69,8 @@
 
 - (void)getData
 {
+    arrLinkKey = [[NSMutableArray alloc] init];
+    
     @LLWeakObj(self);
     if (!_isOnlyShowHistoryView) {
         //开始获取数据
@@ -185,18 +189,26 @@
     
     //搜索框即时输入捕捉
     [searchNaviBarView textOfSearchBarDidChangeBlock:^(LLSearchBar *searchBar, NSString *searchText) {
-        //@LLStrongObj(self);
-        //LLBLOCK_EXEC(self.srdidChangeBlock,NaviBarSearchTypesearchBarDidChange,searchBar,searchText)
+        @LLStrongObj(self);
+
+//        if(searchText &&
+//           searchText.length == 0)
+//         {
+//            self.resultListView.hidden = YES;
+//         }
+//        else
+//         {
+//            self.resultListView.hidden = NO;
+//         }
         
-        // baicai  update at 2018-12-28
-        //执行即时搜索匹配
-//        NSArray *tempArray = nil;//@[@"Java111", @"Python222"];
-//
-//        //FIXME:这里模拟网络请求数据!!!
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            self.resultListArray = tempArray;
-//        });
-        // baicai update  end
+        self.resultListView.hidden = NO;
+        self.searchSubView.view.hidden = YES;
+        
+        
+        //FIXME:这里网络请求数据!!!
+        [self loadData:searchBar.text];
+        
+
     }];
     
     
@@ -205,6 +217,60 @@
 }
 
 
+-(void)loadData:(NSString *) strKey
+{
+   
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"goodsKey"] = strKey;
+    
+    NSString *strURL = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString],kURLqueryGoodsKey];
+    
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strURL
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      //[self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+}
+
+
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation{
+    
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    
+    
+    NSArray *arrRet = operation.jsonResult.rows;
+    if (!arrRet )
+     {
+        self.resultListArray  = nil;
+        return;
+     }
+    
+    [arrLinkKey removeAllObjects];
+    for (int i = 0 ; i < [arrRet count]; i++)
+     {
+        NSDictionary *dic = arrRet[i];
+        if (dic[@"goodsKey"])
+         {
+            [arrLinkKey addObject:dic[@"goodsKey"]];
+         }
+        
+     }
+    
+    if ([arrLinkKey count] > 0)
+     {
+        self.resultListArray = arrLinkKey;
+     }
+    else
+     {
+        self.resultListArray  = nil;
+     }
+
+}
 
 #pragma mark ================ 更新界面 Frame ================
 -(void)modifyViewFrame
@@ -267,6 +333,9 @@
         
         _searchSubView = VC;
      }
+    
+    _resultListView.hidden = YES;
+    _searchSubView.view.hidden = NO;
     _searchSubView.strSeacrhKey = @"";
     
     if (searchType == NaviBarSearchTypeDefault)
@@ -287,17 +356,8 @@
     
     [_searchSubView loadData];
     
-    _myBGScrollView.hidden = YES;
-    if (_myBGScrollView)
-     {
-        [_myBGScrollView removeFromSuperview];
-        _myBGScrollView = nil;
-     }
-    
     [self.view endEditing:YES];
-        
     
-
 }
 
 - (void)dismissVC{
@@ -310,6 +370,8 @@
 //创建即时匹配页面
 - (LLSearchResultListView *)resultListView
 {
+
+    
     if (!_resultListView) {
         _resultListView = [[LLSearchResultListView alloc] init];
         
@@ -322,28 +384,43 @@
         [_resultListView  resultListViewDidSelectedIndex:^(UITableView *tableView, NSInteger index) {
             @LLStrongObj(self);
             
-            [self.shopHistoryP saveSearchCache:self.resultListArray[index] result:nil];
-            
-            LLBLOCK_EXEC(self.myCellDidClickBlock,tableView,index);
+//            [self.shopHistoryP saveSearchCache:self.resultListArray[index] result:nil];
+//
+//            LLBLOCK_EXEC(self.myCellDidClickBlock,tableView,index);
             
             //退出搜索控制器
             //[self dismissVC];
+ 
+            
             if (!_blockSearchSubView)
              {
                 SearchSubVC *VC = [[SearchSubVC alloc] init];
-                VC.view.frame = CGRectMake(0, 200, SCREEN_WIDTH, 100);
+                VC.view.frame = CGRectMake(0, ZYHT_StatusBarAndNavigationBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT - ZYHT_StatusBarAndNavigationBarHeight);
                 [self.view addSubview:VC.view];
+                [self addChildViewController:VC];  // 加了这句，才能让子ViewController响应生命周期函数
                 
                 _blockSearchSubView = VC;
              }
             
-             _blockScrollView.hidden = YES;
+            _resultListView.hidden = YES;
+            _blockSearchSubView.view.hidden = NO;
+            
+             _blockSearchSubView.strSeacrhKey = self.resultListArray[index];
+            [_blockSearchSubView loadData];
+            
+             //_blockScrollView.hidden = YES;
             
         }];
         
         
         [self.view addSubview:_resultListView];
     }
+    
+    if (_searchSubView)
+     {
+        _searchSubView.view.hidden = YES;
+     }
+    
     return _resultListView;
 }
 

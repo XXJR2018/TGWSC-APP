@@ -11,6 +11,7 @@
 #import "TSVideoPlayback.h"
 #import "PopSelShopView.h"
 #import "ShopCartVC.h"
+#import "LZCartViewController.h"
 
 
 #define   BannerHeight     300
@@ -350,13 +351,13 @@
     self.type = 0;
     if (self.type == 0)
      {
-        self.title = @"纯图片详情";
+        //self.title = @"纯图片详情";
         //[self.video setWithIsVideo:TSDETAILTYPEIMAGE andDataArray:[self imgArray]];
         [self.video setWithIsVideo:TSDETAILTYPEIMAGE andDataArray:arrTopIMG];
      }
     else
      {
-        self.title = @"视频图片详情";
+        //self.title = @"视频图片详情";
         //[self.video setWithIsVideo:TSDETAILTYPEVIDEO andDataArray:[self bannerArray]];
         [self.video setWithIsVideo:TSDETAILTYPEVIDEO andDataArray:arrTopIMG];
      }
@@ -823,8 +824,12 @@
      }
     else if (2 == iTag)
      {
-        ShopCartVC *VC = [[ShopCartVC alloc] init];
+        //ShopCartVC *VC = [[ShopCartVC alloc] init];
+        
+        LZCartViewController *VC = [[LZCartViewController alloc]init];
         [self.navigationController pushViewController:VC animated:YES];
+        
+        
      }
 }
 

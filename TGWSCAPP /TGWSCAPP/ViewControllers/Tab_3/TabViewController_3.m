@@ -7,11 +7,14 @@
 //
 
 #import "TabViewController_3.h"
+#import "LZCartViewController.h"
 
 
 @interface TabViewController_3 ()
 {
     UIScrollView *_scView;
+    
+    LZCartViewController *VC;
    
 }
 
@@ -33,49 +36,77 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.hideBackButton = YES;
-    [self layoutNaviBarViewWithTitle:@"购物车"];
+    //self.hideBackButton = YES;
+    //[self layoutNaviBarViewWithTitle:@"购物车"];
   
     
     [self layoutUI];
+    
+
+
 
 }
 
--(void)layoutUI{
+-(void)layoutUI
+{
     
-    _scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavHeight - TabbarHeight)];
-    [self.view addSubview:_scView];
-    _scView.backgroundColor = [UIColor whiteColor];
-    _scView.bounces = NO;
-    _scView.pagingEnabled = NO;
-    _scView.showsVerticalScrollIndicator = NO;
+    VC = [[LZCartViewController alloc]init];
     
-    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 170, 100)];
-    [_scView addSubview:loginBtn];
-    loginBtn.backgroundColor = [UIColor darkGrayColor];
-    [loginBtn addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    // 设置子视图的位置，并显示出来
+    VC.view.frame = CGRectMake(0, 0,SCREEN_WIDTH, SCREEN_HEIGHT - TabbarHeight);
+    [VC didMoveToParentViewController:self];
     
-    UIButton *loginOutBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 240, 170, 100)];
-    [_scView addSubview:loginOutBtn];
-    loginOutBtn.backgroundColor = [UIColor orangeColor];
-    [loginOutBtn addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
+    // 设置了很多方法，只有这样设置才能正确设置子sub的view的大小
+    CGRect frameTemp = self.view.frame;
+    frameTemp.size.height = SCREEN_HEIGHT - TabbarHeight;
+    VC.view.frame = frameTemp;
+
+    
+    [self addChildViewController:VC];
+    [self.view addSubview:VC.view];
+    
+    
+    // 调用重绘函数
+    [VC reDarwView];
+    
+    //[self.navigationController pushViewController:VC animated:YES];
 }
 
-
--(void)login{
-    if (![CommonInfo isLoggedIn]) {
-        [DDGUserInfoEngine engine].parentViewController = self;
-        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
-        return;
-    }
-}
-
--(void)loginOut{
-    [CommonInfo AllDeleteInfo];
-    //发送退出登录通知
-    [[NSNotificationCenter defaultCenter] postNotificationName:DDGAccountEngineDidLogoutNotification object:nil];
-    
-}
+//-(void)layoutUI{
+//
+//    _scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavHeight - TabbarHeight)];
+//    [self.view addSubview:_scView];
+//    _scView.backgroundColor = [UIColor whiteColor];
+//    _scView.bounces = NO;
+//    _scView.pagingEnabled = NO;
+//    _scView.showsVerticalScrollIndicator = NO;
+//
+//    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 170, 100)];
+//    [_scView addSubview:loginBtn];
+//    loginBtn.backgroundColor = [UIColor darkGrayColor];
+//    [loginBtn addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+//
+//    UIButton *loginOutBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 240, 170, 100)];
+//    [_scView addSubview:loginOutBtn];
+//    loginOutBtn.backgroundColor = [UIColor orangeColor];
+//    [loginOutBtn addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
+//}
+//
+//
+//-(void)login{
+//    if (![CommonInfo isLoggedIn]) {
+//        [DDGUserInfoEngine engine].parentViewController = self;
+//        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+//        return;
+//    }
+//}
+//
+//-(void)loginOut{
+//    [CommonInfo AllDeleteInfo];
+//    //发送退出登录通知
+//    [[NSNotificationCenter defaultCenter] postNotificationName:DDGAccountEngineDidLogoutNotification object:nil];
+//
+//}
 
 -(void)addButtonView{
     [self.view addSubview:self.tabBar];

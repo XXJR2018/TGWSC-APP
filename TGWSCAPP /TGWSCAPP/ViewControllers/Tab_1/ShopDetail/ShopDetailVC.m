@@ -10,7 +10,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "TSVideoPlayback.h"
 #import "PopSelShopView.h"
-#import "ShopCartVC.h"
 #import "LZCartViewController.h"
 
 
@@ -825,12 +824,9 @@
      }
     else if (2 == iTag)
      {
-        //ShopCartVC *VC = [[ShopCartVC alloc] init];
-        
+        // 购物车
         LZCartViewController *VC = [[LZCartViewController alloc]init];
         [self.navigationController pushViewController:VC animated:YES];
-        
-        
      }
 }
 

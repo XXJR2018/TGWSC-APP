@@ -22,7 +22,6 @@
 		C0A48A7A21D4A64A002AF226 /* ShopMoreAtTimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7921D4A64A002AF226 /* ShopMoreAtTimeVC.m */; };
 		C0A48A7D21D4BE37002AF226 /* HeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7C21D4BE37002AF226 /* HeaderCollectionReusableView.m */; };
 		C0A48A8021D5C380002AF226 /* SearchSubVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7F21D5C380002AF226 /* SearchSubVC.m */; };
-		C0A48A8421D74CB7002AF226 /* ShopCartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A8321D74CB7002AF226 /* ShopCartVC.m */; };
 		C0A48A9B21D76B79002AF226 /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A8821D76B79002AF226 /* UIViewExt.m */; };
 		C0A48A9D21D76B79002AF226 /* cart_addBtn_nomal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0A48A8C21D76B79002AF226 /* cart_addBtn_nomal@2x.png */; };
 		C0A48A9E21D76B79002AF226 /* cart_default_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C0A48A8D21D76B79002AF226 /* cart_default_bg.png */; };
@@ -339,8 +338,6 @@
 		C0A48A7C21D4BE37002AF226 /* HeaderCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderCollectionReusableView.m; sourceTree = "<group>"; };
 		C0A48A7E21D5C380002AF226 /* SearchSubVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchSubVC.h; sourceTree = "<group>"; };
 		C0A48A7F21D5C380002AF226 /* SearchSubVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchSubVC.m; sourceTree = "<group>"; };
-		C0A48A8221D74CB7002AF226 /* ShopCartVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopCartVC.h; sourceTree = "<group>"; };
-		C0A48A8321D74CB7002AF226 /* ShopCartVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopCartVC.m; sourceTree = "<group>"; };
 		C0A48A8721D76B79002AF226 /* LZConfigFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZConfigFile.h; sourceTree = "<group>"; };
 		C0A48A8821D76B79002AF226 /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
 		C0A48A8921D76B79002AF226 /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
@@ -962,15 +959,6 @@
 			path = SlideSubVC/ShopMoreVC;
 			sourceTree = "<group>";
 		};
-		C0A48A8121D74C35002AF226 /* ShopCart */ = {
-			isa = PBXGroup;
-			children = (
-				C0A48A8221D74CB7002AF226 /* ShopCartVC.h */,
-				C0A48A8321D74CB7002AF226 /* ShopCartVC.m */,
-			);
-			path = ShopCart;
-			sourceTree = "<group>";
-		};
 		C0A48A8521D76B79002AF226 /* LZCartViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1330,7 +1318,6 @@
 				C20525E621BE6E5C00E13893 /* TabViewController_3.m */,
 				C20525E721BE6E5C00E13893 /* TabViewController_3.xib */,
 				C0A48A8521D76B79002AF226 /* LZCartViewController */,
-				C0A48A8121D74C35002AF226 /* ShopCart */,
 			);
 			path = Tab_3;
 			sourceTree = "<group>";
@@ -2641,7 +2628,6 @@
 				C0A48AA621D76B79002AF226 /* LZCartTableViewCell.m in Sources */,
 				C0CCC82021C0F47D009352E0 /* LLTestViewController.m in Sources */,
 				C250451421BA579100DA9C72 /* CitysViewController.m in Sources */,
-				C0A48A8421D74CB7002AF226 /* ShopCartVC.m in Sources */,
 				C244952821CCC75D00F8698B /* MenuViewController.m in Sources */,
 				C0CCC7EE21C0F150009352E0 /* LLSearchNaviBarView.m in Sources */,
 				C25047E321BA715500DA9C72 /* PDNotifications.m in Sources */,

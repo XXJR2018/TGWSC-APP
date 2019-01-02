@@ -32,14 +32,6 @@
 #pragma mark - viewController life cicle
 - (void)viewWillAppear:(BOOL)animated {
     
-    if (_isHasNavitationController == YES) {
-        if (self.navigationController.navigationBarHidden == YES) {
-            _isHiddenNavigationBarWhenDisappear = NO;
-        } else {
-            self.navigationController.navigationBarHidden = YES;
-            _isHiddenNavigationBarWhenDisappear = YES;
-        }
-    }
     
     
     //当进入购物车的时候判断是否有已选择的商品,有就清空
@@ -85,7 +77,9 @@
     [self performSelector:@selector(loadData) withObject:nil afterDelay:2];
     
     
-    [self setupCustomNavigationBar];
+    //[self setupCustomNavigationBar];
+    [self layoutNaviBarViewWithTitle:@"购物车"];
+    
     if (self.dataArray.count > 0) {
         
         [self setupCartView];
@@ -102,7 +96,7 @@
     
     _isHasTabBarController = YES;
     
-    [self setupCustomNavigationBar];
+    //[self setupCustomNavigationBar];
     if (self.dataArray.count > 0) {
         
         [self setupCartView];
@@ -155,6 +149,7 @@
 #pragma mark - 布局页面视图
 #pragma mark -- 自定义导航
 - (void)setupCustomNavigationBar {
+    
     UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, LZSCREEN_WIDTH, LZNaigationBarHeight)];
     backgroundView.backgroundColor = LZColorFromRGB(236, 236, 236);
     [self.view addSubview:backgroundView];

@@ -15,9 +15,8 @@
 
 @interface LZCartViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
-    BOOL _isHiddenNavigationBarWhenDisappear;//记录当页面消失时是否需要隐藏系统导航
-    BOOL _isHasTabBarController;//是否含有tabbar
-    BOOL _isHasNavitationController;//是否含有导航
+    BOOL  isChildView ;  // 是否属于子页面
+    BOOL  _isHasTabBarController;
 }
 
 @property (strong,nonatomic)NSMutableArray *dataArray;
@@ -66,36 +65,29 @@
     [self creatData];
     [self changeView];
 }
+
+- (LZCartViewController*)initWithVar:(BOOL)isChild
+{
+    self = [super init];
+
+    self.hideBackButton = YES;
+    isChildView = YES;
+    _isHasTabBarController = YES;
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    _isHasTabBarController = self.tabBarController?YES:NO;
-    _isHasNavitationController = self.navigationController?YES:NO;
-    
-#warning 模仿请求数据,延迟2s加载数据
+
+
+
+#warning 延迟加载网络数据
     [self performSelector:@selector(loadData) withObject:nil afterDelay:2];
     
-    
-    //[self setupCustomNavigationBar];
     [self layoutNaviBarViewWithTitle:@"购物车"];
-    
-    if (self.dataArray.count > 0) {
-        
-        [self setupCartView];
-    } else {
-        [self setupCartEmptyView];
-    }
-}
-
-
--(void) reDarwView
-{
-    NSLog(@"self.view.height:%f ,self.view.width:%f", self.view.height,self.view.width);
-    [self performSelector:@selector(loadData) withObject:nil afterDelay:2];
-    
-    _isHasTabBarController = YES;
-    
     //[self setupCustomNavigationBar];
     if (self.dataArray.count > 0) {
         
@@ -103,12 +95,17 @@
     } else {
         [self setupCartEmptyView];
     }
+    
+
 }
+
+
+
 
 - (void)viewWillDisappear:(BOOL)animated {
-    if (_isHiddenNavigationBarWhenDisappear == YES) {
-        self.navigationController.navigationBarHidden = NO;
-    }
+//    if (_isHiddenNavigationBarWhenDisappear == YES) {
+//        self.navigationController.navigationBarHidden = NO;
+//    }
 }
 
 /**
@@ -184,8 +181,9 @@
     [self.view addSubview:backgroundView];
     
     //当有tabBarController时,在tabBar的上面
-    if (_isHasTabBarController == YES) {
-        backgroundView.frame = CGRectMake(0, LZSCREEN_HEIGHT -  2*LZTabBarHeight, LZSCREEN_WIDTH, LZTabBarHeight);
+    if (_isHasTabBarController == YES)
+    {
+        backgroundView.frame = CGRectMake(0, LZSCREEN_HEIGHT -  LZTabBarHeight - TabbarHeight, LZSCREEN_WIDTH, LZTabBarHeight);
     } else {
         backgroundView.frame = CGRectMake(0, LZSCREEN_HEIGHT -  LZTabBarHeight, LZSCREEN_WIDTH, LZTabBarHeight);
     }
@@ -294,7 +292,7 @@
     self.myTableView = table;
     
     if (_isHasTabBarController) {
-        table.frame = CGRectMake(0, LZNaigationBarHeight, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - 2*LZTabBarHeight);
+        table.frame = CGRectMake(0, LZNaigationBarHeight, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - LZTabBarHeight - TabbarHeight);
     } else {
         table.frame = CGRectMake(0, LZNaigationBarHeight, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - LZTabBarHeight);
     }
@@ -413,14 +411,7 @@
     [self.myTableView reloadData];
 }
 #pragma mark -- 页面按钮点击事件
-#pragma mark --- 返回按钮点击事件
-- (void)backButtonClick:(UIButton*)button {
-    if (_isHasNavitationController == NO) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
+
 #pragma mark --- 全选按钮点击事件
 - (void)selectAllBtnClick:(UIButton*)button {
     button.selected = !button.selected;

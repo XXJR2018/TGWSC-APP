@@ -12,7 +12,10 @@
 
 @interface LZCartViewController : CommonViewController
 
-// 当作子页面时， 重绘view
--(void) reDarwView;
+//- (LZCartViewController*)initViewWithFrame:(CGRect)frame;
+
+- (LZCartViewController*)initWithVar:(BOOL)isChild; 
+
+
 
 @end

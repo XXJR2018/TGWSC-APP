@@ -49,8 +49,8 @@
 
 -(void)layoutUI
 {
-    
-    VC = [[LZCartViewController alloc] init];
+    // 初始化时， 传入参数
+    VC = [[LZCartViewController alloc] initWithVar:YES];
     
     // 设置了很多方法，只有这样设置才能正确设置子sub的view的大小
     CGRect frameTemp = self.view.frame;
@@ -60,8 +60,6 @@
     [self addChildViewController:VC];
     [self.view addSubview:VC.view];
     
-    // 调用重绘函数
-    [VC reDarwView];
     
 }
 

@@ -38,8 +38,8 @@ blue:((float)(0xED5565 & 0xFF))/255.0 alpha:1.0]
 
 
 static NSString *lz_BackButtonString = @"back_button";
-static NSString *lz_Bottom_UnSelectButtonString = @"cart_unSelect_btn";
-static NSString *lz_Bottom_SelectButtonString = @"cart_selected_btn";
+static NSString *lz_Bottom_UnSelectButtonString = @"sc_gou1";
+static NSString *lz_Bottom_SelectButtonString = @"sc_gou2";
 static NSString *lz_CartEmptyString = @"sc_kgwc";
 static NSInteger lz_CartRowHeight = 100;
 #endif /* LZConfigFile_h */

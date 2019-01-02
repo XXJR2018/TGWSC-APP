@@ -17,15 +17,18 @@
 @property (nonatomic,assign) BOOL select;
 @property (nonatomic,assign) NSInteger number;
 @property (nonatomic,strong) NSString *price;
-@property (nonatomic,strong) NSString *marketPrice;  // 原价
+
 
 //下面的属性可根据自己的需求修改
+@property (nonatomic,strong) NSString *marketPrice;  // 原价
 @property (nonatomic,strong) NSString *cartIdStr;
 @property (nonatomic,strong) NSString *skuCodeStr;
 @property (nonatomic,strong) NSString *sizeStr;
 @property (nonatomic,strong) NSString *nameStr;
 @property (nonatomic,strong) NSString *dateStr;
 @property (nonatomic,strong) NSString  *imageStr;
+
+@property (nonatomic,assign) NSInteger ableStock; // 库存的个数
 
 
 @end

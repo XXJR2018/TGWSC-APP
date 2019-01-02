@@ -297,6 +297,12 @@
     __block typeof(cell)wsCell = cell;
     
     [cell numberAddWithBlock:^(NSInteger number) {
+        if (number > model.ableStock)
+         {
+            [MBProgressHUD showErrorWithStatus:@"购买数量不能大于库存数" toView:self.view];
+            return;
+         }
+        
         wsCell.lzNumber = number;
         model.number = number;
         
@@ -512,7 +518,8 @@
                 
                 model.number =  [dic[@"num"] intValue];
                 model.imageStr =  dic[@"goodsUrl"];
-                model.sizeStr = [NSString stringWithFormat:@"%@", dic[@"skuDesc"]];//@"18*20cm";
+                model.sizeStr = [NSString stringWithFormat:@"%@", dic[@"skuDesc"]];
+                model.ableStock = [dic[@"ableStock"] intValue];
                 
                 [self.dataArray addObject:model];
             }

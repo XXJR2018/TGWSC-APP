@@ -730,6 +730,7 @@
             sModel.strCateCode = [NSString stringWithFormat:@"%@",dicObject[@"cateCode"]];
             sModel.strCateName = [NSString stringWithFormat:@"%@",dicObject[@"cateName"]];
             sModel.iIsSellOut = [dicObject[@"isSellOut"] intValue];
+            _shopModel = sModel;
          }
         
         [self layoutUI:dicUI];

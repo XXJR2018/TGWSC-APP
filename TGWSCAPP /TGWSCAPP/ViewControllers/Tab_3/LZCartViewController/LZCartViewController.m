@@ -88,7 +88,7 @@
     //[self performSelector:@selector(loadData) withObject:nil afterDelay:2];
     
     [self layoutNaviBarViewWithTitle:@"购物车"];
-    //[self setupCustomNavigationBar];
+
     if (self.dataArray.count > 0) {
         
         [self setupCartView];
@@ -144,34 +144,6 @@
 }
 
 #pragma mark - 布局页面视图
-#pragma mark -- 自定义导航
-- (void)setupCustomNavigationBar {
-    
-    UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, LZSCREEN_WIDTH, LZNaigationBarHeight)];
-    backgroundView.backgroundColor = LZColorFromRGB(236, 236, 236);
-    [self.view addSubview:backgroundView];
-    
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, LZNaigationBarHeight - 0.5, LZSCREEN_WIDTH, 0.5)];
-    lineView.backgroundColor = [UIColor lightGrayColor];
-    [self.view addSubview:lineView];
-    
-    UILabel *titleLabel = [[UILabel alloc]init];
-    titleLabel.text = @"购物车";
-    titleLabel.font = [UIFont systemFontOfSize:20];
-    
-    titleLabel.center = CGPointMake(self.view.center.x, (LZNaigationBarHeight - 20)/2.0 + 20);
-    CGSize size = [titleLabel sizeThatFits:CGSizeMake(300, 44)];
-    titleLabel.bounds = CGRectMake(0, 0, size.width + 20, size.height);
-    
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:titleLabel];
-    
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(10, 20, 40, 44);
-    [backButton setImage:[UIImage imageNamed:lz_BackButtonString] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backButton];
-}
 #pragma mark -- 自定义底部视图 
 - (void)setupCustomBottomView {
     
@@ -264,7 +236,7 @@
     //默认图片
     UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:lz_CartEmptyString]];
     img.center = CGPointMake(LZSCREEN_WIDTH/2.0, LZSCREEN_HEIGHT/2.0 - 180);
-    img.bounds = CGRectMake(0, 0, 247.0/187 * 100, 100);
+    img.bounds = CGRectMake(0, 0, 100, 100);
     [backgroundView addSubview:img];
     
     UILabel *warnLabel = [[UILabel alloc]init];

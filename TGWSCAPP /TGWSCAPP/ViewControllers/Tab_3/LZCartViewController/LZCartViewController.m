@@ -32,14 +32,14 @@
 #pragma mark - viewController life cicle
 - (void)viewWillAppear:(BOOL)animated {
     
-//    if (_isHasNavitationController == YES) {
-//        if (self.navigationController.navigationBarHidden == YES) {
-//            _isHiddenNavigationBarWhenDisappear = NO;
-//        } else {
-//            self.navigationController.navigationBarHidden = YES;
-//            _isHiddenNavigationBarWhenDisappear = YES;
-//        }
-//    }
+    if (_isHasNavitationController == YES) {
+        if (self.navigationController.navigationBarHidden == YES) {
+            _isHiddenNavigationBarWhenDisappear = NO;
+        } else {
+            self.navigationController.navigationBarHidden = YES;
+            _isHiddenNavigationBarWhenDisappear = YES;
+        }
+    }
     
     
     //当进入购物车的时候判断是否有已选择的商品,有就清空
@@ -83,16 +83,17 @@
     
 #warning 模仿请求数据,延迟2s加载数据
     [self performSelector:@selector(loadData) withObject:nil afterDelay:2];
-
-
-//    [self setupCustomNavigationBar];
-//    if (self.dataArray.count > 0) {
-//
-//        [self setupCartView];
-//    } else {
-//        [self setupCartEmptyView];
-//    }
+    
+    
+    [self setupCustomNavigationBar];
+    if (self.dataArray.count > 0) {
+        
+        [self setupCartView];
+    } else {
+        [self setupCartEmptyView];
+    }
 }
+
 
 -(void) reDarwView
 {
@@ -189,9 +190,9 @@
     
     //当有tabBarController时,在tabBar的上面
     if (_isHasTabBarController == YES) {
-        backgroundView.frame = CGRectMake(0, self.view.height -  2*LZTabBarHeight, LZSCREEN_WIDTH, LZTabBarHeight);
+        backgroundView.frame = CGRectMake(0, LZSCREEN_HEIGHT -  2*LZTabBarHeight, LZSCREEN_WIDTH, LZTabBarHeight);
     } else {
-        backgroundView.frame = CGRectMake(0, self.view.height -  LZTabBarHeight, LZSCREEN_WIDTH, LZTabBarHeight);
+        backgroundView.frame = CGRectMake(0, LZSCREEN_HEIGHT -  LZTabBarHeight, LZSCREEN_WIDTH, LZTabBarHeight);
     }
     
     UIView *lineView = [[UIView alloc]init];
@@ -262,18 +263,18 @@
 
 - (void)setupCartEmptyView {
     //默认视图背景
-    UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, LZNaigationBarHeight, LZSCREEN_WIDTH, self.view.height - LZNaigationBarHeight)];
+    UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, LZNaigationBarHeight, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight)];
     backgroundView.tag = TAG_CartEmptyView;
     [self.view addSubview:backgroundView];
     
     //默认图片
     UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:lz_CartEmptyString]];
-    img.center = CGPointMake(LZSCREEN_WIDTH/2.0, self.view.height/2.0 - 120);
+    img.center = CGPointMake(LZSCREEN_WIDTH/2.0, LZSCREEN_HEIGHT/2.0 - 120);
     img.bounds = CGRectMake(0, 0, 247.0/187 * 100, 100);
     [backgroundView addSubview:img];
     
     UILabel *warnLabel = [[UILabel alloc]init];
-    warnLabel.center = CGPointMake(LZSCREEN_WIDTH/2.0, self.view.height/2.0 - 10);
+    warnLabel.center = CGPointMake(LZSCREEN_WIDTH/2.0, LZSCREEN_HEIGHT/2.0 - 10);
     warnLabel.bounds = CGRectMake(0, 0, LZSCREEN_WIDTH, 30);
     warnLabel.textAlignment = NSTextAlignmentCenter;
     warnLabel.text = @"购物车为空!";
@@ -298,9 +299,9 @@
     self.myTableView = table;
     
     if (_isHasTabBarController) {
-        table.frame = CGRectMake(0, LZNaigationBarHeight, LZSCREEN_WIDTH, self.view.height - LZNaigationBarHeight - 2*LZTabBarHeight-150);
+        table.frame = CGRectMake(0, LZNaigationBarHeight, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - 2*LZTabBarHeight);
     } else {
-        table.frame = CGRectMake(0, LZNaigationBarHeight, LZSCREEN_WIDTH, self.view.height - LZNaigationBarHeight - LZTabBarHeight);
+        table.frame = CGRectMake(0, LZNaigationBarHeight, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - LZTabBarHeight);
     }
 }
 #pragma mark --- UITableViewDataSource & UITableViewDelegate

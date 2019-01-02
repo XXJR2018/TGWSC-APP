@@ -34,7 +34,7 @@
 		C0A48AA421D76B79002AF226 /* back_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0A48A9321D76B79002AF226 /* back_button@2x.png */; };
 		C0A48AA521D76B79002AF226 /* LZCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A9621D76B79002AF226 /* LZCartModel.m */; };
 		C0A48AA621D76B79002AF226 /* LZCartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A9A21D76B79002AF226 /* LZCartTableViewCell.m */; };
-		C0A48AA821D77E23002AF226 /* LZCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48AA721D77E23002AF226 /* LZCartViewController.m */; };
+		C0A48AAA21DC487E002AF226 /* LZCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48AA921DC487D002AF226 /* LZCartViewController.m */; };
 		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
@@ -357,7 +357,7 @@
 		C0A48A9721D76B79002AF226 /* LZCartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZCartModel.h; sourceTree = "<group>"; };
 		C0A48A9921D76B79002AF226 /* LZCartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZCartTableViewCell.h; sourceTree = "<group>"; };
 		C0A48A9A21D76B79002AF226 /* LZCartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZCartTableViewCell.m; sourceTree = "<group>"; };
-		C0A48AA721D77E23002AF226 /* LZCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZCartViewController.m; sourceTree = "<group>"; };
+		C0A48AA921DC487D002AF226 /* LZCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZCartViewController.m; sourceTree = "<group>"; };
 		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
@@ -975,7 +975,7 @@
 			isa = PBXGroup;
 			children = (
 				C0A48A9421D76B79002AF226 /* LZCartViewController.h */,
-				C0A48AA721D77E23002AF226 /* LZCartViewController.m */,
+				C0A48AA921DC487D002AF226 /* LZCartViewController.m */,
 				C0A48A8621D76B79002AF226 /* ConfigFile */,
 				C0A48A8B21D76B79002AF226 /* icons */,
 				C0A48A9521D76B79002AF226 /* LZCartModel */,
@@ -2656,7 +2656,7 @@
 				C0CCC82921C0F4C5009352E0 /* HistorySearchVC.m in Sources */,
 				C250479A21BA715500DA9C72 /* DAContextMenuCell.m in Sources */,
 				C250476D21BA715500DA9C72 /* NSString + DesEncrypt.m in Sources */,
-				C0A48AA821D77E23002AF226 /* LZCartViewController.m in Sources */,
+				C0A48AAA21DC487E002AF226 /* LZCartViewController.m in Sources */,
 				C25045FA21BA711E00DA9C72 /* XHDatePickerView.m in Sources */,
 				C222C39521D2303D00DD9797 /* BalanceViewCell.m in Sources */,
 				C25047B521BA715500DA9C72 /* UIRefreshControl+AFNetworking.m in Sources */,

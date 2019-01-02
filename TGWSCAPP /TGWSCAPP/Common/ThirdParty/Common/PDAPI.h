@@ -40,7 +40,7 @@ static NSString *const kURLqueryGoodsKey = @"appMall/goodskey/queryGoodsKey";
 
 
 #pragma mark ---- 购物车相关
-//  商品详情页面中，加入购物车
+//  商品详情页面中，立即购买， 需要调用此接口（相当于下单接口）
 static NSString *const kURLsingleOrderInfo = @"appMall/account/commitOrder/singleOrderInfo";
 
 //  购物车列表

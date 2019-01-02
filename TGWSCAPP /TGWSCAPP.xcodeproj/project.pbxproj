@@ -962,9 +962,9 @@
 		C0A48A8521D76B79002AF226 /* LZCartViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C0A48B1B21DCA697002AF226 /* CartViewCom */,
 				C0A48A9421D76B79002AF226 /* LZCartViewController.h */,
 				C0A48AA921DC487D002AF226 /* LZCartViewController.m */,
+				C0A48B1B21DCA697002AF226 /* CartViewCom */,
 			);
 			path = LZCartViewController;
 			sourceTree = "<group>";

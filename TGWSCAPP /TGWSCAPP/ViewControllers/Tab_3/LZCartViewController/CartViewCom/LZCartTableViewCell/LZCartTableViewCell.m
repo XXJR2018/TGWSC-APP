@@ -30,6 +30,8 @@
 @property (nonatomic,retain) UILabel *dateLabel;
 //价格
 @property (nonatomic,retain) UILabel *priceLabel;
+//原价格
+@property (nonatomic,retain) UILabel *marketPriceLabel;
 //数量
 @property (nonatomic,retain)UILabel *numberLabel;
 
@@ -68,6 +70,7 @@
     self.numberLabel.text = [NSString stringWithFormat:@"%ld",(long)model.number];
     self.sizeLabel.text = model.sizeStr;
     self.selectBtn.selected = model.select;
+    
 }
 
 - (void)numberAddWithBlock:(LZNumberChangedBlock)block {
@@ -159,16 +162,7 @@
     [bgView addSubview:imageView];
     self.lzImageView = imageView;
     
-    CGFloat width = (bgView.width - imageBgView.right - 30)/2.0;
-    //价格
-    UILabel* priceLabel = [[UILabel alloc]init];
-    priceLabel.frame = CGRectMake(bgView.width - width - 10, 10, width, 30);
-    priceLabel.font = [UIFont boldSystemFontOfSize:16];
-    priceLabel.textColor = BASECOLOR_RED;
-    priceLabel.textAlignment = NSTextAlignmentRight;
-    [bgView addSubview:priceLabel];
-    self.priceLabel = priceLabel;
-    
+    CGFloat width = (bgView.width - imageBgView.right - 30);
     //商品名
     UILabel* nameLabel = [[UILabel alloc]init];
     nameLabel.frame = CGRectMake(imageBgView.right + 10, 10, width, 25);
@@ -178,44 +172,73 @@
     
     //尺寸
     UILabel* sizeLabel = [[UILabel alloc]init];
-    sizeLabel.frame = CGRectMake(nameLabel.left, nameLabel.bottom + 5, width, 20);
+    sizeLabel.frame = CGRectMake(nameLabel.left, nameLabel.bottom , width, 20);
     sizeLabel.textColor = LZColorFromRGB(132, 132, 132);
     sizeLabel.font = [UIFont systemFontOfSize:12];
     [bgView addSubview:sizeLabel];
     self.sizeLabel = sizeLabel;
     
     //时间
-    UILabel* dateLabel = [[UILabel alloc]init];
-    dateLabel.frame = CGRectMake(nameLabel.left, sizeLabel.bottom , width, 20);
-    dateLabel.font = [UIFont systemFontOfSize:10];
-    dateLabel.textColor = LZColorFromRGB(132, 132, 132);
-    [bgView addSubview:dateLabel];
-    self.dateLabel = dateLabel;
+//    UILabel* dateLabel = [[UILabel alloc]init];
+//    dateLabel.frame = CGRectMake(nameLabel.left, sizeLabel.bottom , width, 20);
+//    dateLabel.font = [UIFont systemFontOfSize:10];
+//    dateLabel.textColor = LZColorFromRGB(132, 132, 132);
+//    [bgView addSubview:dateLabel];
+//    self.dateLabel = dateLabel;
+    
+    //价格
+    UILabel* priceFHLabel = [[UILabel alloc]init];
+    priceFHLabel.frame = CGRectMake(nameLabel.left, sizeLabel.bottom+5 , width, 20);
+    priceFHLabel.font = [UIFont boldSystemFontOfSize:16];
+    priceFHLabel.textColor = [ResourceManager priceColor];
+    [bgView addSubview:priceFHLabel];
+    priceFHLabel.text = @"¥";
+
+    
+    UILabel* priceLabel = [[UILabel alloc]init];
+    priceLabel.frame = CGRectMake(nameLabel.left+12, sizeLabel.bottom+5 , width/2, 20);
+    priceLabel.font = [UIFont boldSystemFontOfSize:16];
+    priceLabel.textColor = [ResourceManager priceColor];
+
+    [bgView addSubview:priceLabel];
+    self.priceLabel = priceLabel;
     
     //数量加按钮
     UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     addBtn.frame = CGRectMake(bgView.width - 35, bgView.height - 35, 25, 25);
-    [addBtn setImage:[UIImage imageNamed:@"cart_addBtn_nomal"] forState:UIControlStateNormal];
-    [addBtn setImage:[UIImage imageNamed:@"cart_addBtn_highlight"] forState:UIControlStateHighlighted];
+//    [addBtn setImage:[UIImage imageNamed:@"cart_addBtn_nomal"] forState:UIControlStateNormal];
+//    [addBtn setImage:[UIImage imageNamed:@"cart_addBtn_highlight"] forState:UIControlStateHighlighted];
     [addBtn addTarget:self action:@selector(addBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [addBtn setTitle:@"+" forState:UIControlStateNormal];
+    [addBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
+    addBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    addBtn.borderColor = [ResourceManager lightGrayColor];
+    addBtn.borderWidth = 1;
     [bgView addSubview:addBtn];
     
     //数量显示
     UILabel* numberLabel = [[UILabel alloc]init];
-    numberLabel.frame = CGRectMake(addBtn.left - 30, addBtn.top, 30, 25);
+    numberLabel.frame = CGRectMake(addBtn.left - 31, addBtn.top, 32, 25);
     numberLabel.textAlignment = NSTextAlignmentCenter;
     numberLabel.text = @"1";
     numberLabel.font = [UIFont systemFontOfSize:15];
     [bgView addSubview:numberLabel];
+    numberLabel.borderColor = [ResourceManager lightGrayColor];
+    numberLabel.borderWidth = 1;
     self.numberLabel = numberLabel;
     
     //数量减按钮
     UIButton *cutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    cutBtn.frame = CGRectMake(numberLabel.left - 25, addBtn.top, 25, 25);
-    [cutBtn setImage:[UIImage imageNamed:@"cart_cutBtn_nomal"] forState:UIControlStateNormal];
-    [cutBtn setImage:[UIImage imageNamed:@"cart_cutBtn_highlight"] forState:UIControlStateHighlighted];
+    cutBtn.frame = CGRectMake(numberLabel.left - 24, addBtn.top, 25, 25);
+//    [cutBtn setImage:[UIImage imageNamed:@"cart_cutBtn_nomal"] forState:UIControlStateNormal];
+//    [cutBtn setImage:[UIImage imageNamed:@"cart_cutBtn_highlight"] forState:UIControlStateHighlighted];
     [cutBtn addTarget:self action:@selector(cutBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:cutBtn];
+    [cutBtn setTitle:@"—" forState:UIControlStateNormal];
+    [cutBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
+    cutBtn.titleLabel.font = [UIFont systemFontOfSize:10];
+    cutBtn.borderColor = [ResourceManager lightGrayColor];
+    cutBtn.borderWidth = 1;
     
     //加入分割线
     UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(10, lz_CartRowHeight-1, SCREEN_WIDTH-20, 1)];

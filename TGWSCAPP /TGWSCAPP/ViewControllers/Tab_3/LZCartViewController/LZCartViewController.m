@@ -178,7 +178,7 @@
     
     //结算按钮
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.backgroundColor = BASECOLOR_RED;
+    btn.backgroundColor = UIColorFromRGB(0xaf0e1d);//BASECOLOR_RED;
     btn.frame = CGRectMake(LZSCREEN_WIDTH - 80, 0, 80, LZTabBarHeight);
     [btn setTitle:@"去结算" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(goToPayButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -502,15 +502,16 @@
                 model.cartIdStr = [NSString stringWithFormat:@"%@", dic[@"cartId"]];
                 model.skuCodeStr = [NSString stringWithFormat:@"%@", dic[@"skuCode"]];
                 model.nameStr = dic[@"goodsName"];
-                model.price =  [NSString stringWithFormat:@"¥%@", dic[@"price"]];
+                
+                model.price = [NSString stringWithFormat:@"%.2f", [dic[@"price"] floatValue]];
                 float fmarketPrice = [dic[@"marketPrice"] floatValue];
                 if (fmarketPrice > 0.00)
                  {
-                    model.price =  [NSString stringWithFormat:@"¥%@", dic[@"marketPrice"]];
+                    model.marketPrice =  [NSString stringWithFormat:@"¥%@", dic[@"marketPrice"]];
                  }
+                
                 model.number =  [dic[@"num"] intValue];
                 model.imageStr =  dic[@"goodsUrl"];
-                //model.dateStr = @"2016.02.18";
                 model.sizeStr = [NSString stringWithFormat:@"%@", dic[@"skuDesc"]];//@"18*20cm";
                 
                 [self.dataArray addObject:model];

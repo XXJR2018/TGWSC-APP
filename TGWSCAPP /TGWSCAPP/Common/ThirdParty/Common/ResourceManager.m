@@ -535,6 +535,16 @@ static int colorAtIndex(int index){
     return color;
 }
 
+// 价格的颜色
++ (UIColor *) priceColor
+{
+    static UIColor *color;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        color = UIColorFromRGB(0x9f1421);
+    });
+    return color;
+}
 // 提示语颜色
 + (UIColor *)color_0
 {

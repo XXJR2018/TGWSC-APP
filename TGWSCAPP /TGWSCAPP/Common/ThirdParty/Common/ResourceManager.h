@@ -147,6 +147,9 @@
 // 主色调
 + (UIColor *) mainColor;
 
+// 价格的颜色
++ (UIColor *) priceColor;
+
 // 提示语颜色
 + (UIColor *)color_0;
 

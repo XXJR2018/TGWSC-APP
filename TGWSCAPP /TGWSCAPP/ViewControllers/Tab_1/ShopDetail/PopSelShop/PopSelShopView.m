@@ -366,7 +366,7 @@
     labelCount.borderWidth = 1;
     labelCount.text = [NSString stringWithFormat:@"%d",iSelCount];
     labelCount.textColor = [ResourceManager color_1];
-    labelCount.font = [UIFont systemFontOfSize:14];
+    labelCount.font = [UIFont systemFontOfSize:16];
     labelCount.textAlignment = NSTextAlignmentCenter;
     
     

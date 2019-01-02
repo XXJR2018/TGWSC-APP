@@ -122,11 +122,6 @@
  */
 + (UIFont *)fontTitle;
 
-/*
- 主要的font
- */
-+ (UIFont *)mainFont;
-
 
 
 #pragma mark -

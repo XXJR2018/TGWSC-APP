@@ -19,7 +19,7 @@
     BOOL  _isHasTabBarController;
 }
 
-@property (strong,nonatomic)NSMutableArray *dataArray;
+//@property (strong,nonatomic)NSMutableArray *dataArray;
 @property (strong,nonatomic)NSMutableArray *selectedArray;
 @property (strong,nonatomic)UITableView *myTableView;
 @property (strong,nonatomic)UIButton *allSellectedButton;
@@ -85,7 +85,7 @@
 
 
 #warning 延迟加载网络数据
-    [self performSelector:@selector(loadData) withObject:nil afterDelay:2];
+    //[self performSelector:@selector(loadData) withObject:nil afterDelay:2];
     
     [self layoutNaviBarViewWithTitle:@"购物车"];
     //[self setupCustomNavigationBar];
@@ -257,23 +257,37 @@
 - (void)setupCartEmptyView {
     //默认视图背景
     UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, LZNaigationBarHeight, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight)];
-    backgroundView.tag = TAG_CartEmptyView;
     [self.view addSubview:backgroundView];
+    backgroundView.tag = TAG_CartEmptyView;
+    backgroundView.backgroundColor = [UIColor whiteColor];
     
     //默认图片
     UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:lz_CartEmptyString]];
-    img.center = CGPointMake(LZSCREEN_WIDTH/2.0, LZSCREEN_HEIGHT/2.0 - 120);
+    img.center = CGPointMake(LZSCREEN_WIDTH/2.0, LZSCREEN_HEIGHT/2.0 - 180);
     img.bounds = CGRectMake(0, 0, 247.0/187 * 100, 100);
     [backgroundView addSubview:img];
     
     UILabel *warnLabel = [[UILabel alloc]init];
-    warnLabel.center = CGPointMake(LZSCREEN_WIDTH/2.0, LZSCREEN_HEIGHT/2.0 - 10);
+    warnLabel.center = CGPointMake(LZSCREEN_WIDTH/2.0, LZSCREEN_HEIGHT/2.0 - 90);
     warnLabel.bounds = CGRectMake(0, 0, LZSCREEN_WIDTH, 30);
     warnLabel.textAlignment = NSTextAlignmentCenter;
-    warnLabel.text = @"购物车为空!";
-    warnLabel.font = [UIFont systemFontOfSize:15];
-    warnLabel.textColor = LZColorFromHex(0x706F6F);
+    warnLabel.text = @"购物车还没有商品哦～";
+    warnLabel.font = [UIFont systemFontOfSize:14];
+    warnLabel.textColor = [ResourceManager lightGrayColor];
     [backgroundView addSubview:warnLabel];
+    
+    UIButton *btnShop = [[UIButton alloc] init];
+    btnShop.center = CGPointMake(LZSCREEN_WIDTH/2.0, LZSCREEN_HEIGHT/2.0 - 30);
+    btnShop.bounds = CGRectMake(0, 0, 100, 30);
+    [backgroundView addSubview:btnShop];
+    btnShop.cornerRadius = 4;
+    [btnShop setTitle:@"去逛逛" forState:UIControlStateNormal];
+    [btnShop setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
+    btnShop.titleLabel.font = [UIFont systemFontOfSize:14];
+    btnShop.borderWidth = 0.3;
+    btnShop.borderColor = [ResourceManager mainColor];
+    [btnShop addTarget:self action:@selector(actonShop) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 #pragma mark -- 购物车有商品时的视图
 - (void)setupCartView {
@@ -446,19 +460,13 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark --- action
+-(void) actonShop
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@"1"}];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

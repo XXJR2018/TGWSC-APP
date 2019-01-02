@@ -265,10 +265,21 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
-
-    NSDictionary *dic = self.dataArray[indexPath.row];
     
-    NSString *goodsCode = [NSString stringWithFormat:@"%@",[dic objectForKey:@"goodsCode"]];
+    
+    NSDictionary *dicSel = [[NSDictionary alloc] init];
+    if (indexPath.section < [arrDate count])
+     {
+        NSArray *arrTemp = arrDate[indexPath.section];
+        
+        if (indexPath.row < [arrTemp count])
+         {
+            dicSel = arrTemp[indexPath.row];
+         }
+     }
+    
+    
+    NSString *goodsCode = [NSString stringWithFormat:@"%@",[dicSel objectForKey:@"goodsCode"]];
     if (goodsCode.length > 0) {
         [self.view endEditing:YES];
         

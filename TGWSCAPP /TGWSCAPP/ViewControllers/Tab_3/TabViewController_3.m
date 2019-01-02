@@ -50,26 +50,19 @@
 -(void)layoutUI
 {
     
-    VC = [[LZCartViewController alloc]init];
-    
-    // 设置子视图的位置，并显示出来
-    VC.view.frame = CGRectMake(0, 0,SCREEN_WIDTH, SCREEN_HEIGHT - TabbarHeight);
-    [VC didMoveToParentViewController:self];
+    VC = [[LZCartViewController alloc] init];
     
     // 设置了很多方法，只有这样设置才能正确设置子sub的view的大小
     CGRect frameTemp = self.view.frame;
     frameTemp.size.height = SCREEN_HEIGHT - TabbarHeight;
     VC.view.frame = frameTemp;
-
     
     [self addChildViewController:VC];
     [self.view addSubview:VC.view];
     
-    
     // 调用重绘函数
     [VC reDarwView];
     
-    //[self.navigationController pushViewController:VC animated:YES];
 }
 
 //-(void)layoutUI{

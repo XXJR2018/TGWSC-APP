@@ -1008,8 +1008,8 @@
 		C0A48B2921DCA697002AF226 /* LZCartModel */ = {
 			isa = PBXGroup;
 			children = (
-				C0A48B2A21DCA697002AF226 /* LZCartModel.m */,
 				C0A48B2B21DCA697002AF226 /* LZCartModel.h */,
+				C0A48B2A21DCA697002AF226 /* LZCartModel.m */,
 			);
 			path = LZCartModel;
 			sourceTree = "<group>";

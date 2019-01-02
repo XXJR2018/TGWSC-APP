@@ -12,17 +12,23 @@
 #import "LZConfigFile.h"
 #import "LZCartTableViewCell.h"
 #import "LZCartModel.h"
+#import "ShopDetailVC.h"
 
 @interface LZCartViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     BOOL  isChildView ;  // 是否属于子页面
     BOOL  isHasTabBarController;
+    
+    
 }
 
 @property (strong,nonatomic)NSMutableArray *selectedArray;
 @property (strong,nonatomic)UITableView *myTableView;
 @property (strong,nonatomic)UIButton *allSellectedButton;
 @property (strong,nonatomic)UILabel *totlePriceLabel;
+
+@property (strong,nonatomic)NSIndexPath *delIndexPath;  // 删除的IndexPath
+
 @end
 
 @implementation LZCartViewController
@@ -339,9 +345,9 @@
         }
         
         if (self.selectedArray.count == self.dataArray.count) {
-            _allSellectedButton.selected = YES;
+            self.allSellectedButton.selected = YES;
         } else {
-            _allSellectedButton.selected = NO;
+            self.allSellectedButton.selected = NO;
         }
         
         [self countPrice];
@@ -349,6 +355,25 @@
     
     [cell reloadDataWithModel:model];
     return cell;
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //（这种是没有点击后的阴影效果)
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
+    
+    LZCartModel *model = [self.dataArray objectAtIndex:indexPath.row];
+    
+    if (model) {
+        
+        ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
+        VC.shopModel = [[ShopModel alloc] init];
+        VC.shopModel.strGoodsCode = model.goodCodeStr;
+        [self.navigationController pushViewController:VC animated:YES];
+        
+    }
 }
 
 
@@ -366,31 +391,14 @@
                                                                                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要删除该商品?删除后无法恢复!" preferredStyle:1];
                                                                                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                                                                                     
+                                                                                    
+                                                                                    // 记录删除的 indexPath
+                                                                                    self.delIndexPath = indexPath;
+                                                                                    
                                                                                     LZCartModel *model = [self.dataArray objectAtIndex:indexPath.row];
+                                                                                    [self deleteToWeb:model.cartIdStr];
                                                                                     
-                                                                                    [self.dataArray removeObjectAtIndex:indexPath.row];
-                                                                                    //    删除
-                                                                                    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
                                                                                     
-                                                                                    //判断删除的商品是否已选择
-                                                                                    if ([self.selectedArray containsObject:model]) {
-                                                                                        //从已选中删除,重新计算价格
-                                                                                        [self.selectedArray removeObject:model];
-                                                                                        [self countPrice];
-                                                                                    }
-                                                                                    
-                                                                                    if (self.selectedArray.count == self.dataArray.count) {
-                                                                                        self.allSellectedButton.selected = YES;
-                                                                                    } else {
-                                                                                        self.allSellectedButton.selected = NO;
-                                                                                    }
-                                                                                    
-                                                                                    if (self.dataArray.count == 0) {
-                                                                                        [self changeView];
-                                                                                    }
-                                                                                    
-                                                                                    //如果删除的时候数据紊乱,可延迟0.5s刷新一下
-                                                                                    [self performSelector:@selector(reloadTable) withObject:nil afterDelay:0.5];
                                                                                     
                                                                                 }];
                                                                                 
@@ -415,6 +423,36 @@
     return arr;
 }
 
+-(void)delLocal:(NSIndexPath *)indexPath
+{
+    LZCartModel *model = [self.dataArray objectAtIndex:indexPath.row];
+    
+    [self.dataArray removeObjectAtIndex:indexPath.row];
+    //    删除
+    [_myTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+    //判断删除的商品是否已选择
+    if ([self.selectedArray containsObject:model]) {
+        //从已选中删除,重新计算价格
+        [self.selectedArray removeObject:model];
+        [self countPrice];
+    }
+    
+    if (self.selectedArray.count == self.dataArray.count) {
+        self.allSellectedButton.selected = YES;
+    } else {
+        self.allSellectedButton.selected = NO;
+    }
+    
+    if (self.dataArray.count == 0) {
+        [self changeView];
+    }
+    
+    //如果删除的时候数据紊乱,可延迟0.5s刷新一下
+    [self performSelector:@selector(reloadTable) withObject:nil afterDelay:0.5];
+    
+
+}
 
 
 - (void)reloadTable {
@@ -486,6 +524,26 @@
     [operation start];
 }
 
+-(void)deleteToWeb:(NSString*) strCartIds
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"cartIds"] = strCartIds;
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLorderCartDelete];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1001;
+    [operation start];
+}
+
+-(void)getTitleFromWeb
+{
+    kURLgetSaleTitle;
+}
 
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
 {
@@ -520,6 +578,7 @@
                 model.imageStr =  dic[@"goodsUrl"];
                 model.sizeStr = [NSString stringWithFormat:@"%@", dic[@"skuDesc"]];
                 model.ableStock = [dic[@"ableStock"] intValue];
+                model.goodCodeStr = dic[@"goodsCode"];
                 
                 [self.dataArray addObject:model];
             }
@@ -528,6 +587,10 @@
         
         [self changeView];
         
+     }
+    else if (1001 == operation.tag)
+     {
+        [self delLocal:_delIndexPath];
      }
 }
 

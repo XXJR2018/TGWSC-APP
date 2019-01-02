@@ -28,6 +28,7 @@
 @property (nonatomic,strong) NSString *dateStr;
 @property (nonatomic,strong) NSString  *imageStr;
 
+@property (nonatomic,strong) NSString  *goodCodeStr;
 @property (nonatomic,assign) NSInteger ableStock; // 库存的个数
 
 

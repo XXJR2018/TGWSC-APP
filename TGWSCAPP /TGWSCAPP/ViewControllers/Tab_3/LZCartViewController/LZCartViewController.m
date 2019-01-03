@@ -13,12 +13,19 @@
 #import "LZCartTableViewCell.h"
 #import "LZCartModel.h"
 #import "ShopDetailVC.h"
+#import "SKAutoScrollLabel.h"
 
 @interface LZCartViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
+    UILabel *labelBY;  //包邮label
+    UIView *viewYH;    // 优惠view
+    SKAutoScrollLabel *labelYH;  //优惠label
+    UIButton *btnAddShop1;  // 去凑单按钮1
+    UIButton *btnAddShop2;  // 去凑单按钮2
+    
+    
     BOOL  isChildView ;  // 是否属于子页面
     BOOL  isHasTabBarController;
-    
     
 }
 
@@ -26,6 +33,8 @@
 @property (strong,nonatomic)UITableView *myTableView;
 @property (strong,nonatomic)UIButton *allSellectedButton;
 @property (strong,nonatomic)UILabel *totlePriceLabel;
+
+
 
 @property (strong,nonatomic)NSIndexPath *delIndexPath;  // 删除的IndexPath
 
@@ -38,20 +47,23 @@
     
     
     
-    //当进入购物车的时候判断是否有已选择的商品,有就清空
-    //主要是提交订单后再返回到购物车,如果不清空,还会显示
-    if (self.selectedArray.count > 0) {
-        for (LZCartModel *model in self.selectedArray) {
-            model.select = NO;//这个其实有点多余,提交订单后的数据源不会包含这些,保险起见,加上了
-        }
-        [self.selectedArray removeAllObjects];
-    }
+//    //当进入购物车的时候判断是否有已选择的商品,有就清空
+//    //主要是提交订单后再返回到购物车,如果不清空,还会显示
+//    if (self.selectedArray.count > 0) {
+//        for (LZCartModel *model in self.selectedArray) {
+//            model.select = NO;//这个其实有点多余,提交订单后的数据源不会包含这些,保险起见,加上了
+//        }
+//        [self.selectedArray removeAllObjects];
+//    }
+//
+//    //初始化显示状态
+//    _allSellectedButton.selected = NO;
+//    _totlePriceLabel.attributedText = [self LZSetString:@"￥0.00"];
     
-    //初始化显示状态
-    _allSellectedButton.selected = NO;
-    _totlePriceLabel.attributedText = [self LZSetString:@"￥0.00"];
-    
-    [self loadData];
+    if ([self.dataArray count] <= 0)
+     {
+        [self loadData];
+     }
 }
 
 -(void)creatData {
@@ -113,12 +125,9 @@
 //    }
 }
 
-/**
- *  @author LQQ, 16-02-18 11:02:16
- *
- *  计算已选中商品金额
- */
--(void)countPrice {
+#pragma mark --- 计算所选组合的 商品价格，标题
+-(void)countPrice
+{
     double totlePrice = 0.0;
     
     for (LZCartModel *model in self.selectedArray) {
@@ -129,6 +138,8 @@
     }
     NSString *string = [NSString stringWithFormat:@"￥%.2f",totlePrice];
     self.totlePriceLabel.attributedText = [self LZSetString:string];
+    
+    [self getTitleFromWeb];
 }
 
 #pragma mark - 初始化数组
@@ -282,12 +293,138 @@
     [self.view addSubview:table];
     self.myTableView = table;
     
+    
     if (isHasTabBarController) {
-        table.frame = CGRectMake(0, LZNaigationBarHeight, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - LZTabBarHeight - TabbarHeight);
+        table.frame = CGRectMake(0, LZNaigationBarHeight +LZTop1Height, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - LZTop1Height - LZTabBarHeight - TabbarHeight);
     } else {
-        table.frame = CGRectMake(0, LZNaigationBarHeight, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - LZTabBarHeight);
+        table.frame = CGRectMake(0, LZNaigationBarHeight+ LZTop1Height, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - LZTop1Height - LZTabBarHeight);
     }
+    
+    [self setupTopTitle];
 }
+
+// 创建头部标题时，购物车table的高度会动态改变
+-(void) setupTopTitle
+{
+    int iLeftX = 20;
+    UIView *viewBaoYou = [[UIView alloc] initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, LZTop1Height)];
+    [self.view addSubview:viewBaoYou];
+    viewBaoYou.backgroundColor = UIColorFromRGB(0xfbf1dd);
+    
+    labelBY = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, 10, SCREEN_WIDTH-70-iLeftX, LZTop1Height-20)];
+    [viewBaoYou addSubview:labelBY];
+    labelBY.font = [UIFont systemFontOfSize:14];
+    labelBY.textColor = UIColorFromRGB(0x704a18);
+    labelBY.text = @"满88元包邮";
+    
+    btnAddShop1 = [[UIButton alloc] initWithFrame:CGRectMake( SCREEN_WIDTH - 70, 0, 70, LZTop1Height)];  // 去凑单按钮1
+    [viewBaoYou addSubview:btnAddShop1];
+    [btnAddShop1 setTitle:@"去凑单>" forState:UIControlStateNormal];
+    [btnAddShop1 setTitleColor:[ResourceManager priceColor] forState:UIControlStateNormal];
+    btnAddShop1.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btnAddShop1 addTarget:self action:@selector(actonAddShop) forControlEvents:UIControlEventTouchUpInside];
+    btnAddShop1.hidden = YES;
+    
+    viewYH = [[UIView alloc] initWithFrame:CGRectMake(0, NavHeight+LZTop1Height, SCREEN_WIDTH, LZTop1Height)];
+    [self.view addSubview:viewYH];
+    viewYH.backgroundColor = [UIColor whiteColor];
+    
+    UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, LZTop1Height-1, SCREEN_WIDTH, 1)];
+    [viewYH addSubview:viewFG];
+    viewFG.backgroundColor = [ResourceManager color_5];
+    
+    UILabel *lableYHFH = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, 12, 30, LZTop1Height-12*2)];
+    [viewYH addSubview:lableYHFH];
+    lableYHFH.backgroundColor = [ResourceManager priceColor];
+    lableYHFH.layer.cornerRadius = 3;
+    lableYHFH.layer.masksToBounds = YES;
+    lableYHFH.font = [UIFont systemFontOfSize:12];
+    lableYHFH.textColor = [UIColor whiteColor];
+    lableYHFH.text = @" 优惠";
+    
+
+    
+    
+    btnAddShop2 = [[UIButton alloc] initWithFrame:CGRectMake( SCREEN_WIDTH - 60, 0, 60, LZTop1Height)];  // 去凑单按钮1
+    [viewYH addSubview:btnAddShop2];
+    //btnAddShop2.backgroundColor = [UIColor yellowColor];
+    [btnAddShop2 setTitle:@"去凑单>" forState:UIControlStateNormal];
+    [btnAddShop2 setTitleColor:[ResourceManager priceColor] forState:UIControlStateNormal];
+    btnAddShop2.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btnAddShop2 addTarget:self action:@selector(actonAddShop) forControlEvents:UIControlEventTouchUpInside];
+    btnAddShop2.hidden = YES;
+    
+    
+    iLeftX += lableYHFH.width + 8;
+    labelYH = [[SKAutoScrollLabel alloc] initWithFrame:CGRectMake(iLeftX,10 , SCREEN_WIDTH-60-iLeftX, LZTop1Height-20)];
+    [viewYH addSubview:labelYH];
+    labelYH.font = [UIFont systemFontOfSize:14];
+    //labelYH.backgroundColor  = [UIColor blueColor];
+    labelYH.textColor = [ResourceManager midGrayColor];
+    labelYH.text = @"满88元包邮";
+    
+    viewYH.hidden = YES;
+    
+    
+
+}
+
+// 根据数据内容， 显示顶部标题
+-(void) setTopTitle:(NSDictionary*) dic
+{
+    btnAddShop1.hidden = YES;
+    btnAddShop2.hidden = YES;
+    viewYH.hidden = YES;
+
+    labelBY.text = dic[@"postTitle"];
+    
+    int postageFlag = [dic[@"postageFlag"] intValue];
+    
+    if (1 == postageFlag)
+     {
+        // 如果包邮里，需要凑单， 那么不显示优惠
+        btnAddShop1.hidden = NO;
+        if (isHasTabBarController) {
+            self.myTableView.frame = CGRectMake(0, LZNaigationBarHeight +LZTop1Height, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - LZTop1Height - LZTabBarHeight - TabbarHeight);
+        } else {
+            self.myTableView.frame = CGRectMake(0, LZNaigationBarHeight+ LZTop1Height, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - LZTop1Height - LZTabBarHeight);
+        }
+        return;
+     }
+    
+    NSString *promocardDesc = dic[@"promocardDesc"];
+    if (promocardDesc &&
+        promocardDesc.length > 0)
+     {
+        // 如果有优惠券
+        viewYH.hidden = NO;
+        labelYH.text = promocardDesc;
+        //labelYH.scrolling = NO;
+        
+        int addFlag = [dic[@"addFlag"] intValue];
+        if (1 == addFlag)
+         {
+            btnAddShop2.hidden = NO;
+         }
+        
+        if (isHasTabBarController) {
+            self.myTableView.frame = CGRectMake(0, LZNaigationBarHeight +2*LZTop1Height, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - 2*LZTop1Height - LZTabBarHeight - TabbarHeight);
+        } else {
+            self.myTableView.frame = CGRectMake(0, LZNaigationBarHeight+ 2*LZTop1Height, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - 2*LZTop1Height - LZTabBarHeight);
+        }
+     }
+    else
+     {
+        if (isHasTabBarController) {
+            self.myTableView.frame = CGRectMake(0, LZNaigationBarHeight +LZTop1Height, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - LZTop1Height - LZTabBarHeight - TabbarHeight);
+        } else {
+            self.myTableView.frame = CGRectMake(0, LZNaigationBarHeight+ LZTop1Height, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight - LZTop1Height - LZTabBarHeight);
+        }
+     }
+    
+    NSLog(@"promocardDesc:%@", dic[@"promocardDesc"]);
+}
+
 #pragma mark --- UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
@@ -501,6 +638,12 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@"1"}];
 }
 
+-(void) actonAddShop
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@"1"}];
+}
+
 
 
 #pragma mark  --- 网络通讯
@@ -542,7 +685,56 @@
 
 -(void)getTitleFromWeb
 {
-    kURLgetSaleTitle;
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    //WebGoodJSModel *objTemp = [[WebGoodJSModel alloc] init];
+    NSMutableArray *arrSend = [[NSMutableArray alloc] init];
+    NSMutableDictionary *objTemp = [[NSMutableDictionary alloc] init];
+    
+    for (LZCartModel *model in self.selectedArray) {
+        
+        float fPrice = [model.price floatValue];
+        int  iNum =  (int)model.number;
+        
+        //objTemp.price =  [NSString stringWithFormat:@"%.2f", fPrice * iNum];
+        //objTemp.skuCode = model.skuCodeStr;
+        //objTemp.goodsCode = model.goodCodeStr;
+        //objTemp.num = [NSString stringWithFormat:@"%d", (int)model.number];
+        
+        [objTemp removeAllObjects];
+        objTemp[@"price"] = [NSString stringWithFormat:@"%.2f", fPrice];
+        objTemp[@"skuCode"] = model.skuCodeStr;
+        objTemp[@"goodsCode"] = model.goodCodeStr;
+        objTemp[@"num"] = [NSString stringWithFormat:@"%d", (int)model.number];
+        
+        [arrSend addObject:objTemp];
+    }
+    
+    
+    NSData *data = [NSJSONSerialization dataWithJSONObject:arrSend
+                                                   options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments
+                                                     error:nil];
+    NSString *stringSend = @"";
+    if (data == nil)
+     {
+     }
+    else
+     {
+        stringSend = [[NSString alloc] initWithData:data
+                                           encoding:NSUTF8StringEncoding];
+     }
+    
+    params[@"goodsJsonStr"] = stringSend;
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLgetSaleTitle];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1002;
+    [operation start];
 }
 
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
@@ -550,12 +742,9 @@
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     if (operation.tag == 1000)
      {
-        //self.dataArray = operation.jsonResult.rows;
-        
-    
+        // 刷新购物车列表
         [self.dataArray removeAllObjects];
         
-
         NSArray *arr = operation.jsonResult.rows;
         if (arr)
          {
@@ -590,7 +779,18 @@
      }
     else if (1001 == operation.tag)
      {
+        // 删除所选列
         [self delLocal:_delIndexPath];
+     }
+    else if (1002 == operation.tag)
+     {
+        // 获取所选组合的标题
+        NSDictionary *dic = operation.jsonResult.attr;
+        if (dic &&
+            [dic count])
+         {
+            [self setTopTitle:dic];
+         }
      }
 }
 

@@ -26,6 +26,7 @@
 		C0A48B2F21DCA697002AF226 /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B1E21DCA697002AF226 /* UIViewExt.m */; };
 		C0A48B3821DCA697002AF226 /* LZCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B2A21DCA697002AF226 /* LZCartModel.m */; };
 		C0A48B3921DCA697002AF226 /* LZCartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B2E21DCA697002AF226 /* LZCartTableViewCell.m */; };
+		C0A48B4121DDFE12002AF226 /* SKAutoScrollLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B4021DDFE12002AF226 /* SKAutoScrollLabel.m */; };
 		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
@@ -339,6 +340,8 @@
 		C0A48B2B21DCA697002AF226 /* LZCartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZCartModel.h; sourceTree = "<group>"; };
 		C0A48B2D21DCA697002AF226 /* LZCartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZCartTableViewCell.h; sourceTree = "<group>"; };
 		C0A48B2E21DCA697002AF226 /* LZCartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZCartTableViewCell.m; sourceTree = "<group>"; };
+		C0A48B3F21DDFE12002AF226 /* SKAutoScrollLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAutoScrollLabel.h; sourceTree = "<group>"; };
+		C0A48B4021DDFE12002AF226 /* SKAutoScrollLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKAutoScrollLabel.m; sourceTree = "<group>"; };
 		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
@@ -991,6 +994,15 @@
 			path = LZCartTableViewCell;
 			sourceTree = "<group>";
 		};
+		C0A48B3E21DDFE12002AF226 /* SKAutoScrollLabel */ = {
+			isa = PBXGroup;
+			children = (
+				C0A48B3F21DDFE12002AF226 /* SKAutoScrollLabel.h */,
+				C0A48B4021DDFE12002AF226 /* SKAutoScrollLabel.m */,
+			);
+			path = SKAutoScrollLabel;
+			sourceTree = "<group>";
+		};
 		C0CCC7B121C0E237009352E0 /* SearchViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1612,6 +1624,7 @@
 				C25045B421BA711E00DA9C72 /* RefreshTableView */,
 				C25045B721BA711E00DA9C72 /* CustomNavifationBar */,
 				C25045BA21BA711E00DA9C72 /* RangeSlider */,
+				C0A48B3E21DDFE12002AF226 /* SKAutoScrollLabel */,
 				C25045C221BA711E00DA9C72 /* SGQRCode */,
 				C25045CB21BA711E00DA9C72 /* WCAlertView */,
 				C25045D021BA711E00DA9C72 /* IdentifyAlertView */,
@@ -2527,6 +2540,7 @@
 				C250476B21BA715500DA9C72 /* CommonFunc.m in Sources */,
 				C250476621BA715500DA9C72 /* NSDictionary+Additions.m in Sources */,
 				C250460F21BA711E00DA9C72 /* SDCollectionViewCell.m in Sources */,
+				C0A48B4121DDFE12002AF226 /* SKAutoScrollLabel.m in Sources */,
 				C0CCC7FB21C0F1CB009352E0 /* HistorySearchHistroyViewP.m in Sources */,
 				C25047E721BA715500DA9C72 /* DDGError.m in Sources */,
 				C0CCC7E321C0F150009352E0 /* LLNaviSearchHistorySaveBasePresenter.m in Sources */,

@@ -33,6 +33,7 @@ blue:((float)(0xED5565 & 0xFF))/255.0 alpha:1.0]
 #define LZSCREEN_WIDTH ([[UIScreen mainScreen]bounds].size.width)
 #define LZNaigationBarHeight  (IS_IPHONE_X_MORE ? 88.f : 64.f)
 #define LZTabBarHeight 49
+#define LZTop1Height  40
 
 #define  TAG_CartEmptyView 100
 

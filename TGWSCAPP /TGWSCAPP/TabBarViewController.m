@@ -303,6 +303,35 @@
     CFRunLoopRunInMode(kCFRunLoopDefaultMode,0.4, NO);
 }
 
+#pragma mark  ---  传类名， 跳转页面
+//- (void)PushNextViewControllerWith:(NSString *)VCName
+//{
+//    NSArray *array = [UIApplication sharedApplication].windows;
+//    UIWindow *window = array[0];
+//    // 取到tabbarcontroller
+//    QMTabBar *tabBarController = (QMTabBar*)window.rootViewController;
+//    // 取到navigationcontroller
+//    QMNavigationBar * nav = (QMNavigationBar *)tabBarController.selectedViewController;
+//    // 类名
+//    NSString *class = VCName;
+//    const char *className = [class cStringUsingEncoding:NSASCIIStringEncoding];
+//    // 从一个字串返回一个类
+//    Class newClass = objc_getClass(className);
+//    if (!newClass)
+//     {
+//        // 创建一个类
+//        Class superClass = [NSObject class];
+//        newClass = objc_allocateClassPair(superClass, className, 0);
+//        // 注册你创建的这个类
+//        objc_registerClassPair(newClass);
+//     }
+//    // 创建对象
+//    id instance = [[newClass alloc] init];
+//    [nav pushViewController:instance animated:YES];
+//}
+
+
+
 /*!
  @brief 网络变化的通知回调
  */

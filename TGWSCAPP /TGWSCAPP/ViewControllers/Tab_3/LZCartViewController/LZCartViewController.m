@@ -674,40 +674,45 @@
             NSString *strAll = @"";
             for (LZCartModel *model in self.selectedArray) {
                 NSLog(@"选择的商品>>%@>>>%ld",model.nameStr,(long)model.number);
-                
+
                 strAll = [strAll stringByAppendingString:model.cartIdStr];
                 strAll = [strAll stringByAppendingString:@","];
             }
-            
-            
+
+
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定要删除所选商品?" message:@"" preferredStyle:1];
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
+
                [self deleteMulitToWeb:strAll];
-                
-                
-                
             }];
-            
+
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-            
+
             UIColor *color=[UIColor redColor];
             [okAction setValue:color forKey:@"titleTextColor"];
-            
-            
+
+
             color= [ResourceManager color_1];
             [cancel setValue:color forKey:@"titleTextColor"];
-            
+
             [alert addAction:okAction];
             [alert addAction:cancel];
-            
+
             [self presentViewController:alert animated:YES completion:nil];
-            
-            
-            
+
+
+
         }
+        else
+         {
+            NSLog(@"你还没有选择任何商品");
+            [MBProgressHUD showErrorWithStatus:@"你还没有选择任何商品" toView:self.view];
+            
+         }
+        
         return;
      }
+    
     
     if (self.selectedArray.count > 0) {
         for (LZCartModel *model in self.selectedArray) {
@@ -715,6 +720,8 @@
         }
     } else {
         NSLog(@"你还没有选择任何商品");
+        [MBProgressHUD showErrorWithStatus:@"你还没有选择任何商品" toView:self.view];
+        
     }
     
 }
@@ -943,6 +950,11 @@
      {
         // 删除多个项目成功，从新请求数据
         [self loadData];
+        
+        [self.selectedArray removeAllObjects];
+        
+        [rightNavBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [btnTail setTitle:@"下单" forState:UIControlStateNormal];
      }
     else if (1003 == operation.tag)
      {

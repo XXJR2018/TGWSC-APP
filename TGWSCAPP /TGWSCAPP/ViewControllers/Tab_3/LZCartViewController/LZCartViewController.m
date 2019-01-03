@@ -22,18 +22,23 @@
     SKAutoScrollLabel *labelYH;  //优惠label
     UIButton *btnAddShop1;  // 去凑单按钮1
     UIButton *btnAddShop2;  // 去凑单按钮2
+    UIButton *btnTail;    // 底部的按钮。 下单/删除
+    
+
+    UIButton *rightNavBtn;     //导航右边按钮
     
     
     BOOL  isChildView ;  // 是否属于子页面
     BOOL  isHasTabBarController;
+    BOOL  isEdit;      // 是否编辑
     
 }
 
 @property (strong,nonatomic)NSMutableArray *selectedArray;
+@property (strong,nonatomic)NSMutableArray *lastDataArr;
 @property (strong,nonatomic)UITableView *myTableView;
 @property (strong,nonatomic)UIButton *allSellectedButton;
 @property (strong,nonatomic)UILabel *totlePriceLabel;
-
 
 
 @property (strong,nonatomic)NSIndexPath *delIndexPath;  // 删除的IndexPath
@@ -60,10 +65,9 @@
 //    _allSellectedButton.selected = NO;
 //    _totlePriceLabel.attributedText = [self LZSetString:@"￥0.00"];
     
-    if ([self.dataArray count] <= 0)
-     {
-        [self loadData];
-     }
+ 
+    [self loadData];
+    
 }
 
 -(void)creatData {
@@ -101,7 +105,24 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
 
-    [self layoutNaviBarViewWithTitle:@"购物车"];
+    CustomNavigationBarView *nav = [self layoutNaviBarViewWithTitle:@"购物车"];
+    
+    float fRightBtnTopY =  NavHeight - 40;
+    if (IS_IPHONE_X_MORE)
+     {
+        fRightBtnTopY = NavHeight - 42;
+     }
+    
+    //导航右边按钮
+    rightNavBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60.f,fRightBtnTopY,60.f, 35.0f)];
+    [rightNavBtn setTitle:@"编辑" forState:UIControlStateNormal];
+    [rightNavBtn setTitleColor:[ResourceManager navgationTitleColor] forState:UIControlStateNormal];
+    [rightNavBtn setTitleColor:[UIColor grayColor] forState:UIControlStateSelected];
+    [rightNavBtn addTarget:self action:@selector(actionEidt) forControlEvents:UIControlEventTouchUpInside];
+    rightNavBtn.titleLabel.font = [ResourceManager font_7];
+    [nav addSubview:rightNavBtn];
+    
+    [self initData];
 
     if (self.dataArray.count > 0) {
         
@@ -114,6 +135,11 @@
     [self loadData];
     
 
+}
+
+-(void) initData
+{
+    isEdit = FALSE;
 }
 
 
@@ -159,6 +185,16 @@
     return _selectedArray;
 }
 
+- (NSMutableArray *)lastDataArr {
+    if (_lastDataArr == nil) {
+        _lastDataArr = [NSMutableArray arrayWithCapacity:0];
+    }
+    
+    return _lastDataArr;
+}
+
+
+
 #pragma mark - 布局页面视图
 #pragma mark -- 自定义底部视图 
 - (void)setupCustomBottomView {
@@ -183,7 +219,7 @@
     
     //全选按钮
     UIButton *selectAll = [UIButton buttonWithType:UIButtonTypeCustom];
-    selectAll.titleLabel.font = [UIFont systemFontOfSize:16];
+    selectAll.titleLabel.font = [UIFont systemFontOfSize:14];
     selectAll.frame = CGRectMake(10, 5, 80, LZTabBarHeight - 10);
     [selectAll setTitle:@" 全选" forState:UIControlStateNormal];
     [selectAll setImage:[UIImage imageNamed:lz_Bottom_UnSelectButtonString] forState:UIControlStateNormal];
@@ -196,14 +232,16 @@
     //结算按钮
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.backgroundColor = [ResourceManager priceColor];
-    btn.frame = CGRectMake(LZSCREEN_WIDTH - 80, 0, 80, LZTabBarHeight);
-    [btn setTitle:@"去结算" forState:UIControlStateNormal];
+    btn.frame = CGRectMake(LZSCREEN_WIDTH - 120, 0, 120, LZTabBarHeight);
+    [btn setTitle:@"下单" forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:14];
     [btn addTarget:self action:@selector(goToPayButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [backgroundView addSubview:btn];
+    btnTail = btn;
     
     //合计
     UILabel *label = [[UILabel alloc]init];
-    label.font = [UIFont systemFontOfSize:18];
+    label.font = [UIFont systemFontOfSize:15];
     label.textColor = [ResourceManager priceColor];
     [backgroundView addSubview:label];
     
@@ -220,7 +258,7 @@
     NSMutableAttributedString *LZString = [[NSMutableAttributedString alloc]initWithString:text];
     NSRange rang = [text rangeOfString:@"合计:"];
     [LZString addAttribute:NSForegroundColorAttributeName value:[ResourceManager color_1] range:rang];
-    [LZString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:rang];
+    [LZString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:rang];
     return LZString;
 }
 #pragma mark -- 购物车为空时的默认视图
@@ -525,8 +563,8 @@
                                                                             title:@"删除"    handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
                                                                                 NSLog(@"删除");
                                                                                 
-                                                                                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要删除该商品?删除后无法恢复!" preferredStyle:1];
-                                                                                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                                                                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定要删除该商品?" message:@"" preferredStyle:1];
+                                                                                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                                                                                     
                                                                                     
                                                                                     // 记录删除的 indexPath
@@ -541,8 +579,16 @@
                                                                                 
                                                                                 UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
                                                                                 
+                                                                                UIColor *color=[UIColor redColor];
+                                                                                [okAction setValue:color forKey:@"titleTextColor"];
+
+                                                                                
+                                                                                color= [ResourceManager color_1];
+                                                                                [cancel setValue:color forKey:@"titleTextColor"];
+                                                                                
                                                                                 [alert addAction:okAction];
                                                                                 [alert addAction:cancel];
+                                                                                
                                                                                 [self presentViewController:alert animated:YES completion:nil];
 
                                                                             }];
@@ -621,9 +667,51 @@
 }
 #pragma mark --- 确认选择,提交订单按钮点击事件
 - (void)goToPayButtonClick:(UIButton*)button {
+    // 编辑状态下，为删除动作
+    if (isEdit)
+     {
+        if (self.selectedArray.count > 0) {
+            NSString *strAll = @"";
+            for (LZCartModel *model in self.selectedArray) {
+                NSLog(@"选择的商品>>%@>>>%ld",model.nameStr,(long)model.number);
+                
+                strAll = [strAll stringByAppendingString:model.cartIdStr];
+                strAll = [strAll stringByAppendingString:@","];
+            }
+            
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定要删除所选商品?" message:@"" preferredStyle:1];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+               [self deleteMulitToWeb:strAll];
+                
+                
+                
+            }];
+            
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            
+            UIColor *color=[UIColor redColor];
+            [okAction setValue:color forKey:@"titleTextColor"];
+            
+            
+            color= [ResourceManager color_1];
+            [cancel setValue:color forKey:@"titleTextColor"];
+            
+            [alert addAction:okAction];
+            [alert addAction:cancel];
+            
+            [self presentViewController:alert animated:YES completion:nil];
+            
+            
+            
+        }
+        return;
+     }
+    
     if (self.selectedArray.count > 0) {
         for (LZCartModel *model in self.selectedArray) {
-            NSLog(@"选择的商品>>%@>>>%ld",model,(long)model.number);
+            NSLog(@"选择的商品>>%@>>>%ld",model.nameStr,(long)model.number);
         }
     } else {
         NSLog(@"你还没有选择任何商品");
@@ -644,7 +732,23 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@"1"}];
 }
 
-
+-(void) actionEidt
+{
+    isEdit = !isEdit;
+    if (isEdit)
+     {
+        [rightNavBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [btnTail setTitle:@"删除所选" forState:UIControlStateNormal];
+        self.totlePriceLabel.hidden = YES;
+        
+     }
+    else
+     {
+        [rightNavBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [btnTail setTitle:@"下单" forState:UIControlStateNormal];
+        self.totlePriceLabel.hidden = NO;
+     }
+}
 
 #pragma mark  --- 网络通讯
 //- (void)loadData {
@@ -682,6 +786,23 @@
     operation.tag = 1001;
     [operation start];
 }
+
+-(void)deleteMulitToWeb:(NSString*) strCartIds
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"cartIds"] = strCartIds;
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLorderCartDelete];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1002;
+    [operation start];
+}
+
 
 -(void)getTitleFromWeb
 {
@@ -733,7 +854,7 @@
                                                                                   }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
                                                                                       [self handleErrorData:operation];
                                                                                   }];
-    operation.tag = 1002;
+    operation.tag = 1003;
     [operation start];
 }
 
@@ -773,16 +894,57 @@
             }
          }
         
+        BOOL  isNeddRefesh = FALSE;
+        // 如果数组个数不相等， 需要刷新
+        if ([self.dataArray count] !=  [self.lastDataArr count] ||
+            [self.lastDataArr count] == 0)
+         {
+            isNeddRefesh = TRUE;
+         }
+        else
+         {
+            for (int i = 0; i < [self.lastDataArr count]; i++)
+             {
+                LZCartModel *lastModel = self.lastDataArr[i];
+                LZCartModel *curModel = self.dataArray[i];
+                if (![lastModel.goodCodeStr isEqualToString:curModel.goodCodeStr])
+                 {
+                    isNeddRefesh = TRUE;
+                 }
+                
+                if (![lastModel.skuCodeStr isEqualToString:curModel.skuCodeStr])
+                 {
+                    isNeddRefesh = TRUE;
+                 }
+                
+                if (lastModel.number != curModel.number)
+                 {
+                    isNeddRefesh = TRUE;
+                 }
+                
+             }
+         }
         
-        [self changeView];
+        if (isNeddRefesh)
+         {
+            [self changeView];
+         }
+        
+        [self.lastDataArr removeAllObjects];
+        [self.lastDataArr addObjectsFromArray:self.dataArray];
         
      }
     else if (1001 == operation.tag)
      {
-        // 删除所选列
+        // 删除所选列成功，删除本地列
         [self delLocal:_delIndexPath];
      }
     else if (1002 == operation.tag)
+     {
+        // 删除多个项目成功，从新请求数据
+        [self loadData];
+     }
+    else if (1003 == operation.tag)
      {
         // 获取所选组合的标题
         NSDictionary *dic = operation.jsonResult.attr;

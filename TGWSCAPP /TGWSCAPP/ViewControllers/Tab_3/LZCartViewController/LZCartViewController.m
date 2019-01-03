@@ -188,14 +188,14 @@
     [selectAll setTitle:@" 全选" forState:UIControlStateNormal];
     [selectAll setImage:[UIImage imageNamed:lz_Bottom_UnSelectButtonString] forState:UIControlStateNormal];
     [selectAll setImage:[UIImage imageNamed:lz_Bottom_SelectButtonString] forState:UIControlStateSelected];
-    [selectAll setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [selectAll setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
     [selectAll addTarget:self action:@selector(selectAllBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [backgroundView addSubview:selectAll];
     self.allSellectedButton = selectAll;
     
     //结算按钮
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.backgroundColor = UIColorFromRGB(0xaf0e1d);//BASECOLOR_RED;
+    btn.backgroundColor = [ResourceManager priceColor];
     btn.frame = CGRectMake(LZSCREEN_WIDTH - 80, 0, 80, LZTabBarHeight);
     [btn setTitle:@"去结算" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(goToPayButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -204,7 +204,7 @@
     //合计
     UILabel *label = [[UILabel alloc]init];
     label.font = [UIFont systemFontOfSize:18];
-    label.textColor = [UIColor redColor];
+    label.textColor = [ResourceManager priceColor];
     [backgroundView addSubview:label];
     
     label.attributedText = [self LZSetString:@"¥0.00"];
@@ -219,7 +219,7 @@
     NSString *text = [NSString stringWithFormat:@"合计:%@",string];
     NSMutableAttributedString *LZString = [[NSMutableAttributedString alloc]initWithString:text];
     NSRange rang = [text rangeOfString:@"合计:"];
-    [LZString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:rang];
+    [LZString addAttribute:NSForegroundColorAttributeName value:[ResourceManager color_1] range:rang];
     [LZString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:rang];
     return LZString;
 }

@@ -14,6 +14,7 @@
 #import "LZCartModel.h"
 #import "ShopDetailVC.h"
 #import "SKAutoScrollLabel.h"
+#import "CDWAlertView.h"
 
 @interface LZCartViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -563,33 +564,39 @@
                                                                             title:@"删除"    handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
                                                                                 NSLog(@"删除");
                                                                                 
-                                                                                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定要删除该商品?" message:@"" preferredStyle:1];
-                                                                                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                                                                                    
+                                                                                
+                                                                                CDWAlertView *alertView = [[CDWAlertView alloc] init];
+                                                                                
+                                                                                alertView.shouldDismissOnTapOutside = NO;
+                                                                                alertView.textAlignment = RTTextAlignmentCenter;
+                                                                                
+                                                                                // 降低高度,加入标题
+                                                                                //    [alertView subAlertCurHeight:20];
+                                                                                //    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 18 color=#000000>提示</font>"]];
+                                                                                
+                                                                                // 加入message
+                                                                                NSString *strXH= [NSString stringWithFormat:@"确定要删除所选商品？"];
+                                                                                [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 15 color=#676767> %@ </font>",strXH]];
+                                                                                [alertView addAlertCurHeight:10];
+                                                                                
+                                                                                
+                                                                                [alertView addButton:@"确定" color:[ResourceManager priceColor] actionBlock:^{
                                                                                     
                                                                                     // 记录删除的 indexPath
                                                                                     self.delIndexPath = indexPath;
                                                                                     
                                                                                     LZCartModel *model = [self.dataArray objectAtIndex:indexPath.row];
+                                                                                    
                                                                                     [self deleteToWeb:model.cartIdStr];
-                                                                                    
-                                                                                    
-                                                                                    
                                                                                 }];
                                                                                 
-                                                                                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                                                                                [alertView addCanelButton:@"取消" actionBlock:^{
+                                                                                    
+                                                                                }];
+                                                                                [alertView showAlertView:self.parentViewController duration:0.0];
+                                                                                return;
                                                                                 
-                                                                                UIColor *color=[UIColor redColor];
-                                                                                [okAction setValue:color forKey:@"titleTextColor"];
-
-                                                                                
-                                                                                color= [ResourceManager color_1];
-                                                                                [cancel setValue:color forKey:@"titleTextColor"];
-                                                                                
-                                                                                [alert addAction:okAction];
-                                                                                [alert addAction:cancel];
-                                                                                
-                                                                                [self presentViewController:alert animated:YES completion:nil];
+                                                                               
 
                                                                             }];
     
@@ -667,6 +674,8 @@
 }
 #pragma mark --- 确认选择,提交订单按钮点击事件
 - (void)goToPayButtonClick:(UIButton*)button {
+    
+    
     // 编辑状态下，为删除动作
     if (isEdit)
      {
@@ -680,25 +689,7 @@
             }
 
 
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定要删除所选商品?" message:@"" preferredStyle:1];
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
-               [self deleteMulitToWeb:strAll];
-            }];
-
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-
-            UIColor *color=[UIColor redColor];
-            [okAction setValue:color forKey:@"titleTextColor"];
-
-
-            color= [ResourceManager color_1];
-            [cancel setValue:color forKey:@"titleTextColor"];
-
-            [alert addAction:okAction];
-            [alert addAction:cancel];
-
-            [self presentViewController:alert animated:YES completion:nil];
+            [self actionPopModify:strAll];
 
 
 
@@ -724,6 +715,35 @@
         
     }
     
+}
+
+-(void) actionPopModify:(NSString*) strAll
+{
+    CDWAlertView *alertView = [[CDWAlertView alloc] init];
+    
+    alertView.shouldDismissOnTapOutside = NO;
+    alertView.textAlignment = RTTextAlignmentCenter;
+    
+    // 降低高度,加入标题
+//    [alertView subAlertCurHeight:20];
+//    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 18 color=#000000>提示</font>"]];
+    
+    // 加入message
+    NSString *strXH= [NSString stringWithFormat:@"确定要删除所选商品？"];
+    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 15 color=#676767> %@ </font>",strXH]];
+    [alertView addAlertCurHeight:10];
+     
+    
+    [alertView addButton:@"确定" color:[ResourceManager priceColor] actionBlock:^{
+        
+         [self deleteMulitToWeb:strAll];
+    }];
+    
+    [alertView addCanelButton:@"取消" actionBlock:^{
+        
+    }];
+    [alertView showAlertView:self.parentViewController duration:0.0];
+    return;
 }
 
 #pragma mark --- action

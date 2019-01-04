@@ -12,6 +12,9 @@
 #import "IdentifyAlertView.h"
 
 @interface PhoneCheckViewController ()
+{
+    NSString *smsTokenId;
+}
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITextField *VerifyTextField;//验证码
@@ -43,11 +46,14 @@
     [self forgetTradeUrl];
 }
 
+
+
+#pragma mark 数据操作
 -(void)forgetTradeUrl{
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"randomNo"] = self.VerifyTextField.text;
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/smsAction/valid/login/forgetTrade",[PDAPI getBaseUrlString]]
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/smsSend/valid/login/forgetTrade",[PDAPI getBaseUrlString]]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       [self handleData:operation];
@@ -55,19 +61,88 @@
                                                                                   failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
                                                                                       [self handleErrorData:operation];
                                                                                   }];
+    
+    operation.tag = 1000;
     [operation start];
 }
 
-#pragma mark 数据操作
+-(void)getSMSFrist
+{
+    smsTokenId = @"";
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/forgetTrade", [PDAPI getBaseUrlString], kDDGgetSmsTokenByType];
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    parmas[@"telephone"] = [[CommonInfo userInfo] objectForKey:@"telephone"];
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:parmas HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 998;
+    [operation start];
+}
+
+
+-(void)getSMSSecond
+{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/forgetTrade", [PDAPI getBaseUrlString], kDDGnologinByType];
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    parmas[@"telephone"] = [[CommonInfo userInfo] objectForKey:@"telephone"];
+    parmas[@"smsTokenId"] = smsTokenId;
+    NSString *strTemp = [NSString stringWithFormat:@"%@&%@",smsTokenId,[[CommonInfo userInfo] objectForKey:@"telephone"]];
+    parmas[@"smsEnc"] = [strTemp stringTGWToMD5];
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:parmas HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 999;
+    [operation start];
+}
+
+
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
-    paymentPWViewController *ctl = [[paymentPWViewController alloc]init];
-    if ([self.titleStr isEqualToString:@"设置支付密码"]) {
-        ctl.titleStr = @"设置支付密码";
-    }else{
-        ctl.titleStr = @"重置支付密码";
-    }
-    [self.navigationController pushViewController:ctl animated:YES];
+    
+    if (operation.tag == 998)
+     {
+        NSDictionary *dic = operation.jsonResult.attr;
+        if (dic)
+         {
+            smsTokenId =  [NSString stringWithFormat:@"%@", dic[@"smsTokenId"]];
+            [self getSMSSecond];
+         }
+        
+     }
+    else if (operation.tag == 999)
+     {
+        [MBProgressHUD showSuccessWithStatus:@"获取验证码成功" toView:self.view];
+     }
+    else if (1000 == operation.tag)
+     {
+        paymentPWViewController *ctl = [[paymentPWViewController alloc]init];
+        if ([self.titleStr isEqualToString:@"设置支付密码"]) {
+            ctl.titleStr = @"设置支付密码";
+        }else{
+            ctl.titleStr = @"重置支付密码";
+        }
+        [self.navigationController pushViewController:ctl animated:YES];
+     }
+   
 }
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
@@ -82,18 +157,7 @@
         [MBProgressHUD showErrorWithStatus:@"请检查网络" toView:self.view];
         return;
     }
-    if ([[[CommonInfo userInfo] objectForKey:@"telephone"] isMobileNumber]) {
-        IdentifyAlertView * alert = [[IdentifyAlertView alloc] initWithTitle:@"图形验证码"
-                                                                CancelButton:@"确定"
-                                                                    OkButton:@"取消"];
-        alert.parentVC = self;
-        alert.strPhone = [[CommonInfo userInfo] objectForKey:@"telephone"];
-        alert.strRequestURL = @"appMall/smsAction/login/forgetTrade";
-        [alert show];
-    }else{
-        [MBProgressHUD showErrorWithStatus:@"请输入正确的手机号码" toView:self.view];
-        return;
-    }
+   
     __block int timeout=59; //倒计时时间
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
@@ -118,6 +182,8 @@
         }
     });
     dispatch_resume(_timer);
+    
+    [self getSMSFrist];
 }
 
 /*

@@ -8,10 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-// 发送短信接口一（拿到SmsTokenID）
+// 发送登录短信接口一（拿到登录SmsTokenID）
 static NSString *const kDDGgetSmsToken = @"appMall/smsSend/getSmsToken/kjLogin";
-// 发送短信接口二（发送短信）
+// 发送登录短信接口二（发送登录短信）
 static NSString *const kDDGnologin = @"appMall/smsSend/nologin/kjLogin";
+// 发送普通短信接口一（拿到SmsTokenID）  请求URL：/appMall/smsSend/getSmsToken/{type}
+static NSString *const kDDGgetSmsTokenByType = @"appMall/smsSend/getSmsToken";
+// 发送普通短信接口二（发送短信） 请求URL：/appMall/smsSend/login/{type}
+static NSString *const kDDGnologinByType = @"appMall/smsSend/login";
+
+
+
 
 #pragma mark --- 首页页面相关接口
 // 获取首页菜单

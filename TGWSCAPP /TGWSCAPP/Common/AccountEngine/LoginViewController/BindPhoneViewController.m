@@ -11,6 +11,9 @@
 #import "IdentifyAlertView.h"
 
 @interface BindPhoneViewController ()
+{
+    NSString *smsTokenId;
+}
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;//手机号
 @property (weak, nonatomic) IBOutlet UITextField *VerifyTextField;//验证码
@@ -42,15 +45,8 @@
         [MBProgressHUD showErrorWithStatus:@"请检查网络" toView:self.view];
         return;
     }
-    if ([_phoneTextField.text isMobileNumber]) {
-        IdentifyAlertView * alert = [[IdentifyAlertView alloc] initWithTitle:@"图形验证码"
-                                                                CancelButton:@"确定"
-                                                                    OkButton:@"取消"];
-        alert.parentVC = self;
-        alert.strPhone = _phoneTextField.text;
-        alert.strRequestURL = @"fx/smsAction/newNologin/wxBindTel";
-        [alert show];
-    }else{
+    if (![_phoneTextField.text isMobileNumber]) {
+        
         [MBProgressHUD showErrorWithStatus:@"请输入正确的手机号码" toView:self.view];
         return;
     }
@@ -78,7 +74,57 @@
         }
     });
     dispatch_resume(_timer);
+    
+    [self getSMSFrist];
 }
+
+-(void)getSMSFrist
+{
+    smsTokenId = @"";
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBaseUrlString], kDDGgetSmsToken];
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    parmas[@"telephone"] = self.phoneTextField.text;
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:parmas HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 998;
+    [operation start];
+}
+
+
+-(void)getSMSSecond
+{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBaseUrlString], kDDGnologin];
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    parmas[@"telephone"] = self.phoneTextField.text;
+    parmas[@"smsTokenId"] = smsTokenId;
+    NSString *strTemp = [NSString stringWithFormat:@"%@&%@",smsTokenId,self.phoneTextField.text];
+    parmas[@"smsEnc"] = [strTemp stringTGWToMD5];
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:parmas HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 999;
+    [operation start];
+}
+
 
 //绑定手机
 - (IBAction)NextUrl:(id)sender {
@@ -111,16 +157,35 @@
                                                                                       [MBProgressHUD hideHUDForView:self.view animated:NO];
                                                                                       [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
                                                                                   }];
+    
+    operation.tag = 1000;
     [operation start];
 }
 
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
-    //登陆成功,发送通知更新用户信息
-    [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
-    //跳转首页
-    [[DDGUserInfoEngine engine] finishDoBlock];
-    [[DDGUserInfoEngine engine] dismissFinishUserInfoController:nil];
+    if (operation.tag == 998)
+     {
+        NSDictionary *dic = operation.jsonResult.attr;
+        if (dic)
+         {
+            smsTokenId =  [NSString stringWithFormat:@"%@", dic[@"smsTokenId"]];
+            [self getSMSSecond];
+         }
+        
+     }
+    else if (operation.tag == 999)
+     {
+        [MBProgressHUD showSuccessWithStatus:@"获取验证码成功" toView:self.view];
+     }
+   else  if (1000 == operation.tag)
+     {
+        //登陆成功,发送通知更新用户信息
+        [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
+        //跳转首页
+        [[DDGUserInfoEngine engine] finishDoBlock];
+        [[DDGUserInfoEngine engine] dismissFinishUserInfoController:nil];
+     }
 }
 
 

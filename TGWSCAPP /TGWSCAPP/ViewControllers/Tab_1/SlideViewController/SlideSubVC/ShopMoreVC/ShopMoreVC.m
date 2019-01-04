@@ -96,6 +96,10 @@
    
     NSString *strURL = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString],kURLqueryTypeMoreInfoList];
 
+    if (_isGoodType)
+     {
+        strURL = [NSString stringWithFormat:@"%@appMall/goods/queryGoodsList",[PDAPI getBaseUrlString]];
+     }
     
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strURL
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
@@ -107,6 +111,9 @@
                                                                                   }];
     [operation start];
 }
+
+
+
 
 
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{

@@ -29,6 +29,7 @@
 		C0A48B4121DDFE12002AF226 /* SKAutoScrollLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B4021DDFE12002AF226 /* SKAutoScrollLabel.m */; };
 		C0A48B4E21DE3608002AF226 /* RCLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B4D21DE3608002AF226 /* RCLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C0A48B5121DE3715002AF226 /* CDWAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B5021DE3715002AF226 /* CDWAlertView.m */; };
+		C0A48B5521DE3D8A002AF226 /* OrderDetialVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B5421DE3D8A002AF226 /* OrderDetialVC.m */; };
 		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
@@ -348,6 +349,8 @@
 		C0A48B4D21DE3608002AF226 /* RCLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCLabel.m; sourceTree = "<group>"; };
 		C0A48B4F21DE3715002AF226 /* CDWAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDWAlertView.h; sourceTree = "<group>"; };
 		C0A48B5021DE3715002AF226 /* CDWAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDWAlertView.m; sourceTree = "<group>"; };
+		C0A48B5321DE3D8A002AF226 /* OrderDetialVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetialVC.h; sourceTree = "<group>"; };
+		C0A48B5421DE3D8A002AF226 /* OrderDetialVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetialVC.m; sourceTree = "<group>"; };
 		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
@@ -1020,6 +1023,15 @@
 			path = CDWAlertView;
 			sourceTree = "<group>";
 		};
+		C0A48B5221DE3D09002AF226 /* OrderDetial */ = {
+			isa = PBXGroup;
+			children = (
+				C0A48B5321DE3D8A002AF226 /* OrderDetialVC.h */,
+				C0A48B5421DE3D8A002AF226 /* OrderDetialVC.m */,
+			);
+			path = OrderDetial;
+			sourceTree = "<group>";
+		};
 		C0CCC7B121C0E237009352E0 /* SearchViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1322,6 +1334,7 @@
 				C20525E521BE6E5C00E13893 /* TabViewController_3.h */,
 				C20525E621BE6E5C00E13893 /* TabViewController_3.m */,
 				C20525E721BE6E5C00E13893 /* TabViewController_3.xib */,
+				C0A48B5221DE3D09002AF226 /* OrderDetial */,
 				C0A48A8521D76B79002AF226 /* LZCartViewController */,
 			);
 			path = Tab_3;
@@ -2630,6 +2643,7 @@
 				C250451421BA579100DA9C72 /* CitysViewController.m in Sources */,
 				C244952821CCC75D00F8698B /* MenuViewController.m in Sources */,
 				C0CCC7EE21C0F150009352E0 /* LLSearchNaviBarView.m in Sources */,
+				C0A48B5521DE3D8A002AF226 /* OrderDetialVC.m in Sources */,
 				C25047E321BA715500DA9C72 /* PDNotifications.m in Sources */,
 				C250479621BA715500DA9C72 /* JSONKit.m in Sources */,
 				C0CCC7EC21C0F150009352E0 /* LLTagViewUtils.m in Sources */,

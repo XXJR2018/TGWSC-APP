@@ -325,6 +325,10 @@ usingVerticalAlign: (VerticalAlignment) vertAlign;
 #pragma mark ==== 计算字符长度和高度，根据frame 和 font====
 +  (CGSize) getSizeWithString:(NSString*) string withFrame:(CGRect) rect withFontSize:(int)fontSize;
 
+
+#pragma mark ==== 画虚线 (宽度为1， 长度为任意)
++(UIImage *)imageWithLineWithImageView:(UIImageView *)imageView;
+
 @end
 
 NS_ASSUME_NONNULL_END

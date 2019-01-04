@@ -11,6 +11,9 @@
 @interface OrderDetialVC ()
 {
     UIScrollView  *scView;
+    
+    NSDictionary *dicOfUI;
+    NSArray *arrOfUI;
 }
 @end
 
@@ -30,11 +33,12 @@
 
 -(void) initData
 {
-    //_dicToWeb = [[NSMutableDictionary alloc] init];
+    dicOfUI = nil;
+    arrOfUI = nil;
 }
 
 #pragma mark --- 布局UI
--(void) layoutUI:(NSDictionary*) dicUI
+-(void) layoutUI:(NSDictionary*) dicValue  andArr:(NSArray*)arrValue
 {
     scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0.f, NavHeight, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [self.view addSubview:scView];
@@ -44,11 +48,19 @@
     scView.showsVerticalScrollIndicator = FALSE;
     scView.showsHorizontalScrollIndicator = FALSE;
     scView.backgroundColor = [UIColor whiteColor];//[ResourceManager viewBackgroundColor];
+    
+    
+    UIImageView * lineView1 = [[UIImageView alloc] initWithFrame:CGRectMake(35, 100, SCREEN_WIDTH, 1)];
+    [scView addSubview:lineView1];
+    lineView1.image = [ToolsUtlis imageWithLineWithImageView:lineView1];
 }
 
 #pragma mark --- 网络请求
 -(void) getUIDataFromWeb
 {
+    dicOfUI = nil;
+    arrOfUI = nil;
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params = _dicToWeb;
     
@@ -74,6 +86,9 @@
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     if (operation.tag == 1000)
      {
+        dicOfUI = operation.jsonResult.attr;
+        arrOfUI = operation.jsonResult.rows;
+        [self layoutUI:dicOfUI andArr:arrOfUI];
      }
 }
 
@@ -82,6 +97,7 @@
     [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
     
 }
+
 
 
 

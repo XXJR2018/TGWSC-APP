@@ -207,7 +207,7 @@
 - (void)setupCustomBottomView {
     
     UIView *backgroundView = [[UIView alloc]init];
-    backgroundView.backgroundColor = LZColorFromRGB(245, 245, 245);
+    backgroundView.backgroundColor = [UIColor whiteColor];//LZColorFromRGB(245, 245, 245);
     backgroundView.tag = TAG_CartEmptyView + 1;
     [self.view addSubview:backgroundView];
     
@@ -221,7 +221,7 @@
     
     UIView *lineView = [[UIView alloc]init];
     lineView.frame = CGRectMake(0, 0, LZSCREEN_WIDTH, 1);
-    lineView.backgroundColor = [UIColor lightGrayColor];
+    lineView.backgroundColor = [ResourceManager color_5];
     [backgroundView addSubview:lineView];
     
     //全选按钮
@@ -334,7 +334,7 @@
     
     table.rowHeight = lz_CartRowHeight;
     table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    table.backgroundColor = LZColorFromRGB(245, 246, 248);
+    table.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:table];
     self.myTableView = table;
     

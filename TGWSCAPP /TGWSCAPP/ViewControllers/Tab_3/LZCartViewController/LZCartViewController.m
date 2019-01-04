@@ -15,6 +15,7 @@
 #import "ShopDetailVC.h"
 #import "SKAutoScrollLabel.h"
 #import "CDWAlertView.h"
+#import "OrderDetialVC.h"
 
 @interface LZCartViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -32,6 +33,9 @@
     BOOL  isChildView ;  // 是否属于子页面
     BOOL  isHasTabBarController;
     BOOL  isEdit;      // 是否编辑
+    
+    NSString *promocardId;     // 用户优惠券ID
+    NSString *custPromocardId; // 优惠券ID
     
 }
 
@@ -141,6 +145,8 @@
 -(void) initData
 {
     isEdit = FALSE;
+    promocardId = @"";
+    custPromocardId = @"";
 }
 
 
@@ -706,9 +712,29 @@
     
     
     if (self.selectedArray.count > 0) {
+        
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        NSString *strCartIDS = @"";
         for (LZCartModel *model in self.selectedArray) {
             NSLog(@"选择的商品>>%@>>>%ld",model.nameStr,(long)model.number);
+            
+            strCartIDS = [strCartIDS stringByAppendingString:model.cartIdStr];
+            strCartIDS = [strCartIDS stringByAppendingString:@","];
         }
+        
+        params[@"cartIds"] = strCartIDS;
+        params[@"promocardId"] = promocardId;
+        params[@"custPromocardId"] = custPromocardId;
+
+        
+        
+        OrderDetialVC  *VC = [[OrderDetialVC alloc] init];
+        VC.dicToWeb = params;
+        VC.iType = 2;
+        [self.navigationController pushViewController:VC animated:YES];
+ 
+        
+        
     } else {
         NSLog(@"你还没有选择任何商品");
         [MBProgressHUD showErrorWithStatus:@"你还没有选择任何商品" toView:self.view];
@@ -833,6 +859,9 @@
 
 -(void)getTitleFromWeb
 {
+    promocardId = @"";
+    custPromocardId = @"";
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
     //WebGoodJSModel *objTemp = [[WebGoodJSModel alloc] init];
@@ -844,10 +873,6 @@
         float fPrice = [model.price floatValue];
         int  iNum =  (int)model.number;
         
-        //objTemp.price =  [NSString stringWithFormat:@"%.2f", fPrice * iNum];
-        //objTemp.skuCode = model.skuCodeStr;
-        //objTemp.goodsCode = model.goodCodeStr;
-        //objTemp.num = [NSString stringWithFormat:@"%d", (int)model.number];
         
         [objTemp removeAllObjects];
         objTemp[@"price"] = [NSString stringWithFormat:@"%.2f", fPrice];
@@ -984,6 +1009,16 @@
             [dic count])
          {
             [self setTopTitle:dic];
+            
+            if (dic[@"promocardId"])
+             {
+                promocardId = [NSString stringWithFormat:@"%@", dic[@"promocardId"]];
+             }
+            if (dic[@"custPromocardId"])
+             {
+                custPromocardId = [NSString stringWithFormat:@"%@", dic[@"custPromocardId"]];
+             }
+            
          }
      }
 }

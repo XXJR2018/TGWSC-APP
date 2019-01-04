@@ -465,6 +465,8 @@
     params[@"skuCode"] = strSKUCode;
     
     OrderDetialVC  *VC = [[OrderDetialVC alloc] init];
+    VC.dicToWeb = params;
+    VC.iType = 1;
     [self.parentVC.navigationController pushViewController:VC animated:YES];
     [self hide];
 }

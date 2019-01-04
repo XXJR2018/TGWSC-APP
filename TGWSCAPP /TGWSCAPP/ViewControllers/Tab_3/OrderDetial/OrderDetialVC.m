@@ -49,10 +49,21 @@
     scView.showsHorizontalScrollIndicator = FALSE;
     scView.backgroundColor = [UIColor whiteColor];//[ResourceManager viewBackgroundColor];
     
+    int iTopY = 0;
+    int iLeftX = 0;
     
-    UIImageView * lineView1 = [[UIImageView alloc] initWithFrame:CGRectMake(35, 100, SCREEN_WIDTH, 1)];
-    [scView addSubview:lineView1];
-    lineView1.image = [ToolsUtlis imageWithLineWithImageView:lineView1];
+    UIImageView *imgCiaoTiao = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH, 3)];
+    [scView addSubview:imgCiaoTiao];
+    imgCiaoTiao.image = [UIImage imageNamed:@"od_caitiao"];
+    
+    iTopY += imgCiaoTiao.height;
+    
+    
+    
+//    // 画虚线
+//    UIImageView * lineView1 = [[UIImageView alloc] initWithFrame:CGRectMake(35, 100, SCREEN_WIDTH, 1)];
+//    [scView addSubview:lineView1];
+//    lineView1.image = [ToolsUtlis imageWithLineWithImageView:lineView1];
 }
 
 #pragma mark --- 网络请求

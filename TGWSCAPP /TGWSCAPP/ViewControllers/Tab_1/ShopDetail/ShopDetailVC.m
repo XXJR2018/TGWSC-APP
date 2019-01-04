@@ -496,10 +496,11 @@
      }
     
     int iLeftX = 12;
+    int iIcomBtnWidth = 40;
     iTopY = 13;
     for (int i = 0; i < [arrTitle count]; i++)
      {
-        UIImageView *imgKF = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 16, 16)];
+        UIImageView *imgKF = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 18, 18)];
         [viewTabber addSubview:imgKF];
         imgKF.image = [UIImage imageNamed:arrImg[i]];
         
@@ -523,7 +524,7 @@
         btnTemp.tag = i;
         [btnTemp addTarget:self action:@selector(actionBtn:) forControlEvents:UIControlEventTouchUpInside];
         
-        iLeftX +=  36;
+        iLeftX +=  iIcomBtnWidth;//36;
         
      }
     
@@ -541,7 +542,7 @@
      }
     else
      {
-        int iBtnWidth =  (SCREEN_WIDTH - iLeftX  - 3*10) /2;
+        int iBtnWidth =  (SCREEN_WIDTH - iLeftX  - 2*10) /2;
         UIButton *btnLJGM = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, 10, iBtnWidth, 40)];
         [viewTabber addSubview:btnLJGM];
         btnLJGM.layer.borderColor = [ResourceManager mainColor].CGColor;

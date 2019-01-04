@@ -47,9 +47,6 @@ static NSString *const kURLqueryGoodsKey = @"appMall/goodskey/queryGoodsKey";
 
 
 #pragma mark ---- 购物车相关
-//  商品详情页面中，立即购买， 需要调用此接口（相当于下单接口）
-static NSString *const kURLsingleOrderInfo = @"appMall/account/commitOrder/singleOrderInfo";
-
 //  购物车列表
 static NSString *const kURLorderCartList = @"appMall/account/orderCart/list";
 //  购物车面中，加入购物车
@@ -60,6 +57,13 @@ static NSString *const kURLorderCartUpdate = @"appMall/account/orderCart/update"
 static NSString *const kURLorderCartDelete = @"appMall/account/orderCart/delete";
 // 购物车页面 的抬头
 static NSString *const kURLgetSaleTitle = @"appMall/account/orderCart/getSaleTitle";
+
+
+#pragma mark ---- 订单详情
+//  商品详情页面中，立即购买， 需要调用此接口（相当于下单接口）
+static NSString *const kURLsingleOrderInfo = @"appMall/account/commitOrder/singleOrderInfo";
+//  购物车页面下单
+static NSString *const kURLbatchOrderInfo = @"appMall/account/commitOrder/batchOrderInfo";
 
 
 

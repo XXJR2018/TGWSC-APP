@@ -846,6 +846,7 @@
     popView.shopModel = _shopModel;
     popView.arrSku = arrSku;
     popView.arrSkuShow = arrSkuShow;
+    popView.parentVC = self;
     [popView show];
 }
 
@@ -865,6 +866,7 @@
     popView.shopModel = _shopModel;
     popView.arrSku = arrSku;
     popView.arrSkuShow = arrSkuShow;
+    popView.parentVC = self;
     [popView show];
 }
 
@@ -890,6 +892,7 @@
     popView.shopModel = _shopModel;
     popView.arrSku = arrSku;
     popView.arrSkuShow = arrSkuShow;
+    popView.parentVC = self;
     [popView show];
     
 }

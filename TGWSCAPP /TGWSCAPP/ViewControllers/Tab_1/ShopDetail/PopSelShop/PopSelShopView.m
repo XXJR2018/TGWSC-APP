@@ -7,6 +7,8 @@
 //
 
 #import "PopSelShopView.h"
+#import "OrderDetialVC.h"
+
 
 #define   ShopRedColor     UIColorFromRGB(0x9f1421)
 
@@ -445,7 +447,26 @@
 #pragma mark ---  action
 -(void) actionBuy
 {
+    if (strSKUCode.length <= 0)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请选择正确的规格参数" toView:_keyWindow];
+        return;
+     }
     
+    if (iSelCount < 1)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请选择购物数量" toView:_keyWindow];
+        return;
+     }
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"goodsCode"] = _shopModel.strGoodsCode;
+    params[@"num"] = @(iSelCount);
+    params[@"skuCode"] = strSKUCode;
+    
+    OrderDetialVC  *VC = [[OrderDetialVC alloc] init];
+    [self.parentVC.navigationController pushViewController:VC animated:YES];
+    [self hide];
 }
 
 -(void) actionShopCart
@@ -615,6 +636,7 @@
 
     if (operation.tag == 1000)
     {
+       [MBProgressHUD showSuccessWithStatus:@"加入购物车成功" toView:_keyWindow];
     }
 }
 

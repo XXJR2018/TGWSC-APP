@@ -112,10 +112,10 @@
 
     CustomNavigationBarView *nav = [self layoutNaviBarViewWithTitle:@"购物车"];
     
-    float fRightBtnTopY =  NavHeight - 40;
+    float fRightBtnTopY =  NavHeight - 36;
     if (IS_IPHONE_X_MORE)
      {
-        fRightBtnTopY = NavHeight - 42;
+        fRightBtnTopY = NavHeight - 36;
      }
     
     //导航右边按钮

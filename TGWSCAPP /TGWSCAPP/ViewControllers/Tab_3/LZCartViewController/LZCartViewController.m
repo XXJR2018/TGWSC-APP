@@ -484,6 +484,8 @@
     LZCartModel *model = self.dataArray[indexPath.row];
     __block typeof(cell)wsCell = cell;
     
+    
+    // 做加法
     [cell numberAddWithBlock:^(NSInteger number) {
         if (number > model.ableStock)
          {
@@ -498,10 +500,16 @@
         if ([self.selectedArray containsObject:model]) {
             [self.selectedArray removeObject:model];
             [self.selectedArray addObject:model];
+            
             [self countPrice];
         }
+        
+         [self updateDataToWeb:model];
+        
     }];
     
+    
+    // 做减法
     [cell numberCutWithBlock:^(NSInteger number) {
         
         wsCell.lzNumber = number;
@@ -513,8 +521,13 @@
         if ([self.selectedArray containsObject:model]) {
             [self.selectedArray removeObject:model];
             [self.selectedArray addObject:model];
+            
             [self countPrice];
+            
         }
+        
+        [self updateDataToWeb:model];
+        
     }];
     
     [cell cellSelectedWithBlock:^(BOOL select) {
@@ -907,6 +920,28 @@
                                                                                       [self handleErrorData:operation];
                                                                                   }];
     operation.tag = 1003;
+    [operation start];
+}
+
+-(void) updateDataToWeb:(LZCartModel*)model
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"cartId"] = model.cartIdStr;
+    params[@"num"] = @(model.number);
+    params[@"skuCode"] = model.skuCodeStr;
+    
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLorderCartUpdate];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      //[self handleErrorData:operation];
+                                                                                  }];
+    
+    operation.tag = 1004;
+    
     [operation start];
 }
 

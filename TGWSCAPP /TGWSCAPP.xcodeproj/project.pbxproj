@@ -17,6 +17,7 @@
 		C02C5F9921CC991A0056A32E /* icon_play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8B21CC991A0056A32E /* icon_play@3x.png */; };
 		C02C5F9A21CC991A0056A32E /* icon_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8C21CC991A0056A32E /* icon_video@2x.png */; };
 		C02C5F9B21CC991A0056A32E /* icon_video@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8E21CC991A0056A32E /* icon_video@3x.png */; };
+		C098D2A821E058EC0008584B /* SelCouponVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2A721E058EC0008584B /* SelCouponVC.m */; };
 		C0A48A6D21D1F969002AF226 /* PopSelShopView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A6C21D1F969002AF226 /* PopSelShopView.m */; };
 		C0A48A7721D4A62A002AF226 /* ShopMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7621D4A62A002AF226 /* ShopMoreVC.m */; };
 		C0A48A7A21D4A64A002AF226 /* ShopMoreAtTimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7921D4A64A002AF226 /* ShopMoreAtTimeVC.m */; };
@@ -324,6 +325,8 @@
 		C02C5F8C21CC991A0056A32E /* icon_video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video@2x.png"; sourceTree = "<group>"; };
 		C02C5F8D21CC991A0056A32E /* TSVideoPlayback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSVideoPlayback.h; sourceTree = "<group>"; };
 		C02C5F8E21CC991A0056A32E /* icon_video@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video@3x.png"; sourceTree = "<group>"; };
+		C098D2A621E058EC0008584B /* SelCouponVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelCouponVC.h; sourceTree = "<group>"; };
+		C098D2A721E058EC0008584B /* SelCouponVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelCouponVC.m; sourceTree = "<group>"; };
 		C0A48A6B21D1F969002AF226 /* PopSelShopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopSelShopView.h; sourceTree = "<group>"; };
 		C0A48A6C21D1F969002AF226 /* PopSelShopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopSelShopView.m; sourceTree = "<group>"; };
 		C0A48A7521D4A62A002AF226 /* ShopMoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopMoreVC.h; sourceTree = "<group>"; };
@@ -932,6 +935,15 @@
 			path = detailVIdeo;
 			sourceTree = "<group>";
 		};
+		C098D2A421E057800008584B /* SelCoupon */ = {
+			isa = PBXGroup;
+			children = (
+				C098D2A621E058EC0008584B /* SelCouponVC.h */,
+				C098D2A721E058EC0008584B /* SelCouponVC.m */,
+			);
+			path = SelCoupon;
+			sourceTree = "<group>";
+		};
 		C0A48A6A21D1F907002AF226 /* PopSelShop */ = {
 			isa = PBXGroup;
 			children = (
@@ -1028,6 +1040,7 @@
 			children = (
 				C0A48B5321DE3D8A002AF226 /* OrderDetialVC.h */,
 				C0A48B5421DE3D8A002AF226 /* OrderDetialVC.m */,
+				C098D2A421E057800008584B /* SelCoupon */,
 			);
 			path = OrderDetial;
 			sourceTree = "<group>";
@@ -2564,6 +2577,7 @@
 				C250475E21BA715500DA9C72 /* UIView+DDGExtras.m in Sources */,
 				C25047A221BA715500DA9C72 /* EGORefreshTableHeaderView.m in Sources */,
 				C250476A21BA715500DA9C72 /* NSEnumerator+Additions.m in Sources */,
+				C098D2A821E058EC0008584B /* SelCouponVC.m in Sources */,
 				C25047D821BA715500DA9C72 /* BaseModel.m in Sources */,
 				C250460D21BA711E00DA9C72 /* SDCycleScrollView.m in Sources */,
 				C250476021BA715500DA9C72 /* UIColor+Additions.m in Sources */,

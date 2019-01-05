@@ -8,11 +8,12 @@
 
 #import "OrderDetialVC.h"
 #import "AddressViewController.h"
+#import "SelCouponVC.h"
 
 #define        AddrViewHeight        70
 #define        BottomViewHeight      50
 
-@interface OrderDetialVC ()
+@interface OrderDetialVC ()<UITextFieldDelegate>
 {
     UIScrollView  *scView;
     
@@ -22,22 +23,37 @@
     UIView *viewList;   // 商品列表view
     UIView *viewTail;   // 底部详情view
     
+    UILabel *lableYHJ;
+    
     NSDictionary *dicOfUI;
     NSArray *arrOfUI;
+    BOOL isCheckXY;  // 协议勾选标记位
     
+    float promocardValue;  // 优惠券的面值
+    float goodsTotalAmt;   // 商品的总价值
+    
+ 
 
 }
+
+@property (nonatomic,assign) BOOL  isNotLoadData;     // 不需要加载数据
+@property (nonatomic, strong) NSString *custPromocardId;  // 优惠券的唯一ID
+
 @end
 
 @implementation OrderDetialVC
 
 #pragma mark ---  lifecycle
--(void) viewDidAppear:(BOOL)animated
+-(void) viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"订单详情页面"];
     
-    [self getUIDataFromWeb];
+    if (!_isNotLoadData)
+     {
+        [self getUIDataFromWeb];
+     }
+    _isNotLoadData = NO;
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -62,6 +78,9 @@
 {
     dicOfUI = nil;
     arrOfUI = nil;
+    promocardValue = 0;
+    goodsTotalAmt = 0;
+    _custPromocardId = @"";
 }
 
 #pragma mark --- 布局UI
@@ -118,8 +137,13 @@
 //    UIImageView * lineView1 = [[UIImageView alloc] initWithFrame:CGRectMake(35, 100, SCREEN_WIDTH, 1)];
 //    [scView addSubview:lineView1];
 //    lineView1.image = [ToolsUtlis imageWithLineWithImageView:lineView1];
-    
+
+    //添加手势点击空白处隐藏键盘
+    UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(TouchViewKeyBoard)];
+    gesture.numberOfTapsRequired  = 1;
+    [self.view addGestureRecognizer:gesture];
 }
+
 
 //  布局无地址view
 -(void) layoutNoAddrAtLeftX:(int) iLeftValue  AtTopY:(int ) iTopValue
@@ -262,12 +286,201 @@
     
     int iTopY = 0;
     int iLeftX = 15;
-    UILabel *labelMJYY = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 60, 40)];
+    int iCellHeight = 50;
+    // 买家留言
+    UIView *viewMJLY = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, iCellHeight)];
+    [viewTail addSubview:viewMJLY];
+    viewMJLY.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *labelMJYY = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 60, iCellHeight)];
     [viewTail addSubview:labelMJYY];
     labelMJYY.font = [UIFont systemFontOfSize:14];
     labelMJYY.textColor = [ResourceManager color_1];
     labelMJYY.text = @"买家留言";
-    labelMJYY.backgroundColor = [ResourceManager redColor1];
+    
+    iLeftX += labelMJYY.width+10;
+    UITextField  *textMJLY = [[UITextField alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - iLeftX - 10, iCellHeight)];
+    [viewTail addSubview:textMJLY];
+    textMJLY.font = [UIFont systemFontOfSize:14];
+    textMJLY.textColor = [ResourceManager color_1];
+    textMJLY.placeholder = @"填写内容需与商家协商并确认，45字以内";
+    textMJLY.tag = 1000;
+    textMJLY.delegate = self;
+    
+    // @"优惠券/优惠码",@"购买所得积分",@"配送方式" 布局
+    iTopY += iCellHeight + 10;
+    NSArray *arrName = @[@"优惠券/优惠码",@"购买所得积分",@"配送方式"];
+    
+    for(int i= 0 ; i <[arrName count]; i++)
+     {
+        iLeftX = 15;
+        UIView *viewCell = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, iCellHeight)];
+        [viewTail addSubview:viewCell];
+        viewCell.backgroundColor = [UIColor whiteColor];
+        
+        UILabel *labelName = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, 0, 150, iCellHeight)];
+        [viewCell addSubview:labelName];
+        labelName.font = [UIFont systemFontOfSize:14];
+        labelName.textColor = [ResourceManager color_1];
+        labelName.text = arrName[i];
+        
+        
+        if (0 == i)
+         {
+            //优惠券特殊编码
+            lableYHJ = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 100, (iCellHeight-20)/2, 80, 20)];
+            [viewCell addSubview:lableYHJ];
+            lableYHJ.font = [UIFont systemFontOfSize:14];
+            lableYHJ.textColor = [ResourceManager midGrayColor];
+            lableYHJ.textAlignment = NSTextAlignmentRight;
+            lableYHJ.text = @"暂无可用";
+            
+            UILabel *lableYHJ2 = [[UILabel alloc] initWithFrame:CGRectMake(110, (iCellHeight-20)/2, 60, 20)];
+            [viewCell addSubview:lableYHJ2];
+            lableYHJ2.font = [UIFont systemFontOfSize:13];
+            lableYHJ2.textColor = [UIColor whiteColor];
+            lableYHJ2.text = @"";
+            lableYHJ2.textAlignment = NSTextAlignmentCenter;
+            lableYHJ2.backgroundColor = [ResourceManager priceColor];
+            lableYHJ2.hidden = YES;
+            
+            
+            NSArray *arr = dicOfUI[@"promocardList"];
+            if (arr &&
+                [arr count] >0)
+             {
+                lableYHJ2.hidden = NO;
+                lableYHJ2.text = [NSString stringWithFormat:@"可选%ld张",[arr count]];
+                lableYHJ.text = [NSString stringWithFormat:@"-¥%.2f",promocardValue]; // 优惠券的面值
+    
+             }
+
+            
+            UIImageView *imgRight = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-20, (iCellHeight - 19*ScaleSize)/2, 11*ScaleSize, 19*ScaleSize)];
+            [viewCell addSubview:imgRight];
+            imgRight.image = [UIImage imageNamed:@"arrow_right"];
+            
+            
+            //添加手势, 选择券
+            UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(actionSelQuan)];
+            gesture.numberOfTapsRequired  = 1;
+            [viewCell addGestureRecognizer:gesture];
+            
+         }
+        else if(1 == i)
+         {
+            // 购买所得积分
+            UILabel *labelJF = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 100, (iCellHeight-20)/2, 90, 20)];
+            [viewCell addSubview:labelJF];
+            labelJF.font = [UIFont systemFontOfSize:14];
+            labelJF.textColor = [ResourceManager midGrayColor];
+            labelJF.textAlignment = NSTextAlignmentRight;
+            labelJF.text = [NSString stringWithFormat:@"%@", dicValue[@"scorePrice"]];
+         }
+        else if (2 == i)
+         {
+            // 配送方式
+            UILabel *labelPSFS = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 100, (iCellHeight-20)/2, 90, 20)];
+            [viewCell addSubview:labelPSFS];
+            labelPSFS.font = [UIFont systemFontOfSize:14];
+            labelPSFS.textColor = [ResourceManager midGrayColor];
+            labelPSFS.textAlignment = NSTextAlignmentRight;
+            labelPSFS.text = [NSString stringWithFormat:@"%@",dicValue[@"deliveryType"]];
+         }
+            
+        
+        if (i < ([arrName count] - 1))
+         {
+            UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, iCellHeight-1, SCREEN_WIDTH, 1)];
+            [viewCell addSubview:viewFG];
+            viewFG.backgroundColor = [ResourceManager color_5];
+         }
+        
+        iTopY += iCellHeight;
+     }
+    
+    
+    iTopY += 10;
+    arrName = @[@"商品总价",@"运费"];
+    for(int i= 0 ; i <[arrName count]; i++)
+     {
+        iLeftX = 15;
+        UIView *viewCell = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, iCellHeight)];
+        [viewTail addSubview:viewCell];
+        viewCell.backgroundColor = [UIColor whiteColor];
+        
+        UILabel *labelName = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, 0, 150, iCellHeight)];
+        [viewCell addSubview:labelName];
+        labelName.font = [UIFont systemFontOfSize:14];
+        labelName.textColor = [ResourceManager color_1];
+        labelName.text = arrName[i];
+        
+        
+        
+        if(0 == i)
+         {
+            // 商品总价
+            UILabel *labelSPZJ = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 100, (iCellHeight-20)/2, 90, 20)];
+            [viewCell addSubview:labelSPZJ];
+            labelSPZJ.font = [UIFont systemFontOfSize:14];
+            labelSPZJ.textColor = [ResourceManager priceColor];
+            labelSPZJ.textAlignment = NSTextAlignmentRight;
+            labelSPZJ.text = [NSString stringWithFormat:@"¥%@",dicValue[@"goodsTotalAmt"]];
+         }
+        else if (1 == i)
+         {
+            // 运费
+            UILabel *labelYF = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 100, (iCellHeight-20)/2, 90, 20)];
+            [viewCell addSubview:labelYF];
+            labelYF.font = [UIFont systemFontOfSize:14];
+            labelYF.textColor = [ResourceManager priceColor];
+            labelYF.textAlignment = NSTextAlignmentRight;
+            labelYF.text = [NSString stringWithFormat:@"¥%@",dicValue[@"postage"]];
+         }
+        
+        
+        if (i < ([arrName count] - 1))
+         {
+            UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, iCellHeight-1, SCREEN_WIDTH, 1)];
+            [viewCell addSubview:viewFG];
+            viewFG.backgroundColor = [ResourceManager color_5];
+         }
+        
+        iTopY += iCellHeight;
+     }
+    
+    iTopY += 20;
+    iLeftX = 15;
+    UIButton *btnCheck = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX,iTopY, 20, 20)];
+    [viewTail addSubview:btnCheck];
+    [btnCheck setImage:[UIImage imageNamed:@"sc_gou1"] forState:UIControlStateNormal];
+    [btnCheck setImage:[UIImage imageNamed:@"sc_gou2"] forState:UIControlStateSelected];
+    btnCheck.selected = YES;
+    [btnCheck addTarget:self action:@selector(actionCheck:) forControlEvents:UIControlEventTouchUpInside];
+    
+    iLeftX += btnCheck.width +10;
+    UILabel *labelXY1 = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 58, 20)];
+    [viewTail addSubview:labelXY1];
+    labelXY1.textColor = [ResourceManager midGrayColor];
+    labelXY1.font = [UIFont systemFontOfSize:14];
+    labelXY1.text = @"我已同意";
+    
+    iLeftX += labelXY1.width;
+    UILabel *labelXY2 = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 200, 20)];
+    [viewTail addSubview:labelXY2];
+    labelXY2.textColor = [ResourceManager color_1];
+    labelXY2.font = [UIFont systemFontOfSize:14];
+    labelXY2.text = @"《天狗窝商城服务协议》";
+    
+    
+    iTopY += btnCheck.height +20;
+    viewTail.height = iTopY;
+    
+    scView.contentSize = CGSizeMake(0, iTopY + iTopValue);
+    
+    
+    
+   
 }
 
 // 布局底部按钮view
@@ -296,14 +509,15 @@
     [viewBottom addSubview: lableTotalPrice];
     lableTotalPrice.textColor = [ResourceManager priceColor];
     lableTotalPrice.font = [UIFont systemFontOfSize:18];
-    lableTotalPrice.text = @"¥150.00";
+    lableTotalPrice.text = [NSString stringWithFormat:@"¥%.2f", goodsTotalAmt - promocardValue];
+
     
     iTopY += lableTotalPrice.height;
     UILabel *lableYHPrice = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX,iTopY , SCREEN_HEIGHT-iLeftX-120, 15)];
     [viewBottom addSubview: lableYHPrice];
     lableYHPrice.textColor = [ResourceManager midGrayColor];
     lableYHPrice.font = [UIFont systemFontOfSize:12];
-    lableYHPrice.text = @"已优惠: ¥50.00";
+    lableYHPrice.text = [NSString stringWithFormat:@"已优惠: ¥%.2f", promocardValue];//@"已优惠: ¥50.00";
     
     
 
@@ -335,8 +549,8 @@
 #pragma mark --- 网络请求
 -(void) getUIDataFromWeb
 {
-    dicOfUI = nil;
-    arrOfUI = nil;
+    [self initData];
+    [MBProgressHUD showHUDAddedTo:self.view];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params = _dicToWeb;
@@ -365,6 +579,14 @@
      {
         dicOfUI = operation.jsonResult.attr;
         arrOfUI = operation.jsonResult.rows;
+        
+        promocardValue = [dicOfUI[@"promocardValue"] floatValue];
+        goodsTotalAmt = [dicOfUI[@"goodsTotalAmt"] floatValue];
+        if (dicOfUI[@"custPromocardId"])
+         {
+            _custPromocardId = [NSString stringWithFormat:@"%@", dicOfUI[@"custPromocardId"]];
+         }
+        
         [self layoutUI:dicOfUI andArr:arrOfUI];
      }
 }
@@ -377,6 +599,13 @@
 
 
 #pragma mark  ---  action
+//添加手势点击空白处隐藏键盘
+-(void)TouchViewKeyBoard
+{
+    [self.view endEditing:YES];
+}
+
+
 -(void) actionAddr
 {
     AddressViewController *ctl = [[AddressViewController alloc]init];
@@ -386,6 +615,104 @@
 
 -(void) actionPay
 {
+    NSLog(@"actionPay");
+}
+
+
+-(void) actionSelQuan
+{
+    NSLog(@"actionSelQuan");
+    if (dicOfUI)
+     {
+        NSArray *arr = dicOfUI[@"promocardList"];
+        if (arr &&
+            [arr count] >0)
+         {
+            SelCouponVC *VC = [[SelCouponVC alloc] init];
+            VC.arrCoupon = arr;
+            VC.custPromocardId = _custPromocardId;
+            
+            __weak OrderDetialVC *weakSelf = self;
+            
+            VC.sel_bolck = ^(id obj) {
+
+                weakSelf.isNotLoadData = YES;
+                
+                //  没有优惠券
+                if (!obj)
+                 {
+                    [self noYHQAfterSel];
+                 }
+                else
+                 {
+                    [self haveYHQAfterSel:obj];
+                 }
+            };
+            
+            [self.navigationController pushViewController:VC animated:YES];
+            
+         }
+     }
+}
+
+-(void)  noYHQAfterSel
+{
+    promocardValue = 0;
+    lableYHJ.text = @"不用券"; // 优惠券的面值
+    [self layoutBottomView];
     
 }
+
+-(void)  haveYHQAfterSel:(NSDictionary *) dicValue
+{
+    promocardValue = [dicValue[@"promocardValue"] floatValue];
+    _custPromocardId = [NSString stringWithFormat:@"%@", dicValue[@"custPromocardId"]];
+    lableYHJ.text = [NSString stringWithFormat:@"-¥%.2f",promocardValue]; // 优惠券的面值
+    
+    [self layoutBottomView];
+    
+}
+
+-(void) actionCheck:(UIButton*) sender
+{
+    sender.selected = !sender.selected;
+    isCheckXY = sender.selected;
+}
+
+#pragma mark === UITextFieldDelegate
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (1000 == textField.tag)
+     {
+        [scView setContentOffset:CGPointMake(0,200) animated:YES];
+     }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (1000 == textField.tag)
+     {
+        [scView setContentOffset:CGPointMake(0,0) animated:YES];
+     }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if (1000 == textField.tag)
+     {
+        //这里的if时候为了获取删除操作,如果没有次if会造成当达到字数限制后删除键也不能使用的后果.
+        if (range.length == 1 && string.length == 0) {
+            return YES;
+        }
+        if(textField.text.length >= 45) {
+            //输入的字符个数大于45，则无法继续输入，返回NO表示禁止输入
+            [MBProgressHUD showErrorWithStatus:@"输入字符长度大于45" toView:self.view];
+            return NO;
+        } else {
+            return YES;
+        }
+     }
+    return YES;
+}
+
 @end

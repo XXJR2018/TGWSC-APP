@@ -9,6 +9,8 @@
 #import "OrderDetialVC.h"
 #import "AddressViewController.h"
 #import "SelCouponVC.h"
+#import "SelPayVC.h"
+#import "PayResultVC.h"
 
 #define        AddrViewHeight        70
 #define        BottomViewHeight      50
@@ -616,6 +618,12 @@
 -(void) actionPay
 {
     NSLog(@"actionPay");
+    SelPayVC  *VC = [[SelPayVC alloc] init];
+    [self.navigationController pushViewController:VC animated:YES];
+    
+    //PayResultVC *VC = [[PayResultVC alloc] init];
+    //[self.navigationController pushViewController:VC animated:YES];
+    
 }
 
 

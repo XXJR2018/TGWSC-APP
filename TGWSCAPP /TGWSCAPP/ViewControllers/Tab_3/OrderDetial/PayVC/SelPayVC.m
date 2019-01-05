@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self layoutNaviBarViewWithTitle:@"支付方法"];
+    [self layoutNaviBarViewWithTitle:@"选择支付方法"];
     
     [self initData];
     
@@ -190,6 +190,7 @@
     [alertView addButton:@"确定" color:[ResourceManager priceColor] actionBlock:^{
         
         [self performSelector:@selector(delayMethod) withObject:nil afterDelay:0.3];// 延迟执行
+        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:1];// 延迟执行
         
     }];
     

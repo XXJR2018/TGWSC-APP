@@ -64,7 +64,10 @@ static NSString *const kURLgetSaleTitle = @"appMall/account/orderCart/getSaleTit
 static NSString *const kURLsingleOrderInfo = @"appMall/account/commitOrder/singleOrderInfo";
 //  购物车页面下单
 static NSString *const kURLbatchOrderInfo = @"appMall/account/commitOrder/batchOrderInfo";
-
+//  提交订单，获取最重要的支付参数 (注意：如果是余额充足，并且选择余额支付， 提交订单后会直接成功)
+static NSString *const kURLcommitOrder = @"appMall/account/commitOrder/commitOrder";
+// 去支付
+static NSString *const kURLgoPay = @"appMall/account/payOrder/goPay";
 
 
 //房价评估

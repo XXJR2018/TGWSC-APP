@@ -224,10 +224,32 @@
 
 -(void) actionPay
 {
-    //int iSelPay;  // 1 - 微信支付，  2 - 支付宝支付
+    //本地支付方式定义  int iSelPay;  // 1 - 微信支付，  2 - 支付宝支付
+    
+    //后台的支付方式定义
+    //payType  支付类型(1-微信 2- 支付宝 3-余额 4-余额+微信 5-余额+支付宝)
     if (1== iSelPay)
      {
+        DDGWeChat *manager = [DDGWeChat getSharedWeChat];
+        manager.block = ^{
+            //[self.navigationController popToRootViewControllerAnimated:NO];
+            //[[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(2),@"index":@(0)}];
+        };
         
+//        NSDictionary *payParams = [operation.jsonResult.attr objectForKey:@"payParams"];
+//        
+//        // 微信支付抢单
+//        WXPayModel *model = [[WXPayModel alloc] init];
+//        model.partnerId = payParams[@"mchId"];
+//        model.prepayid = payParams[@"prepayId"];
+//        model.timestamp = [NSString stringWithFormat:@"%@",payParams[@"timeStamp"]];
+//        model.sign = payParams[@"sign"];
+//        model.noncestr = payParams[@"nonceStr"];
+//        
+//        model.appid = payParams[@"appId"];
+//        model.partner_key = APPSecret_WC;
+//        
+//        [manager wxPayWith:model];
      }
     else if (2 == iSelPay)
      {

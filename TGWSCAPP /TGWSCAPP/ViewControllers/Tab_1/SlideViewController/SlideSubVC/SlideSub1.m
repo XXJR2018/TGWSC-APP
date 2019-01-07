@@ -90,11 +90,14 @@
     scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0.f, 0.f, SCREEN_WIDTH, self.view.frame.size.height)];
     [self.view addSubview:scView];
     scView.contentSize = CGSizeMake(0, 2000);
-    scView.pagingEnabled = NO;
-    scView.bounces = NO;
-    scView.showsVerticalScrollIndicator = FALSE;
-    scView.showsHorizontalScrollIndicator = FALSE;
+    //scView.pagingEnabled = NO;
+    //scView.bounces = NO;
+   // scView.showsVerticalScrollIndicator = FALSE;
+    //scView.showsHorizontalScrollIndicator = FALSE;
     scView.backgroundColor = [UIColor whiteColor];//[ResourceManager viewBackgroundColor];
+    
+    
+    
     
     
     // banner （商品）
@@ -195,10 +198,15 @@
     [self.view addSubview:scView];
     scView.contentSize = CGSizeMake(0, 1000);
     scView.pagingEnabled = NO;
-    scView.bounces = NO;
+    //scView.bounces = NO;
     scView.showsVerticalScrollIndicator = FALSE;
     scView.showsHorizontalScrollIndicator = FALSE;
     scView.backgroundColor = [UIColor whiteColor];//[ResourceManager viewBackgroundColor];
+    
+    
+    scView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getUIformWeb)];
+    
+    //scView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(getUIformWeb)];
     
     
     // banner （商品）
@@ -374,7 +382,7 @@
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       [self handleData:operation];
                                                                                   }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
-                                                                                      [self handleErrorData:operation];
+                                                                                                                                                    [self handleErrorData:operation];
                                                                                   }];
     operation.tag = 1000;
     [operation start];
@@ -403,6 +411,8 @@
     if (operation.tag == 1000)
      {
 
+        [scView.mj_header endRefreshing];
+        
         NSDictionary *dicUI = operation.jsonResult.attr;
         
         NSDictionary *dicLocalUI = [CommonInfo getKeyOfDic:K_Home_TJ_UIData];
@@ -459,7 +469,7 @@
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
     
-    
+    [scView.mj_header endRefreshing];
     
 }
 

@@ -68,12 +68,12 @@
             }
             
             if (leftButton) {
-                leftButton.frame = CGRectMake(0.f,45.f,60.f, 35.0f);
+                leftButton.frame = CGRectMake(0.f,45.f+5.f,60.f, 35.0f);
                 leftButton.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
                 [self addSubview:leftButton];
             }
             if (rightButton) {
-                rightButton.frame = CGRectMake(SCREEN_WIDTH - 60.f,45.f,60.f, 35.0f);
+                rightButton.frame = CGRectMake(SCREEN_WIDTH - 60.f,45.f+5.f,60.f, 35.0f);
                 [self addSubview:rightButton];
             }
             
@@ -156,11 +156,11 @@
             
             
             if (leftButton) {
-                leftButton.frame = CGRectMake(0.f,25.f,60.f, 35.0f);
+                leftButton.frame = CGRectMake(0.f,25.f+5.f,60.f, 35.0f);
                 [self addSubview:leftButton];
             }
             if (rightButton) {
-                rightButton.frame = CGRectMake(SCREEN_WIDTH - 60.f,25.f,60.f, 35.0f);
+                rightButton.frame = CGRectMake(SCREEN_WIDTH - 60.f,25.f+5.f,60.f, 35.0f);
                 [self addSubview:rightButton];
             }
             

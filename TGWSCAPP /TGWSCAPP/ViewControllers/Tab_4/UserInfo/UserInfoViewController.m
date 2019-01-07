@@ -389,7 +389,8 @@
     } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:NO];
         id json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        if ([(NSDictionary *)json objectForKey:@"success"]) {
+        int iSuccess = [[(NSDictionary *)json objectForKey:@"success"] intValue];
+        if (iSuccess != 0) {
             [MBProgressHUD showSuccessWithStatus:@"上传成功" toView:self.view];
             [DDGSetting sharedSettings].accountNeedRefresh = YES;
             NSDictionary *dic = [(NSDictionary *)json objectForKey:@"attr"];

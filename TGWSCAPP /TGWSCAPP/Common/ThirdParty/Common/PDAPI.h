@@ -8,10 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-// 发送短信接口一（拿到SmsTokenID）
+// 发送登录短信接口一（拿到登录SmsTokenID）
 static NSString *const kDDGgetSmsToken = @"appMall/smsSend/getSmsToken/kjLogin";
-// 发送短信接口二（发送短信）
+// 发送登录短信接口二（发送登录短信）
 static NSString *const kDDGnologin = @"appMall/smsSend/nologin/kjLogin";
+// 发送普通短信接口一（拿到SmsTokenID）  请求URL：/appMall/smsSend/getSmsToken/{type}
+static NSString *const kDDGgetSmsTokenByType = @"appMall/smsSend/getSmsToken";
+// 发送普通短信接口二（发送短信） 请求URL：/appMall/smsSend/login/{type}
+static NSString *const kDDGnologinByType = @"appMall/smsSend/login";
+
+
+
 
 #pragma mark --- 首页页面相关接口
 // 获取首页菜单
@@ -38,6 +45,25 @@ static NSString *const kURLqueryGoodsByCondition = @"appMall/goods/queryGoodsByC
 // 搜索时，即时匹配的字符
 static NSString *const kURLqueryGoodsKey = @"appMall/goodskey/queryGoodsKey";
 
+
+#pragma mark ---- 购物车相关
+//  购物车列表
+static NSString *const kURLorderCartList = @"appMall/account/orderCart/list";
+//  购物车面中，加入购物车
+static NSString *const kURLorderCartAdd = @"appMall/account/orderCart/add";
+//  修改购物车
+static NSString *const kURLorderCartUpdate = @"appMall/account/orderCart/update";
+//  删除购物车
+static NSString *const kURLorderCartDelete = @"appMall/account/orderCart/delete";
+// 购物车页面 的抬头
+static NSString *const kURLgetSaleTitle = @"appMall/account/orderCart/getSaleTitle";
+
+
+#pragma mark ---- 订单详情
+//  商品详情页面中，立即购买， 需要调用此接口（相当于下单接口）
+static NSString *const kURLsingleOrderInfo = @"appMall/account/commitOrder/singleOrderInfo";
+//  购物车页面下单
+static NSString *const kURLbatchOrderInfo = @"appMall/account/commitOrder/batchOrderInfo";
 
 
 

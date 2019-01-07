@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "TSVideoPlayback.h"
 #import "PopSelShopView.h"
+#import "LZCartViewController.h"
 
 
 #define   BannerHeight     300
@@ -349,13 +350,13 @@
     self.type = 0;
     if (self.type == 0)
      {
-        self.title = @"纯图片详情";
+        //self.title = @"纯图片详情";
         //[self.video setWithIsVideo:TSDETAILTYPEIMAGE andDataArray:[self imgArray]];
         [self.video setWithIsVideo:TSDETAILTYPEIMAGE andDataArray:arrTopIMG];
      }
     else
      {
-        self.title = @"视频图片详情";
+        //self.title = @"视频图片详情";
         //[self.video setWithIsVideo:TSDETAILTYPEVIDEO andDataArray:[self bannerArray]];
         [self.video setWithIsVideo:TSDETAILTYPEVIDEO andDataArray:arrTopIMG];
      }
@@ -495,10 +496,11 @@
      }
     
     int iLeftX = 12;
+    int iIcomBtnWidth = 40;
     iTopY = 13;
     for (int i = 0; i < [arrTitle count]; i++)
      {
-        UIImageView *imgKF = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 16, 16)];
+        UIImageView *imgKF = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 18, 18)];
         [viewTabber addSubview:imgKF];
         imgKF.image = [UIImage imageNamed:arrImg[i]];
         
@@ -522,7 +524,7 @@
         btnTemp.tag = i;
         [btnTemp addTarget:self action:@selector(actionBtn:) forControlEvents:UIControlEventTouchUpInside];
         
-        iLeftX +=  36;
+        iLeftX +=  iIcomBtnWidth;//36;
         
      }
     
@@ -540,7 +542,7 @@
      }
     else
      {
-        int iBtnWidth =  (SCREEN_WIDTH - iLeftX  - 3*10) /2;
+        int iBtnWidth =  (SCREEN_WIDTH - iLeftX  - 2*10) /2;
         UIButton *btnLJGM = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, 10, iBtnWidth, 40)];
         [viewTabber addSubview:btnLJGM];
         btnLJGM.layer.borderColor = [ResourceManager mainColor].CGColor;
@@ -728,6 +730,7 @@
             sModel.strCateCode = [NSString stringWithFormat:@"%@",dicObject[@"cateCode"]];
             sModel.strCateName = [NSString stringWithFormat:@"%@",dicObject[@"cateName"]];
             sModel.iIsSellOut = [dicObject[@"isSellOut"] intValue];
+            _shopModel = sModel;
          }
         
         [self layoutUI:dicUI];
@@ -822,7 +825,9 @@
      }
     else if (2 == iTag)
      {
-        
+        // 购物车
+        LZCartViewController *VC = [[LZCartViewController alloc]init];
+        [self.navigationController pushViewController:VC animated:YES];
      }
 }
 
@@ -842,6 +847,7 @@
     popView.shopModel = _shopModel;
     popView.arrSku = arrSku;
     popView.arrSkuShow = arrSkuShow;
+    popView.parentVC = self;
     [popView show];
 }
 
@@ -861,6 +867,7 @@
     popView.shopModel = _shopModel;
     popView.arrSku = arrSku;
     popView.arrSkuShow = arrSkuShow;
+    popView.parentVC = self;
     [popView show];
 }
 
@@ -886,6 +893,7 @@
     popView.shopModel = _shopModel;
     popView.arrSku = arrSku;
     popView.arrSkuShow = arrSkuShow;
+    popView.parentVC = self;
     [popView show];
     
 }

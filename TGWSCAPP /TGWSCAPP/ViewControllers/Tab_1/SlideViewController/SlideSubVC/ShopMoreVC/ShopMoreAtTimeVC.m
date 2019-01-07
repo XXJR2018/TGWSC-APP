@@ -10,6 +10,7 @@
 #import "HistorySearchVC.h"
 #import "SortProductCollectionViewCell.h"
 #import "HeaderCollectionReusableView.h"
+#import "ShopDetailVC.h"
 
 #define  CollectionView  @"HeaderCollectionReusableView"
 
@@ -264,8 +265,30 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
-
-    //NSDictionary *dic = self.dataArray[indexPath.row];
+    
+    
+    NSDictionary *dicSel = [[NSDictionary alloc] init];
+    if (indexPath.section < [arrDate count])
+     {
+        NSArray *arrTemp = arrDate[indexPath.section];
+        
+        if (indexPath.row < [arrTemp count])
+         {
+            dicSel = arrTemp[indexPath.row];
+         }
+     }
+    
+    
+    NSString *goodsCode = [NSString stringWithFormat:@"%@",[dicSel objectForKey:@"goodsCode"]];
+    if (goodsCode.length > 0) {
+        [self.view endEditing:YES];
+        
+        ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
+        VC.shopModel = [[ShopModel alloc] init];
+        VC.shopModel.strGoodsCode = goodsCode;
+        [self.navigationController pushViewController:VC animated:YES];
+        
+    }
 }
 
 

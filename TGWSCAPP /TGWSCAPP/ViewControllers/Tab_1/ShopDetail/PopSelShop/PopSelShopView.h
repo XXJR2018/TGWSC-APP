@@ -12,8 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PopSelShopView : UIView
 
-@property (nonatomic,strong) ShopModel  *shopModel;
 
+@property (nonatomic,strong) UIViewController  *parentVC;
+
+@property (nonatomic,strong) ShopModel  *shopModel;
 @property (nonatomic,strong) NSArray *arrSku;   // 所有Sku 组合
 @property (nonatomic,strong) NSArray *arrSkuShow;  // Sku 展示集合
 

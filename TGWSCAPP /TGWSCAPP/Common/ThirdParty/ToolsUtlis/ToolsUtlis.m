@@ -725,4 +725,23 @@ static NSString *currentIP = nil;
     return titleSize;
 }
 
+
+#pragma mark ==== 画虚线 (宽度为1， 长度为任意)
++(UIImage *)imageWithLineWithImageView:(UIImageView *)imageView{
+    CGFloat width = imageView.frame.size.width;
+    CGFloat height = imageView.frame.size.height;
+    UIGraphicsBeginImageContext(imageView.frame.size);
+    [imageView.image drawInRect:CGRectMake(0, 0, width, height)];
+    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+    int iWidht = 3;
+    CGFloat lengths[] = {iWidht,5};
+    CGContextRef line = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(line, [UIColor colorWithRed:133/255.0 green:133/255.0 blue:133/255.0 alpha:1.0].CGColor);
+    CGContextSetLineDash(line, 0, lengths, 1);
+    CGContextMoveToPoint(line, 0, 1);
+    CGContextAddLineToPoint(line, width-iWidht, 1);
+    CGContextStrokePath(line);
+    return  UIGraphicsGetImageFromCurrentImageContext();
+}
+
 @end

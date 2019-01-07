@@ -52,6 +52,11 @@
         if (self.pageIndex > 1) {
             [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
         }
+        
+        if (self.pageIndex <= 1)
+         {
+            [self reloadTableViewWithArray:operation.jsonResult.rows];
+         }
     }
     
 }

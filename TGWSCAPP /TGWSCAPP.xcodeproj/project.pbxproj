@@ -280,7 +280,6 @@
 		C2F23AA121D5D6E400E5332D /* MyScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AA021D5D6E400E5332D /* MyScoresViewController.m */; };
 		C2F23AAA21D61B2B00E5332D /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AA921D61B2B00E5332D /* OrderViewController.m */; };
 		C2F23AAE21D61CA100E5332D /* OrderListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AAC21D61CA100E5332D /* OrderListViewCell.m */; };
-		C2F23AAF21D61CA100E5332D /* OrderListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2F23AAD21D61CA100E5332D /* OrderListViewCell.xib */; };
 		C2F23AB221D61D9500E5332D /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AB121D61D9500E5332D /* OrderListViewController.m */; };
 		E33967D271FF073A04BE5646 /* libPods-TGWSCAPPTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D61764B54B6E69C56E919970 /* libPods-TGWSCAPPTests.a */; };
 		EB710248CB1419DCCDA0AB56 /* libPods-TGWSCAPPTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BE632134DE2F9281044FA7 /* libPods-TGWSCAPPTests.a */; };
@@ -817,7 +816,6 @@
 		C2F23AA921D61B2B00E5332D /* OrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
 		C2F23AAB21D61CA100E5332D /* OrderListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderListViewCell.h; sourceTree = "<group>"; };
 		C2F23AAC21D61CA100E5332D /* OrderListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderListViewCell.m; sourceTree = "<group>"; };
-		C2F23AAD21D61CA100E5332D /* OrderListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderListViewCell.xib; sourceTree = "<group>"; };
 		C2F23AB021D61D9500E5332D /* OrderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderListViewController.h; sourceTree = "<group>"; };
 		C2F23AB121D61D9500E5332D /* OrderListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderListViewController.m; sourceTree = "<group>"; };
 		CC3A69CCFB0BBFED009A07A1 /* Pods-TGWSCAPP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGWSCAPP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TGWSCAPP/Pods-TGWSCAPP.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2292,7 +2290,6 @@
 				C2F23AB121D61D9500E5332D /* OrderListViewController.m */,
 				C2F23AAB21D61CA100E5332D /* OrderListViewCell.h */,
 				C2F23AAC21D61CA100E5332D /* OrderListViewCell.m */,
-				C2F23AAD21D61CA100E5332D /* OrderListViewCell.xib */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -2436,7 +2433,6 @@
 				C250451321BA579100DA9C72 /* CitysViewController.xib in Resources */,
 				C244950821CCB3AC00F8698B /* SortProductCollectionViewCell.xib in Resources */,
 				C23EAF4321D32D3000B271A7 /* CouponViewCell.xib in Resources */,
-				C2F23AAF21D61CA100E5332D /* OrderListViewCell.xib in Resources */,
 				C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */,
 				C25047A321BA715500DA9C72 /* blackArrow.png in Resources */,
 				C25045F921BA711E00DA9C72 /* XHDatePickerView.xib in Resources */,

@@ -455,7 +455,7 @@ static int colorAtIndex(int index){
     static UIColor *color;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        color = UIColorFromRGB(0x51c140);
+        color = UIColorFromRGB(0x298829);
     });
     return color;
 }

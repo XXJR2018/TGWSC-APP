@@ -31,8 +31,10 @@
     NSArray *arrOfUI;
     BOOL isCheckXY;  // 协议勾选标记位
     
+    NSString *promocardId; // 优惠券类型ID
     float promocardValue;  // 优惠券的面值
     float goodsTotalAmt;   // 商品的总价值
+    NSString  *addrId;           // 收货地址ID
     
  
 
@@ -82,7 +84,9 @@
     arrOfUI = nil;
     promocardValue = 0;
     goodsTotalAmt = 0;
+    promocardId = @"";
     _custPromocardId = @"";
+    addrId = @"";
 }
 
 #pragma mark --- 布局UI
@@ -174,6 +178,8 @@
      {
         dicAddrInfo = [[NSDictionary alloc] init];
      }
+    
+    addrId = [ NSString stringWithFormat:@"%@", dicAddrInfo[@"addrId"]];
     
     viewHaveAddr = [[UIView alloc] initWithFrame:CGRectMake(iLeftValue, iTopValue, SCREEN_WIDTH, AddrViewHeight)];
     [scView addSubview:viewHaveAddr];
@@ -574,10 +580,44 @@
     [operation start];
 }
 
+-(void)commitOrder
+{
+    
+    
+    [MBProgressHUD showHUDAddedTo:self.view];
+    
+
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLcommitOrder];
+
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params = _dicToWeb;
+    params[@"addrId"] = addrId;
+    params[@"cartIds"] = _dicToWeb[@"cartIds"];  // 多个的话，用逗号隔开
+    params[@"clientType"] = @"APP";
+    params[@"custPromocardId"] = _custPromocardId;
+    params[@"promocardId"] = promocardId;
+    params[@"totalOrderAmt"] = [NSString stringWithFormat:@"%.2f", goodsTotalAmt - promocardValue];
+    
+    params[@"useBalanceFlag"] = @(0);  //是否开启余额支付(1-开启 0-未开启)
+                                       //params[@"tradePassword"] = @""; // 支付密码(余额开启需要)
+    
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1001;
+    [operation start];
+}
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
 {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    if (operation.tag == 1000)
+    if (1000 == operation.tag )
      {
         dicOfUI = operation.jsonResult.attr;
         arrOfUI = operation.jsonResult.rows;
@@ -588,8 +628,17 @@
          {
             _custPromocardId = [NSString stringWithFormat:@"%@", dicOfUI[@"custPromocardId"]];
          }
-        
+        if (dicOfUI[@"promocardId"])
+         {
+            promocardId = [NSString stringWithFormat:@"%@", dicOfUI[@"promocardId"]];
+         }
         [self layoutUI:dicOfUI andArr:arrOfUI];
+     }
+    else if (1001 == operation.tag)
+     {
+        SelPayVC  *VC = [[SelPayVC alloc] init];
+        VC.dicPay = operation.jsonResult.attr;
+        [self.navigationController pushViewController:VC animated:YES];
      }
 }
 
@@ -617,12 +666,29 @@
 
 -(void) actionPay
 {
-    NSLog(@"actionPay");
-    //SelPayVC  *VC = [[SelPayVC alloc] init];
-    //[self.navigationController pushViewController:VC animated:YES];
+    int hasAddr = [dicOfUI[@"hasAddr"] intValue];
+    if (0 ==  hasAddr)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请选择收货地址" toView:self.view];
+        return;
+     }
     
-    PayResultVC *VC = [[PayResultVC alloc] init];
-    [self.navigationController pushViewController:VC animated:YES];
+    
+    if (addrId.length <= 0)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请选择收货地址" toView:self.view];
+        return;
+     }
+    
+    NSLog(@"actionPay");
+    
+    _isNotLoadData = YES;
+    
+    [self commitOrder];
+
+    
+    //PayResultVC *VC = [[PayResultVC alloc] init];
+    //[self.navigationController pushViewController:VC animated:YES];
     
 }
 
@@ -666,6 +732,8 @@
 -(void)  noYHQAfterSel
 {
     promocardValue = 0;
+    promocardId = @"";
+    _custPromocardId = @"";
     lableYHJ.text = @"不用券"; // 优惠券的面值
     [self layoutBottomView];
     
@@ -674,6 +742,7 @@
 -(void)  haveYHQAfterSel:(NSDictionary *) dicValue
 {
     promocardValue = [dicValue[@"promocardValue"] floatValue];
+    promocardId = [NSString stringWithFormat:@"%@", dicValue[@"promocardId"]];
     _custPromocardId = [NSString stringWithFormat:@"%@", dicValue[@"custPromocardId"]];
     lableYHJ.text = [NSString stringWithFormat:@"-¥%.2f",promocardValue]; // 优惠券的面值
     

@@ -198,7 +198,8 @@ static DDGWeChat *weChatShare;
         }
         // 支付
         else if ([resp isKindOfClass:[PayResp class]]) {
-            if (self.block) _block();
+            //if (self.block) _block();
+            if (self.payblock) _payblock(resp);
         }
     }
     else
@@ -213,7 +214,11 @@ static DDGWeChat *weChatShare;
             {
                 [_delegate weChatLoginFinishedWithResult:[NSDictionary dictionaryWithObjectsAndKeys:@"resp.errStr",@"result",@(NO),@"success", nil]];
             }
+        } else if ([resp isKindOfClass:[PayResp class]]) {
+            //if (self.block) _block();
+            if (self.payblock) _payblock(resp);
         }
+
     }
 }
 

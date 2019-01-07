@@ -11,6 +11,7 @@
 #import "SelCouponVC.h"
 #import "SelPayVC.h"
 #import "PayResultVC.h"
+#import "PhoneCheckViewController.h"
 
 #define        AddrViewHeight        70
 #define        BottomViewHeight      50
@@ -24,6 +25,8 @@
     UIView *viewHaveAddr;
     UIView *viewList;   // 商品列表view
     UIView *viewTail;   // 底部详情view
+    UIView *viewOtherMoney;   // 余额
+    UILabel *labelYuEDK;
     
     UILabel *lableYHJ;
     
@@ -34,7 +37,12 @@
     NSString *promocardId; // 优惠券类型ID
     float promocardValue;  // 优惠券的面值
     float goodsTotalAmt;   // 商品的总价值
+    BOOL  isEmployee;      // 是否有余额
+    float usableAmount;   // 余额的值
+    float fYEDK;          // 余额抵扣的值
     NSString  *addrId;           // 收货地址ID
+    
+    NSDictionary *dicLastAddrInfo;  // 上一次的地址信息
     
  
 
@@ -53,7 +61,7 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"订单详情页面"];
     
-    if (!_isNotLoadData)
+    //if (!_isNotLoadData)
      {
         [self getUIDataFromWeb];
      }
@@ -84,9 +92,12 @@
     arrOfUI = nil;
     promocardValue = 0;
     goodsTotalAmt = 0;
+    usableAmount = 0;
+    fYEDK = 0.0;
     promocardId = @"";
     _custPromocardId = @"";
     addrId = @"";
+    isEmployee = NO;
 }
 
 #pragma mark --- 布局UI
@@ -315,10 +326,62 @@
     textMJLY.tag = 1000;
     textMJLY.delegate = self;
     
-    // @"优惠券/优惠码",@"购买所得积分",@"配送方式" 布局
-    iTopY += iCellHeight + 10;
-    NSArray *arrName = @[@"优惠券/优惠码",@"购买所得积分",@"配送方式"];
+    // 余额抵扣
+    NSDictionary *dicUser =  [CommonInfo userInfo];
+    BOOL  isEmployee  = NO;
+    int iOtherMoneyHeight = 90;
+    if (dicUser)
+     {
+        isEmployee = [dicUser[@"isEmployee"] boolValue];
+        if (isEmployee)
+         {
+            iTopY += iCellHeight + 10;
+            viewOtherMoney = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, iOtherMoneyHeight)];
+            [viewTail addSubview:viewOtherMoney];
+            viewOtherMoney.backgroundColor = [UIColor whiteColor];
+            
+            UILabel *labelYuE = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, 200, 20)];
+            [viewOtherMoney addSubview:labelYuE];
+            labelYuE.textColor = [ResourceManager color_1];
+            labelYuE.font = [UIFont systemFontOfSize:14];
+            labelYuE.text = [NSString stringWithFormat:@"余额 :¥%@", dicUser[@"usableAmount"]]; //@"余额 :¥100";
+            
+           
+            labelYuEDK = [[UILabel alloc] initWithFrame:CGRectMake(15, 20+25, 270, 20)];
+            [viewOtherMoney addSubview:labelYuEDK];
+            labelYuEDK.textColor = [ResourceManager color_1];
+            labelYuEDK.font = [UIFont systemFontOfSize:14];
+            fYEDK = 0.00;
+            labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",0.00 ];
+            
+            UIButton *btnBalance = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-90, 25, 75, 30)];
+            [viewOtherMoney addSubview:btnBalance];
+            [btnBalance setImage:[UIImage imageNamed:@"pay_ye_colse"] forState:UIControlStateNormal];
+            [btnBalance setImage:[UIImage imageNamed:@"pay_ye_open"] forState:UIControlStateSelected];
+            btnBalance.selected = NO;
+            [btnBalance addTarget:self action:@selector(actionBalance:) forControlEvents:UIControlEventTouchUpInside];
+            //actionBalance
+            
+            
+            
+            UIView *viewOtherFG = [[UIView alloc] initWithFrame:CGRectMake(0, iOtherMoneyHeight-1, SCREEN_WIDTH, 1)];
+            [viewOtherMoney addSubview:viewOtherFG];
+            viewOtherFG.backgroundColor = [ResourceManager color_5];
+            
+         }
+        
+     }
     
+    // @"优惠券/优惠码",@"购买所得积分",@"配送方式" 布局
+    if (isEmployee)
+     {
+        iTopY += iOtherMoneyHeight;
+     }
+    else
+     {
+        iTopY += iCellHeight + 10;
+     }
+    NSArray *arrName = @[@"优惠券/优惠码",@"购买所得积分",@"配送方式"];
     for(int i= 0 ; i <[arrName count]; i++)
      {
         iLeftX = 15;
@@ -481,6 +544,14 @@
     labelXY2.text = @"《天狗窝商城服务协议》";
     
     
+    
+    //添加手势点击空白处隐藏键盘
+    UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(actionXieYi)];
+    gesture.numberOfTapsRequired  = 1;
+    labelXY2.userInteractionEnabled = YES;
+    [labelXY2 addGestureRecognizer:gesture];
+    
+    
     iTopY += btnCheck.height +20;
     viewTail.height = iTopY;
     
@@ -517,7 +588,7 @@
     [viewBottom addSubview: lableTotalPrice];
     lableTotalPrice.textColor = [ResourceManager priceColor];
     lableTotalPrice.font = [UIFont systemFontOfSize:18];
-    lableTotalPrice.text = [NSString stringWithFormat:@"¥%.2f", goodsTotalAmt - promocardValue];
+    lableTotalPrice.text = [NSString stringWithFormat:@"¥%.2f", goodsTotalAmt - promocardValue - fYEDK];
 
     
     iTopY += lableTotalPrice.height;
@@ -597,7 +668,7 @@
     params[@"clientType"] = @"APP";
     params[@"custPromocardId"] = _custPromocardId;
     params[@"promocardId"] = promocardId;
-    params[@"totalOrderAmt"] = [NSString stringWithFormat:@"%.2f", goodsTotalAmt - promocardValue];
+    params[@"totalOrderAmt"] = [NSString stringWithFormat:@"%.2f", goodsTotalAmt - promocardValue - fYEDK];
     
     params[@"useBalanceFlag"] = @(0);  //是否开启余额支付(1-开启 0-未开启)
                                        //params[@"tradePassword"] = @""; // 支付密码(余额开启需要)
@@ -624,6 +695,7 @@
         
         promocardValue = [dicOfUI[@"promocardValue"] floatValue];
         goodsTotalAmt = [dicOfUI[@"goodsTotalAmt"] floatValue];
+        usableAmount = [dicOfUI[@"usableAmount"] floatValue];
         if (dicOfUI[@"custPromocardId"])
          {
             _custPromocardId = [NSString stringWithFormat:@"%@", dicOfUI[@"custPromocardId"]];
@@ -632,7 +704,18 @@
          {
             promocardId = [NSString stringWithFormat:@"%@", dicOfUI[@"promocardId"]];
          }
+        
+        NSDictionary *curAddr = dicOfUI[@"addrInfo"];
+        
+        if ([dicLastAddrInfo isEqual:curAddr])
+         {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            return;
+         }
+        
         [self layoutUI:dicOfUI andArr:arrOfUI];
+        
+        dicLastAddrInfo = dicOfUI[@"addrInfo"];
      }
     else if (1001 == operation.tag)
      {
@@ -754,6 +837,61 @@
 {
     sender.selected = !sender.selected;
     isCheckXY = sender.selected;
+}
+
+-(void) actionXieYi
+{
+    NSLog(@"actionXieYi");
+}
+
+-(void) actionBalance:(UIButton*) sender
+{
+    sender.selected = !sender.selected;
+    if (!sender.selected)
+     {
+        fYEDK = 0.0;
+        labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",0.00 ];
+     }
+    else
+     {
+        // 查询是否有支付密码
+        
+        //设置密码
+        if ([[[CommonInfo userInfo] objectForKey:@"hasTradePwd"] intValue] == 1) {
+            //[self layoutUI_2];
+            
+            PhoneCheckViewController *ctl = [[PhoneCheckViewController alloc]init];
+            ctl.titleStr = @"设置支付密码";
+            [self.navigationController pushViewController:ctl animated:YES];
+            
+        }else{
+            PhoneCheckViewController *ctl = [[PhoneCheckViewController alloc]init];
+            ctl.titleStr = @"设置支付密码";
+            [self.navigationController pushViewController:ctl animated:YES];
+        }
+       
+        
+        // 计算余额
+        if (usableAmount >= (goodsTotalAmt - promocardValue))
+         {
+            fYEDK = (goodsTotalAmt - promocardValue);
+         }
+        else
+         {
+            fYEDK = goodsTotalAmt;
+         }
+        labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",fYEDK ];
+        
+        NSString *strAll = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",fYEDK ];;
+        NSString *strSub = [NSString stringWithFormat:@"¥%.2f",fYEDK ];
+        NSRange range = [strAll rangeOfString:strSub];
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:strAll];
+        [str addAttribute:NSForegroundColorAttributeName value:[ResourceManager priceColor] range:range]; //设置字体颜色
+                                                                                                          //[str addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Arial" size:30.0] range:range]; //设置字体字号和字体类别
+        labelYuEDK.attributedText = str;
+     }
+    
+    [self layoutBottomView];
 }
 
 #pragma mark === UITextFieldDelegate

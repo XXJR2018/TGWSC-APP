@@ -35,6 +35,13 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"首页"];
+    
+    
+    if  ([CommonInfo isLoggedIn])
+     {
+        //登陆成功,发送通知更新用户信息
+        [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
+     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{

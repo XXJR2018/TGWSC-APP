@@ -618,11 +618,11 @@
 -(void) actionPay
 {
     NSLog(@"actionPay");
-    SelPayVC  *VC = [[SelPayVC alloc] init];
-    [self.navigationController pushViewController:VC animated:YES];
-    
-    //PayResultVC *VC = [[PayResultVC alloc] init];
+    //SelPayVC  *VC = [[SelPayVC alloc] init];
     //[self.navigationController pushViewController:VC animated:YES];
+    
+    PayResultVC *VC = [[PayResultVC alloc] init];
+    [self.navigationController pushViewController:VC animated:YES];
     
 }
 

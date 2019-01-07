@@ -9,7 +9,10 @@
 #import "PayResultVC.h"
 
 @interface PayResultVC ()
-
+{
+    UIView *viewFail;
+    UIView *viewSuccess;
+}
 @end
 
 
@@ -19,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self layoutNaviBarViewWithTitle:@"支付结果"];
+    [self layoutNaviBarViewWithTitle:@"付款结果"];
     
     [self layoutUI];
     
@@ -27,6 +30,11 @@
 
 #pragma mark --- 布局UI
 -(void) layoutUI
+{
+    
+}
+
+-(void) layoutSuccess
 {
     
 }

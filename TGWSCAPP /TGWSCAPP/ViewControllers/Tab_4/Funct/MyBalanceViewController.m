@@ -123,7 +123,7 @@
     _balanceLabel.textColor = UIColorFromRGB(0xB00000);
     _balanceLabel.text = [NSString stringWithFormat:@"￥%@",[[CommonInfo userInfo] objectForKey:@"usableAmount"]];
     
-    if ([[[CommonInfo userInfo] objectForKey:@"usableAmount"] intValue] > 0) {
+    if ([[[CommonInfo userInfo] objectForKey:@"usableAmount"] floatValue] > 0) {
         _makeBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH  - 95, CGRectGetMidY(_balanceLabel.frame) - 35/2, 80, 35)];
         [_headerView addSubview:_makeBtn];
         _makeBtn.layer.borderWidth = 0.5;

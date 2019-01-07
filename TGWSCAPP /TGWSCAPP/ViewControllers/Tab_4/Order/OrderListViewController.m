@@ -26,6 +26,10 @@
     [_tableView setSeparatorColor:[UIColor clearColor]];
 }
 
+- (CGRect)tableViewFrame{
+    return CGRectMake(0, 0, SCREEN_WIDTH, self.view.size.height);
+}
+
 #pragma mark === UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataArray.count;

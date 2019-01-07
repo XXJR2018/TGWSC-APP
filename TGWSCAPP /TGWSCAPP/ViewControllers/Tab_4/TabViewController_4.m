@@ -150,8 +150,8 @@
         _pointsNumLabel.text = @"";
     }
     //优惠券按钮
-    if ([[dic objectForKey:@"cardCount"] intValue] > 0) {
-        _couponNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cardCount"]];
+    if ([[dic objectForKey:@"validCardCount"] intValue] > 0) {
+        _couponNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"validCardCount"]];
         [_couponBtn setImage:[UIImage imageNamed:@"Tab_4-18"] forState:UIControlStateNormal];
     }else{
         _couponNumLabel.text = @"";

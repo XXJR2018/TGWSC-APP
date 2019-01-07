@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) NSDictionary *dataDicionary;
 
+@property(nonatomic, copy)Block_Void orderLeftBlock;
+
+@property(nonatomic, copy)Block_Void orderRightBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

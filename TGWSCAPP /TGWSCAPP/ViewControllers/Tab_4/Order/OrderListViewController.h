@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderListViewController : MJRefreshViewController
 
+@property(nonatomic ,copy)NSString *orderStatus;
+
 @end
 
 NS_ASSUME_NONNULL_END

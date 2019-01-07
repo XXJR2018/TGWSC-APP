@@ -18,6 +18,17 @@
 
 @implementation OrderViewController
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"我的订单"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"我的订单"];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -28,10 +39,12 @@
 
 -(void)layoutUI{
     
-    NSArray *titleArray = @[@"全部",@"代付款",@"代发货",@"已发货",@"已完成"];
+    NSArray *titleArray = @[@"全部",@"待付款",@"待发货",@"已发货",@"已完成"];
+    NSArray *orderStatusArr = @[@"",@"0",@"3",@"5",@"6"];
     NSMutableArray *childVcArray = [NSMutableArray array];
     for (int i = 0; i < titleArray.count; i++) {
         OrderListViewController *ctl = [[OrderListViewController alloc] init];
+        ctl.orderStatus = orderStatusArr[i];
         [childVcArray addObject:ctl];
     }
     LSPPageView *pageView = [[LSPPageView alloc] initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavHeight) titles:titleArray.mutableCopy style:nil childVcs:childVcArray.mutableCopy parentVc:self];

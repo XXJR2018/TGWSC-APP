@@ -34,6 +34,11 @@
     [self layoutSuccess];
     
     [self layoutFail];
+    
+    if (_isSuceess)
+     {
+        viewFail.hidden = YES;
+     }
 }
 
 -(void) layoutSuccess
@@ -68,6 +73,7 @@
     btnLeft.borderColor = [ResourceManager lightGrayColor];
     btnLeft.borderWidth = 1;
     btnLeft.cornerRadius = 3;
+    [btnLeft addTarget:self action:@selector(actionLookOrder) forControlEvents:UIControlEventTouchUpInside];
     
     iLeftX += iBtnWidth + 20;
     UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, iTopY, iBtnWidth, 30)];
@@ -78,6 +84,7 @@
     btnRight.borderColor = [ResourceManager lightGrayColor];
     btnRight.borderWidth = 1;
     btnRight.cornerRadius = 3;
+    [btnRight addTarget:self action:@selector(actionLook) forControlEvents:UIControlEventTouchUpInside];
     
     iTopY += btnLeft.height + 30;
     UIButton  *btnBottom = [[UIButton alloc] initWithFrame:CGRectMake(15, iTopY, SCREEN_WIDTH - 30, 80)];
@@ -144,6 +151,7 @@
     btnLeft.borderColor = [ResourceManager lightGrayColor];
     btnLeft.borderWidth = 1;
     btnLeft.cornerRadius = 3;
+    [btnLeft addTarget:self action:@selector(actionLookOrder) forControlEvents:UIControlEventTouchUpInside];
     
     iLeftX += iBtnWidth + 20;
     UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, iTopY, iBtnWidth, 30)];
@@ -155,6 +163,7 @@
 //    btnRight.borderColor = [ResourceManager lightGrayColor];
 //    btnRight.borderWidth = 1;
     btnRight.cornerRadius = 3;
+    [btnRight addTarget:self action:@selector(actionRepay) forControlEvents:UIControlEventTouchUpInside];
     
     iTopY += btnLeft.height + 20;
     UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 10)];
@@ -174,7 +183,7 @@
     [viewFail addSubview:labelT1Value];
     labelT1Value.textColor = [ResourceManager midGrayColor];
     labelT1Value.font = [UIFont systemFontOfSize:14];
-    labelT1Value.text = @"¥17.50";
+    labelT1Value.text =  [NSString stringWithFormat:@"¥%@",_dicPayResult[@"totalOrderAmt"]];
     
     iTopY += labelT1.height + 10;
     //订单编码
@@ -188,26 +197,55 @@
     [viewFail addSubview:labelT2Value];
     labelT2Value.textColor = [ResourceManager midGrayColor];
     labelT2Value.font = [UIFont systemFontOfSize:14];
-    labelT2Value.text = @"138198239183918391";
+    labelT2Value.text = _dicPayResult[@"orderNo"];
     
     iTopY += labelT2.height + 10;
     //订单地址
-    UILabel *labelT3 = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 80, 20)];
-    [viewFail addSubview:labelT3];
-    labelT3.textColor = [ResourceManager midGrayColor];
-    labelT3.font = [UIFont systemFontOfSize:14];
-    labelT3.text = @"订单地址";
-    
-    UILabel *labelT3Value = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX+80, iTopY, SCREEN_WIDTH - iLeftX - 110, 40)];
-    [viewFail addSubview:labelT3Value];
-    labelT3Value.textColor = [ResourceManager midGrayColor];
-    labelT3Value.font = [UIFont systemFontOfSize:14];
-    labelT3Value.numberOfLines = 0;
-    labelT3Value.text = @"138198239183918391 asdflkjaslkf;asl;fkjas;lfajs;lfkwqiopueroipqwrueopiwqeuralsjdfl;ksadfajs;";
+//    UILabel *labelT3 = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 80, 20)];
+//    [viewFail addSubview:labelT3];
+//    labelT3.textColor = [ResourceManager midGrayColor];
+//    labelT3.font = [UIFont systemFontOfSize:14];
+//    labelT3.text = @"订单地址";
+//    
+//    UILabel *labelT3Value = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX+80, iTopY, SCREEN_WIDTH - iLeftX - 110, 40)];
+//    [viewFail addSubview:labelT3Value];
+//    labelT3Value.textColor = [ResourceManager midGrayColor];
+//    labelT3Value.font = [UIFont systemFontOfSize:14];
+//    labelT3Value.numberOfLines = 0;
+//    labelT3Value.text = @"138198239183918391 asdflkjaslkf;asl;fkjas;lfajs;lfkwqiopueroipqwrueopiwqeuralsjdfl;ksadfajs;";
     
     
     
 
+}
+
+#pragma mark  ---   action
+-(void) actionLook
+{
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(1),@"index":@(0)}];
+}
+
+
+-(void) actionLookOrder
+{
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4),@"index":@(0)}];
+}
+
+-(void) actionRepay
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+-(void)clickNavButton:(UIButton *)button{
+    if (_isSuceess)
+     {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        return;
+     }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

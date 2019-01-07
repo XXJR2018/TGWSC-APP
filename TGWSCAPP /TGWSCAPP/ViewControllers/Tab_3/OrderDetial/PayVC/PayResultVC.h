@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong)  NSDictionary *dicPayResult;  // 后台返回的支付数据
 
+@property (nonatomic, assign) BOOL  isSuceess;   // 是否支付成功
+
 @end
 
 NS_ASSUME_NONNULL_END

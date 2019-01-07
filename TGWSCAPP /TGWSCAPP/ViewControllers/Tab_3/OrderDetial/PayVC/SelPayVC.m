@@ -7,6 +7,7 @@
 //
 
 #import "SelPayVC.h"
+#import "PayResultVC.h"
 
 
 #define    CheckImg         @"od_gou2"
@@ -39,6 +40,7 @@
 -(void) initData
 {
     arrBtn = [[NSMutableArray alloc] init];
+    iSelPay = 0;
 }
 
 #pragma mark --- 布局UI
@@ -69,7 +71,7 @@
     lablePrice.textColor = [ResourceManager priceColor];
     lablePrice.font = [UIFont systemFontOfSize:25];
     lablePrice.textAlignment = NSTextAlignmentCenter;
-    lablePrice.text = @"¥17.50";
+    lablePrice.text = [NSString stringWithFormat:@"¥%@", _dicPay[@"payAmt"]];//@"¥17.50";
     
     
     iTopY += lablePrice.height +10;
@@ -78,7 +80,7 @@
     lableOrderNO.textColor = [ResourceManager midGrayColor];
     lableOrderNO.font = [UIFont systemFontOfSize:12];
     lableOrderNO.textAlignment = NSTextAlignmentCenter;
-    lableOrderNO.text = @"订单编号:2712318982391892318931";
+    lableOrderNO.text = [NSString stringWithFormat:@"订单编号:%@", _dicPay[@"orderNo"]];
     
 }
 
@@ -213,7 +215,7 @@
 {
     [self AllUnCheck];
     int iTag = (int)reg.view.tag;
-    iSelPay = iTag;
+    iSelPay = iTag + 1;
 
     if (iTag < [arrBtn count])
      {
@@ -227,34 +229,109 @@
     //本地支付方式定义  int iSelPay;  // 1 - 微信支付，  2 - 支付宝支付
     
     //后台的支付方式定义
-    //payType  支付类型(1-微信 2- 支付宝 3-余额 4-余额+微信 5-余额+支付宝)
+    //payType  支付类型(1-微信 2- 支付宝)
+    if (iSelPay == 0)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请选择支付方式" toView:self.view];
+        return;
+     }
+    
     if (1== iSelPay)
      {
-        DDGWeChat *manager = [DDGWeChat getSharedWeChat];
-        manager.block = ^{
-            //[self.navigationController popToRootViewControllerAnimated:NO];
-            //[[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(2),@"index":@(0)}];
-        };
-        
-//        NSDictionary *payParams = [operation.jsonResult.attr objectForKey:@"payParams"];
-//        
-//        // 微信支付抢单
-//        WXPayModel *model = [[WXPayModel alloc] init];
-//        model.partnerId = payParams[@"mchId"];
-//        model.prepayid = payParams[@"prepayId"];
-//        model.timestamp = [NSString stringWithFormat:@"%@",payParams[@"timeStamp"]];
-//        model.sign = payParams[@"sign"];
-//        model.noncestr = payParams[@"nonceStr"];
-//        
-//        model.appid = payParams[@"appId"];
-//        model.partner_key = APPSecret_WC;
-//        
-//        [manager wxPayWith:model];
+        [self getWeiXinOrderInfo];
      }
     else if (2 == iSelPay)
      {
         
      }
+}
+
+-(void) WeChatPay:(NSDictionary*) dicWeChatOrderInof
+{
+    DDGWeChat *manager = [DDGWeChat getSharedWeChat];
+
+    __weak typeof(self) weakSelf = self;
+    
+    manager.payblock = ^(id obj) {
+        BaseResp *resp = ( BaseResp *) obj;
+        
+        if (0 == resp.errCode)
+         {
+            // 支付成功
+            PayResultVC  *VC = [[PayResultVC alloc] init];
+            VC.isSuceess = YES;
+            [self.navigationController pushViewController:VC animated:YES];
+            
+         }
+        else if (-2 == resp.errCode)
+         {
+            // 用户取消
+         }
+        else
+         {
+            // 支付错误
+            PayResultVC  *VC = [[PayResultVC alloc] init];
+            VC.dicPayResult = weakSelf.dicPay;
+            [self.navigationController pushViewController:VC animated:YES];
+         }
+    };
+    
+    NSDictionary *payParams = [dicWeChatOrderInof objectForKey:@"payParams"];
+    if (!payParams)
+     {
+        [MBProgressHUD showErrorWithStatus:@"获取微信支付参数错误" toView:self.view];
+     }
+    
+    // 微信支付抢单
+    WXPayModel *model = [[WXPayModel alloc] init];
+    model.partnerId = payParams[@"mchId"];
+    model.prepayid = payParams[@"prepayId"];
+    model.timestamp = [NSString stringWithFormat:@"%@",payParams[@"timeStamp"]];
+    model.sign = payParams[@"sign"];
+    model.noncestr = payParams[@"nonceStr"];
+    
+    model.appid = payParams[@"appId"];
+    model.partner_key = APPSecret_WC;
+    
+    [manager wxPayWith:model];
+}
+
+#pragma mark --- 网络请求
+-(void) getWeiXinOrderInfo
+{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLgoPay];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params addEntriesFromDictionary:_dicPay];
+    params[@"payType"] = @(1);
+    params[@"payCode"] = @"appWxpay";
+   
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1000;
+    [operation start];
+}
+
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation
+{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    if (1000 == operation.tag )
+     {
+        [self WeChatPay:operation.jsonResult.attr];
+     }
+}
+
+
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
+    
 }
 
 

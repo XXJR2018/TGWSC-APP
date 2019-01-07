@@ -36,6 +36,9 @@
 
 @property (nonatomic,strong) Block_Void block;
 
+// 支付的回调
+@property (nonatomic,strong) Block_Id payblock;
+
 
 +(DDGWeChat *) getSharedWeChat;
 
@@ -108,6 +111,9 @@
  @brief     partner_key
  */
 @property (nonatomic, copy) NSString *partner_key;
+
+
+
 
 
 

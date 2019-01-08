@@ -13,7 +13,7 @@ target 'TGWSCAPP' do
   pod "UMCSecurityPlugins"
   pod "UMCAnalytics“
   pod "JPush"
-  
+
   
   # Pods for TGWSCAPP
 

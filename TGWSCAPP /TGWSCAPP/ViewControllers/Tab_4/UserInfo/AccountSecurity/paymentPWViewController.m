@@ -70,10 +70,28 @@
         [MBProgressHUD showSuccessWithStatus:@"设置支付密码成功" toView:self.view];
         //发送通知更新用户信息
         [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
+        
         [self performBlock:^{
+            
+            if (self.popVC)
+             {
+                [self.navigationController popToViewController:self.popVC animated:YES];
+                return;
+             }
+            
             [self.navigationController popToRootViewControllerAnimated:YES];
         } afterDelay:1];
     }else{
+        
+        
+        if (_isValidatePassWord)
+         {
+            //发送支付密码验证消息
+            [[NSNotificationCenter defaultCenter] postNotificationName:DDGPayPassWordNotification object:@{@"password":_oldTradePwd}];
+            [self.navigationController popViewControllerAnimated:YES];
+            return;
+         }
+        
         _payPWTitleLabel.text = @"请设置新的支付密码，用于支付验证";
         _textField.text = @"";
         for (UIView *dotView in self.dotArray) {
@@ -86,6 +104,11 @@
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
      if (operation.tag == 1001) {
          _oldTradePwd = @"";
+         
+         if (_isValidatePassWord)
+          {
+             _textField.text = @"";
+          }
      }
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
@@ -112,6 +135,12 @@
     }else{
          _payPWTitleLabel.text = @"请设置新的支付密码，用于支付验证";
     }
+    
+    if (_isValidatePassWord)
+     {
+        _payPWTitleLabel.text = @"请输入支付密码，以验证身份";
+        [self layoutNaviBarViewWithTitle:@"验证支付密码"];
+     }
     
     _textField = [[UITextField alloc]initWithFrame:CGRectMake(20, CGRectGetMaxY(_payPWTitleLabel.frame), SCREEN_WIDTH - 40, K_Field_Height)];
     [self.view addSubview:_textField];
@@ -182,6 +211,16 @@
     }
     if (textField.text.length == kDotCount) {
         NSLog(@"textField.text = %@",textField.text);
+        
+        if ([self.titleStr isEqualToString:@"验证支付密码"]) {
+            if (_oldTradePwd.length == 0) {
+                _oldTradePwd = textField.text;
+                [self verifyPayPwdUrl];
+                return;
+            }
+        }
+        
+        
         if ([self.titleStr isEqualToString:@"修改支付密码"]) {
             if (_oldTradePwd.length == 0) {
                 _oldTradePwd = textField.text;

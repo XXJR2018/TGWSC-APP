@@ -12,6 +12,7 @@
 #import "SelPayVC.h"
 #import "PayResultVC.h"
 #import "PhoneCheckViewController.h"
+#import "paymentPWViewController.h"
 
 #define        AddrViewHeight        70
 #define        BottomViewHeight      50
@@ -26,9 +27,10 @@
     UIView *viewList;   // 商品列表view
     UIView *viewTail;   // 底部详情view
     UIView *viewOtherMoney;   // 余额
-    UILabel *labelYuEDK;
+    UILabel *labelYuEDK;      // 余额抵扣
     
-    UILabel *lableYHJ;
+    UILabel *lableYHJ;       // 优惠券
+    UITextField  *textMJLY;  // 买家留言
     
     NSDictionary *dicOfUI;
     NSArray *arrOfUI;
@@ -40,11 +42,12 @@
     BOOL  isEmployee;      // 是否有余额
     float usableAmount;   // 余额的值
     float fYEDK;          // 余额抵扣的值
+    int  iISYuEPay;       // 是否余额支付
+    NSString *tradePassword;    // 余额交易密码
     NSString  *addrId;           // 收货地址ID
     
     NSDictionary *dicLastAddrInfo;  // 上一次的地址信息
-    
- 
+
 
 }
 
@@ -61,11 +64,12 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"订单详情页面"];
     
-    //if (!_isNotLoadData)
+    if (!_isNotLoadData)
      {
         [self getUIDataFromWeb];
      }
     _isNotLoadData = NO;
+
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -79,6 +83,13 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
+    // 首页切换到别的页面的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPayPassWord:) name:DDGPayPassWordNotification object:nil];
+    
+    addrId = @"";
+    tradePassword = @"";
+    iISYuEPay = 0;
+    
     [self initData];
     
     [self layoutNaviBarViewWithTitle:@"确认订单"];
@@ -96,7 +107,6 @@
     fYEDK = 0.0;
     promocardId = @"";
     _custPromocardId = @"";
-    addrId = @"";
     isEmployee = NO;
 }
 
@@ -318,7 +328,7 @@
     labelMJYY.text = @"买家留言";
     
     iLeftX += labelMJYY.width+10;
-    UITextField  *textMJLY = [[UITextField alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - iLeftX - 10, iCellHeight)];
+    textMJLY = [[UITextField alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - iLeftX - 10, iCellHeight)];
     [viewTail addSubview:textMJLY];
     textMJLY.font = [UIFont systemFontOfSize:14];
     textMJLY.textColor = [ResourceManager color_1];
@@ -361,8 +371,6 @@
             btnBalance.selected = NO;
             [btnBalance addTarget:self action:@selector(actionBalance:) forControlEvents:UIControlEventTouchUpInside];
             //actionBalance
-            
-            
             
             UIView *viewOtherFG = [[UIView alloc] initWithFrame:CGRectMake(0, iOtherMoneyHeight-1, SCREEN_WIDTH, 1)];
             [viewOtherMoney addSubview:viewOtherFG];
@@ -665,13 +673,19 @@
     params = _dicToWeb;
     params[@"addrId"] = addrId;
     params[@"cartIds"] = _dicToWeb[@"cartIds"];  // 多个的话，用逗号隔开
+    params[@"remark"] =  textMJLY.text;
     params[@"clientType"] = @"APP";
     params[@"custPromocardId"] = _custPromocardId;
     params[@"promocardId"] = promocardId;
     params[@"totalOrderAmt"] = [NSString stringWithFormat:@"%.2f", goodsTotalAmt - promocardValue - fYEDK];
     
     params[@"useBalanceFlag"] = @(0);  //是否开启余额支付(1-开启 0-未开启)
-                                       //params[@"tradePassword"] = @""; // 支付密码(余额开启需要)
+    if (iISYuEPay)
+     {
+        params[@"useBalanceFlag"] = @(1);  //是否开启余额支付(1-开启 0-未开启)
+        params[@"tradePassword"] = tradePassword; // 支付密码(余额开启需要)
+     }
+    
     
     
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
@@ -719,9 +733,23 @@
      }
     else if (1001 == operation.tag)
      {
-        SelPayVC  *VC = [[SelPayVC alloc] init];
-        VC.dicPay = operation.jsonResult.attr;
-        [self.navigationController pushViewController:VC animated:YES];
+        
+        NSDictionary *dic = operation.jsonResult.attr;
+        int  payStatus = [dic[@"payStatus"] intValue]; // （0-未完成支付需继续支付，1-完成支付）
+        if (0 == payStatus)
+         {
+            SelPayVC  *VC = [[SelPayVC alloc] init];
+            VC.dicPay = operation.jsonResult.attr;
+            [self.navigationController pushViewController:VC animated:YES];
+         }
+        else if (1 == payStatus)
+         {
+            PayResultVC  *VC = [[PayResultVC alloc] init];
+            VC.isSuceess = TRUE;
+            [self.navigationController pushViewController:VC animated:YES];
+         }
+        
+
      }
 }
 
@@ -761,6 +789,21 @@
      {
         [MBProgressHUD showErrorWithStatus:@"请选择收货地址" toView:self.view];
         return;
+     }
+    
+    
+    if (iISYuEPay == 1 )
+     {
+        if (tradePassword.length <= 0)
+         {
+            if (usableAmount >= (goodsTotalAmt - promocardValue - fYEDK))
+             {
+                paymentPWViewController *ctl = [[paymentPWViewController alloc]init];
+                ctl.titleStr = @"验证支付密码";
+                ctl.isValidatePassWord = YES;
+                [self.navigationController pushViewController:ctl animated:YES];
+             }
+         }
      }
     
     NSLog(@"actionPay");
@@ -849,36 +892,39 @@
     sender.selected = !sender.selected;
     if (!sender.selected)
      {
+        iISYuEPay = 0;
         fYEDK = 0.0;
         labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",0.00 ];
      }
     else
      {
-        // 查询是否有支付密码
+        iISYuEPay = 1;
         
-        //设置密码
-        if ([[[CommonInfo userInfo] objectForKey:@"hasTradePwd"] intValue] == 1) {
-            //[self layoutUI_2];
-            
+        // 查询是否有支付密码
+        if ([[[CommonInfo userInfo] objectForKey:@"hasTradePwd"] intValue] != 1) {
             PhoneCheckViewController *ctl = [[PhoneCheckViewController alloc]init];
             ctl.titleStr = @"设置支付密码";
-            [self.navigationController pushViewController:ctl animated:YES];
-            
-        }else{
-            PhoneCheckViewController *ctl = [[PhoneCheckViewController alloc]init];
-            ctl.titleStr = @"设置支付密码";
+            ctl.popVC = self;
             [self.navigationController pushViewController:ctl animated:YES];
         }
        
         
-        // 计算余额
-        if (usableAmount >= (goodsTotalAmt - promocardValue))
+        // 计算余额抵扣
+        if (usableAmount > (goodsTotalAmt - promocardValue))
          {
             fYEDK = (goodsTotalAmt - promocardValue);
          }
         else
          {
-            fYEDK = goodsTotalAmt;
+            fYEDK = usableAmount;
+            
+            if (tradePassword.length <= 0)
+             {
+                paymentPWViewController *ctl = [[paymentPWViewController alloc]init];
+                ctl.titleStr = @"验证支付密码";
+                ctl.isValidatePassWord = YES;
+                [self.navigationController pushViewController:ctl animated:YES];
+             }
          }
         labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",fYEDK ];
         
@@ -887,7 +933,6 @@
         NSRange range = [strAll rangeOfString:strSub];
         NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:strAll];
         [str addAttribute:NSForegroundColorAttributeName value:[ResourceManager priceColor] range:range]; //设置字体颜色
-                                                                                                          //[str addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Arial" size:30.0] range:range]; //设置字体字号和字体类别
         labelYuEDK.attributedText = str;
      }
     
@@ -928,6 +973,16 @@
         }
      }
     return YES;
+}
+
+#pragma mark ---通知事件
+-(void) getPayPassWord:(NSNotification *)notification
+{
+    NSLog(@"user info is %@",notification.object);
+    NSDictionary *dic = notification.object;
+    
+    tradePassword = [dic objectForKey:@"password"] ;
+    
 }
 
 @end

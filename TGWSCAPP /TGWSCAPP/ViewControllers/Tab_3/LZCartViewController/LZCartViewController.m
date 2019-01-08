@@ -875,42 +875,19 @@
     promocardId = @"";
     custPromocardId = @"";
     
+    
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
-    //WebGoodJSModel *objTemp = [[WebGoodJSModel alloc] init];
-    NSMutableArray *arrSend = [[NSMutableArray alloc] init];
-    NSMutableDictionary *objTemp = [[NSMutableDictionary alloc] init];
-    
+    NSString *strAll = @"";
     for (LZCartModel *model in self.selectedArray) {
+        NSLog(@"选择的商品>>%@>>>%ld",model.nameStr,(long)model.number);
         
-        float fPrice = [model.price floatValue];
-        int  iNum =  (int)model.number;
-        
-        
-        [objTemp removeAllObjects];
-        objTemp[@"price"] = [NSString stringWithFormat:@"%.2f", fPrice];
-        objTemp[@"skuCode"] = model.skuCodeStr;
-        objTemp[@"goodsCode"] = model.goodCodeStr;
-        objTemp[@"num"] = [NSString stringWithFormat:@"%d", (int)model.number];
-        
-        [arrSend addObject:objTemp];
+        strAll = [strAll stringByAppendingString:model.cartIdStr];
+        strAll = [strAll stringByAppendingString:@","];
     }
     
     
-    NSData *data = [NSJSONSerialization dataWithJSONObject:arrSend
-                                                   options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments
-                                                     error:nil];
-    NSString *stringSend = @"";
-    if (data == nil)
-     {
-     }
-    else
-     {
-        stringSend = [[NSString alloc] initWithData:data
-                                           encoding:NSUTF8StringEncoding];
-     }
-    
-    params[@"goodsJsonStr"] = stringSend;
+    params[@"cartIds"] = strAll;
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLgetSaleTitle];
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray

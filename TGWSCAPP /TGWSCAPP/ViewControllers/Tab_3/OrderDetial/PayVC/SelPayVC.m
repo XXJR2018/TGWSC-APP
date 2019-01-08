@@ -208,7 +208,8 @@
 
 -(void) delayMethod
 {
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4),@"index":@(0)}];
 }
 
 -(void) actionSelPay:(UITapGestureRecognizer*) reg

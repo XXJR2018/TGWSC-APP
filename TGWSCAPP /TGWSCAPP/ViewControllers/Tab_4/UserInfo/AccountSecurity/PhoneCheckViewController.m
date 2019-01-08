@@ -140,6 +140,10 @@
         }else{
             ctl.titleStr = @"重置支付密码";
         }
+        if (_popVC)
+         {
+            ctl.popVC = _popVC;
+         }
         [self.navigationController pushViewController:ctl animated:YES];
      }
    

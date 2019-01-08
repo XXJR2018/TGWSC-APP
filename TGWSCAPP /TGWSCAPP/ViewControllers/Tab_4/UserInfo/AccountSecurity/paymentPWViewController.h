@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, copy)NSString *titleStr;
 
+@property(nonatomic, assign) BOOL isValidatePassWord;  // 是否验证密码
+
+@property(nonatomic, strong) UIViewController *popVC;  // 返回viewController
+
 @end
 
 NS_ASSUME_NONNULL_END

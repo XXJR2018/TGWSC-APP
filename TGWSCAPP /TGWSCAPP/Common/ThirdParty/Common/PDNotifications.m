@@ -69,8 +69,8 @@ NSString *const LocationCityDidChangeNotification = @"LocationCityDidChangeNotif
 NSString *const DDGMarksChangedNotification = @"DDGMarksChangedNotification";
 
 /*!
- @brief 新增查号通知
+ @brief 支付密码设置或者修改通知
  */
-NSString *const DDGSearchNumNotification = @"DDGSearchNumNotification";
+NSString *const DDGPayPassWordNotification = @"DDGPayPassWordNotification";
 
 

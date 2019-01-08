@@ -26,9 +26,7 @@
     UIButton *btnAddShop2;  // 去凑单按钮2
     UIButton *btnTail;    // 底部的按钮。 下单/删除
     
-
     UIButton *rightNavBtn;     //导航右边按钮
-    
     
     BOOL  isChildView ;  // 是否属于子页面
     BOOL  isHasTabBarController;
@@ -40,6 +38,9 @@
 }
 
 @property (strong,nonatomic)NSMutableArray *selectedArray;
+
+@property (strong,nonatomic)NSMutableArray *dataArrayUnUse;  // 失效的数据
+@property (strong,nonatomic)NSMutableArray *lastDataArrayUnUse;  // 失效的数据(上一次)
 @property (strong,nonatomic)NSMutableArray *lastDataArr;
 @property (strong,nonatomic)UITableView *myTableView;
 @property (strong,nonatomic)UIButton *allSellectedButton;
@@ -192,6 +193,17 @@
     return _selectedArray;
 }
 
+
+
+- (NSMutableArray *)dataArrayUnUse {
+    if (_dataArrayUnUse == nil) {
+        _dataArrayUnUse = [NSMutableArray arrayWithCapacity:0];
+    }
+    
+    return _dataArrayUnUse;
+}
+
+
 - (NSMutableArray *)lastDataArr {
     if (_lastDataArr == nil) {
         _lastDataArr = [NSMutableArray arrayWithCapacity:0];
@@ -200,6 +212,13 @@
     return _lastDataArr;
 }
 
+- (NSMutableArray *)lastDataArrayUnUse {
+    if (_lastDataArrayUnUse == nil) {
+        _lastDataArrayUnUse = [NSMutableArray arrayWithCapacity:0];
+    }
+    
+    return _lastDataArrayUnUse;
+}
 
 
 #pragma mark - 布局页面视图
@@ -327,7 +346,7 @@
     //创建底部视图
     [self setupCustomBottomView];
     
-    UITableView *table = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    UITableView *table = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     
     table.delegate = self;
     table.dataSource = self;
@@ -471,11 +490,151 @@
 }
 
 #pragma mark --- UITableViewDataSource & UITableViewDelegate
+
+//返回分组数
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    NSLog(@"计算分组数");
+    return 2;
+}
+
+//返回每组行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if ( 0 == section)
+     {
+        return self.dataArray.count;
+     }
+    if (1 == section)
+     {
+        return  self.dataArrayUnUse.count;
+     }
+    
     return self.dataArray.count;
 }
 
+// 自定义段头高度
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (0 == section)
+     {
+        return   0;
+     }
+    
+    if ([self.dataArrayUnUse count] == 0)
+     {
+        return 0;
+     }
+    
+    return 70;
+}
+
+// 自定义头部view
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 70)];//创建一个视图
+    //headerView.backgroundColor = [UIColor blueColor];
+    
+    int iTopY = 0;
+    UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 10)];
+    [headerView addSubview:viewFG];
+    viewFG.backgroundColor = [ResourceManager viewBackgroundColor];
+    
+    
+   
+    iTopY += viewFG.height + 20;
+    NSString *createTime = [NSString stringWithFormat:@"失效物品%d件", (int)[self.dataArrayUnUse  count]];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, iTopY, 150, 20)];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.font = [UIFont systemFontOfSize:14];
+    headerLabel.textColor = [ResourceManager color_1];
+    headerLabel.text = createTime;
+    [headerView addSubview:headerLabel];
+    
+    UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-100, iTopY, 90, 20)];
+    [headerView addSubview:btnRight];
+    [btnRight setTitle:@"清除失效商品"   forState:UIControlStateNormal];
+    [btnRight setTitleColor:[ResourceManager priceColor] forState:UIControlStateNormal];
+    btnRight.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btnRight addTarget:self action:@selector(actionDelUnuse) forControlEvents:UIControlEventTouchUpInside];
+    
+
+    UIView *viewFG2 = [[UIView alloc] initWithFrame:CGRectMake(0, headerView.height -1, SCREEN_WIDTH, 1)];
+    [headerView addSubview:viewFG2];
+    viewFG2.backgroundColor = [ResourceManager color_5];
+    
+    return headerView;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    // 失效列表
+    if (1 ==  indexPath.section)
+     {
+        //UITableViewCell  *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, lz_CartRowHeight)];
+        
+        UITableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:@"LZCartReusableCellUnuse"];
+        if (cell == nil)
+         {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"LZCartReusableCellUnuse"];
+            //cell.backgroundColor = [UIColor yellowColor];
+            NSDictionary *dicObj = self.dataArrayUnUse[indexPath.row];
+            
+            int iRoundWidth = 20;
+            int iLeftX = 20;
+            
+            UIImageView *imgRight = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, (lz_CartRowHeight-iRoundWidth)/2, iRoundWidth, iRoundWidth)];
+            [cell addSubview:imgRight];
+            imgRight.cornerRadius = iRoundWidth/2;
+            imgRight.backgroundColor = UIColorFromRGB(0xebebeb);
+            
+            iLeftX += imgRight.width + 15;
+            int iTopY = 15;
+            UIImageView* imageView = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX,  iTopY, lz_CartRowHeight - 30, lz_CartRowHeight - 30)];
+            [cell addSubview:imageView];
+            [imageView setImageWithURL:[NSURL URLWithString:dicObj[@"goodsUrl"]]];
+            
+            iTopY += 1;
+            iLeftX += imageView.width + 10;
+            UILabel* labelName = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX,  iTopY, SCREEN_WIDTH - iLeftX-10, 20)];
+            [cell addSubview:labelName];
+            labelName.textColor = [ResourceManager color_1];
+            labelName.font = [UIFont systemFontOfSize:14];
+            labelName.text = dicObj[@"goodsName"];
+            
+            iTopY += labelName.height + 6 ;
+            UILabel* labelYXJ = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX,  iTopY, 46, 15)];
+            [cell addSubview:labelYXJ];
+            labelYXJ.textColor = [ResourceManager mainColor];
+            labelYXJ.font = [UIFont systemFontOfSize:11];
+            labelYXJ.text = @"已下架";
+            labelYXJ.textAlignment = NSTextAlignmentCenter;
+            labelYXJ.borderColor = [ResourceManager mainColor];
+            labelYXJ.borderWidth = 0.3;
+            labelYXJ.layer.cornerRadius = 2;
+            labelYXJ.layer.masksToBounds = YES;
+            
+            
+            iTopY += labelYXJ.height + 10;
+            UILabel* labelBNM = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX,  iTopY, SCREEN_WIDTH - iLeftX-10, 20)];
+            [cell addSubview:labelBNM];
+            labelBNM.textColor = [ResourceManager midGrayColor];
+            labelBNM.font = [UIFont systemFontOfSize:12];
+            labelBNM.text = @"此商品不能购买";
+            
+            
+            //加入分割线
+            UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(10, lz_CartRowHeight-1, SCREEN_WIDTH-20, 1)];
+            [cell addSubview:viewFG];
+            viewFG.backgroundColor = [ResourceManager color_5];
+            
+        }
+        return  cell;
+     }
+    
+    
+    // 有效列表
     LZCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LZCartReusableCell"];
     if (cell == nil) {
         cell = [[LZCartTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"LZCartReusableCell"];
@@ -559,6 +718,16 @@
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     
+    if (1 == indexPath.section)
+     {
+        NSDictionary *dicObj = self.dataArrayUnUse[indexPath.row];
+        ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
+        VC.shopModel = [[ShopModel alloc] init];
+        VC.shopModel.strGoodsCode = dicObj[@"goodsCode"];
+        [self.navigationController pushViewController:VC animated:YES];
+        return;
+     }
+    
     LZCartModel *model = [self.dataArray objectAtIndex:indexPath.row];
     
     if (model) {
@@ -583,6 +752,12 @@
                                                                             title:@"删除"    handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
                                                                                 NSLog(@"删除");
                                                                                 
+                                                                            
+                                                                                if (1 == indexPath.section)
+                                                                                 {
+                                                                                    [MBProgressHUD showErrorWithStatus:@"请用\“清除失效商品\“按钮" toView:self.view];
+                                                                                    return ;
+                                                                                 }
                                                                                 
                                                                                 CDWAlertView *alertView = [[CDWAlertView alloc] init];
                                                                                 
@@ -816,6 +991,24 @@
      }
 }
 
+-(void) actionDelUnuse
+{
+    NSString *strAll = @"";
+    for (int i =0; i < [self.dataArrayUnUse count]; i++) {
+        NSDictionary *dicObj = self.dataArrayUnUse[i];
+        
+        NSString *strCardID = [NSString stringWithFormat:@"%@", dicObj[@"cartId"]];
+        
+        strAll = [strAll stringByAppendingString:strCardID];
+        strAll = [strAll stringByAppendingString:@","];
+    }
+    
+    if (strAll.length > 0)
+     {
+        [self actionPopModify:strAll];
+     }
+}
+
 #pragma mark  --- 网络通讯
 //- (void)loadData {
 //    //[self creatData];
@@ -875,42 +1068,19 @@
     promocardId = @"";
     custPromocardId = @"";
     
+    
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
-    //WebGoodJSModel *objTemp = [[WebGoodJSModel alloc] init];
-    NSMutableArray *arrSend = [[NSMutableArray alloc] init];
-    NSMutableDictionary *objTemp = [[NSMutableDictionary alloc] init];
-    
+    NSString *strAll = @"";
     for (LZCartModel *model in self.selectedArray) {
+        NSLog(@"选择的商品>>%@>>>%ld",model.nameStr,(long)model.number);
         
-        float fPrice = [model.price floatValue];
-        int  iNum =  (int)model.number;
-        
-        
-        [objTemp removeAllObjects];
-        objTemp[@"price"] = [NSString stringWithFormat:@"%.2f", fPrice];
-        objTemp[@"skuCode"] = model.skuCodeStr;
-        objTemp[@"goodsCode"] = model.goodCodeStr;
-        objTemp[@"num"] = [NSString stringWithFormat:@"%d", (int)model.number];
-        
-        [arrSend addObject:objTemp];
+        strAll = [strAll stringByAppendingString:model.cartIdStr];
+        strAll = [strAll stringByAppendingString:@","];
     }
     
     
-    NSData *data = [NSJSONSerialization dataWithJSONObject:arrSend
-                                                   options:NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments
-                                                     error:nil];
-    NSString *stringSend = @"";
-    if (data == nil)
-     {
-     }
-    else
-     {
-        stringSend = [[NSString alloc] initWithData:data
-                                           encoding:NSUTF8StringEncoding];
-     }
-    
-    params[@"goodsJsonStr"] = stringSend;
+    params[@"cartIds"] = strAll;
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLgetSaleTitle];
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
@@ -952,6 +1122,7 @@
      {
         // 刷新购物车列表
         [self.dataArray removeAllObjects];
+        
         
         NSArray *arr = operation.jsonResult.rows;
         if (arr)
@@ -1012,6 +1183,29 @@
              }
          }
         
+        
+        // 失效的列表
+        [self.dataArrayUnUse removeAllObjects];
+        NSDictionary *dicUnuse = operation.jsonResult.attr;
+        NSArray *arrUnuse = dicUnuse[@"unUseGoodsList"];
+        if (arrUnuse &&
+            [arrUnuse count] >0)
+         {
+            [self.dataArrayUnUse addObjectsFromArray:arrUnuse];
+         }
+        
+        if ([arrUnuse count] >0 &&
+            [self.dataArray count] == 0)
+         {
+            isNeddRefesh = YES;
+         }
+        
+        if ([self.dataArrayUnUse count] != [self.lastDataArrayUnUse count])
+         {
+            isNeddRefesh = YES;
+         }
+        
+        
         if (isNeddRefesh)
          {
             [self changeView];
@@ -1019,6 +1213,9 @@
         
         [self.lastDataArr removeAllObjects];
         [self.lastDataArr addObjectsFromArray:self.dataArray];
+        
+        [self.lastDataArrayUnUse removeAllObjects];
+        [self.lastDataArrayUnUse addObjectsFromArray:self.dataArrayUnUse];
         
      }
     else if (1001 == operation.tag)

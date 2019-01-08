@@ -83,8 +83,8 @@ FOUNDATION_EXPORT NSString *const LocationCityDidChangeNotification;
 FOUNDATION_EXPORT NSString *const DDGMarksChangedNotification;
 
 /*!
- @brief 新增查号通知
+ @brief 支付密码设置或者修改通知
  */
-FOUNDATION_EXPORT NSString *const DDGSearchNumNotification;
+FOUNDATION_EXPORT NSString *const DDGPayPassWordNotification;
 
 

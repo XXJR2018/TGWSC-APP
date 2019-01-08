@@ -40,6 +40,7 @@
 @property (strong,nonatomic)NSMutableArray *selectedArray;
 
 @property (strong,nonatomic)NSMutableArray *dataArrayUnUse;  // 失效的数据
+@property (strong,nonatomic)NSMutableArray *lastDataArrayUnUse;  // 失效的数据(上一次)
 @property (strong,nonatomic)NSMutableArray *lastDataArr;
 @property (strong,nonatomic)UITableView *myTableView;
 @property (strong,nonatomic)UIButton *allSellectedButton;
@@ -211,6 +212,13 @@
     return _lastDataArr;
 }
 
+- (NSMutableArray *)lastDataArrayUnUse {
+    if (_lastDataArrayUnUse == nil) {
+        _lastDataArrayUnUse = [NSMutableArray arrayWithCapacity:0];
+    }
+    
+    return _lastDataArrayUnUse;
+}
 
 
 #pragma mark - 布局页面视图
@@ -512,6 +520,11 @@
         return   0;
      }
     
+    if ([self.dataArrayUnUse count] == 0)
+     {
+        return 0;
+     }
+    
     return 70;
 }
 
@@ -531,7 +544,7 @@
     
    
     iTopY += viewFG.height + 20;
-    NSString *createTime = @"失效物品2件";
+    NSString *createTime = [NSString stringWithFormat:@"失效物品%d件", (int)[self.dataArrayUnUse  count]];
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, iTopY, 150, 20)];
     headerLabel.backgroundColor = [UIColor clearColor];
     headerLabel.font = [UIFont systemFontOfSize:14];
@@ -544,6 +557,7 @@
     [btnRight setTitle:@"清除失效商品"   forState:UIControlStateNormal];
     [btnRight setTitleColor:[ResourceManager priceColor] forState:UIControlStateNormal];
     btnRight.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btnRight addTarget:self action:@selector(actionDelUnuse) forControlEvents:UIControlEventTouchUpInside];
     
 
     UIView *viewFG2 = [[UIView alloc] initWithFrame:CGRectMake(0, headerView.height -1, SCREEN_WIDTH, 1)];
@@ -738,6 +752,12 @@
                                                                             title:@"删除"    handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
                                                                                 NSLog(@"删除");
                                                                                 
+                                                                            
+                                                                                if (1 == indexPath.section)
+                                                                                 {
+                                                                                    [MBProgressHUD showErrorWithStatus:@"请用\“清除失效商品\“按钮" toView:self.view];
+                                                                                    return ;
+                                                                                 }
                                                                                 
                                                                                 CDWAlertView *alertView = [[CDWAlertView alloc] init];
                                                                                 
@@ -971,6 +991,24 @@
      }
 }
 
+-(void) actionDelUnuse
+{
+    NSString *strAll = @"";
+    for (int i =0; i < [self.dataArrayUnUse count]; i++) {
+        NSDictionary *dicObj = self.dataArrayUnUse[i];
+        
+        NSString *strCardID = [NSString stringWithFormat:@"%@", dicObj[@"cartId"]];
+        
+        strAll = [strAll stringByAppendingString:strCardID];
+        strAll = [strAll stringByAppendingString:@","];
+    }
+    
+    if (strAll.length > 0)
+     {
+        [self actionPopModify:strAll];
+     }
+}
+
 #pragma mark  --- 网络通讯
 //- (void)loadData {
 //    //[self creatData];
@@ -1156,6 +1194,16 @@
             [self.dataArrayUnUse addObjectsFromArray:arrUnuse];
          }
         
+        if ([arrUnuse count] >0 &&
+            [self.dataArray count] == 0)
+         {
+            isNeddRefesh = YES;
+         }
+        
+        if ([self.dataArrayUnUse count] != [self.lastDataArrayUnUse count])
+         {
+            isNeddRefesh = YES;
+         }
         
         
         if (isNeddRefesh)
@@ -1165,6 +1213,9 @@
         
         [self.lastDataArr removeAllObjects];
         [self.lastDataArr addObjectsFromArray:self.dataArray];
+        
+        [self.lastDataArrayUnUse removeAllObjects];
+        [self.lastDataArrayUnUse addObjectsFromArray:self.dataArrayUnUse];
         
      }
     else if (1001 == operation.tag)

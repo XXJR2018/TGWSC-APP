@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,assign) int   iShopID;
 @property (nonatomic,assign) int   iIsSellOut;  //  "isSellOut": 0 代表售罄 1代表尚有库存
+@property (nonatomic,assign) int   iSaleStatus;  // 0 saleStatus  已下架 1 出售中
 
 @property (nonatomic,copy) NSString *strTypeCode;
 @property (nonatomic,copy) NSString *strTypeName;

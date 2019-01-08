@@ -292,6 +292,7 @@
             sModel.strCateCode = [NSString stringWithFormat:@"%@",dicObject[@"cateCode"]];
             sModel.strCateName = [NSString stringWithFormat:@"%@",dicObject[@"cateName"]];
             sModel.iIsSellOut = [dicObject[@"isSellOut"] intValue];
+            sModel.iSaleStatus = [dicObject[@"isSellOut"] intValue];
             [tempArr addObject:sModel];
          }
 

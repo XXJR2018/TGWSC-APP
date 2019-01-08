@@ -225,6 +225,14 @@
      }
     
     
+    int iSaleStatus = _shopModel.iSaleStatus; // // 0 saleStatus  已下架 1 出售中
+    if (iSaleStatus == 0)
+     {
+        viewSellOut.hidden = NO;
+        viewNormal.hidden = YES;
+        [btnSellOut setTitle:@"已经下架" forState:UIControlStateNormal];
+     }
+    
     
 }
 

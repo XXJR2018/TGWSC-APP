@@ -362,6 +362,23 @@
      }
     [scView addSubview:self.video];
     
+    int iLabelYXJWidth = 90;
+    UILabel *labelYXJ = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-iLabelYXJWidth)/2, (BannerHeight-iLabelYXJWidth)/2, iLabelYXJWidth, iLabelYXJWidth)];
+    [scView addSubview:labelYXJ];
+    labelYXJ.clipsToBounds = YES;
+    labelYXJ.layer.cornerRadius = labelYXJ.height/2;
+    labelYXJ.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+    labelYXJ.textAlignment = NSTextAlignmentCenter;
+    labelYXJ.text = @"已经下架";
+    labelYXJ.textColor = [UIColor whiteColor];
+    labelYXJ.hidden = YES;
+    
+    // 0 saleStatus  已下架 1 出售中
+    if (0 ==  _shopModel.iSaleStatus)
+     {
+        labelYXJ.hidden = NO;
+     }
+    
 
 }
 
@@ -526,6 +543,21 @@
         
         iLeftX +=  iIcomBtnWidth;//36;
         
+     }
+    
+    
+    int iSaleStatus = _shopModel.iSaleStatus; // // 0 saleStatus  已下架 1 出售中
+    if (iSaleStatus == 0)
+     {
+        int iBtnWidth =  (SCREEN_WIDTH - iLeftX  - 10);
+        UIButton *btnSellOut = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, 10, iBtnWidth, 40)];
+        [viewTabber addSubview:btnSellOut];
+        btnSellOut.cornerRadius = btnSellOut.height/2;
+        btnSellOut.backgroundColor = [ResourceManager lightGrayColor];
+        [btnSellOut setTitle:@"已经下架" forState:UIControlStateNormal];
+        [btnSellOut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        btnSellOut.titleLabel.font = [UIFont systemFontOfSize:15];
+        return;
      }
     
     int iIsSellOut = _shopModel.iIsSellOut; //  "isSellOut": 0 代表售罄 1代表尚有库存
@@ -730,6 +762,7 @@
             sModel.strCateCode = [NSString stringWithFormat:@"%@",dicObject[@"cateCode"]];
             sModel.strCateName = [NSString stringWithFormat:@"%@",dicObject[@"cateName"]];
             sModel.iIsSellOut = [dicObject[@"isSellOut"] intValue];
+            sModel.iSaleStatus = [dicObject[@"saleStatus"] intValue];
             _shopModel = sModel;
          }
         

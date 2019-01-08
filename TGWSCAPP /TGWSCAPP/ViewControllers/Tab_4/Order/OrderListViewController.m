@@ -8,13 +8,21 @@
 
 #import "OrderListViewController.h"
 
-#import "OrderListViewCell.h"
+#import "LogisticsViewController.h"
 
+#import "SelPayVC.h"
+#import "OrderListViewCell.h"
 
 #define orderCellHeight  100
 
 @interface OrderListViewController ()
-
+{
+    NSString *_orderNo;             //订单ID
+    NSString *_closeRemark;     //取消订单理由
+    UIButton *_closeOrderBtn;
+    NSMutableArray *_closeOrderBtnArr;
+    UIView *_closeOrderAleartView;
+}
 @end
 
 @implementation OrderListViewController
@@ -35,7 +43,76 @@
                                                                                       [self handleErrorData:operation];
                                                                                   }];
     [operation start];
+    operation.tag = 1000;
 }
+
+//取消订单
+-(void)cancelOrderUrl:(NSString *)orderNo{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+   params[@"orderNo"] = orderNo;
+    if (_closeRemark.length > 0) {
+        params[@"closeRemark"] = _closeRemark;
+    }
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/myOrder/cancelOrder",[PDAPI getBaseUrlString]]
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+    operation.tag = 1001;
+}
+
+//删除订单
+-(void)deleteOrderUrl:(NSString *)orderNo{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"orderNo"] = orderNo;
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/myOrder/deleteOrder",[PDAPI getBaseUrlString]]
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+    operation.tag = 1002;
+}
+
+//确认收货
+-(void)confirmGoodsUrl:(NSString *)orderNo{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"orderNo"] = orderNo;
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/myOrder/deleteOrder",[PDAPI getBaseUrlString]]
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+    operation.tag = 1003;
+}
+
+//再次购买
+-(void)againShopUrl:(NSString *)orderNo{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"orderNo"] = orderNo;
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/myOrder/againShop",[PDAPI getBaseUrlString]]
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+    operation.tag = 1004;
+}
+
 
 #pragma mark 数据操作
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
@@ -43,15 +120,41 @@
     [_tableView.mj_header endRefreshing];
     [_tableView.mj_footer endRefreshing];
     
-    if (operation.jsonResult.rows.count > 0) {
-        [self reloadTableViewWithArray:operation.jsonResult.rows];
-    }else{
-        self.pageIndex --;
-        if (self.pageIndex > 1) {
-            [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
+    if (operation.tag == 1000) {
+        if (operation.jsonResult.rows.count > 0) {
+            [self reloadTableViewWithArray:operation.jsonResult.rows];
+        }else{
+            [_tableView reloadData];
+            self.pageIndex --;
+            if (self.pageIndex > 1) {
+                [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
+            }
         }
+    }else if (operation.tag == 1001) {
+        [MBProgressHUD showSuccessWithStatus:@"订单取消成功" toView:self.view];
+        [self performBlock:^{
+            [self loadData];
+        } afterDelay:1];
+    }else if (operation.tag == 1002) {
+        [MBProgressHUD showSuccessWithStatus:@"订单删除成功" toView:self.view];
+        [self performBlock:^{
+            [self loadData];
+        } afterDelay:1];
+    }else if (operation.tag == 1003) {
+        [MBProgressHUD showSuccessWithStatus:@"确认收货成功" toView:self.view];
+        [self performBlock:^{
+            [self loadData];
+        } afterDelay:1];
+    }else if (operation.tag == 1004) {
+        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"商品添加成功" message:@"商品已成功添加至购物车，前往购物车查看" preferredStyle:UIAlertControllerStyleAlert];
+        [actionSheet addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        }]];
+        [actionSheet addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(3)}];
+        }]];
+        [self presentViewController:actionSheet animated:YES completion:nil];
     }
-    
 }
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
@@ -64,6 +167,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    _closeOrderBtnArr = [NSMutableArray array];
     _tableView.backgroundColor = [UIColor whiteColor];
     [_tableView registerClass:[OrderListViewCell class] forCellReuseIdentifier:@"OrderList_Cell"];
     [_tableView setTableFooterView:[UIView new]];
@@ -112,8 +216,18 @@
     cell.orderLeftBlock = ^{
         [self orderLeftTouch:self.dataArray[indexPath.row]];
     };
+    cell.orderCentreBlock = ^{
+        [self orderCentreTouch:self.dataArray[indexPath.row]];
+    };
     cell.orderRightBlock = ^{
         [self orderRightTouch:self.dataArray[indexPath.row]];
+    };
+    cell.orderTimeBlock = ^{
+        NSString *orderNo = [NSString stringWithFormat:@"%@",[(NSDictionary *)self.dataArray[indexPath.row] objectForKey:@"orderNo"]];
+        if (orderNo.length > 0) {
+            [self cancelOrderUrl:orderNo];
+        }
+        [self loadData];
     };
     cell.dataDicionary = self.dataArray[indexPath.row];
     return cell;
@@ -123,11 +237,8 @@
     //（这种是没有点击后的阴影效果)
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    NSDictionary *dic = self.dataArray[indexPath.row];
-    NSString *goodsCode = [NSString stringWithFormat:@"%@",[dic objectForKey:@"goodsCode"]];
-    if (goodsCode.length > 0) {
-        
-    }
+//    NSDictionary *dic = self.dataArray[indexPath.row];
+   
     
 }
 
@@ -136,14 +247,163 @@
     //    状态（//0-待付款 1-交易成功 2-交易失败 3-卖家确认(待发货) 4-卖家审核失败 5-已发货  6-确认收货 7-交易关闭  8-退款成功  ）
     NSInteger status = [[dic objectForKey:@"status"] intValue];
     NSLog(@"status == %ld",status);
-    
+    _orderNo  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:@"\n确定要删除订单?\n\n" preferredStyle:UIAlertControllerStyleAlert];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //删除订单
+        [self deleteOrderUrl:_orderNo];
+    }]];
+    [self presentViewController:actionSheet animated:YES completion:nil];
+
+}
+
+-(void)orderCentreTouch:(NSDictionary *)dic{
+    //    状态（//0-待付款 1-交易成功 2-交易失败 3-卖家确认(待发货) 4-卖家审核失败 5-已发货  6-确认收货 7-交易关闭  8-退款成功  ）
+    NSInteger status = [[dic objectForKey:@"status"] intValue];
+    NSLog(@"status == %ld",status);
+    _orderNo  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
+    if (status == 0 || status == 2) {
+        //取消订单
+        [self closeOrderAleartViewUI:_orderNo];
+    }else if (status == 5) {
+        //查看物流
+        LogisticsViewController *ctl = [[LogisticsViewController alloc]init];
+        ctl.orderNo = _orderNo;
+        [self.navigationController pushViewController:ctl animated:YES];
+    }else if (status == 6) {
+        //申请退款
+        
+    }
 }
 
 -(void)orderRightTouch:(NSDictionary *)dic{
     //    状态（//0-待付款 1-交易成功 2-交易失败 3-卖家确认(待发货) 4-卖家审核失败 5-已发货  6-确认收货 7-交易关闭  8-退款成功  ）
     NSInteger status = [[dic objectForKey:@"status"] intValue];
     NSLog(@"status == %ld",status);
+    _orderNo  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
+    if (status == 0 || status == 2) {
+        //付款
+        SelPayVC  *VC = [[SelPayVC alloc] init];
+        VC.dicPay = dic;
+        [self.navigationController pushViewController:VC animated:YES];
+    }else if (status == 1 || status == 3) {
+        //申请退款
+        
+    }else if (status == 4 || status == 6 || status == 7) {
+        //再次购买
+        [self againShopUrl:_orderNo];
+    }else if (status == 5) {
+        //确认收货
+        [self confirmGoodsUrl:_orderNo];
+    }else if (status == 8) {
+        //退款详情
+        
+    }
+}
+
+
+
+
+#pragma mark 取消订单原因弹窗布局
+-(void)closeOrderAleartViewUI:(NSString *)orderNo{
+    [_closeOrderAleartView  removeFromSuperview];
     
+    _closeOrderAleartView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [[UIApplication sharedApplication].keyWindow addSubview:_closeOrderAleartView];
+    _closeOrderAleartView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
+    
+    UIView *aleartView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 310)/2, (SCREEN_HEIGHT - 270)/2, 310, 270)];
+    [_closeOrderAleartView addSubview:aleartView];
+    aleartView.backgroundColor = [UIColor whiteColor];
+    aleartView.layer.cornerRadius = 8;
+    
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, aleartView.bounds.size.width, 50)];
+    [aleartView addSubview:titleLabel];
+    titleLabel.textColor = [ResourceManager mainColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont systemFontOfSize:15];
+    titleLabel.text = @"请选择取消订单的理由";
+    
+    UIView *lineView_1 = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(titleLabel.frame), aleartView.bounds.size.width, 0.5)];
+    [aleartView addSubview:lineView_1];
+    lineView_1.backgroundColor = [ResourceManager mainColor];
+    
+    NSArray *titleArr = @[@"我不想买了",@"信息填写错误，重新拍",@"卖家缺货",@"其他原因"];
+    for (int i = 0;  i < titleArr.count; i++) {
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(lineView_1.frame) + 10 + 35 * i, aleartView.bounds.size.width - 50, 35)];
+        [aleartView addSubview:titleLabel];
+        titleLabel.textColor = [ResourceManager color_1];
+        titleLabel.font = [UIFont systemFontOfSize:14];
+        titleLabel.text = titleArr[i];
+        
+        _closeOrderBtn = [[UIButton alloc]initWithFrame:CGRectMake(aleartView.bounds.size.width - 35, CGRectGetMinY(titleLabel.frame) + 5, 25, 25)];
+        [aleartView addSubview:_closeOrderBtn];
+        _closeOrderBtn.tag = i;
+        [_closeOrderBtn setImage:[UIImage imageNamed:@"Tab_4-28"] forState:UIControlStateNormal];
+        [_closeOrderBtn setImage:[UIImage imageNamed:@"Tab_4-29"] forState:UIControlStateSelected];
+        [_closeOrderBtn addTarget:self action:@selector(closeOrder:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_closeOrderBtnArr addObject:_closeOrderBtn];
+    }
+    
+    UIView *lineView_2 = [[UIView alloc]initWithFrame:CGRectMake(0, aleartView.bounds.size.height - 50, aleartView.bounds.size.width, 0.5)];
+    [aleartView addSubview:lineView_2];
+    lineView_2.backgroundColor = [ResourceManager color_5];
+    
+    UIView *lineView_3 = [[UIView alloc]initWithFrame:CGRectMake((aleartView.bounds.size.width - 0.5)/2, CGRectGetMaxY(lineView_2.frame), 0.5, 50)];
+    [aleartView addSubview:lineView_3];
+    lineView_3.backgroundColor = [ResourceManager color_5];
+    
+    UIButton *cancelBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(lineView_2.frame), aleartView.bounds.size.width/2, 50)];
+    [aleartView addSubview:cancelBtn];
+    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [cancelBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
+    [cancelBtn addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *agreeBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(cancelBtn.frame), CGRectGetMaxY(lineView_2.frame), aleartView.bounds.size.width/2, 50)];
+    [aleartView addSubview:agreeBtn];
+    [agreeBtn setTitle:@"同意" forState:UIControlStateNormal];
+    agreeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [agreeBtn setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
+    [agreeBtn addTarget:self action:@selector(agree) forControlEvents:UIControlEventTouchUpInside];
+}
+
+
+- (void)cancel {
+   [_closeOrderAleartView removeFromSuperview];
+    _closeRemark = nil;
+    _orderNo = nil;
+}
+
+-(void)agree{
+    if (_closeRemark.length == 0) {
+        [MBProgressHUD showErrorWithStatus:@"请选择取消订单的理由" toView:_closeOrderAleartView];
+        return;
+    }
+    [_closeOrderAleartView removeFromSuperview];
+    
+    if (_orderNo.length > 0 && _closeRemark.length > 0) {
+        //取消订单
+        [self cancelOrderUrl:_orderNo];
+    }
+    
+}
+
+-(void)closeOrder:(UIButton *)sender{
+    if (sender.selected) {
+        return;
+    }
+    if (sender != _closeOrderBtn) {
+        _closeOrderBtn.selected = NO;
+        _closeOrderBtn = sender;
+    }
+    _closeOrderBtn.selected  =YES;
+    
+    NSArray *titleArr = @[@"我不想买了",@"信息填写错误，重新拍",@"卖家缺货",@"其他原因"];
+    _closeRemark = titleArr[sender.tag];
 }
 
 @end

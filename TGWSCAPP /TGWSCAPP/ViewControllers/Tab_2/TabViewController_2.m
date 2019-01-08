@@ -244,7 +244,7 @@
     _tableView.scrollEnabled = NO;
     [self.view addSubview:_tableView];
     [_tableView setTableFooterView:[UIView new]];
-//    [_tableView setSeparatorInset:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [_tableView setSeparatorInset:UIEdgeInsetsMake(0, -20, 0, 0)];
     [_tableView setSeparatorColor:[UIColor clearColor]];
     
     //初始化加载显示第0个cell

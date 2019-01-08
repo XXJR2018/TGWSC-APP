@@ -18,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, copy)Block_Void orderRightBlock;
 
+@property(nonatomic, copy)Block_Void orderCentreBlock;
+
+@property(nonatomic, copy)Block_Void orderTimeBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

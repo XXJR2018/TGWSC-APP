@@ -33,8 +33,9 @@
 
 @property(nonatomic, strong)UIButton *orderLeftBtn;      //订单左边按钮
 
-@property(nonatomic, strong)UIButton *orderRightBtn;    //订单右边按钮
+@property(nonatomic, strong)UIButton *orderCentreBtn;    //订单中间按钮
 
+@property(nonatomic, strong)UIButton *orderRightBtn;    //订单右边按钮
 @end
 
 @implementation OrderListViewCell
@@ -136,25 +137,36 @@
          _orderFreightLabel.text = [NSString stringWithFormat:@"(含运费￥%@)",[_dataDicionary objectForKey:@"freightAmt"]];
     }
     
-    _orderLeftBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 180, CGRectGetMaxY(_orderFreightLabel.frame) + 10, 80, 30)];
+    _orderLeftBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(_orderFreightLabel.frame) + 10, 80, 30)];
     [self.contentView addSubview:_orderLeftBtn];
     _orderLeftBtn.tag = 100;
     _orderLeftBtn.layer.cornerRadius = 3;
     _orderLeftBtn.layer.borderWidth = 0.5;
     _orderLeftBtn.layer.borderColor = [ResourceManager color_5].CGColor;
     _orderLeftBtn.titleLabel.font = font_1;
-    [_orderLeftBtn setTitle:@"申请退款" forState:UIControlStateNormal];
-    [_orderLeftBtn setTitleColor:color_1 forState:UIControlStateNormal];
+    [_orderLeftBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+    [_orderLeftBtn setTitleColor:[ResourceManager color_6] forState:UIControlStateNormal];
     [_orderLeftBtn addTarget:self action:@selector(orderTouch:) forControlEvents:UIControlEventTouchUpInside];
     
-    _orderRightBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_orderLeftBtn.frame) + 10, CGRectGetMinY(_orderLeftBtn.frame), 80, 30)];
+    _orderCentreBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 180, CGRectGetMinY(_orderLeftBtn.frame), 80, 30)];
+    [self.contentView addSubview:_orderCentreBtn];
+    _orderCentreBtn.tag = 101;
+    _orderCentreBtn.layer.cornerRadius = 3;
+    _orderCentreBtn.layer.borderWidth = 0.5;
+    _orderCentreBtn.layer.borderColor = [ResourceManager color_5].CGColor;
+    _orderCentreBtn.titleLabel.font = font_1;
+    [_orderCentreBtn setTitle:@"申请退款" forState:UIControlStateNormal];
+    [_orderCentreBtn setTitleColor:color_1 forState:UIControlStateNormal];
+    [_orderCentreBtn addTarget:self action:@selector(orderTouch:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _orderRightBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_orderCentreBtn.frame) + 10, CGRectGetMinY(_orderLeftBtn.frame), 80, 30)];
     [self.contentView addSubview:_orderRightBtn];
-     _orderLeftBtn.tag = 101;
+     _orderRightBtn.tag = 102;
     _orderRightBtn.layer.cornerRadius = 3;
     _orderRightBtn.layer.borderWidth = 0.5;
     _orderRightBtn.layer.borderColor = [ResourceManager color_5].CGColor;
     _orderRightBtn.titleLabel.font = font_1;
-    [_orderRightBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+    [_orderRightBtn setTitle:@"再次购买" forState:UIControlStateNormal];
     [_orderRightBtn setTitleColor:color_1 forState:UIControlStateNormal];
     [_orderRightBtn addTarget:self action:@selector(orderTouch:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -173,51 +185,87 @@
 //    状态（//0-待付款 1-交易成功 2-交易失败 3-卖家确认(待发货) 4-卖家审核失败 5-已发货  6-确认收货 7-交易关闭  8-退款成功  ）
     NSInteger status = [[_dataDicionary objectForKey:@"status"] intValue];
     if (status == 0 || status == 2) {
-        _orderLeftBtn.hidden = NO;
+        _orderLeftBtn.hidden = YES;
+        _orderCentreBtn.hidden = NO;
         _orderRightBtn.hidden = NO;
-        _orderLeftBtn.layer.borderColor = color_3.CGColor;
-        [_orderLeftBtn setTitle:@"取消订单" forState:UIControlStateNormal];
-        [_orderLeftBtn setTitleColor:color_1 forState:UIControlStateNormal];
+        _orderCentreBtn.layer.borderColor = color_3.CGColor;
+        [_orderCentreBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+        [_orderCentreBtn setTitleColor:color_1 forState:UIControlStateNormal];
         _orderRightBtn.layer.borderColor = color_4.CGColor;
         _orderRightBtn.backgroundColor = color_4;
-        [_orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];
         [_orderRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];
+        
+        NSString *countDownTime = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"countDownTime"]];
+//         NSString *countDownTime = @"30:00";
+        if (countDownTime.length > 0) {
+            NSArray *timeArr = [countDownTime componentsSeparatedByString:@":"];
+            __block int timeout = 0; //倒计时时间
+            timeout = [timeArr[0] intValue] * 60 +  [timeArr[1] intValue] ;
+            
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+            dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+            dispatch_source_set_event_handler(_timer, ^{
+                if(timeout == 0){ //倒计时结束，关闭
+                    dispatch_source_cancel(_timer);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        //倒计时结束，刷新数据，改变订单状态
+                        [self.orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];
+                        self.orderTimeBlock();
+                    });
+                }else{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        //设置界面的按钮显示 根据自己需求设置
+                        [self.orderRightBtn  setTitle:[NSString stringWithFormat:@"付款 %@",[self getMMSSFromSS:timeout]] forState:UIControlStateNormal];
+                    });
+                    timeout--;
+                }
+            });
+            dispatch_resume(_timer);
+        }
+       
     }else if (status == 1|| status == 3) {
         _orderLeftBtn.hidden = YES;
+        _orderCentreBtn.hidden = YES;
         _orderRightBtn.hidden = NO;
         _orderRightBtn.layer.borderColor = color_3.CGColor;
         _orderRightBtn.backgroundColor = [UIColor whiteColor];
         [_orderRightBtn setTitle:@"申请退款" forState:UIControlStateNormal];
         [_orderRightBtn setTitleColor:color_1 forState:UIControlStateNormal];
     }else if (status == 4|| status == 7) {
-        _orderLeftBtn.hidden = YES;
+        _orderLeftBtn.hidden = NO;
+        _orderCentreBtn.hidden = YES;
         _orderRightBtn.hidden = NO;
         _orderRightBtn.layer.borderColor = color_3.CGColor;
         _orderRightBtn.backgroundColor = [UIColor whiteColor];
-        [_orderRightBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+        [_orderRightBtn setTitle:@"再次购买" forState:UIControlStateNormal];
         [_orderRightBtn setTitleColor:color_1 forState:UIControlStateNormal];
     }else if (status == 5) {
-        _orderLeftBtn.hidden = NO;
+        _orderLeftBtn.hidden = YES;
+        _orderCentreBtn.hidden = NO;
         _orderRightBtn.hidden = NO;
-        _orderLeftBtn.layer.borderColor = color_3.CGColor;
-        [_orderLeftBtn setTitle:@"查看物流" forState:UIControlStateNormal];
-        [_orderLeftBtn setTitleColor:color_1 forState:UIControlStateNormal];
+        _orderCentreBtn.layer.borderColor = color_3.CGColor;
+        [_orderCentreBtn setTitle:@"查看物流" forState:UIControlStateNormal];
+        [_orderCentreBtn setTitleColor:color_1 forState:UIControlStateNormal];
         _orderRightBtn.layer.borderColor = color_3.CGColor;
         _orderRightBtn.backgroundColor = [UIColor whiteColor];
         [_orderRightBtn setTitle:@"确认收货" forState:UIControlStateNormal];
         [_orderRightBtn setTitleColor:color_1 forState:UIControlStateNormal];
     }else if (status == 6) {
         _orderLeftBtn.hidden = NO;
+        _orderCentreBtn.hidden = NO;
         _orderRightBtn.hidden = NO;
-        _orderLeftBtn.layer.borderColor = color_3.CGColor;
-        [_orderLeftBtn setTitle:@"申请退款" forState:UIControlStateNormal];
-        [_orderLeftBtn setTitleColor:color_1 forState:UIControlStateNormal];
+        _orderCentreBtn.layer.borderColor = color_3.CGColor;
+        [_orderCentreBtn setTitle:@"申请退货" forState:UIControlStateNormal];
+        [_orderCentreBtn setTitleColor:color_1 forState:UIControlStateNormal];
         _orderRightBtn.layer.borderColor = color_3.CGColor;
         _orderRightBtn.backgroundColor = [UIColor whiteColor];
-        [_orderRightBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+        [_orderRightBtn setTitle:@"再次购买" forState:UIControlStateNormal];
         [_orderRightBtn setTitleColor:color_1 forState:UIControlStateNormal];
     }else if (status == 8) {
         _orderLeftBtn.hidden = YES;
+        _orderCentreBtn.hidden = YES;
         _orderRightBtn.hidden = NO;
         _orderRightBtn.layer.borderColor = color_2.CGColor;
         _orderRightBtn.backgroundColor = [UIColor whiteColor];
@@ -229,10 +277,26 @@
 -(void)orderTouch:(UIButton *)sender{
     if (sender.tag == 100) {
         self.orderLeftBlock();
+    }else if (sender.tag == 101) {
+        self.orderCentreBlock();
     }else{
         self.orderRightBlock();
     }
 }
+
+
+
+//传入 秒  得到  xx分钟xx秒
+-(NSString *)getMMSSFromSS:(NSInteger)totalTime{
+    //format of minute
+    NSString *str_minute = [NSString stringWithFormat:@"%ld",totalTime/60];
+    //format of second
+    NSString *str_second = [NSString stringWithFormat:@"%ld",totalTime%60];
+    //format of time
+    NSString *format_time = [NSString stringWithFormat:@"%@:%@",str_minute,str_second];
+    return format_time;
+}
+
 
 
 - (void)awakeFromNib {

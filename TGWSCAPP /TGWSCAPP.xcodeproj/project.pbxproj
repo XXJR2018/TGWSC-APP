@@ -104,6 +104,10 @@
 		C244952421CCC6E100F8698B /* LSPContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C244951C21CCC6E100F8698B /* LSPContentView.m */; };
 		C244952521CCC6E100F8698B /* LSPTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C244951D21CCC6E100F8698B /* LSPTitleView.m */; };
 		C244952821CCC75D00F8698B /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C244952721CCC75D00F8698B /* MenuViewController.m */; };
+		C245272A21E47A1300CA4196 /* LogisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C245272921E47A1300CA4196 /* LogisticsViewController.m */; };
+		C245272D21E4859800CA4196 /* LogisticsDescViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C245272C21E4859800CA4196 /* LogisticsDescViewController.m */; };
+		C245273121E487B800CA4196 /* LogisticsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C245272F21E487B800CA4196 /* LogisticsViewCell.m */; };
+		C245273221E487B800CA4196 /* LogisticsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C245273021E487B800CA4196 /* LogisticsViewCell.xib */; };
 		C246D75C21CB9CE50054D7A0 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */; };
 		C250435521BA51FC00DA9C72 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C250435421BA51FC00DA9C72 /* AppDelegate.mm */; };
 		C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435921BA51FC00DA9C72 /* Main.storyboard */; };
@@ -487,6 +491,13 @@
 		C244952121CCC6E100F8698B /* LSPTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPTitleView.h; sourceTree = "<group>"; };
 		C244952621CCC75D00F8698B /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		C244952721CCC75D00F8698B /* MenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		C245272821E47A1300CA4196 /* LogisticsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticsViewController.h; sourceTree = "<group>"; };
+		C245272921E47A1300CA4196 /* LogisticsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsViewController.m; sourceTree = "<group>"; };
+		C245272B21E4859800CA4196 /* LogisticsDescViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticsDescViewController.h; sourceTree = "<group>"; };
+		C245272C21E4859800CA4196 /* LogisticsDescViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsDescViewController.m; sourceTree = "<group>"; };
+		C245272E21E487B800CA4196 /* LogisticsViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticsViewCell.h; sourceTree = "<group>"; };
+		C245272F21E487B800CA4196 /* LogisticsViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsViewCell.m; sourceTree = "<group>"; };
+		C245273021E487B800CA4196 /* LogisticsViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogisticsViewCell.xib; sourceTree = "<group>"; };
 		C246D75A21CB9CE50054D7A0 /* ProductListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductListViewController.h; sourceTree = "<group>"; };
 		C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductListViewController.m; sourceTree = "<group>"; };
 		C250435021BA51FC00DA9C72 /* TGWSCAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGWSCAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2290,6 +2301,13 @@
 				C2F23AB121D61D9500E5332D /* OrderListViewController.m */,
 				C2F23AAB21D61CA100E5332D /* OrderListViewCell.h */,
 				C2F23AAC21D61CA100E5332D /* OrderListViewCell.m */,
+				C245272E21E487B800CA4196 /* LogisticsViewCell.h */,
+				C245272F21E487B800CA4196 /* LogisticsViewCell.m */,
+				C245273021E487B800CA4196 /* LogisticsViewCell.xib */,
+				C245272821E47A1300CA4196 /* LogisticsViewController.h */,
+				C245272921E47A1300CA4196 /* LogisticsViewController.m */,
+				C245272B21E4859800CA4196 /* LogisticsDescViewController.h */,
+				C245272C21E4859800CA4196 /* LogisticsDescViewController.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -2407,6 +2425,7 @@
 				C2B51AF221C3462500AC76FB /* ProductCollectionViewCell.xib in Resources */,
 				C29ABBF221D4776A00428407 /* AddAddressViewController.xib in Resources */,
 				C25047AF21BA715500DA9C72 /* success@2x.png in Resources */,
+				C245273221E487B800CA4196 /* LogisticsViewCell.xib in Resources */,
 				C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */,
 				C25047A621BA715500DA9C72 /* whiteArrow@2x.png in Resources */,
 				C222C38E21D2235700DD9797 /* UserInfoViewController.xib in Resources */,
@@ -2697,6 +2716,7 @@
 				C25047FE21BA73B800DA9C72 /* AFURLResponseSerialization.m in Sources */,
 				C0CCC82A21C0F4C5009352E0 /* HistoryAndCategorySearchVC.m in Sources */,
 				C250460E21BA711E00DA9C72 /* UIView+SDExtension.m in Sources */,
+				C245272D21E4859800CA4196 /* LogisticsDescViewController.m in Sources */,
 				C250450E21BA579100DA9C72 /* BindPhoneViewController.m in Sources */,
 				C250451C21BA579100DA9C72 /* ShareView.m in Sources */,
 				C0CCC7F921C0F1CB009352E0 /* TagTypeModel.m in Sources */,
@@ -2718,6 +2738,7 @@
 				C250461321BA711E00DA9C72 /* TAAbstractDotView.m in Sources */,
 				C250477021BA715500DA9C72 /* NSURL+Additions.m in Sources */,
 				C250461221BA711E00DA9C72 /* TAAnimatedDotView.m in Sources */,
+				C245272A21E47A1300CA4196 /* LogisticsViewController.m in Sources */,
 				C222C38A21D2235700DD9797 /* paymentPWViewController.m in Sources */,
 				C250451921BA579100DA9C72 /* CustomerServiceManager.m in Sources */,
 				C250461921BA711E00DA9C72 /* BaseLineView.m in Sources */,
@@ -2776,6 +2797,7 @@
 				C222C38D21D2235700DD9797 /* AccountSecurityViewController.m in Sources */,
 				C25047DF21BA715500DA9C72 /* XXJRCellBackgroundView.m in Sources */,
 				C20525F621BE6E5C00E13893 /* TabViewController_1.m in Sources */,
+				C245273121E487B800CA4196 /* LogisticsViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

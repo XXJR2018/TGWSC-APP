@@ -128,14 +128,14 @@
         _yfhNumLabel.hidden = YES;
         _yfhNumLabel.text = @"";
     }
-//    //退款/售后
-//    if ([[dic objectForKey:@"noPayOrderCount"] intValue] > 0) {
-//        _tkNumLabel.hidden = NO;
-//        _tkNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"noPayOrderCount"]];
-//    }else{
-//        _tkNumLabel.hidden = YES;
-//        _tkNumLabel.text = @"";
-//    }
+    //退款/售后
+    if ([[dic objectForKey:@"refundCount"] intValue] > 0) {
+        _tkNumLabel.hidden = NO;
+        _tkNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"refundCount"]];
+    }else{
+        _tkNumLabel.hidden = YES;
+        _tkNumLabel.text = @"";
+    }
     
     //余额
     if ([[dic objectForKey:@"usableAmount"] floatValue] > 0) {

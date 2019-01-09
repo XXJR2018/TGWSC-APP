@@ -2,7 +2,7 @@
 //  LogisticsViewCell.h
 //  TGWSCAPP
 //
-//  Created by xxjr03 on 2019/1/8.
+//  Created by xxjr03 on 2019/1/9.
 //  Copyright © 2019 xxjr03. All rights reserved.
 //
 

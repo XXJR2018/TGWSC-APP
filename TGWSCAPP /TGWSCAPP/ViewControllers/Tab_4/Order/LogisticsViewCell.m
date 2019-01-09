@@ -29,11 +29,12 @@
 
 -(void)setDataDicionary:(NSDictionary *)dataDicionary{
     _dataDicionary = dataDicionary;
-    [self.contentView removeAllSubviews];
+//    [self.contentView removeAllSubviews];
+    [self layoutUI];
     [self layoutSubviews];
 }
 
--(void)layoutSubviews{
+-(void)layoutUI{
     UIColor *color_1 = [ResourceManager color_1];
     UIFont *font_1 = [UIFont systemFontOfSize:13];
     UIFont *font_2 = [UIFont systemFontOfSize:14];
@@ -52,31 +53,53 @@
     [self.contentView addSubview:_expressLabel];
     _expressLabel.textAlignment = NSTextAlignmentRight;
     _expressLabel.font = [UIFont systemFontOfSize:12];
-    _expressLabel.textColor = [ResourceManager color_1];
-    _expressLabel.text = [NSString stringWithFormat:@"%@包裹：%@",[_dataDicionary objectForKey:@"expressCompany"],[_dataDicionary objectForKey:@"expressNo"]];
+    _expressLabel.textColor = color_1;
+    _expressLabel.text = [NSString stringWithFormat:@"%@包裹:%@",[_dataDicionary objectForKey:@"expressCompany"],[_dataDicionary objectForKey:@"expressNo"]];
     
     _lastLogisticsInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(_logisticsLabel.frame), CGRectGetMaxY(_logisticsLabel.frame) + 5, 310, 20)];
     [self.contentView addSubview:_lastLogisticsInfoLabel];
     _lastLogisticsInfoLabel.font = font_1;
-    _lastLogisticsInfoLabel.textColor = [ResourceManager color_1];
+    _lastLogisticsInfoLabel.textColor = color_1;
     _lastLogisticsInfoLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"lastLogisticsInfo"]];
     
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_lastLogisticsInfoLabel.frame) + 15, SCREEN_WIDTH, 0.5)];
+    UIView *lineViewX = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_lastLogisticsInfoLabel.frame) + 15, SCREEN_WIDTH, 0.5)];
+    [self.contentView addSubview:lineViewX];
+    lineViewX.backgroundColor = [ResourceManager color_5];
+
+    //3.分隔字符串
+    NSString *imgUrls =[NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"imgUrls"]];
+    NSArray *imgArr = [imgUrls componentsSeparatedByString:@","]; //从字符A中分隔成2个元素的数组
+    
+    NSInteger count = 0;
+    if (imgArr.count%4 == 0) {
+        count = imgArr.count/4;
+    }else{
+        count = imgArr.count/4 + 1;
+    }
+    for (int i = 0; i < count; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (i * 4 + j < imgArr.count) {
+                _productImgView = [[UIImageView alloc]initWithFrame:CGRectMake((80 + + (SCREEN_WIDTH - 320)/5) * j + (SCREEN_WIDTH - 320)/5, CGRectGetMaxY(lineViewX.frame) + 10 + 90 * i, 80, 80)];
+                [self.contentView addSubview:_productImgView];
+                _productImgView.backgroundColor = UIColorFromRGB(0xf6f6f6);
+                [_productImgView sd_setImageWithURL:[NSURL URLWithString:imgArr[i * 4 + j]]];
+            }
+        }
+    }
+
+    _productNumLabel = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 320)/5, CGRectGetMaxY(_productImgView.frame), 150, 35)];
+    [self.contentView addSubview:_productNumLabel];
+    _productNumLabel.font = [UIFont systemFontOfSize:12];
+    _productNumLabel.textColor = [ResourceManager color_6];
+    _productNumLabel.text = [NSString stringWithFormat:@"共%ld件商品",imgArr.count];
+    
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_productNumLabel.frame), SCREEN_WIDTH, 10)];
     [self.contentView addSubview:lineView];
-    lineView.backgroundColor = [ResourceManager color_5];
+    lineView.backgroundColor = [ResourceManager viewBackgroundColor];
     
-//    for (int i = 0; i < orderDtlListArr.count; i++) {
-//
-//
-//        _productImgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(lineViewX.frame) + 15, 70, 70)];
-//        [self.contentView addSubview:_productImgView];
-//        _productImgView.backgroundColor = UIColorFromRGB(0xf6f6f6);
-//        [_productImgView sd_setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"goodsUrl"]]];
-//
-//
-//    }
-    
-    
+}
+
+-(void)layoutSubviews{
     
 }
 
@@ -87,7 +110,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

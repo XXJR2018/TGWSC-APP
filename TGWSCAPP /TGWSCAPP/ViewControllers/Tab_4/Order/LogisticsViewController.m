@@ -7,6 +7,8 @@
 //
 
 #import "LogisticsViewController.h"
+#import "LogisticsDescViewController.h"
+
 #import "LogisticsViewCell.h"
 
 @interface LogisticsViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -39,7 +41,7 @@
         [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
         [_tableView reloadData];
     }
-    
+
 }
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
@@ -69,9 +71,9 @@
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavHeight)];
     _tableView.backgroundColor = [ResourceManager viewBackgroundColor];
     [self.view addSubview:_tableView];
+    [_tableView registerClass:[LogisticsViewCell class] forCellReuseIdentifier:@"logistics_cell"];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    [_tableView registerNib:[UINib nibWithNibName:@"LogisticsViewCell" bundle:nil] forCellReuseIdentifier:@"logistics_cell"];
     [_tableView setTableFooterView:[UIView new]];
     [_tableView setSeparatorInset:UIEdgeInsetsMake(0, -20, 0, 0)];
     [_tableView setSeparatorColor:[UIColor clearColor]];
@@ -83,16 +85,27 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return  200;
+    NSDictionary *dic = self.dataArray[indexPath.row];
+    NSString *imgUrls =[NSString stringWithFormat:@"%@",[dic objectForKey:@"imgUrls"]];
+    NSArray *imgArr = [imgUrls componentsSeparatedByString:@","]; //从字符A中分隔成2个元素的数组
+    NSInteger count = 0;
+    if (imgArr.count%4 == 0) {
+        count = imgArr.count/4;
+    }else{
+        count = imgArr.count/4 + 1;
+    }
+    return  125 + 90 * count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     LogisticsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"logistics_cell"];
     if (!cell) {
         cell = [[LogisticsViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"logistics_cell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
-    
+
+    cell.dataDicionary = self.dataArray[indexPath.row];
     return cell;
 }
 
@@ -100,6 +113,10 @@
     //（这种是没有点击后的阴影效果)
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    NSDictionary *dic = self.dataArray[indexPath.row];
+    LogisticsDescViewController *ctl = [[LogisticsDescViewController alloc]init];
+    ctl.logisticsId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"logisticsId"]];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 

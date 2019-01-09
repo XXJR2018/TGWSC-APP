@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LogisticsDescViewController : CommonViewController
 
+@property(nonatomic, copy)NSString *logisticsId;
+
 @end
 
 NS_ASSUME_NONNULL_END

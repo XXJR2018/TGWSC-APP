@@ -8,6 +8,7 @@
 
 #import "SelPayVC.h"
 #import "PayResultVC.h"
+#import <AlipaySDK/AlipaySDK.h>
 
 
 #define    CheckImg         @"od_gou2"
@@ -243,11 +244,11 @@
      }
     else if (2 == iSelPay)
      {
-        
+        [self getALiOrderInfo];
      }
 }
 
--(void) WeChatPay:(NSDictionary*) dicWeChatOrderInof
+-(void) weChatPay:(NSDictionary*) dicWeChatOrderInof
 {
     DDGWeChat *manager = [DDGWeChat getSharedWeChat];
 
@@ -297,6 +298,26 @@
     [manager wxPayWith:model];
 }
 
+-(void) ailiPay:(NSDictionary*) dicAiliOrderInfo
+{
+
+    
+    NSDictionary *payParams = [dicAiliOrderInfo objectForKey:@"payParams"];
+    if (!payParams)
+     {
+        [MBProgressHUD showErrorWithStatus:@"获取支付宝参数错误" toView:self.view];
+     }
+    
+    NSString *orderInfo = payParams[@"orderInfo"];
+    
+    //应用注册scheme,在XXXX-Info.plist定义URL types
+    NSString *appScheme = @"TGWSCAPP";
+    
+    [[AlipaySDK defaultService] payOrder:orderInfo fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+        NSLog(@"reslut = %@",resultDic);
+    }];
+}
+
 #pragma mark --- 网络请求
 -(void) getWeiXinOrderInfo
 {
@@ -318,12 +339,36 @@
     [operation start];
 }
 
+-(void) getALiOrderInfo
+{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLgoPay];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params addEntriesFromDictionary:_dicPay];
+    params[@"payType"] = @(2);
+    params[@"payCode"] = @"appAlipay";
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1001;
+    [operation start];
+}
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
 {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     if (1000 == operation.tag )
      {
-        [self WeChatPay:operation.jsonResult.attr];
+        [self weChatPay:operation.jsonResult.attr];
+     }
+    if (1001 == operation.tag )
+     {
+        [self ailiPay:operation.jsonResult.attr];
      }
 }
 

@@ -1424,7 +1424,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_2/TabViewController_2.m"
-            timestampString = "568092904.2893651"
+            timestampString = "568691210.998502"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "58"
@@ -2736,11 +2736,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_3/OrderDetial/PayVC/SelPayVC.m"
-            timestampString = "568632790.086514"
+            timestampString = "568693037.625816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "218"
-            endingLineNumber = "218"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
             landmarkName = "-actionSelPay:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2896,11 +2896,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_3/OrderDetial/PayVC/SelPayVC.m"
-            timestampString = "568632790.0871069"
+            timestampString = "568693037.62607"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
             landmarkName = "-handleData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2912,11 +2912,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_3/OrderDetial/PayVC/SelPayVC.m"
-            timestampString = "568632790.087386"
+            timestampString = "568693037.626133"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
             landmarkName = "-actionPay"
             landmarkType = "7">
          </BreakpointContent>
@@ -2928,11 +2928,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_3/OrderDetial/PayVC/SelPayVC.m"
-            timestampString = "568632790.0876271"
+            timestampString = "568693037.626187"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "311"
-            endingLineNumber = "311"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
             landmarkName = "-getWeiXinOrderInfo"
             landmarkType = "7">
          </BreakpointContent>
@@ -2992,12 +2992,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_3/OrderDetial/PayVC/SelPayVC.m"
-            timestampString = "568632790.087926"
+            timestampString = "568693037.626298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260"
-            landmarkName = "-WeChatPay:"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "-weChatPay:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3024,12 +3024,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_3/OrderDetial/PayVC/SelPayVC.m"
-            timestampString = "568632790.088186"
+            timestampString = "568693037.626411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
-            landmarkName = "-WeChatPay:"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "-weChatPay:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3232,7 +3232,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/Supporting Files/main.m"
-            timestampString = "568631893.395336"
+            timestampString = "568693037.626694"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "11"
@@ -3255,6 +3255,86 @@
             endingLineNumber = "996"
             landmarkName = "-actionDelUnuse"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_3/OrderDetial/PayVC/SelPayVC.m"
+            timestampString = "568693037.62703"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "364"
+            endingLineNumber = "364"
+            landmarkName = "-handleData:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_3/OrderDetial/PayVC/SelPayVC.m"
+            timestampString = "568693037.627089"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
+            landmarkName = "-ailiPay:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/AppDelegate.mm"
+            timestampString = "568693037.62714"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "-application:openURL:options:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[AppDelegate application:openURL:options:]"
+                  moduleName = "TGWSCAPP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xxjr02/Desktop/WORK_CODE/%E5%95%86%E5%9F%8EApp/TGWSCAPP%20/TGWSCAPP/AppDelegate.mm"
+                  timestampString = "568693037.801312"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "188">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__43-[AppDelegate application:openURL:options:]_block_invoke"
+                  moduleName = "TGWSCAPP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xxjr02/Desktop/WORK_CODE/%E5%95%86%E5%9F%8EApp/TGWSCAPP%20/TGWSCAPP/AppDelegate.mm"
+                  timestampString = "568693037.803332"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "50"
+                  endingLineNumber = "50"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

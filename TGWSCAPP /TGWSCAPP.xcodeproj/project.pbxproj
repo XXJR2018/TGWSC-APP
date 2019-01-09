@@ -17,6 +17,8 @@
 		C02C5F9921CC991A0056A32E /* icon_play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8B21CC991A0056A32E /* icon_play@3x.png */; };
 		C02C5F9A21CC991A0056A32E /* icon_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8C21CC991A0056A32E /* icon_video@2x.png */; };
 		C02C5F9B21CC991A0056A32E /* icon_video@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8E21CC991A0056A32E /* icon_video@3x.png */; };
+		C04B17FE21E5802600DBA0FE /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C04B17FC21E5802600DBA0FE /* AlipaySDK.bundle */; };
+		C04B17FF21E5802600DBA0FE /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C04B17FD21E5802600DBA0FE /* AlipaySDK.framework */; };
 		C098D2A821E058EC0008584B /* SelCouponVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2A721E058EC0008584B /* SelCouponVC.m */; };
 		C098D2AC21E0A43E0008584B /* SelPayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2AB21E0A43E0008584B /* SelPayVC.m */; };
 		C098D2B221E0A7480008584B /* PayResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2B121E0A7480008584B /* PayResultVC.m */; };
@@ -329,6 +331,8 @@
 		C02C5F8C21CC991A0056A32E /* icon_video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video@2x.png"; sourceTree = "<group>"; };
 		C02C5F8D21CC991A0056A32E /* TSVideoPlayback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSVideoPlayback.h; sourceTree = "<group>"; };
 		C02C5F8E21CC991A0056A32E /* icon_video@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video@3x.png"; sourceTree = "<group>"; };
+		C04B17FC21E5802600DBA0FE /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		C04B17FD21E5802600DBA0FE /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		C098D2A621E058EC0008584B /* SelCouponVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelCouponVC.h; sourceTree = "<group>"; };
 		C098D2A721E058EC0008584B /* SelCouponVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelCouponVC.m; sourceTree = "<group>"; };
 		C098D2AA21E0A43E0008584B /* SelPayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelPayVC.h; sourceTree = "<group>"; };
@@ -843,6 +847,7 @@
 				C2AEB47121BE46F90078E788 /* CoreGraphics.framework in Frameworks */,
 				C2AEB46F21BE46C30078E788 /* SystemConfiguration.framework in Frameworks */,
 				C2AEB46D21BE46B90078E788 /* libiconv.tbd in Frameworks */,
+				C04B17FF21E5802600DBA0FE /* AlipaySDK.framework in Frameworks */,
 				C2AEB46B21BE46A30078E788 /* Security.framework in Frameworks */,
 				3D6EC135E4A46D7E2C5CD5F9 /* libPods-TGWSCAPP.a in Frameworks */,
 				C2AEB46921BE45CD0078E788 /* TencentOpenAPI.framework in Frameworks */,
@@ -946,6 +951,15 @@
 				C02C5F8E21CC991A0056A32E /* icon_video@3x.png */,
 			);
 			path = detailVIdeo;
+			sourceTree = "<group>";
+		};
+		C04B17FB21E5802600DBA0FE /* AlipaySDK_No_UTDID */ = {
+			isa = PBXGroup;
+			children = (
+				C04B17FC21E5802600DBA0FE /* AlipaySDK.bundle */,
+				C04B17FD21E5802600DBA0FE /* AlipaySDK.framework */,
+			);
+			path = AlipaySDK_No_UTDID;
 			sourceTree = "<group>";
 		};
 		C098D2A421E057800008584B /* SelCoupon */ = {
@@ -2276,6 +2290,7 @@
 		C2AEB46421BE45CD0078E788 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C04B17FB21E5802600DBA0FE /* AlipaySDK_No_UTDID */,
 				C2AEB46521BE45CD0078E788 /* SDK_QQ */,
 			);
 			path = Frameworks;
@@ -2457,6 +2472,7 @@
 				C0CCC83121C1FD21009352E0 /* clearImage@2x.png in Resources */,
 				C29ABBED21D4766F00428407 /* AddressViewCell.xib in Resources */,
 				C250479721BA715500DA9C72 /* README.md in Resources */,
+				C04B17FE21E5802600DBA0FE /* AlipaySDK.bundle in Resources */,
 				C222C38C21D2235700DD9797 /* PhoneCheckViewController.xib in Resources */,
 				C25047A921BA715500DA9C72 /* blueArrow.png in Resources */,
 				C250451221BA579100DA9C72 /* SelectCityViewController.xib in Resources */,
@@ -2957,6 +2973,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TGWSCAPP/Common/ThirdParty/Frameworks/SDK_QQ",
+					"$(PROJECT_DIR)/TGWSCAPP/Common/ThirdParty/Frameworks/AlipaySDK_No_UTDID",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -3015,6 +3032,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xxxx.tgwsc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 				VALID_ARCHS = "armv7 arm64 armv7s";
 			};
 			name = Debug;
@@ -3032,6 +3050,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TGWSCAPP/Common/ThirdParty/Frameworks/SDK_QQ",
+					"$(PROJECT_DIR)/TGWSCAPP/Common/ThirdParty/Frameworks/AlipaySDK_No_UTDID",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -3090,6 +3109,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xxxx.tgwsc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 				VALID_ARCHS = "armv7 arm64 armv7s";
 			};
 			name = Release;

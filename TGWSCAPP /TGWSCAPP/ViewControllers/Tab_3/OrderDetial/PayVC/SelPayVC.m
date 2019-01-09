@@ -8,6 +8,8 @@
 
 #import "SelPayVC.h"
 #import "PayResultVC.h"
+#import <AlipaySDK/AlipaySDK.h>
+
 
 
 #define    CheckImg         @"od_gou2"
@@ -28,6 +30,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    // 支付宝支付结果通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ailiPayReslut:) name:DDGPayResultNotification object:nil];
+    
     [self layoutNaviBarViewWithTitle:@"选择支付方法"];
     
     [self initData];
@@ -243,11 +248,11 @@
      }
     else if (2 == iSelPay)
      {
-        
+        [self getALiOrderInfo];
      }
 }
 
--(void) WeChatPay:(NSDictionary*) dicWeChatOrderInof
+-(void) weChatPay:(NSDictionary*) dicWeChatOrderInof
 {
     DDGWeChat *manager = [DDGWeChat getSharedWeChat];
 
@@ -297,6 +302,26 @@
     [manager wxPayWith:model];
 }
 
+-(void) ailiPay:(NSDictionary*) dicAiliOrderInfo
+{
+
+    
+    NSDictionary *payParams = [dicAiliOrderInfo objectForKey:@"payParams"];
+    if (!payParams)
+     {
+        [MBProgressHUD showErrorWithStatus:@"获取支付宝参数错误" toView:self.view];
+     }
+    
+    NSString *orderInfo = payParams[@"orderInfo"];
+    
+    //应用注册scheme,在XXXX-Info.plist定义URL types
+    NSString *appScheme = @"TGWSCAPP";
+    
+    [[AlipaySDK defaultService] payOrder:orderInfo fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+        NSLog(@"reslut = %@",resultDic);
+    }];
+}
+
 #pragma mark --- 网络请求
 -(void) getWeiXinOrderInfo
 {
@@ -318,12 +343,36 @@
     [operation start];
 }
 
+-(void) getALiOrderInfo
+{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLgoPay];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params addEntriesFromDictionary:_dicPay];
+    params[@"payType"] = @(2);
+    params[@"payCode"] = @"appAlipay";
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1001;
+    [operation start];
+}
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
 {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     if (1000 == operation.tag )
      {
-        [self WeChatPay:operation.jsonResult.attr];
+        [self weChatPay:operation.jsonResult.attr];
+     }
+    if (1001 == operation.tag )
+     {
+        [self ailiPay:operation.jsonResult.attr];
      }
 }
 
@@ -336,5 +385,51 @@
 }
 
 
+
+#pragma mark ---通知事件
+-(void) ailiPayReslut:(NSNotification *)notification
+{
+    NSLog(@"ailiPayReslut user info is %@",notification.object);
+    NSDictionary *dic = notification.object;
+    
+    if (dic)
+     {
+        NSString *memo = dic[@"memo"];
+        NSString *result = dic[@"result"];
+        NSString *resultStatus = dic[@"resultStatus"];
+        
+        NSLog(@"memo: %@ result: %@  resultStatus: %@",memo,result,resultStatus);
+        
+        //    9000 订单支付成功
+        //    8000 正在处理中
+        //    4000 订单支付失败
+        //    6001 用户中途取消
+        //    6002 网络连接出错
+        
+        if ([resultStatus isEqualToString:@"9000"])
+         {
+            // 支付成功
+            PayResultVC  *VC = [[PayResultVC alloc] init];
+            VC.isSuceess = YES;
+            [self.navigationController pushViewController:VC animated:YES];
+         }
+        else if ([resultStatus isEqualToString:@"6001"])
+         {
+            // 用户取消
+         }
+        else
+         {
+            // 支付错误
+            PayResultVC  *VC = [[PayResultVC alloc] init];
+            VC.dicPayResult = _dicPay;
+            [self.navigationController pushViewController:VC animated:YES];
+         }
+     }
+    
+
+    
+    //tradePassword = [dic objectForKey:@"password"] ;
+    
+}
 
 @end

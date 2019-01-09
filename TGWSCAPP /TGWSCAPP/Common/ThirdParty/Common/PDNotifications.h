@@ -87,4 +87,9 @@ FOUNDATION_EXPORT NSString *const DDGMarksChangedNotification;
  */
 FOUNDATION_EXPORT NSString *const DDGPayPassWordNotification;
 
+/*!
+ @brief 支付宝支付结果通知
+ */
+FOUNDATION_EXPORT NSString *const DDGPayResultNotification;
+
 

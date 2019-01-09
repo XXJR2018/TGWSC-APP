@@ -74,7 +74,7 @@ NSString *RSAPublickKey =
 //
    
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:[[NSURL URLWithString:url relativeToURL:self.URL] absoluteString] parameters:parame error:nil];
-    //        request.timeoutInterval = self.timeoutInterval ? self.timeoutInterval : 20.f;
+    request.timeoutInterval = self.timeoutInterval ? self.timeoutInterval : 20.f;
     
     self = [super initWithRequest:request];
     if (!self) {

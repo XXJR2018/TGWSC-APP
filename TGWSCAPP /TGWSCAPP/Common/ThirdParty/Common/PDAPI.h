@@ -66,44 +66,43 @@ static NSString *const kURLsingleOrderInfo = @"appMall/account/commitOrder/singl
 static NSString *const kURLbatchOrderInfo = @"appMall/account/commitOrder/batchOrderInfo";
 //  提交订单，获取最重要的支付参数 (注意：如果是余额充足，并且选择余额支付， 提交订单后会直接成功)
 static NSString *const kURLcommitOrder = @"appMall/account/commitOrder/commitOrder";
-
 // 去支付
 static NSString *const kURLgoPay = @"appMall/account/payOrder/goPay";
 
 
-//房价评估
+#pragma mark ---- 退款/售后
+// 退款原因
+static NSString *const kURLresionList = @"appMall/account/orderRefund/resionList";
+// 退款商品列表
+static NSString *const kURLrefundGoodsList = @"appMall/account/orderRefund/refundGoodsList";
+// 退款商品(申请页面的展示)
+static NSString *const kURLselectRefundGoods = @"appMall/account/orderRefund/selectRefundGoods";
+// 退款申请
+static NSString *const kURLapplyRefund = @"appMall/account/orderRefund/applyRefund";
+// 退款/售后列表
+static NSString *const kURLrefundList = @"appMall/account/orderRefund/list";
+// 退款详情
+static NSString *const kURLrefundDetailInfo = @"appMall/account/orderRefund/detailInfo";
+// 取消申请
+static NSString *const kURcancelApply = @"appMall/account/orderRefund/cancelApply";
+// 保存退款物流信息
+static NSString *const kURLsaveLogistics = @"appMall/account/orderRefund/saveLogistics";
+// 退款详情
+static NSString *const kURLqueryLogistics = @"account/orderRefund/queryLogistics";
+// 删除订单
+static NSString *const kURLdeleteOrder = @"appMall/account/myOrder/deleteOrder";
+// 确认收货
+static NSString *const kURLconfirmGoods = @"appMall/account/myOrder/confirmGoods";
+// 修改地址
+static NSString *const kURLupdateOrderAddr = @"appMall/account/myOrder/updateOrderAddr";
+// 查询物流信息
+static NSString *const kURLlogisticsInfo = @"appMall/account/myOrder/logisticsInfo";
+// 查询物流详细信息
+static NSString *const kURLlogisticsInfoDtl = @"appMall/account/myOrder/logisticsInfoDtl";
 
-// 所在城市列表
-static NSString *const kDDGGetCheckAllCityAPIString = @"cpQuery/newAllCity";
-// 查询此城市是否被支持  cpQuery/verifyCity
-static NSString *const kDDGGetCheckCity = @"cpQuery/verifyCity";
-// 选择物业查询楼盘
-static NSString *const kDDGGetQueryEstateAPIString = @"cpQuery/app/xxjrNewEval/querySlEstate";
-// 选择物业查询楼栋
-static NSString *const kDDGGetQueryBuildingAPIString = @"cpQuery/app/xxjrNewEval/querySlBuilding";
-// 选择物业查询单元号
-static NSString *const kDDGGetQueryUnitAPIString = @"cpQuery/app/xxjrNewEval/queryYlUnit";
-//static NSString *const kDDGGetQueryUnitAPIString = @"cpQuery/app/xxjrNewEval/queryYfzUnit";
-// 选择物业查询门牌号
-static NSString *const kDDGGetQueryHouseAPIString = @"cpQuery/app/xxjrNewEval/querySlHouse";
-// 查询评估
-static NSString *const kDDGGetSaveHouseEvalAPIString = @"cpQuery/app/xxjrNewEval/queryYlHouseEval";
-// 查询云房评估
-static NSString *const kDDGGetSaveYFHouseEvalAPIString = @"cpQuery/app/xxjrNewEval/queryHouseEval";
-// 查询世联房价评估
-static NSString *const kDDGGetSaveSLHouseEvalAPIString = @"cpQuery/app/xxjrNewEval/querySlHouseEval";
-// 查询近期房屋成交(云房数据)
-static NSString *const kDDGGetYfEstateCase = @"cpQuery/app/xxjrNewEval/queryYfEstateCase";
-// 评估历史
-static NSString *const kDDGGetHistoryRecordAPIString = @"cpQuery/app/xxjrNewEval/evalHouseHistory";
-// 查询历史评估详情
-static NSString *const kDDGGetHistoryRecordDetail = @"cpQuery/app/xxjrNewEval/evalDetail";
-// 再次查询
-static NSString *const kDDGGetqueryHistoryEval = @"cpQuery/app/xxjrNewEval/queryHistoryEval";
 
 
-// 验证码登录获取验证码
-static NSString *const kDDGGetNologinKjlogAPIString = @"xxcust/smsAction/newNologin/kjLogin";
+
 
 
 /*!

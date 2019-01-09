@@ -289,7 +289,7 @@
         VC.dicPay = dic;
         [self.navigationController pushViewController:VC animated:YES];
     }else if (status == 1 || status == 3) {
-        //申请退款
+
         
     }else if (status == 4 || status == 6 || status == 7) {
         //再次购买

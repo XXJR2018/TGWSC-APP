@@ -108,8 +108,6 @@
 		C244952821CCC75D00F8698B /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C244952721CCC75D00F8698B /* MenuViewController.m */; };
 		C245272A21E47A1300CA4196 /* LogisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C245272921E47A1300CA4196 /* LogisticsViewController.m */; };
 		C245272D21E4859800CA4196 /* LogisticsDescViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C245272C21E4859800CA4196 /* LogisticsDescViewController.m */; };
-		C245273121E487B800CA4196 /* LogisticsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C245272F21E487B800CA4196 /* LogisticsViewCell.m */; };
-		C245273221E487B800CA4196 /* LogisticsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C245273021E487B800CA4196 /* LogisticsViewCell.xib */; };
 		C246D75C21CB9CE50054D7A0 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */; };
 		C250435521BA51FC00DA9C72 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C250435421BA51FC00DA9C72 /* AppDelegate.mm */; };
 		C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435921BA51FC00DA9C72 /* Main.storyboard */; };
@@ -283,6 +281,7 @@
 		C2B41C1121D5CAA100944A86 /* CustomerServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2B41C0F21D5CAA100944A86 /* CustomerServiceViewController.xib */; };
 		C2B51AF121C3462500AC76FB /* ProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */; };
 		C2B51AF221C3462500AC76FB /* ProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */; };
+		C2CF26CE21E5885D00CB8E76 /* LogisticsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CF26CD21E5885D00CB8E76 /* LogisticsViewCell.m */; };
 		C2F23AA121D5D6E400E5332D /* MyScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AA021D5D6E400E5332D /* MyScoresViewController.m */; };
 		C2F23AAA21D61B2B00E5332D /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AA921D61B2B00E5332D /* OrderViewController.m */; };
 		C2F23AAE21D61CA100E5332D /* OrderListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AAC21D61CA100E5332D /* OrderListViewCell.m */; };
@@ -499,9 +498,6 @@
 		C245272921E47A1300CA4196 /* LogisticsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsViewController.m; sourceTree = "<group>"; };
 		C245272B21E4859800CA4196 /* LogisticsDescViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticsDescViewController.h; sourceTree = "<group>"; };
 		C245272C21E4859800CA4196 /* LogisticsDescViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsDescViewController.m; sourceTree = "<group>"; };
-		C245272E21E487B800CA4196 /* LogisticsViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticsViewCell.h; sourceTree = "<group>"; };
-		C245272F21E487B800CA4196 /* LogisticsViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsViewCell.m; sourceTree = "<group>"; };
-		C245273021E487B800CA4196 /* LogisticsViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogisticsViewCell.xib; sourceTree = "<group>"; };
 		C246D75A21CB9CE50054D7A0 /* ProductListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductListViewController.h; sourceTree = "<group>"; };
 		C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductListViewController.m; sourceTree = "<group>"; };
 		C250435021BA51FC00DA9C72 /* TGWSCAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGWSCAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -824,6 +820,8 @@
 		C2B51AEE21C3462500AC76FB /* ProductCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductCollectionViewCell.h; sourceTree = "<group>"; };
 		C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductCollectionViewCell.m; sourceTree = "<group>"; };
 		C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCollectionViewCell.xib; sourceTree = "<group>"; };
+		C2CF26CC21E5885D00CB8E76 /* LogisticsViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticsViewCell.h; sourceTree = "<group>"; };
+		C2CF26CD21E5885D00CB8E76 /* LogisticsViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsViewCell.m; sourceTree = "<group>"; };
 		C2D2B19321BDF45F00FE810C /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		C2F23A9F21D5D6E400E5332D /* MyScoresViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScoresViewController.h; sourceTree = "<group>"; };
 		C2F23AA021D5D6E400E5332D /* MyScoresViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScoresViewController.m; sourceTree = "<group>"; };
@@ -2316,9 +2314,8 @@
 				C2F23AB121D61D9500E5332D /* OrderListViewController.m */,
 				C2F23AAB21D61CA100E5332D /* OrderListViewCell.h */,
 				C2F23AAC21D61CA100E5332D /* OrderListViewCell.m */,
-				C245272E21E487B800CA4196 /* LogisticsViewCell.h */,
-				C245272F21E487B800CA4196 /* LogisticsViewCell.m */,
-				C245273021E487B800CA4196 /* LogisticsViewCell.xib */,
+				C2CF26CC21E5885D00CB8E76 /* LogisticsViewCell.h */,
+				C2CF26CD21E5885D00CB8E76 /* LogisticsViewCell.m */,
 				C245272821E47A1300CA4196 /* LogisticsViewController.h */,
 				C245272921E47A1300CA4196 /* LogisticsViewController.m */,
 				C245272B21E4859800CA4196 /* LogisticsDescViewController.h */,
@@ -2440,7 +2437,6 @@
 				C2B51AF221C3462500AC76FB /* ProductCollectionViewCell.xib in Resources */,
 				C29ABBF221D4776A00428407 /* AddAddressViewController.xib in Resources */,
 				C25047AF21BA715500DA9C72 /* success@2x.png in Resources */,
-				C245273221E487B800CA4196 /* LogisticsViewCell.xib in Resources */,
 				C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */,
 				C25047A621BA715500DA9C72 /* whiteArrow@2x.png in Resources */,
 				C222C38E21D2235700DD9797 /* UserInfoViewController.xib in Resources */,
@@ -2797,7 +2793,7 @@
 				C222C38D21D2235700DD9797 /* AccountSecurityViewController.m in Sources */,
 				C25047DF21BA715500DA9C72 /* XXJRCellBackgroundView.m in Sources */,
 				C20525F621BE6E5C00E13893 /* TabViewController_1.m in Sources */,
-				C245273121E487B800CA4196 /* LogisticsViewCell.m in Sources */,
+				C2CF26CE21E5885D00CB8E76 /* LogisticsViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -901,6 +901,12 @@
 
 -(void) actionBalance:(UIButton*) sender
 {
+    if (usableAmount <= 0.00)
+     {
+        [MBProgressHUD showErrorWithStatus:@"可用余额为零，不支持余额抵扣" toView:self.view];
+        return;
+     }
+    
     sender.selected = !sender.selected;
     if (!sender.selected)
      {

@@ -16,6 +16,7 @@
 #import "MyCollectViewController.h"
 #import "AddressViewController.h"
 #import "CustomerServiceViewController.h"
+#import "RefundListVC.h"
 
 #import "JXButton.h"
 
@@ -460,9 +461,8 @@
             [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 103:{
-            //已完成
-            OrderViewController *ctl = [[OrderViewController alloc]init];
-            ctl.orderIndex = 4;
+            //退款/售后
+            RefundListVC *ctl = [[RefundListVC alloc]init];
             [self.navigationController pushViewController:ctl animated:YES];
         }break;
         default:

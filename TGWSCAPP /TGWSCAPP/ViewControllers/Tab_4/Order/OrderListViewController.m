@@ -125,11 +125,11 @@
         if (operation.jsonResult.rows.count > 0) {
             [self reloadTableViewWithArray:operation.jsonResult.rows];
         }else{
-            [_tableView reloadData];
-            self.pageIndex --;
             if (self.pageIndex > 1) {
                 [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
             }
+            [_tableView reloadData];
+            self.pageIndex --;
         }
     }else if (operation.tag == 1001) {
         [MBProgressHUD showSuccessWithStatus:@"订单取消成功" toView:self.view];

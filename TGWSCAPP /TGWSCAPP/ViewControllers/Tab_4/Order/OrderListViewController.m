@@ -273,7 +273,7 @@
         ctl.orderNo = _orderNo;
         [self.navigationController pushViewController:ctl animated:YES];
     }else if (status == 6) {
-        //申请退款
+        //申请退货
         
     }
 }

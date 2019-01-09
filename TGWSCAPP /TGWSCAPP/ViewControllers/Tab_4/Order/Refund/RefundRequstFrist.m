@@ -14,10 +14,14 @@
 
 @implementation RefundRequstFrist
 
+#pragma mark  ---  lifecylce
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self layoutNaviBarViewWithTitle:@"售后服务"];
+    
+    NSLog(@"_dicParams:%@",_dicParams);
 }
 
 

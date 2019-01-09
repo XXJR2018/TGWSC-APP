@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RefundRequstSecond : CommonViewController
 
+@property (nonatomic,strong) NSDictionary *dicParams;
+
 @end
 
 NS_ASSUME_NONNULL_END

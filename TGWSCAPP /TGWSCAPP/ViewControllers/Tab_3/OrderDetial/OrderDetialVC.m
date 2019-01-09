@@ -426,7 +426,8 @@
             
             NSArray *arr = dicOfUI[@"promocardList"];
             if (arr &&
-                [arr count] >0)
+                [arr isKindOfClass:[NSArray class]]&&
+                [arr count] >=1)
              {
                 lableYHJ2.hidden = NO;
                 lableYHJ2.text = [NSString stringWithFormat:@"可选%ld张",[arr count]];
@@ -707,16 +708,26 @@
         dicOfUI = operation.jsonResult.attr;
         arrOfUI = operation.jsonResult.rows;
         
-        promocardValue = [dicOfUI[@"promocardValue"] floatValue];
+        
         goodsTotalAmt = [dicOfUI[@"goodsTotalAmt"] floatValue];
         usableAmount = [dicOfUI[@"usableAmount"] floatValue];
-        if (dicOfUI[@"custPromocardId"])
+        
+        NSDictionary *defPromoCardInfo = dicOfUI[@"defPromoCardInfo"];
+        if (defPromoCardInfo &&
+            [defPromoCardInfo isKindOfClass:[NSDictionary class]]&&
+            [defPromoCardInfo count] > 0)
          {
-            _custPromocardId = [NSString stringWithFormat:@"%@", dicOfUI[@"custPromocardId"]];
-         }
-        if (dicOfUI[@"promocardId"])
-         {
-            promocardId = [NSString stringWithFormat:@"%@", dicOfUI[@"promocardId"]];
+        
+            if (defPromoCardInfo[@"custPromocardId"])
+             {
+                _custPromocardId = [NSString stringWithFormat:@"%@", defPromoCardInfo[@"custPromocardId"]];
+             }
+            if (defPromoCardInfo[@"promocardId"])
+             {
+                promocardId = [NSString stringWithFormat:@"%@", defPromoCardInfo[@"promocardId"]];
+             }
+            
+            promocardValue = [defPromoCardInfo[@"promocardValue"] floatValue];
          }
         
         NSDictionary *curAddr = dicOfUI[@"addrInfo"];
@@ -826,7 +837,8 @@
      {
         NSArray *arr = dicOfUI[@"promocardList"];
         if (arr &&
-            [arr count] >0)
+            [arr isKindOfClass:[NSArray class]]&&
+            [arr count] >=1)
          {
             SelCouponVC *VC = [[SelCouponVC alloc] init];
             VC.arrCoupon = arr;

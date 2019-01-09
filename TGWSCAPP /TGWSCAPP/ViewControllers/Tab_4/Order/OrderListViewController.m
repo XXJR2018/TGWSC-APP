@@ -278,6 +278,7 @@
     }else if (status == 6) {
         //申请退货
         RefundRequstFrist *VC = [[RefundRequstFrist alloc] init];
+        VC.dicParams = [[NSDictionary alloc] init];
         VC.dicParams = dic;
         [self.navigationController pushViewController:VC animated:YES];
         
@@ -297,6 +298,7 @@
     }else if (status == 1 || status == 3) {
         // 申请退款
         RefundRequstFrist *VC = [[RefundRequstFrist alloc] init];
+        VC.dicParams = [[NSDictionary alloc] init];
         VC.dicParams = dic;
         [self.navigationController pushViewController:VC animated:YES];
     }else if (status == 4 || status == 6 || status == 7) {
@@ -308,6 +310,7 @@
     }else if (status == 8) {
         //退款详情
         RefundInfoVC *VC = [[RefundInfoVC alloc] init];
+        VC.dicParams = [[NSDictionary alloc] init];
         VC.dicParams = dic;
         [self.navigationController pushViewController:VC animated:YES];
     }

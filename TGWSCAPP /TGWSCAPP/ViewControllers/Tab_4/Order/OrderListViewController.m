@@ -12,6 +12,7 @@
 
 #import "SelPayVC.h"
 #import "OrderListViewCell.h"
+#import "RefundRequstFrist.h"
 
 #define orderCellHeight  100
 
@@ -275,6 +276,9 @@
         [self.navigationController pushViewController:ctl animated:YES];
     }else if (status == 6) {
         //申请退货
+        RefundRequstFrist *VC = [[RefundRequstFrist alloc] init];
+        VC.dicParams = dic;
+        [self.navigationController pushViewController:VC animated:YES];
         
     }
 }
@@ -300,7 +304,9 @@
         [self confirmGoodsUrl:_orderNo];
     }else if (status == 8) {
         //退款详情
-        
+        RefundRequstFrist *VC = [[RefundRequstFrist alloc] init];
+        VC.dicParams = dic;
+        [self.navigationController pushViewController:VC animated:YES];
     }
 }
 

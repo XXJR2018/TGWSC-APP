@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RefundScheduleVC : CommonViewController
 
+@property (nonatomic,strong) NSDictionary *dicParams;
+
 @end
 
 NS_ASSUME_NONNULL_END

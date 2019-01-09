@@ -36,6 +36,9 @@
 @property(nonatomic, strong)UIButton *orderCentreBtn;    //订单中间按钮
 
 @property(nonatomic, strong)UIButton *orderRightBtn;    //订单右边按钮
+
+@property(nonatomic,strong)dispatch_source_t timer;       //创建GCD定时器
+
 @end
 
 @implementation OrderListViewCell
@@ -43,6 +46,7 @@
 -(void)setDataDicionary:(NSDictionary *)dataDicionary{
     _dataDicionary = dataDicionary;
     [self.contentView removeAllSubviews];
+
     [self layoutUI];
     [self layoutSubviews];
 }
@@ -197,32 +201,33 @@
         [_orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];
         
         NSString *countDownTime = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"countDownTime"]];
-//         NSString *countDownTime = @"30:00";
         if (countDownTime.length > 0) {
             NSArray *timeArr = [countDownTime componentsSeparatedByString:@":"];
             __block int timeout = 0; //倒计时时间
             timeout = [timeArr[0] intValue] * 60 +  [timeArr[1] intValue] ;
-            
+
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
-            dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
-            dispatch_source_set_event_handler(_timer, ^{
-                if(timeout == 0){ //倒计时结束，关闭
-                    dispatch_source_cancel(_timer);
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        //倒计时结束，刷新数据，改变订单状态
-                        [self.orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];
-                        self.orderTimeBlock();
-                    });
-                }else{
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        //设置界面的按钮显示 根据自己需求设置
-                        [self.orderRightBtn  setTitle:[NSString stringWithFormat:@"付款 %@",[self getMMSSFromSS:timeout]] forState:UIControlStateNormal];
-                    });
-                    timeout--;
-                }
-            });
-            dispatch_resume(_timer);
+            if (!_timer) {
+                _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+                dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+                dispatch_source_set_event_handler(_timer, ^{
+                    if(timeout == 0){ //倒计时结束，关闭
+                        dispatch_source_cancel(self.timer);
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            //倒计时结束，刷新数据，改变订单状态
+                            [self.orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];
+                            self.orderTimeBlock();
+                        });
+                    }else{
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            //设置界面的按钮显示 根据自己需求设置
+                            [self.orderRightBtn  setTitle:[NSString stringWithFormat:@"付款 %@",[self getMMSSFromSS:timeout]] forState:UIControlStateNormal];
+                        });
+                        timeout--;
+                    }
+                });
+                dispatch_resume(_timer);
+            }
         }
        
     }else if (status == 1|| status == 3) {

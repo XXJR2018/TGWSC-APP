@@ -208,9 +208,10 @@
     if (self.dataArray.count == 0) {
         return  [self noDataCell:tableView];
     }
-    OrderListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderList_Cell"];
+    NSString *cellID = [NSString stringWithFormat:@"%ld_cell",indexPath.row];
+    OrderListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell) {
-        cell = [[OrderListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"OrderList_Cell"];
+        cell = [[OrderListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.orderLeftBlock = ^{

@@ -74,3 +74,9 @@ NSString *const DDGMarksChangedNotification = @"DDGMarksChangedNotification";
 NSString *const DDGPayPassWordNotification = @"DDGPayPassWordNotification";
 
 
+/*!
+ @brief 支付宝支付结果通知
+ */
+NSString *const DDGPayResultNotification = @"DDGPayResultNotification";
+
+

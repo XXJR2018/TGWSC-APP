@@ -11,6 +11,7 @@
 #import <AlipaySDK/AlipaySDK.h>
 
 
+
 #define    CheckImg         @"od_gou2"
 #define    UnCheckImg       @"od_gou1"
 
@@ -29,6 +30,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    // 支付宝支付结果通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ailiPayReslut:) name:DDGPayResultNotification object:nil];
+    
     [self layoutNaviBarViewWithTitle:@"选择支付方法"];
     
     [self initData];
@@ -381,5 +385,51 @@
 }
 
 
+
+#pragma mark ---通知事件
+-(void) ailiPayReslut:(NSNotification *)notification
+{
+    NSLog(@"ailiPayReslut user info is %@",notification.object);
+    NSDictionary *dic = notification.object;
+    
+    if (dic)
+     {
+        NSString *memo = dic[@"memo"];
+        NSString *result = dic[@"result"];
+        NSString *resultStatus = dic[@"resultStatus"];
+        
+        NSLog(@"memo: %@ result: %@  resultStatus: %@",memo,result,resultStatus);
+        
+        //    9000 订单支付成功
+        //    8000 正在处理中
+        //    4000 订单支付失败
+        //    6001 用户中途取消
+        //    6002 网络连接出错
+        
+        if ([resultStatus isEqualToString:@"9000"])
+         {
+            // 支付成功
+            PayResultVC  *VC = [[PayResultVC alloc] init];
+            VC.isSuceess = YES;
+            [self.navigationController pushViewController:VC animated:YES];
+         }
+        else if ([resultStatus isEqualToString:@"6001"])
+         {
+            // 用户取消
+         }
+        else
+         {
+            // 支付错误
+            PayResultVC  *VC = [[PayResultVC alloc] init];
+            VC.dicPayResult = _dicPay;
+            [self.navigationController pushViewController:VC animated:YES];
+         }
+     }
+    
+
+    
+    //tradePassword = [dic objectForKey:@"password"] ;
+    
+}
 
 @end

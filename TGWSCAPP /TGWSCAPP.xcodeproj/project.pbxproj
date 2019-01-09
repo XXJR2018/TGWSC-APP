@@ -3036,6 +3036,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xxxx.tgwsc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 				VALID_ARCHS = "armv7 arm64 armv7s";
 			};
 			name = Debug;
@@ -3112,6 +3113,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xxxx.tgwsc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 				VALID_ARCHS = "armv7 arm64 armv7s";
 			};
 			name = Release;

@@ -813,6 +813,7 @@
                 ctl.titleStr = @"验证支付密码";
                 ctl.isValidatePassWord = YES;
                 [self.navigationController pushViewController:ctl animated:YES];
+                return;
              }
          }
      }
@@ -1000,6 +1001,11 @@
     NSDictionary *dic = notification.object;
     
     tradePassword = [dic objectForKey:@"password"] ;
+    
+    if (usableAmount >= (goodsTotalAmt - promocardValue))
+     {
+        [self commitOrder];
+     }
     
 }
 

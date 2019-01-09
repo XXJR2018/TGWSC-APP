@@ -11,6 +11,7 @@
 @interface LogisticsDescViewController ()
 {
     UIScrollView *_scView;
+    NSDictionary *_logisticsDataDic;
 }
 @end
 
@@ -56,6 +57,9 @@
     _scView.bounces = NO;
     _scView.pagingEnabled = NO;
     _scView.showsVerticalScrollIndicator = NO;
+    
+    [self headerViewUI];
+    [self logisticsViewUI];
 }
 
 #pragma mark---头部商品列表布局

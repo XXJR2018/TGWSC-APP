@@ -49,7 +49,7 @@
 
 @implementation TabViewController_4
 
--(void)loadData{
+-(void)custSummaryUrl{
     [MBProgressHUD showHUDAddedTo:self.view];
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/cust/info/custSummary",[PDAPI getBaseUrlString]]
                                                                                parameters:nil HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
@@ -182,6 +182,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"个人中心"];
+    //改变商品数量
+    [self custSummaryUrl];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -210,7 +212,7 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         //发送通知更新用户信息
         [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
-        [self loadData];
+        [self custSummaryUrl];
         [self.tableView reloadData];
     }];
 

@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) NSDictionary *dicParams;
 
+@property (nonatomic,strong) NSMutableArray *arrSel;  // 退款的商品的 序号
+
+@property (nonatomic,assign) int  iCommitType;  // 0 -- 退款退货  ， 1 - 退款
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -22,7 +22,6 @@
     // Do any additional setup after loading the view.
     [self layoutNaviBarViewWithTitle:@"售后服务"];
     
-    NSLog(@"_dicParams:%@",_dicParams);
     [self layoutUI];
 }
 
@@ -104,6 +103,7 @@
         RefundRequstSecond  *VC = [[RefundRequstSecond alloc] init];
         VC.dicParams = [[NSDictionary alloc] init];
         VC.dicParams =  _dicParams;
+        VC.iCommitType = 0;
         [self.navigationController pushViewController:VC animated:YES];
      }
     else if (1 == iTag)
@@ -112,6 +112,7 @@
         RefundRequstSecond  *VC = [[RefundRequstSecond alloc] init];
         VC.dicParams = [[NSDictionary alloc] init];
         VC.dicParams =  _dicParams;
+        VC.iCommitType = 1;
         [self.navigationController pushViewController:VC animated:YES];
      }
 }

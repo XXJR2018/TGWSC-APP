@@ -17,17 +17,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self layoutNaviBarViewWithTitle:@"退款提交"];
+   
+    
+    if (1 == _iCommitType)
+     {
+         [self layoutNaviBarViewWithTitle:@"退款申请"];
+     }
+    else
+     {
+         [self layoutNaviBarViewWithTitle:@"退款退货"];
+     }
+    
+    [self layoutUI];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark  ---   布局UI
+-(void) layoutUI
+{
+    
 }
-*/
 
 @end

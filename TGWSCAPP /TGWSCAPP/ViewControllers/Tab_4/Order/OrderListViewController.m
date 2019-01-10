@@ -9,6 +9,7 @@
 #import "OrderListViewController.h"
 
 #import "LogisticsViewController.h"
+#import "OrderDetailsViewController.h"
 
 #import "SelPayVC.h"
 #import "OrderListViewCell.h"
@@ -240,8 +241,10 @@
     //（这种是没有点击后的阴影效果)
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-//    NSDictionary *dic = self.dataArray[indexPath.row];
-   
+    NSDictionary *dic = self.dataArray[indexPath.row];
+    OrderDetailsViewController *ctl = [[OrderDetailsViewController alloc]init];
+    ctl.orderNo = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
+    [self.navigationController pushViewController:ctl animated:YES];
     
 }
 

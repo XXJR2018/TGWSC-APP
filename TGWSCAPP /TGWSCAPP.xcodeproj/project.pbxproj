@@ -271,6 +271,7 @@
 		C2A08F6A21BF4563005753F6 /* TabBarSelectButtn.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A08F6921BF4563005753F6 /* TabBarSelectButtn.m */; };
 		C2A71B8521BE53F9007D849F /* DDGUserInfoEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A71B8421BE53F9007D849F /* DDGUserInfoEngine.m */; };
 		C2A71BBF21BE5FB6007D849F /* NSObject+Property.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A71BBE21BE5FB6007D849F /* NSObject+Property.m */; };
+		C2AAF66421E71B8400D9F505 /* OrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AAF66321E71B8400D9F505 /* OrderDetailsViewController.m */; };
 		C2AEB45C21BE38850078E788 /* ToolsUtlis.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AEB45B21BE38850078E788 /* ToolsUtlis.m */; };
 		C2AEB46221BE3CB00078E788 /* CSAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AEB46021BE3CB00078E788 /* CSAnimationView.m */; };
 		C2AEB46321BE3CB00078E788 /* CSAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AEB46121BE3CB00078E788 /* CSAnimation.m */; };
@@ -816,6 +817,8 @@
 		C2A71B8421BE53F9007D849F /* DDGUserInfoEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDGUserInfoEngine.m; sourceTree = "<group>"; };
 		C2A71BBD21BE5FB6007D849F /* NSObject+Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Property.h"; sourceTree = "<group>"; };
 		C2A71BBE21BE5FB6007D849F /* NSObject+Property.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Property.m"; sourceTree = "<group>"; };
+		C2AAF66221E71B8400D9F505 /* OrderDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailsViewController.h; sourceTree = "<group>"; };
+		C2AAF66321E71B8400D9F505 /* OrderDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailsViewController.m; sourceTree = "<group>"; };
 		C2AEB45A21BE38850078E788 /* ToolsUtlis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolsUtlis.h; sourceTree = "<group>"; };
 		C2AEB45B21BE38850078E788 /* ToolsUtlis.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolsUtlis.m; sourceTree = "<group>"; };
 		C2AEB45E21BE3CB00078E788 /* CSAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSAnimation.h; sourceTree = "<group>"; };
@@ -2349,6 +2352,8 @@
 				C2F23AA921D61B2B00E5332D /* OrderViewController.m */,
 				C2F23AB021D61D9500E5332D /* OrderListViewController.h */,
 				C2F23AB121D61D9500E5332D /* OrderListViewController.m */,
+				C2AAF66221E71B8400D9F505 /* OrderDetailsViewController.h */,
+				C2AAF66321E71B8400D9F505 /* OrderDetailsViewController.m */,
 				C2F23AAB21D61CA100E5332D /* OrderListViewCell.h */,
 				C2F23AAC21D61CA100E5332D /* OrderListViewCell.m */,
 				C2CF26CC21E5885D00CB8E76 /* LogisticsViewCell.h */,
@@ -2683,6 +2688,7 @@
 				C04B180C21E5DD1000DBA0FE /* RefundRequstSecond.m in Sources */,
 				C25047B921BA715500DA9C72 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				C02C5F9721CC991A0056A32E /* TSVideoPlayback.m in Sources */,
+				C2AAF66421E71B8400D9F505 /* OrderDetailsViewController.m in Sources */,
 				C250461A21BA711E00DA9C72 /* RangeSliderView.m in Sources */,
 				C0A48A6D21D1F969002AF226 /* PopSelShopView.m in Sources */,
 				C04B180321E5DC5000DBA0FE /* RefundListVC.m in Sources */,

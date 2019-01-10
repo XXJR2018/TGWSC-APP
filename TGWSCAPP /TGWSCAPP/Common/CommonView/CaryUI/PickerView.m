@@ -157,12 +157,12 @@
     return self;
 }
 
-// 弹出框选择2 (placeHolder 靠右， 宽度可自定义)
+// 弹出框选择2 (placeHolder 靠右， 宽度可自定义)  (修改，右侧箭头隐藏，底部划线隐藏)
 -(PickerView *)initWithTitle:(NSString *)title placeHolder:(NSString *)placeHolder  width:(int)width  itemArray:(NSArray *)items origin_Y:(CGFloat)origin_Y
 {
     self = [super initWithFrame:CGRectMake(0, origin_Y, SCREEN_WIDTH, CellHeight44)];
     if (self) {
-        self.linetype = LineTypeBotton;
+        self.linetype = LineTypeNone;
         
         UIFont *font = [UIFont systemFontOfSize:14.0];
         _titleWidth = [title sizeWithAttributes:@{NSFontAttributeName:font}].width;
@@ -173,6 +173,7 @@
         //[self layoutImagePicker:YES];  // 右侧按钮向下
         [self layoutImagePicker:NO];   // 右侧按钮向右
         [self layoutButton];
+        _rightImage.hidden = YES;
         
         
         _itemsArray = items;
@@ -303,7 +304,7 @@
         }
         
         if (i == _selectedIndex) {
-            [button setTitleColor:[ResourceManager orangeColor] forState:UIControlStateNormal];
+            [button setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
         }
         
     }
@@ -313,7 +314,7 @@
 
 -(void)buttonClick:(UIButton *)button{
     _selectedIndex = (int)(button.tag - 100);
-    [button setTitleColor:[ResourceManager orangeColor] forState:UIControlStateNormal];
+    [button setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
     
     _holderLabel.textColor = [ResourceManager color_7];
     _holderLabel.text = _itemsArray[_selectedIndex];

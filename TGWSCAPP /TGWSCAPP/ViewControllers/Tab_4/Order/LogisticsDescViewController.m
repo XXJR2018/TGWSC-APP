@@ -37,8 +37,12 @@
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     if (operation.jsonResult.attr.count > 0) {
         _logisticsDataDic = operation.jsonResult.attr;
-        [self layoutUI];
     }
+    if (operation.jsonResult.rows.count > 0) {
+        [self.dataArray removeAllObjects];
+        [self.dataArray addObject:operation.jsonResult.rows];
+    }
+    [self layoutUI];
     
 }
 
@@ -163,7 +167,21 @@
 
 #pragma mark---物流信息布局
 -(void)logisticsViewUI{
-    
+    for (int i = 0; i < self.dataArray.count; i ++) {
+        UILabel *statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(80, _currentHeight + 20, 5, 5)];
+        [_scView addSubview:statusLabel];
+        statusLabel.clipsToBounds = YES;
+        statusLabel.layer.cornerRadius = 5/2;
+        statusLabel.backgroundColor = [ResourceManager color_5];
+        
+        if (i == 0) {
+            statusLabel.frame = CGRectMake(80, _currentHeight, 10, 10);
+            statusLabel.layer.cornerRadius = 10/2;
+            statusLabel.backgroundColor = [ResourceManager mainColor];
+        }
+        
+         _currentHeight = CGRectGetMaxY(statusLabel.frame);
+    }
     
 }
 

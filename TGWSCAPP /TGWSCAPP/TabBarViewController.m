@@ -7,8 +7,8 @@
 //
 
 #import "TabBarViewController.h"
-
 #import "WCAlertview.h"
+#import "PayResultVC.h"
 
 @interface TabBarViewController ()<WCALertviewDelegate>
 {
@@ -120,6 +120,9 @@
         
         // token过期通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenOutOfData:) name:DDGUserTokenOutOfDataNotification object:nil];
+        
+        // 支付宝支付结果通知  (跳到支付宝时， 有可能app会挂掉， 只能在tabbarView 页面接收支付消息)
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ailiPayReslut:) name:DDGPayResultNotification object:nil];
         
        
     }
@@ -301,6 +304,43 @@
 
 - (void)handleWillEnterForegroundNotificaiton:(NSNotification *)notification{
     CFRunLoopRunInMode(kCFRunLoopDefaultMode,0.4, NO);
+}
+
+-(void) ailiPayReslut:(NSNotification *)notification
+{
+    NSLog(@"ailiPayReslut user info is %@",notification.object);
+    NSDictionary *dic = notification.object;
+    
+    if (dic)
+     {
+        NSString *memo = dic[@"memo"];
+        NSString *result = dic[@"result"];
+        NSString *resultStatus = dic[@"resultStatus"];
+        
+        NSLog(@"memo: %@ result: %@  resultStatus: %@",memo,result,resultStatus);
+        
+        //    9000 订单支付成功
+        //    8000 正在处理中
+        //    4000 订单支付失败
+        //    6001 用户中途取消
+        //    6002 网络连接出错
+        
+        if ([resultStatus isEqualToString:@"9000"])
+         {
+            // 支付成功
+            PayResultVC  *VC = [[PayResultVC alloc] init];
+            VC.isSuceess = YES;
+            
+            [self setButtonsState:_tab1_Button];
+            [nav1 pushViewController:VC animated:YES];
+         }
+
+     }
+    
+    
+    
+    //tradePassword = [dic objectForKey:@"password"] ;
+    
 }
 
 #pragma mark  ---  传类名， 跳转页面

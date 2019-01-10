@@ -40,8 +40,9 @@
     }
     if (operation.jsonResult.rows.count > 0) {
         [self.dataArray removeAllObjects];
-        [self.dataArray addObject:operation.jsonResult.rows];
+        [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
     }
+    
     [self layoutUI];
     
 }
@@ -161,28 +162,82 @@
     [_scView addSubview:lineView];
     lineView.backgroundColor = [ResourceManager viewBackgroundColor];
     
-    _currentHeight = CGRectGetMaxY(lineView.frame);
+    _currentHeight = CGRectGetMaxY(lineView.frame) + 30;
     
 }
 
 #pragma mark---物流信息布局
 -(void)logisticsViewUI{
+    CGFloat top = _currentHeight;
     for (int i = 0; i < self.dataArray.count; i ++) {
-        UILabel *statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(80, _currentHeight + 20, 5, 5)];
+        NSDictionary *dic = self.dataArray[i];
+        NSInteger redFlag = [[dic objectForKey:@"redFlag"] intValue];
+        UILabel *statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(70 - 6/2, top + 100 * i, 6, 6)];
         [_scView addSubview:statusLabel];
         statusLabel.clipsToBounds = YES;
-        statusLabel.layer.cornerRadius = 5/2;
+        statusLabel.layer.cornerRadius = 6/2;
         statusLabel.backgroundColor = [ResourceManager color_5];
-        
+        statusLabel.textColor = [UIColor whiteColor];
+        statusLabel.textAlignment = NSTextAlignmentCenter;
+        statusLabel.font = [UIFont systemFontOfSize:14];
         if (i == 0) {
-            statusLabel.frame = CGRectMake(80, _currentHeight, 10, 10);
-            statusLabel.layer.cornerRadius = 10/2;
-            statusLabel.backgroundColor = [ResourceManager mainColor];
+            statusLabel.frame = CGRectMake(70 - 30/2, top + 100 * i, 30, 30);
+            statusLabel.layer.cornerRadius = 30/2;
+            statusLabel.text = @"收";
+        }
+        if (i < self.dataArray.count - 1) {
+            UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMidX(statusLabel.frame), CGRectGetMaxY(statusLabel.frame), 0.5, 100)];
+            [_scView addSubview:lineView];
+            lineView.backgroundColor = [ResourceManager color_5];
         }
         
-         _currentHeight = CGRectGetMaxY(statusLabel.frame);
+        UILabel *timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, CGRectGetMidY(statusLabel.frame) - 35/2, CGRectGetMinX(statusLabel.frame) - 20, 35)];
+        [_scView addSubview:timeLabel];
+        timeLabel.numberOfLines = 2;
+        timeLabel.textColor = [ResourceManager color_6];
+        timeLabel.textAlignment = NSTextAlignmentCenter;
+        timeLabel.font = [UIFont systemFontOfSize:13];
+        if ([dic objectForKey:@"acceptDate"] && [dic objectForKey:@"acceptHour"]) {
+            NSString *timeStr = [NSString stringWithFormat:@"%@\n%@",[dic objectForKey:@"acceptDate"],[dic objectForKey:@"acceptHour"]];
+            NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:timeStr];
+            [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, 5)];
+            [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:NSMakeRange(5, 5)];
+            timeLabel.attributedText = attrStr;
+        }
+        
+        UILabel *logisticsStatusLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(statusLabel.frame) + 30, CGRectGetMinY(statusLabel.frame) - 20, 150, 20)];
+        [_scView addSubview:logisticsStatusLabel];
+        logisticsStatusLabel.textColor = [ResourceManager color_6];
+        logisticsStatusLabel.font = [UIFont systemFontOfSize:14];
+        logisticsStatusLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"logisticsLabel"]];
+        [logisticsStatusLabel sizeToFit];
+        if ([dic objectForKey:@"logisticsLabel"]) {
+            logisticsStatusLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"logisticsLabel"]];
+        }
+        
+        UILabel *logisticsDescLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(statusLabel.frame) + 30, CGRectGetMidY(statusLabel.frame), SCREEN_WIDTH - CGRectGetMidX(statusLabel.frame) - 45, 40)];
+        [_scView addSubview:logisticsDescLabel];
+        logisticsDescLabel.textColor = [ResourceManager color_6];
+        logisticsDescLabel.numberOfLines = 0;
+        logisticsDescLabel.font = [UIFont systemFontOfSize:13];
+        logisticsDescLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"logisticsDesc"]];
+        [logisticsDescLabel sizeToFit];
+        
+        if (redFlag == 1) {
+            if (i != 0) {
+                statusLabel.frame = CGRectMake(70 - 12/2, top + 100 * i, 12, 12);
+                statusLabel.layer.cornerRadius = 12/2;
+            }
+            statusLabel.backgroundColor = [ResourceManager mainColor];
+            timeLabel.textColor = [ResourceManager color_1];
+            logisticsStatusLabel.textColor = [ResourceManager color_1];
+            logisticsDescLabel.textColor = [ResourceManager color_1];
+        }
+        
+         _currentHeight = CGRectGetMaxY(logisticsDescLabel.frame);
     }
     
+    _currentHeight = _currentHeight + 50;
 }
 
 -(void)copyExpress{

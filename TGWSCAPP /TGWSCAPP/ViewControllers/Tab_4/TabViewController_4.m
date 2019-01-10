@@ -16,6 +16,7 @@
 #import "MyCollectViewController.h"
 #import "AddressViewController.h"
 #import "CustomerServiceViewController.h"
+#import "LogisticsDescViewController.h"
 #import "RefundListVC.h"
 
 #import "JXButton.h"
@@ -39,6 +40,7 @@
     UIButton *_couponBtn;   //优惠券按钮
     
     UIView *_logisticsView;   //物流信息布局
+    NSArray *_logisticsListArr;
 }
 
 @property(nonatomic, strong)UITableView *tableView;
@@ -68,6 +70,7 @@
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     [_tableView.mj_header endRefreshing];
     if (operation.jsonResult.attr.count > 0) {
+         _logisticsListArr = [operation.jsonResult.attr objectForKey:@"logisticsList"];
         [self changeOrderInfo:operation.jsonResult.attr];
     }
 }
@@ -166,18 +169,73 @@
     }
    
     NSArray *sticsListArr = [dic objectForKey:@"logisticsList"];
+    [_logisticsView removeAllSubviews];
     if (sticsListArr.count == 0) {
         _logisticsView.frame = CGRectMake(0, CGRectGetMaxY(_orderImgView.frame), SCREEN_WIDTH, 0);
         self.headView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_logisticsView.frame));
     }else{
-         _logisticsView.frame = CGRectMake(0, CGRectGetMaxY(_orderImgView.frame), SCREEN_WIDTH, 120);
-        
-        
+         _logisticsView.frame = CGRectMake(0, CGRectGetMaxY(_orderImgView.frame), SCREEN_WIDTH, 60 * sticsListArr.count + 10);
+        for (int i = 0; i < sticsListArr.count; i ++) {
+            NSDictionary *dic = sticsListArr[i];
+            UIView *statusView = [[UIView alloc]initWithFrame:CGRectMake(60 - 5/2, 60 * i + 20, 5, 5)];
+            [_logisticsView addSubview:statusView];
+            statusView.layer.cornerRadius = 5/2;
+            statusView.backgroundColor = [ResourceManager color_5];
+           
+            UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMidX(statusView.frame), (60 -45)/2 +(60 - (60 -45)/2) * i , 0.5, 60 - (60 -45)/2)];
+            [_logisticsView addSubview:lineView];
+            lineView.backgroundColor = [ResourceManager color_5];
+            
+            UILabel *timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMidY(statusView.frame) - 40/2, CGRectGetMinX(statusView.frame), 40)];
+            [_logisticsView addSubview:timeLabel];
+            timeLabel.numberOfLines = 2;
+            timeLabel.textColor = [ResourceManager color_6];
+            timeLabel.textAlignment = NSTextAlignmentCenter;
+            timeLabel.font = [UIFont systemFontOfSize:11];
+            timeLabel.text = [NSString stringWithFormat:@"最新物流\n%@",[dic objectForKey:@"logistucsTime"]];
+            
+            UIImageView *productImgView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(statusView.frame) + 10,(60 -45)/2 + 60 * i, 45, 45)];
+            [_logisticsView addSubview:productImgView];
+            productImgView.userInteractionEnabled = YES;
+            productImgView.backgroundColor = UIColorFromRGB(0xf6f6f6);
+            [productImgView sd_setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"goodsUrl"]]];
+            
+            UIImageView *logisticsImgView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(productImgView.frame) + 10, CGRectGetMinY(productImgView.frame), 15, 15)];
+            [_logisticsView addSubview:logisticsImgView];
+            logisticsImgView.image = [UIImage imageNamed:@"Tab_4-10"];
+            
+            UILabel *logisticsStatusLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(logisticsImgView.frame) + 5, CGRectGetMidY(logisticsImgView.frame) - 20/2, 150, 20)];
+            [_logisticsView addSubview:logisticsStatusLabel];
+            logisticsStatusLabel.textColor = [ResourceManager mainColor];
+            logisticsStatusLabel.font = [UIFont systemFontOfSize:13];
+            logisticsStatusLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"logisticsLabel"]];
+            if ([logisticsStatusLabel.text isEqualToString:@"已签收"]) {
+                logisticsImgView.image = [UIImage imageNamed:@"Tab_4-11"];
+            }
+            
+            UILabel *logisticsDescLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(logisticsImgView.frame), CGRectGetMaxY(logisticsImgView.frame), SCREEN_WIDTH - CGRectGetMidX(logisticsImgView.frame) - 10, 20)];
+            [_logisticsView addSubview:logisticsDescLabel];
+            logisticsDescLabel.textColor = [ResourceManager color_6];
+            logisticsDescLabel.font = [UIFont systemFontOfSize:12];
+            logisticsDescLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"lastLogisticsInfo"]];
+            
+            UIButton *logisticsBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,  60 * i, SCREEN_WIDTH, 60)];
+            [_logisticsView addSubview:logisticsBtn];
+            logisticsBtn.tag = i;
+            [logisticsBtn addTarget:self action:@selector(logisticsTouch:) forControlEvents:UIControlEventTouchUpInside];
+        }
         
     }
+    
     self.headView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_logisticsView.frame));
     [_tableView reloadData];
-    
+}
+
+-(void)logisticsTouch:(UIButton *)sender{
+    NSDictionary *dic = _logisticsListArr[sender.tag];
+    LogisticsDescViewController *ctl = [[LogisticsDescViewController alloc]init];
+    ctl.logisticsId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"logisticsId"]];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -258,7 +316,7 @@
     _orderImgView.image = [UIImage imageNamed:@"Tab_4-4"];
     _orderImgView.userInteractionEnabled = YES;
     
-    _logisticsView = [[UIImageView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_orderImgView.frame), SCREEN_WIDTH, 0)];
+    _logisticsView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_orderImgView.frame), SCREEN_WIDTH, 0)];
     [self.headView addSubview:_logisticsView];
 
     self.headView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_logisticsView.frame));

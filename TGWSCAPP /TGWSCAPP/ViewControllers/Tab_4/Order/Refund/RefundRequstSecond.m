@@ -18,6 +18,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self layoutNaviBarViewWithTitle:@"售后服务"];
+    
+    [self layoutUI];
+}
+
+-(void) layoutUI
+{
+    
 }
 
 

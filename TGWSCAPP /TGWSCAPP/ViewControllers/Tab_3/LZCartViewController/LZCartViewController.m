@@ -307,6 +307,9 @@
 }
 
 - (void)setupCartEmptyView {
+    
+    [self.selectedArray removeAllObjects];
+    
     //默认视图背景
     UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, LZNaigationBarHeight, LZSCREEN_WIDTH, LZSCREEN_HEIGHT - LZNaigationBarHeight)];
     [self.view addSubview:backgroundView];

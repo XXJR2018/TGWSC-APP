@@ -88,6 +88,8 @@
     int iServerStatus = [dicValue[@"serverStatus"] intValue];
     //iServerStatus = 3;
     //处理状态(0-待处理 1-商家待收货 2-同意退款（需要填写物流） 3-退款成功 4-商家拒绝退款 5-交易关闭 6-可重新申请)
+    
+    //0-待处理  1-商家待收货 2-同意退款 3 -同意退款退货 4-商家收到货 5-退款成功 6-退款失败 7-商家拒绝退款 8-取消申请(交易关闭)
     if (0 == iServerStatus)
      {
         labelStatus.text = @"等待商家处理退款申请";

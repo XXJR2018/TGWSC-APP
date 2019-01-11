@@ -14,7 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic ,copy)NSString *orderNo;
 
-@property(nonatomic,copy)Block_Void countDownBlock;
+@property(nonatomic,copy)Block_Void cancelOrderBlock;   //取消订单
+
+@property(nonatomic,copy)Block_Void deleteOrderBlock;  //删除订单
+
+@property(nonatomic,copy)Block_Void confirmGoodsBlock;  //确认收货
+
+@property(nonatomic,copy)Block_Void againShopBlock;    //再次购买
+
 
 @end
 

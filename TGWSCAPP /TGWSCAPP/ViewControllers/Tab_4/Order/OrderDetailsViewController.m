@@ -17,6 +17,8 @@
     NSInteger _status;
     
     UIButton *_agreeTreatyBtn;
+    UIImageView *_moreImgView;
+    UIButton *_moreAleartBtn;
 }
 
 @property(nonatomic, strong)UIButton *orderLeftBtn;      //订单左边按钮
@@ -54,6 +56,7 @@
     if (operation.jsonResult.attr.count > 0 && operation.jsonResult.rows.count > 0) {
         _orderDataDic = operation.jsonResult.attr;
         _status = [[_orderDataDic objectForKey:@"status"] intValue];
+        _status = 6;
         [self.dataArray removeAllObjects];
         [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
         [self layoutUI];
@@ -93,6 +96,7 @@
     [self headerViewUI];
     [self centreViewUI];
     [self footerViewUI];
+    [self orderBtnUI];
     _scView.contentSize = CGSizeMake(0, _currentHeight);
 }
 
@@ -236,7 +240,6 @@
         
         centreView.frame = CGRectMake(0, _currentHeight, SCREEN_WIDTH, CGRectGetMaxY(productImgView.frame) + 20);
         
-       
         if (orderStatusDesc.length > 0) {
             CGFloat refundHeight = 70;
             if (orderStatusDesc.length > 4) {
@@ -247,7 +250,7 @@
             refundBtn.layer.borderWidth = 0.5;
             refundBtn.layer.borderColor = [ResourceManager mainColor].CGColor;
             refundBtn.titleLabel.font = font_2;
-            [refundBtn setTitle:@"退款成功" forState:UIControlStateNormal];
+            [refundBtn setTitle:orderStatusDesc forState:UIControlStateNormal];
             [refundBtn setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
             [refundBtn addTarget:self action:@selector(refund) forControlEvents:UIControlEventTouchUpInside];
             if ([[dic objectForKey:@"orderStatus"] intValue] == 10) {
@@ -484,7 +487,17 @@
     
     footerView.frame = CGRectMake(0, _currentHeight, SCREEN_WIDTH, _footerHeight);
     _currentHeight = CGRectGetMaxY(footerView.frame) + 10;
+
+}
+
+-(void)orderBtnUI{
+    UIColor *color_1 = [ResourceManager color_1];
+    UIColor *color_2 = [ResourceManager color_6];
+    UIFont *font_1 = [UIFont systemFontOfSize:13];
     
+    if (_currentHeight + 90 < SCREEN_HEIGHT - NavHeight) {
+        _currentHeight = SCREEN_HEIGHT - NavHeight - 90;
+    }
     if (_status == 0 || _status == 2) {
         _agreeTreatyBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, _currentHeight, 20, 20)];
         [_scView addSubview:_agreeTreatyBtn];
@@ -513,11 +526,13 @@
     [_scView addSubview:lineViewX];
     lineViewX.backgroundColor = [ResourceManager color_5];
     
-    UIView *orderBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(lineViewX.frame), SCREEN_WIDTH, 60)];
+    UIView *orderBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(lineViewX.frame), SCREEN_WIDTH, 55)];
     [_scView addSubview:orderBtnView];
     orderBtnView.backgroundColor = [UIColor whiteColor];
     
-    _orderLeftBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 270, 15, 80, 30)];
+    _currentHeight = CGRectGetMaxY(orderBtnView.frame);
+    
+    _orderLeftBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 240, 25/2, 70, 30)];
     [orderBtnView addSubview:_orderLeftBtn];
     _orderLeftBtn.tag = 100;
     _orderLeftBtn.layer.borderWidth = 0.5;
@@ -526,7 +541,7 @@
     [_orderLeftBtn setTitleColor:color_1 forState:UIControlStateNormal];
     [_orderLeftBtn addTarget:self action:@selector(orderTouch:) forControlEvents:UIControlEventTouchUpInside];
     
-    _orderCentreBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_orderLeftBtn.frame) + 10, CGRectGetMinY(_orderLeftBtn.frame), 80, 30)];
+    _orderCentreBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_orderLeftBtn.frame) + 10, CGRectGetMinY(_orderLeftBtn.frame), 70, 30)];
     [orderBtnView addSubview:_orderCentreBtn];
     _orderCentreBtn.tag = 101;
     _orderCentreBtn.layer.borderWidth = 0.5;
@@ -535,7 +550,7 @@
     [_orderCentreBtn setTitleColor:color_1 forState:UIControlStateNormal];
     [_orderCentreBtn addTarget:self action:@selector(orderTouch:) forControlEvents:UIControlEventTouchUpInside];
     
-    _orderRightBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_orderCentreBtn.frame) + 10, CGRectGetMinY(_orderLeftBtn.frame), 80, 30)];
+    _orderRightBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_orderCentreBtn.frame) + 10, CGRectGetMinY(_orderLeftBtn.frame), 70, 30)];
     [orderBtnView addSubview:_orderRightBtn];
     _orderRightBtn.tag = 102;
     _orderRightBtn.layer.borderWidth = 0.5;
@@ -544,7 +559,7 @@
     [_orderRightBtn setTitleColor:color_1 forState:UIControlStateNormal];
     [_orderRightBtn addTarget:self action:@selector(orderTouch:) forControlEvents:UIControlEventTouchUpInside];
     
-    _moreBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 15, 80, 30)];
+    _moreBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 25/2, 60, 30)];
     [orderBtnView addSubview:_moreBtn];
     _moreBtn.tag = 103;
     _moreBtn.titleLabel.font = font_1;
@@ -552,6 +567,19 @@
     [_moreBtn setTitleColor:color_1 forState:UIControlStateNormal];
     [_moreBtn addTarget:self action:@selector(orderTouch:) forControlEvents:UIControlEventTouchUpInside];
     
+    _moreImgView = [[UIImageView alloc]initWithFrame:CGRectMake(10, CGRectGetMinY(orderBtnView.frame)  - 50, 86, 56)];
+    [_scView addSubview:_moreImgView];
+    _moreImgView.image = [UIImage imageNamed:@"Tab_4-33"];
+    _moreImgView.userInteractionEnabled = YES;
+    
+    _moreAleartBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 86, 50)];
+    [_moreImgView addSubview:_moreAleartBtn];
+    _moreAleartBtn.tag = 104;
+    _moreAleartBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [_moreAleartBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_moreAleartBtn addTarget:self action:@selector(orderTouch:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _moreImgView.hidden = YES;
     _orderLeftBtn.hidden = YES;
     _orderCentreBtn.hidden = YES;
     _orderRightBtn.hidden = YES;
@@ -569,12 +597,12 @@
         
         NSString *countDownTime = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"countDownTime"]];
         if (countDownTime.length > 0) {
-            _countDownLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 200, 60)];
+            _countDownLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 200, 55)];
             [orderBtnView addSubview:_countDownLabel];
             _countDownLabel.font = [UIFont systemFontOfSize:12];
             _countDownLabel.textColor = color_2;
             _countDownLabel.text = [NSString stringWithFormat:@"还有 %@ 交易关闭",[_orderDataDic objectForKey:@"countDownTime"]];
-             [_orderRightBtn setTitle:[NSString stringWithFormat:@"付款 %@",[_orderDataDic objectForKey:@"countDownTime"]] forState:UIControlStateNormal];
+            [_orderRightBtn setTitle:[NSString stringWithFormat:@"付款 %@",[_orderDataDic objectForKey:@"countDownTime"]] forState:UIControlStateNormal];
             //倒计时
             [self countDown:countDownTime];
         }
@@ -594,7 +622,7 @@
         _orderRightBtn.hidden = NO;
         [_orderLeftBtn setTitle:@"删除订单" forState:UIControlStateNormal];
         [_orderCentreBtn setTitle:@"联系客服" forState:UIControlStateNormal];
-        [_orderRightBtn setTitle:@"申请售后" forState:UIControlStateNormal];
+        [_orderRightBtn setTitle:@"再次购买" forState:UIControlStateNormal];
     }
     
     if (_status == 5) {
@@ -621,14 +649,13 @@
         _orderLeftBtn.hidden = NO;
         _orderCentreBtn.hidden = NO;
         _orderRightBtn.hidden = NO;
-        _moreBtn.hidden = NO;
-        [_orderLeftBtn setTitle:@"联系客服" forState:UIControlStateNormal];
-        [_orderCentreBtn setTitle:@"申请售后" forState:UIControlStateNormal];
-        [_orderRightBtn setTitle:@"查看物流" forState:UIControlStateNormal];
+        [_orderLeftBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+        [_orderCentreBtn setTitle:@"联系客服" forState:UIControlStateNormal];
+        [_orderRightBtn setTitle:@"再次购买" forState:UIControlStateNormal];
     }
     
-    _currentHeight = CGRectGetMaxY(orderBtnView.frame);
 }
+
 
 #pragma mark----- 修改地址
 -(void)changeAddress{
@@ -637,7 +664,78 @@
 
 #pragma mark----- 底部按钮点击事件
 -(void)orderTouch:(UIButton *)sender{
-    
+    switch (sender.tag) {
+        case 100:{
+             if (_status == 4 ||_status == 7 || _status == 8) {
+                 //删除订单
+                 self.deleteOrderBlock();
+             }else if (_status == 5) {
+                 //申请售后
+                 
+             }else if (_status == 6) {
+                 //联系客服
+                 
+             }
+        }break;
+        case 101:{
+            if (_status == 0 ||_status == 2) {
+                //取消订单
+                self.cancelOrderBlock();
+            }else if (_status == 1 || _status == 3 || _status == 4 || _status == 7 || _status == 8) {
+               //联系客服
+                
+            }else if (_status == 5) {
+                //查看物流
+                
+            }else if (_status == 6) {
+                //申请售后
+                
+            }
+        }break;
+        case 102:{
+            if (_status == 0 ||_status == 2) {
+                //付款
+                
+            }else if (_status == 1 || _status == 3) {
+                //申请售后
+                
+            }else if (_status == 4 || _status == 7 || _status == 8) {
+                //再次购买
+                self.againShopBlock();
+            }else if (_status == 5) {
+                //确认收货
+                self.confirmGoodsBlock();
+            }else if (_status == 6) {
+                //查看物流
+                
+            }
+        }break;
+        case 103:{
+            _moreBtn.selected = !_moreBtn.selected;
+            if (_moreBtn.selected) {
+                _moreImgView.hidden = NO;
+                //更多
+                if (_status == 5) {
+                    [_moreAleartBtn setTitle:@"联系客服" forState:UIControlStateNormal];
+                }else  if (_status == 6) {
+                    [_moreAleartBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+                }
+            }else{
+                 _moreImgView.hidden = YES;
+            }
+        }break;
+        case 104:{
+            if (_status == 5) {
+                //联系客服
+               
+            }else  if (_status == 6) {
+                //删除订单
+                self.deleteOrderBlock();
+            }
+        }break;
+        default:
+            break;
+    }
 }
 
 #pragma mark----- 跳转退款详情页面
@@ -678,7 +776,7 @@
                 //倒计时结束，刷新数据，改变订单状态
                 [self.orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];
                 self.countDownLabel.text = @"";
-                self.countDownBlock();
+                self.cancelOrderBlock();
                 [self.navigationController popViewControllerAnimated:YES];
             });
         }else{

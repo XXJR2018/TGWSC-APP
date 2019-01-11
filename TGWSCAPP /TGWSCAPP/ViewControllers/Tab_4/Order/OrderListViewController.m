@@ -244,8 +244,21 @@
     NSString *orderNo = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
     OrderDetailsViewController *ctl = [[OrderDetailsViewController alloc]init];
     ctl.orderNo = orderNo;
-    ctl.countDownBlock = ^{
-       [self cancelOrderUrl:orderNo];
+    ctl.cancelOrderBlock = ^{
+        //取消订单
+        [self cancelOrderUrl:orderNo];
+    };
+    ctl.deleteOrderBlock = ^{
+        //删除订单
+        [self deleteOrderUrl:orderNo];
+    };
+    ctl.confirmGoodsBlock = ^{
+        //确认收货
+        [self confirmGoodsUrl:orderNo];
+    };
+    ctl.againShopBlock = ^{
+        //再次购买
+        [self againShopUrl:orderNo];
     };
     [self.navigationController pushViewController:ctl animated:YES];
     

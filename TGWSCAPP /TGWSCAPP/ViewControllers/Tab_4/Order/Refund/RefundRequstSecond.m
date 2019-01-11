@@ -244,7 +244,6 @@
 
 -(void) actionCommit
 {
-    NSMutableArray *arrSel = [[NSMutableArray alloc] init];
     NSString *strAll = @"";
     for (int i= 0; i< [arrBtn count]; i++)
      {

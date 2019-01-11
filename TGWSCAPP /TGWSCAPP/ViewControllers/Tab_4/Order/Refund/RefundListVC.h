@@ -7,10 +7,11 @@
 //
 
 #import "CommonViewController.h"
+#import "MJRefreshViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RefundListVC : CommonViewController
+@interface RefundListVC : MJRefreshViewController
 
 @end
 

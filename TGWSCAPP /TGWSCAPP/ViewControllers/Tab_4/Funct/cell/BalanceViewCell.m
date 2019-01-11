@@ -14,7 +14,6 @@
 
 -(void)setDataDicionary:(NSDictionary *)dataDicionary{
     _dataDicionary = dataDicionary;
-    
     [self layoutSubviews];
 }
 

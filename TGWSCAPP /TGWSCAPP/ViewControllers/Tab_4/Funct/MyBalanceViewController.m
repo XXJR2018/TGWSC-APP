@@ -277,14 +277,11 @@
         cell.dataDicionary = self.dataArray[indexPath.row];
         return cell;
     }else if (_lqListBtn.selected) {
+        NSString *cellID = [NSString stringWithFormat:@"%ld_lqcell",indexPath.row];
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         
-        NSString *cellID = [NSString stringWithFormat:@"%ld_cell",indexPath.row];
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-        }
         NSDictionary *dic = self.dataArray[indexPath.row];
-        NSArray *titleArr = @[[dic objectForKey:@"createTime"],[dic objectForKey:@"validEndDate"],[dic objectForKey:@"amount"]];
+        NSArray *titleArr = @[[dic objectForKey:@"ymdCreateTime"],[dic objectForKey:@"validEndDate"],[dic objectForKey:@"amount"]];
         for (int i = 0;  i < titleArr.count; i++) {
             UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10 + (SCREEN_WIDTH - 20)/3 * i, 0, (SCREEN_WIDTH - 20)/3, 40)];
             [cell.contentView addSubview:label];
@@ -302,10 +299,8 @@
         return cell;
     }else {
         NSString *cellID = [NSString stringWithFormat:@"%ld_gqcell",indexPath.row];
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-        }
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        
         NSDictionary *dic = self.dataArray[indexPath.row];
         NSArray *titleArr = @[[dic objectForKey:@"createTime"],[dic objectForKey:@"amount"]];
         for (int i = 0;  i < titleArr.count; i++) {

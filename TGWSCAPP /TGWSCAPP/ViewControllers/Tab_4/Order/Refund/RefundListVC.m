@@ -7,6 +7,7 @@
 //
 
 #import "RefundListVC.h"
+#import "RefundListViewCell.h"
 
 @interface RefundListVC ()
 
@@ -18,14 +19,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self layoutNaviBarViewWithTitle:@"退款/售后"];
+    
+    [self layoutUI];
 }
 
 
 #pragma mark  ---  布局UI
 -(void) layoutUI
 {
+    // 设置 tabelView 的位置
+    int originY = NavHeight;
+    self.tableView.frame =  CGRectMake(0, originY, SCREEN_WIDTH, SCREEN_HEIGHT - originY);
     
-}
+    // 隐藏分割线的颜色
+    self.tableView.separatorColor = [UIColor clearColor];
+ }
+
+
 
 #pragma mark === UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -40,7 +50,7 @@
     if (self.dataArray.count == 0) {
         return  tableView.frame.size.height - tableView.tableHeaderView.frame.size.height;
     }else{
-        return 130;
+        return iRefundListCellHeight;
     }
 }
 
@@ -50,12 +60,12 @@
     }
 
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Coupon_Cell"];
+    RefundListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Coupon_Cell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Coupon_Cell"];
+        cell = [[RefundListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Coupon_Cell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+    cell.dataDicionary = self.dataArray[indexPath.row];
     
 //    CouponViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Coupon_Cell"];
 //    if (!cell) {

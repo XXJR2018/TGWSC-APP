@@ -18,6 +18,8 @@
     UIScrollView  *scView;
     
     NSMutableArray *arrBtn;
+    
+    NSArray *orderDtlListArr;
 }
 
 @property(nonatomic, strong)UIImageView *productImgView;  //商品图片
@@ -51,6 +53,7 @@
 -(void) initData
 {
     arrBtn = [[NSMutableArray alloc] init];
+    
 }
 
 
@@ -59,7 +62,7 @@
 {
     NSLog(@"dicParmas:%@",_dicParams);
     
-    NSArray *orderDtlListArr = [_dicParams objectForKey:@"orderDtlList"];
+    orderDtlListArr = [_dicParams objectForKey:@"orderDtlList"];
     if (orderDtlListArr.count == 0) {
         return;
     }
@@ -240,26 +243,32 @@
 -(void) actionCommit
 {
     NSMutableArray *arrSel = [[NSMutableArray alloc] init];
+    NSString *strAll = @"";
     for (int i= 0; i< [arrBtn count]; i++)
      {
         UIButton  *btnTemp = arrBtn[i];
+        NSDictionary *obj = orderDtlListArr[i];
         if (btnTemp.selected)
          {
-            [arrSel addObject:@(i)];
+            //[arrSel addObject:@(i)];
+            strAll = [strAll stringByAppendingString:obj[@"subOrderNo"]];
+            strAll = [strAll stringByAppendingString:@","];
          }
      }
     
-    if (arrSel.count <= 0)
+    strAll = [strAll substringToIndex:strAll.length - 1];
+    
+    if (strAll.length <= 0)
      {
         [MBProgressHUD showErrorWithStatus:@"请选择商品" toView:self.view];
         return;
      }
-    
+
     
     RefundCommitVC  *VC = [[RefundCommitVC alloc] init];
     VC.dicParams = [[NSDictionary alloc] init];
     VC.dicParams =  _dicParams;
-    VC.arrSel = arrSel;
+    VC.subOrderNo = strAll;
     VC.iCommitType = _iCommitType;
     [self.navigationController pushViewController:VC animated:YES];
     

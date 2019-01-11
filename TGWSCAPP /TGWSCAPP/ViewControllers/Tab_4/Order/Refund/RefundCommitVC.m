@@ -24,6 +24,9 @@
     int  iSelImg;    // 1, 2, 3,
     
     PickerView *pickerView_reason;            // 理由选择器
+    int iReasonNO;
+    
+    UITextField *textFieldTKSM;   // 退款说明
     
     NSMutableArray *arrReason;
     NSDictionary *dicUI;
@@ -83,6 +86,7 @@
     arrReason = [[NSMutableArray alloc] init];
     dicUI = [[NSDictionary alloc] init];
     arrUI = [[NSArray alloc] init];
+    iReasonNO = 0;
 }
 
 #pragma mark  ---   布局UI
@@ -119,6 +123,7 @@
     pickerView_reason = [[PickerView alloc] initWithTitle:@"" placeHolder:@"请选择" width:SCREEN_WIDTH-35 itemArray:arrReason origin_Y:iTopY];
     pickerView_reason.finishedBlock = ^(int index){
         //_loanType = _pickerView_loanType.itemsArray[index];
+        iReasonNO = index +1;
     };
     pickerView_reason.beginBlock = ^{
         [weakSelf resignKeyboard];
@@ -164,7 +169,7 @@
     lableT3.text = @"退款说明（可不填）";
     
     iTopY += lableT3.height + 10;
-    UITextField *textFieldTKSM = [[UITextField alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - 2 *iLeftX, 46)];
+    textFieldTKSM = [[UITextField alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - 2 *iLeftX, 46)];
     [scView addSubview:textFieldTKSM];
     textFieldTKSM.textColor = [ResourceManager color_1];
     textFieldTKSM.font = [UIFont systemFontOfSize:14];
@@ -242,7 +247,7 @@
     int iCellLeftX = 15;
     int iCellTopY = 0;
     
-    NSArray *orderDtlListArr = [_dicParams objectForKey:@"orderDtlList"];
+    NSArray *orderDtlListArr = arrUI;//[_dicParams objectForKey:@"orderDtlList"];
     if (orderDtlListArr.count == 0) {
         return  0;
     }
@@ -315,13 +320,14 @@
     labelNote.textColor = [ResourceManager priceColor];
     labelNote.font = [UIFont systemFontOfSize:10];
     labelNote.numberOfLines = 0;
-    NSString *strWeb = dicUI[@"tipMsg"];
     labelNote.text = @"温馨提示：订单退款金额以实际支付金额为准，不包括优惠券抵扣金额，无质量问题退货所产生的物流费由购买者承担，从退款中直接抵扣。";
-    if (strWeb &&
-        strWeb.length > 0)
-     {
-        labelNote.text = strWeb;
-     }
+
+    //    NSString *strWeb = dicUI[@"tipMsg"];
+//    if (strWeb &&
+//        strWeb.length > 0)
+//     {
+//        labelNote.text = strWeb;
+//     }
     
     UIButton *btnCommit = [[UIButton alloc] initWithFrame:CGRectMake(15, 50, SCREEN_WIDTH - 30, 40)];
     [viewTail addSubview:btnCommit];
@@ -358,6 +364,7 @@
 
 -(void) getUIDataFormWeb
 {
+    
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"orderNo"] = _dicParams[@"orderNo"];
@@ -374,9 +381,54 @@
                                                                                   failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
                                                                                       [self handleErrorData:operation];
                                                                                       //[MBProgressHUD hideHUDForView:self.view animated:NO];
+                                                                                     
                                                                                   }];
-    [operation start];
     operation.tag = 1001;
+    [operation start];
+    
+}
+
+-(void) goodCommit
+{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"orderNo"] = _dicParams[@"orderNo"];
+    params[@"subOrderNos"] = _subOrderNo;
+    params[@"refundType"] = @(_iCommitType);
+    params[@"resionId"] = @(iReasonNO);
+    params[@"refundDesc"] = textFieldTKSM.text;
+    params[@"resionId"] = @(iReasonNO);
+    if (strImgUrl1)
+     {
+        params[@"imgUrl1"] = strImgUrl1;
+     }
+    if (strImgUrl2)
+     {
+        params[@"imgUrl2"] = strImgUrl2;
+     }
+    if (strImgUrl3)
+     {
+        params[@"imgUrl3"] = strImgUrl3;
+     }
+    
+    
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString], kURLselectRefundGoods];
+    
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                      //[MBProgressHUD hideHUDForView:self.view animated:NO];
+                                                                                  }];
+    
+    operation.tag = 1002;
+    [operation start];
+    
 }
 
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
@@ -405,7 +457,22 @@
         arrUI = operation.jsonResult.rows;
         [self layoutUI];
      }
+    else if (1002 == operation.tag)
+     {
+        [MBProgressHUD showErrorWithStatus:@"申请提交成功" toView:self.view];
+        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:1.0];// 延迟执行
+        return;
+     }
     
+}
+
+
+
+-(void) delayMethod
+{
+    //[self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4),@"index":@(0)}];
 }
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
@@ -474,7 +541,13 @@
 
 -(void) actionCommit
 {
+    if (iReasonNO <= 0)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请选择退款原因" toView:self.view];
+        return;
+     }
     
+    [self goodCommit];
 }
 
 #pragma mark UIImagePickerViewControllerDelegate

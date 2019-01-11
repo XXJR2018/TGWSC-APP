@@ -127,10 +127,12 @@
         if (operation.jsonResult.rows.count > 0) {
             [self reloadTableViewWithArray:operation.jsonResult.rows];
         }else{
-            if (self.pageIndex > 1) {
+            if (self.pageIndex == 1) {
+                [self.dataArray removeAllObjects];
+                [_tableView reloadData];
+            }else{
                 [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
             }
-            [_tableView reloadData];
             self.pageIndex --;
         }
     }else if (operation.tag == 1001) {
@@ -228,10 +230,7 @@
     };
     cell.orderTimeBlock = ^{
         NSString *orderNo = [NSString stringWithFormat:@"%@",[(NSDictionary *)self.dataArray[indexPath.row] objectForKey:@"orderNo"]];
-        if (orderNo.length > 0) {
-            [self cancelOrderUrl:orderNo];
-        }
-        [self loadData];
+        [self cancelOrderUrl:orderNo];
     };
     cell.dataDicionary = self.dataArray[indexPath.row];
     return cell;
@@ -242,8 +241,12 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     NSDictionary *dic = self.dataArray[indexPath.row];
+    NSString *orderNo = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
     OrderDetailsViewController *ctl = [[OrderDetailsViewController alloc]init];
-    ctl.orderNo = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
+    ctl.orderNo = orderNo;
+    ctl.countDownBlock = ^{
+       [self cancelOrderUrl:orderNo];
+    };
     [self.navigationController pushViewController:ctl animated:YES];
     
 }

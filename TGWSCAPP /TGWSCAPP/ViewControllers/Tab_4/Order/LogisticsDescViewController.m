@@ -35,15 +35,12 @@
 #pragma mark 数据操作
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
-    if (operation.jsonResult.attr.count > 0) {
+    if (operation.jsonResult.attr.count > 0 && operation.jsonResult.rows.count > 0) {
         _logisticsDataDic = operation.jsonResult.attr;
-    }
-    if (operation.jsonResult.rows.count > 0) {
         [self.dataArray removeAllObjects];
         [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
+        [self layoutUI];
     }
-    
-    [self layoutUI];
     
 }
 

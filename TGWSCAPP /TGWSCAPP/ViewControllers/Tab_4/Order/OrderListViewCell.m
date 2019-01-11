@@ -188,6 +188,7 @@
     UIColor *color_4 = UIColorFromRGB(0xB00000);
 //    状态（//0-待付款 1-交易成功 2-交易失败 3-卖家确认(待发货) 4-卖家审核失败 5-已发货  6-确认收货 7-交易关闭  8-退款成功  ）
     NSInteger status = [[_dataDicionary objectForKey:@"status"] intValue];
+    
     if (status == 0 || status == 2) {
         _orderLeftBtn.hidden = YES;
         _orderCentreBtn.hidden = NO;
@@ -230,15 +231,23 @@
             }
         }
        
-    }else if (status == 1|| status == 3) {
-        _orderLeftBtn.hidden = YES;
-        _orderCentreBtn.hidden = YES;
-        _orderRightBtn.hidden = NO;
-        _orderRightBtn.layer.borderColor = color_3.CGColor;
-        _orderRightBtn.backgroundColor = [UIColor whiteColor];
-        [_orderRightBtn setTitle:@"申请退款" forState:UIControlStateNormal];
-        [_orderRightBtn setTitleColor:color_1 forState:UIControlStateNormal];
-    }else if (status == 4|| status == 7) {
+    }else {
+        if (_timer) {
+            dispatch_source_cancel(self.timer);
+        }
+    }
+    
+    if (status == 1|| status == 3) {
+    _orderLeftBtn.hidden = YES;
+    _orderCentreBtn.hidden = YES;
+    _orderRightBtn.hidden = NO;
+    _orderRightBtn.layer.borderColor = color_3.CGColor;
+    _orderRightBtn.backgroundColor = [UIColor whiteColor];
+    [_orderRightBtn setTitle:@"申请退款" forState:UIControlStateNormal];
+    [_orderRightBtn setTitleColor:color_1 forState:UIControlStateNormal];
+    }
+    
+    if (status == 4|| status == 7) {
         _orderLeftBtn.hidden = NO;
         _orderCentreBtn.hidden = YES;
         _orderRightBtn.hidden = NO;
@@ -246,7 +255,9 @@
         _orderRightBtn.backgroundColor = [UIColor whiteColor];
         [_orderRightBtn setTitle:@"再次购买" forState:UIControlStateNormal];
         [_orderRightBtn setTitleColor:color_1 forState:UIControlStateNormal];
-    }else if (status == 5) {
+    }
+    
+    if (status == 5) {
         _orderLeftBtn.hidden = YES;
         _orderCentreBtn.hidden = NO;
         _orderRightBtn.hidden = NO;
@@ -257,7 +268,9 @@
         _orderRightBtn.backgroundColor = [UIColor whiteColor];
         [_orderRightBtn setTitle:@"确认收货" forState:UIControlStateNormal];
         [_orderRightBtn setTitleColor:color_1 forState:UIControlStateNormal];
-    }else if (status == 6) {
+    }
+    
+    if (status == 6) {
         _orderLeftBtn.hidden = NO;
         _orderCentreBtn.hidden = NO;
         _orderRightBtn.hidden = NO;
@@ -268,7 +281,9 @@
         _orderRightBtn.backgroundColor = [UIColor whiteColor];
         [_orderRightBtn setTitle:@"再次购买" forState:UIControlStateNormal];
         [_orderRightBtn setTitleColor:color_1 forState:UIControlStateNormal];
-    }else if (status == 8) {
+    }
+    
+    if (status == 8) {
         _orderLeftBtn.hidden = YES;
         _orderCentreBtn.hidden = YES;
         _orderRightBtn.hidden = NO;

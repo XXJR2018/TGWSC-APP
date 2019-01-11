@@ -13,10 +13,6 @@
 
 @interface RefundCommitVC ()<UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {
-    PickerView *pickerView_reason;            // 理由选择器
-    
-    NSArray *arrReason;
-    
     UIScrollView  *scView;
     
     UIImageView *img1;       //  图片1
@@ -26,6 +22,12 @@
     UIImageView *img3;       //  图片3
     NSString    *strImgUrl3;
     int  iSelImg;    // 1, 2, 3,
+    
+    PickerView *pickerView_reason;            // 理由选择器
+    
+    NSMutableArray *arrReason;
+    NSDictionary *dicUI;
+    NSArray *arrUI;
     
 }
 
@@ -65,7 +67,9 @@
     
     [self getReason];
     
-    [self layoutUI];
+    [self getUIDataFormWeb];
+    
+    //[self layoutUI];
     
     
     //添加手势点击空白处隐藏键盘
@@ -76,7 +80,9 @@
 
 -(void) initData
 {
-    arrReason = [[NSArray alloc] init];
+    arrReason = [[NSMutableArray alloc] init];
+    dicUI = [[NSDictionary alloc] init];
+    arrUI = [[NSArray alloc] init];
 }
 
 #pragma mark  ---   布局UI
@@ -110,7 +116,7 @@
     
     iTopY += lableT1.height + 10;
     __weak typeof(self) weakSelf = self;
-    pickerView_reason = [[PickerView alloc] initWithTitle:@"" placeHolder:@"请选择" width:SCREEN_WIDTH-35 itemArray:@[@"房产抵押",@"车辆抵押",@"信用贷款",@"过桥贷款",@"信用卡",@"其它"] origin_Y:iTopY];
+    pickerView_reason = [[PickerView alloc] initWithTitle:@"" placeHolder:@"请选择" width:SCREEN_WIDTH-35 itemArray:arrReason origin_Y:iTopY];
     pickerView_reason.finishedBlock = ^(int index){
         //_loanType = _pickerView_loanType.itemsArray[index];
     };
@@ -145,7 +151,7 @@
     textFieldTKJE.cornerRadius = 5;
     textFieldTKJE.leftViewMode = UITextFieldViewModeAlways;
     textFieldTKJE.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 0)];
-    textFieldTKJE.text = [NSString stringWithFormat:@"%@元",_dicParams[@"totalOrderAmt"]];
+    textFieldTKJE.text = [NSString stringWithFormat:@"%@元",dicUI[@"refundTotalAmt"]];
     textFieldTKJE.userInteractionEnabled = NO;
     
     
@@ -222,6 +228,11 @@
     strImgUrl2 = nil;
     strImgUrl3 = nil;
     
+    iTopY += iImgWdith + 10;
+    scView.contentSize = CGSizeMake(0, iTopY);
+    
+    [self layoutTail];
+    
 }
 
 -(int) layoutShopList
@@ -293,11 +304,39 @@
     return iTopY;
 }
 
+-(void) layoutTail
+{
+    UIView *viewTail = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-95, SCREEN_WIDTH, 95)];
+    [self.view addSubview:viewTail];
+    viewTail.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *labelNote = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, 30)];
+    [viewTail addSubview:labelNote];
+    labelNote.textColor = [ResourceManager priceColor];
+    labelNote.font = [UIFont systemFontOfSize:10];
+    labelNote.numberOfLines = 0;
+    NSString *strWeb = dicUI[@"tipMsg"];
+    labelNote.text = @"温馨提示：订单退款金额以实际支付金额为准，不包括优惠券抵扣金额，无质量问题退货所产生的物流费由购买者承担，从退款中直接抵扣。";
+    if (strWeb &&
+        strWeb.length > 0)
+     {
+        labelNote.text = strWeb;
+     }
+    
+    UIButton *btnCommit = [[UIButton alloc] initWithFrame:CGRectMake(15, 50, SCREEN_WIDTH - 30, 40)];
+    [viewTail addSubview:btnCommit];
+    [btnCommit setTitle:@"提交退款申请" forState:UIControlStateNormal];
+    [btnCommit setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
+    btnCommit.titleLabel.font = [UIFont systemFontOfSize:14];
+    btnCommit.borderColor = [ResourceManager mainColor];
+    btnCommit.borderWidth = 1;
+    btnCommit.backgroundColor = [UIColor whiteColor];
+    [btnCommit addTarget:self action:@selector(actionCommit) forControlEvents:UIControlEventTouchUpInside];
+}
+
 #pragma mark ---  网络通讯
 -(void) getReason
 {
-    
-    
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -317,13 +356,55 @@
     operation.tag = 1000;
 }
 
+-(void) getUIDataFormWeb
+{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"orderNo"] = _dicParams[@"orderNo"];
+    params[@"subOrderNos"] = _subOrderNo;
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString], kURLselectRefundGoods];
+    
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                      //[MBProgressHUD hideHUDForView:self.view animated:NO];
+                                                                                  }];
+    [operation start];
+    operation.tag = 1001;
+}
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     
    if (1000 == operation.tag)
     {
-       arrReason = operation.jsonResult.rows;
+       NSArray* arr = operation.jsonResult.rows;
+       if (!arr &&
+           arr.count <= 0)
+        {
+           return;
+        }
+       
+       [arrReason removeAllObjects];
+       for (int i = 0; i < arr.count; i++)
+        {
+           NSDictionary *obj = arr[i];
+           NSString *str = [NSString stringWithFormat:@"%@", obj[@"resionDesc"]];
+           [arrReason addObject:str];
+        }
     }
+    else if (1001 == operation.tag)
+     {
+        dicUI = operation.jsonResult.attr;
+        arrUI = operation.jsonResult.rows;
+        [self layoutUI];
+     }
     
 }
 
@@ -358,9 +439,9 @@
         if (range.length == 1 && string.length == 0) {
             return YES;
         }
-        if(textField.text.length >= 45) {
+        if(textField.text.length >= 200) {
             //输入的字符个数大于45，则无法继续输入，返回NO表示禁止输入
-            [MBProgressHUD showErrorWithStatus:@"输入字符长度大于45" toView:self.view];
+            [MBProgressHUD showErrorWithStatus:@"输入字符长度大于200" toView:self.view];
             return NO;
         } else {
             return YES;
@@ -377,16 +458,6 @@
     iSelImg = iTag;
     NSLog(@"iTag:%d",iTag);
     
-//    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
-//     {
-//        return;
-//     }
-//    UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
-//    pickerController.delegate = self;
-//    pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//    //pickerController.allowsEditing = YES;
-//
-//    [self.navigationController presentViewController:pickerController animated:YES completion:nil];
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
         return;
     }
@@ -397,6 +468,12 @@
     pickerController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
     pickerController.navigationBar.tintColor = [ResourceManager mainColor];
     [self.navigationController presentViewController:pickerController animated:YES completion:nil];
+    
+}
+
+
+-(void) actionCommit
+{
     
 }
 

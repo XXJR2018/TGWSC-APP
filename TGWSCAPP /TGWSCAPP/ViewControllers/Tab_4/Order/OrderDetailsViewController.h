@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic ,copy)NSString *orderNo;
 
+@property(nonatomic,copy)Block_Void countDownBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

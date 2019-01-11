@@ -413,19 +413,15 @@
    
     for (int i = 0; i < 4; i ++) {
         for (int j = 0; j < 4; j ++) {
-            NSInteger count = i * 4 + j;
-            if ([[[CommonInfo userInfo] objectForKey:@"isEmployee"] intValue] == 0) {
-                count = i * 4 + j + 1;
-            }
-            if (count < imgArr.count) {
-                if (count == 2) {
+            if ( i * 4 + j < imgArr.count) {
+                if ( i * 4 + j == 2) {
                     _couponBtn = [[JXButton alloc]initWithFrame:CGRectMake(btnWidth * j, btnWidth * i + 20 * (i + 1), btnWidth, btnWidth)];
                     [self.footView addSubview:_couponBtn];
-                    _couponBtn.tag = count;
+                    _couponBtn.tag =  i * 4 + j;
                     [_couponBtn addTarget:self action:@selector(functTouch:) forControlEvents:UIControlEventTouchUpInside];
-                    [_couponBtn setTitle:titleArr[count] forState:UIControlStateNormal];
+                    [_couponBtn setTitle:titleArr[ i * 4 + j] forState:UIControlStateNormal];
                     [_couponBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
-                    [_couponBtn setImage:[UIImage imageNamed:imgArr[count]] forState:UIControlStateNormal];
+                    [_couponBtn setImage:[UIImage imageNamed:imgArr[ i * 4 + j]] forState:UIControlStateNormal];
                     
                     _couponNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, btnWidth - 20, btnWidth, 15)];
                     [_couponBtn addSubview:_couponNumLabel];
@@ -435,25 +431,25 @@
                 }else{
                     JXButton *functBtn = [[JXButton alloc]initWithFrame:CGRectMake(btnWidth * j, btnWidth * i + 20 * (i + 1), btnWidth, btnWidth)];
                     [self.footView addSubview:functBtn];
-                    functBtn.tag = count;
+                    functBtn.tag =  i * 4 + j;
                     [functBtn addTarget:self action:@selector(functTouch:) forControlEvents:UIControlEventTouchUpInside];
-                    [functBtn setTitle:titleArr[count] forState:UIControlStateNormal];
+                    [functBtn setTitle:titleArr[ i * 4 + j] forState:UIControlStateNormal];
                     [functBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
-                    [functBtn setImage:[UIImage imageNamed:imgArr[count]] forState:UIControlStateNormal];
+                    [functBtn setImage:[UIImage imageNamed:imgArr[ i * 4 + j]] forState:UIControlStateNormal];
                     
-                    if (count == 0) {
+                    if ( i * 4 + j == 0) {
                         _balanceNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, btnWidth - 20, btnWidth, 15)];
                         [functBtn addSubview:_balanceNumLabel];
                         _balanceNumLabel.textAlignment = NSTextAlignmentCenter;
                         _balanceNumLabel.textColor = [ResourceManager mainColor];
                         _balanceNumLabel.font = [UIFont systemFontOfSize:12];
-                    }else if (count == 1) {
+                    }else if ( i * 4 + j == 1) {
                         _pointsNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, btnWidth - 20, btnWidth, 15)];
                         [functBtn addSubview:_pointsNumLabel];
                         _pointsNumLabel.textAlignment = NSTextAlignmentCenter;
                         _pointsNumLabel.textColor = [ResourceManager mainColor];
                         _pointsNumLabel.font = [UIFont systemFontOfSize:12];
-                    }else if (count == 3) {
+                    }else if ( i * 4 + j == 3) {
                         _collectNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, btnWidth - 20, btnWidth, 15)];
                         [functBtn addSubview:_collectNumLabel];
                         _collectNumLabel.textAlignment = NSTextAlignmentCenter;

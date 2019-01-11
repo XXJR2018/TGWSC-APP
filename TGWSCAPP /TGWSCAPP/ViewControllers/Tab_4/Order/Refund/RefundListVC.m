@@ -8,6 +8,7 @@
 
 #import "RefundListVC.h"
 #import "RefundListViewCell.h"
+#import "RefundInfoVC.h"
 
 @interface RefundListVC ()
 
@@ -59,7 +60,6 @@
         return  [self noDataCell:tableView];
     }
 
-    
     RefundListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Coupon_Cell"];
     if (!cell) {
         cell = [[RefundListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Coupon_Cell"];
@@ -67,17 +67,11 @@
     }
     cell.dataDicionary = self.dataArray[indexPath.row];
     
-//    CouponViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Coupon_Cell"];
-//    if (!cell) {
-//        cell = [[CouponViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Coupon_Cell"];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    }
 //    cell.employBlock = ^{
 //        [self.navigationController popToRootViewControllerAnimated:NO];
 //        [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@"1"}];
 //    };
-//
-//    cell.dataDicionary = self.dataArray[indexPath.row];
+
     return cell;
 }
 
@@ -85,6 +79,14 @@
     //（这种是没有点击后的阴影效果)
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
+    NSDictionary *dic = self.dataArray[indexPath.row];
+    
+    //退款详情
+    RefundInfoVC *VC = [[RefundInfoVC alloc] init];
+    VC.dicParams = [[NSDictionary alloc] init];
+    VC.dicParams = dic;
+    [self.navigationController pushViewController:VC animated:YES];
 }
 
 

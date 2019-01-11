@@ -175,6 +175,7 @@ const  int  iRefundListCellHeight = 235 + 10;
     [_orderRightBtn setTitle:@"退款详情" forState:UIControlStateNormal];
     [_orderRightBtn setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
     //[_orderRightBtn addTarget:self action:@selector(orderTouch:) forControlEvents:UIControlEventTouchUpInside];
+    _orderRightBtn.userInteractionEnabled = NO;
     
     UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_orderRightBtn.frame) + 15, SCREEN_WIDTH, 5)];
     [self.contentView addSubview:lineView];

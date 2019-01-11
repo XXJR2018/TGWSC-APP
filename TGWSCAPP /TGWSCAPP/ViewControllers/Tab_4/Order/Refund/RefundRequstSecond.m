@@ -20,6 +20,8 @@
     NSMutableArray *arrBtn;
     
     NSArray *orderDtlListArr;
+    
+    NSString *strAllSel;
 }
 
 @property(nonatomic, strong)UIImageView *productImgView;  //商品图片
@@ -242,7 +244,6 @@
 
 -(void) actionCommit
 {
-    NSMutableArray *arrSel = [[NSMutableArray alloc] init];
     NSString *strAll = @"";
     for (int i= 0; i< [arrBtn count]; i++)
      {
@@ -264,13 +265,52 @@
         return;
      }
 
+    [self getUIDataFormWeb:strAll];
     
-    RefundCommitVC  *VC = [[RefundCommitVC alloc] init];
-    VC.dicParams = [[NSDictionary alloc] init];
-    VC.dicParams =  _dicParams;
-    VC.subOrderNo = strAll;
-    VC.iCommitType = _iCommitType;
-    [self.navigationController pushViewController:VC animated:YES];
     
 }
+
+#pragma mark  --- 网络请求
+-(void) getUIDataFormWeb:(NSString *) strValue
+{
+    strAllSel = strValue;
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"orderNo"] = _dicParams[@"orderNo"];
+    params[@"subOrderNos"] = strValue;
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString], kURLselectRefundGoods];
+    
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+    operation.tag = 1000;
+}
+
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    
+    if (1000 == operation.tag)
+     {
+        RefundCommitVC  *VC = [[RefundCommitVC alloc] init];
+        VC.dicParams = [[NSDictionary alloc] init];
+        VC.dicParams =  _dicParams;
+        VC.subOrderNo = strAllSel;
+        VC.iCommitType = _iCommitType;
+        [self.navigationController pushViewController:VC animated:YES];
+     }
+}
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
+}
+
 @end

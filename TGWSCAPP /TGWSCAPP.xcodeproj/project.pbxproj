@@ -25,6 +25,7 @@
 		C04B180C21E5DD1000DBA0FE /* RefundRequstSecond.m in Sources */ = {isa = PBXBuildFile; fileRef = C04B180B21E5DD1000DBA0FE /* RefundRequstSecond.m */; };
 		C04B180F21E5DD6B00DBA0FE /* RefundCommitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C04B180E21E5DD6B00DBA0FE /* RefundCommitVC.m */; };
 		C04B181221E5DDAB00DBA0FE /* RefundScheduleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C04B181121E5DDAB00DBA0FE /* RefundScheduleVC.m */; };
+		C067E8B521E83A2400395F91 /* RefundListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C067E8B421E83A2400395F91 /* RefundListViewCell.m */; };
 		C098D2A821E058EC0008584B /* SelCouponVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2A721E058EC0008584B /* SelCouponVC.m */; };
 		C098D2AC21E0A43E0008584B /* SelPayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2AB21E0A43E0008584B /* SelPayVC.m */; };
 		C098D2B221E0A7480008584B /* PayResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2B121E0A7480008584B /* PayResultVC.m */; };
@@ -352,6 +353,8 @@
 		C04B180E21E5DD6B00DBA0FE /* RefundCommitVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefundCommitVC.m; sourceTree = "<group>"; };
 		C04B181021E5DDAB00DBA0FE /* RefundScheduleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefundScheduleVC.h; sourceTree = "<group>"; };
 		C04B181121E5DDAB00DBA0FE /* RefundScheduleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefundScheduleVC.m; sourceTree = "<group>"; };
+		C067E8B321E83A2400395F91 /* RefundListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefundListViewCell.h; sourceTree = "<group>"; };
+		C067E8B421E83A2400395F91 /* RefundListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefundListViewCell.m; sourceTree = "<group>"; };
 		C098D2A621E058EC0008584B /* SelCouponVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelCouponVC.h; sourceTree = "<group>"; };
 		C098D2A721E058EC0008584B /* SelCouponVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelCouponVC.m; sourceTree = "<group>"; };
 		C098D2AA21E0A43E0008584B /* SelPayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelPayVC.h; sourceTree = "<group>"; };
@@ -986,6 +989,7 @@
 		C04B180021E5DA7E00DBA0FE /* Refund */ = {
 			isa = PBXGroup;
 			children = (
+				C067E8B221E839F200395F91 /* cell */,
 				C04B180121E5DC5000DBA0FE /* RefundListVC.h */,
 				C04B180221E5DC5000DBA0FE /* RefundListVC.m */,
 				C04B180421E5DC6600DBA0FE /* RefundInfoVC.h */,
@@ -1000,6 +1004,15 @@
 				C04B181121E5DDAB00DBA0FE /* RefundScheduleVC.m */,
 			);
 			path = Refund;
+			sourceTree = "<group>";
+		};
+		C067E8B221E839F200395F91 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				C067E8B321E83A2400395F91 /* RefundListViewCell.h */,
+				C067E8B421E83A2400395F91 /* RefundListViewCell.m */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		C098D2A421E057800008584B /* SelCoupon */ = {
@@ -2669,6 +2682,7 @@
 				C250476221BA715500DA9C72 /* UIView+Additions.m in Sources */,
 				C25045FB21BA711E00DA9C72 /* NSDate+Extension.m in Sources */,
 				C250476E21BA715500DA9C72 /* NSArray+Additions.m in Sources */,
+				C067E8B521E83A2400395F91 /* RefundListViewCell.m in Sources */,
 				C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */,
 				C250451A21BA579100DA9C72 /* RemoteNTFManager.m in Sources */,
 				C0CCC85C21C391F1009352E0 /* ShopModel.m in Sources */,

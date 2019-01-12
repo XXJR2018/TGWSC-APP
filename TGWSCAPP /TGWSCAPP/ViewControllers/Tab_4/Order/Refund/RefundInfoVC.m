@@ -331,7 +331,7 @@
     label1Value.textColor = [ResourceManager color_1];
     label1Value.font = [UIFont systemFontOfSize:12];
     label1Value.textAlignment = NSTextAlignmentRight;
-    label1Value.text = dicValue[@"refundNo"]?[NSString stringWithFormat:@"¥%@", dicValue[@"refundNo"]]:@"";
+    label1Value.text = dicValue[@"refundNo"]?[NSString stringWithFormat:@"%@", dicValue[@"refundNo"]]:@"";
     
     //申请时间
     iTopY +=  30;
@@ -361,7 +361,7 @@
     label3Value.textColor = [ResourceManager color_1];
     label3Value.font = [UIFont systemFontOfSize:12];
     label3Value.textAlignment = NSTextAlignmentRight;
-    label3Value.text = dicValue[@"resionDesc"]?[NSString stringWithFormat:@"¥%@", dicValue[@"resionDesc"]]:@"";
+    label3Value.text = dicValue[@"resionDesc"]?[NSString stringWithFormat:@"%@", dicValue[@"resionDesc"]]:@"";
     
     //处理方式
     iTopY +=  30;

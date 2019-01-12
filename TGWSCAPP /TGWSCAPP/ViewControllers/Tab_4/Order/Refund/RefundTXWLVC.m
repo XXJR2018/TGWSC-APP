@@ -76,7 +76,7 @@
     //textWLGS.linetype = LineTypeBotton;
     
     iTopY += CellHeight44+ 10;
-    textSJHM = [[TextFieldView alloc] initWithTitle:@"手机号码" placeHolder:@"请输入手机号码" textAlignment:NSTextAlignmentLeft width:SCREEN_WIDTH - 100 originY:iTopY  fieldViewType:TextFieldViewDefault];
+    textSJHM = [[TextFieldView alloc] initWithTitle:@"手机号码" placeHolder:@"请输入手机号码" textAlignment:NSTextAlignmentLeft width:SCREEN_WIDTH - 100 originY:iTopY  fieldViewType:TextFieldViewNumber];
     [scView addSubview:textSJHM];
     textSJHM.linetype = LineTypeBotton;
 
@@ -167,6 +167,23 @@
 #pragma mark ---  action
 -(void) actionTXWl
 {
+    if (textWLGS.textField.text.length <= 0)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请输入物流公司" toView:self.view];
+        return;
+     }
+    if (textWLDH.textField.text.length <= 0)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请输入物流单号" toView:self.view];
+        return;
+     }
+    if (textSJHM.textField.text.length <= 0)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请输入手机号码" toView:self.view];
+        return;
+     }
+
+    [self goodCommit];
     
 }
 
@@ -191,6 +208,74 @@
     
 }
 
+
+#pragma mark  ---  网络通讯
+-(void) goodCommit
+{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"refundNo"] = _dicParams[@"refundNo"];
+    params[@"logisticsId"] = _dicParams[@"logisticsId"];;
+    params[@"expressCompany"] = textWLGS.textField.text;
+    params[@"expressNo"] = textWLDH.textField.text;
+    params[@"custRemark"] = textBZXX.textField.text;
+    params[@"custTel"] = textSJHM.textField.text;
+    if (strImgUrl1)
+     {
+        params[@"imgUrl1"] = strImgUrl1;
+     }
+    if (strImgUrl2)
+     {
+        params[@"imgUrl2"] = strImgUrl2;
+     }
+    if (strImgUrl3)
+     {
+        params[@"imgUrl3"] = strImgUrl3;
+     }
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString], kURLsaveLogistics];
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                      //[MBProgressHUD hideHUDForView:self.view animated:NO];
+                                                                                  }];
+    
+    operation.tag = 1000;
+    [operation start];
+    
+}
+
+
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    
+    if (1000 == operation.tag)
+     {
+        [MBProgressHUD showErrorWithStatus:@"申请提交成功" toView:self.view];
+        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:1.0];// 延迟执行
+        return;
+     }
+    
+}
+
+
+
+-(void) delayMethod
+{
+    //[self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4),@"index":@(0)}];
+}
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
+}
 
 #pragma mark UIImagePickerViewControllerDelegate
 /**

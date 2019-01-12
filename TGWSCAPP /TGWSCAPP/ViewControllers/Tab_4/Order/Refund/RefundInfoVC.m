@@ -9,6 +9,7 @@
 #import "RefundInfoVC.h"
 #import "CustomerServiceViewController.h"
 #import "RefundScheduleVC.h"
+#import "RefundTXWLVC.h"
 
 @interface RefundInfoVC ()
 {
@@ -489,6 +490,10 @@
 -(void) actionTXWl
 {
     NSLog(@"填写物流");
+    RefundTXWLVC *VC = [[RefundTXWLVC alloc] init];
+    VC.dicParams = [[NSDictionary alloc] init];
+    VC.dicParams = _dicParams;
+    [self.navigationController pushViewController:VC animated:YES];
 }
 
 -(void) actionCanelRequset

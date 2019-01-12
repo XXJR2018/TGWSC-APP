@@ -99,6 +99,8 @@ static NSString *const kURLupdateOrderAddr = @"appMall/account/myOrder/updateOrd
 static NSString *const kURLlogisticsInfo = @"appMall/account/myOrder/logisticsInfo";
 // 查询物流详细信息
 static NSString *const kURLlogisticsInfoDtl = @"appMall/account/myOrder/logisticsInfoDtl";
+// 售后进度
+static NSString *const kURLquerySaleSchedule = @"appMall/account/orderRefund/querySaleSchedule";
 
 
 

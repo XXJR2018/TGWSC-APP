@@ -119,11 +119,12 @@
     if (operation.jsonResult.rows.count > 0) {
         [self reloadTableViewWithArray:operation.jsonResult.rows];
     }else{
-        self.pageIndex --;
+        
         if (self.pageIndex > 1) {
             [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
         }
         
+        self.pageIndex --;
         if (self.pageIndex <= 1)
          {
             [self reloadTableViewWithArray:operation.jsonResult.rows];

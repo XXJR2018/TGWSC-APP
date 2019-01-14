@@ -10,6 +10,8 @@
 
 #import "LogisticsViewController.h"
 #import "SelPayVC.h"
+#import "RefundRequstFrist.h"
+#import "RefundInfoVC.h"
 
 @interface OrderDetailsViewController ()
 {
@@ -674,6 +676,10 @@
                  self.deleteOrderBlock();
              }else if (_status == 5) {
                  //申请售后
+                 RefundRequstFrist *VC = [[RefundRequstFrist alloc] init];
+                 VC.dicParams = [[NSDictionary alloc] init];
+                 VC.dicParams = _orderDataDic;
+                 [self.navigationController pushViewController:VC animated:YES];
                  
              }else if (_status == 6) {
                  //联系客服
@@ -696,6 +702,10 @@
                 [self.navigationController pushViewController:ctl animated:YES];
             }else if (_status == 6) {
                 //申请售后
+                RefundRequstFrist *VC = [[RefundRequstFrist alloc] init];
+                VC.dicParams = [[NSDictionary alloc] init];
+                VC.dicParams = _orderDataDic;
+                [self.navigationController pushViewController:VC animated:YES];
                 
             }
         }break;
@@ -707,6 +717,10 @@
                 [self.navigationController pushViewController:VC animated:YES];
             }else if (_status == 1 || _status == 3) {
                 //申请售后
+                RefundRequstFrist *VC = [[RefundRequstFrist alloc] init];
+                VC.dicParams = [[NSDictionary alloc] init];
+                VC.dicParams = _orderDataDic;
+                [self.navigationController pushViewController:VC animated:YES];
                 
             }else if (_status == 4 || _status == 7 || _status == 8) {
                 //再次购买
@@ -753,6 +767,10 @@
 #pragma mark----- 跳转退款详情页面
 -(void)refund{
     
+    RefundInfoVC *VC = [[RefundInfoVC alloc] init];
+    VC.dicParams = [[NSDictionary alloc] init];
+    VC.dicParams = _orderDataDic;
+    [self.navigationController pushViewController:VC animated:YES];
 }
 
 -(void)agreeTreaty:(UIButton *)sender{

@@ -9,6 +9,7 @@
 #import "OrderDetailsViewController.h"
 
 #import "LogisticsViewController.h"
+#import "AddAddressViewController.h"
 #import "SelPayVC.h"
 #import "RefundRequstFrist.h"
 #import "RefundInfoVC.h"
@@ -36,6 +37,8 @@
 
 @property(nonatomic, strong)UILabel *countDownLabel;       //倒计时
 
+@property(nonatomic,strong)dispatch_source_t timer;       //创建GCD定时器
+
 @end
 
 @implementation OrderDetailsViewController
@@ -61,7 +64,7 @@
     if (operation.jsonResult.attr.count > 0 && operation.jsonResult.rows.count > 0) {
         _orderDataDic = operation.jsonResult.attr;
         _status = [[_orderDataDic objectForKey:@"status"] intValue];
-        _status = 6;
+        _status = 0;
         [self.dataArray removeAllObjects];
         [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
         [self layoutUI];
@@ -77,11 +80,20 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"订单详情"];
+    if (_timer) {
+        (dispatch_resume(_timer));
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"订单详情"];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    if (_timer) {
+        (dispatch_suspend(_timer));
+    }
 }
 
 - (void)viewDidLoad {
@@ -606,8 +618,8 @@
             [orderBtnView addSubview:_countDownLabel];
             _countDownLabel.font = [UIFont systemFontOfSize:12];
             _countDownLabel.textColor = color_2;
-            _countDownLabel.text = [NSString stringWithFormat:@"还有 %@ 交易关闭",[_orderDataDic objectForKey:@"countDownTime"]];
-            [_orderRightBtn setTitle:[NSString stringWithFormat:@"付款 %@",[_orderDataDic objectForKey:@"countDownTime"]] forState:UIControlStateNormal];
+            _countDownLabel.text = [NSString stringWithFormat:@"还有 %@ 交易关闭",countDownTime];
+            [_orderRightBtn setTitle:[NSString stringWithFormat:@"付款 %@",countDownTime] forState:UIControlStateNormal];
             //倒计时
             [self countDown:countDownTime];
         }
@@ -661,10 +673,15 @@
     
 }
 
-
 #pragma mark----- 修改地址
 -(void)changeAddress{
-    
+    AddAddressViewController *ctl = [[AddAddressViewController alloc]init];
+    ctl.titleStr = @"修改地址";
+    ctl.addressDic = _orderDataDic;
+    ctl.addressBlock = ^{
+//        [self loadData];
+    };
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 #pragma mark----- 底部按钮点击事件
@@ -674,13 +691,13 @@
              if (_status == 4 ||_status == 7 || _status == 8) {
                  //删除订单
                  self.deleteOrderBlock();
+                 [self.navigationController popViewControllerAnimated:YES];
              }else if (_status == 5) {
                  //申请售后
                  RefundRequstFrist *VC = [[RefundRequstFrist alloc] init];
                  VC.dicParams = [[NSDictionary alloc] init];
                  VC.dicParams = _orderDataDic;
                  [self.navigationController pushViewController:VC animated:YES];
-                 
              }else if (_status == 6) {
                  //联系客服
                  NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",@"186xxxx6979"];
@@ -691,6 +708,7 @@
             if (_status == 0 ||_status == 2) {
                 //取消订单
                 self.cancelOrderBlock();
+                [self.navigationController popViewControllerAnimated:YES];
             }else if (_status == 1 || _status == 3 || _status == 4 || _status == 7 || _status == 8) {
                //联系客服
                 NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",@"186xxxx6979"];
@@ -706,12 +724,15 @@
                 VC.dicParams = [[NSDictionary alloc] init];
                 VC.dicParams = _orderDataDic;
                 [self.navigationController pushViewController:VC animated:YES];
-                
             }
         }break;
         case 102:{
             if (_status == 0 ||_status == 2) {
                 //付款
+                if (!_agreeTreatyBtn.selected) {
+                    [MBProgressHUD showErrorWithStatus:@"请阅读并同意服务协议" toView:self.view];
+                    return;
+                }
                 SelPayVC  *VC = [[SelPayVC alloc] init];
                 VC.dicPay = _orderDataDic;
                 [self.navigationController pushViewController:VC animated:YES];
@@ -721,13 +742,14 @@
                 VC.dicParams = [[NSDictionary alloc] init];
                 VC.dicParams = _orderDataDic;
                 [self.navigationController pushViewController:VC animated:YES];
-                
             }else if (_status == 4 || _status == 7 || _status == 8) {
                 //再次购买
                 self.againShopBlock();
+                [self.navigationController popViewControllerAnimated:YES];
             }else if (_status == 5) {
                 //确认收货
                 self.confirmGoodsBlock();
+                [self.navigationController popViewControllerAnimated:YES];
             }else if (_status == 6) {
                 //查看物流
                 LogisticsViewController *ctl = [[LogisticsViewController alloc]init];
@@ -757,6 +779,7 @@
             }else  if (_status == 6) {
                 //删除订单
                 self.deleteOrderBlock();
+                [self.navigationController popViewControllerAnimated:YES];
             }
         }break;
         default:
@@ -766,7 +789,6 @@
 
 #pragma mark----- 跳转退款详情页面
 -(void)refund{
-    
     RefundInfoVC *VC = [[RefundInfoVC alloc] init];
     VC.dicParams = [[NSDictionary alloc] init];
     VC.dicParams = _orderDataDic;
@@ -797,11 +819,12 @@
     timeout = [timeArr[0] intValue] * 60 +  [timeArr[1] intValue] ;
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+    _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
     dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
     dispatch_source_set_event_handler(_timer, ^{
         if(timeout == 0){ //倒计时结束，关闭
-            dispatch_source_cancel(_timer);
+            dispatch_source_cancel(self.timer);
+            self.timer = NULL;
             dispatch_async(dispatch_get_main_queue(), ^{
                 //倒计时结束，刷新数据，改变订单状态
                 [self.orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];

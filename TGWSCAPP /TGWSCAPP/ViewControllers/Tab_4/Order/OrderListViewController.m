@@ -26,6 +26,7 @@
     NSMutableArray *_closeOrderBtnArr;
     UIView *_closeOrderAleartView;
 }
+
 @end
 
 @implementation OrderListViewController
@@ -167,6 +168,16 @@
     [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
     [_tableView.mj_header endRefreshing];
     [_tableView.mj_footer endRefreshing];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"订单列表"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"订单列表"];
 }
 
 - (void)viewDidLoad {

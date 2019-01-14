@@ -12,6 +12,7 @@
 #import "CKSlideMenu.h"
 #import "SlideParentVC.h"
 #import "SlideSub1.h"
+#import "MessageViewController.h"
 
 @interface TabViewController_1 ()
 {
@@ -427,7 +428,8 @@
 #pragma mark ---  action
 -(void) actionMessage
 {
-    NSLog(@"actionMessage");
+    MessageViewController *ctl = [[MessageViewController alloc]init];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 -(void) actionSearch1

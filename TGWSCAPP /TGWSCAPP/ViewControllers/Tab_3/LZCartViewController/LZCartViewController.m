@@ -773,11 +773,15 @@
                                                                                 
                                                                                 // 加入message
                                                                                 NSString *strXH= [NSString stringWithFormat:@"确定要删除所选商品？"];
-                                                                                [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 15 color=#676767> %@ </font>",strXH]];
-                                                                                [alertView addAlertCurHeight:10];
+                                                                                [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 15 color=#333333> %@ </font>",strXH]];
+                                                                        
                                                                                 
                                                                                 
-                                                                                [alertView addButton:@"确定" color:[ResourceManager priceColor] actionBlock:^{
+                                                                                [alertView addCanelButton:@"取消" actionBlock:^{
+                                                                                    
+                                                                                }];
+                                                                                
+                                                                                [alertView addButton:@"确定" color:[ResourceManager mainColor] actionBlock:^{
                                                                                     
                                                                                     // 记录删除的 indexPath
                                                                                     self.delIndexPath = indexPath;
@@ -787,9 +791,7 @@
                                                                                     [self deleteToWeb:model.cartIdStr];
                                                                                 }];
                                                                                 
-                                                                                [alertView addCanelButton:@"取消" actionBlock:^{
-                                                                                    
-                                                                                }];
+                                                                               
                                                                                 [alertView showAlertView:self.parentViewController duration:0.0];
                                                                                 return;
                                                                                 
@@ -947,18 +949,18 @@
     
     // 加入message
     NSString *strXH= [NSString stringWithFormat:@"确定要删除所选商品？"];
-    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 15 color=#676767> %@ </font>",strXH]];
-    [alertView addAlertCurHeight:10];
+    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 15 color=#333333> %@ </font>",strXH]];
      
-    
-    [alertView addButton:@"确定" color:[ResourceManager priceColor] actionBlock:^{
-        
-         [self deleteMulitToWeb:strAll];
-    }];
     
     [alertView addCanelButton:@"取消" actionBlock:^{
         
     }];
+    
+    [alertView addButton:@"确定" color:[ResourceManager mainColor] actionBlock:^{
+        
+        [self deleteMulitToWeb:strAll];
+    }];
+    
     [alertView showAlertView:self.parentViewController duration:0.0];
     return;
 }

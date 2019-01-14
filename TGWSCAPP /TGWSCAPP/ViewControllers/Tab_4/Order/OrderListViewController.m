@@ -335,9 +335,6 @@
     }
 }
 
-
-
-
 #pragma mark 取消订单原因弹窗布局
 -(void)closeOrderAleartViewUI:(NSString *)orderNo{
     [_closeOrderAleartView  removeFromSuperview];

@@ -8,6 +8,9 @@
 
 #import "OrderDetailsViewController.h"
 
+#import "LogisticsViewController.h"
+#import "SelPayVC.h"
+
 @interface OrderDetailsViewController ()
 {
     UIScrollView *_scView;
@@ -674,7 +677,8 @@
                  
              }else if (_status == 6) {
                  //联系客服
-                 
+                 NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",@"186xxxx6979"];
+                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
              }
         }break;
         case 101:{
@@ -683,10 +687,13 @@
                 self.cancelOrderBlock();
             }else if (_status == 1 || _status == 3 || _status == 4 || _status == 7 || _status == 8) {
                //联系客服
-                
+                NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",@"186xxxx6979"];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
             }else if (_status == 5) {
                 //查看物流
-                
+                LogisticsViewController *ctl = [[LogisticsViewController alloc]init];
+                ctl.orderNo = self.orderNo;
+                [self.navigationController pushViewController:ctl animated:YES];
             }else if (_status == 6) {
                 //申请售后
                 
@@ -695,7 +702,9 @@
         case 102:{
             if (_status == 0 ||_status == 2) {
                 //付款
-                
+                SelPayVC  *VC = [[SelPayVC alloc] init];
+                VC.dicPay = _orderDataDic;
+                [self.navigationController pushViewController:VC animated:YES];
             }else if (_status == 1 || _status == 3) {
                 //申请售后
                 
@@ -707,7 +716,9 @@
                 self.confirmGoodsBlock();
             }else if (_status == 6) {
                 //查看物流
-                
+                LogisticsViewController *ctl = [[LogisticsViewController alloc]init];
+                ctl.orderNo = self.orderNo;
+                [self.navigationController pushViewController:ctl animated:YES];
             }
         }break;
         case 103:{
@@ -727,7 +738,8 @@
         case 104:{
             if (_status == 5) {
                 //联系客服
-               
+                NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",@"186xxxx6979"];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
             }else  if (_status == 6) {
                 //删除订单
                 self.deleteOrderBlock();

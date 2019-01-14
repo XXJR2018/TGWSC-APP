@@ -28,6 +28,10 @@
     [MobClick endLogPageView:@"我的订单"];
 }
 
+-(void)clickNavButton:(UIButton *)button{
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4)}];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

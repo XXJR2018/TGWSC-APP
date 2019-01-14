@@ -1499,11 +1499,7 @@
 				C02C5F7521CC78BE0056A32E /* ShopDetail */,
 				C0CCC84321C2616F009352E0 /* SlideViewController */,
 				C0CCC7B121C0E237009352E0 /* SearchViewController */,
-<<<<<<< HEAD
-				C22C95F521EC61A900A7C544 /* Message */,
-=======
 				C067E8BC21EC3DE700395F91 /* Message */,
->>>>>>> master
 			);
 			path = Tab_1;
 			sourceTree = "<group>";

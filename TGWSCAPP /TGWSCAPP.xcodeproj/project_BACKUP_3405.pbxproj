@@ -2033,12 +2033,6 @@
 				C250476321BA715500DA9C72 /* UIViewController+DDGExtras.m in Sources */,
 				C250476721BA715500DA9C72 /* NSDate+Additions.m in Sources */,
 				C250480621BA73B800DA9C72 /* AFSecurityPolicy.m in Sources */,
-<<<<<<< HEAD
-=======
-				C25045FE21BA711E00DA9C72 /* SIEditAlertView.m in Sources */,
-				C0CCC7FA21C0F1CB009352E0 /* HistoryAndCategorySearchCategoryViewP.m in Sources */,
-				C0CCC81321C0F30F009352E0 /* BaseCommonSearchVC.m in Sources */,
->>>>>>> 1be0a95aecc09a7b8d4d48395ad719d3970a30c6
 				C2AEB46321BE3CB00078E788 /* CSAnimation.m in Sources */,
 				C250475E21BA715500DA9C72 /* UIView+DDGExtras.m in Sources */,
 				C25047A221BA715500DA9C72 /* EGORefreshTableHeaderView.m in Sources */,

@@ -7,9 +7,16 @@
 //
 
 #import "MessageCenterVC.h"
+#import "MessageListVC.h"
 
 @interface MessageCenterVC ()
-
+{
+    UILabel *lalbelTitle1;
+    UILabel *lable1Sub1;
+    
+    UILabel *lalbelTitle2;
+    UILabel *lable1Sub2;
+}
 @end
 
 @implementation MessageCenterVC
@@ -20,6 +27,8 @@
     [self layoutNaviBarViewWithTitle:@"消息中心"];
 
     [self layoutUI];
+    
+    [self getMenuFromWeb];
 }
 
 
@@ -34,7 +43,7 @@
     
     NSArray *arrName = @[@"通知消息",@"我的资产"];
     NSArray *arrSubTitle = @[@"查看与客服的沟通记录",@""];
-    NSArray *arrImg = @[@"Refund_tui",@"Refund_qian"];
+    NSArray *arrImg = @[@"ms_tzxx",@"ms_wdzc"];
     
     
     for (int i = 0; i < [arrName count]; i++)
@@ -58,6 +67,7 @@
         label1.font = [UIFont systemFontOfSize:16];
         label1.text = arrName[i];
         
+        
         iCellTopY += label1.height+ 10;
         UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(iCellLeftX, iCellTopY, SCREEN_WIDTH - iCellLeftX - 30, 12)];
         [viewCell addSubview:label2];
@@ -70,7 +80,17 @@
         imgRight.image = [UIImage imageNamed:@"arrow_right"];
         
 
+        if (0 == i)
+         {
+            lalbelTitle1 = label1;
+            lable1Sub1 = label2;
+         }
         
+        if (1 == i)
+         {
+            lalbelTitle2 = label2;
+            lable1Sub2 = label2;
+         }
         
         //添加手势点击空白处隐藏键盘
         UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(actionView:)];
@@ -89,19 +109,82 @@
     int iTag = (int)reg.view.tag;
     NSLog(@"actionView :%d ",iTag);
     
+    
     if (0 == iTag)
      {
-        //  退款退货
-
+        //  通知消息
+        MessageListVC  *VC = [[MessageListVC alloc] init];
+        VC.msgType = 1;
+        [self.navigationController pushViewController:VC animated:YES];
+        
      }
     else if (1 == iTag)
      {
-        // 退款
-
+        // 资产消息
+        MessageListVC  *VC = [[MessageListVC alloc] init];
+        VC.msgType = 2;
+        [self.navigationController pushViewController:VC animated:YES];
      }
 }
 
 
 
+#pragma mark ---  网络通讯
+-(void) getMenuFromWeb
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"msgType"] = @(1);
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLmsgList];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1000;
+    [operation start];
+    
+
+    params[@"msgType"] = @(2);
+    operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1001;
+    [operation start];
+}
+
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation
+{
+    [self.view endEditing:YES];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    NSArray *arrTitles   = operation.jsonResult.rows;
+    if (operation.tag == 1000)
+     {
+     }
+    else if (operation.tag == 1001)
+     {
+        if(arrTitles &&
+           arrTitles.count >= 0)
+         {
+            NSDictionary *dic = arrTitles[0];
+            NSString *strContent = dic[@"content"];
+            if (strContent)
+             {
+                lable1Sub2.text = strContent;
+             }
+         }
+     }
+}
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
+}
 
 @end

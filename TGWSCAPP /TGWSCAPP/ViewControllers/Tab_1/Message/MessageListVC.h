@@ -6,11 +6,12 @@
 //  Copyright © 2019 xxjr03. All rights reserved.
 //
 
-#import "CommonViewController.h"
+
+#import "MJRefreshViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MessageListVC : CommonViewController
+@interface MessageListVC : MJRefreshViewController
 
 @property (nonatomic, assign)  int  msgType;  // 1 通知消息  2资产提醒消息
 

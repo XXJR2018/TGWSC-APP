@@ -67,7 +67,6 @@
     if (operation.jsonResult.attr.count > 0 && operation.jsonResult.rows.count > 0) {
         _orderDataDic = operation.jsonResult.attr;
         _status = [[_orderDataDic objectForKey:@"status"] intValue];
-        _status = 1;
         [self.dataArray removeAllObjects];
         [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
         [self layoutUI];

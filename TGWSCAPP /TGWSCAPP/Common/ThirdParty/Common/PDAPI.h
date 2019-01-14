@@ -103,7 +103,11 @@ static NSString *const kURLlogisticsInfoDtl = @"appMall/account/myOrder/logistic
 static NSString *const kURLquerySaleSchedule = @"appMall/account/orderRefund/querySaleSchedule";
 
 
-
+#pragma mark   ---  消息相关
+// 客户消息列表
+static NSString *const kURLmsgList = @"appMall/account/cust/message/msgList";
+// 修改为已读
+static NSString *const kURLupdateShow = @"appMall/account/cust/message/updateShow";
 
 
 

@@ -27,6 +27,8 @@
 		C04B181221E5DDAB00DBA0FE /* RefundScheduleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C04B181121E5DDAB00DBA0FE /* RefundScheduleVC.m */; };
 		C067E8B521E83A2400395F91 /* RefundListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C067E8B421E83A2400395F91 /* RefundListViewCell.m */; };
 		C067E8BB21E9D01C00395F91 /* RefundTXWLVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C067E8BA21E9D01C00395F91 /* RefundTXWLVC.m */; };
+		C067E8BF21EC3E1000395F91 /* MessageCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C067E8BE21EC3E0F00395F91 /* MessageCenterVC.m */; };
+		C067E8C221EC3E2300395F91 /* MessageListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C067E8C121EC3E2300395F91 /* MessageListVC.m */; };
 		C098D2A821E058EC0008584B /* SelCouponVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2A721E058EC0008584B /* SelCouponVC.m */; };
 		C098D2AC21E0A43E0008584B /* SelPayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2AB21E0A43E0008584B /* SelPayVC.m */; };
 		C098D2B221E0A7480008584B /* PayResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2B121E0A7480008584B /* PayResultVC.m */; };
@@ -359,6 +361,10 @@
 		C067E8B421E83A2400395F91 /* RefundListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefundListViewCell.m; sourceTree = "<group>"; };
 		C067E8B921E9D01C00395F91 /* RefundTXWLVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefundTXWLVC.h; sourceTree = "<group>"; };
 		C067E8BA21E9D01C00395F91 /* RefundTXWLVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefundTXWLVC.m; sourceTree = "<group>"; };
+		C067E8BD21EC3E0F00395F91 /* MessageCenterVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageCenterVC.h; sourceTree = "<group>"; };
+		C067E8BE21EC3E0F00395F91 /* MessageCenterVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageCenterVC.m; sourceTree = "<group>"; };
+		C067E8C021EC3E2300395F91 /* MessageListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageListVC.h; sourceTree = "<group>"; };
+		C067E8C121EC3E2300395F91 /* MessageListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageListVC.m; sourceTree = "<group>"; };
 		C098D2A621E058EC0008584B /* SelCouponVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelCouponVC.h; sourceTree = "<group>"; };
 		C098D2A721E058EC0008584B /* SelCouponVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelCouponVC.m; sourceTree = "<group>"; };
 		C098D2AA21E0A43E0008584B /* SelPayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelPayVC.h; sourceTree = "<group>"; };
@@ -1023,6 +1029,17 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		C067E8BC21EC3DE700395F91 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				C067E8BD21EC3E0F00395F91 /* MessageCenterVC.h */,
+				C067E8BE21EC3E0F00395F91 /* MessageCenterVC.m */,
+				C067E8C021EC3E2300395F91 /* MessageListVC.h */,
+				C067E8C121EC3E2300395F91 /* MessageListVC.m */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
 		C098D2A421E057800008584B /* SelCoupon */ = {
 			isa = PBXGroup;
 			children = (
@@ -1482,7 +1499,11 @@
 				C02C5F7521CC78BE0056A32E /* ShopDetail */,
 				C0CCC84321C2616F009352E0 /* SlideViewController */,
 				C0CCC7B121C0E237009352E0 /* SearchViewController */,
+<<<<<<< HEAD
 				C22C95F521EC61A900A7C544 /* Message */,
+=======
+				C067E8BC21EC3DE700395F91 /* Message */,
+>>>>>>> master
 			);
 			path = Tab_1;
 			sourceTree = "<group>";
@@ -2717,11 +2738,13 @@
 				C222C39121D2235700DD9797 /* UserInfoViewController.m in Sources */,
 				C250460B21BA711E00DA9C72 /* WCAlertview.m in Sources */,
 				C250461121BA711E00DA9C72 /* TAPageControl.m in Sources */,
+				C067E8BF21EC3E1000395F91 /* MessageCenterVC.m in Sources */,
 				C04B180C21E5DD1000DBA0FE /* RefundRequstSecond.m in Sources */,
 				C25047B921BA715500DA9C72 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				C02C5F9721CC991A0056A32E /* TSVideoPlayback.m in Sources */,
 				C2AAF66421E71B8400D9F505 /* OrderDetailsViewController.m in Sources */,
 				C250461A21BA711E00DA9C72 /* RangeSliderView.m in Sources */,
+				C067E8C221EC3E2300395F91 /* MessageListVC.m in Sources */,
 				C0A48A6D21D1F969002AF226 /* PopSelShopView.m in Sources */,
 				C04B180321E5DC5000DBA0FE /* RefundListVC.m in Sources */,
 				C250476821BA715500DA9C72 /* ExceptionCatch.m in Sources */,

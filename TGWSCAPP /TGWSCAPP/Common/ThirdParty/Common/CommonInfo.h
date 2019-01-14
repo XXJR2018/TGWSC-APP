@@ -10,6 +10,8 @@
 
 
 #define  K_Home_TJ_UIData  @"K_Home_TJ_UIData" // 首页-推荐子页面的数据KEY
+#define  K_Home_IS_YSXY  @"K_Home_IS_YSXY" // 是否点击过 用户隐私协议
+
 
 @interface CommonInfo : NSObject
 

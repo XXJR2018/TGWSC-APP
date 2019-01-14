@@ -100,7 +100,10 @@
         
      }
     
-    lineLeft.height = iTopY;
+    if (iTopY > lineLeft.height)
+     {
+        lineLeft.height = iTopY;
+     }
     scView.contentSize = CGSizeMake(0, iTopY);
     
     

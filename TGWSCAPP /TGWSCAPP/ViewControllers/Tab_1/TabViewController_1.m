@@ -56,6 +56,8 @@
     [self initData];
     
     [self layoutUI];
+    
+    [self performSelector:@selector(isPopView) withObject:nil afterDelay:2.0];// 延迟执行
 }
 
 -(void)initData
@@ -76,6 +78,7 @@
     //[self getMenuFromWeb];
     
     // 布局中间
+    
     
 }
 
@@ -353,12 +356,72 @@
     [background removeFromSuperview];
 }
 
+// 是否 有弹出框
+-(void) isPopView
+{
+    
+    NSString *isYSXY =   [CommonInfo getKey:@"K_Home_IS_YSXY"];
+    if (![isYSXY isEqualToString:@"1"])
+     {
+        // 如果没有点击过 隐私协议
+        [self popYSXY];
+        return;
+     }
+}
 
 #pragma mark ---  布局弹出框
 // 隐私协议弹出框
 -(void) popYSXY
 {
+    CDWAlertView *alertView = [[CDWAlertView alloc] init];
     
+    alertView.shouldDismissOnTapOutside = NO;
+    alertView.textAlignment = RTTextAlignmentCenter;
+    
+    // 降低高度,加入标题
+    [alertView subAlertCurHeight:20];
+    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 18 color=#000000>用户隐私政策概要</font>"]];
+    
+    // 加入message
+    NSString *strXH= [NSString stringWithFormat:@" 深圳市小小信息技术有限公司及各关联公司（以下统称“小小信息”或“我们”）一向庄严承诺保护使用小小信息的产品和服务（以下统称“小小信息服务”）之用户（以下统称“用户”或“您”）的隐私。您在使用小小信息服务时，我们可能会收集和使用您的相关信息。我们会采用符合业界标准的安全防护措施，包括建立合理的制度规范、安全技术来防止您的信息遭到未经授权的访问使用、修改,避免数据的损坏或丢失。网络服务采取了多种加密技术，例如在某些服务中，我们将利用加密技术（例如SSL）来保护您的信息，采取加密技术对您的信息进行加密保存，并通过隔离技术进行隔离。"];
+    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 12 color=#333333> %@ </font>",strXH]];
+    
+    
+    
+    
+    UIView *viewCKXY = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 270.0*ScaleSize, 20)];
+    //viewCKXY.backgroundColor = [UIColor yellowColor];
+    
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 200, 20)];
+    [viewCKXY addSubview:label1];
+    label1.font = [UIFont systemFontOfSize:12];
+    label1.textColor = [ResourceManager color_1];
+    
+    NSString *strAll = [NSString stringWithFormat:@"您可以查看完整版  隐私协议"];
+    NSString *strSub = [NSString stringWithFormat:@"隐私协议"];
+    NSRange range = [strAll rangeOfString:strSub];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:strAll];
+    //NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+    [str addAttribute:NSForegroundColorAttributeName value:[ResourceManager blueColor] range:range]; //设置字体颜色
+    [str addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range]; //设置下划线
+    label1.attributedText = str;
+    
+    [alertView addView:viewCKXY leftX:0];
+
+    viewCKXY.userInteractionEnabled = YES;
+    //添加点击手势
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(actionYSXY)];
+    [viewCKXY addGestureRecognizer:tapGesture];
+    
+    [alertView subAlertCurHeight:10];
+    
+    [alertView addButton:@"同意协议" color:[ResourceManager mainColor] actionBlock:^{
+        
+        [CommonInfo setKey:@"K_Home_IS_YSXY" withValue:@"1"];
+        
+    }];
+    
+    [alertView showAlertView:self.parentViewController duration:0.0];
 }
 
 #pragma mark ---  action
@@ -468,7 +531,11 @@
      }
 }
 
-
+// 跳到完整版 隐私协议
+-(void) actionYSXY
+{
+    NSLog(@"actionYSXY");
+}
 
 #pragma mark ---  网络通讯
 -(void) getMenuFromWeb

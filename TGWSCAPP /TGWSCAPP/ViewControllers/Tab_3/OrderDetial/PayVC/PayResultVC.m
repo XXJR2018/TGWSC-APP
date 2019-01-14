@@ -7,6 +7,7 @@
 //
 
 #import "PayResultVC.h"
+#import "OrderViewController.h"
 
 @interface PayResultVC ()
 {
@@ -240,12 +241,20 @@
 
 
 -(void)clickNavButton:(UIButton *)button{
+//    if (_isSuceess)
+//     {
+//        [self.navigationController popToRootViewControllerAnimated:YES];
+//        return;
+//     }
+//    [self.navigationController popViewControllerAnimated:YES];
+    
+    OrderViewController *ctl = [[OrderViewController alloc]init];
+    ctl.orderIndex = 0;
     if (_isSuceess)
      {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        return;
+        ctl.orderIndex = 1;
      }
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 @end

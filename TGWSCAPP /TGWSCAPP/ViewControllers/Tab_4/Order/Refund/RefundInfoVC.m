@@ -504,6 +504,7 @@
     if (0 == iServerStatus)
      {
         NSLog(@"取消申请");
+        [self cancelCommit];
         return;
      }
     

@@ -110,7 +110,8 @@
         [MBProgressHUD showSuccessWithStatus:@"修改地址成功" toView:self.view];
         //发送通知更新用户信息
         [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
-        self.addressBlock();
+        NSString *address = @"";
+        self.addressBlock(address);
         [self performBlock:^{
             [self.navigationController popViewControllerAnimated:YES];
         } afterDelay:1];
@@ -118,7 +119,7 @@
         [MBProgressHUD showSuccessWithStatus:@"删除地址成功" toView:self.view];
         //发送通知更新用户信息
         [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
-        self.addressBlock();
+        self.addressBlock(nil);
         [self performBlock:^{
             [self.navigationController popViewControllerAnimated:YES];
         } afterDelay:1];

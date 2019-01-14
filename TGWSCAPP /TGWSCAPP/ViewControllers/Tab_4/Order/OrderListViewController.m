@@ -31,7 +31,7 @@
 
 @implementation OrderListViewController
 
--(void)orderListUrl{
+-(void)loadData{
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (self.orderStatus.length > 0) {
@@ -173,7 +173,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"订单列表"];
-    [self orderListUrl];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -256,6 +255,22 @@
     NSString *orderNo = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
     OrderDetailsViewController *ctl = [[OrderDetailsViewController alloc]init];
     ctl.orderNo = orderNo;
+    ctl.cancelOrderBlock = ^{
+        //取消订单
+        [self cancelOrderUrl:orderNo];
+    };
+    ctl.deleteOrderBlock = ^{
+        //删除订单
+        [self deleteOrderUrl:orderNo];
+    };
+    ctl.confirmGoodsBlock = ^{
+        //确认收货
+        [self confirmGoodsUrl:orderNo];
+    };
+    ctl.againShopBlock = ^{
+        //再次购买
+        [self againShopUrl:orderNo];
+    };
     [self.navigationController pushViewController:ctl animated:YES];
     
 }

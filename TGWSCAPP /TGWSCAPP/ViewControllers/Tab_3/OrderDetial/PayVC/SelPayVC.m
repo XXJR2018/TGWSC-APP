@@ -200,8 +200,8 @@
     
     [alertView addButton:@"确定" color:[ResourceManager mainColor] actionBlock:^{
         
-        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:0.3];// 延迟执行
-        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:1];// 延迟执行
+        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:0.5];// 延迟执行
+        //[self performSelector:@selector(delayMethod) withObject:nil afterDelay:1];// 延迟执行
         
     }];
     

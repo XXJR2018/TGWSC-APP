@@ -10,7 +10,7 @@
 #import "CCWebViewController.h"
 
 #define  BTN_WDITH      90
-#define  BTN_HEIGHT     35
+#define  BTN_HEIGHT     45
 
 @implementation AlertButton
 
@@ -125,74 +125,182 @@ NSString *kButtonFont = @"HelveticaNeue-Bold";
     _contentView.frame = CGRectMake(0.f, 0.f, kWindowWidth, kWindowHeight);
 
     // Buttons
-    CGFloat y =  kWindowHeight - BTN_HEIGHT - 20; //CGRectGetMaxY(_subTitleLabel.frame) + 12.0;
+    CGFloat y =  kWindowHeight - BTN_HEIGHT; //CGRectGetMaxY(_subTitleLabel.frame) + 12.0;
     CGFloat x = kWindowWidth - 20.0*ScaleSize - 80.0;
     
-    if (self.isBtnCenter &&
-        _buttons.count == 1)
+    if (_buttons.count == 1)
      {
         AlertButton *btn  =  _buttons[0];
-        x = (kWindowWidth - 80.0) /2;
-        btn.frame = CGRectMake(x, y, BTN_WDITH, BTN_HEIGHT);
-        btn.layer.cornerRadius = 5;
-        btn.backgroundColor = [ResourceManager redColor2];
+        x = 0;//(kWindowWidth - 80.0) /2;
+        btn.frame = CGRectMake(x, y, kWindowWidth, BTN_HEIGHT);
+        [btn setTitleColor:[ResourceManager redColor2] forState:UIControlStateNormal];
         if (btn.showRed) {
-            [btn setImage:[UIImage imageNamed:@"redDot"] forState:UIControlStateNormal];
-            [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 50, 10, 60)];
+            [btn setTitleColor:[ResourceManager redColor1] forState:UIControlStateNormal];
         }
         // 当按钮为可变颜色风格时，  设置按钮的颜色
         if (btn.showMyColor)
          {
-            btn.backgroundColor = btn.myColor;
+            [btn setTitleColor:btn.myColor forState:UIControlStateNormal];
          }
      }
     else if (_buttons.count == 2)
      {
         
-        CGFloat  intervalBtn = (kWindowWidth - 2 *BTN_WDITH)/3   ;
-        x =  kWindowWidth - (intervalBtn + BTN_WDITH) ;
+        CGFloat  intervalBtn = kWindowWidth/2;//(kWindowWidth - 2 *BTN_WDITH)/3   ;
+        x = 0;// kWindowWidth - (intervalBtn + BTN_WDITH) ;
         
         for (AlertButton *btn in _buttons)
          {
-            btn.frame = CGRectMake(x, y, BTN_WDITH, BTN_HEIGHT);
-            btn.layer.cornerRadius = 5;
-            btn.backgroundColor = [ResourceManager redColor2];
+            btn.frame = CGRectMake(x, y, kWindowWidth/2, BTN_HEIGHT);
+            [btn setTitleColor:[ResourceManager redColor2] forState:UIControlStateNormal];
             if (btn.showRed) {
-                [btn setImage:[UIImage imageNamed:@"redDot"] forState:UIControlStateNormal];
-                [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 50, 10, 60)];
+                [btn setTitleColor:[ResourceManager redColor1] forState:UIControlStateNormal];
             }
             // 当按钮为可变颜色风格时，  设置按钮的颜色
             if (btn.showMyColor)
              {
-                btn.backgroundColor = btn.myColor;
+                [btn setTitleColor:btn.myColor forState:UIControlStateNormal];
              }
-            //        y += 33.0;
             x = intervalBtn;
          }
      }
     else
      {
+        x = 0;
+        int iBtnWdith = kWindowWidth/ _buttons.count;
         for (AlertButton *btn in _buttons)
          {
-            btn.frame = CGRectMake(x, y, BTN_WDITH, BTN_HEIGHT);
-            btn.layer.cornerRadius = 5;
-            btn.backgroundColor = [ResourceManager redColor2];
+            
+
+            
+            btn.frame = CGRectMake(x, y, iBtnWdith, BTN_HEIGHT);
+            [btn setTitleColor:[ResourceManager redColor2] forState:UIControlStateNormal];
             if (btn.showRed) {
-                [btn setImage:[UIImage imageNamed:@"redDot"] forState:UIControlStateNormal];
-                [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 50, 10, 60)];
+                [btn setTitleColor:[ResourceManager redColor1] forState:UIControlStateNormal];
             }
             // 当按钮为可变颜色风格时，  设置按钮的颜色
             if (btn.showMyColor)
              {
-                btn.backgroundColor = btn.myColor;
+                [btn setTitleColor:btn.myColor forState:UIControlStateNormal];
              }
-            //        y += 33.0;
-            x -= (BTN_WDITH + 10) ;
+            x += iBtnWdith ;
          }
      }
 
-}
     
+    UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, y, kWindowWidth, 1)];
+    [self.contentView addSubview:viewFG];
+    viewFG.backgroundColor = [ResourceManager color_5];
+}
+
+//
+//-(void)viewWillLayoutSubviews
+//{
+//    [super viewWillLayoutSubviews];
+//
+//    CGSize sz = [UIScreen mainScreen].bounds.size;
+//
+//    NSString *systemVersion = [[UIDevice currentDevice] systemVersion];
+//    if ([systemVersion floatValue] < 8.0)
+//     {
+//        // iOS versions before 7.0 did not switch the width and height on device roration
+//        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
+//         {
+//            CGSize ssz = sz;
+//            sz = CGSizeMake(ssz.height, ssz.width);
+//         }
+//     }
+//
+//    // Set background frame
+//    CGRect newFrame = self.shadowView.frame;
+//    newFrame.size = sz;
+//    self.shadowView.frame = newFrame;
+//
+//    // Set frames
+//    CGRect r;
+//    if (self.view.superview != nil)
+//     {
+//        // View is showing, position at center of screen
+//        r = CGRectMake((sz.width-kWindowWidth)/2, (sz.height-kWindowHeight)/2, kWindowWidth, kWindowHeight);
+//     }
+//    else
+//     {
+//        // View is not visible, position outside screen bounds
+//        r = CGRectMake((sz.width-kWindowWidth)/2, -kWindowHeight, kWindowWidth, kWindowHeight);
+//     }
+//
+//    self.view.frame = r;
+//    _contentView.frame = CGRectMake(0.f, 0.f, kWindowWidth, kWindowHeight);
+//
+//    // Buttons
+//    CGFloat y =  kWindowHeight - BTN_HEIGHT - 20; //CGRectGetMaxY(_subTitleLabel.frame) + 12.0;
+//    CGFloat x = kWindowWidth - 20.0*ScaleSize - 80.0;
+//
+//    if (self.isBtnCenter &&
+//        _buttons.count == 1)
+//     {
+//        AlertButton *btn  =  _buttons[0];
+//        x = (kWindowWidth - 80.0) /2;
+//        btn.frame = CGRectMake(x, y, BTN_WDITH, BTN_HEIGHT);
+//        btn.layer.cornerRadius = 5;
+//        btn.backgroundColor = [ResourceManager redColor2];
+//        if (btn.showRed) {
+//            [btn setImage:[UIImage imageNamed:@"redDot"] forState:UIControlStateNormal];
+//            [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 50, 10, 60)];
+//        }
+//        // 当按钮为可变颜色风格时，  设置按钮的颜色
+//        if (btn.showMyColor)
+//         {
+//            btn.backgroundColor = btn.myColor;
+//         }
+//     }
+//    else if (_buttons.count == 2)
+//     {
+//
+//        CGFloat  intervalBtn = (kWindowWidth - 2 *BTN_WDITH)/3   ;
+//        x =  kWindowWidth - (intervalBtn + BTN_WDITH) ;
+//
+//        for (AlertButton *btn in _buttons)
+//         {
+//            btn.frame = CGRectMake(x, y, BTN_WDITH, BTN_HEIGHT);
+//            btn.layer.cornerRadius = 5;
+//            btn.backgroundColor = [ResourceManager redColor2];
+//            if (btn.showRed) {
+//                [btn setImage:[UIImage imageNamed:@"redDot"] forState:UIControlStateNormal];
+//                [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 50, 10, 60)];
+//            }
+//            // 当按钮为可变颜色风格时，  设置按钮的颜色
+//            if (btn.showMyColor)
+//             {
+//                btn.backgroundColor = btn.myColor;
+//             }
+//            //        y += 33.0;
+//            x = intervalBtn;
+//         }
+//     }
+//    else
+//     {
+//        for (AlertButton *btn in _buttons)
+//         {
+//            btn.frame = CGRectMake(x, y, BTN_WDITH, BTN_HEIGHT);
+//            btn.layer.cornerRadius = 5;
+//            btn.backgroundColor = [ResourceManager redColor2];
+//            if (btn.showRed) {
+//                [btn setImage:[UIImage imageNamed:@"redDot"] forState:UIControlStateNormal];
+//                [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 50, 10, 60)];
+//            }
+//            // 当按钮为可变颜色风格时，  设置按钮的颜色
+//            if (btn.showMyColor)
+//             {
+//                btn.backgroundColor = btn.myColor;
+//             }
+//            //        y += 33.0;
+//            x -= (BTN_WDITH + 10) ;
+//         }
+//     }
+//
+//}
+
     
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -375,7 +483,7 @@ NSString *kButtonFont = @"HelveticaNeue-Bold";
 {
     AlertButton *btn = [self addButton:title red:NO];
     btn.showMyColor = YES;   // 设置显示自己颜色风格
-    btn.myColor = [UIColor whiteColor];    // 设置为当前颜色
+    btn.myColor = [ResourceManager color_1];    // 设置为当前颜色
     btn.actionType = Block;
     btn.actionBlock = action;
     

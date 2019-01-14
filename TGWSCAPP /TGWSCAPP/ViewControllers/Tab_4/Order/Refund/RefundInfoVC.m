@@ -437,6 +437,32 @@
 }
 
 
+-(void) cancelCommit
+{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"refundNo"] = _dicParams[@"refundNo"];
+    
+
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString], kURcancelApply];
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                      //[MBProgressHUD hideHUDForView:self.view animated:NO];
+                                                                                  }];
+    
+    operation.tag = 1001;
+    [operation start];
+    
+}
+
+
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     
@@ -448,8 +474,22 @@
             [self layoutUI:dicUI];
          }
      }
+    else if (1001 == operation.tag)
+     {
+        [MBProgressHUD showErrorWithStatus:@"申请提交成功" toView:self.view];
+        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:1.0];// 延迟执行
+        return;
+     }
     
 }
+
+-(void) delayMethod
+{
+    //[self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4),@"index":@(0)}];
+}
+
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
@@ -499,6 +539,7 @@
 -(void) actionCanelRequset
 {
     NSLog(@"取消申请");
+    [self cancelCommit];
 }
 
 @end

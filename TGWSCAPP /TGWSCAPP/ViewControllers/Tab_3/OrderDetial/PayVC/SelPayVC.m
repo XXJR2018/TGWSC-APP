@@ -190,23 +190,22 @@
     
     // 加入message
     NSString *strXH= [NSString stringWithFormat:@"订单会保留一段时间，请尽快支付。"];
-    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 15 color=#676767> %@ </font>",strXH]];
-    [alertView addAlertCurHeight:10];
+    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 15 color=#333333> %@ </font>",strXH]];
     
     
-    [alertView addButton:@"确定" color:[ResourceManager priceColor] actionBlock:^{
+    [alertView addCanelButton:@"取消" actionBlock:^{
+        
+    }];
+    
+    [alertView addButton:@"确定" color:[ResourceManager mainColor] actionBlock:^{
         
         [self performSelector:@selector(delayMethod) withObject:nil afterDelay:0.3];// 延迟执行
         [self performSelector:@selector(delayMethod) withObject:nil afterDelay:1];// 延迟执行
         
     }];
     
-    [alertView addCanelButton:@"取消" actionBlock:^{
-        
-    }];
     [alertView showAlertView:self.parentViewController duration:0.0];
     
-    //[self.navigationController popViewControllerAnimated:YES];
     
    
 }

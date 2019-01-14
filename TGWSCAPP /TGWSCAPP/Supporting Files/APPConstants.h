@@ -16,7 +16,7 @@
 /**
  *  y极光推送
  */
-#define JPUSH_APPKEY @"e3ed4b9f888f396bc7372051"
+#define JPUSH_APPKEY @"6ad6adf3f386761424873f63"
 
 
 #endif /* APPConstants_h */

@@ -9,7 +9,10 @@
 #import "AppDelegate.h"
 #import <AlipaySDK/AlipaySDK.h>
 
-@interface AppDelegate ()
+#import "RemoteNTFManager.h"
+#import <UserNotifications/UserNotifications.h>
+
+@interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
 @end
 
@@ -18,9 +21,24 @@
 
 - (void)umengTrack {
     [UMConfigure initWithAppkey:UMENG_APPKEY channel:@"App Store"];
-    
     [MobClick setScenarioType:E_UM_NORMAL];
-  
+    
+}
+
+-(void)JPushSet:(NSDictionary *)JPushDic{
+    // 注册极光
+    [RemoteNTFManager defaultSettingWithOptions:JPushDic];
+    
+    //JPush 监听登陆成功
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(networkDidLogin:)
+                                                 name:kJPFNetworkDidLoginNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(networkDidColse:)
+                                                 name:kJPFNetworkDidCloseNotification
+                                               object:nil];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -34,10 +52,95 @@
     // 友盟统计
     [self umengTrack];
     
+    // 极光推送
+    [self JPushSet:launchOptions];
+    
     //初始化控制器
     [self setupMainUserInterface];
     
     return YES;
+}
+/**
+ *  登录成功，设置别名，移除监听
+ *
+ *  @param notification <#notification description#>
+ */
+- (void)networkDidLogin:(NSNotification *)notification {
+    
+    NSLog(@"已登录极光推送");
+    
+    if (![[CommonInfo userInfo]objectForKey:@"encryptId"])
+        return;
+    
+    NSString *strUid = [[CommonInfo userInfo] objectForKey:@"encryptId"];
+    if(strUid.length > 8) {
+        strUid = [strUid substringFromIndex:8];
+        NSLog(@"   strUid:%@",  strUid);
+        
+        //极光推送2.9版本后， 设置别名，必须用此新方法
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [JPUSHService setTags:nil alias:strUid fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+                NSLog(@"setTags iResCode：%d-------------%@,-------------iAlias：%@",iResCode,iTags,iAlias);
+                // 设置超时， 60S后重试
+                if (iResCode == 6002) {
+                    [self performSelector:@selector(delayMethod) withObject:nil afterDelay:60.0];
+                }
+            }];
+        });
+    }
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:kJPFNetworkDidLoginNotification
+                                                  object:nil];
+}
+
+- (void)networkDidColse:(NSNotification *)notification {
+    //NSLog(@"极光推送连接失败");
+}
+
+- (void)delayMethod{
+    
+    NSLog(@"delayMethodEnd");
+    if (![[CommonInfo userInfo]objectForKey:@"encryptId"])
+        return;
+    
+    NSString *strUid = [[CommonInfo userInfo] objectForKey:@"encryptId"];
+    if(strUid.length > 8){
+        strUid = [strUid substringFromIndex:8];
+        NSLog(@"   strUid:%@",  strUid);
+        
+        [JPUSHService setTags:nil alias:strUid fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+            NSLog(@"setTags iResCode：%d-------------%@,-------------iAlias：%@",iResCode,iTags,iAlias);
+            // 设置超时， 60S后重试
+            
+        }];
+    }
+}
+
+#pragma mark - 申请通知权限
+// 申请通知权限
+- (void)replyPushNotificationAuthorization:(UIApplication *)application{
+    //iOS 10 later
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    //必须写代理，不然无法监听通知的接收与点击事件
+    center.delegate = self;
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (!error && granted) {
+            //用户点击允许
+            NSLog(@"注册成功");
+        }else{
+            //用户点击不允许
+            NSLog(@"注册失败");
+        }
+    }];
+    // 可以通过 getNotificationSettingsWithCompletionHandler 获取权限设置
+    //之前注册推送服务，用户点击了同意还是不同意，以及用户之后又做了怎样的更改我们都无从得知，现在 apple 开放了这个 API，我们可以直接获取到用户的设定信息了。注意UNNotificationSettings是只读对象哦，不能直接修改！
+    [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+        NSLog(@"========%@",settings);
+    }];
+    
+    //注册远端消息通知获取device token
+    [application registerForRemoteNotifications];
 }
 
 #pragma mark == 从其他APP跳转回自己APP回调

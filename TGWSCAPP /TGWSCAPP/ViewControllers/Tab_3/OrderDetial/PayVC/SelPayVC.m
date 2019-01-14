@@ -8,6 +8,7 @@
 
 #import "SelPayVC.h"
 #import "PayResultVC.h"
+#import "OrderViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
 
 
@@ -212,8 +213,11 @@
 
 -(void) delayMethod
 {
-    [self.navigationController popToRootViewControllerAnimated:NO];
-    [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4),@"index":@(0)}];
+    //[self.navigationController popToRootViewControllerAnimated:NO];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4),@"index":@(0)}];
+    OrderViewController *ctl = [[OrderViewController alloc]init];
+    ctl.orderIndex = 1;
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 -(void) actionSelPay:(UITapGestureRecognizer*) reg

@@ -353,6 +353,14 @@
     [background removeFromSuperview];
 }
 
+
+#pragma mark ---  布局弹出框
+// 隐私协议弹出框
+-(void) popYSXY
+{
+    
+}
+
 #pragma mark ---  action
 -(void) actionMessage
 {

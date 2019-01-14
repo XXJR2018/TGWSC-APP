@@ -25,7 +25,10 @@
     UIButton *_agreeTreatyBtn;
     UIImageView *_moreImgView;
     UIButton *_moreAleartBtn;
+    
 }
+
+@property(nonatomic, strong)UILabel *addressLabel;      //收货地址
 
 @property(nonatomic, strong)UIButton *orderLeftBtn;      //订单左边按钮
 
@@ -64,7 +67,7 @@
     if (operation.jsonResult.attr.count > 0 && operation.jsonResult.rows.count > 0) {
         _orderDataDic = operation.jsonResult.attr;
         _status = [[_orderDataDic objectForKey:@"status"] intValue];
-        _status = 0;
+        _status = 1;
         [self.dataArray removeAllObjects];
         [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
         [self layoutUI];
@@ -167,12 +170,12 @@
     userInfoLabel.font = [UIFont systemFontOfSize:14];
     userInfoLabel.text = [NSString stringWithFormat:@"%@  %@",[_orderDataDic objectForKey:@"receiveName"],[_orderDataDic objectForKey:@"hideReceiveTel"]];
     
-    UILabel *addressLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(userInfoLabel.frame), SCREEN_WIDTH - 120, 35)];
-    [headerView addSubview:addressLabel];
-    addressLabel.numberOfLines = 2;
-    addressLabel.textColor = [ResourceManager color_6];
-    addressLabel.font = [UIFont systemFontOfSize:13];
-    addressLabel.text = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"receiveAddr"]];
+    _addressLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(userInfoLabel.frame), SCREEN_WIDTH - 120, 35)];
+    [headerView addSubview:_addressLabel];
+    _addressLabel.numberOfLines = 2;
+    _addressLabel.textColor = [ResourceManager color_6];
+    _addressLabel.font = [UIFont systemFontOfSize:13];
+    _addressLabel.text = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"receiveAddr"]];
     
     if (_status == 0 || _status == 1) {
         UIButton *changeAddressBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 90, CGRectGetMinY(userInfoLabel.frame) + 5, 75, 28)];
@@ -185,7 +188,7 @@
         [changeAddressBtn addTarget:self action:@selector(changeAddress) forControlEvents:UIControlEventTouchUpInside];
     }
     
-    headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(addressLabel.frame) + 10);
+    headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_addressLabel.frame) + 10);
     _currentHeight = CGRectGetMaxY(headerView.frame) + 10;
 }
 
@@ -678,8 +681,8 @@
     AddAddressViewController *ctl = [[AddAddressViewController alloc]init];
     ctl.titleStr = @"修改地址";
     ctl.addressDic = _orderDataDic;
-    ctl.addressBlock = ^{
-//        [self loadData];
+    ctl.addressBlock = ^(NSString *address){
+        self.addressLabel.text = address;
     };
     [self.navigationController pushViewController:ctl animated:YES];
 }

@@ -835,7 +835,6 @@
         [_orderRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
         NSString *countDownTime = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"countDownTime"]];
-        countDownTime = @"60:00";
         if (countDownTime.length > 0) {
             _countDownLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 200, 55)];
             [orderBtnView addSubview:_countDownLabel];

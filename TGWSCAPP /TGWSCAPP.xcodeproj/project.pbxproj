@@ -25,6 +25,7 @@
 		C04B180C21E5DD1000DBA0FE /* RefundRequstSecond.m in Sources */ = {isa = PBXBuildFile; fileRef = C04B180B21E5DD1000DBA0FE /* RefundRequstSecond.m */; };
 		C04B180F21E5DD6B00DBA0FE /* RefundCommitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C04B180E21E5DD6B00DBA0FE /* RefundCommitVC.m */; };
 		C04B181221E5DDAB00DBA0FE /* RefundScheduleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C04B181121E5DDAB00DBA0FE /* RefundScheduleVC.m */; };
+		C059DAD421EDDCDA00BC2A45 /* XcodeWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C059DAD221EDDCDA00BC2A45 /* XcodeWebVC.m */; };
 		C067E8B521E83A2400395F91 /* RefundListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C067E8B421E83A2400395F91 /* RefundListViewCell.m */; };
 		C067E8BB21E9D01C00395F91 /* RefundTXWLVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C067E8BA21E9D01C00395F91 /* RefundTXWLVC.m */; };
 		C067E8BF21EC3E1000395F91 /* MessageCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C067E8BE21EC3E0F00395F91 /* MessageCenterVC.m */; };
@@ -356,6 +357,8 @@
 		C04B180E21E5DD6B00DBA0FE /* RefundCommitVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefundCommitVC.m; sourceTree = "<group>"; };
 		C04B181021E5DDAB00DBA0FE /* RefundScheduleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefundScheduleVC.h; sourceTree = "<group>"; };
 		C04B181121E5DDAB00DBA0FE /* RefundScheduleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefundScheduleVC.m; sourceTree = "<group>"; };
+		C059DAD221EDDCDA00BC2A45 /* XcodeWebVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XcodeWebVC.m; sourceTree = "<group>"; };
+		C059DAD321EDDCDA00BC2A45 /* XcodeWebVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XcodeWebVC.h; sourceTree = "<group>"; };
 		C067E8B321E83A2400395F91 /* RefundListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefundListViewCell.h; sourceTree = "<group>"; };
 		C067E8B421E83A2400395F91 /* RefundListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefundListViewCell.m; sourceTree = "<group>"; };
 		C067E8B921E9D01C00395F91 /* RefundTXWLVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefundTXWLVC.h; sourceTree = "<group>"; };
@@ -1828,6 +1831,8 @@
 		C25045AF21BA711E00DA9C72 /* CCWebView */ = {
 			isa = PBXGroup;
 			children = (
+				C059DAD321EDDCDA00BC2A45 /* XcodeWebVC.h */,
+				C059DAD221EDDCDA00BC2A45 /* XcodeWebVC.m */,
 				C25045B221BA711E00DA9C72 /* CCWebViewController.h */,
 				C25045B021BA711E00DA9C72 /* CCWebViewController.m */,
 				C25045B121BA711E00DA9C72 /* WebviewProgressLine.h */,
@@ -2864,6 +2869,7 @@
 				C0CCC84E21C345C5009352E0 /* SlideSub1.m in Sources */,
 				C0A48B5121DE3715002AF226 /* CDWAlertView.m in Sources */,
 				C246D75C21CB9CE50054D7A0 /* ProductListViewController.m in Sources */,
+				C059DAD421EDDCDA00BC2A45 /* XcodeWebVC.m in Sources */,
 				C0CCC82321C0F47D009352E0 /* HistoryAnimationVC.m in Sources */,
 				C0CCC7FC21C0F1CB009352E0 /* HistoryAndCategorySearchHistroyViewP.m in Sources */,
 				C250475D21BA715500DA9C72 /* BaseBLCManager.m in Sources */,

@@ -18,7 +18,8 @@ static NSString *const kDDGgetSmsTokenByType = @"appMall/smsSend/getSmsToken";
 static NSString *const kDDGnologinByType = @"appMall/smsSend/login";
 
 
-
+// 跳转h5之前，获取xcode
+static NSString *const kURLGetXCode = @"appMall/account/cust/info/getXCode";
 
 #pragma mark --- 首页页面相关接口
 // 获取首页菜单

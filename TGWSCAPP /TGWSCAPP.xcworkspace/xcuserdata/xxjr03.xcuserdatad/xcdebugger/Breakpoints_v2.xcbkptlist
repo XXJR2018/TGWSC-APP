@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Order/OrderListViewCell.m"
-            timestampString = "569231937.317279"
+            timestampString = "569233891.982936"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "205"
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Order/OrderDetailsViewController.m"
-            timestampString = "569231937.31734"
+            timestampString = "569233891.982998"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "820"
-            endingLineNumber = "820"
+            startingLineNumber = "838"
+            endingLineNumber = "838"
             landmarkName = "-orderBtnUI"
             landmarkType = "7">
          </BreakpointContent>

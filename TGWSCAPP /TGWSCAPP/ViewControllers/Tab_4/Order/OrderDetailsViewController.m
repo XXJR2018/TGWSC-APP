@@ -135,6 +135,22 @@
     operation.tag = 1004;
 }
 
+//刷新订单地址修改
+-(void)updateOrderAddrUrl:(NSString *)addrId{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"orderNo"] = self.orderNo;
+    params[@"addrId"] = addrId;
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/myOrder/updateOrderAddr",[PDAPI getBaseUrlString]]
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+    operation.tag = 1005;
+}
 #pragma mark 数据操作
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
@@ -174,6 +190,8 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(3)}];
         }]];
         [self presentViewController:actionSheet animated:YES completion:nil];
+    }else if (operation.tag == 1005) {
+        [self loadData];
     }
     
 }
@@ -361,9 +379,9 @@
             [logisticsView addSubview:logisticsLineViewX];
             logisticsLineViewX.backgroundColor = [ResourceManager mainColor];
             
-            UIImageView *logisticsImgView = [[UIImageView alloc]initWithFrame:CGRectMake((60 - 25)/2, CGRectGetMidY(logisticsLineViewX.frame) - 25/2, 25, 25)];
+            UIImageView *logisticsImgView = [[UIImageView alloc]initWithFrame:CGRectMake((60 - 28)/2, CGRectGetMidY(logisticsLineViewX.frame) - 25/2, 28, 28)];
             [logisticsView addSubview:logisticsImgView];
-            logisticsImgView.image = [UIImage imageNamed:@"Tab_4-10"];
+            logisticsImgView.image = [UIImage imageNamed:@"Tab_4-34"];
             
             UILabel *logisticsDescLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(logisticsLineViewX.frame) + 10, CGRectGetMinY(logisticsLineViewX.frame), SCREEN_WIDTH - CGRectGetMidX(logisticsLineViewX.frame) - 40, 35)];
             [logisticsView addSubview:logisticsDescLabel];
@@ -897,6 +915,10 @@
 #pragma mark----- 修改地址
 -(void)changeAddress{
     AddressViewController *ctl = [[AddressViewController alloc]init];
+    ctl.selectType = 100;
+    ctl.selectAddressBlock = ^(NSString *addrId){
+        [self updateOrderAddrUrl:addrId];
+    };
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

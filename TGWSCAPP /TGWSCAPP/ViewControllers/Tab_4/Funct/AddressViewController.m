@@ -161,15 +161,23 @@
     //（这种是没有点击后的阴影效果)
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-   
-    AddAddressViewController *ctl = [[AddAddressViewController alloc]init];
-    ctl.titleStr = @"修改地址";
-    ctl.addressDic = self.dataArray[indexPath.row];
-    ctl.addressBlock = ^{
-        [self loadData];
-    };
-    [self.navigationController pushViewController:ctl animated:YES];
-    
+    NSDictionary *dic = self.dataArray[indexPath.row];
+    if (self.selectType == 100) {
+        NSString *addrId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"addrId"]];
+        if (addrId.length > 0) {
+            self.selectAddressBlock(addrId);
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }else{
+        AddAddressViewController *ctl = [[AddAddressViewController alloc]init];
+        ctl.titleStr = @"修改地址";
+        ctl.addressDic = dic;
+        ctl.addressBlock = ^{
+            [self loadData];
+        };
+        [self.navigationController pushViewController:ctl animated:YES];
+    }
+
 }
 
 

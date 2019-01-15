@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddressViewController : MJRefreshViewController
 
+@property(nonatomic, assign) NSInteger selectType;
+
+@property(nonatomic, copy)Block_String selectAddressBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

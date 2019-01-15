@@ -202,6 +202,7 @@
         [_orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];
         
         NSString *countDownTime = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"countDownTime"]];
+        countDownTime = @"60:00";
         if (countDownTime.length > 0) {
             NSArray *timeArr = [countDownTime componentsSeparatedByString:@":"];
             __block int timeout = 0; //倒计时时间

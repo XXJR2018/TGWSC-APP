@@ -162,6 +162,14 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
    
+    AddAddressViewController *ctl = [[AddAddressViewController alloc]init];
+    ctl.titleStr = @"修改地址";
+    ctl.addressDic = self.dataArray[indexPath.row];
+    ctl.addressBlock = ^{
+        [self loadData];
+    };
+    [self.navigationController pushViewController:ctl animated:YES];
+    
 }
 
 

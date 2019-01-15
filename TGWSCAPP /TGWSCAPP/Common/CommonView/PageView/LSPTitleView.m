@@ -151,8 +151,8 @@
     
     for (NSString *titleStr in self.titles) {
         CGFloat width=  80;
-        if (titleStr.length > 5) {
-            width = 80 + 12 * (titleStr.length - 5);
+        if (titleStr.length > 4) {
+            width = 80 + 10 * (titleStr.length - 4);
         }
         titleLabelW = width + titleLabelW;
     }
@@ -166,8 +166,8 @@
     for (int i = 0; i < self.titleLabels.count; i++) {
         CGFloat titleW = 80;
         NSString *titleStr= self.titles[i];
-        if (titleStr.length > 5) {
-            titleW = 80 + 12 * (titleStr.length - 5);
+        if (titleStr.length > 4) {
+            titleW = 80 + 10 * (titleStr.length - 4);
         }
 
         UILabel *label = self.titleLabels[i];

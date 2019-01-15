@@ -9,7 +9,8 @@
 #import "OrderDetailsViewController.h"
 
 #import "LogisticsViewController.h"
-#import "AddAddressViewController.h"
+#import "LogisticsDescViewController.h"
+#import "AddressViewController.h"
 #import "SelPayVC.h"
 #import "RefundRequstFrist.h"
 #import "RefundInfoVC.h"
@@ -30,6 +31,8 @@
     UIButton *_closeOrderBtn;
     NSMutableArray *_closeOrderBtnArr;
     UIView *_closeOrderAleartView;
+    
+    NSString *_logisticsId;   //物流ID
 }
 
 @property(nonatomic, strong)UILabel *addressLabel;      //收货地址
@@ -291,7 +294,102 @@
         [changeAddressBtn addTarget:self action:@selector(changeAddress) forControlEvents:UIControlEventTouchUpInside];
     }
     
-    headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_addressLabel.frame) + 10);
+    NSDictionary *logisticsInfo = [_orderDataDic objectForKey:@"logisticsInfo"];
+    UIView *logisticsView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_addressLabel.frame), SCREEN_WIDTH, 0)];
+    [headerView addSubview:logisticsView];
+    logisticsView.backgroundColor = [UIColor whiteColor];
+    if (logisticsInfo.count > 0) {
+        if ([[logisticsInfo objectForKey:@"logisticsCount"] intValue] == 1) {
+            _logisticsId = [NSString stringWithFormat:@"%@",[logisticsInfo objectForKey:@"logisticsId"]];
+            logisticsView.frame = CGRectMake(0, CGRectGetMaxY(_addressLabel.frame), SCREEN_WIDTH, 70);
+            
+            UIView *logisticsLineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , 10)];
+            [logisticsView addSubview:logisticsLineView];
+            logisticsLineView.backgroundColor = [ResourceManager viewBackgroundColor];
+            
+            UIView *statusView = [[UIView alloc]initWithFrame:CGRectMake(60, CGRectGetMaxY(logisticsLineView.frame) + (60 - 5)/2, 5, 5)];
+            [logisticsView addSubview:statusView];
+            statusView.layer.cornerRadius = 5/2;
+            statusView.backgroundColor = [ResourceManager color_5];
+            
+            UIView *logisticsLineViewX = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMidX(statusView.frame), CGRectGetMaxY(logisticsLineView.frame), 0.5, 70)];
+            [logisticsView addSubview:logisticsLineViewX];
+            logisticsLineViewX.backgroundColor = [ResourceManager color_5];
+            
+            UILabel *timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMidY(statusView.frame) - 40/2, CGRectGetMinX(statusView.frame), 40)];
+            [logisticsView addSubview:timeLabel];
+            timeLabel.numberOfLines = 2;
+            timeLabel.textColor = [ResourceManager color_6];
+            timeLabel.textAlignment = NSTextAlignmentCenter;
+            timeLabel.font = [UIFont systemFontOfSize:11];
+            timeLabel.text = [NSString stringWithFormat:@"最新物流\n%@",[logisticsInfo objectForKey:@"acceptDate"]];
+            
+            UIImageView *logisticsImgView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(statusView.frame) + 10, 25, 15, 15)];
+            [logisticsView addSubview:logisticsImgView];
+            logisticsImgView.image = [UIImage imageNamed:@"Tab_4-10"];
+            
+            UILabel *logisticsStatusLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(logisticsImgView.frame) + 5, CGRectGetMidY(logisticsImgView.frame) - 20/2, 150, 20)];
+            [logisticsView addSubview:logisticsStatusLabel];
+            logisticsStatusLabel.textColor = [ResourceManager mainColor];
+            logisticsStatusLabel.font = [UIFont systemFontOfSize:13];
+            logisticsStatusLabel.text = [NSString stringWithFormat:@"%@",[logisticsInfo objectForKey:@"logisticsLabel"]];
+            if ([logisticsStatusLabel.text isEqualToString:@"已签收"]) {
+                logisticsImgView.image = [UIImage imageNamed:@"Tab_4-11"];
+            }
+            
+            UILabel *logisticsDescLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(logisticsImgView.frame), CGRectGetMaxY(logisticsImgView.frame), SCREEN_WIDTH - CGRectGetMidX(logisticsImgView.frame) - 10, 30)];
+            [logisticsView addSubview:logisticsDescLabel];
+            logisticsDescLabel.textColor = [ResourceManager color_6];
+            logisticsDescLabel.font = [UIFont systemFontOfSize:12];
+            logisticsDescLabel.text = [NSString stringWithFormat:@"%@",[logisticsInfo objectForKey:@"logisticsDesc"]];
+            UIImageView *arrowImgView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 20, (60 - 15)/2 + 10, 10, 15)];
+            [logisticsView addSubview:arrowImgView];
+            arrowImgView.image = [UIImage imageNamed:@"arrow_right"];
+            
+            UIButton *logisticsBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,  10, SCREEN_WIDTH, 60)];
+            logisticsBtn.tag = 100;
+            [logisticsView addSubview:logisticsBtn];
+            [logisticsBtn addTarget:self action:@selector(logisticsTouch:) forControlEvents:UIControlEventTouchUpInside];
+        }else if ([[logisticsInfo objectForKey:@"logisticsCount"] intValue] > 1) {
+            logisticsView.frame = CGRectMake(0, CGRectGetMaxY(_addressLabel.frame), SCREEN_WIDTH, 70);
+            
+            UIView *logisticsLineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , 10)];
+            [logisticsView addSubview:logisticsLineView];
+            logisticsLineView.backgroundColor = [ResourceManager viewBackgroundColor];
+            
+            UIView *logisticsLineViewX = [[UIView alloc]initWithFrame:CGRectMake(60, 20, 0.5, 50)];
+            [logisticsView addSubview:logisticsLineViewX];
+            logisticsLineViewX.backgroundColor = [ResourceManager mainColor];
+            
+            UIImageView *logisticsImgView = [[UIImageView alloc]initWithFrame:CGRectMake((60 - 25)/2, CGRectGetMidY(logisticsLineViewX.frame) - 25/2, 25, 25)];
+            [logisticsView addSubview:logisticsImgView];
+            logisticsImgView.image = [UIImage imageNamed:@"Tab_4-10"];
+            
+            UILabel *logisticsDescLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(logisticsLineViewX.frame) + 10, CGRectGetMinY(logisticsLineViewX.frame), SCREEN_WIDTH - CGRectGetMidX(logisticsLineViewX.frame) - 40, 35)];
+            [logisticsView addSubview:logisticsDescLabel];
+            logisticsDescLabel.numberOfLines = 2;
+            logisticsDescLabel.textColor = [ResourceManager mainColor];
+            logisticsDescLabel.font = [UIFont systemFontOfSize:13];
+            logisticsDescLabel.text = [NSString stringWithFormat:@"%@",[logisticsInfo objectForKey:@"logisticsDesc"]];
+            
+            UILabel *timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(logisticsLineViewX.frame) + 10, CGRectGetMaxY(logisticsDescLabel.frame), 200, 20)];
+            [logisticsView addSubview:timeLabel];
+            timeLabel.textColor = [ResourceManager color_6];
+            timeLabel.font = [UIFont systemFontOfSize:11];
+            timeLabel.text = [NSString stringWithFormat:@"%@",[logisticsInfo objectForKey:@"acceptTime"]];
+            
+            UIImageView *arrowImgView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 20, (60 - 15)/2 + 10, 10, 15)];
+            [logisticsView addSubview:arrowImgView];
+            arrowImgView.image = [UIImage imageNamed:@"arrow_right"];
+            
+            UIButton *logisticsBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,  10, SCREEN_WIDTH, 60)];
+            logisticsBtn.tag = 101;
+            [logisticsView addSubview:logisticsBtn];
+            [logisticsBtn addTarget:self action:@selector(logisticsTouch:) forControlEvents:UIControlEventTouchUpInside];
+        }
+    }
+    
+    headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(logisticsView.frame) + 10);
     _currentHeight = CGRectGetMaxY(headerView.frame) + 10;
 }
 
@@ -306,19 +404,19 @@
     UIFont *font_1 = [UIFont systemFontOfSize:14];
     UIFont *font_2 = [UIFont systemFontOfSize:13];
     
-    UILabel *wlxxLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 80, 40)];
-    [centreView addSubview:wlxxLabel];
-    wlxxLabel.textColor = color_2;
-    wlxxLabel.font = font_1;
-    wlxxLabel.text = @"订单状态：";
+    UILabel *ddztLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 80, 40)];
+    [centreView addSubview:ddztLabel];
+    ddztLabel.textColor = color_2;
+    ddztLabel.font = font_1;
+    ddztLabel.text = @"订单状态：";
     
-    UILabel *wlxxInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(wlxxLabel.frame), 0, SCREEN_WIDTH - CGRectGetMaxX(wlxxLabel.frame) - 20, 40)];
-    [centreView addSubview:wlxxInfoLabel];
-    wlxxInfoLabel.textColor = color_1;
-    wlxxInfoLabel.font = font_1;
-    wlxxInfoLabel.text = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"logisticsDesc"]];
+    UILabel * ddztInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(ddztLabel.frame), 0, SCREEN_WIDTH - CGRectGetMaxX(ddztLabel.frame) - 20, 40)];
+    [centreView addSubview:ddztInfoLabel];
+    ddztInfoLabel.textColor = color_1;
+    ddztInfoLabel.font = font_1;
+    ddztInfoLabel.text = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"statusDesc"]];
     
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(wlxxLabel.frame), SCREEN_WIDTH - 20, 0.5)];
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(ddztInfoLabel.frame), SCREEN_WIDTH - 20, 0.5)];
     [centreView addSubview:lineView];
     lineView.backgroundColor = [ResourceManager color_5];
     
@@ -719,6 +817,7 @@
         [_orderRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
         NSString *countDownTime = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"countDownTime"]];
+        countDownTime = @"60:00";
         if (countDownTime.length > 0) {
             _countDownLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 200, 55)];
             [orderBtnView addSubview:_countDownLabel];
@@ -779,14 +878,25 @@
     
 }
 
+#pragma mark----- 物流点击事件
+-(void)logisticsTouch:(UIButton *)sender{
+    if (sender.tag == 100) {
+        //  一个商品
+        LogisticsDescViewController *ctl = [[LogisticsDescViewController alloc]init];
+        ctl.logisticsId = _logisticsId;
+        [self.navigationController pushViewController:ctl animated:YES];
+    }else if (sender.tag == 101) {
+        //  多个商品
+        //查看物流
+        LogisticsViewController *ctl = [[LogisticsViewController alloc]init];
+        ctl.orderNo = self.orderNo;
+        [self.navigationController pushViewController:ctl animated:YES];
+    }
+}
+
 #pragma mark----- 修改地址
 -(void)changeAddress{
-    AddAddressViewController *ctl = [[AddAddressViewController alloc]init];
-    ctl.titleStr = @"修改地址";
-    ctl.addressDic = _orderDataDic;
-    ctl.addressBlock = ^{
-        [self loadData];
-    };
+    AddressViewController *ctl = [[AddressViewController alloc]init];
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
@@ -805,7 +915,7 @@
                 [self.navigationController pushViewController:VC animated:YES];
             }else if (_status == 6) {
                 //联系客服
-                NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",@"186xxxx6979"];
+                NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",[[CommonInfo userInfo] objectForKey:@"kfTel"]];
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
             }
         }break;
@@ -815,7 +925,7 @@
                 [self closeOrderAleartViewUI:_orderNo];
             }else if (_status == 1 || _status == 3 || _status == 4 || _status == 7 || _status == 8) {
                 //联系客服
-                NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",@"186xxxx6979"];
+                NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",[[CommonInfo userInfo] objectForKey:@"kfTel"]];
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
             }else if (_status == 5) {
                 //查看物流
@@ -876,7 +986,7 @@
         case 104:{
             if (_status == 5) {
                 //联系客服
-                NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",@"186xxxx6979"];
+                NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",[[CommonInfo userInfo] objectForKey:@"kfTel"]];
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
             }else  if (_status == 6) {
                 //删除订单

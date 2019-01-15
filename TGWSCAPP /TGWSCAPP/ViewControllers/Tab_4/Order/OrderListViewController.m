@@ -31,7 +31,7 @@
 
 @implementation OrderListViewController
 
--(void)orderListUrl{
+-(void)loadData{
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (self.orderStatus.length > 0) {
@@ -132,9 +132,9 @@
                 [self.dataArray removeAllObjects];
                 [_tableView reloadData];
             }else{
+                self.pageIndex --;
                 [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
             }
-            self.pageIndex --;
         }
     }else if (operation.tag == 1001) {
         [MBProgressHUD showSuccessWithStatus:@"订单取消成功" toView:self.view];
@@ -173,7 +173,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"订单列表"];
-    [self orderListUrl];
+    [self loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{

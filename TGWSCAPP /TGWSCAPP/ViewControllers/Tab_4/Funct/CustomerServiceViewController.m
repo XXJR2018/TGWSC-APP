@@ -31,7 +31,7 @@
 }
 
 - (IBAction)tell:(id)sender {
-    NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",@"186xxxx6979"];
+    NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",[[CommonInfo userInfo] objectForKey:@"kfTel"]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
 }
 

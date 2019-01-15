@@ -339,11 +339,6 @@
     viewMenu.height = iBtnTopY;
     
     
-    
-
-    
-    
-    
     bgView.userInteractionEnabled = YES;
     //添加点击手势（点击任意地方，退出全屏）
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeView)];
@@ -361,12 +356,18 @@
 -(void) isPopView
 {
     
-    NSString *isYSXY =   [CommonInfo getKey:@"K_Home_IS_YSXY"];
+    NSString *isYSXY = [[NSUserDefaults standardUserDefaults]objectForKey:K_Home_IS_YSXY];
     if (![isYSXY isEqualToString:@"1"])
      {
         // 如果没有点击过 隐私协议
         [self popYSXY];
         return;
+     }
+    
+    
+    if ([CommonInfo isLoggedIn])
+     {
+        [self getPopFromWeb];
      }
 }
 
@@ -418,14 +419,61 @@
     
     [alertView addButton:@"同意协议" color:[ResourceManager mainColor] actionBlock:^{
         
-        [CommonInfo setKey:@"K_Home_IS_YSXY" withValue:@"1"];
+        
+        
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"1" forKey:K_Home_IS_YSXY];
+
         
     }];
     
     [alertView showAlertView:self duration:0.0];
 }
 
+-(void) popPng:(NSDictionary*) dicValue
+{
+    NSString *imageUrl =  [NSString stringWithFormat:@"%@", dicValue[@"imageUrl"]];
+    if (imageUrl.length <= 8)
+     {
+        return;
+     }
+    
+    //创建一个黑色背景
+    //初始化一个用来当做背景的View
+    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    background = bgView;
+    bgView.backgroundColor =  [[UIColor blackColor]colorWithAlphaComponent:0.6];//[UIColor clearColor];
+    [self.view addSubview:bgView];
+    
+    int iTopY = slideMenu.top + 100;
+    int iImgWidth = 300;
+    int iImgHeight = 460;
+    UIImageView *imgPng = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - iImgWidth)/2, iTopY, iImgWidth, iImgHeight)];
+    [bgView addSubview:imgPng];
+    [imgPng setImageWithURL:[NSURL URLWithString:imageUrl]];
+    
+    
+    objc_setAssociatedObject(bgView, "firstObject", dicValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);   //绑定参数到view
+    bgView.userInteractionEnabled = YES;
+    //添加点击手势
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(actionDilckPop:)];
+    [bgView addGestureRecognizer:tapGesture];
+}
+
 #pragma mark ---  action
+-(void) actionDilckPop:(UITapGestureRecognizer*) tap
+{
+    [background removeFromSuperview];
+    
+    NSDictionary *first = objc_getAssociatedObject(background, "firstObject");
+    if (first)
+     {
+        NSLog(@"first:%@",first);
+     }
+    
+}
+
+
 -(void) actionMessage
 {
     NSLog(@"actionMessage");
@@ -557,12 +605,28 @@
     [operation start];
 }
 
+-(void) getPopFromWeb
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLpopups];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1001;
+    [operation start];
+}
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
 {
     [self.view endEditing:YES];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     if (operation.tag == 1000)
      {
+        // 获取菜单
         NSArray *arrTitles   = operation.jsonResult.rows;
         if (arrTitles&&
             [arrTitles count] > 0)
@@ -576,13 +640,16 @@
                 
                 [self layoutMenu:arrTitles];
                 
-                
                }
          }
      }
     else if (operation.tag == 1001) {
-        
-        
+        // 获取后台返回的弹框
+        NSDictionary *dic = operation.jsonResult.attr;
+        if (dic)
+         {
+            [self popPng:dic];
+         }
     }
 }
 

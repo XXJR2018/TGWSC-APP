@@ -310,7 +310,7 @@
     [centreView addSubview:wlxxLabel];
     wlxxLabel.textColor = color_2;
     wlxxLabel.font = font_1;
-    wlxxLabel.text = @"物流信息：";
+    wlxxLabel.text = @"订单状态：";
     
     UILabel *wlxxInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(wlxxLabel.frame), 0, SCREEN_WIDTH - CGRectGetMaxX(wlxxLabel.frame) - 20, 40)];
     [centreView addSubview:wlxxInfoLabel];
@@ -784,8 +784,8 @@
     AddAddressViewController *ctl = [[AddAddressViewController alloc]init];
     ctl.titleStr = @"修改地址";
     ctl.addressDic = _orderDataDic;
-    ctl.addressBlock = ^(NSString *address){
-        self.addressLabel.text = address;
+    ctl.addressBlock = ^{
+        [self loadData];
     };
     [self.navigationController pushViewController:ctl animated:YES];
 }
@@ -902,7 +902,8 @@
 
 //天狗窝商城服务协议
 -(void)treaty{
-    [CCWebViewController showWithContro:self withUrlStr:@"https://phone.xxjr.com/xxapp/protocol/xxzsPrivacy.html" withTitle:@"天狗窝商城服务协议"];
+    NSString *url = [NSString stringWithFormat:@"%@webMall/protocol/service",[PDAPI WXSysRouteAPI]];
+    [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"天狗窝商城服务协议"];
 }
 
 -(void)copyExpress{

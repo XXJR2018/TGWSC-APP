@@ -101,7 +101,7 @@
 -(void)addAddress{
     AddAddressViewController *ctl = [[AddAddressViewController alloc]init];
     ctl.titleStr = @"新增地址";
-    ctl.addressBlock = ^(NSString *address){
+    ctl.addressBlock = ^{
         [self loadData];
     };
     [self.navigationController pushViewController:ctl animated:YES];
@@ -147,7 +147,7 @@
         AddAddressViewController *ctl = [[AddAddressViewController alloc]init];
         ctl.titleStr = @"修改地址";
         ctl.addressDic = self.dataArray[indexPath.row];
-        ctl.addressBlock = ^(NSString *address){
+        ctl.addressBlock = ^{
             [self loadData];
         };
         [self.navigationController pushViewController:ctl animated:YES];

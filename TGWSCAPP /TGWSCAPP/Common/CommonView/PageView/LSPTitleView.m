@@ -146,14 +146,13 @@
     
     CGFloat titleX = 0.0;
     CGFloat titleY = 0.0;
-    CGFloat titleW = 80;
     CGFloat titleH = self.frame.size.height;
      CGFloat titleLabelW = 0;
     
     for (NSString *titleStr in self.titles) {
         CGFloat width=  80;
         if (titleStr.length > 5) {
-            width = 80 + 10 * (titleStr.length - 5);
+            width = 80 + 12 * (titleStr.length - 5);
         }
         titleLabelW = width + titleLabelW;
     }
@@ -165,9 +164,10 @@
     }
     
     for (int i = 0; i < self.titleLabels.count; i++) {
+        CGFloat titleW = 80;
         NSString *titleStr= self.titles[i];
         if (titleStr.length > 5) {
-            titleW = 80 + 10 * (titleStr.length - 5);
+            titleW = 80 + 12 * (titleStr.length - 5);
         }
 
         UILabel *label = self.titleLabels[i];
@@ -204,7 +204,7 @@
     
     [self.scrollView addSubview:self.bottomLine];
     
-    self.bottomLine.frame = CGRectMake((self.titleLabels.firstObject.frame.size.width - self.style.bottomLineW) / 2.0, self.bounds.size.height - self.style.bottomLineH, self.style.bottomLineW, self.style.bottomLineH);
+    self.bottomLine.frame = CGRectMake(10, self.bounds.size.height - self.style.bottomLineH, self.titleLabels.firstObject.frame.size.width - 20, self.style.bottomLineH);
 }
 
 - (void)setupCoverView{
@@ -260,7 +260,7 @@
     //调整bottomLine
     if (self.style.isShowBottomLine){
         [UIView animateWithDuration:0.5 animations:^{
-            self.bottomLine.frame = CGRectMake(currentLabel.frame.origin.x + ((currentLabel.frame.size.width - self.bottomLine.frame.size.width) / 2.0), self.bottomLine.frame.origin.y, self.style.bottomLineW, self.bottomLine.frame.size.height);
+            self.bottomLine.frame = CGRectMake(currentLabel.frame.origin.x + 10, self.bottomLine.frame.origin.y, currentLabel.frame.size.width - 20, self.bottomLine.frame.size.height);
         }];
     }
     
@@ -311,7 +311,7 @@
     //调整bottomLine
     if (self.style.isShowBottomLine){
         [UIView animateWithDuration:0.5 animations:^{
-            self.bottomLine.frame = CGRectMake(currentLabel.frame.origin.x + ((currentLabel.frame.size.width - self.bottomLine.frame.size.width) / 2.0), self.bottomLine.frame.origin.y, self.style.bottomLineW, self.bottomLine.frame.size.height);
+            self.bottomLine.frame = CGRectMake(currentLabel.frame.origin.x + 10, self.bottomLine.frame.origin.y, currentLabel.frame.size.width - 20, self.bottomLine.frame.size.height);
         }];
     }
     
@@ -359,9 +359,9 @@
     //计算滚动的范围差值
     if (self.style.isShowBottomLine){
         
-        CGFloat x = sourceLabel.frame.origin.x + ((sourceLabel.frame.size.width - self.style.bottomLineW)/2.0) + moveTotalX * progress;
+        CGFloat x = sourceLabel.frame.origin.x + 10 + moveTotalX * progress;
         
-        CGFloat width = self.style.bottomLineW + moveTotalW * progress;
+        CGFloat width = targetLabel.frame.size.width - 20 + moveTotalW * progress;
         
         self.bottomLine.frame = CGRectMake(x, self.bottomLine.frame.origin.y,width, self.bottomLine.frame.size.height);
     }

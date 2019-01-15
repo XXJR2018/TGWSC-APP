@@ -103,7 +103,7 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
 + (NSString *)WXSysRouteAPI{
 #if DEBUG
 //    return @"https://www.tiangouwo.com/";
-    return @"http://192.168.10.182:3000/";   // 测试环境
+    return @"http://192.168.10.208/";   // 测试环境
     
 #else
     return kBaseURL;

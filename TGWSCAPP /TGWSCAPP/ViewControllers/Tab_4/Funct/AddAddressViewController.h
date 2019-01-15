@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, copy)NSString *titleStr;
 
-@property(nonatomic, copy)Block_String addressBlock;
+@property(nonatomic, copy)Block_Void addressBlock;
 
 @end
 

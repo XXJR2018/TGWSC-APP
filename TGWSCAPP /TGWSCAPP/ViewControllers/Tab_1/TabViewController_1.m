@@ -534,7 +534,8 @@
 // 跳到完整版 隐私协议
 -(void) actionYSXY
 {
-    NSLog(@"actionYSXY");
+    NSString *url = [NSString stringWithFormat:@"%@webMall/protocol/privacy",[PDAPI WXSysRouteAPI]];
+    [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"天狗窝商城隐私协议"];
 }
 
 #pragma mark ---  网络通讯

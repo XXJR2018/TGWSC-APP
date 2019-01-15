@@ -42,6 +42,12 @@
      {
         //登陆成功,发送通知更新用户信息
         [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
+        
+        //[self performSelector:@selector(isPopView) withObject:nil afterDelay:2.0];// 延迟执行
+        if (_haveAppeared)
+         {
+            [self isPopView];
+         }
      }
 }
 
@@ -432,7 +438,12 @@
 
 -(void) popPng:(NSDictionary*) dicValue
 {
-    NSString *imageUrl =  [NSString stringWithFormat:@"%@", dicValue[@"imageUrl"]];
+    if (background)
+     {
+        return;
+     }
+    
+    __block NSString *imageUrl =  [NSString stringWithFormat:@"%@", dicValue[@"imageUrl"]];
     if (imageUrl.length <= 8)
      {
         return;
@@ -446,11 +457,46 @@
     [self.view addSubview:bgView];
     
     int iTopY = slideMenu.top + 100;
-    int iImgWidth = 300;
-    int iImgHeight = 460;
-    UIImageView *imgPng = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - iImgWidth)/2, iTopY, iImgWidth, iImgHeight)];
+    __block int iImgWidth = 300;
+    __block int iImgHeight = 460;
+    __block  UIImageView *imgPng = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - iImgWidth)/2, iTopY, iImgWidth, iImgHeight)];
     [bgView addSubview:imgPng];
-    [imgPng setImageWithURL:[NSURL URLWithString:imageUrl]];
+    //[imgPng setImageWithURL:[NSURL URLWithString:imageUrl]];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+            // 异步方式加载图片
+            UIImage *imgTemp =  [ToolsUtlis getImgFromStr:imageUrl];
+            
+            if (imgTemp)
+             {
+                
+                CGFloat fixelH = CGImageGetHeight(imgTemp.CGImage);
+                CGFloat fixelW = CGImageGetWidth(imgTemp.CGImage);
+                iImgHeight = fixelH *FixelScaleSize*ScaleSize;
+                iImgWidth = fixelW *FixelScaleSize*ScaleSize;
+             }
+
+            
+            
+         
+        
+        
+        //跳回主队列执行
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            imgPng.width = iImgWidth;
+            imgPng.height = iImgHeight;
+            imgPng.left = (SCREEN_WIDTH - iImgWidth)/2;
+            imgPng.top = (SCREEN_HEIGHT - iImgHeight)/2;
+            [imgPng setImageWithURL:[NSURL URLWithString:imageUrl]];
+  
+        });
+        
+        
+        
+        
+    });
     
     
     objc_setAssociatedObject(bgView, "firstObject", dicValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);   //绑定参数到view
@@ -463,14 +509,19 @@
 #pragma mark ---  action
 -(void) actionDilckPop:(UITapGestureRecognizer*) tap
 {
-    [background removeFromSuperview];
+    
     
     NSDictionary *first = objc_getAssociatedObject(background, "firstObject");
     if (first)
      {
         NSLog(@"first:%@",first);
+        NSString *type = first[@"type"];
+        
      }
     
+    
+    [background removeFromSuperview];
+    background = nil;
 }
 
 
@@ -617,6 +668,22 @@
                                                                                       [self handleErrorData:operation];
                                                                                   }];
     operation.tag = 1001;
+    [operation start];
+}
+
+-(void) sendPop:(NSString *)strValue
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"type"] = strValue;
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLgetCustReward];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1002;
     [operation start];
 }
 

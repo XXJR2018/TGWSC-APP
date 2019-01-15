@@ -1,17 +1,17 @@
 //
-//  RefundCommitVC.m
+//  RefundReCommitVC.m
 //  TGWSCAPP
 //
-//  Created by xxjr02 on 2019/1/9.
+//  Created by xxjr02 on 2019/1/15.
 //  Copyright © 2019 xxjr03. All rights reserved.
 //
 
-#import "RefundCommitVC.h"
+#import "RefundReCommitVC.h"
 #import "PickerView.h"
 
 #define   orderCellHeight    120
 
-@interface RefundCommitVC ()<UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface RefundReCommitVC ()<UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {
     UIScrollView  *scView;
     
@@ -30,10 +30,8 @@
     
     NSMutableArray *arrReason;
     NSDictionary *dicUI;
-    NSArray *arrUI;
-    
+    NSMutableArray *arrUI;
 }
-
 
 @property(nonatomic, strong)UIImageView *productImgView;  //商品图片
 
@@ -45,6 +43,7 @@
 
 @property(nonatomic, strong)UILabel *productNumLabel;   //商品数量
 
+
 /*!
  @brief     需要上传的图片
  */
@@ -52,27 +51,26 @@
 
 @end
 
-@implementation RefundCommitVC
+@implementation RefundReCommitVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     [self initData];
     
-    if (1 == _iCommitType)
-     {
-         [self layoutNaviBarViewWithTitle:@"退款申请"];
-     }
-    else
-     {
-         [self layoutNaviBarViewWithTitle:@"退款退货"];
-     }
+
+    [self layoutNaviBarViewWithTitle:@"重新申请"];
+    
+    
+
+    
     
     [self getReason];
     
-    [self getUIDataFormWeb];
+    //[self getUIDataFormWeb];
     
-    //[self layoutUI];
+
     
     
     //添加手势点击空白处隐藏键盘
@@ -85,9 +83,14 @@
 {
     arrReason = [[NSMutableArray alloc] init];
     dicUI = [[NSDictionary alloc] init];
-    arrUI = [[NSArray alloc] init];
+    dicUI = _dicParams;
+    
+    arrUI = [[NSMutableArray alloc] init];
+    [arrUI addObject:dicUI];
+    
     iReasonNO = 0;
 }
+
 
 #pragma mark  ---   布局UI
 -(void) layoutUI
@@ -130,7 +133,10 @@
     };
     [scView addSubview:pickerView_reason];
     //pickerView_reason.backgroundColor = [UIColor blueColor];
-
+    
+    int resionId = [dicUI[@"resionId"] intValue] -1;
+    [pickerView_reason setSelectedIndex:resionId ];
+    
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - 2*iLeftX, 46)];
     [scView addSubview:label];
     label.borderColor = color_kuang;
@@ -158,6 +164,7 @@
     textFieldTKJE.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 0)];
     textFieldTKJE.text = [NSString stringWithFormat:@"%@元",dicUI[@"refundTotalAmt"]];
     textFieldTKJE.userInteractionEnabled = NO;
+    
     
     iTopY += textFieldTKJE.height + 15;
     // 退款邮费等
@@ -191,7 +198,7 @@
     textFieldTKSM.delegate = self;
     textFieldTKSM.tag = 1000;
     //textFieldTKSM.text = [NSString stringWithFormat:@"%@元",_dicParams[@"totalOrderAmt"]];
-
+    
     // 上传图片
     iTopY += textFieldTKSM.height + 15;
     UILabel *lableT4 = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH, 20)];
@@ -209,11 +216,11 @@
     [img1 setImage:[UIImage imageNamed:@"Rfund_sctp"]];
     img1.userInteractionEnabled = YES;
     [scView addSubview:img1];
-
+    
     //添加图片手势
     UITapGestureRecognizer *imgGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imgBtn:)];
     [img1 addGestureRecognizer:imgGesture];
-
+    
     iImgLeft += iImgWdith + iLeftX;
     img2 = [[UIImageView alloc] initWithFrame:CGRectMake(iImgLeft, iTopY, iImgWdith , iImgWdith)];
     [img2 setImage:[UIImage imageNamed:@"Rfund_sctp"]];
@@ -221,11 +228,11 @@
     img2.userInteractionEnabled = YES;
     img2.hidden = YES;
     [scView addSubview:img2];
-
+    
     //添加图片手势
     UITapGestureRecognizer *imgGesture2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imgBtn:)];
     [img2 addGestureRecognizer:imgGesture2];
-
+    
     iImgLeft += iImgWdith + iLeftX;
     img3 = [[UIImageView alloc] initWithFrame:CGRectMake(iImgLeft, iTopY, iImgWdith , iImgWdith)];
     [img3 setImage:[UIImage imageNamed:@"Rfund_sctp"]];
@@ -233,11 +240,11 @@
     img3.userInteractionEnabled = YES;
     img3.hidden = YES;
     [scView addSubview:img3];
-
+    
     //添加图片手势
     UITapGestureRecognizer *imgGesture3 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imgBtn:)];
     [img3 addGestureRecognizer:imgGesture3];
-
+    
     strImgUrl1 = nil;
     strImgUrl2 = nil;
     strImgUrl3 = nil;
@@ -297,14 +304,14 @@
         _productPriceLabel.textAlignment = NSTextAlignmentRight;
         _productPriceLabel.font = font_1;
         _productPriceLabel.textColor = color_2;
-        _productPriceLabel.text = [NSString stringWithFormat:@"￥%@",[dic objectForKey:@"price"]];
+        _productPriceLabel.text = [NSString stringWithFormat:@"￥%@",[dic objectForKey:@"refundPrice"]];
         
         _productNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 160, CGRectGetMaxY(_productPriceLabel.frame) + 5, 150, 20)];
         [viewCell addSubview:_productNumLabel];
         _productNumLabel.textAlignment = NSTextAlignmentRight;
         _productNumLabel.font = font_2;
         _productNumLabel.textColor = color_2;
-        _productNumLabel.text = [NSString stringWithFormat:@"x%@",[dic objectForKey:@"num"]];
+        _productNumLabel.text = [NSString stringWithFormat:@"x%@",[dic objectForKey:@"refundNum"]];
         
         
         UIView *lineViewX = [[UIView alloc]initWithFrame:CGRectMake(0, orderCellHeight -1, SCREEN_WIDTH, 1)];
@@ -330,13 +337,13 @@
     labelNote.font = [UIFont systemFontOfSize:10];
     labelNote.numberOfLines = 0;
     labelNote.text = @"温馨提示：订单退款金额以实际支付金额为准，不包括优惠券抵扣金额，无质量问题退货所产生的物流费由购买者承担，从退款中直接抵扣。";
-
+    
     //    NSString *strWeb = dicUI[@"tipMsg"];
-//    if (strWeb &&
-//        strWeb.length > 0)
-//     {
-//        labelNote.text = strWeb;
-//     }
+    //    if (strWeb &&
+    //        strWeb.length > 0)
+    //     {
+    //        labelNote.text = strWeb;
+    //     }
     
     UIButton *btnCommit = [[UIButton alloc] initWithFrame:CGRectMake(15, 50, SCREEN_WIDTH - 30, 40)];
     [viewTail addSubview:btnCommit];
@@ -349,179 +356,6 @@
     [btnCommit addTarget:self action:@selector(actionCommit) forControlEvents:UIControlEventTouchUpInside];
 }
 
-#pragma mark ---  网络通讯
--(void) getReason
-{
-    //[MBProgressHUD showHUDAddedTo:self.view];
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString], kURLresionList];
-    
-    
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
-                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
-                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
-                                                                                      [self handleData:operation];
-                                                                                  }
-                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
-                                                                                      //[self handleErrorData:operation];
-                                                                                      //[MBProgressHUD hideHUDForView:self.view animated:NO];
-                                                                                  }];
-    [operation start];
-    operation.tag = 1000;
-}
-
--(void) getUIDataFormWeb
-{
-    
-    [MBProgressHUD showHUDAddedTo:self.view];
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"orderNo"] = _dicParams[@"orderNo"];
-    params[@"subOrderNos"] = _subOrderNo;
-    
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString], kURLselectRefundGoods];
-    
-    
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
-                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
-                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
-                                                                                      [self handleData:operation];
-                                                                                  }
-                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
-                                                                                      [self handleErrorData:operation];
-                                                                                      //[MBProgressHUD hideHUDForView:self.view animated:NO];
-                                                                                     
-                                                                                  }];
-    operation.tag = 1001;
-    [operation start];
-    
-}
-
--(void) goodCommit
-{
-    [MBProgressHUD showHUDAddedTo:self.view];
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"orderNo"] = _dicParams[@"orderNo"];
-    params[@"subOrderNos"] = _subOrderNo;
-    params[@"refundType"] = @(_iCommitType);
-    params[@"resionId"] = @(iReasonNO);
-    params[@"refundDesc"] = textFieldTKSM.text;
-    params[@"resionId"] = @(iReasonNO);
-    if (strImgUrl1)
-     {
-        params[@"imgUrl1"] = strImgUrl1;
-     }
-    if (strImgUrl2)
-     {
-        params[@"imgUrl2"] = strImgUrl2;
-     }
-    if (strImgUrl3)
-     {
-        params[@"imgUrl3"] = strImgUrl3;
-     }
-    
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString], kURLapplyRefund];
-    
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
-                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
-                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
-                                                                                      [self handleData:operation];
-                                                                                  }
-                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
-                                                                                      [self handleErrorData:operation];
-                                                                                      //[MBProgressHUD hideHUDForView:self.view animated:NO];
-                                                                                  }];
-    
-    operation.tag = 1002;
-    [operation start];
-    
-}
-
--(void)handleData:(DDGAFHTTPRequestOperation *)operation{
-    [MBProgressHUD hideHUDForView:self.view animated:NO];
-    
-   if (1000 == operation.tag)
-    {
-       NSArray* arr = operation.jsonResult.rows;
-       if (!arr &&
-           arr.count <= 0)
-        {
-           return;
-        }
-       
-       [arrReason removeAllObjects];
-       for (int i = 0; i < arr.count; i++)
-        {
-           NSDictionary *obj = arr[i];
-           NSString *str = [NSString stringWithFormat:@"%@", obj[@"resionDesc"]];
-           [arrReason addObject:str];
-        }
-    }
-    else if (1001 == operation.tag)
-     {
-        dicUI = operation.jsonResult.attr;
-        arrUI = operation.jsonResult.rows;
-        [self layoutUI];
-     }
-    else if (1002 == operation.tag)
-     {
-        [MBProgressHUD showErrorWithStatus:@"申请提交成功" toView:self.view];
-        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:1.0];// 延迟执行
-        return;
-     }
-    
-}
-
-
-
--(void) delayMethod
-{
-    //[self.navigationController popViewControllerAnimated:YES];
-    [self.navigationController popToRootViewControllerAnimated:NO];
-    [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4),@"index":@(0)}];
-}
-
--(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
-    [MBProgressHUD hideHUDForView:self.view animated:NO];
-    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
-}
-
-
-#pragma mark === UITextFieldDelegate
--(void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    if (1000 == textField.tag)
-     {
-        [scView setContentOffset:CGPointMake(0,200) animated:YES];
-     }
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    if (1000 == textField.tag)
-     {
-        [scView setContentOffset:CGPointMake(0,0) animated:YES];
-     }
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    
-    if (1000 == textField.tag)
-     {
-        //这里的if时候为了获取删除操作,如果没有次if会造成当达到字数限制后删除键也不能使用的后果.
-        if (range.length == 1 && string.length == 0) {
-            return YES;
-        }
-        if(textField.text.length >= 200) {
-            //输入的字符个数大于45，则无法继续输入，返回NO表示禁止输入
-            [MBProgressHUD showErrorWithStatus:@"输入字符长度大于200" toView:self.view];
-            return NO;
-        } else {
-            return YES;
-        }
-     }
-    return YES;
-}
 
 #pragma mark  --- action
 -(void) imgBtn:(id)sender
@@ -554,6 +388,121 @@
      }
     
     [self goodCommit];
+}
+
+
+#pragma mark ---  网络通讯
+-(void) getReason
+{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString], kURLresionList];
+    
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                      //[MBProgressHUD hideHUDForView:self.view animated:NO];
+                                                                                  }];
+    [operation start];
+    operation.tag = 1000;
+}
+
+
+
+-(void) goodCommit
+{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"refundNo"] = _dicParams[@"refundNo"];
+//    params[@"subOrderNos"] = _subOrderNo;
+    params[@"refundType"] =  [NSString stringWithFormat:@"%@", _dicParams[@"refundType"]];
+    params[@"resionId"] = @(iReasonNO);
+    params[@"refundDesc"] = textFieldTKSM.text;
+    params[@"resionId"] = @(iReasonNO);
+    if (strImgUrl1)
+     {
+        params[@"imgUrl1"] = strImgUrl1;
+     }
+    if (strImgUrl2)
+     {
+        params[@"imgUrl2"] = strImgUrl2;
+     }
+    if (strImgUrl3)
+     {
+        params[@"imgUrl3"] = strImgUrl3;
+     }
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString], kURLagainApplyRefund];
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                      //[MBProgressHUD hideHUDForView:self.view animated:NO];
+                                                                                  }];
+    
+    operation.tag = 1002;
+    [operation start];
+    
+}
+
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    
+    if (1000 == operation.tag)
+     {
+        NSArray* arr = operation.jsonResult.rows;
+        if (!arr &&
+            arr.count <= 0)
+         {
+            return;
+         }
+        
+        [arrReason removeAllObjects];
+        for (int i = 0; i < arr.count; i++)
+         {
+            NSDictionary *obj = arr[i];
+            NSString *str = [NSString stringWithFormat:@"%@", obj[@"resionDesc"]];
+            [arrReason addObject:str];
+         }
+        
+        [self layoutUI];
+     }
+    else if (1001 == operation.tag)
+     {
+
+        //[self layoutUI];
+     }
+    else if (1002 == operation.tag)
+     {
+        [MBProgressHUD showErrorWithStatus:@"申请提交成功" toView:self.view];
+        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:1.0];// 延迟执行
+        return;
+     }
+    
+}
+
+
+
+-(void) delayMethod
+{
+    //[self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4),@"index":@(0)}];
+}
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
 }
 
 #pragma mark UIImagePickerViewControllerDelegate
@@ -703,5 +652,7 @@
         self.imageData = nil;
     }];
 }
+
+
 
 @end

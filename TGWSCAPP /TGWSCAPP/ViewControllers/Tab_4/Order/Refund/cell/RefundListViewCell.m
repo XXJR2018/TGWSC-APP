@@ -122,7 +122,7 @@ const  int  iRefundListCellHeight = 235 + 10;
         _productPriceLabel.textAlignment = NSTextAlignmentRight;
         _productPriceLabel.font = font_1;
         _productPriceLabel.textColor = color_2;
-        _productPriceLabel.text = [NSString stringWithFormat:@"￥%@",[dic objectForKey:@"refundPrice"]];
+        //_productPriceLabel.text = [NSString stringWithFormat:@"￥%@",[dic objectForKey:@"refundPrice"]];
         
         _productNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 160, CGRectGetMaxY(_productPriceLabel.frame) + 5, 150, 20)];
         [self.contentView addSubview:_productNumLabel];

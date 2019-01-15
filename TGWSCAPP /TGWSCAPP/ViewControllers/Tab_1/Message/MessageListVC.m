@@ -155,11 +155,14 @@ const  int  iMessageListCellHeight = 100;
     
     NSDictionary *dic = self.dataArray[indexPath.row];
     
-    //退款详情
-//    RefundInfoVC *VC = [[RefundInfoVC alloc] init];
-//    VC.dicParams = [[NSDictionary alloc] init];
-//    VC.dicParams = dic;
-//    [self.navigationController pushViewController:VC animated:YES];
+
+    int skipType = [dic[@"skipType"] intValue];
+    if (skipType ==1)
+     {
+        NSString *strUrl = dic[@"appSkipUrl"];
+        //NSString *url = [NSString stringWithFormat:@"%@tgwproject/AgreePrivacy",[PDAPI WXSysRouteAPI]];
+        [CCWebViewController showWithContro:self withUrlStr:strUrl withTitle:@"消息"];
+     }
 }
 
 

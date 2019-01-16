@@ -49,7 +49,9 @@
     
     [self layoutNaviBarViewWithTitle:@"售后服务"];
     
-    [self layoutUI];
+    [self getShopListFormWeb];
+    
+    //[self layoutUI];
 }
 
 -(void) initData
@@ -64,10 +66,17 @@
 {
     NSLog(@"dicParmas:%@",_dicParams);
     
-    orderDtlListArr = [_dicParams objectForKey:@"orderDtlList"];
+    //orderDtlListArr = [_dicParams objectForKey:@"orderDtlList"];
     if (orderDtlListArr.count == 0) {
-        return;
+        // 如果网络请求不到数据，用传入的本地数据
+        orderDtlListArr = [_dicParams objectForKey:@"orderDtlList"];
+        
     }
+    
+    if (orderDtlListArr.count == 0)
+     {
+        return;
+     }
     
 
     int iTopY = NavHeight;
@@ -271,6 +280,29 @@
 }
 
 #pragma mark  --- 网络请求
+-(void) getShopListFormWeb
+{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"orderNo"] = _dicParams[@"orderNo"];
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString], kURLrefundGoodsList];
+    
+    
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+    operation.tag = 999;
+}
+
+
+
 -(void) getUIDataFormWeb:(NSString *) strValue
 {
     strAllSel = strValue;
@@ -296,6 +328,12 @@
 
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
+    
+    if (999 == operation.tag)
+     {
+        orderDtlListArr = operation.jsonResult.rows;
+        [self layoutUI];
+     }
     
     if (1000 == operation.tag)
      {

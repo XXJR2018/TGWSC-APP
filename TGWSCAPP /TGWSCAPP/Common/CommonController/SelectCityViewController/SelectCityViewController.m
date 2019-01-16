@@ -177,7 +177,8 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    NSString *url = [NSString stringWithFormat:@"%@%@",@"https://newapp.xxjr.com/",@"mjb/area/allAreaInfo"];
+    //NSString *url = [NSString stringWithFormat:@"%@%@",@"https://newapp.xxjr.com/",@"mjb/area/allAreaInfo"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", [PDAPI getBaseUrlString],@"appMall/area/allAreaInfo"];
     
     
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:url

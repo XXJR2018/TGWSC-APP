@@ -902,8 +902,27 @@
     lableYHJ.text = @"不用券"; // 优惠券的面值
     [self layoutBottomView];
     
-    fYEDK = (goodsTotalAmt - promocardValue);
-    labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥0.00"];
+    //fYEDK = (goodsTotalAmt - promocardValue);
+    //labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥0.00"];
+    
+    if (!btnBalance.selected)
+     {
+        iISYuEPay = 0;
+        fYEDK = 0.0;
+        labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",0.00 ];
+     }
+    else
+     {
+        if (usableAmount > (goodsTotalAmt - promocardValue))
+         {
+            fYEDK = (goodsTotalAmt - promocardValue);
+         }
+        else
+         {
+            fYEDK = usableAmount;
+         }
+        labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",fYEDK ];
+     }
     
 }
 
@@ -916,8 +935,25 @@
     
     if (btnBalance.selected)
      {
-        fYEDK = (goodsTotalAmt - promocardValue);
+        if (usableAmount > (goodsTotalAmt - promocardValue))
+         {
+            fYEDK = (goodsTotalAmt - promocardValue);
+         }
+        else
+         {
+            fYEDK = usableAmount;
+         }
+        
         labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",fYEDK ];
+     }
+    else
+     {
+        if (!btnBalance.selected)
+         {
+            iISYuEPay = 0;
+            fYEDK = 0.0;
+            labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",0.00 ];
+         }
      }
     
     [self layoutBottomView];

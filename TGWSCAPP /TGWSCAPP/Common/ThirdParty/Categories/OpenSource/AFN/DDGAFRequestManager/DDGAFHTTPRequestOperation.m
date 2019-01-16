@@ -217,7 +217,7 @@ NSString *RSAPublickKey =
                             if (failure) {
                                 failure(self, self.errorDDG);
                             }                            
-                            [[NSNotificationCenter defaultCenter] postNotificationName:DDGUserTokenOutOfDataNotification object:nil];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:DDGAccountEngineDidLogoutNotification object:nil];
                         });
                     }else{
                         dispatch_group_async(self.completionGroup ?: http_request_operation_completion_group(), self.completionQueue ?: dispatch_get_main_queue(), ^{

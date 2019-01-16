@@ -70,7 +70,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="泰国制造 香脆椰子卷 16元每盒" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfM-Ff-bWG">
-                        <rect key="frame" x="10" y="160" width="170" height="25"/>
+                        <rect key="frame" x="10" y="152.5" width="170" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="PDH-1P-M5J"/>
                         </constraints>
@@ -92,7 +92,7 @@
                 <constraint firstItem="coG-yu-yix" firstAttribute="top" secondItem="ezK-9X-Krn" secondAttribute="bottom" id="hcu-b3-KLR"/>
                 <constraint firstAttribute="trailing" secondItem="coG-yu-yix" secondAttribute="trailing" id="ioF-Od-Kzt"/>
                 <constraint firstItem="mCe-wI-XFX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="69" id="o4I-RR-wPH"/>
-                <constraint firstItem="coG-yu-yix" firstAttribute="top" secondItem="cfM-Ff-bWG" secondAttribute="bottom" constant="2.5" id="ufa-xH-Fc2"/>
+                <constraint firstItem="coG-yu-yix" firstAttribute="top" secondItem="cfM-Ff-bWG" secondAttribute="bottom" constant="10" id="ufa-xH-Fc2"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <connections>

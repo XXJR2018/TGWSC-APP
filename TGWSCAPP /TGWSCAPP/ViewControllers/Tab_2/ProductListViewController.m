@@ -132,7 +132,7 @@
 
 #pragma mark- FlowDelegate
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-     return CGSizeMake(SCREEN_WIDTH/2, 230 * ScaleSize);
+     return CGSizeMake(SCREEN_WIDTH/2, SCREEN_WIDTH/2 + 50);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{

@@ -118,6 +118,9 @@
         // 首页切换到别的页面的通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchTab:) name:DDGSwitchTabNotification object:nil];
         
+        // token过期通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenOutOfData:) name:DDGUserTokenOutOfDataNotification object:nil];
+        
         // 支付宝支付结果通知  (跳到支付宝时， 有可能app会挂掉， 只能在tabbarView 页面接收支付消息)
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ailiPayReslut:) name:DDGPayResultNotification object:nil];
         
@@ -227,14 +230,30 @@
 -(void)logoutSucess:(NSNotification *)notification{
     [self setButtonsState:self.tab1_Button];
     
-    //极光推送  删除别名
+    //注销极光推送  删除别名
     [JPUSHService deleteAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
     } seq:0];
-    
-    [[DDGAccountManager sharedManager] deleteUserData];
+     [[DDGAccountManager sharedManager] deleteUserData];
     
     [DDGUserInfoEngine engine].parentViewController = self;
     [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+}
+
+
+-(void)tokenOutOfData:(NSNotification *)notification{
+    //注销极光推送  删除别名
+    [JPUSHService deleteAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+    } seq:0];
+
+    [[DDGAccountManager sharedManager] deleteUserData];
+    
+    [self loginSucess:nil];
+    
+    [DDGUserInfoEngine engine].parentViewController = self;
+    [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+    if ([[DDGAccountManager sharedManager] isLoggedIn]) {
+        [MBProgressHUD showErrorWithStatus:@"登录超时，请重新登录" toView:[DDGUserInfoEngine engine].loginViewController.view];
+    }
 }
 
 /*

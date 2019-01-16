@@ -13,7 +13,8 @@
 #import "LZCartViewController.h"
 
 
-#define   BannerHeight     300
+//#define   BannerHeight     300
+#define   BannerHeight     SCREEN_WIDTH
 #define   ShopRedColor     UIColorFromRGB(0x9f1421)
 
 @interface ShopDetailVC ()<TSVideoPlaybackDelegate,UIScrollViewDelegate>
@@ -50,7 +51,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    nav = [self layoutNaviBarViewWithTitle:@" "];
+    nav = [self layoutNaviBarViewWithTitle:@"商品详情"];
     
     [self initData];
     
@@ -98,25 +99,8 @@
     // 布局头部banner
     [self initialControlUnit:dicUI];
     
-    
-    // 布局头部返回按钮 !!!!!!!!!!!!!!!!!
-    int iBtnTopY =  IS_IPHONE_X_MORE? 40:20;
-    UIButton *btnBack = [[UIButton alloc] initWithFrame:CGRectMake(15, iBtnTopY, 30, 30)];
-    [scView addSubview:btnBack];
-    [btnBack setImage:[UIImage imageNamed:@"com_back"] forState:UIControlStateNormal];
-    [btnBack addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    
-    UIButton *btnHome = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30, iBtnTopY, 30, 30)];
-    [scView addSubview:btnHome];
-    [btnHome setImage:[UIImage imageNamed:@"com_home"] forState:UIControlStateNormal];
-    [btnHome addTarget:self action:@selector(actionHome) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    [self.view addSubview:nav];
-    nav.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.2];
-    nav.hidden = YES;
+    // 布局头部返回， 并布局滚动时的头部
+    [self layoutHead];
     
     // 布局底部的tabbar
     [self layoutTabber];
@@ -346,6 +330,31 @@
     //[self layoutTailJPG:dicUI atTop:iTopY];
     
 }
+
+-(void) layoutHead
+{
+    
+    // 布局头部返回按钮 !!!!!!!!!!!!!!!!!
+    int iBtnTopY =  IS_IPHONE_X_MORE? 40:20;
+    UIButton *btnBack = [[UIButton alloc] initWithFrame:CGRectMake(15, iBtnTopY, 30, 30)];
+    [scView addSubview:btnBack];
+    [btnBack setImage:[UIImage imageNamed:@"com_back"] forState:UIControlStateNormal];
+    [btnBack addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+    UIButton *btnHome = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30, iBtnTopY, 30, 30)];
+    [scView addSubview:btnHome];
+    [btnHome setImage:[UIImage imageNamed:@"com_home"] forState:UIControlStateNormal];
+    [btnHome addTarget:self action:@selector(actionHome) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    [self.view addSubview:nav];
+    //nav.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.2];
+    nav.hidden = YES;
+    
+}
+
 -(void)initialControlUnit:(NSDictionary*) dicUI
 {
     
@@ -627,6 +636,24 @@
     
 }
 
+//
+-(UIImage *)imageWithColor:(UIColor *)color {
+    
+    CGRect rect = CGRectMake(0, 0, 1.0f, 1.0f);
+    // 开启位图上下文
+    UIGraphicsBeginImageContext(rect.size);
+    // 开启上下文
+    CGContextRef ref = UIGraphicsGetCurrentContext();
+    // 使用color演示填充上下文
+    CGContextSetFillColorWithColor(ref, color.CGColor);
+    // 渲染上下文
+    CGContextFillRect(ref, rect);
+    // 从上下文中获取图片
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    // 结束上下文
+    UIGraphicsEndImageContext();
+    return image;
+}
 
 #pragma mark --- 网络通讯
 -(void) getDataFromWeb
@@ -869,17 +896,22 @@
     
     if(scrollView.contentOffset.y <= 50) {
         
-        //[self.navigationController setNavigationBarHidden:YES animated:NO];
         nav.hidden = YES;
         
     }else{
         
         nav.hidden = NO;
-        //[self.navigationController setNavigationBarHidden:NO animated:NO];
+
+        CGFloat alpha=  scrollView.contentOffset.y/500.0f>1.0f?1:scrollView.contentOffset.y/500.0f;
+        //把颜色生成图片
+        UIColor *alphaColor = [UIColor colorWithWhite:1 alpha:alpha];
+        //把颜色生成图片
+        //UIImage *alphaImage = [self imageWithColor:alphaColor];
         
-        //CGFloat alpha=scrollView.contentOffset.y/90.0f>1.0f?1:scrollView.contentOffset.y/90.0f;
+        nav.backgroundColor = alphaColor;
         
-        //[self.navigationController.navigationBar setBackgroundImage:[self getImageWithAlpha:alpha] forBarMetrics:UIBarMetricsDefault];
+        //[nav setBackgroundImage:alphaImage forBarMetrics:UIBarMetricsDefault];
+        
     }
     
     

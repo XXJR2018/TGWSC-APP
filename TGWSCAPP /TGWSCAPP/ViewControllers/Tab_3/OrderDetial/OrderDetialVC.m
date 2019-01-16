@@ -29,6 +29,10 @@
     UIView *viewOtherMoney;   // 余额
     UILabel *labelYuEDK;      // 余额抵扣
     
+    UILabel *labelAddrPhone;
+    UILabel *labelAddrName;
+    UILabel *labelAddr;
+    
     UILabel *lableYHJ;       // 优惠券
     UITextField  *textMJLY;  // 买家留言
     
@@ -208,21 +212,21 @@
     
     int iTopY = 10;
     int iLeftX = 15;
-    UILabel *labelName = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 150, 20)];
-    [viewHaveAddr addSubview:labelName];
-    labelName.textColor = [ResourceManager color_1];
-    labelName.font = [UIFont systemFontOfSize:14];
-    labelName.text = dicAddrInfo[@"receiveName"];
+    labelAddrName = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 150, 20)];
+    [viewHaveAddr addSubview:labelAddrName];
+    labelAddrName.textColor = [ResourceManager color_1];
+    labelAddrName.font = [UIFont systemFontOfSize:14];
+    labelAddrName.text = dicAddrInfo[@"receiveName"];
     
-    UILabel *labelPhone = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 170, iTopY, 130, 20)];
-    [viewHaveAddr addSubview:labelPhone];
-    labelPhone.textColor = [ResourceManager color_1];
-    labelPhone.textAlignment = NSTextAlignmentRight;
-    labelPhone.font = [UIFont systemFontOfSize:14];
-    labelPhone.text = dicAddrInfo[@"receiveTel"];
+    labelAddrPhone = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 170, iTopY, 130, 20)];
+    [viewHaveAddr addSubview:labelAddrPhone];
+    labelAddrPhone.textColor = [ResourceManager color_1];
+    labelAddrPhone.textAlignment = NSTextAlignmentRight;
+    labelAddrPhone.font = [UIFont systemFontOfSize:14];
+    labelAddrPhone.text = dicAddrInfo[@"receiveTel"];
     
-    iTopY += labelName.height ;
-    UILabel *labelAddr = [[UILabel alloc] initWithFrame:CGRectMake(15, iTopY, SCREEN_WIDTH - 50, 30)];
+    iTopY += labelAddrName.height ;
+    labelAddr = [[UILabel alloc] initWithFrame:CGRectMake(15, iTopY, SCREEN_WIDTH - 50, 30)];
     [viewHaveAddr addSubview:labelAddr];
     labelAddr.textColor = [ResourceManager color_1];
     labelAddr.font = [UIFont systemFontOfSize:11];
@@ -788,8 +792,21 @@
 
 -(void) actionUpdateAddress
 {
+
     AddressViewController *ctl = [[AddressViewController alloc]init];
+    ctl.selectType = 101;
+    ctl.selAddressBlock = ^(id obj) {
+        NSDictionary *dicAddr = (NSDictionary *)obj;
+        
+        addrId = [ NSString stringWithFormat:@"%@", dicAddr[@"addrId"]];
+        labelAddrPhone.text = [ NSString stringWithFormat:@"%@", dicAddr[@"receiveTel"]];;
+        labelAddrName.text = [ NSString stringWithFormat:@"%@", dicAddr[@"receiveName"]];;
+        labelAddr.text = [ NSString stringWithFormat:@"%@", dicAddr[@"fullAddrDesc"]];;
+        
+    };
     [self.navigationController pushViewController:ctl animated:YES];
+    
+    _isNotLoadData = NO;
 }
 
 

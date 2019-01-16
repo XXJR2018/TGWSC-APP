@@ -230,15 +230,21 @@
 -(void)logoutSucess:(NSNotification *)notification{
     [self setButtonsState:self.tab1_Button];
     
+    //注销极光推送  删除别名
+    [JPUSHService deleteAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+    } seq:0];
+     [[DDGAccountManager sharedManager] deleteUserData];
+    
     [DDGUserInfoEngine engine].parentViewController = self;
     [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
 }
 
 
 -(void)tokenOutOfData:(NSNotification *)notification{
-    // 注销推送
-    //[APService setAlias:@"" callbackSelector:nil object:nil];
-    
+    //注销极光推送  删除别名
+    [JPUSHService deleteAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+    } seq:0];
+
     [[DDGAccountManager sharedManager] deleteUserData];
     
     [self loginSucess:nil];

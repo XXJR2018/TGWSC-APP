@@ -1063,7 +1063,7 @@
                 [self.orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];
                 self.countDownLabel.text = @"";
                 //取消订单
-                [self closeOrderAleartViewUI:self.orderNo];
+                [self cancelOrderUrl:self.orderNo];
                 [self.navigationController popViewControllerAnimated:YES];
             });
         }else{

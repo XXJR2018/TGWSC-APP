@@ -25,7 +25,7 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     self.layer.borderWidth = 0.5;
-    self.layer.borderColor = [ResourceManager color_5].CGColor;
+    self.layer.borderColor = UIColorFromRGB(0xf0f0f0).CGColor;
     self.selloutLabel.clipsToBounds = YES;
     self.selloutLabel.layer.cornerRadius = 25;
     self.selloutLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];

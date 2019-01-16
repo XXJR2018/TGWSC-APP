@@ -94,6 +94,14 @@
     // 布局头部banner
     [self initialControlUnit:dicUI];
     
+    
+    // 布局头部返回按钮
+    UIButton *btnBack = [[UIButton alloc] initWithFrame:CGRectMake(15, 20, 30, 30)];
+    [scView addSubview:btnBack];
+    //[btnBack setImage:[UIImage imageNamed:@"return_black"] forState:UIControlStateNormal];
+    //[btnBack addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     // 布局底部的tabbar
     [self layoutTabber];
     
@@ -840,6 +848,11 @@
 }
 
 #pragma mark --- action
+-(void) actionBack
+{
+    
+}
+
 -(void) actionBtn:(UIButton*) sender
 {
     int iTag = (int)sender.tag;

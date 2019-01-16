@@ -36,6 +36,8 @@
     UILabel *lableYHJ;       // 优惠券
     UITextField  *textMJLY;  // 买家留言
     
+    UIButton *btnBalance;  // 余额抵扣按钮
+    
     NSDictionary *dicOfUI;
     NSArray *arrOfUI;
     BOOL isCheckXY;  // 协议勾选标记位
@@ -369,7 +371,7 @@
             fYEDK = 0.00;
             labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",0.00 ];
             
-            UIButton *btnBalance = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-90, 25, 75, 30)];
+            btnBalance = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-90, 25, 75, 30)];
             [viewOtherMoney addSubview:btnBalance];
             [btnBalance setImage:[UIImage imageNamed:@"pay_ye_colse"] forState:UIControlStateNormal];
             [btnBalance setImage:[UIImage imageNamed:@"pay_ye_open"] forState:UIControlStateSelected];
@@ -900,6 +902,28 @@
     lableYHJ.text = @"不用券"; // 优惠券的面值
     [self layoutBottomView];
     
+    //fYEDK = (goodsTotalAmt - promocardValue);
+    //labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥0.00"];
+    
+    if (!btnBalance.selected)
+     {
+        iISYuEPay = 0;
+        fYEDK = 0.0;
+        labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",0.00 ];
+     }
+    else
+     {
+        if (usableAmount > (goodsTotalAmt - promocardValue))
+         {
+            fYEDK = (goodsTotalAmt - promocardValue);
+         }
+        else
+         {
+            fYEDK = usableAmount;
+         }
+        labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",fYEDK ];
+     }
+    
 }
 
 -(void)  haveYHQAfterSel:(NSDictionary *) dicValue
@@ -908,6 +932,29 @@
     promocardId = [NSString stringWithFormat:@"%@", dicValue[@"promocardId"]];
     _custPromocardId = [NSString stringWithFormat:@"%@", dicValue[@"custPromocardId"]];
     lableYHJ.text = [NSString stringWithFormat:@"-¥%.2f",promocardValue]; // 优惠券的面值
+    
+    if (btnBalance.selected)
+     {
+        if (usableAmount > (goodsTotalAmt - promocardValue))
+         {
+            fYEDK = (goodsTotalAmt - promocardValue);
+         }
+        else
+         {
+            fYEDK = usableAmount;
+         }
+        
+        labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",fYEDK ];
+     }
+    else
+     {
+        if (!btnBalance.selected)
+         {
+            iISYuEPay = 0;
+            fYEDK = 0.0;
+            labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",0.00 ];
+         }
+     }
     
     [self layoutBottomView];
     

@@ -182,8 +182,8 @@
         _sel_bolck(nil);
      }
     
-    //[self.navigationController popViewControllerAnimated:YES];
-    [self performSelector:@selector(delayMethod) withObject:nil afterDelay:1.0];// 延迟执行
+    [self.navigationController popViewControllerAnimated:YES];
+    //[self performSelector:@selector(delayMethod) withObject:nil afterDelay:1.0];// 延迟执行
 
     
 }
@@ -207,8 +207,10 @@
          }
      }
     
+    
+    [self.navigationController popViewControllerAnimated:YES];
     //[self.navigationController popViewControllerAnimated:YES];
-    [self performSelector:@selector(delayMethod) withObject:nil afterDelay:1.0];// 延迟执行
+    //[self performSelector:@selector(delayMethod) withObject:nil afterDelay:0.1];// 延迟执行
     
 }
 

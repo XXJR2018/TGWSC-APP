@@ -292,7 +292,7 @@
     self.placeholderImg = [[UIImageView alloc]init];
     
     //  baicai  此处可以修改 视频的占位图片
-    self.placeholderImg.image = [UIImage imageNamed:@"icon_play"];
+    self.placeholderImg.image = [UIImage imageNamed:@"icon_play111"];
     
     self.placeholderImg.contentMode = UIViewContentModeScaleAspectFill;
     self.placeholderImg.userInteractionEnabled = YES;

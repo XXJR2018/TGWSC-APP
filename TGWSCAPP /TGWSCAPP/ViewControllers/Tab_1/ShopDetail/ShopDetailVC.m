@@ -53,6 +53,18 @@
     // Do any additional setup after loading the view.
     nav = [self layoutNaviBarViewWithTitle:@"商品详情"];
     
+    int iBtnTopY = IS_IPHONE_X_MORE? 50:30;
+    UIButton *btnHome = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30, iBtnTopY, 30, 30)];
+    [nav addSubview:btnHome];
+    [btnHome setImage:[UIImage imageNamed:@"com_home"] forState:UIControlStateNormal];
+    [btnHome addTarget:self action:@selector(actionHome) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    UIButton *btnShare = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30 -40, iBtnTopY, 30, 30)];
+    [nav addSubview:btnShare];
+    [btnShare setImage:[UIImage imageNamed:@"com_share"] forState:UIControlStateNormal];
+    [btnShare addTarget:self action:@selector(actionShare) forControlEvents:UIControlEventTouchUpInside];
+    
     [self initData];
     
     [self getDataFromWeb];
@@ -348,6 +360,11 @@
     [btnHome setImage:[UIImage imageNamed:@"com_home"] forState:UIControlStateNormal];
     [btnHome addTarget:self action:@selector(actionHome) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    UIButton *btnShare = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30 -40, iBtnTopY, 30, 30)];
+    [scView addSubview:btnShare];
+    [btnShare setImage:[UIImage imageNamed:@"com_share"] forState:UIControlStateNormal];
+    [btnShare addTarget:self action:@selector(actionShare) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:nav];
     //nav.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.2];
@@ -902,7 +919,7 @@
         
         nav.hidden = NO;
 
-        CGFloat alpha=  scrollView.contentOffset.y/500.0f>1.0f?1:scrollView.contentOffset.y/500.0f;
+        CGFloat alpha=  scrollView.contentOffset.y/BannerHeight>1.0f?1:scrollView.contentOffset.y/BannerHeight;
         //把颜色生成图片
         UIColor *alphaColor = [UIColor colorWithWhite:1 alpha:alpha];
         //把颜色生成图片
@@ -927,6 +944,11 @@
 {
     [self.navigationController popToRootViewControllerAnimated:NO];
     [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(1),@"index":@(0)}];
+}
+
+-(void) actionShare
+{
+    NSLog(@"actionShare");
 }
 
 -(void) actionBtn:(UIButton*) sender

@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import <AlipaySDK/AlipaySDK.h>
-
 #import <UserNotifications/UserNotifications.h>
 
 @interface AppDelegate ()<JPUSHRegisterDelegate,UNUserNotificationCenterDelegate>
@@ -58,9 +57,6 @@
     // 极光推送
     [self JPushSet:launchOptions];
     
-//    //申请通知权限
-//    [self replyPushNotificationAuthorization:application];
-    
     //初始化控制器
     [self setupMainUserInterface];
     
@@ -89,36 +85,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:kJPFNetworkDidLoginNotification
                                                   object:nil];
-}
-
-- (void)networkDidColse:(NSNotification *)notification {
-    //NSLog(@"极光推送连接失败");
-}
-
-#pragma mark - 申请通知权限
-// 申请通知权限
-- (void)replyPushNotificationAuthorization:(UIApplication *)application{
-    //iOS 10 later
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    //必须写代理，不然无法监听通知的接收与点击事件
-    center.delegate = self;
-    [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        if (!error && granted) {
-            //用户点击允许
-            NSLog(@"注册成功");
-        }else{
-            //用户点击不允许
-            NSLog(@"注册失败");
-        }
-    }];
-    // 可以通过 getNotificationSettingsWithCompletionHandler 获取权限设置
-    //之前注册推送服务，用户点击了同意还是不同意，以及用户之后又做了怎样的更改我们都无从得知，现在 apple 开放了这个 API，我们可以直接获取到用户的设定信息了。注意UNNotificationSettings是只读对象哦，不能直接修改！
-    [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-        NSLog(@"========%@",settings);
-    }];
-    
-    //注册远端消息通知获取device token
-    [application registerForRemoteNotifications];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {

@@ -896,20 +896,12 @@
     
     if(scrollView.contentOffset.y <= 50) {
         
-        //[self.navigationController setNavigationBarHidden:YES animated:NO];
         nav.hidden = YES;
         
     }else{
         
         nav.hidden = NO;
-        //[self.navigationController setNavigationBarHidden:NO animated:NO];
-        
-        
-//        CGFloat alpha = offset * 1 / 136.0;   // (200 - 64) / 136.0f
-//        if (alpha >= 1) {
-//            alpha = 0.99;
-//        }
-        
+
         CGFloat alpha=  scrollView.contentOffset.y/500.0f>1.0f?1:scrollView.contentOffset.y/500.0f;
         //把颜色生成图片
         UIColor *alphaColor = [UIColor colorWithWhite:1 alpha:alpha];

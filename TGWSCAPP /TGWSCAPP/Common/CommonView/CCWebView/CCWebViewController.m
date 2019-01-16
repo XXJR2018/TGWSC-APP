@@ -86,6 +86,10 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     [self.progressLine endLoadingAnimation];
+    NSString *webTitle = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    if (webTitle.length > 0) {
+        [self layoutNaviBarViewWithTitle:webTitle];
+    }
 }
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{

@@ -944,11 +944,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.3533241"
+            timestampString = "569323600.095773"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "-layoutUI:"
             landmarkType = "7">
          </BreakpointContent>
@@ -960,11 +960,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.353768"
+            timestampString = "569323600.09624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "-layoutUI:"
             landmarkType = "7">
          </BreakpointContent>
@@ -976,11 +976,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.354081"
+            timestampString = "569323600.096565"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "-layoutUI:"
             landmarkType = "7">
          </BreakpointContent>
@@ -992,11 +992,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.354388"
+            timestampString = "569323600.096873"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "435"
-            endingLineNumber = "435"
+            startingLineNumber = "444"
+            endingLineNumber = "444"
             landmarkName = "-layoutTailJPG:atTop:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1008,11 +1008,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.354722"
+            timestampString = "569323600.097188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "430"
-            endingLineNumber = "430"
+            startingLineNumber = "439"
+            endingLineNumber = "439"
             landmarkName = "-layoutTailJPG:atTop:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1024,11 +1024,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.355075"
+            timestampString = "569323600.097494"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "458"
-            endingLineNumber = "458"
+            startingLineNumber = "467"
+            endingLineNumber = "467"
             landmarkName = "-layoutTailJPG:atTop:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1040,11 +1040,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.355401"
+            timestampString = "569323600.097802"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "485"
-            endingLineNumber = "485"
+            startingLineNumber = "494"
+            endingLineNumber = "494"
             landmarkName = "-layoutTailJPG:atTop:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1072,11 +1072,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.355752"
+            timestampString = "569323600.098156"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "822"
-            endingLineNumber = "822"
+            startingLineNumber = "849"
+            endingLineNumber = "849"
             landmarkName = "-handleData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1088,11 +1088,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.356047"
+            timestampString = "569323600.098525"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "826"
-            endingLineNumber = "826"
+            startingLineNumber = "853"
+            endingLineNumber = "853"
             landmarkName = "-handleData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1104,11 +1104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.3563271"
+            timestampString = "569323600.098888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "927"
-            endingLineNumber = "927"
+            startingLineNumber = "965"
+            endingLineNumber = "965"
             landmarkName = "-actionLJGM"
             landmarkType = "7">
          </BreakpointContent>
@@ -1120,11 +1120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.3566231"
+            timestampString = "569323600.099242"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "706"
-            endingLineNumber = "706"
+            startingLineNumber = "733"
+            endingLineNumber = "733"
             landmarkName = "-querySkuList"
             landmarkType = "7">
          </BreakpointContent>
@@ -1344,11 +1344,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.357193"
+            timestampString = "569323600.1000561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "913"
-            endingLineNumber = "913"
+            startingLineNumber = "951"
+            endingLineNumber = "951"
             landmarkName = "-actionBtn:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1360,11 +1360,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.35748"
+            timestampString = "569323600.100445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "830"
-            endingLineNumber = "830"
+            startingLineNumber = "857"
+            endingLineNumber = "857"
             landmarkName = "-handleData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1376,11 +1376,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.357772"
+            timestampString = "569323600.100785"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "853"
-            endingLineNumber = "853"
+            startingLineNumber = "880"
+            endingLineNumber = "880"
             landmarkName = "-handleErrorData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1616,7 +1616,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_2/SortProductCollectionViewCell.m"
-            timestampString = "568626585.160925"
+            timestampString = "569322893.015753"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "22"
@@ -1888,11 +1888,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.358767"
+            timestampString = "569323600.102034"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "645"
-            endingLineNumber = "645"
+            startingLineNumber = "672"
+            endingLineNumber = "672"
             landmarkName = "-queryGoodsBaseInfo"
             landmarkType = "7">
          </BreakpointContent>
@@ -2064,7 +2064,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_2/SortProductCollectionViewCell.m"
-            timestampString = "568626585.162017"
+            timestampString = "569322893.016969"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "38"
@@ -3136,11 +3136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.360617"
+            timestampString = "569323600.10463"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "587"
-            endingLineNumber = "587"
+            startingLineNumber = "596"
+            endingLineNumber = "596"
             landmarkName = "-layoutTabber"
             landmarkType = "7">
          </BreakpointContent>
@@ -3152,11 +3152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
-            timestampString = "569320041.3609461"
+            timestampString = "569323600.105268"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "573"
-            endingLineNumber = "573"
+            startingLineNumber = "582"
+            endingLineNumber = "582"
             landmarkName = "-layoutTabber"
             landmarkType = "7">
          </BreakpointContent>
@@ -4582,6 +4582,22 @@
             startingLineNumber = "584"
             endingLineNumber = "584"
             landmarkName = "-layoutBottomView"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/ShopDetailVC.m"
+            timestampString = "569323600.108055"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "913"
+            endingLineNumber = "913"
+            landmarkName = "-scrollViewDidScroll:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

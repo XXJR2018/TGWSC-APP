@@ -17,13 +17,9 @@
  */
 @property (nonatomic,assign) BOOL area;
 
-/*
- * 是否需要选择区域
- */
-@property (nonatomic,assign) BOOL goBack;
-
 @property (nonatomic,strong) Block_Id block;
 
 @property (nonatomic,assign) BOOL noShowHotCity; // 不显示热门城市
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *NavConstraint;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "AddAddressViewController.h"
+#import "SelectCityViewController.h"
 
 @interface AddAddressViewController ()<UIPickerViewDelegate,UIPickerViewDataSource>
 {
@@ -103,8 +104,16 @@
     if (operation.tag == 1000) {
         if (operation.jsonResult.attr.count > 0) {
             _provinceArr = [operation.jsonResult.attr objectForKey:@"allArea"];
-            _cityArr = [(NSDictionary *)_provinceArr[0] objectForKey:@"citys"];
-            _districtArr = [(NSDictionary *)_cityArr[0] objectForKey:@"districts"];
+            if (_provinceArr &&
+                _provinceArr.count > 0 )
+             {
+                _cityArr = [(NSDictionary *)_provinceArr[0] objectForKey:@"citys"];
+                if (_cityArr &&
+                    _cityArr.count > 0)
+                 {
+                    _districtArr = [(NSDictionary *)_cityArr[0] objectForKey:@"districts"];
+                 }
+             }
         }
     }else if (operation.tag == 1001) {
         [MBProgressHUD showSuccessWithStatus:@"修改地址成功" toView:self.view];
@@ -198,15 +207,15 @@
     finishBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [finishBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
 
-    _pickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(0.f, 40.f, SCREEN_WIDTH, 180.f)];
-    _pickerView.delegate = self;
-    _pickerView.dataSource = self;
-    _pickerView.backgroundColor = [UIColor whiteColor];
-    [_adderssPickerView addSubview:_pickerView];
+//    _pickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(0.f, 40.f, SCREEN_WIDTH, 180.f)];
+//    _pickerView.delegate = self;
+//    _pickerView.dataSource = self;
+//    _pickerView.backgroundColor = [UIColor whiteColor];
+//    [_adderssPickerView addSubview:_pickerView];
     
-    [_pickerView selectRow:0 inComponent:0 animated:YES];
-    [_pickerView selectRow:0 inComponent:1 animated:YES];
-    [_pickerView selectRow:0 inComponent:2 animated:YES];
+//    [_pickerView selectRow:0 inComponent:0 animated:YES];
+//    [_pickerView selectRow:0 inComponent:1 animated:YES];
+//    [_pickerView selectRow:0 inComponent:2 animated:YES];
     _provinceStr = [(NSDictionary *)_provinceArr[0] objectForKey:@"provinceName"];
     _cityStr = [(NSDictionary *)_cityArr[0] objectForKey:@"cityName"];
     _districtStr = (NSString *)_districtArr[0];
@@ -228,7 +237,22 @@
 
 - (IBAction)selectAdderss:(UIButton *)sender {
     [self.view endEditing:YES];
-    [self pickViewerUI];
+    //[self pickViewerUI];
+    
+    SelectCityViewController *ctl = [[SelectCityViewController alloc] init];
+    ctl.rootVC = self;
+    //选择区域
+    ctl.area = YES;
+    ctl.block = ^(id city){
+        NSDictionary * dic = city;
+        _provinceStr = [dic objectForKey:@"province"];
+        _cityStr = [dic objectForKey:@"areaName"];
+        _districtStr = [dic objectForKey:@"area"];
+        //_cityLabel.text = [NSString stringWithFormat:@"%@%@%@",[dic objectForKey:@"province"],[dic objectForKey:@"areaName"],[dic objectForKey:@"area"]];
+        self.addressLabel.text = [NSString stringWithFormat:@"%@ %@ %@",_provinceStr,_cityStr,_districtStr];
+    };
+    
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 

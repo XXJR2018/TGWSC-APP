@@ -13,6 +13,10 @@
 #define ButtonTag 89830
 #define CityFile   @"cityjson.json"
 
+
+#define K_CITY_NETVESION     @"K_City_NetVesion"     // 城市信息的网络版本号
+#define K_CITY_CURVESION     @"K_City_CurVesion"     // 城市信息的当前版本号
+
 @interface CitysCellView : UIView
 
 @property (nonatomic,strong) Block_Id block;
@@ -24,7 +28,8 @@
 @implementation CitysCellView
 
 +(UIView *)citysView:(NSArray *)cityArr block:(Block_Id)block viewController:(UIViewController *)VC{
-    CitysCellView *view = [[CitysCellView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 90.f)];
+    //CitysCellView *view = [[CitysCellView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 90.f)];
+    CitysCellView *view = [[CitysCellView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 120.f)];
     view.backgroundColor = [ResourceManager color_2];
     
     float space = 12.f;
@@ -61,6 +66,18 @@
 
 @implementation SelectCityViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"城市"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"城市"];
+}
+
 -(id)init{
     self = [super init];
     if (self) {
@@ -72,10 +89,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    if (self.goBack) {
-        self.hideBackButton = YES;
-    }
+    
     [self layoutNaviBarViewWithTitle:@"城市"];
+    
+    
+    if (@available(iOS 11.0, *))
+     {
+        _NavConstraint.constant = NavHeight -30;
+        if (IS_IPHONE_X_MORE)
+         {
+            _NavConstraint.constant = NavHeight -50;
+         }
+     }
+    else
+     {
+        _NavConstraint.constant = NavHeight;
+     }
     
    
     // 从缓存中读取城市信息
@@ -95,22 +124,30 @@
      {
         [self.dataArray addObjectsFromArray:arry];
      }
+    
+    
+    // 判断是否需要更新城市数据
+    [self upCityData];
 
     
     _hotCityArr = @[@{@"areaId":@"1100",@"areaName":@"北京市",@"nameEn":@"BJ",@"pid":@"351",@"tempPcode":@"11"},
                     @{@"areaId":@"3101",@"areaName":@"上海市",@"nameEn":@"SH",@"pid":@"199",@"tempPcode":@"31"},
                     @{@"areaId":@"4401",@"areaName":@"广州市",@"nameEn":@"GZ",@"pid":@"304",@"tempPcode":@"44"},
                     @{@"areaId":@"4403",@"areaName":@"深圳市",@"nameEn":@"SZ",@"pid":@"304",@"tempPcode":@"44"},
-                    @{@"areaId":@"4201",@"areaName":@"武汉市",@"nameEn":@"WH",@"pid":@"160",@"tempPcode":@"42"},
-                    @{@"areaId":@"4301",@"areaName":@"长沙市",@"nameEn":@"CS",@"pid":@"145",@"tempPcode":@"43"},
-                    @{@"areaId":@"1200",@"areaName":@"天津市",@"nameEn":@"TJ",@"pid":@"223",@"tempPcode":@"12"},
-                    @{@"areaId":@"5000",@"areaName":@"重庆市",@"nameEn":@"CQ",@"pid":@"277",@"tempPcode":@"50"}];
+                    @{@"areaId":@"4201",@"areaName":@"重庆市",@"nameEn":@"WH",@"pid":@"160",@"tempPcode":@"42"},
+                    @{@"areaId":@"4301",@"areaName":@"武汉市",@"nameEn":@"WH",@"pid":@"145",@"tempPcode":@"43"},
+                    @{@"areaId":@"1200",@"areaName":@"成都市",@"nameEn":@"TJ",@"pid":@"223",@"tempPcode":@"12"},
+                    @{@"areaId":@"5000",@"areaName":@"昆明市",@"nameEn":@"CQ",@"pid":@"277",@"tempPcode":@"50"},
+                    @{@"areaId":@"5000",@"areaName":@"长沙市",@"nameEn":@"CQ",@"pid":@"278",@"tempPcode":@"51"},
+                    @{@"areaId":@"5000",@"areaName":@"苏州市",@"nameEn":@"CQ",@"pid":@"279",@"tempPcode":@"52"},
+                    @{@"areaId":@"5000",@"areaName":@"南京市",@"nameEn":@"CQ",@"pid":@"280",@"tempPcode":@"53"},
+                    @{@"areaId":@"5000",@"areaName":@"无锡市",@"nameEn":@"CQ",@"pid":@"281",@"tempPcode":@"54"}];
     
     if (![DDGSetting sharedSettings].locationCityString) {
         [[LocationManager shareManager] getUserLocationSuccess:^{
             [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
         } failedBlock:^(int code){
-            [MBProgressHUD showErrorWithStatus:@"定位失败" toView:self.view];
+            //[MBProgressHUD showErrorWithStatus:@"定位失败" toView:self.view];
         }];
     }
     
@@ -119,10 +156,30 @@
     
 }
 
+// 当版本号变动时， 获取城市数据
+- (void) upCityData
+{
+    NSString *strCityCurVer = [CommonInfo getKey:K_CITY_CURVESION]; // 城市信息的当前版本号
+    NSString *strCityNetVer = [CommonInfo getKey:K_CITY_NETVESION]; // 城市信息的网络版本号
+    
+    // 如果版本号不一致，获取城市数据
+    if (![strCityCurVer isEqualToString:strCityNetVer])
+     {
+        [self getCityData];
+     }
+    
+}
+
 #pragma mark --- 请求城市数据
 -(void)getCityData{
+    
+    
+
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    NSString *url = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString],@"busi/area/allAreaInfo"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@",@"https://newapp.xxjr.com/",@"mjb/area/allAreaInfo"];
+    
+    
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:url
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
@@ -167,6 +224,13 @@
     
     // 数组写入文件执行的方法
     BOOL  isWirte =   [array writeToFile:filePath atomically:YES];
+    
+    if (isWirte)
+     {
+        NSString *strCityNetVer = [CommonInfo getKey:K_CITY_NETVESION]; // 城市信息的网络版本号
+        [CommonInfo setKey:K_CITY_CURVESION withValue:strCityNetVer];
+     }
+    
     return  isWirte;
     
 }
@@ -201,7 +265,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        return 1;
+        return 0;
     }else if (section == 1) {
         return self.area ? self.dataArray.count : 1;
     }else return self.dataArray.count;
@@ -215,8 +279,13 @@
          {
             return 0.f;
          }
-        return self.area ? 44.0 : 90.0;
+        return self.area ? 44.0 : 120.0;
     }
+    if (indexPath.section == 0)
+     {
+        // 隐藏 “当前定位的城市”
+        return 0;
+     }
     return 44.f;
 }
 
@@ -236,7 +305,8 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-        cell.textLabel.text = @"当前定位城市：";
+        //cell.textLabel.text = @"当前定位城市：";
+        cell.textLabel.text = @"";//@"当前定位城市：";
         cell.textLabel.textColor = [ResourceManager color_6];
         cell.textLabel.font = [ResourceManager font_7];
         cell.detailTextLabel.textColor = [ResourceManager redColor2];
@@ -319,6 +389,8 @@
         ctl.area = self.area;
         NSDictionary *dic = [self.dataArray objectAtIndex:indexPath.row];
         ctl.dataArray = [dic objectForKey:@"citys"];
+        
+        
         
         NSDictionary *provinceDic = [self.dataArray objectAtIndex:indexPath.row];
         NSString *provinceStr = [provinceDic objectForKey:@"provinceName"];

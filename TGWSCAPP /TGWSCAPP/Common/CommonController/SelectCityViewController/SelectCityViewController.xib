@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SelectCityViewController">
             <connections>
+                <outlet property="NavConstraint" destination="uXF-we-NjY" id="iO1-zZ-gYw"/>
                 <outlet property="tableView" destination="G04-lQ-Wjr" id="RYA-uP-LdW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

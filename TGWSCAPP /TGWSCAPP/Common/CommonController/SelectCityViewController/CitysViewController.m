@@ -22,7 +22,17 @@
 
 @implementation CitysViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"选择城市"];
+}
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"选择城市"];
+}
 
 -(UITableView *)tableView_Right{
     if (!_tableView_Right) {
@@ -51,6 +61,22 @@
     // Do any additional setup after loading the view from its nib.
     
     [self layoutNaviBarViewWithTitle:@"选择城市"];
+    
+
+    
+    if (@available(iOS 11.0, *))
+     {
+        _NavConstraint.constant = NavHeight -50;
+        if (IS_IPHONE_X_MORE)
+         {
+            _NavConstraint.constant = NavHeight -70;
+         }
+     }
+    else
+     {
+        _NavConstraint.constant = NavHeight-30;
+     }
+    
 }
 
 - (void)didReceiveMemoryWarning {

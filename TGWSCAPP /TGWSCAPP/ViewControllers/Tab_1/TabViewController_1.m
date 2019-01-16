@@ -400,7 +400,7 @@
     UIView *viewCKXY = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 270.0*ScaleSize, 20)];
     //viewCKXY.backgroundColor = [UIColor yellowColor];
     
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 200, 20)];
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, 200, 20)];
     [viewCKXY addSubview:label1];
     label1.font = [UIFont systemFontOfSize:12];
     label1.textColor = [ResourceManager color_1];
@@ -516,7 +516,16 @@
      {
         NSLog(@"first:%@",first);
         NSString *type = first[@"type"];
+        if ([type isEqualToString:@"empRewarded"])
+         {
+            [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4),@"index":@(0)}];
+         }
+        else
+         {
+            [self sendPop:type];
+         }
         
+
      }
     
     

@@ -18,5 +18,6 @@
 @property (nonatomic,assign) BOOL area;
 
 @property (nonatomic,strong) Block_Id block;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *NavConstraint;
 
 @end

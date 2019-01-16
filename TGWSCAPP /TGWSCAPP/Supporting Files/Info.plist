@@ -112,6 +112,10 @@
 	<string>是否允许此App为您添加照片用于上传图片？</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>是否允许此App使用相册用于上传图片？</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

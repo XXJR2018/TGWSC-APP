@@ -816,6 +816,7 @@
 		C25047FD21BA73B800DA9C72 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		C287FE7721BF4ACB00B8D682 /* Images-Default.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-Default.xcassets"; sourceTree = "<group>"; };
 		C287FE7821BF4ACB00B8D682 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C29736A021EEBC76008EFD9E /* TGWSCAPP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TGWSCAPP.entitlements; sourceTree = "<group>"; };
 		C29ABBD921D4655300428407 /* MyCollectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectViewController.h; sourceTree = "<group>"; };
 		C29ABBDA21D4655300428407 /* MyCollectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectViewController.m; sourceTree = "<group>"; };
 		C29ABBE121D466D600428407 /* MyCollectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectCell.h; sourceTree = "<group>"; };
@@ -1618,6 +1619,7 @@
 		C250435221BA51FC00DA9C72 /* TGWSCAPP */ = {
 			isa = PBXGroup;
 			children = (
+				C29736A021EEBC76008EFD9E /* TGWSCAPP.entitlements */,
 				C250435321BA51FC00DA9C72 /* AppDelegate.h */,
 				C250435421BA51FC00DA9C72 /* AppDelegate.mm */,
 				C20525DC21BE6E1D00E13893 /* TabBarViewController.h */,
@@ -2484,6 +2486,14 @@
 				TargetAttributes = {
 					C250434F21BA51FC00DA9C72 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					C250436721BA51FD00DA9C72 = {
 						CreatedOnToolsVersion = 10.1;
@@ -3068,6 +3078,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = TGWSCAPP/TGWSCAPP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S79W2S3535;
 				ENABLE_BITCODE = NO;
@@ -3145,6 +3156,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = TGWSCAPP/TGWSCAPP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S79W2S3535;
 				ENABLE_BITCODE = NO;

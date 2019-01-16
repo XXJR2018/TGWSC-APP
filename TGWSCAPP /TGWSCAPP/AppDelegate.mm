@@ -69,25 +69,21 @@
     
     NSLog(@"已登录极光推送");
     
-    if (![[CommonInfo userInfo]objectForKey:@"encryptId"])
+    if (![[CommonInfo userInfo]objectForKey:@"alias"])
         return;
     
-    NSString *strUid = [[CommonInfo userInfo] objectForKey:@"encryptId"];
-    if(strUid.length > 8) {
-        strUid = [strUid substringFromIndex:8];
-        NSLog(@"   strUid:%@",  strUid);
-        
-        //极光推送2.9版本后， 设置别名，必须用此新方法
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [JPUSHService setTags:nil alias:strUid fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
-                NSLog(@"setTags iResCode：%d-------------%@,-------------iAlias：%@",iResCode,iTags,iAlias);
-                // 设置超时， 60S后重试
-                if (iResCode == 6002) {
-                    [self performSelector:@selector(delayMethod) withObject:nil afterDelay:60.0];
-                }
-            }];
-        });
-    }
+    NSString *alias = [[CommonInfo userInfo] objectForKey:@"alias"];
+    
+    //极光推送2.9版本后， 设置别名，必须用此新方法
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [JPUSHService setTags:nil alias:alias fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+            NSLog(@"setTags iResCode：%d-------------%@,-------------iAlias：%@",iResCode,iTags,iAlias);
+            // 设置超时， 60S后重试
+            if (iResCode == 6002) {
+                [self performSelector:@selector(delayMethod) withObject:nil afterDelay:60.0];
+            }
+        }];
+    });
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:kJPFNetworkDidLoginNotification
@@ -101,20 +97,16 @@
 - (void)delayMethod{
     
     NSLog(@"delayMethodEnd");
-    if (![[CommonInfo userInfo]objectForKey:@"encryptId"])
+    if (![[CommonInfo userInfo]objectForKey:@"alias"])
         return;
     
-    NSString *strUid = [[CommonInfo userInfo] objectForKey:@"encryptId"];
-    if(strUid.length > 8){
-        strUid = [strUid substringFromIndex:8];
-        NSLog(@"   strUid:%@",  strUid);
+    NSString *alias = [[CommonInfo userInfo] objectForKey:@"alias"];
         
-        [JPUSHService setTags:nil alias:strUid fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
-            NSLog(@"setTags iResCode：%d-------------%@,-------------iAlias：%@",iResCode,iTags,iAlias);
-            // 设置超时， 60S后重试
-            
-        }];
-    }
+    [JPUSHService setTags:nil alias:alias fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+        NSLog(@"setTags iResCode：%d-------------%@,-------------iAlias：%@",iResCode,iTags,iAlias);
+        // 设置超时， 60S后重试
+    }];
+    
 }
 
 #pragma mark - 申请通知权限

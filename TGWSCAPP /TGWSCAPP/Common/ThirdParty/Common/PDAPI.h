@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+
+
 // 发送登录短信接口一（拿到登录SmsTokenID）
 static NSString *const kDDGgetSmsToken = @"appMall/smsSend/getSmsToken/kjLogin";
 // 发送登录短信接口二（发送登录短信）
@@ -17,8 +19,8 @@ static NSString *const kDDGgetSmsTokenByType = @"appMall/smsSend/getSmsToken";
 // 发送普通短信接口二（发送短信） 请求URL：/appMall/smsSend/login/{type}
 static NSString *const kDDGnologinByType = @"appMall/smsSend/login";
 
-
-
+// 跳转h5之前，获取xcode
+static NSString *const kURLGetXCode = @"appMall/account/cust/info/getXCode";
 
 #pragma mark --- 首页页面相关接口
 // 获取首页菜单
@@ -79,6 +81,8 @@ static NSString *const kURLrefundGoodsList = @"appMall/account/orderRefund/refun
 static NSString *const kURLselectRefundGoods = @"appMall/account/orderRefund/selectRefundGoods";
 // 退款申请
 static NSString *const kURLapplyRefund = @"appMall/account/orderRefund/applyRefund";
+// 退款申请 (重新申请)
+static NSString *const kURLagainApplyRefund = @"appMall/account/orderRefund/againApply";
 // 退款/售后列表
 static NSString *const kURLrefundList = @"appMall/account/orderRefund/list";
 // 退款详情
@@ -110,6 +114,11 @@ static NSString *const kURLmsgList = @"appMall/account/cust/message/msgList";
 static NSString *const kURLupdateShow = @"appMall/account/cust/message/updateShow";
 
 
+#pragma mark   ---  登录弹框相关
+// 首页获取弹框
+static NSString *const kURLpopups = @"appMall/account/cust/info/popups";
+// 弹框后领取奖励接口
+static NSString *const kURLgetCustReward = @"appMall/account/cust/activity/getCustReward";
 
 /*!
  @brief 管理所有接口URL

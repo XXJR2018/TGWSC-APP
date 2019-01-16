@@ -16,6 +16,9 @@
     
     UILabel *lalbelTitle2;
     UILabel *lable1Sub2;
+    
+    UILabel *labeNum1;
+    UILabel *labeNum2;
 }
 @end
 
@@ -31,6 +34,15 @@
     [self getMenuFromWeb];
 }
 
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (_haveAppeared)
+     {
+        [self getMenuFromWeb];
+     }
+}
 
 #pragma mark --- 布局UI
 -(void) layoutUI
@@ -38,7 +50,7 @@
     self.view.backgroundColor = [ResourceManager viewBackgroundColor];
     
     
-    int iCellHeight = 65;
+    int iCellHeight = 60;
     int iTopY = NavHeight + 10;
     
     NSArray *arrName = @[@"通知消息",@"我的资产"];
@@ -56,7 +68,7 @@
         int iCellTopY = 10;
         int iCellLeftX = 15;
         
-        UIImageView *imgLeft = [[UIImageView alloc] initWithFrame:CGRectMake(iCellLeftX, iCellTopY+5, 30, 30)];
+        UIImageView *imgLeft = [[UIImageView alloc] initWithFrame:CGRectMake(iCellLeftX, iCellTopY, 40, 40)];
         [viewCell addSubview:imgLeft];
         imgLeft.image = [UIImage imageNamed:arrImg[i]];
         
@@ -67,8 +79,16 @@
         label1.font = [UIFont systemFontOfSize:16];
         label1.text = arrName[i];
         
+        UILabel *imgLeft2 = [[UILabel alloc] initWithFrame:CGRectMake(iCellLeftX + 70, iCellTopY, 10, 10)];
+        [viewCell addSubview:imgLeft2];
+        imgLeft2.backgroundColor = [ResourceManager priceColor];
+        imgLeft2.layer.masksToBounds = YES;
+        imgLeft2.layer.cornerRadius = imgLeft2.height/2;
+        imgLeft2.hidden = YES;
         
-        iCellTopY += label1.height+ 10;
+        
+        
+        iCellTopY += label1.height+ 5;
         UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(iCellLeftX, iCellTopY, SCREEN_WIDTH - iCellLeftX - 30, 12)];
         [viewCell addSubview:label2];
         label2.textColor = [ResourceManager midGrayColor];
@@ -84,12 +104,14 @@
          {
             lalbelTitle1 = label1;
             lable1Sub1 = label2;
+            labeNum1 = imgLeft2;
          }
         
         if (1 == i)
          {
             lalbelTitle2 = label2;
             lable1Sub2 = label2;
+            labeNum2 = imgLeft2;
          }
         
         //添加手势点击空白处隐藏键盘
@@ -117,6 +139,8 @@
         VC.msgType = 1;
         [self.navigationController pushViewController:VC animated:YES];
         
+        [self setRead:1];
+        
      }
     else if (1 == iTag)
      {
@@ -124,6 +148,8 @@
         MessageListVC  *VC = [[MessageListVC alloc] init];
         VC.msgType = 2;
         [self.navigationController pushViewController:VC animated:YES];
+        
+        [self setRead:2];
      }
 }
 
@@ -158,6 +184,26 @@
     [operation start];
 }
 
+
+-(void) setRead:(int) iType
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"msgType"] = @(iType);
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLupdateShow];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      //[self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1002;
+    [operation start];
+    
+    
+    
+}
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
 {
     [self.view endEditing:YES];
@@ -166,11 +212,27 @@
     NSArray *arrTitles   = operation.jsonResult.rows;
     if (operation.tag == 1000)
      {
+        if(arrTitles &&
+           arrTitles.count >= 1)
+         {
+            for (int i = 0; i < arrTitles.count; i++)
+             {
+                NSDictionary *dic = arrTitles[i];
+                if ([dic[@"viewFlag"] intValue] == 1)
+                 {
+                    labeNum1.hidden = NO;
+                 }
+             }
+         }
+        else
+         {
+            labeNum1.hidden = YES;
+         }
      }
     else if (operation.tag == 1001)
      {
         if(arrTitles &&
-           arrTitles.count >= 0)
+           arrTitles.count >= 1)
          {
             NSDictionary *dic = arrTitles[0];
             NSString *strContent = dic[@"content"];
@@ -178,6 +240,19 @@
              {
                 lable1Sub2.text = strContent;
              }
+            
+            for (int i = 0; i < arrTitles.count; i++)
+             {
+                NSDictionary *dic = arrTitles[i];
+                if ([dic[@"viewFlag"] intValue] == 1)
+                 {
+                    labeNum2.hidden = NO;
+                 }
+             }
+         }
+        else
+         {
+            labeNum2.hidden = YES;
          }
      }
 }

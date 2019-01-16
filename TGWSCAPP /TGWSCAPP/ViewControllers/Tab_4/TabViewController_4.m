@@ -18,6 +18,7 @@
 #import "CustomerServiceViewController.h"
 #import "LogisticsDescViewController.h"
 #import "RefundListVC.h"
+#import "XcodeWebVC.h"
 
 #import "JXButton.h"
 
@@ -541,8 +542,13 @@
         }break;
         case 1:{
             //我的积分
-            MyScoresViewController *ctl = [[MyScoresViewController alloc]init];
-            [self.navigationController pushViewController:ctl animated:YES];
+//            MyScoresViewController *ctl = [[MyScoresViewController alloc]init];
+//            [self.navigationController pushViewController:ctl animated:YES];
+            
+            XcodeWebVC  *vc = [[XcodeWebVC alloc] init];
+            vc.homeUrl = @"webMall/score";
+            vc.titleStr = @"我的积分";
+            [self.navigationController pushViewController:vc animated:YES];
         }break;
         case 2:{
             //优惠券

@@ -12,6 +12,7 @@
 #import "CKSlideMenu.h"
 #import "SlideParentVC.h"
 #import "SlideSub1.h"
+#import "MessageCenterVC.h"
 
 @interface TabViewController_1 ()
 {
@@ -41,6 +42,12 @@
      {
         //登陆成功,发送通知更新用户信息
         [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
+        
+        //[self performSelector:@selector(isPopView) withObject:nil afterDelay:2.0];// 延迟执行
+        if (_haveAppeared)
+         {
+            [self isPopView];
+         }
      }
 }
 
@@ -338,11 +345,6 @@
     viewMenu.height = iBtnTopY;
     
     
-    
-
-    
-    
-    
     bgView.userInteractionEnabled = YES;
     //添加点击手势（点击任意地方，退出全屏）
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeView)];
@@ -360,12 +362,18 @@
 -(void) isPopView
 {
     
-    NSString *isYSXY =   [CommonInfo getKey:@"K_Home_IS_YSXY"];
+    NSString *isYSXY = [[NSUserDefaults standardUserDefaults]objectForKey:K_Home_IS_YSXY];
     if (![isYSXY isEqualToString:@"1"])
      {
         // 如果没有点击过 隐私协议
         [self popYSXY];
         return;
+     }
+    
+    
+    if ([CommonInfo isLoggedIn])
+     {
+        [self getPopFromWeb];
      }
 }
 
@@ -417,17 +425,111 @@
     
     [alertView addButton:@"同意协议" color:[ResourceManager mainColor] actionBlock:^{
         
-        [CommonInfo setKey:@"K_Home_IS_YSXY" withValue:@"1"];
+        
+        
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"1" forKey:K_Home_IS_YSXY];
+
         
     }];
     
-    [alertView showAlertView:self.parentViewController duration:0.0];
+    [alertView showAlertView:self duration:0.0];
+}
+
+-(void) popPng:(NSDictionary*) dicValue
+{
+    if (background)
+     {
+        return;
+     }
+    
+    __block NSString *imageUrl =  [NSString stringWithFormat:@"%@", dicValue[@"imageUrl"]];
+    if (imageUrl.length <= 8)
+     {
+        return;
+     }
+    
+    //创建一个黑色背景
+    //初始化一个用来当做背景的View
+    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    background = bgView;
+    bgView.backgroundColor =  [[UIColor blackColor]colorWithAlphaComponent:0.6];//[UIColor clearColor];
+    [self.view addSubview:bgView];
+    
+    int iTopY = slideMenu.top + 100;
+    __block int iImgWidth = 300;
+    __block int iImgHeight = 460;
+    __block  UIImageView *imgPng = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - iImgWidth)/2, iTopY, iImgWidth, iImgHeight)];
+    [bgView addSubview:imgPng];
+    //[imgPng setImageWithURL:[NSURL URLWithString:imageUrl]];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+            // 异步方式加载图片
+            UIImage *imgTemp =  [ToolsUtlis getImgFromStr:imageUrl];
+            
+            if (imgTemp)
+             {
+                
+                CGFloat fixelH = CGImageGetHeight(imgTemp.CGImage);
+                CGFloat fixelW = CGImageGetWidth(imgTemp.CGImage);
+                iImgHeight = fixelH *FixelScaleSize*ScaleSize;
+                iImgWidth = fixelW *FixelScaleSize*ScaleSize;
+             }
+
+            
+            
+         
+        
+        
+        //跳回主队列执行
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            imgPng.width = iImgWidth;
+            imgPng.height = iImgHeight;
+            imgPng.left = (SCREEN_WIDTH - iImgWidth)/2;
+            imgPng.top = (SCREEN_HEIGHT - iImgHeight)/2;
+            [imgPng setImageWithURL:[NSURL URLWithString:imageUrl]];
+  
+        });
+        
+        
+        
+        
+    });
+    
+    
+    objc_setAssociatedObject(bgView, "firstObject", dicValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);   //绑定参数到view
+    bgView.userInteractionEnabled = YES;
+    //添加点击手势
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(actionDilckPop:)];
+    [bgView addGestureRecognizer:tapGesture];
 }
 
 #pragma mark ---  action
+-(void) actionDilckPop:(UITapGestureRecognizer*) tap
+{
+    
+    
+    NSDictionary *first = objc_getAssociatedObject(background, "firstObject");
+    if (first)
+     {
+        NSLog(@"first:%@",first);
+        NSString *type = first[@"type"];
+        
+     }
+    
+    
+    [background removeFromSuperview];
+    background = nil;
+}
+
+
 -(void) actionMessage
 {
     NSLog(@"actionMessage");
+    MessageCenterVC *VC = [[MessageCenterVC alloc] init];
+    [self.navigationController pushViewController:VC animated:YES];
 }
 
 -(void) actionSearch1
@@ -554,12 +656,44 @@
     [operation start];
 }
 
+-(void) getPopFromWeb
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLpopups];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1001;
+    [operation start];
+}
+
+-(void) sendPop:(NSString *)strValue
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"type"] = strValue;
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLgetCustReward];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1002;
+    [operation start];
+}
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
 {
     [self.view endEditing:YES];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     if (operation.tag == 1000)
      {
+        // 获取菜单
         NSArray *arrTitles   = operation.jsonResult.rows;
         if (arrTitles&&
             [arrTitles count] > 0)
@@ -573,13 +707,16 @@
                 
                 [self layoutMenu:arrTitles];
                 
-                
                }
          }
      }
     else if (operation.tag == 1001) {
-        
-        
+        // 获取后台返回的弹框
+        NSDictionary *dic = operation.jsonResult.attr;
+        if (dic)
+         {
+            [self popPng:dic];
+         }
     }
 }
 

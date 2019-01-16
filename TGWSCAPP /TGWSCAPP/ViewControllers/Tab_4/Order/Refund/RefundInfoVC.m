@@ -10,6 +10,7 @@
 #import "CustomerServiceViewController.h"
 #import "RefundScheduleVC.h"
 #import "RefundTXWLVC.h"
+#import "RefundReCommitVC.h"
 
 @interface RefundInfoVC ()
 {
@@ -303,7 +304,7 @@
     _productPriceLabel.textAlignment = NSTextAlignmentRight;
     _productPriceLabel.font = font_1;
     _productPriceLabel.textColor = color_2;
-    //_productPriceLabel.text = [NSString stringWithFormat:@"￥%@",[dic objectForKey:@"refundPrice"]];
+    _productPriceLabel.text = [NSString stringWithFormat:@"￥%@",[dic objectForKey:@"refundPrice"]];
     
     _productNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 160, CGRectGetMaxY(_productPriceLabel.frame) + 5, 150, 20)];
     [viewShop addSubview:_productNumLabel];
@@ -509,6 +510,11 @@
      }
     
     NSLog(@"重新申请");
+    
+    RefundReCommitVC  *VC = [[RefundReCommitVC alloc] init];
+    VC.dicParams = [[NSDictionary alloc] init];
+    VC.dicParams =  dicUI;
+    [self.navigationController pushViewController:VC animated:YES];
 }
 
 -(void) actionRrecond

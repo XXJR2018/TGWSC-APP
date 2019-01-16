@@ -343,6 +343,7 @@
     if (dicUser)
      {
         isEmployee = [dicUser[@"isEmployee"] boolValue];
+        isEmployee = TRUE; // 所有人都展示
         if (isEmployee)
          {
             iTopY += iCellHeight + 10;

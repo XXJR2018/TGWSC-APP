@@ -489,6 +489,7 @@
         [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
         return;
     }
+    
     NSLog(@"%ld",sender.tag);
     switch (sender.tag) {
         case 99:{

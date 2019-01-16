@@ -139,8 +139,6 @@
     
     //UI处理
     [self layoutViews];
-    
-    //    [self PushNextViewControllerWith:@"OrderViewController"];
 
 }
 
@@ -302,7 +300,32 @@
 
 -(void)pushNotification:(NSNotification *)notification{
     NSLog(@"user info is %@",notification.userInfo);
-    
+    if (notification.userInfo.count > 0) {
+        if ([notification.userInfo objectForKey:@"extraData"]) {
+            NSString *extraDataStr = [NSString stringWithFormat:@"%@",[notification.userInfo objectForKey:@"extraData"]];
+            if (extraDataStr.length > 0) {
+                NSData *jsonData = [extraDataStr dataUsingEncoding:NSUTF8StringEncoding];
+                NSError *err;
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                    options:NSJSONReadingMutableContainers
+                                                                      error:&err];
+                if (dic.count > 0) {
+                    if ([[dic objectForKey:@"type"] intValue] == 1) {
+                        //原生页面
+                        NSString *iosClassName = [NSString stringWithFormat:@"%@",[dic objectForKey:@"iosClassName"]];
+                        if (iosClassName.length > 0) {
+                            [self PushNextViewControllerWith:iosClassName];
+                        }
+                    }else if ([[dic objectForKey:@"type"] intValue] == 2) {
+                        //h5
+                        CCWebViewController *webContro = [CCWebViewController new];
+                        webContro.homeUrl = [NSURL URLWithString:[dic objectForKey:@"url"]];
+                        [self.homeViewController pushViewController:webContro animated:YES];
+                    }
+                }
+            }
+        }
+    }
 }
 
 - (void)handleDidEnterBackgroudNotificaiton:(NSNotification *)notification{

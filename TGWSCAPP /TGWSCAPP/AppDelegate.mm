@@ -123,7 +123,8 @@
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
-        
+        //重置脚标(为0)
+        [JPUSHService resetBadge];
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:DDGPushNotification
                                                                 object:nil
@@ -203,6 +204,8 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    //去掉推送通知APP显示小红点
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
 
 

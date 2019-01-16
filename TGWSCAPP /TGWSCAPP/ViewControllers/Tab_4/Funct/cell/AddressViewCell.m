@@ -29,7 +29,9 @@
     
     if ([[_dataDicionary objectForKey:@"isDefault"] intValue] == 1) {
         self.mrLabel.hidden = NO;
+        self.layoutLeftLead.constant = 10;
     }else{
+        self.mrLabel.hidden = YES;
         self.layoutLeftLead.constant = - 30;
     }
 }

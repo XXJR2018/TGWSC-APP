@@ -76,13 +76,9 @@
     
     //极光推送2.9版本后， 设置别名，必须用此新方法
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [JPUSHService setTags:nil alias:alias fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
-            NSLog(@"setTags iResCode：%d-------------%@,-------------iAlias：%@",iResCode,iTags,iAlias);
-            // 设置超时， 60S后重试
-            if (iResCode == 6002) {
-                [self performSelector:@selector(delayMethod) withObject:nil afterDelay:60.0];
-            }
-        }];
+        [JPUSHService setAlias:alias completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+            NSLog(@"code:%ld content:%@ seq:%ld",iResCode,iAlias,seq);
+        } seq:0];
     });
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -92,21 +88,6 @@
 
 - (void)networkDidColse:(NSNotification *)notification {
     //NSLog(@"极光推送连接失败");
-}
-
-- (void)delayMethod{
-    
-    NSLog(@"delayMethodEnd");
-    if (![[CommonInfo userInfo]objectForKey:@"alias"])
-        return;
-    
-    NSString *alias = [[CommonInfo userInfo] objectForKey:@"alias"];
-        
-    [JPUSHService setTags:nil alias:alias fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
-        NSLog(@"setTags iResCode：%d-------------%@,-------------iAlias：%@",iResCode,iTags,iAlias);
-        // 设置超时， 60S后重试
-    }];
-    
 }
 
 #pragma mark - 申请通知权限

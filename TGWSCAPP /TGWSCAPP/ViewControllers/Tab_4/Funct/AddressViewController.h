@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, copy)Block_String selectAddressBlock;
 
+@property(nonatomic, copy)Block_Id selAddressBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

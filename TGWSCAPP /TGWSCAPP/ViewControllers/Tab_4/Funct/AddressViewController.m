@@ -168,7 +168,13 @@
             self.selectAddressBlock(addrId);
             [self.navigationController popViewControllerAnimated:YES];
         }
-    }else{
+    }else if (self.selectType == 101){
+        if (self.selAddressBlock){
+            self.selAddressBlock(dic);
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+    else{
         AddAddressViewController *ctl = [[AddAddressViewController alloc]init];
         ctl.titleStr = @"修改地址";
         ctl.addressDic = dic;

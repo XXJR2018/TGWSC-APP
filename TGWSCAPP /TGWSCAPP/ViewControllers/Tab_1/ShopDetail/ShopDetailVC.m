@@ -16,10 +16,12 @@
 #define   BannerHeight     300
 #define   ShopRedColor     UIColorFromRGB(0x9f1421)
 
-@interface ShopDetailVC ()<TSVideoPlaybackDelegate>
+@interface ShopDetailVC ()<TSVideoPlaybackDelegate,UIScrollViewDelegate>
 {
     UIScrollView *scView;
     UIImageView *imgShouCang;
+    
+    CustomNavigationBarView *nav;
     
     NSMutableArray *arrTopIMG; // 顶部的 视频和图片 数组
     int iTopType;    //   0 - 表示全图片，  1 -  表示为首张为视频，剩下的为图片
@@ -48,7 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self layoutNaviBarViewWithTitle:@"商品详情"];
+    nav = [self layoutNaviBarViewWithTitle:@" "];
     
     [self initData];
     
@@ -78,29 +80,43 @@
 -(void) layoutUI:(NSDictionary*) dicUI
 {
     int iTopY = 40;
-    iTopY = NavHeight;
+    iTopY = 0;//NavHeight;
     self.view.backgroundColor = [UIColor whiteColor];
     
     
-    scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0.f, iTopY, SCREEN_WIDTH, SCREEN_HEIGHT- NavHeight - 60 )];
+    //scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0.f, iTopY, SCREEN_WIDTH, SCREEN_HEIGHT- NavHeight - 60 )];
+    scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0.f, iTopY, SCREEN_WIDTH, SCREEN_HEIGHT - 60 )];
     [self.view addSubview:scView];
     scView.contentSize = CGSizeMake(0, 2000);
     scView.pagingEnabled = NO;
     scView.bounces = NO;
     scView.showsVerticalScrollIndicator = FALSE;
     scView.showsHorizontalScrollIndicator = FALSE;
+    scView.delegate = self;
     scView.backgroundColor = [UIColor whiteColor];//[ResourceManager viewBackgroundColor];
     
     // 布局头部banner
     [self initialControlUnit:dicUI];
     
     
-    // 布局头部返回按钮
-    UIButton *btnBack = [[UIButton alloc] initWithFrame:CGRectMake(15, 20, 30, 30)];
+    // 布局头部返回按钮 !!!!!!!!!!!!!!!!!
+    int iBtnTopY =  IS_IPHONE_X_MORE? 40:20;
+    UIButton *btnBack = [[UIButton alloc] initWithFrame:CGRectMake(15, iBtnTopY, 30, 30)];
     [scView addSubview:btnBack];
-    //[btnBack setImage:[UIImage imageNamed:@"return_black"] forState:UIControlStateNormal];
-    //[btnBack addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
+    [btnBack setImage:[UIImage imageNamed:@"com_back"] forState:UIControlStateNormal];
+    [btnBack addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    
+    UIButton *btnHome = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30, iBtnTopY, 30, 30)];
+    [scView addSubview:btnHome];
+    [btnHome setImage:[UIImage imageNamed:@"com_home"] forState:UIControlStateNormal];
+    [btnHome addTarget:self action:@selector(actionHome) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    [self.view addSubview:nav];
+    nav.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.2];
+    nav.hidden = YES;
     
     // 布局底部的tabbar
     [self layoutTabber];
@@ -847,10 +863,38 @@
     NSLog(@"%ld",(long)index);
 }
 
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    
+    if(scrollView.contentOffset.y <= 50) {
+        
+        //[self.navigationController setNavigationBarHidden:YES animated:NO];
+        nav.hidden = YES;
+        
+    }else{
+        
+        nav.hidden = NO;
+        //[self.navigationController setNavigationBarHidden:NO animated:NO];
+        
+        //CGFloat alpha=scrollView.contentOffset.y/90.0f>1.0f?1:scrollView.contentOffset.y/90.0f;
+        
+        //[self.navigationController.navigationBar setBackgroundImage:[self getImageWithAlpha:alpha] forBarMetrics:UIBarMetricsDefault];
+    }
+    
+    
+}
+
 #pragma mark --- action
 -(void) actionBack
 {
-    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void) actionHome
+{
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(1),@"index":@(0)}];
 }
 
 -(void) actionBtn:(UIButton*) sender

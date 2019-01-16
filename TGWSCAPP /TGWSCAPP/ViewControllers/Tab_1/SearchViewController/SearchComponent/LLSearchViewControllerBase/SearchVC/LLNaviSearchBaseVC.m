@@ -242,8 +242,14 @@
     
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     
+    NSDictionary *dic = operation.jsonResult.attr;
+    if (!dic)
+     {
+        return;
+     }
     
-    NSArray *arrRet = operation.jsonResult.rows;
+    
+    NSArray *arrRet = dic[@"goodsList"];
     if (!arrRet )
      {
         self.resultListArray  = nil;

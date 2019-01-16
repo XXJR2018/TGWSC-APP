@@ -187,7 +187,7 @@
     
     UIButton *btnAddr = [[UIButton alloc] initWithFrame:viewNoAddr.bounds];
     [viewNoAddr addSubview:btnAddr];
-    [btnAddr addTarget:self action:@selector(actionAddr) forControlEvents:UIControlEventTouchUpInside];
+    [btnAddr addTarget:self action:@selector(actionAddAddress) forControlEvents:UIControlEventTouchUpInside];
     
 }
 
@@ -236,7 +236,7 @@
     
     UIButton *btnAddr = [[UIButton alloc] initWithFrame:viewHaveAddr.bounds];
     [viewHaveAddr addSubview:btnAddr];
-    [btnAddr addTarget:self action:@selector(actionAddr) forControlEvents:UIControlEventTouchUpInside];
+    [btnAddr addTarget:self action:@selector(actionUpdateAddress) forControlEvents:UIControlEventTouchUpInside];
     
 }
 
@@ -780,7 +780,13 @@
 }
 
 
--(void) actionAddr
+-(void) actionAddAddress
+{
+    AddressViewController *ctl = [[AddressViewController alloc]init];
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
+-(void) actionUpdateAddress
 {
     AddressViewController *ctl = [[AddressViewController alloc]init];
     [self.navigationController pushViewController:ctl animated:YES];

@@ -14,7 +14,7 @@
  */
 #define UMENG_APPKEY @"5c0f1501f1f5561d9f0000d4"
 /**
- *  极光推送
+ *  y极光推送
  */
 #define JPUSH_APPKEY @"6ad6adf3f386761424873f63"
 

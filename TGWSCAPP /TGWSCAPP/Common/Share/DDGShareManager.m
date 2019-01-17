@@ -58,7 +58,7 @@ static DDGShareManager *_DDGShareManager = nil;
     }else if (type == 2){
         [DDGWeChat getSharedWeChat].delegate = self;
         [[DDGWeChat getSharedWeChat] loginBlock:^{
-            [MBProgressHUD showErrorWithStatus:@"请先安装微信APP" toView:view];
+            [[[MBProgressHUD alloc] init]  toShowErrorWithStatus:@"请先安装微信APP"];
         }];
     }
 }
@@ -128,10 +128,19 @@ static DDGShareManager *_DDGShareManager = nil;
 -(BOOL) weChatShare:(NSDictionary *)items shareScene:(int) scene{
     [DDGWeChat getSharedWeChat].delegate = self;
     if (![WXApi isWXAppInstalled]) {
-        [MBProgressHUD showErrorWithStatus:@"请先安装微信APP" toView:_viewController.view];
+        [[[MBProgressHUD alloc] init]  toShowErrorWithStatus:@"请先安装微信APP"];
         return NO;
     }
     return [[DDGWeChat getSharedWeChat] share:items shareScene:scene];
+}
+
+-(BOOL) weChatShareXCX:(NSDictionary *)items {
+    [DDGWeChat getSharedWeChat].delegate = self;
+    if (![WXApi isWXAppInstalled]) {
+        [[[MBProgressHUD alloc] init]  toShowErrorWithStatus:@"请先安装微信APP"];
+        return NO;
+    }
+    return [[DDGWeChat getSharedWeChat] shareXCX:items];
 }
 
 // 回调
@@ -150,7 +159,7 @@ static DDGShareManager *_DDGShareManager = nil;
 
 - (void)qqShare:(NSDictionary *)items type:(int)type{
     if (![TencentApiInterface isTencentAppInstall:kIphoneQQ]){
-        [MBProgressHUD showErrorWithStatus:@"请先安装QQ" toView:_viewController.view];
+        [[[MBProgressHUD alloc] init]  toShowErrorWithStatus:@"请先安装QQ"];
         return;
     }
     [_tcQQ qqShareNewsType:type title:items[@"title"] Content:items[@"subTitle"] ImageUrl:items[@"image"] gotoUrl:items[@"url"] other:nil];
@@ -170,7 +179,7 @@ static DDGShareManager *_DDGShareManager = nil;
     pasteboard.string = url;
     
     if (url)
-        [MBProgressHUD showSuccessWithStatus:@"复制成功" toView:_viewController.view];
+        [[[MBProgressHUD alloc] init]  toShowErrorWithStatus:@"复制成功"];
 }
 
 

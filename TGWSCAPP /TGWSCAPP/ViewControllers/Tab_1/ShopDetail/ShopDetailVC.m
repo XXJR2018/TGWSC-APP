@@ -54,15 +54,15 @@
     nav = [self layoutNaviBarViewWithTitle:@"商品详情"];
     
     int iBtnTopY = IS_IPHONE_X_MORE? 50:30;
-    UIButton *btnHome = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30, iBtnTopY, 30, 30)];
+    UIButton *btnHome = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30 - 40, iBtnTopY, 30, 30)];
     [nav addSubview:btnHome];
-    [btnHome setImage:[UIImage imageNamed:@"com_home"] forState:UIControlStateNormal];
+    [btnHome setImage:[UIImage imageNamed:@"com_home2"] forState:UIControlStateNormal];
     [btnHome addTarget:self action:@selector(actionHome) forControlEvents:UIControlEventTouchUpInside];
     
     
-    UIButton *btnShare = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30 -40, iBtnTopY, 30, 30)];
+    UIButton *btnShare = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30, iBtnTopY, 30, 30)];
     [nav addSubview:btnShare];
-    [btnShare setImage:[UIImage imageNamed:@"com_share"] forState:UIControlStateNormal];
+    [btnShare setImage:[UIImage imageNamed:@"com_share2"] forState:UIControlStateNormal];
     [btnShare addTarget:self action:@selector(actionShare) forControlEvents:UIControlEventTouchUpInside];
     
     [self initData];
@@ -355,13 +355,13 @@
     
     
     
-    UIButton *btnHome = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30, iBtnTopY, 30, 30)];
+    UIButton *btnHome = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30 -40, iBtnTopY, 30, 30)];
     [scView addSubview:btnHome];
     [btnHome setImage:[UIImage imageNamed:@"com_home"] forState:UIControlStateNormal];
     [btnHome addTarget:self action:@selector(actionHome) forControlEvents:UIControlEventTouchUpInside];
     
     
-    UIButton *btnShare = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30 -40, iBtnTopY, 30, 30)];
+    UIButton *btnShare = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30, iBtnTopY, 30, 30)];
     [scView addSubview:btnShare];
     [btnShare setImage:[UIImage imageNamed:@"com_share"] forState:UIControlStateNormal];
     [btnShare addTarget:self action:@selector(actionShare) forControlEvents:UIControlEventTouchUpInside];
@@ -944,11 +944,30 @@
 {
     [self.navigationController popToRootViewControllerAnimated:NO];
     [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(1),@"index":@(0)}];
+
 }
 
 -(void) actionShare
 {
-    NSLog(@"actionShare");
+    
+
+    NSMutableDictionary *parmams = [[NSMutableDictionary alloc] init];
+    parmams[@"strUrl"] = [NSString stringWithFormat:@"/pages/product/product?goodsCode=%@&goodsName=%@",_shopModel.strGoodsCode,_shopModel.strGoodsName];
+    parmams[@"strImgUrl"] = _shopModel.strGoodsImgUrl;
+    parmams[@"strDesc"] = _shopModel.strGoodsName;
+    parmams[@"strName"] = _shopModel.strGoodsName;
+    
+    [[DDGShareManager shareManager] weChatShareXCX:parmams];
+
+    [[DDGShareManager  shareManager] setBlock:^(id obj) {
+
+        NSDictionary *dic = (NSDictionary *)obj;
+        if ([[dic objectForKey:@"success"] boolValue]) {
+            [MBProgressHUD showSuccessWithStatus:@"分享成功" toView:self.view];
+        }else{
+            [MBProgressHUD showErrorWithStatus:@"分享失败" toView:self.view];
+        }
+    }];
 }
 
 -(void) actionBtn:(UIButton*) sender

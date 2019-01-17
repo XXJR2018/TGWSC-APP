@@ -47,8 +47,12 @@
 - (void)logout;
 
 
-//分享
+//分享  URL  以及 图片
 -(BOOL) share:(NSDictionary *)items shareScene:(int)scene; //0--朋友会话，1-－朋友圈
+
+
+//分享小程序 （只能分享给朋友）
+-(BOOL) shareXCX:(NSDictionary *) strUrl ;
 
 
 -(NSString *)wxPayWith:(WXPayModel *)wxPayModel;

@@ -94,6 +94,49 @@ static DDGWeChat *weChatShare;
     return YES;
 }
 
+
+//分享  0--朋友会话
+-(BOOL) shareXCX:(NSDictionary *) items  {
+    
+    
+
+    //商品详情页 /pages/product/product
+    //参数 goodsCode  goodsName
+    
+    NSString *strImgUrl = items[@"strImgUrl"];
+    UIImage *image = [ToolsUtlis getImgFromStr:strImgUrl];;//[ResourceManager logo];
+    NSData *data=  UIImageJPEGRepresentation(image,0.1);
+    
+    WXMiniProgramObject *object = [WXMiniProgramObject object];
+    object.webpageUrl = @"";  // 兼容低版本的网页链接
+    object.userName = @"gh_b9ba1ea2fafd"; // 小程序ID
+    object.path = items[@"strUrl"];  // 小程序的页面路径
+    object.hdImageData = data;  // 小程序新版本的预览图二进制数据
+    //object.withShareTicket = withShareTicket;  // 是否使用带shareTicket的分享
+    object.miniProgramType = WXMiniProgramTypePreview;  // 小程序的类型  正式版: WXMiniProgramTypeRelease 测试版: WXMiniProgramTypeTest;体验版: WXMiniProgramTypePreview;
+    
+    
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = items[@"strName"];//@"天狗窝商城";
+    message.description = items[@"strDesc"];
+    message.thumbData = data;;  //兼容旧版本节点的图片，小于32KB，新版本优先
+                              //使用WXMiniProgramObject的hdImageData属性
+    message.mediaObject = object;
+    
+    
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = WXSceneSession;  //目前只支持会话
+    
+    if(![WXApi sendReq:req]){
+        [[[MBProgressHUD alloc] init] toShowErrorWithStatus:@"请先安装微信APP"];
+        return NO;
+    }
+    return YES;
+}
+
+
 - (NSData *)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize {
     UIGraphicsBeginImageContext(newSize);
     [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];

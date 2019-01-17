@@ -14,14 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) NSDictionary *dataDicionary;
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabrl;
-
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *orderNumber;
-
-@property (weak, nonatomic) IBOutlet UILabel *changeNumLabel;
-
+@property(nonatomic, assign) NSInteger balanceType;
 
 @end
 

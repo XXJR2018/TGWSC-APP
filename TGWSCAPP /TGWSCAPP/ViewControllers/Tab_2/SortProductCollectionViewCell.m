@@ -41,7 +41,7 @@
         NSString *titleStr = [NSString stringWithFormat:@"%@ %@",minPrice,marketPrice];
         NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]
                                               initWithString:titleStr];
-        [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, minPrice.length)];
+        [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, minPrice.length)];
         [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:NSMakeRange(minPrice.length + 1, marketPrice.length)];
         [attrStr addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0xB41D25) range:NSMakeRange(0, minPrice.length)];
         [attrStr addAttribute:NSForegroundColorAttributeName value:[ResourceManager color_6] range:NSMakeRange(minPrice.length + 1, marketPrice.length)];

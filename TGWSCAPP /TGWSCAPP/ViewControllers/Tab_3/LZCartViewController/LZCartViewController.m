@@ -727,6 +727,8 @@
         ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
         VC.shopModel = [[ShopModel alloc] init];
         VC.shopModel.strGoodsCode = dicObj[@"goodsCode"];
+        VC.est = @"cart";
+        VC.esi = [NSString stringWithFormat:@"%@",[dicObj objectForKey:@"cartId"]];
         [self.navigationController pushViewController:VC animated:YES];
         return;
      }
@@ -738,6 +740,8 @@
         ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
         VC.shopModel = [[ShopModel alloc] init];
         VC.shopModel.strGoodsCode = model.goodCodeStr;
+        VC.est = @"cart";
+        VC.esi = model.cartIdStr;
         [self.navigationController pushViewController:VC animated:YES];
         
     }
@@ -1140,7 +1144,12 @@
                 model.skuCodeStr = [NSString stringWithFormat:@"%@", dic[@"skuCode"]];
                 model.nameStr = dic[@"goodsName"];
                 
-                model.price = [NSString stringWithFormat:@"%.2f", [dic[@"price"] floatValue]];
+                
+                NSString *strPrice = [NSString stringWithFormat:@"%@", dic[@"price"]];
+                strPrice=[strPrice stringByReplacingOccurrencesOfString:@"," withString:@""];
+                strPrice=[strPrice stringByReplacingOccurrencesOfString:@"，" withString:@""];
+                
+                model.price = [NSString stringWithFormat:@"%.2f", [strPrice floatValue]];
                 float fmarketPrice = [dic[@"marketPrice"] floatValue];
                 if (fmarketPrice > 0.00)
                  {

@@ -140,6 +140,8 @@
         ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
         VC.shopModel = [[ShopModel alloc] init];
         VC.shopModel.strGoodsCode = goodsCode;
+        VC.esi = @"category";
+        VC.esi = self.cateCode;
         [self.navigationController pushViewController:VC animated:YES];
     }
 }

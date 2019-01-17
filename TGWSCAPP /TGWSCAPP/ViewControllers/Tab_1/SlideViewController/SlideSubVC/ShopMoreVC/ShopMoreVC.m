@@ -100,6 +100,7 @@
      {
         strURL = [NSString stringWithFormat:@"%@appMall/goods/queryGoodsList",[PDAPI getBaseUrlString]];
      }
+   
     
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strURL
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
@@ -192,6 +193,16 @@
         ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
         VC.shopModel = [[ShopModel alloc] init];
         VC.shopModel.strGoodsCode = goodsCode;
+        if (_isGoodType)
+         {
+            VC.est = @"category";
+            VC.esi = _strTypeCode;
+         }
+        else
+         {
+            VC.est = @"showType";
+            VC.esi = _strTypeCode;
+         }
         [self.navigationController pushViewController:VC animated:YES];
         
     }

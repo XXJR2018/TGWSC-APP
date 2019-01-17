@@ -597,6 +597,8 @@
             
             ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
             VC.shopModel = clickObj;
+            VC.est = @"category";
+            VC.esi = clickObj.strCateCode;
             [self.navigationController pushViewController:VC animated:YES];
             
          }

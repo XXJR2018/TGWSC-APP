@@ -351,6 +351,7 @@
         ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
         VC.shopModel = [[ShopModel alloc] init];
         VC.shopModel.strGoodsCode = goodsCode;
+        VC.est = @"search";
         [self.navigationController pushViewController:VC animated:YES];
         
     }

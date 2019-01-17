@@ -118,6 +118,8 @@
         ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
         VC.shopModel = [[ShopModel alloc] init];
         VC.shopModel.strGoodsCode = goodsCode;
+        VC.est = @"favorite";
+        VC.esi = [NSString stringWithFormat:@"%@",[dic objectForKey:@"favoriteId"]];
         [self.navigationController pushViewController:VC animated:YES];
     }
 }

@@ -361,8 +361,14 @@
         NSString *imgUrl = dic[@"imgUrl"];
         NSString *skipUrl = dic[@"targetUrl"];
         [imgArr addObject:imgUrl];
-        [_bannerTitleArr addObject:name];
-        [_bannerUrlArr addObject:skipUrl];
+        if (name)
+         {
+            [_bannerTitleArr addObject:name];
+         }
+        if (skipUrl)
+         {
+            [_bannerUrlArr addObject:skipUrl];
+         }
         
      }
     _scrollView.imageURLStringsGroup = imgArr;
@@ -480,6 +486,11 @@
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     if (index >= [_bannerTitleArr count])
+     {
+        return;
+     }
+    
+    if (index >= [_bannerUrlArr count])
      {
         return;
      }

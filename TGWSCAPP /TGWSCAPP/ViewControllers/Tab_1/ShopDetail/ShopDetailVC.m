@@ -663,62 +663,54 @@
 {
     int iviewPopShareHeight =  180;
     viewPopShare = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - iviewPopShareHeight, SCREEN_WIDTH, iviewPopShareHeight)];
-    viewPopShare.backgroundColor = [UIColor whiteColor];
+    viewPopShare.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
     [self.view addSubview:viewPopShare];
     viewPopShare.userInteractionEnabled = YES;
     
-    int iTopY = 20;
-    int iLeftX = 0;
+    int iTopY = 10;
     
     
-    UIColor *color1 =  UIColorFromRGB(0x4c4c4c);
-    UILabel *labelTail1 = [[UILabel alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 20)];
-    labelTail1.font = [UIFont systemFontOfSize:16];
-    labelTail1.textColor = color1;
-    labelTail1.text = [NSString stringWithFormat:@"分享到"];
-    labelTail1.textAlignment = NSTextAlignmentCenter;
-    [viewPopShare addSubview:labelTail1];
-    
-    
-    
-    iTopY += labelTail1.height -10;
-    int iIMGWdith = 40;
+    UIColor *color1 =  [UIColor whiteColor];
+
+
+    int iIMGWdith = 50;
     int iViewWdith = SCREEN_WIDTH/3;
+    int iLeftX = SCREEN_WIDTH/ (3 *2);
     
     // 微信图片和按钮
-    UIView * view1 = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, iViewWdith, 100)];
+    UIView * view1 = [[UIView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, iViewWdith, 100)];
     [viewPopShare addSubview:view1];
     
-    UIImageView *imag1 = [[UIImageView alloc] initWithFrame:CGRectMake((iViewWdith-iIMGWdith)/2, 30, iIMGWdith, iIMGWdith)];
+    UIImageView *imag1 = [[UIImageView alloc] initWithFrame:CGRectMake((iViewWdith-iIMGWdith)/2, 20, iIMGWdith, iIMGWdith)];
     [view1 addSubview:imag1];
-    imag1.image = [UIImage imageNamed:@"com_weixin"];
+    imag1.image = [UIImage imageNamed:@"com_wechat"];
     
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 30+iIMGWdith, iViewWdith, 20)];
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 20+iIMGWdith, iViewWdith, 20)];
     label1.font = [UIFont systemFontOfSize:12];
     label1.textColor = color1;
     label1.text = @"微信";
     label1.textAlignment = NSTextAlignmentCenter;
     [view1 addSubview:label1];
     
-    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionWX)];
+    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionWeChat)];
     [view1 addGestureRecognizer:singleTap];
     
     // 朋友圈图片和按钮
-    UIView * view2 = [[UIView alloc] initWithFrame:CGRectMake(iViewWdith, iTopY, iViewWdith, 100)];
+    UIView * view2 = [[UIView alloc] initWithFrame:CGRectMake(iLeftX + iViewWdith, iTopY, iViewWdith, 100)];
     [viewPopShare addSubview:view2];
     
-    UIImageView *imag2 = [[UIImageView alloc] initWithFrame:CGRectMake((iViewWdith-iIMGWdith)/2, 30, iIMGWdith, iIMGWdith)];
+    UIImageView *imag2 = [[UIImageView alloc] initWithFrame:CGRectMake((iViewWdith-iIMGWdith)/2, 20, iIMGWdith, iIMGWdith)];
     [view2 addSubview:imag2];
-    imag2.image = [UIImage imageNamed:@"com_pyq"];
+    imag2.image = [UIImage imageNamed:@"com_wepyq"];
     
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 30+iIMGWdith, iViewWdith, 20)];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 20+iIMGWdith, iViewWdith, 20)];
     label2.font = [UIFont systemFontOfSize:12];
     label2.textColor = color1;
     label2.text = @"朋友圈";
     label2.textAlignment = NSTextAlignmentCenter;
     [view2 addSubview:label2];
     
-    UITapGestureRecognizer* singleTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionPYQ)];
+    UITapGestureRecognizer* singleTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionWePYQ)];
     [view2 addGestureRecognizer:singleTap2];
     
     
@@ -740,18 +732,13 @@
     //    UITapGestureRecognizer* singleTap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sharSave)];
     //    [view3 addGestureRecognizer:singleTap3];
     
-    // 分割线
+    // 取消按钮
     iTopY += view1.height + 5;
-    UIView *viewFG1 = [[UIView alloc] initWithFrame:CGRectMake(0 , iTopY, SCREEN_WIDTH,1)];
-    viewFG1.backgroundColor = [ResourceManager lightGrayColor];
-    [viewPopShare addSubview:viewFG1];
-    
-    iTopY +=1;
-    UIButton * btnBack = [[UIButton alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 40)];
+
+    iLeftX = (SCREEN_WIDTH - 30)/2;
+    UIButton * btnBack = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 30, 30)];
     [viewPopShare addSubview:btnBack];
-    [btnBack setTitle:@"取消" forState:UIControlStateNormal];
-    [btnBack setTitleColor:color1 forState:UIControlStateNormal];
-    btnBack.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btnBack setImage:[UIImage imageNamed:@"com_colse3"] forState:UIControlStateNormal];
     [btnBack addTarget:self action:@selector(actionCancel) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -1079,6 +1066,21 @@
             [MBProgressHUD showErrorWithStatus:@"分享失败" toView:self.view];
         }
     }];
+}
+
+-(void) actionCancel
+{
+    viewPopShare.hidden = YES;
+}
+
+-(void) actionWeChat
+{
+    
+}
+
+-(void) actionWePYQ
+{
+    
 }
 
 -(void) actionBtn:(UIButton*) sender

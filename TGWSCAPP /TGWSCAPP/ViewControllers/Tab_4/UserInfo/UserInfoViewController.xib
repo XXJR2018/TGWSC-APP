@@ -67,7 +67,7 @@
                         <constraint firstAttribute="height" constant="0.5" id="zOw-NB-ktv"/>
                     </constraints>
                 </view>
-                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3aE-aI-cfe">
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tab_4-2" translatesAutoresizingMaskIntoConstraints="NO" id="3aE-aI-cfe">
                     <rect key="frame" x="310" y="69" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="GmF-jk-EYh"/>
@@ -295,6 +295,7 @@
         </view>
     </objects>
     <resources>
+        <image name="Tab_4-2" width="45" height="45"/>
         <image name="arrow_right" width="18" height="32"/>
     </resources>
 </document>

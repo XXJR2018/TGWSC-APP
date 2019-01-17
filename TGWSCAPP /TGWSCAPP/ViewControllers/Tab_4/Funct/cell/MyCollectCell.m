@@ -19,7 +19,7 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     
-    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:[_dataDicionary objectForKey:@"goodsImgs"]]];
+    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:[_dataDicionary objectForKey:@"imgUrl"]]];
     self.titleLable.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"goodsName"]];
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@",[_dataDicionary objectForKey:@"minPrice"]];
 }

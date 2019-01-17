@@ -10,6 +10,8 @@
 
 #import "BalanceViewCell.h"
 
+#import "OrderDetailsViewController.h"
+
 @interface MyBalanceViewController ()
 {
     UIView *_headerView;
@@ -324,7 +326,13 @@
     //（这种是没有点击后的阴影效果)
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-   
+    
+    if (_xfListBtn.selected) {
+        OrderDetailsViewController *ctl = [[OrderDetailsViewController alloc]init];
+        ctl.orderNo = [NSString stringWithFormat:@"%@",[(NSDictionary *)self.dataArray[indexPath.row] objectForKey:@"orderNo"]];
+        [self.navigationController pushViewController:ctl animated:YES];
+    }
+
 }
 
 

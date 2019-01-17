@@ -794,6 +794,8 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params[@"goodsCode"] = _shopModel.strGoodsCode;
+    params[@"est"] = _est;
+    params[@"esi"] = _esi;
     
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLqueryGoodsBaseInfo];
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl

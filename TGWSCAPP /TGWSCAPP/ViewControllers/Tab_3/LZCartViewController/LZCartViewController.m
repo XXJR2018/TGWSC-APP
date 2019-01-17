@@ -1231,6 +1231,21 @@
         [self.lastDataArrayUnUse removeAllObjects];
         [self.lastDataArrayUnUse addObjectsFromArray:self.dataArrayUnUse];
         
+        
+        if (isEdit)
+         {
+            [rightNavBtn setTitle:@"完成" forState:UIControlStateNormal];
+            [btnTail setTitle:@"删除所选" forState:UIControlStateNormal];
+            self.totlePriceLabel.hidden = YES;
+            
+         }
+        else
+         {
+            [rightNavBtn setTitle:@"编辑" forState:UIControlStateNormal];
+            [btnTail setTitle:@"下单" forState:UIControlStateNormal];
+            self.totlePriceLabel.hidden = NO;
+         }
+        
      }
     else if (1001 == operation.tag)
      {

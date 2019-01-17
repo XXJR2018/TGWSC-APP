@@ -39,11 +39,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKw-jX-Bbq">
-                                <rect key="frame" x="10" y="25" width="127.5" height="20"/>
+                                <rect key="frame" x="10" y="25" width="167.5" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="BVc-p6-NxY"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.70588235294117641" green="0.11372549019607843" blue="0.14509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -55,7 +55,7 @@
                             <constraint firstItem="xKw-jX-Bbq" firstAttribute="leading" secondItem="coG-yu-yix" secondAttribute="leading" constant="10" id="TDm-AX-FuH"/>
                             <constraint firstItem="xKw-jX-Bbq" firstAttribute="top" secondItem="coG-yu-yix" secondAttribute="top" constant="25" id="apj-v3-2B6"/>
                             <constraint firstAttribute="height" constant="50" id="jlQ-bz-a3a"/>
-                            <constraint firstAttribute="trailing" secondItem="xKw-jX-Bbq" secondAttribute="trailing" constant="50" id="kXH-yT-yId"/>
+                            <constraint firstAttribute="trailing" secondItem="xKw-jX-Bbq" secondAttribute="trailing" constant="10" id="kXH-yT-yId"/>
                             <constraint firstItem="foT-KW-MXH" firstAttribute="leading" secondItem="coG-yu-yix" secondAttribute="leading" constant="10" id="tzx-3I-1UK"/>
                         </constraints>
                     </view>

@@ -276,9 +276,6 @@
     }if (self.streetAdderssField.text.length == 0) {
         [MBProgressHUD showErrorWithStatus:@"街道地址不能为空" toView:self.view];
         return;
-    }if (self.zipCodeField.text.length == 0) {
-        [MBProgressHUD showErrorWithStatus:@"邮编不能为空" toView:self.view];
-        return;
     }
     [self addAddressUrl];
 }

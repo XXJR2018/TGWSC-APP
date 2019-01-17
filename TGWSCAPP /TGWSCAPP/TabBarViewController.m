@@ -10,6 +10,9 @@
 #import "WCAlertview.h"
 #import "PayResultVC.h"
 
+
+#import <sys/utsname.h>
+
 @interface TabBarViewController ()<WCALertviewDelegate>
 {
     TabViewController_1 *ctl1;
@@ -140,6 +143,11 @@
     //UI处理
     [self layoutViews];
 
+     //第一次打开该版本调用统计接口
+     if ([ToolsUtlis isAppFirstLoaded]){
+         [self deviceInfo];
+     }
+    
 }
 
 -(void)layoutViews{
@@ -513,6 +521,32 @@
     [operation start];
 }
 
+//统计接口 客户端上传基本信息
+-(void)deviceInfo {
+    CGRect rect = [[UIScreen mainScreen] bounds];
+    CGSize size = rect.size;
+    CGFloat width = size.width;
+    CGFloat height = size.height;
+    CGFloat scale_screen = [UIScreen mainScreen].scale;
+    NSString *resolution = [NSString stringWithFormat:@"%.0f*%.0f",width*scale_screen ,height*scale_screen];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"os"] = @"ios";
+    params[@"st"] = [[UIDevice currentDevice] systemVersion];;
+    params[@"brand"] = @"iphone";
+    params[@"model"] = [self iphoneType];
+    params[@"resolution"] = resolution;
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/front/record/deviceInfo",[PDAPI getBaseUrlString]]
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                          //更新第一次打开该版本信息
+                                                                                          [ToolsUtlis saveBundleVersion];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      
+                                                                                  }];
+    [operation start];
+}
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     // 保存用户信息
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:[operation.jsonResult.attr objectForKey:@"custInfo"]];
@@ -525,6 +559,69 @@
     
     //用户信息保存成功，更新显示用户信息
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NotificationChangeUserInfo" object:nil];
+}
+
+- (NSString *)iphoneType {
+    
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    
+    NSString *platform = [NSString stringWithCString:systemInfo.machine encoding:NSASCIIStringEncoding];
+   
+    if ([platform isEqualToString:@"iPhone5,1"]) return @"iPhone 5";
+    
+    if ([platform isEqualToString:@"iPhone5,2"]) return @"iPhone 5";
+    
+    if ([platform isEqualToString:@"iPhone5,3"]) return @"iPhone 5c";
+    
+    if ([platform isEqualToString:@"iPhone5,4"]) return @"iPhone 5c";
+    
+    if ([platform isEqualToString:@"iPhone6,1"]) return @"iPhone 5s";
+    
+    if ([platform isEqualToString:@"iPhone6,2"]) return @"iPhone 5s";
+    
+    if ([platform isEqualToString:@"iPhone7,1"]) return @"iPhone 6 Plus";
+    
+    if ([platform isEqualToString:@"iPhone7,2"]) return @"iPhone 6";
+    
+    if ([platform isEqualToString:@"iPhone8,1"]) return @"iPhone 6s";
+    
+    if ([platform isEqualToString:@"iPhone8,2"]) return @"iPhone 6s Plus";
+    
+    if ([platform isEqualToString:@"iPhone8,4"]) return @"iPhone SE";
+    
+    if ([platform isEqualToString:@"iPhone9,1"]) return @"iPhone 7";
+    
+    if ([platform isEqualToString:@"iPhone9,2"]) return @"iPhone 7 Plus";
+
+    if([platform isEqualToString:@"iPhone9,4"])  return @"iPhone 7 Plus";
+    
+    if([platform isEqualToString:@"iPhone10,1"]) return @"iPhone 8";
+    
+    if([platform isEqualToString:@"iPhone10,4"]) return @"iPhone 8";
+    
+    if([platform isEqualToString:@"iPhone10,2"]) return @"iPhone 8 Plus";
+    
+    if([platform isEqualToString:@"iPhone10,5"]) return @"iPhone 8 Plus";
+    
+    if([platform isEqualToString:@"iPhone10,3"]) return @"iPhone X";
+    
+    if([platform isEqualToString:@"iPhone10,6"]) return @"iPhone X";
+    
+    if([platform isEqualToString:@"iPhone11,2"]) return @"iPhone XS";
+    
+    if([platform isEqualToString:@"iPhone11,4"]) return @"iPhone XS Max";
+    
+    if([platform isEqualToString:@"iPhone11,6"]) return @"iPhone XS Max";
+    
+    if([platform isEqualToString:@"iPhone11,8"]) return @"iPhone XR";
+    
+    if ([platform isEqualToString:@"i386"])      return @"iPhone Simulator";
+    
+    if ([platform isEqualToString:@"x86_64"])    return @"iPhone Simulator";
+    
+    return platform;
+    
 }
 
 

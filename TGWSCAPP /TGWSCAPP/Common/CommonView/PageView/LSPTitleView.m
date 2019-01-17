@@ -171,19 +171,11 @@
         }
 
         UILabel *label = self.titleLabels[i];
-        if (self.style.isTitleViewScrollEnable) {//不需要滑动
-
-            if (i == 0) {
-                titleX = self.style.titleMargin * 0.5;
-            }else{
-                UILabel *preLabel = self.titleLabels[i - 1];
-                titleX = CGRectGetMaxX(preLabel.frame) + self.style.titleMargin;
-            }
-            
-        }else{//滑动
-            
-            //titleW = self.frame.size.width / count;
-            titleX = titleW * i;
+        if (i == 0) {
+            titleX = self.style.titleMargin * 0.5;
+        }else{
+            UILabel *preLabel = self.titleLabels[i - 1];
+            titleX = CGRectGetMaxX(preLabel.frame) + self.style.titleMargin;
         }
         
         label.frame = CGRectMake(titleX, titleY, titleW, titleH);

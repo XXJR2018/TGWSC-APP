@@ -86,7 +86,7 @@
     NSArray *titleArr = @[[_dataDicionary objectForKey:@"ymdCreateTime"],[_dataDicionary objectForKey:@"validEndDate"],[_dataDicionary objectForKey:@"amount"]];
     for (int i = 0;  i < titleArr.count; i++) {
         UILabel *label = labelArr[i];
-        label.frame = CGRectMake(10 + (SCREEN_WIDTH - 20)/3 * i, 0, (SCREEN_WIDTH - 20)/3, 40);
+        label.frame = CGRectMake(10 + (SCREEN_WIDTH - 20)/3 * i, 0, (SCREEN_WIDTH - 20)/3, 50);
         [self addSubview:label];
         label.font = [UIFont systemFontOfSize:13];
         label.textColor = [ResourceManager color_1];
@@ -111,7 +111,7 @@
     NSArray *titleArr = @[[_dataDicionary objectForKey:@"createTime"],[_dataDicionary objectForKey:@"amount"]];
     for (int i = 0;  i < titleArr.count; i++) {
         UILabel *label = labelArr[i];
-        label.frame = CGRectMake(10 + (SCREEN_WIDTH - 20)/2 * i, 0, (SCREEN_WIDTH - 20)/2, 40);
+        label.frame = CGRectMake(10 + (SCREEN_WIDTH - 20)/2 * i, 0, (SCREEN_WIDTH - 20)/2, 50);
         [self addSubview:label];
         label.font = [UIFont systemFontOfSize:13];
         label.textColor = [ResourceManager color_1];

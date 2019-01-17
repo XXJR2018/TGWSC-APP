@@ -28,7 +28,7 @@ static NSString *const kStatURLinUserDefaultsString     = @"kStatURLinUserDefaul
 
 #endif
 // 版本信息
-static NSString *const kDDGUserBorrowVersionAPIString= @"fx/cust/app/upgradeInfo";
+static NSString *const kDDGUserBorrowVersionAPIString= @"appMall/app/version/upgradeInfo";
 
 // 上传材料、头像
 static NSString *const kDDGGetSendFileAPIString = @"appMall/upload/uploadImage";

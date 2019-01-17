@@ -414,7 +414,7 @@
 
 #pragma mark - 判断版本更新
 -(void)onCheckVersion{
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@wallet/upgradeInfo",[PDAPI getBaseUrlString]]
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[PDAPI getCheckVersionAPI]
                                                                                parameters:@{@"appID":@"tgwscIOS"} HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       NSDictionary *dic = operation.jsonResult.attr;

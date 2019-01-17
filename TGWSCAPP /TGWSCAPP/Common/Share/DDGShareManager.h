@@ -95,6 +95,24 @@ typedef NS_ENUM(NSUInteger, ShareContentType)
 
 - (void)loginType:(int)type block:(Block_Id)block view:(UIView *)view;
 
+
+
+/**
+ *  分享到微信  （分享界面需要自己写）
+ *  @param items  分享参数  （可以分享普通URL， 分享图片）
+ *  @param scene  0--朋友会话，1-－朋友圈
+ *
+ */
 -(BOOL) weChatShare:(NSDictionary *)items shareScene:(int) scene;
+
+
+
+/**
+ *  分享小程序到微信  （分享界面需要自己写）
+ *  @param items  分享参数（小程序）
+ * （只支持分享给朋友）
+ *
+ */
+-(BOOL) weChatShareXCX:(NSDictionary *)items ;
 
 @end

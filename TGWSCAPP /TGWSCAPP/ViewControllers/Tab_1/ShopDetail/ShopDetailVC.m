@@ -343,6 +343,8 @@
     scView.contentSize = CGSizeMake(0, iTopY);
     //[self layoutTailJPG:dicUI atTop:iTopY];
     
+    [self layoutShareUI];
+    
 }
 
 -(void) layoutHead
@@ -1057,7 +1059,8 @@
 
 -(void) actionShare
 {
-    
+    viewPopShare.hidden = NO;
+    return;
 
     NSMutableDictionary *parmams = [[NSMutableDictionary alloc] init];
     parmams[@"strUrl"] = [NSString stringWithFormat:@"/pages/product/product?goodsCode=%@&goodsName=%@",_shopModel.strGoodsCode,_shopModel.strGoodsName];

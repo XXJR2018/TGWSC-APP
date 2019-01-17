@@ -110,21 +110,7 @@
 
 //每个UICollectionView展示的内容
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-//    SortProductCollectionViewCell *cell = (SortProductCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"SortProductCell_ID" forIndexPath:indexPath];
-    
-    // 防止复用时出问题
-    // 每次先从字典中根据IndexPath取出唯一标识符
-    NSString *identifier = [_cellDic objectForKey:[NSString stringWithFormat:@"%@", indexPath]];
-    // 如果取出的唯一标示符不存在，则初始化唯一标示符，并将其存入字典中，对应唯一标示符注册Cell
-    if (identifier == nil) {
-        identifier = [NSString stringWithFormat:@"%@%@", @"ShoMoreVC11", [NSString stringWithFormat:@"%@", indexPath]];
-        [_cellDic setValue:identifier forKey:[NSString stringWithFormat:@"%@", indexPath]];
-        
-        //以xib方式注册cell
-        [_collectionView registerNib:[UINib nibWithNibName:@"SortProductCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:identifier];
-    }
-    
-    SortProductCollectionViewCell *cell = (SortProductCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    SortProductCollectionViewCell *cell = (SortProductCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"SortProductCell_ID" forIndexPath:indexPath];
     
     cell.dataDicionary = self.dataArray[indexPath.row];
     return cell;

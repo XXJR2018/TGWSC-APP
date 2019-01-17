@@ -22,8 +22,7 @@
     UILabel *_balanceLabel;
     UILabel *_zsfyeLabel;
     UILabel *_zsfyeNumLabel;
-    UIView *_lqjlView;
-    UIView *_gqjlView;
+    UIView *_balanceTypeView;
 }
 @end
 
@@ -104,7 +103,7 @@
    
     _tableView.backgroundColor = [UIColor whiteColor];
     [_tableView setTableFooterView:[UIView new]];
-    [_tableView registerNib:[UINib nibWithNibName:@"BalanceViewCell" bundle:nil] forCellReuseIdentifier:@"Balance_Cell"];
+   [_tableView registerClass:[BalanceViewCell class] forCellReuseIdentifier:@"balance_cell"];
     [_tableView setSeparatorInset:UIEdgeInsetsMake(0, -20, 0, 0)];
     [_tableView setSeparatorColor:[ResourceManager color_5]];
     
@@ -177,7 +176,11 @@
     [_headerView addSubview:lineView];
     lineView.backgroundColor = [ResourceManager color_5];
     
-    _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_zsfyeLabel.frame));
+    _balanceTypeView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(lineView.frame), SCREEN_WIDTH, 0)];
+    [_headerView addSubview:_balanceTypeView];
+    _balanceTypeView.backgroundColor = [UIColor whiteColor];
+    
+    _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_balanceTypeView.frame));
 }
 
 -(void)makeTouch{
@@ -190,59 +193,66 @@
     if (sender.selected) {
         return;
     }
-    [_lqjlView removeFromSuperview];
+    self.pageIndex = 1;
+    [self.dataArray removeAllObjects];
+    [_tableView reloadData];
+   _balanceTypeView.height = 0;
+    [_balanceTypeView removeAllSubviews];
     if (sender.tag == 0) {
         _xfListBtn.selected = YES;
         _lqListBtn.selected = NO;
         _gqListBtn.selected = NO;
-         _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_zsfyeLabel.frame));
     }else if (sender.tag == 1) {
         _xfListBtn.selected = NO;
         _lqListBtn.selected = YES;
         _gqListBtn.selected = NO;
-        _lqjlView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_zsfyeLabel.frame), SCREEN_WIDTH, 40)];
-        [_headerView addSubview:_lqjlView];
-        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_lqjlView.frame));
-        NSArray *titleArr = @[@"领取时间",@"到期时间",@"到账余额（元)"];
-        for (int i = 0;  i < titleArr.count; i++) {
-            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10 + (SCREEN_WIDTH - 20)/3 * i, 0, (SCREEN_WIDTH - 20)/3, 40)];
-            [_lqjlView addSubview:label];
-            label.font = [UIFont systemFontOfSize:13];
-            label.textColor = [ResourceManager color_1];
-            label.text = titleArr[i];
-            if (i == 0) {
-                label.textAlignment = NSTextAlignmentLeft;
-            }else if (i == 1) {
-                label.textAlignment = NSTextAlignmentCenter;
-            }else{
-                label.textAlignment = NSTextAlignmentRight;
+        if (self.dataArray.count > 0) {
+            NSArray *titleArr = @[@"领取时间",@"到期时间",@"到账余额（元)"];
+            for (int i = 0;  i < titleArr.count; i++) {
+                UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10 + (SCREEN_WIDTH - 20)/3 * i, 0, (SCREEN_WIDTH - 20)/3, 40)];
+                [_balanceTypeView addSubview:label];
+                label.font = [UIFont systemFontOfSize:13];
+                label.textColor = [ResourceManager color_1];
+                label.text = titleArr[i];
+                if (i == 0) {
+                    label.textAlignment = NSTextAlignmentLeft;
+                }else if (i == 1) {
+                    label.textAlignment = NSTextAlignmentCenter;
+                }else{
+                    label.textAlignment = NSTextAlignmentRight;
+                }
             }
+            
+            _balanceTypeView.height = 40;
         }
     }else{
         _xfListBtn.selected = NO;
         _lqListBtn.selected = NO;
         _gqListBtn.selected = YES;
-        _lqjlView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_zsfyeLabel.frame), SCREEN_WIDTH, 40)];
-        [_headerView addSubview:_lqjlView];
-        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_lqjlView.frame));
-        NSArray *titleArr = @[@"过期时间",@"过期余额（元)"];
-        for (int i = 0;  i < titleArr.count; i++) {
-            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10 +(SCREEN_WIDTH - 20)/2 * i, 0, (SCREEN_WIDTH - 20)/2, 40)];
-            [_lqjlView addSubview:label];
-            label.font = [UIFont systemFontOfSize:13];
-            label.textColor = [ResourceManager color_1];
-            label.text = titleArr[i];
-            if (i == 0) {
-                label.textAlignment = NSTextAlignmentLeft;
-            }else{
-                label.textAlignment = NSTextAlignmentRight;
+        if (self.dataArray.count > 0) {
+            NSArray *titleArr = @[@"过期时间",@"过期余额（元)"];
+            for (int i = 0;  i < titleArr.count; i++) {
+                UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10 +(SCREEN_WIDTH - 20)/2 * i, 0, (SCREEN_WIDTH - 20)/2, 40)];
+                [_balanceTypeView addSubview:label];
+                label.font = [UIFont systemFontOfSize:13];
+                label.textColor = [ResourceManager color_1];
+                label.text = titleArr[i];
+                if (i == 0) {
+                    label.textAlignment = NSTextAlignmentLeft;
+                }else{
+                    label.textAlignment = NSTextAlignmentRight;
+                }
             }
+            
+            _balanceTypeView.height = 40;
         }
     }
-    [self.dataArray removeAllObjects];
-    self.pageIndex = 1;
+    
+    _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_balanceTypeView.frame));
+    [_tableView setTableHeaderView:_headerView];
+    
     [self loadData];
-    [_tableView reloadData];
+
 }
 
 #pragma mark === UITableViewDataSource
@@ -270,55 +280,23 @@
     if (self.dataArray.count == 0) {
         return  [self noDataCell:tableView];
     }
-    if (_xfListBtn.selected) {
-        BalanceViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Balance_Cell"];
-        if (!cell) {
-            cell = [[BalanceViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Balance_Cell"];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-        cell.dataDicionary = self.dataArray[indexPath.row];
-        return cell;
-    }else if (_lqListBtn.selected) {
-        NSString *cellID = [NSString stringWithFormat:@"%ld_lqcell",indexPath.row];
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-        
-        NSDictionary *dic = self.dataArray[indexPath.row];
-        NSArray *titleArr = @[[dic objectForKey:@"ymdCreateTime"],[dic objectForKey:@"validEndDate"],[dic objectForKey:@"amount"]];
-        for (int i = 0;  i < titleArr.count; i++) {
-            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10 + (SCREEN_WIDTH - 20)/3 * i, 0, (SCREEN_WIDTH - 20)/3, 40)];
-            [cell.contentView addSubview:label];
-            label.font = [UIFont systemFontOfSize:13];
-            label.textColor = [ResourceManager color_1];
-            label.text = [NSString stringWithFormat:@"%@",titleArr[i]];
-            if (i == 0) {
-                label.textAlignment = NSTextAlignmentLeft;
-            }else if (i == 1) {
-                label.textAlignment = NSTextAlignmentCenter;
-            }else{
-                label.textAlignment = NSTextAlignmentRight;
-            }
-        }
-        return cell;
-    }else {
-        NSString *cellID = [NSString stringWithFormat:@"%ld_gqcell",indexPath.row];
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-        
-        NSDictionary *dic = self.dataArray[indexPath.row];
-        NSArray *titleArr = @[[dic objectForKey:@"createTime"],[dic objectForKey:@"amount"]];
-        for (int i = 0;  i < titleArr.count; i++) {
-            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10 + (SCREEN_WIDTH - 20)/2 * i, 0, (SCREEN_WIDTH - 20)/2, 40)];
-            [cell.contentView addSubview:label];
-            label.font = [UIFont systemFontOfSize:13];
-            label.textColor = [ResourceManager color_1];
-            label.text = [NSString stringWithFormat:@"%@",titleArr[i]];
-            if (i == 0) {
-                label.textAlignment = NSTextAlignmentLeft;
-            }else{
-                label.textAlignment = NSTextAlignmentRight;
-            }
-        }
-        return cell;
+    BalanceViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"balance_cell"];
+    cell = nil;
+    if (!cell) {
+        cell = [[BalanceViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"balance_cell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    
+    cell.dataDicionary = self.dataArray[indexPath.row];
+    if (_xfListBtn.selected) {
+        cell.balanceType = 100;
+    }else if (_lqListBtn.selected) {
+        cell.balanceType = 101;
+    }else if (_gqListBtn.selected) {
+        cell.balanceType = 102;
+    }
+    
+    return cell;
     
 }
 

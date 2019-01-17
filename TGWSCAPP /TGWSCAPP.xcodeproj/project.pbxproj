@@ -107,7 +107,6 @@
 		C222C39021D2235700DD9797 /* NickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C38821D2235700DD9797 /* NickNameViewController.m */; };
 		C222C39121D2235700DD9797 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C38921D2235700DD9797 /* UserInfoViewController.m */; };
 		C222C39521D2303D00DD9797 /* BalanceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C39321D2303D00DD9797 /* BalanceViewCell.m */; };
-		C222C39621D2303D00DD9797 /* BalanceViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C222C39421D2303D00DD9797 /* BalanceViewCell.xib */; };
 		C23EAF4221D32D3000B271A7 /* CouponViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C23EAF4021D32D3000B271A7 /* CouponViewCell.m */; };
 		C23EAF4321D32D3000B271A7 /* CouponViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C23EAF4121D32D3000B271A7 /* CouponViewCell.xib */; };
 		C23EAF4621D32D4500B271A7 /* CouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C23EAF4521D32D4500B271A7 /* CouponViewController.m */; };
@@ -512,7 +511,6 @@
 		C222C38921D2235700DD9797 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		C222C39221D2303D00DD9797 /* BalanceViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BalanceViewCell.h; sourceTree = "<group>"; };
 		C222C39321D2303D00DD9797 /* BalanceViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BalanceViewCell.m; sourceTree = "<group>"; };
-		C222C39421D2303D00DD9797 /* BalanceViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BalanceViewCell.xib; sourceTree = "<group>"; };
 		C23EAF3F21D32D3000B271A7 /* CouponViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponViewCell.h; sourceTree = "<group>"; };
 		C23EAF4021D32D3000B271A7 /* CouponViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponViewCell.m; sourceTree = "<group>"; };
 		C23EAF4121D32D3000B271A7 /* CouponViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CouponViewCell.xib; sourceTree = "<group>"; };
@@ -1567,7 +1565,6 @@
 			children = (
 				C222C39221D2303D00DD9797 /* BalanceViewCell.h */,
 				C222C39321D2303D00DD9797 /* BalanceViewCell.m */,
-				C222C39421D2303D00DD9797 /* BalanceViewCell.xib */,
 				C23EAF3F21D32D3000B271A7 /* CouponViewCell.h */,
 				C23EAF4021D32D3000B271A7 /* CouponViewCell.m */,
 				C23EAF4121D32D3000B271A7 /* CouponViewCell.xib */,
@@ -2576,7 +2573,6 @@
 				C25047A921BA715500DA9C72 /* blueArrow.png in Resources */,
 				C250451221BA579100DA9C72 /* SelectCityViewController.xib in Resources */,
 				C2AEB46821BE45CD0078E788 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
-				C222C39621D2303D00DD9797 /* BalanceViewCell.xib in Resources */,
 				C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */,
 				C02C5F9A21CC991A0056A32E /* icon_video@2x.png in Resources */,
 				C20525F521BE6E5C00E13893 /* TabViewController_2.xib in Resources */,

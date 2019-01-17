@@ -491,7 +491,8 @@
             refundBtn.titleLabel.font = font_2;
             [refundBtn setTitle:orderStatusDesc forState:UIControlStateNormal];
             [refundBtn setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
-            [refundBtn addTarget:self action:@selector(refund) forControlEvents:UIControlEventTouchUpInside];
+            [refundBtn addTarget:self action:@selector(refund:) forControlEvents:UIControlEventTouchUpInside];
+            refundBtn.tag = i;
             if ([[dic objectForKey:@"orderStatus"] intValue] == 10) {
                 refundBtn.layer.borderColor = UIColorFromRGB(0xB00000).CGColor;
                 [refundBtn setTitleColor:UIColorFromRGB(0xB00000) forState:UIControlStateNormal];
@@ -1020,11 +1021,16 @@
 }
 
 #pragma mark----- 跳转退款详情页面
--(void)refund{
-    RefundInfoVC *VC = [[RefundInfoVC alloc] init];
-    VC.dicParams = [[NSDictionary alloc] init];
-    VC.dicParams = _orderDataDic;
-    [self.navigationController pushViewController:VC animated:YES];
+-(void)refund:(UIButton*) sender
+{
+    int iNO = (int)sender.tag;
+    if (iNO < self.dataArray.count)
+     {
+        RefundInfoVC *VC = [[RefundInfoVC alloc] init];
+        VC.dicParams = [[NSDictionary alloc] init];
+        VC.dicParams = self.dataArray[iNO]; //_orderDataDic;
+        [self.navigationController pushViewController:VC animated:YES];
+     }
 }
 
 -(void)agreeTreaty:(UIButton *)sender{

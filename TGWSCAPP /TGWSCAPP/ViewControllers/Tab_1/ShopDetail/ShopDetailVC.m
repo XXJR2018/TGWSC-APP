@@ -24,6 +24,8 @@
     
     CustomNavigationBarView *nav;
     
+    UIView *viewPopShare;  // 分享的弹框
+    
     NSMutableArray *arrTopIMG; // 顶部的 视频和图片 数组
     int iTopType;    //   0 - 表示全图片，  1 -  表示为首张为视频，剩下的为图片
     
@@ -653,6 +655,110 @@
     
 }
 
+
+#pragma mark ---- 布局分享按钮
+-(void) layoutShareUI
+{
+    int iviewPopShareHeight =  180;
+    viewPopShare = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - iviewPopShareHeight, SCREEN_WIDTH, iviewPopShareHeight)];
+    viewPopShare.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:viewPopShare];
+    viewPopShare.userInteractionEnabled = YES;
+    
+    int iTopY = 20;
+    int iLeftX = 0;
+    
+    
+    UIColor *color1 =  UIColorFromRGB(0x4c4c4c);
+    UILabel *labelTail1 = [[UILabel alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 20)];
+    labelTail1.font = [UIFont systemFontOfSize:16];
+    labelTail1.textColor = color1;
+    labelTail1.text = [NSString stringWithFormat:@"分享到"];
+    labelTail1.textAlignment = NSTextAlignmentCenter;
+    [viewPopShare addSubview:labelTail1];
+    
+    
+    
+    iTopY += labelTail1.height -10;
+    int iIMGWdith = 40;
+    int iViewWdith = SCREEN_WIDTH/3;
+    
+    // 微信图片和按钮
+    UIView * view1 = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, iViewWdith, 100)];
+    [viewPopShare addSubview:view1];
+    
+    UIImageView *imag1 = [[UIImageView alloc] initWithFrame:CGRectMake((iViewWdith-iIMGWdith)/2, 30, iIMGWdith, iIMGWdith)];
+    [view1 addSubview:imag1];
+    imag1.image = [UIImage imageNamed:@"com_weixin"];
+    
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 30+iIMGWdith, iViewWdith, 20)];
+    label1.font = [UIFont systemFontOfSize:12];
+    label1.textColor = color1;
+    label1.text = @"微信";
+    label1.textAlignment = NSTextAlignmentCenter;
+    [view1 addSubview:label1];
+    
+    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionWX)];
+    [view1 addGestureRecognizer:singleTap];
+    
+    // 朋友圈图片和按钮
+    UIView * view2 = [[UIView alloc] initWithFrame:CGRectMake(iViewWdith, iTopY, iViewWdith, 100)];
+    [viewPopShare addSubview:view2];
+    
+    UIImageView *imag2 = [[UIImageView alloc] initWithFrame:CGRectMake((iViewWdith-iIMGWdith)/2, 30, iIMGWdith, iIMGWdith)];
+    [view2 addSubview:imag2];
+    imag2.image = [UIImage imageNamed:@"com_pyq"];
+    
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 30+iIMGWdith, iViewWdith, 20)];
+    label2.font = [UIFont systemFontOfSize:12];
+    label2.textColor = color1;
+    label2.text = @"朋友圈";
+    label2.textAlignment = NSTextAlignmentCenter;
+    [view2 addSubview:label2];
+    
+    UITapGestureRecognizer* singleTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionPYQ)];
+    [view2 addGestureRecognizer:singleTap2];
+    
+    
+    //    // 保存到本地图片和按钮
+    //    UIView * view3 = [[UIView alloc] initWithFrame:CGRectMake(iViewWdith*2, iTopY, iViewWdith, 100)];
+    //    [viewPopShare addSubview:view3];
+    //
+    //    UIImageView *imag3 = [[UIImageView alloc] initWithFrame:CGRectMake((iViewWdith-iIMGWdith)/2, 30, iIMGWdith, iIMGWdith)];
+    //    [view3 addSubview:imag3];
+    //    imag3.image = [UIImage imageNamed:@"com_save"];
+    //
+    //    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(0, 30+iIMGWdith, iViewWdith, 20)];
+    //    label3.font = [UIFont systemFontOfSize:12];
+    //    label3.textColor = color1;
+    //    label3.text = @"保存到本地";
+    //    label3.textAlignment = NSTextAlignmentCenter;
+    //    [view3 addSubview:label3];
+    //
+    //    UITapGestureRecognizer* singleTap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sharSave)];
+    //    [view3 addGestureRecognizer:singleTap3];
+    
+    // 分割线
+    iTopY += view1.height + 5;
+    UIView *viewFG1 = [[UIView alloc] initWithFrame:CGRectMake(0 , iTopY, SCREEN_WIDTH,1)];
+    viewFG1.backgroundColor = [ResourceManager lightGrayColor];
+    [viewPopShare addSubview:viewFG1];
+    
+    iTopY +=1;
+    UIButton * btnBack = [[UIButton alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 40)];
+    [viewPopShare addSubview:btnBack];
+    [btnBack setTitle:@"取消" forState:UIControlStateNormal];
+    [btnBack setTitleColor:color1 forState:UIControlStateNormal];
+    btnBack.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btnBack addTarget:self action:@selector(actionCancel) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    //scView.contentSize = CGSizeMake(0, scView.height + iviewPopShareHeight + 5);
+    
+    viewPopShare.hidden = YES;
+}
+
+
 //
 -(UIImage *)imageWithColor:(UIColor *)color {
     
@@ -688,6 +794,8 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params[@"goodsCode"] = _shopModel.strGoodsCode;
+    params[@"est"] = _est;
+    params[@"esi"] = _esi;
     
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLqueryGoodsBaseInfo];
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl

@@ -65,20 +65,13 @@
 -(void) layoutUI
 {
     NSLog(@"dicParmas:%@",_dicParams);
-    
+
     //orderDtlListArr = [_dicParams objectForKey:@"orderDtlList"];
-    if (orderDtlListArr.count == 0) {
-        // 如果网络请求不到数据，用传入的本地数据
-        orderDtlListArr = [_dicParams objectForKey:@"orderDtlList"];
-        
-    }
-    
     if (orderDtlListArr.count == 0)
      {
         return;
      }
     
-
     int iTopY = NavHeight;
     int iLeftX = 15;
     

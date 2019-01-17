@@ -924,6 +924,8 @@
         labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",fYEDK ];
      }
     
+    [self layoutBottomView];
+    
 }
 
 -(void)  haveYHQAfterSel:(NSDictionary *) dicValue
@@ -948,12 +950,9 @@
      }
     else
      {
-        if (!btnBalance.selected)
-         {
-            iISYuEPay = 0;
-            fYEDK = 0.0;
-            labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",0.00 ];
-         }
+        iISYuEPay = 0;
+        fYEDK = 0.0;
+        labelYuEDK.text = [NSString stringWithFormat:@"余额抵扣 :¥%.2f",0.00 ];
      }
     
     [self layoutBottomView];

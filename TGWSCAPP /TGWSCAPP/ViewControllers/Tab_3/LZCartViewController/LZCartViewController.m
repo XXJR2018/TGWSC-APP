@@ -314,7 +314,7 @@
 }
 
 - (void)setupCartEmptyView {
-    
+    rightNavBtn.hidden = YES;
     [self.selectedArray removeAllObjects];
     
     //默认视图背景
@@ -353,6 +353,8 @@
 }
 #pragma mark -- 购物车有商品时的视图
 - (void)setupCartView {
+    
+    rightNavBtn.hidden = NO;
     //创建底部视图
     [self setupCustomBottomView];
     

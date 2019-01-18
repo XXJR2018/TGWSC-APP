@@ -176,6 +176,13 @@
         fImgTopY = fTopY;
         float fImgBettewn = 5 *ScaleSize;
         fLeftX = (SCREEN_WIDTH  - _columnOneCount *fImgWidth - (_columnOneCount - 1)*fImgBettewn)/ 2;
+        
+        if (_columnOneCount == 1)
+         {
+            fLeftX = 11 * ScaleSize;
+            fImgWidth = SCREEN_WIDTH - 2*fLeftX;
+         }
+        
         float fImgLeftX = fLeftX;
         
         for (int i = 0;  i < _columnOneCount; i++)
@@ -228,6 +235,13 @@
         fImgTopY += fImgHeight + fImgBettewn;
         fImgBettewn = 5 *ScaleSize;
         fLeftX = (SCREEN_WIDTH  - _columnTwoCount *fImgWidth - (_columnTwoCount - 1)*fImgBettewn)/2;
+
+        if (_columnTwoCount == 1)
+         {
+            fLeftX = 11 * ScaleSize;
+            fImgWidth = SCREEN_WIDTH - 2*fLeftX;
+         }
+        
         fImgLeftX = fLeftX;
         
         for (int i = _columnOneCount; i < iShopCount; i++)

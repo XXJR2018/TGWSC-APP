@@ -505,7 +505,7 @@
     if (0 == iServerStatus)
      {
         NSLog(@"取消申请");
-        [self cancelCommit];
+        [self actionCanelRequset];
         return;
      }
     
@@ -546,7 +546,35 @@
 -(void) actionCanelRequset
 {
     NSLog(@"取消申请");
-    [self cancelCommit];
+    
+    CDWAlertView *alertView = [[CDWAlertView alloc] init];
+    
+    alertView.shouldDismissOnTapOutside = NO;
+    alertView.textAlignment = RTTextAlignmentCenter;
+    
+    // 降低高度
+    [alertView subAlertCurHeight:10];
+    //[alertView addSubTitle:[NSString stringWithFormat:@"<font size = 18 color=#000000>确定要放弃付款吗？</font>"]];
+    
+    // 加入message
+    NSString *strXH= [NSString stringWithFormat:@"您将撤销本次申请，如果问题未解决，您还可以再次发起，确定要继续"];
+    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 14 color=#333333> %@ </font>",strXH]];
+    
+    [alertView subAlertCurHeight:10];
+    
+    [alertView addCanelButton:@"取消" actionBlock:^{
+        
+    }];
+    
+    [alertView addButton:@"确定" color:[ResourceManager mainColor] actionBlock:^{
+        
+         [self cancelCommit];
+        
+    }];
+    
+    [alertView showAlertView:self.parentViewController duration:0.0];
+    
+   
 }
 
 @end

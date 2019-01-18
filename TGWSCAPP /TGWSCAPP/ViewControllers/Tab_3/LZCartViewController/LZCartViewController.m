@@ -71,9 +71,10 @@
 //    _allSellectedButton.selected = NO;
 //    _totlePriceLabel.attributedText = [self LZSetString:@"￥0.00"];
     
- 
-    [self loadData];
-    
+    if ([CommonInfo isLoggedIn])
+     {
+        [self loadData];
+     }
 }
 
 -(void)creatData {
@@ -138,8 +139,14 @@
     }
     
 #warning 加载网络数据,会有延迟
-    [self loadData];
-    
+    if ([CommonInfo isLoggedIn])
+     {
+        [self loadData];
+     }
+    else
+     {
+        [self setupCartEmptyView];
+     }
 
 }
 
@@ -307,7 +314,7 @@
 }
 
 - (void)setupCartEmptyView {
-    
+    rightNavBtn.hidden = YES;
     [self.selectedArray removeAllObjects];
     
     //默认视图背景
@@ -346,6 +353,8 @@
 }
 #pragma mark -- 购物车有商品时的视图
 - (void)setupCartView {
+    
+    rightNavBtn.hidden = NO;
     //创建底部视图
     [self setupCustomBottomView];
     
@@ -1285,7 +1294,42 @@
                 custPromocardId = [NSString stringWithFormat:@"%@", dic[@"custPromocardId"]];
              }
             
+            
+            if (isEdit)
+             {
+                
+                [rightNavBtn setTitle:@"完成" forState:UIControlStateNormal];
+                
+                [btnTail setTitle:@"删除所选" forState:UIControlStateNormal];
+                if ([dic[@"totalGoodsNum"] intValue] > 0)
+                 {
+                    NSString *strText = [NSString stringWithFormat:@"删除所选(%@)", dic[@"totalGoodsNum"]];
+                    [btnTail setTitle:strText forState:UIControlStateNormal];
+                 }
+                
+                self.totlePriceLabel.hidden = YES;
+                
+             }
+            else
+             {
+                
+                [rightNavBtn setTitle:@"编辑" forState:UIControlStateNormal];
+                
+                [btnTail setTitle:@"下单" forState:UIControlStateNormal];
+                if ([dic[@"totalGoodsNum"] intValue] > 0)
+                 {
+                    NSString *strText = [NSString stringWithFormat:@"下单(%@)", dic[@"totalGoodsNum"]];
+                    [btnTail setTitle:strText forState:UIControlStateNormal];
+                 }
+                self.totlePriceLabel.hidden = NO;
+             }
+            
          }
+     }
+    else if (1004 == operation.tag)
+     {
+        [self getTitleFromWeb];
+        
      }
 }
 

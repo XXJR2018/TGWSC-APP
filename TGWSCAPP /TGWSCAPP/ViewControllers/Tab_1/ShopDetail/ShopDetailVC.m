@@ -661,9 +661,9 @@
 #pragma mark ---- 布局分享按钮
 -(void) layoutShareUI
 {
-    int iviewPopShareHeight =  180;
+    int iviewPopShareHeight =  170;
     viewPopShare = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - iviewPopShareHeight, SCREEN_WIDTH, iviewPopShareHeight)];
-    viewPopShare.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
+    viewPopShare.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.9];
     [self.view addSubview:viewPopShare];
     viewPopShare.userInteractionEnabled = YES;
     
@@ -741,8 +741,6 @@
     [btnBack setImage:[UIImage imageNamed:@"com_colse3"] forState:UIControlStateNormal];
     [btnBack addTarget:self action:@selector(actionCancel) forControlEvents:UIControlEventTouchUpInside];
     
-    
-    //scView.contentSize = CGSizeMake(0, scView.height + iviewPopShareHeight + 5);
     
     viewPopShare.hidden = YES;
 }
@@ -1049,23 +1047,7 @@
     viewPopShare.hidden = NO;
     return;
 
-    NSMutableDictionary *parmams = [[NSMutableDictionary alloc] init];
-    parmams[@"strUrl"] = [NSString stringWithFormat:@"/pages/product/product?goodsCode=%@&goodsName=%@",_shopModel.strGoodsCode,_shopModel.strGoodsName];
-    parmams[@"strImgUrl"] = _shopModel.strGoodsImgUrl;
-    parmams[@"strDesc"] = _shopModel.strGoodsName;
-    parmams[@"strName"] = _shopModel.strGoodsName;
-    
-    [[DDGShareManager shareManager] weChatShareXCX:parmams];
-
-    [[DDGShareManager  shareManager] setBlock:^(id obj) {
-
-        NSDictionary *dic = (NSDictionary *)obj;
-        if ([[dic objectForKey:@"success"] boolValue]) {
-            [MBProgressHUD showSuccessWithStatus:@"分享成功" toView:self.view];
-        }else{
-            [MBProgressHUD showErrorWithStatus:@"分享失败" toView:self.view];
-        }
-    }];
+   
 }
 
 -(void) actionCancel
@@ -1075,12 +1057,45 @@
 
 -(void) actionWeChat
 {
+    NSMutableDictionary *parmams = [[NSMutableDictionary alloc] init];
+    parmams[@"strUrl"] = [NSString stringWithFormat:@"/pages/product/product?goodsCode=%@&goodsName=%@",_shopModel.strGoodsCode,_shopModel.strGoodsName];
+    parmams[@"strImgUrl"] = _shopModel.strGoodsImgUrl;
+    parmams[@"strDesc"] = _shopModel.strGoodsName;
+    parmams[@"strName"] = _shopModel.strGoodsName;
     
+    [[DDGShareManager shareManager] weChatShareXCX:parmams];
+    
+    [[DDGShareManager  shareManager] setBlock:^(id obj) {
+        
+        NSDictionary *dic = (NSDictionary *)obj;
+        if ([[dic objectForKey:@"success"] boolValue]) {
+            [MBProgressHUD showSuccessWithStatus:@"分享成功" toView:self.view];
+        }else{
+            [MBProgressHUD showErrorWithStatus:@"分享失败" toView:self.view];
+        }
+    }];
 }
 
 -(void) actionWePYQ
 {
+    NSString *strImgUrl = _shopModel.strGoodsImgUrl;
+    UIImage *image = [ToolsUtlis getImgFromStr:strImgUrl];
+    NSData *data=  UIImageJPEGRepresentation(image,0.5);
     
+
+    NSMutableDictionary *parmams = [[NSMutableDictionary alloc] init];
+    parmams[@"image"] = data;
+    [[DDGShareManager shareManager] weChatShare:parmams shareScene:1];
+    
+    [[DDGShareManager  shareManager] setBlock:^(id obj) {
+        
+        NSDictionary *dic = (NSDictionary *)obj;
+        if ([[dic objectForKey:@"success"] boolValue]) {
+            [MBProgressHUD showSuccessWithStatus:@"分享成功" toView:self.view];
+        }else{
+            [MBProgressHUD showErrorWithStatus:@"分享失败" toView:self.view];
+        }
+    }];
 }
 
 -(void) actionBtn:(UIButton*) sender

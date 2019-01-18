@@ -763,6 +763,8 @@
             int iNum = [dic[@"num"] intValue];
             iShopCount += iNum;
          }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:DDGCartUpdateNotification object:@{@"count":@(iShopCount)}];
      }
 }
 

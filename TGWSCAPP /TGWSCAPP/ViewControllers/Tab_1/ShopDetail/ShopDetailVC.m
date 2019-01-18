@@ -21,6 +21,7 @@
 {
     UIScrollView *scView;
     UIImageView *imgShouCang;
+    UILabel *labelCartNum;  // 购物车数量
     
     CustomNavigationBarView *nav;
     
@@ -353,6 +354,9 @@
     
     [self layoutShareUI];
     
+    // 需要刷新购物车下标
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGCartNeedCountNotification object:nil];
+    
 }
 
 -(void) layoutHead
@@ -582,6 +586,21 @@
         UIImageView *imgKF = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 18, 18)];
         [viewTabber addSubview:imgKF];
         imgKF.image = [UIImage imageNamed:arrImg[i]];
+        
+        // 购物车数量
+        if (2 == i)
+         {
+            labelCartNum = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX+10, iTopY-5, 15, 15)];
+            [viewTabber addSubview:labelCartNum];
+            labelCartNum.layer.masksToBounds = YES;
+            labelCartNum.layer.cornerRadius = labelCartNum.height/2;
+            labelCartNum.backgroundColor = [ResourceManager priceColor];
+            labelCartNum.textColor = [UIColor whiteColor];
+            labelCartNum.font = [UIFont systemFontOfSize:8];
+            labelCartNum.textAlignment = NSTextAlignmentCenter;
+            labelCartNum.hidden = YES;
+            
+         }
         
         // 收藏图标 赋值
         if (1 == i)
@@ -1249,5 +1268,28 @@
 {
     NSLog(@"user info is %@",notification.object);
     NSDictionary *dic = notification.object;
+    
+    int iCount =  [dic[@"count"] intValue];
+    if (iCount >99)
+     {
+        iCount = 99;
+     }
+    if (iCount < 10)
+     {
+        labelCartNum.font = [UIFont systemFontOfSize:10];
+     }
+    else
+     {
+        labelCartNum.font = [UIFont systemFontOfSize:8];
+     }
+    if (iCount <= 0)
+     {
+        labelCartNum.hidden = YES;
+     }
+    else
+     {
+        labelCartNum.hidden = NO;
+     }
+    labelCartNum.text = [NSString stringWithFormat:@"%d", iCount];
 }
 @end

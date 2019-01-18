@@ -650,6 +650,8 @@
        [[NSNotificationCenter defaultCenter] postNotificationName:DDGCartNeedCountNotification object:nil];
        
        [MBProgressHUD showSuccessWithStatus:@"加入购物车成功" toView:_keyWindow];
+       
+       [self hide];
     }
 }
 

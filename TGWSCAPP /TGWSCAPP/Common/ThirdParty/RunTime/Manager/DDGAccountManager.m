@@ -91,7 +91,7 @@ static DDGAccountManager *_sharedManager = nil;
     [self deleteMemoryData];
     
     [CommonInfo setUserInfo:nil];
-    
+
 }
 
 - (void)deleteMemoryData{

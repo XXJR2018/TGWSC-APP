@@ -256,8 +256,7 @@
     //注销极光推送  删除别名
     [JPUSHService deleteAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
     } seq:0];
-     [[DDGAccountManager sharedManager] deleteUserData];
-    
+    [CommonInfo AllDeleteInfo];
     [DDGUserInfoEngine engine].parentViewController = self;
     [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
 }
@@ -267,10 +266,9 @@
     //注销极光推送  删除别名
     [JPUSHService deleteAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
     } seq:0];
-
-    [[DDGAccountManager sharedManager] deleteUserData];
     
-    [self loginSucess:nil];
+    [CommonInfo AllDeleteInfo];
+    [self setButtonsState:self.tab1_Button];
     
     [DDGUserInfoEngine engine].parentViewController = self;
     [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];

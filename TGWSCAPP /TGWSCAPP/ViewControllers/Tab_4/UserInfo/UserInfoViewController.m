@@ -48,6 +48,18 @@
     [operation start];
 }
 
+-(void)logoutUrl{
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/login/logout",[PDAPI getBaseUrlString]]
+                                                                               parameters:nil HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                     
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      
+                                                                                  }];
+    [operation start];
+}
+
 #pragma mark 数据操作
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
@@ -141,7 +153,9 @@
 
 //退出登录
 - (IBAction)loginOut:(id)sender {
+    [self logoutUrl];
     [CommonInfo AllDeleteInfo];
+    [self.navigationController popToRootViewControllerAnimated:NO];
     //发送退出登录通知
     [[NSNotificationCenter defaultCenter] postNotificationName:DDGAccountEngineDidLogoutNotification object:nil];
 }

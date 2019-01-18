@@ -242,8 +242,10 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"个人中心"];
-    //改变商品数量
-    [self custSummaryUrl];
+    if ([CommonInfo isLoggedIn]) {
+        //改变商品数量
+        [self custSummaryUrl];
+    }  
 }
 
 - (void)viewWillDisappear:(BOOL)animated{

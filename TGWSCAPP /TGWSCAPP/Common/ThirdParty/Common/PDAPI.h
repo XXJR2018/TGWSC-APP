@@ -46,6 +46,8 @@ static NSString *const kURLqueryTypeMoreInfoList = @"appMall/home/queryTypeMoreI
 static NSString *const kURLqueryGoodsByCondition = @"appMall/goods/queryGoodsByCondition";
 // 搜索时，即时匹配的字符
 static NSString *const kURLqueryGoodsKey = @"appMall/goodskey/queryGoodsKey";
+// 得到商品的分享图片(包含二维码)
+static NSString *const kURLgetShareQrcode = @"/appMall/goods/getShareQrcode";
 
 
 #pragma mark ---- 购物车相关

@@ -37,6 +37,7 @@
     
     int  maxPostFree;  // 包邮免费金额
     bool isFavorite;   // 是否收藏
+    NSString *qrcodeUrl;
 }
 
 @property (strong, nonatomic)AVPlayer *myPlayer;//播放器
@@ -83,6 +84,8 @@
     iTailViewTopY = 0;
     
     isFavorite = false;
+    
+    qrcodeUrl = @"";
 }
 
 //清除缓存必须写
@@ -769,9 +772,14 @@
 -(void) getDataFromWeb
 {
     [self queryGoodsBaseInfo];
+    
     [self queryGoodsDetailInfo];
+    
     [self querySkuProList];
+    
     [self querySkuList];
+    
+    [self getShareQrcode];
 }
 
 
@@ -891,6 +899,23 @@
 }
 
 
+// 得到商品的分享的图片 （带二维码）
+-(void) getShareQrcode
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"goodsCode"] = _shopModel.strGoodsCode;
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLgetShareQrcode];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1007;
+    [operation start];
+}
 
 
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
@@ -977,6 +1002,14 @@
         imgShouCang.image = [UIImage imageNamed:@"Shop_shoucang"];
         [MBProgressHUD showErrorWithStatus:@"取消收藏" toView:self.view];
      }
+    else if (1007 == operation.tag)
+     {
+        NSDictionary *dic = operation.jsonResult.attr;
+        if (dic)
+         {
+            qrcodeUrl = dic[@"qrcodeUrl"];
+         }
+     }
 }
 
 -(void) delayMethod:(NSDictionary*)dic
@@ -988,7 +1021,8 @@
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     if (1000 == operation.tag ||
         1005 == operation.tag ||
-        1006 == operation.tag)
+        1006 == operation.tag ||
+        1007 == operation.tag)
      {
         [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
      }
@@ -1079,8 +1113,14 @@
 
 -(void) actionWePYQ
 {
-    NSString *strImgUrl = _shopModel.strGoodsImgUrl;
-    UIImage *image = [ToolsUtlis getImgFromStr:strImgUrl];
+
+    if (qrcodeUrl.length <= 0)
+     {
+        [self getShareQrcode];
+        return;
+     }
+    
+    UIImage *image = [ToolsUtlis getImgFromStr:qrcodeUrl];
     NSData *data=  UIImageJPEGRepresentation(image,0.5);
     
 

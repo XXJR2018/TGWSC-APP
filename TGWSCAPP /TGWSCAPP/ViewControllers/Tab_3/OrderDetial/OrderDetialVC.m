@@ -814,6 +814,12 @@
 
 -(void) actionPay
 {
+    if (!isCheckXY)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请同意天狗窝商城服务协议" toView:self.view];
+        return;
+     }
+    
     int hasAddr = [dicOfUI[@"hasAddr"] intValue];
     if (0 ==  hasAddr)
      {
@@ -968,6 +974,8 @@
 -(void) actionXieYi
 {
     NSLog(@"actionXieYi");
+    NSString *url = [NSString stringWithFormat:@"%@webMall/protocol/service",[PDAPI WXSysRouteAPI]];
+    [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"天狗窝商城服务协议"];
 }
 
 -(void) actionBalance:(UIButton*) sender

@@ -71,6 +71,11 @@
     [self initData];
     
     [self getDataFromWeb];
+    
+    // 购物车需要更新的通知函数 注册
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(upDateCartCount:) name:DDGCartUpdateNotification object:nil];
+    
+    
 }
 
 -(void) initData
@@ -1234,6 +1239,15 @@
 // 说明
 -(void) actionShuoMing
 {
-    
+    NSString *url = [NSString stringWithFormat:@"%@webMall/returnPolicy",[PDAPI WXSysRouteAPI]];
+    [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"退换货说明"];
+}
+
+
+#pragma mark notification
+-(void)upDateCartCount:(NSNotification *)notification
+{
+    NSLog(@"user info is %@",notification.object);
+    NSDictionary *dic = notification.object;
 }
 @end

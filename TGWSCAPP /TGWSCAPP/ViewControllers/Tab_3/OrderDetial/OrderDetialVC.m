@@ -35,6 +35,7 @@
     
     UILabel *lableYHJ;       // 优惠券
     UITextField  *textMJLY;  // 买家留言
+    UILabel *labelJF;       // 积分label
     
     UIButton *btnBalance;  // 余额抵扣按钮
     
@@ -439,14 +440,11 @@
                 lableYHJ2.hidden = NO;
                 lableYHJ2.text = [NSString stringWithFormat:@"可选%ld张",[arr count]];
                 lableYHJ.text = [NSString stringWithFormat:@"-¥%.2f",promocardValue]; // 优惠券的面值
-    
              }
-
             
             UIImageView *imgRight = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-20, (iCellHeight - 19*ScaleSize)/2, 11*ScaleSize, 19*ScaleSize)];
             [viewCell addSubview:imgRight];
             imgRight.image = [UIImage imageNamed:@"arrow_right"];
-            
             
             //添加手势, 选择券
             UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(actionSelQuan)];
@@ -457,12 +455,13 @@
         else if(1 == i)
          {
             // 购买所得积分
-            UILabel *labelJF = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 100, (iCellHeight-20)/2, 90, 20)];
+            labelJF = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 100, (iCellHeight-20)/2, 90, 20)];
             [viewCell addSubview:labelJF];
             labelJF.font = [UIFont systemFontOfSize:14];
             labelJF.textColor = [ResourceManager midGrayColor];
             labelJF.textAlignment = NSTextAlignmentRight;
-            labelJF.text = [NSString stringWithFormat:@"%@", dicValue[@"scorePrice"]];
+            float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK;
+            labelJF.text = [NSString stringWithFormat:@"%d", (int) (fTotalPrice * [dicOfUI[@"scorePrice"] floatValue])];
          }
         else if (2 == i)
          {
@@ -604,7 +603,10 @@
     [viewBottom addSubview: lableTotalPrice];
     lableTotalPrice.textColor = [ResourceManager priceColor];
     lableTotalPrice.font = [UIFont systemFontOfSize:18];
-    lableTotalPrice.text = [NSString stringWithFormat:@"¥%.2f", goodsTotalAmt - promocardValue - fYEDK];
+    float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK;
+    lableTotalPrice.text = [NSString stringWithFormat:@"¥%.2f", fTotalPrice];
+    
+    labelJF.text = [NSString stringWithFormat:@"%d", (int)(fTotalPrice * [dicOfUI[@"scorePrice"] floatValue])];
 
     
     iTopY += lableTotalPrice.height;

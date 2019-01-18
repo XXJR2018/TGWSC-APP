@@ -169,7 +169,9 @@
         _districtStr = [NSString stringWithFormat:@"%@",[_addressDic objectForKey:@"area"]];
         self.addressLabel.text = [NSString stringWithFormat:@"%@ %@ %@",_provinceStr,_cityStr,_districtStr];
         self.streetAdderssField.text = [NSString stringWithFormat:@"%@",[_addressDic objectForKey:@"addrDetail"]];
-        self.zipCodeField.text = [NSString stringWithFormat:@"%@",[_addressDic objectForKey:@"postCode"]];
+        if ([_addressDic objectForKey:@"postCode"] && [NSString stringWithFormat:@"%@",[_addressDic objectForKey:@"postCode"]].length > 0) {
+            self.zipCodeField.text = [NSString stringWithFormat:@"%@",[_addressDic objectForKey:@"postCode"]];
+        }
         if ([[_addressDic objectForKey:@"isDefault"] intValue] == 1) {
             self.acquiesceBtn.selected = YES;
         }
@@ -254,8 +256,6 @@
     
     [self.navigationController pushViewController:ctl animated:YES];
 }
-
-
 
 - (IBAction)acquiesceTouch:(UIButton *)sender {
     [self.view endEditing:YES];

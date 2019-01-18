@@ -646,6 +646,9 @@
 
     if (operation.tag == 1000)
     {
+       // 需要刷新购物车下标
+       [[NSNotificationCenter defaultCenter] postNotificationName:DDGCartNeedCountNotification object:nil];
+       
        [MBProgressHUD showSuccessWithStatus:@"加入购物车成功" toView:_keyWindow];
     }
 }

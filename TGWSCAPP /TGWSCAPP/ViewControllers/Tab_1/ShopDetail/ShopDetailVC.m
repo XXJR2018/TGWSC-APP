@@ -30,6 +30,8 @@
     NSMutableArray *arrTopIMG; // 顶部的 视频和图片 数组
     int iTopType;    //   0 - 表示全图片，  1 -  表示为首张为视频，剩下的为图片
     
+    NSMutableArray *activityList; // 优惠活动的 数组
+    
     int  iTailViewTopY; // 底部图片Top坐标
     NSMutableArray *arrTailIMG;   // 底部的图片数组
     
@@ -83,6 +85,8 @@
 {
     arrTopIMG = [[NSMutableArray alloc] init];
     arrTailIMG = [[NSMutableArray alloc] init];
+    
+    activityList = [[NSMutableArray alloc] init];
     
     arrSku = nil;
     arrSkuShow = nil;
@@ -240,7 +244,37 @@
     labelYHTitle.font = [UIFont systemFontOfSize:13];
     labelYHTitle.text = @"优惠:";
     
-    iLeftX += 40 ;
+    if (activityList.count > 0)
+     {
+        iLeftX = 15 + 40;
+        for (int i = 0; i < activityList.count; i++)
+         {
+            NSLog(@"SCREEN_WIDTH:%f",SCREEN_WIDTH);
+            
+            NSString *strYHHD = activityList[i];
+            int iWidth =  [ToolsUtlis getSizeWithString:strYHHD withFrame:CGRectMake(0, 0, SCREEN_WIDTH - 15 + 40 - 30, 20) withFontSize:14].width + 10;
+            
+            if ( (iLeftX + iWidth ) >  SCREEN_WIDTH)
+             {
+                iLeftX = 15 + 40;
+                iTopY += 25;
+             }
+            
+            UILabel *labelYHHD = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY , iWidth, 20)];
+            [scView addSubview:labelYHHD];
+            labelYHHD.backgroundColor = [ResourceManager priceColor];
+            labelYHHD.textColor = [UIColor whiteColor];
+            labelYHHD.font = [UIFont systemFontOfSize:13];
+            labelYHHD.textAlignment = NSTextAlignmentCenter;
+            labelYHHD.text = strYHHD;
+            
+            iLeftX += iWidth + 10;
+         }
+        
+        iTopY += 25;
+     }
+    
+    iLeftX = 15 + 40;
     UILabel *labelYH = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY+3, 31, 15)];
     [scView addSubview:labelYH];
     //labelYH.layer.masksToBounds = YES;
@@ -259,9 +293,9 @@
     labelGMJG.text =  [NSString stringWithFormat:@"购买可得%d积分",  [dicBaseGoods[@"maxPrice"] intValue]];
     
 
-    UIImageView *imgRight1 = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 20, iTopY+3, 10, 15)];
-    [scView addSubview:imgRight1];
-    imgRight1.image = [UIImage imageNamed:@"arrow_right"];
+//    UIImageView *imgRight1 = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 20, iTopY+3, 10, 15)];
+//    [scView addSubview:imgRight1];
+//    imgRight1.image = [UIImage imageNamed:@"arrow_right"];
     
     UIButton *btnYH = [[UIButton alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 20)];
     [scView addSubview:btnYH];
@@ -958,6 +992,24 @@
         
         isFavorite = [dicUI[@"isFavorite"] boolValue];
         maxPostFree = [dicUI[@"maxPostFree"] intValue];
+        
+        NSArray *arrActivity = dicUI[@"activityList"];
+        
+        if ([arrActivity isKindOfClass:[NSArray class]] &&
+            arrActivity.count > 0)
+         {
+            [activityList removeAllObjects];
+            for (int i = 0; i < arrActivity.count; i++)
+             {
+                NSString *strTile = arrActivity[i][@"title"];
+                if (strTile)
+                 {
+                    NSLog(@"strTile:%@",strTile);
+                    [activityList addObject:strTile];
+                 }
+             }
+         }
+        
         // 必须这样赋值一遍，外面传入参数有可能不完整，只传入了goodsCode
         NSDictionary *baseGoods = dicUI[@"baseGoods"];
         if (baseGoods &&

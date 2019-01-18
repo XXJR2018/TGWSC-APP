@@ -83,7 +83,10 @@
     _orderNumber = nil;
     
     NSArray *labelArr = @[_titleLabrl,_timeLabel,_changeNumLabel];
-    NSArray *titleArr = @[[_dataDicionary objectForKey:@"ymdCreateTime"],[_dataDicionary objectForKey:@"validEndDate"],[_dataDicionary objectForKey:@"amount"]];
+    NSArray *titleArr;
+    if ([_dataDicionary objectForKey:@"ymdCreateTime"] && [_dataDicionary objectForKey:@"validEndDate"] && [_dataDicionary objectForKey:@"amount"]) {
+        titleArr = @[[_dataDicionary objectForKey:@"ymdCreateTime"],[_dataDicionary objectForKey:@"validEndDate"],[_dataDicionary objectForKey:@"amount"]];
+    }
     for (int i = 0;  i < titleArr.count; i++) {
         UILabel *label = labelArr[i];
         label.frame = CGRectMake(10 + (SCREEN_WIDTH - 20)/3 * i, 0, (SCREEN_WIDTH - 20)/3, 50);
@@ -108,7 +111,11 @@
     _orderNumber = nil;
     
     NSArray *labelArr = @[_titleLabrl,_timeLabel];
-    NSArray *titleArr = @[[_dataDicionary objectForKey:@"createTime"],[_dataDicionary objectForKey:@"amount"]];
+    NSArray *titleArr;
+    if ([_dataDicionary objectForKey:@"createTime"] && [_dataDicionary objectForKey:@"amount"]) {
+        titleArr = @[[_dataDicionary objectForKey:@"createTime"],[_dataDicionary objectForKey:@"amount"]];
+    }
+    
     for (int i = 0;  i < titleArr.count; i++) {
         UILabel *label = labelArr[i];
         label.frame = CGRectMake(10 + (SCREEN_WIDTH - 20)/2 * i, 0, (SCREEN_WIDTH - 20)/2, 50);

@@ -75,6 +75,7 @@
         if (self.pageIndex > 1) {
             [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
         }
+        [_tableView reloadData];
     }
     
 }
@@ -172,11 +173,11 @@
     _zsfyeNumLabel.textColor = [ResourceManager mainColor];
     _zsfyeNumLabel.text = @"0";
     
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(_zsfyeNumLabel.frame), SCREEN_WIDTH - 20, 0.5)];
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(_zsfyeNumLabel.frame) - 0.5, SCREEN_WIDTH - 20, 0.5)];
     [_headerView addSubview:lineView];
     lineView.backgroundColor = [ResourceManager color_5];
     
-    _balanceTypeView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(lineView.frame), SCREEN_WIDTH, 0)];
+    _balanceTypeView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_zsfyeNumLabel.frame), SCREEN_WIDTH, 0)];
     [_headerView addSubview:_balanceTypeView];
     _balanceTypeView.backgroundColor = [UIColor whiteColor];
     
@@ -193,10 +194,8 @@
     if (sender.selected) {
         return;
     }
-    self.pageIndex = 1;
-    [self.dataArray removeAllObjects];
-    [_tableView reloadData];
-   _balanceTypeView.height = 0;
+   
+   _balanceTypeView.frame = CGRectMake(0, CGRectGetMaxY(_zsfyeNumLabel.frame), SCREEN_WIDTH, 0);
     [_balanceTypeView removeAllSubviews];
     if (sender.tag == 0) {
         _xfListBtn.selected = YES;
@@ -206,53 +205,50 @@
         _xfListBtn.selected = NO;
         _lqListBtn.selected = YES;
         _gqListBtn.selected = NO;
-        if (self.dataArray.count > 0) {
-            NSArray *titleArr = @[@"领取时间",@"到期时间",@"到账余额（元)"];
-            for (int i = 0;  i < titleArr.count; i++) {
-                UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10 + (SCREEN_WIDTH - 20)/3 * i, 0, (SCREEN_WIDTH - 20)/3, 40)];
-                [_balanceTypeView addSubview:label];
-                label.font = [UIFont systemFontOfSize:13];
-                label.textColor = [ResourceManager color_1];
-                label.text = titleArr[i];
-                if (i == 0) {
-                    label.textAlignment = NSTextAlignmentLeft;
-                }else if (i == 1) {
-                    label.textAlignment = NSTextAlignmentCenter;
-                }else{
-                    label.textAlignment = NSTextAlignmentRight;
-                }
+        NSArray *titleArr = @[@"领取时间",@"到期时间",@"到账余额（元)"];
+        for (int i = 0;  i < titleArr.count; i++) {
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10 + (SCREEN_WIDTH - 20)/3 * i, 0, (SCREEN_WIDTH - 20)/3, 40)];
+            [_balanceTypeView addSubview:label];
+            label.font = [UIFont systemFontOfSize:13];
+            label.textColor = [ResourceManager color_1];
+            label.text = titleArr[i];
+            if (i == 0) {
+                label.textAlignment = NSTextAlignmentLeft;
+            }else if (i == 1) {
+                label.textAlignment = NSTextAlignmentCenter;
+            }else{
+                label.textAlignment = NSTextAlignmentRight;
             }
-            
-            _balanceTypeView.height = 40;
         }
+        
+        _balanceTypeView.frame = CGRectMake(0, CGRectGetMaxY(_zsfyeNumLabel.frame), SCREEN_WIDTH, 40);
     }else{
         _xfListBtn.selected = NO;
         _lqListBtn.selected = NO;
         _gqListBtn.selected = YES;
-        if (self.dataArray.count > 0) {
-            NSArray *titleArr = @[@"过期时间",@"过期余额（元)"];
-            for (int i = 0;  i < titleArr.count; i++) {
-                UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10 +(SCREEN_WIDTH - 20)/2 * i, 0, (SCREEN_WIDTH - 20)/2, 40)];
-                [_balanceTypeView addSubview:label];
-                label.font = [UIFont systemFontOfSize:13];
-                label.textColor = [ResourceManager color_1];
-                label.text = titleArr[i];
-                if (i == 0) {
-                    label.textAlignment = NSTextAlignmentLeft;
-                }else{
-                    label.textAlignment = NSTextAlignmentRight;
-                }
+        NSArray *titleArr = @[@"过期时间",@"过期余额（元)"];
+        for (int i = 0;  i < titleArr.count; i++) {
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10 +(SCREEN_WIDTH - 20)/2 * i, 0, (SCREEN_WIDTH - 20)/2, 40)];
+            [_balanceTypeView addSubview:label];
+            label.font = [UIFont systemFontOfSize:13];
+            label.textColor = [ResourceManager color_1];
+            label.text = titleArr[i];
+            if (i == 0) {
+                label.textAlignment = NSTextAlignmentLeft;
+            }else{
+                label.textAlignment = NSTextAlignmentRight;
             }
-            
-            _balanceTypeView.height = 40;
         }
+        
+        _balanceTypeView.frame = CGRectMake(0, CGRectGetMaxY(_zsfyeNumLabel.frame), SCREEN_WIDTH, 40);
     }
     
     _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_balanceTypeView.frame));
     [_tableView setTableHeaderView:_headerView];
     
+    self.pageIndex = 1;
+    [self.dataArray removeAllObjects];
     [self loadData];
-
 }
 
 #pragma mark === UITableViewDataSource

@@ -263,7 +263,6 @@
 		C250480421BA73B800DA9C72 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C25047F921BA73B800DA9C72 /* AFHTTPRequestOperation.m */; };
 		C250480521BA73B800DA9C72 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C25047FB21BA73B800DA9C72 /* AFNetworkReachabilityManager.m */; };
 		C250480621BA73B800DA9C72 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C25047FC21BA73B800DA9C72 /* AFSecurityPolicy.m */; };
-		C287FE7921BF4ACB00B8D682 /* Images-Default.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C287FE7721BF4ACB00B8D682 /* Images-Default.xcassets */; };
 		C287FE7A21BF4ACB00B8D682 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C287FE7821BF4ACB00B8D682 /* Images.xcassets */; };
 		C29ABBDB21D4655300428407 /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C29ABBDA21D4655300428407 /* MyCollectViewController.m */; };
 		C29ABBE421D466D600428407 /* MyCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C29ABBE221D466D600428407 /* MyCollectCell.m */; };
@@ -293,6 +292,7 @@
 		C2B41C1121D5CAA100944A86 /* CustomerServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2B41C0F21D5CAA100944A86 /* CustomerServiceViewController.xib */; };
 		C2B51AF121C3462500AC76FB /* ProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */; };
 		C2B51AF221C3462500AC76FB /* ProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */; };
+		C2C149C521F16C3200A1C2F9 /* Images-Default.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2C149C421F16C3100A1C2F9 /* Images-Default.xcassets */; };
 		C2CF26CE21E5885D00CB8E76 /* LogisticsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CF26CD21E5885D00CB8E76 /* LogisticsViewCell.m */; };
 		C2F23AA121D5D6E400E5332D /* MyScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AA021D5D6E400E5332D /* MyScoresViewController.m */; };
 		C2F23AAA21D61B2B00E5332D /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AA921D61B2B00E5332D /* OrderViewController.m */; };
@@ -812,7 +812,6 @@
 		C25047FB21BA73B800DA9C72 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		C25047FC21BA73B800DA9C72 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
 		C25047FD21BA73B800DA9C72 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
-		C287FE7721BF4ACB00B8D682 /* Images-Default.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-Default.xcassets"; sourceTree = "<group>"; };
 		C287FE7821BF4ACB00B8D682 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C29736A021EEBC76008EFD9E /* TGWSCAPP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TGWSCAPP.entitlements; sourceTree = "<group>"; };
 		C29ABBD921D4655300428407 /* MyCollectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectViewController.h; sourceTree = "<group>"; };
@@ -858,6 +857,7 @@
 		C2B51AEE21C3462500AC76FB /* ProductCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductCollectionViewCell.h; sourceTree = "<group>"; };
 		C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductCollectionViewCell.m; sourceTree = "<group>"; };
 		C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCollectionViewCell.xib; sourceTree = "<group>"; };
+		C2C149C421F16C3100A1C2F9 /* Images-Default.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-Default.xcassets"; sourceTree = "<group>"; };
 		C2CF26CC21E5885D00CB8E76 /* LogisticsViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticsViewCell.h; sourceTree = "<group>"; };
 		C2CF26CD21E5885D00CB8E76 /* LogisticsViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsViewCell.m; sourceTree = "<group>"; };
 		C2D2B19321BDF45F00FE810C /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
@@ -1652,7 +1652,7 @@
 				C2D2B19321BDF45F00FE810C /* Header.h */,
 				C250454521BA5D4E00DA9C72 /* PrefixHeader.pch */,
 				C2AEB47821BE48260078E788 /* APPConstants.h */,
-				C287FE7721BF4ACB00B8D682 /* Images-Default.xcassets */,
+				C2C149C421F16C3100A1C2F9 /* Images-Default.xcassets */,
 				C287FE7821BF4ACB00B8D682 /* Images.xcassets */,
 				C250435921BA51FC00DA9C72 /* Main.storyboard */,
 				C250435E21BA51FD00DA9C72 /* LaunchScreen.storyboard */,
@@ -2543,7 +2543,6 @@
 				C02C5F9821CC991A0056A32E /* icon_play@2x.png in Resources */,
 				C250460621BA711E00DA9C72 /* SGQRCode.bundle in Resources */,
 				C25047A421BA715500DA9C72 /* blueArrow@2x.png in Resources */,
-				C287FE7921BF4ACB00B8D682 /* Images-Default.xcassets in Resources */,
 				C222C38F21D2235700DD9797 /* NickNameViewController.xib in Resources */,
 				C0CCC83221C1FD21009352E0 /* search@2x.png in Resources */,
 				C29ABBE521D466D600428407 /* MyCollectCell.xib in Resources */,
@@ -2557,6 +2556,7 @@
 				C250450D21BA579100DA9C72 /* LoginViewController.xib in Resources */,
 				C02C5F9B21CC991A0056A32E /* icon_video@3x.png in Resources */,
 				C250451321BA579100DA9C72 /* CitysViewController.xib in Resources */,
+				C2C149C521F16C3200A1C2F9 /* Images-Default.xcassets in Resources */,
 				C244950821CCB3AC00F8698B /* SortProductCollectionViewCell.xib in Resources */,
 				C23EAF4321D32D3000B271A7 /* CouponViewCell.xib in Resources */,
 				C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */,

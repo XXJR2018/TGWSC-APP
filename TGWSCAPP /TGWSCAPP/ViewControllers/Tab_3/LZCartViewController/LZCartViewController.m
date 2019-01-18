@@ -1127,11 +1127,14 @@
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
 {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    // 需要刷新购物车下标
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGCartNeedCountNotification object:nil];
+    
     if (operation.tag == 1000)
      {
         // 刷新购物车列表
         [self.dataArray removeAllObjects];
-        
         
         NSArray *arr = operation.jsonResult.rows;
         if (arr)
@@ -1251,6 +1254,7 @@
      {
         // 删除所选列成功，删除本地列
         [self delLocal:_delIndexPath];
+        
      }
     else if (1002 == operation.tag)
      {
@@ -1261,6 +1265,7 @@
         
         [rightNavBtn setTitle:@"编辑" forState:UIControlStateNormal];
         [btnTail setTitle:@"下单" forState:UIControlStateNormal];
+        
      }
     else if (1003 == operation.tag)
      {

@@ -25,6 +25,8 @@
     UINavigationController *nav3;
     UINavigationController *nav4;
     
+    UILabel *labelCartNum;  // 购物车数量的下标
+    
 }
 
 /*!
@@ -71,6 +73,18 @@
     if (_tab3_Button == nil){
         _tab3_Button = [[TabBarSelectButtn alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/4 * 2, 0, SCREEN_WIDTH/4, 49.f)];
         [_tab3_Button addTarget:self action:@selector(setButtonsState:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        labelCartNum = [[UILabel alloc] initWithFrame:CGRectMake(48, 5, 15, 15)];
+        [_tab3_Button addSubview:labelCartNum];
+        labelCartNum.layer.masksToBounds = YES;
+        labelCartNum.layer.cornerRadius = labelCartNum.height/2;
+        labelCartNum.backgroundColor = [ResourceManager priceColor];
+        labelCartNum.textColor = [UIColor whiteColor];
+        labelCartNum.font = [UIFont systemFontOfSize:8];
+        labelCartNum.textAlignment = NSTextAlignmentCenter;
+        labelCartNum.hidden = YES;
+        
         _tab3_Button.tag = 102;
     }
     return _tab3_Button;
@@ -126,6 +140,9 @@
         
         // 支付宝支付结果通知  (跳到支付宝时， 有可能app会挂掉， 只能在tabbarView 页面接收支付消息)
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ailiPayReslut:) name:DDGPayResultNotification object:nil];
+        
+        // 购物车需要更新的通知函数 注册
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(upDateCartCount:) name:DDGCartUpdateNotification object:nil];
         
        
     }
@@ -304,6 +321,36 @@
     }else if (tab == 4) {
         [self setButtonsState:_tab4_Button];
     }
+}
+
+// 更新购物车下标
+-(void)upDateCartCount:(NSNotification *)notification
+{
+    NSLog(@"user info is %@",notification.object);
+    NSDictionary *dic = notification.object;
+    
+    int iCount =  [dic[@"count"] intValue];
+    if (iCount >99)
+     {
+        iCount = 99;
+     }
+    if (iCount < 10)
+     {
+        labelCartNum.font = [UIFont systemFontOfSize:10];
+     }
+    else
+     {
+        labelCartNum.font = [UIFont systemFontOfSize:8];
+     }
+    if (iCount <= 0)
+     {
+        labelCartNum.hidden = YES;
+     }
+    else
+     {
+        labelCartNum.hidden = NO;
+     }
+    labelCartNum.text = [NSString stringWithFormat:@"%d", iCount];
 }
 
 -(void)pushNotification:(NSNotification *)notification{

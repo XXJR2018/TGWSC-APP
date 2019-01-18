@@ -80,3 +80,18 @@ NSString *const DDGPayPassWordNotification = @"DDGPayPassWordNotification";
 NSString *const DDGPayResultNotification = @"DDGPayResultNotification";
 
 
+/*!
+ @brief 购物车需要计算的通知
+ */
+NSString *const DDGCartNeedCountNotification = @"DDGCartNeedCountNotification";
+
+
+/*!
+ @brief 购物车下标更新的通知
+ */
+NSString *const DDGCartUpdateNotification = @"DDGCartUpdateNotification";
+
+
+
+
+

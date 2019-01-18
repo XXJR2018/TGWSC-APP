@@ -48,6 +48,8 @@
          {
             [self isPopView];
          }
+        
+        [self getCartCount];
      }
 }
 
@@ -65,6 +67,9 @@
     [self layoutUI];
     
     [self performSelector:@selector(isPopView) withObject:nil afterDelay:2.0];// 延迟执行
+    
+    // 购物车需要计算的通知函数 注册
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getCartCount) name:DDGCartNeedCountNotification object:nil];
 }
 
 -(void)initData
@@ -696,6 +701,21 @@
     [operation start];
 }
 
+-(void) getCartCount
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLorderCartList];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      //[self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1003;
+    [operation start];
+}
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
 {
     [self.view endEditing:YES];
@@ -719,14 +739,31 @@
                }
          }
      }
-    else if (operation.tag == 1001) {
+    else if (operation.tag == 1001)
+     {
         // 获取后台返回的弹框
         NSDictionary *dic = operation.jsonResult.attr;
         if (dic)
          {
             [self popPng:dic];
          }
-    }
+     }
+    else if (operation.tag == 1002)
+     {
+        // 发送领取奖励
+     }
+    else if (operation.tag == 1003)
+     {
+        // 获取购物车的个数
+        int iShopCount = 0;
+        NSArray *arr = operation.jsonResult.rows;
+        for (int i = 0; i < arr.count; i++ )
+         {
+            NSDictionary *dic = arr[i];
+            int iNum = [dic[@"num"] intValue];
+            iShopCount += iNum;
+         }
+     }
 }
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{

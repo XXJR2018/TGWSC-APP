@@ -56,11 +56,11 @@
     nav = [self layoutNaviBarViewWithTitle:@"商品详情"];
     
     int iBtnTopY = IS_IPHONE_X_MORE? 50:30;
-    UIButton *btnHome = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30 - 40, iBtnTopY, 30, 30)];
+    UIButton *btnHome = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30 - 25, iBtnTopY, 30, 30)];
     [nav addSubview:btnHome];
     [btnHome setImage:[UIImage imageNamed:@"com_home2"] forState:UIControlStateNormal];
     [btnHome addTarget:self action:@selector(actionHome) forControlEvents:UIControlEventTouchUpInside];
-    
+
     
     UIButton *btnShare = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 10 -30, iBtnTopY, 30, 30)];
     [nav addSubview:btnShare];
@@ -773,6 +773,7 @@
     [self querySkuProList];
     [self querySkuList];
 }
+
 
 // 获取商品基本信息
 -(void) queryGoodsBaseInfo

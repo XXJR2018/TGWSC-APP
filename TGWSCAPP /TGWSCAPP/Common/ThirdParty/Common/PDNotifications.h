@@ -93,3 +93,15 @@ FOUNDATION_EXPORT NSString *const DDGPayPassWordNotification;
 FOUNDATION_EXPORT NSString *const DDGPayResultNotification;
 
 
+/*!
+ @brief 购物车需要计算的通知
+ */
+FOUNDATION_EXPORT NSString *const DDGCartNeedCountNotification;
+
+
+/*!
+ @brief 购物车下标更新的通知
+ */
+FOUNDATION_EXPORT NSString *const DDGCartUpdateNotification;
+
+

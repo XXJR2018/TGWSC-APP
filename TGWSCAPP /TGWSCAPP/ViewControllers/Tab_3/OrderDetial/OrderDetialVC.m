@@ -338,7 +338,7 @@
     [viewTail addSubview:textMJLY];
     textMJLY.font = [UIFont systemFontOfSize:14];
     textMJLY.textColor = [ResourceManager color_1];
-    textMJLY.placeholder = @"填写内容需与商家协商并确认，45字以内";
+    textMJLY.placeholder = @"需与商家协商并确认，45字以内";
     textMJLY.tag = 1000;
     textMJLY.delegate = self;
     

@@ -84,6 +84,11 @@
 
 #pragma mark-- 刷新用户数据更新用户信息显示
 -(void)changeUserInfo{
+    if (![CommonInfo isLoggedIn]) {
+        _headImgView.image = [UIImage imageNamed:@"Tab_4-2"];
+        _phoneLabel.text = @"请登录";
+        return;
+    }
     if ([CommonInfo userInfo].count == 0) {
         return;
     }
@@ -109,6 +114,28 @@
 
 #pragma mark-- 刷新订单信息
 -(void)changeOrderInfo:(NSDictionary *)dic{
+    if (![CommonInfo isLoggedIn]) {
+        _dfkNumLabel.hidden = YES;
+        _dfkNumLabel.text = @"";
+        _dfhNumLabel.hidden = YES;
+        _dfhNumLabel.text = @"";
+        _yfhNumLabel.hidden = YES;
+        _yfhNumLabel.text = @"";
+        _tkNumLabel.hidden = YES;
+        _tkNumLabel.text = @"";
+        _balanceNumLabel.text = @"";
+        _pointsNumLabel.text = @"";
+        _couponNumLabel.text = @"";
+        [_couponBtn setImage:[UIImage imageNamed:@"Tab_4-14"] forState:UIControlStateNormal];
+        _collectNumLabel.text = @"";
+        [_logisticsView removeAllSubviews];
+        _logisticsView.frame = CGRectMake(0, CGRectGetMaxY(_orderImgView.frame), SCREEN_WIDTH, 0);
+        self.headView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_logisticsView.frame));
+
+        [_tableView reloadData];
+        return;
+    }
+    
     //代付款
     if ([[dic objectForKey:@"noPayOrderCount"] intValue] > 0) {
         _dfkNumLabel.hidden = NO;
@@ -245,7 +272,11 @@
     if ([CommonInfo isLoggedIn]) {
         //改变商品数量
         [self custSummaryUrl];
-    }  
+    }else{
+        //未登录恢复默认属性
+        [self changeUserInfo];
+        [self changeOrderInfo:nil];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{

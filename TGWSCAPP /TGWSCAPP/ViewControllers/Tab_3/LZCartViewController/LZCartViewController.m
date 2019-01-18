@@ -71,9 +71,10 @@
 //    _allSellectedButton.selected = NO;
 //    _totlePriceLabel.attributedText = [self LZSetString:@"￥0.00"];
     
- 
-    [self loadData];
-    
+    if ([CommonInfo isLoggedIn])
+     {
+        [self loadData];
+     }
 }
 
 -(void)creatData {
@@ -138,8 +139,14 @@
     }
     
 #warning 加载网络数据,会有延迟
-    [self loadData];
-    
+    if ([CommonInfo isLoggedIn])
+     {
+        [self loadData];
+     }
+    else
+     {
+        [self setupCartEmptyView];
+     }
 
 }
 

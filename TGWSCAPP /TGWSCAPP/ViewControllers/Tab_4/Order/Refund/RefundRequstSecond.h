@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) NSDictionary *dicParams;
 
-@property (nonatomic,assign) int  iCommitType;  // 0 -- 退款退货  ， 1 - 退款
+@property (nonatomic,assign) int  iCommitType;  //  1 - 退款 ，2 -- 退款退货  
 
 @end
 

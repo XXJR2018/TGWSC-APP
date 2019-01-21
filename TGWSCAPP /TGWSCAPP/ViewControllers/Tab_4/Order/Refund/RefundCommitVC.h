@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) NSString *subOrderNo;  // 退款的商品的 
 
-@property (nonatomic,assign) int  iCommitType;  // 0 -- 退款退货  ， 1 - 退款
+@property (nonatomic,assign) int  iCommitType;  // 2 -- 退款退货  ， 1 - 退款
 
 @end
 

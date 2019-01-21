@@ -103,7 +103,7 @@
         RefundRequstSecond  *VC = [[RefundRequstSecond alloc] init];
         VC.dicParams = [[NSDictionary alloc] init];
         VC.dicParams =  _dicParams;
-        VC.iCommitType = 0;
+        VC.iCommitType = 2;
         [self.navigationController pushViewController:VC animated:YES];
      }
     else if (1 == iTag)

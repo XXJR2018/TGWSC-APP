@@ -11,7 +11,6 @@
 #import "UserInfoViewController.h"
 #import "OrderViewController.h"
 #import "MyBalanceViewController.h"
-#import "MyScoresViewController.h"
 #import "CouponViewController.h"
 #import "MyCollectViewController.h"
 #import "AddressViewController.h"
@@ -501,6 +500,10 @@
     bannerImgView.image = [UIImage imageNamed:@"Tab_4-9"];
     bannerImgView.userInteractionEnabled = YES;
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(bannerTouch)];
+    tap.numberOfTapsRequired = 1;
+    [bannerImgView addGestureRecognizer:tap];
+    
     self.footView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(bannerImgView.frame) + 10);
     
 }
@@ -513,6 +516,14 @@
     }
     UserInfoViewController *ctl = [[UserInfoViewController alloc]init];
     [self.navigationController pushViewController:ctl animated:YES];
+}
+
+#pragma mark----底部banner点击事件
+-(void)bannerTouch{
+    XcodeWebVC  *vc = [[XcodeWebVC alloc] init];
+    vc.homeUrl = @"webMall/score";
+    vc.titleStr = @"我的积分";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark----订单按钮点击事件orderTouch
@@ -575,10 +586,7 @@
             [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 1:{
-            //我的积分
-//            MyScoresViewController *ctl = [[MyScoresViewController alloc]init];
-//            [self.navigationController pushViewController:ctl animated:YES];
-            
+            //我的积分     
             XcodeWebVC  *vc = [[XcodeWebVC alloc] init];
             vc.homeUrl = @"webMall/score";
             vc.titleStr = @"我的积分";

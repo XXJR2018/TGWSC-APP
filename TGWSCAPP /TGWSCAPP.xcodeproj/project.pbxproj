@@ -294,7 +294,6 @@
 		C2B51AF221C3462500AC76FB /* ProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */; };
 		C2C149C521F16C3200A1C2F9 /* Images-Default.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2C149C421F16C3100A1C2F9 /* Images-Default.xcassets */; };
 		C2CF26CE21E5885D00CB8E76 /* LogisticsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CF26CD21E5885D00CB8E76 /* LogisticsViewCell.m */; };
-		C2F23AA121D5D6E400E5332D /* MyScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AA021D5D6E400E5332D /* MyScoresViewController.m */; };
 		C2F23AAA21D61B2B00E5332D /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AA921D61B2B00E5332D /* OrderViewController.m */; };
 		C2F23AAE21D61CA100E5332D /* OrderListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AAC21D61CA100E5332D /* OrderListViewCell.m */; };
 		C2F23AB221D61D9500E5332D /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AB121D61D9500E5332D /* OrderListViewController.m */; };
@@ -861,8 +860,6 @@
 		C2CF26CC21E5885D00CB8E76 /* LogisticsViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticsViewCell.h; sourceTree = "<group>"; };
 		C2CF26CD21E5885D00CB8E76 /* LogisticsViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsViewCell.m; sourceTree = "<group>"; };
 		C2D2B19321BDF45F00FE810C /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
-		C2F23A9F21D5D6E400E5332D /* MyScoresViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScoresViewController.h; sourceTree = "<group>"; };
-		C2F23AA021D5D6E400E5332D /* MyScoresViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScoresViewController.m; sourceTree = "<group>"; };
 		C2F23AA821D61B2B00E5332D /* OrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
 		C2F23AA921D61B2B00E5332D /* OrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
 		C2F23AAB21D61CA100E5332D /* OrderListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderListViewCell.h; sourceTree = "<group>"; };
@@ -1514,8 +1511,6 @@
 				C23EAF4721D32D6000B271A7 /* cell */,
 				C222C37821D2187700DD9797 /* MyBalanceViewController.h */,
 				C222C37921D2187700DD9797 /* MyBalanceViewController.m */,
-				C2F23A9F21D5D6E400E5332D /* MyScoresViewController.h */,
-				C2F23AA021D5D6E400E5332D /* MyScoresViewController.m */,
 				C23EAF4421D32D4500B271A7 /* CouponViewController.h */,
 				C23EAF4521D32D4500B271A7 /* CouponViewController.m */,
 				C29ABBD921D4655300428407 /* MyCollectViewController.h */,
@@ -2757,7 +2752,6 @@
 				C0CCC85621C390F7009352E0 /* ShopListView.m in Sources */,
 				C25047B821BA715500DA9C72 /* UIButton+AFNetworking.m in Sources */,
 				C250451821BA579100DA9C72 /* CalculatorManager.m in Sources */,
-				C2F23AA121D5D6E400E5332D /* MyScoresViewController.m in Sources */,
 				C250460721BA711E00DA9C72 /* SGQRCodeObtainConfigure.m in Sources */,
 				C0A48B3821DCA697002AF226 /* LZCartModel.m in Sources */,
 				C2AEB45C21BE38850078E788 /* ToolsUtlis.m in Sources */,

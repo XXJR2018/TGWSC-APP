@@ -60,10 +60,7 @@
     [self addChildViewController:VC];
     [self.view addSubview:VC.view];
     
-    
 }
-
-
 
 -(void)addButtonView{
     [self.view addSubview:self.tabBar];

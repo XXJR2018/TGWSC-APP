@@ -49,7 +49,7 @@
     
     // 进度条
     self.progressLine = [[WebviewProgressLine alloc] initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, 1)];
-    self.progressLine.lineColor = MainColor;
+    self.progressLine.lineColor = [ResourceManager mainColor];
     [self.view addSubview:self.progressLine];
     
 }

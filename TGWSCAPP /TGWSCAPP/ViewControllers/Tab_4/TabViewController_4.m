@@ -390,7 +390,7 @@
             [orderBtn addSubview:_dfkNumLabel];
             _dfkNumLabel.clipsToBounds = YES;
             _dfkNumLabel.layer.cornerRadius = 12/2;
-            _dfkNumLabel.backgroundColor = [UIColor redColor];
+            _dfkNumLabel.backgroundColor = UIColorFromRGB(0xaf0e1d);
             _dfkNumLabel.textColor = [UIColor whiteColor];
             _dfkNumLabel.textAlignment = NSTextAlignmentCenter;
             _dfkNumLabel.font = [UIFont systemFontOfSize:8];
@@ -400,7 +400,7 @@
             [orderBtn addSubview:_dfhNumLabel];
             _dfhNumLabel.clipsToBounds = YES;
             _dfhNumLabel.layer.cornerRadius = 12/2;
-            _dfhNumLabel.backgroundColor = [UIColor redColor];
+            _dfhNumLabel.backgroundColor = UIColorFromRGB(0xaf0e1d);
             _dfhNumLabel.textColor = [UIColor whiteColor];
             _dfhNumLabel.textAlignment = NSTextAlignmentCenter;
             _dfhNumLabel.font = [UIFont systemFontOfSize:8];
@@ -410,7 +410,7 @@
             [orderBtn addSubview:_yfhNumLabel];
             _yfhNumLabel.clipsToBounds = YES;
             _yfhNumLabel.layer.cornerRadius = 12/2;
-            _yfhNumLabel.backgroundColor = [UIColor redColor];
+            _yfhNumLabel.backgroundColor = UIColorFromRGB(0xaf0e1d);
             _yfhNumLabel.textColor = [UIColor whiteColor];
             _yfhNumLabel.textAlignment = NSTextAlignmentCenter;
             _yfhNumLabel.font = [UIFont systemFontOfSize:8];
@@ -420,7 +420,7 @@
             [orderBtn addSubview:_tkNumLabel];
             _tkNumLabel.clipsToBounds = YES;
             _tkNumLabel.layer.cornerRadius = 12/2;
-            _tkNumLabel.backgroundColor = [UIColor redColor];
+            _tkNumLabel.backgroundColor = UIColorFromRGB(0xaf0e1d);
             _tkNumLabel.textColor = [UIColor whiteColor];
             _tkNumLabel.textAlignment = NSTextAlignmentCenter;
             _tkNumLabel.font = [UIFont systemFontOfSize:8];
@@ -428,9 +428,7 @@
         }
     }
     
-    
 }
-
 
 #pragma mark--footViewUI
 -(void)footViewUI{

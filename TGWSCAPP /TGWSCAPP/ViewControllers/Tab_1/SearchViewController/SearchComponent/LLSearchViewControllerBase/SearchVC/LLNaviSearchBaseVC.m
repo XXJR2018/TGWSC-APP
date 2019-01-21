@@ -390,9 +390,10 @@
         [_resultListView  resultListViewDidSelectedIndex:^(UITableView *tableView, NSInteger index) {
             @LLStrongObj(self);
             
-//            [self.shopHistoryP saveSearchCache:self.resultListArray[index] result:nil];
-//
-//            LLBLOCK_EXEC(self.myCellDidClickBlock,tableView,index);
+            // 存储到历史搜索数据
+            [self.shopHistoryP saveSearchCache:self.resultListArray[index] result:nil];
+
+            //LLBLOCK_EXEC(self.myCellDidClickBlock,tableView,index);
             
             //退出搜索控制器
             //[self dismissVC];

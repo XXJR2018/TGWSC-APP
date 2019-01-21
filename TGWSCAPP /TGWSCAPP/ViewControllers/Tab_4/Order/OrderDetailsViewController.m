@@ -708,7 +708,7 @@
     [footerView addSubview:lineViewX_2];
     lineViewX_2.backgroundColor = [ResourceManager color_5];
     
-    if ([_orderDataDic objectForKey:@"payAmt"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"payAmt"]].length > 0) {
+    if ([_orderDataDic objectForKey:@"totalOrderAmt"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"totalOrderAmt"]].length > 0) {
         UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _footerHeight + 10, 150, 50)];
         [footerView addSubview:leftLabel];
         leftLabel.font = font_1;
@@ -720,7 +720,7 @@
         rightLabel.font = font_1;
         rightLabel.textColor = UIColorFromRGB(0xB00000);
         rightLabel.textAlignment = NSTextAlignmentRight;
-        rightLabel.text = [NSString stringWithFormat:@"￥%@",[_orderDataDic objectForKey:@"payAmt"]];
+        rightLabel.text = [NSString stringWithFormat:@"￥%@",[_orderDataDic objectForKey:@"totalOrderAmt"]];
         
         _footerHeight = CGRectGetMaxY(leftLabel.frame);
     }

@@ -161,7 +161,7 @@
     btnRecord.layer.borderColor = [ResourceManager lightGrayColor].CGColor;
     btnRecord.layer.borderWidth = 1;
     btnRecord.cornerRadius= 3;
-    [btnRecord setTitle:@"退款进度" forState:UIControlStateNormal];
+    [btnRecord setTitle:@"售后进度" forState:UIControlStateNormal];
     [btnRecord setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
     btnRecord.titleLabel.font = [UIFont systemFontOfSize:12];
     [btnRecord addTarget:self action:@selector(actionRrecond) forControlEvents:UIControlEventTouchUpInside];
@@ -407,7 +407,7 @@
     label6Value.textColor = [ResourceManager color_1];
     label6Value.font = [UIFont systemFontOfSize:12];
     label6Value.textAlignment = NSTextAlignmentRight;
-    label6Value.text =  dicValue[@"refundDesc"]?[NSString stringWithFormat:@"¥%@", dicValue[@"refundDesc"]]:@"";
+    label6Value.text =  dicValue[@"refundDesc"]?[NSString stringWithFormat:@"%@", dicValue[@"refundDesc"]]:@"";
     
     iTopY += 30;
     viewShop.height = iTopY;

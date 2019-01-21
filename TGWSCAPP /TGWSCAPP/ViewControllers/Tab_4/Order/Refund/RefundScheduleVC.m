@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self layoutNaviBarViewWithTitle:@"退款进度"];
+    [self layoutNaviBarViewWithTitle:@"售后进度"];
     
     [self getUIDataFromWeb];
 }

@@ -98,7 +98,6 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     LogisticsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"logistics_cell"];
     if (!cell) {
         cell = [[LogisticsViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"logistics_cell"];

@@ -161,6 +161,9 @@
     //（这种是没有点击后的阴影效果)
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    if (self.dataArray.count == 0) {
+        return;
+    }
     NSDictionary *dic = self.dataArray[indexPath.row];
     if (self.selectType == 100) {
         NSString *addrId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"addrId"]];

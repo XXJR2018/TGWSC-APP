@@ -112,6 +112,9 @@
     //（这种是没有点击后的阴影效果)
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    if (self.dataArray.count == 0) {
+        return;
+    }
     NSDictionary *dic = self.dataArray[indexPath.row];
     NSString *goodsCode = [NSString stringWithFormat:@"%@",[dic objectForKey:@"goodsCode"]];
     if (goodsCode.length > 0) {

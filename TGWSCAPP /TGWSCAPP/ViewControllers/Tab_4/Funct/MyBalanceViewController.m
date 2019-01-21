@@ -301,6 +301,9 @@
     //（这种是没有点击后的阴影效果)
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    if (self.dataArray.count == 0) {
+        return;
+    }
     NSDictionary *dic = self.dataArray[indexPath.row];
     if (_xfListBtn.selected) {
         NSString *fundType = [NSString stringWithFormat:@"%@",[dic objectForKey:@"fundType"]];

@@ -11,6 +11,7 @@
 #import "BalanceViewCell.h"
 
 #import "OrderDetailsViewController.h"
+#import "RefundInfoVC.h"
 
 @interface MyBalanceViewController ()
 {
@@ -300,11 +301,19 @@
     //（这种是没有点击后的阴影效果)
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    
+    NSDictionary *dic = self.dataArray[indexPath.row];
     if (_xfListBtn.selected) {
-        OrderDetailsViewController *ctl = [[OrderDetailsViewController alloc]init];
-        ctl.orderNo = [NSString stringWithFormat:@"%@",[(NSDictionary *)self.dataArray[indexPath.row] objectForKey:@"orderNo"]];
-        [self.navigationController pushViewController:ctl animated:YES];
+        NSString *fundType = [NSString stringWithFormat:@"%@",[dic objectForKey:@"fundType"]];
+        if ([fundType isEqualToString:@"order"] || [fundType isEqualToString:@"refundOrder"]) {
+            OrderDetailsViewController *ctl = [[OrderDetailsViewController alloc]init];
+            ctl.orderNo = [NSString stringWithFormat:@"%@",[(NSDictionary *)self.dataArray[indexPath.row] objectForKey:@"orderNo"]];
+            [self.navigationController pushViewController:ctl animated:YES];
+        }else if ([fundType isEqualToString:@"applyRefund"]) {
+            RefundInfoVC *VC = [[RefundInfoVC alloc] init];
+            VC.dicParams = [[NSDictionary alloc] init];
+            VC.dicParams = dic;
+            [self.navigationController pushViewController:VC animated:YES];
+        }
     }
 
 }

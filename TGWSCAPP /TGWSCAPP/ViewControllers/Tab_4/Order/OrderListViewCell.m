@@ -159,7 +159,7 @@
     _orderCentreBtn.layer.borderWidth = 0.5;
     _orderCentreBtn.layer.borderColor = [ResourceManager color_5].CGColor;
     _orderCentreBtn.titleLabel.font = font_1;
-    [_orderCentreBtn setTitle:@"申请退款" forState:UIControlStateNormal];
+    [_orderCentreBtn setTitle:@"申请售后" forState:UIControlStateNormal];
     [_orderCentreBtn setTitleColor:color_1 forState:UIControlStateNormal];
     [_orderCentreBtn addTarget:self action:@selector(orderTouch:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -243,7 +243,7 @@
     _orderRightBtn.hidden = NO;
     _orderRightBtn.layer.borderColor = color_3.CGColor;
     _orderRightBtn.backgroundColor = [UIColor whiteColor];
-    [_orderRightBtn setTitle:@"申请退款" forState:UIControlStateNormal];
+    [_orderRightBtn setTitle:@"申请售后" forState:UIControlStateNormal];
     [_orderRightBtn setTitleColor:color_1 forState:UIControlStateNormal];
     }
     
@@ -275,7 +275,7 @@
         _orderCentreBtn.hidden = NO;
         _orderRightBtn.hidden = NO;
         _orderCentreBtn.layer.borderColor = color_3.CGColor;
-        [_orderCentreBtn setTitle:@"申请退货" forState:UIControlStateNormal];
+        [_orderCentreBtn setTitle:@"申请售后" forState:UIControlStateNormal];
         [_orderCentreBtn setTitleColor:color_1 forState:UIControlStateNormal];
         _orderRightBtn.layer.borderColor = color_3.CGColor;
         _orderRightBtn.backgroundColor = [UIColor whiteColor];

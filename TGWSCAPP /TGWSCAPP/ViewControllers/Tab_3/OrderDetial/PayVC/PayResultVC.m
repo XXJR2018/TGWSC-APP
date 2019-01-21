@@ -8,6 +8,7 @@
 
 #import "PayResultVC.h"
 #import "OrderViewController.h"
+#import "XcodeWebVC.h"
 
 @interface PayResultVC ()
 {
@@ -91,6 +92,7 @@
     UIButton  *btnBottom = [[UIButton alloc] initWithFrame:CGRectMake(15, iTopY, SCREEN_WIDTH - 30, 80)];
     [viewSuccess addSubview:btnBottom];
     [btnBottom setBackgroundImage:[UIImage imageNamed:@"Tab_4-9"] forState:UIControlStateNormal];
+    [btnBottom addTarget:self action:@selector(actionSigin) forControlEvents:UIControlEventTouchUpInside];
     
     
     
@@ -239,6 +241,14 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+-(void) actionSigin
+{
+    XcodeWebVC  *vc = [[XcodeWebVC alloc] init];
+    vc.homeUrl = @"webMall/score";
+    vc.titleStr = @"我的积分";
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 -(void)clickNavButton:(UIButton *)button{
 //    if (_isSuceess)

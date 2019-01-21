@@ -328,10 +328,7 @@
     NSDictionary *dic = notification.object;
     
     int iCount =  [dic[@"count"] intValue];
-    if (iCount >99)
-     {
-        iCount = 99;
-     }
+    labelCartNum.width = 15;
     if (iCount < 10)
      {
         labelCartNum.font = [UIFont systemFontOfSize:10];
@@ -349,6 +346,12 @@
         labelCartNum.hidden = NO;
      }
     labelCartNum.text = [NSString stringWithFormat:@"%d", iCount];
+    
+    if (iCount >99)
+     {
+        labelCartNum.width = 20;
+        labelCartNum.text = @"99+";
+     }
 }
 
 -(void)pushNotification:(NSNotification *)notification{

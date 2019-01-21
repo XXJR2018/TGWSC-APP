@@ -80,7 +80,13 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
+    if (self.dataArray.count <= 0)
+     {
+        return;
+     }
+    
     NSDictionary *dic = self.dataArray[indexPath.row];
+    
     
     //退款详情
     RefundInfoVC *VC = [[RefundInfoVC alloc] init];

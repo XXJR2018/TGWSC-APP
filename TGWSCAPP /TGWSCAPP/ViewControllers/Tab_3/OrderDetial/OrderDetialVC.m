@@ -46,6 +46,7 @@
     NSString *promocardId; // 优惠券类型ID
     float promocardValue;  // 优惠券的面值
     float goodsTotalAmt;   // 商品的总价值
+    float postage;         // 运费
     BOOL  isEmployee;      // 是否有余额
     float usableAmount;   // 余额的值
     float fYEDK;          // 余额抵扣的值
@@ -605,8 +606,8 @@
     [viewBottom addSubview: lableTotalPrice];
     lableTotalPrice.textColor = [ResourceManager priceColor];
     lableTotalPrice.font = [UIFont systemFontOfSize:18];
-    float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK;
-    lableTotalPrice.text = [NSString stringWithFormat:@"¥%.2f", fTotalPrice];
+    float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK + postage;
+    lableTotalPrice.text = [NSString stringWithFormat:@"¥%.2f", fTotalPrice ];
     
     labelJF.text = [NSString stringWithFormat:@"%d", (int)(fTotalPrice * [dicOfUI[@"scorePrice"] floatValue])];
 
@@ -721,6 +722,7 @@
         
         
         goodsTotalAmt = [dicOfUI[@"goodsTotalAmt"] floatValue];
+        postage =  [dicOfUI[@"postage"] floatValue];
         usableAmount = [dicOfUI[@"usableAmount"] floatValue];
         
         NSDictionary *defPromoCardInfo = dicOfUI[@"defPromoCardInfo"];
@@ -923,9 +925,9 @@
      }
     else
      {
-        if (usableAmount > (goodsTotalAmt - promocardValue))
+        if (usableAmount > (goodsTotalAmt - promocardValue + postage))
          {
-            fYEDK = (goodsTotalAmt - promocardValue);
+            fYEDK = (goodsTotalAmt - promocardValue + postage);
          }
         else
          {
@@ -947,9 +949,9 @@
     
     if (btnBalance.selected)
      {
-        if (usableAmount > (goodsTotalAmt - promocardValue))
+        if (usableAmount > (goodsTotalAmt - promocardValue + postage))
          {
-            fYEDK = (goodsTotalAmt - promocardValue);
+            fYEDK = (goodsTotalAmt - promocardValue + postage);
          }
         else
          {
@@ -1011,9 +1013,9 @@
        
         
         // 计算余额抵扣
-        if (usableAmount > (goodsTotalAmt - promocardValue))
+        if (usableAmount > (goodsTotalAmt - promocardValue + postage))
          {
-            fYEDK = (goodsTotalAmt - promocardValue);
+            fYEDK = (goodsTotalAmt - promocardValue + postage);
          }
         else
          {

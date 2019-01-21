@@ -118,6 +118,7 @@
     NSInteger count = [self.numberLabel.text integerValue];
     count--;
     if(count <= 0){
+        [[[MBProgressHUD alloc] init]  toShowErrorWithStatus:@"最少购买一件商品"];
         return ;
     }
 

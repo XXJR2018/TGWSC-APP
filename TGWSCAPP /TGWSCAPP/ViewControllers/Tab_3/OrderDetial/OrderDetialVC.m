@@ -115,6 +115,8 @@
     promocardId = @"";
     _custPromocardId = @"";
     isEmployee = NO;
+    
+    isCheckXY = YES;
 }
 
 #pragma mark --- 布局UI

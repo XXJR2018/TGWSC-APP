@@ -20,12 +20,13 @@
 
 @interface OrderListViewController ()
 {
-    NSString *_orderNo;             //订单ID
     NSString *_closeRemark;     //取消订单理由
     UIButton *_closeOrderBtn;
     NSMutableArray *_closeOrderBtnArr;
     UIView *_closeOrderAleartView;
 }
+
+@property(nonatomic,strong) NSString *orderNo;  //订单ID
 
 @end
 
@@ -271,7 +272,7 @@
     }]];
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //删除订单
-        [self deleteOrderUrl:_orderNo];
+        [self deleteOrderUrl:self.orderNo];
     }]];
     [self presentViewController:actionSheet animated:YES completion:nil];
     
@@ -296,8 +297,8 @@
         VC.dicParams = [[NSDictionary alloc] init];
         VC.dicParams = dic;
         [self.navigationController pushViewController:VC animated:YES];
-        
     }
+    
 }
 
 -(void)orderRightTouch:(NSDictionary *)dic{
@@ -320,8 +321,14 @@
         //再次购买
         [self againShopUrl:_orderNo];
     }else if (status == 5) {
-        //确认收货
-        [self confirmGoodsUrl:_orderNo];
+        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"确认收货" message:@"是否确认收货" preferredStyle:UIAlertControllerStyleAlert];
+        [actionSheet addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        }]];
+        [actionSheet addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //确认收货
+            [self confirmGoodsUrl:self.orderNo];
+        }]];
+        [self presentViewController:actionSheet animated:YES completion:nil];
     }else if (status == 8) {
         //退款详情
         RefundInfoVC *VC = [[RefundInfoVC alloc] init];

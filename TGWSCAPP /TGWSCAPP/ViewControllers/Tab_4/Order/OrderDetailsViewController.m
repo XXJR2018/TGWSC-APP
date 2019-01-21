@@ -983,7 +983,14 @@
                 [self againShopUrl:_orderNo];
             }else if (_status == 5) {
                 //确认收货
-                [self confirmGoodsUrl:_orderNo];
+                UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"确认收货" message:@"是否确认收货" preferredStyle:UIAlertControllerStyleAlert];
+                [actionSheet addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                }]];
+                [actionSheet addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    //确认收货
+                    [self confirmGoodsUrl:self.orderNo];
+                }]];
+                [self presentViewController:actionSheet animated:YES completion:nil];
             }else if (_status == 6) {
                 //查看物流
                 LogisticsViewController *ctl = [[LogisticsViewController alloc]init];

@@ -297,20 +297,9 @@
          }
 
         // 目前，只有 商品 和  类目 两种  商品就是全部显示图片
-        if (1 == iShowType)
-         {
-            AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:strTypeTitle itemArray:tempArr origin_Y:iTopY
-                                                                                   columnOneCount:iColumnOneCount  columnTwoCount:iColumnTwoCount];
-            [scView addSubview:adListView];
-            ShopModel *sModel = [[ShopModel alloc] init];
-            sModel.strTypeName = strTypeTitle;
-            sModel.strTypeCode = strTypeCode;
-            adListView.delegate = self;
-            adListView.shopModel = sModel;
-            iTopY += adListView.height;
-         }
-        else if (0 == iShowType)
-        //else
+        // 活动  和 商品是一样的，全部显示图片
+       if (0 == iShowType)
+ 
          {
             ShopListView  *shopListView = [[ShopListView alloc] initWithTitle:strTypeTitle itemArray:tempArr origin_Y:iTopY
                                                                                columnOneCount:iColumnOneCount  columnTwoCount:iColumnTwoCount];
@@ -322,7 +311,30 @@
             shopListView.shopModel = sModel;
             iTopY += shopListView.height;
          }
-
+        else  if (1 == iShowType)
+         {
+            AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:strTypeTitle itemArray:tempArr origin_Y:iTopY
+                                                                               columnOneCount:iColumnOneCount  columnTwoCount:iColumnTwoCount];
+            [scView addSubview:adListView];
+            ShopModel *sModel = [[ShopModel alloc] init];
+            sModel.strTypeName = strTypeTitle;
+            sModel.strTypeCode = strTypeCode;
+            adListView.delegate = self;
+            adListView.shopModel = sModel;
+            iTopY += adListView.height;
+         }
+//        else if (2 == iShowType)
+//         {
+//            AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:strTypeTitle itemArray:tempArr origin_Y:iTopY
+//                                                                               columnOneCount:iColumnOneCount  columnTwoCount:iColumnTwoCount];
+//            [scView addSubview:adListView];
+//            ShopModel *sModel = [[ShopModel alloc] init];
+//            sModel.strTypeName = strTypeTitle;
+//            sModel.strTypeCode = strTypeCode;
+//            adListView.delegate = self;
+//            adListView.shopModel = sModel;
+//            iTopY += adListView.height;
+//         }
 
      }
     

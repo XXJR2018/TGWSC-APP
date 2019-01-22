@@ -972,7 +972,10 @@
                                                                                       [self handleErrorData:operation];
                                                                                   }];
     operation.tag = 1007;
-    [operation start];
+    //[operation start];
+    
+    
+    qrcodeUrl = [operation.URL absoluteString];
 }
 
 

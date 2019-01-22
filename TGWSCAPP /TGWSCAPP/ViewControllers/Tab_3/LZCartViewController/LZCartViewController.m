@@ -369,6 +369,9 @@
 - (void)setupCartView {
     
     rightNavBtn.hidden = NO;
+    
+    [self.selectedArray removeAllObjects];
+    
     //创建底部视图
     [self setupCustomBottomView];
     
@@ -1064,6 +1067,7 @@
 
 -(void)deleteToWeb:(NSString*) strCartIds
 {
+    [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params[@"cartIds"] = strCartIds;
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLorderCartDelete];
@@ -1080,6 +1084,7 @@
 
 -(void)deleteMulitToWeb:(NSString*) strCartIds
 {
+    [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params[@"cartIds"] = strCartIds;
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLorderCartDelete];
@@ -1250,7 +1255,6 @@
          {
             [self changeView];
             
-            [self allUnSel];
          }
         
         [self.lastDataArr removeAllObjects];
@@ -1280,6 +1284,8 @@
         // 删除所选列成功，删除本地列
         [self delLocal:_delIndexPath];
         
+        [self allUnSel];
+        
      }
     else if (1002 == operation.tag)
      {
@@ -1290,6 +1296,8 @@
         
         [rightNavBtn setTitle:@"编辑" forState:UIControlStateNormal];
         [btnTail setTitle:@"下单" forState:UIControlStateNormal];
+        
+        [self allUnSel];
         
      }
     else if (1003 == operation.tag)

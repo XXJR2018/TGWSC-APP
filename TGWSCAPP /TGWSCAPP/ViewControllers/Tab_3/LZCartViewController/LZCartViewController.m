@@ -58,15 +58,15 @@
     
     
     
-//    //当进入购物车的时候判断是否有已选择的商品,有就清空
-//    //主要是提交订单后再返回到购物车,如果不清空,还会显示
+    //当进入购物车的时候判断是否有已选择的商品,有就清空
+    //主要是提交订单后再返回到购物车,如果不清空,还会显示
 //    if (self.selectedArray.count > 0) {
 //        for (LZCartModel *model in self.selectedArray) {
 //            model.select = NO;//这个其实有点多余,提交订单后的数据源不会包含这些,保险起见,加上了
 //        }
 //        [self.selectedArray removeAllObjects];
 //    }
-//
+
 //    //初始化显示状态
 //    _allSellectedButton.selected = NO;
 //    _totlePriceLabel.attributedText = [self LZSetString:@"￥0.00"];
@@ -92,7 +92,21 @@
     }
 }
 
-
+-(void) allUnSel
+{
+    //当进入购物车的时候判断是否有已选择的商品,有就清空
+    //主要是提交订单后再返回到购物车,如果不清空,还会显示
+    if (self.selectedArray.count > 0) {
+        for (LZCartModel *model in self.selectedArray) {
+            model.select = NO;//这个其实有点多余,提交订单后的数据源不会包含这些,保险起见,加上了
+        }
+        [self.selectedArray removeAllObjects];
+    }
+    
+    //初始化显示状态
+    _allSellectedButton.selected = NO;
+    _totlePriceLabel.attributedText = [self LZSetString:@"￥0.00"];
+}
 
 
 
@@ -1235,6 +1249,8 @@
         if (isNeddRefesh)
          {
             [self changeView];
+            
+            [self allUnSel];
          }
         
         [self.lastDataArr removeAllObjects];
@@ -1284,6 +1300,10 @@
             [dic count])
          {
             [self setTopTitle:dic];
+            
+            float  goodsTotalAmt  = [dic[@"goodsTotalAmt"] floatValue];
+            NSString *string = [NSString stringWithFormat:@"￥%.2f",goodsTotalAmt];
+            self.totlePriceLabel.attributedText = [self LZSetString:string];
             
             if (dic[@"promocardId"])
              {

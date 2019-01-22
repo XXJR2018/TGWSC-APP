@@ -26,6 +26,7 @@
     SDCycleScrollView *_scrollView;      // 头部banner
     NSMutableArray *_bannerUrlArr;
     NSMutableArray *_bannerTitleArr;
+    NSMutableArray *_bannerJumpType;
     
     ShopModel *myClickObj;
 }
@@ -383,12 +384,14 @@
     NSMutableArray *imgArr = [[NSMutableArray alloc] init];
     _bannerTitleArr = [[NSMutableArray alloc] init];
     _bannerUrlArr = [[NSMutableArray alloc] init];
+    _bannerJumpType = [[NSMutableArray alloc] init];
     
     for (NSDictionary * dic in arr)
      {
         NSString *name = dic[@"bannerName"];
         NSString *imgUrl = dic[@"imgUrl"];
         NSString *skipUrl = dic[@"targetUrl"];
+        int iJumpType = [dic[@"jumpType"] intValue];
         [imgArr addObject:imgUrl];
         if (name)
          {
@@ -398,6 +401,7 @@
          {
             [_bannerUrlArr addObject:skipUrl];
          }
+        [_bannerJumpType addObject:@(iJumpType)];
         
      }
     _scrollView.imageURLStringsGroup = imgArr;
@@ -523,6 +527,14 @@
      {
         return;
      }
+    
+    //`jumpType` int(2) DEFAULT '0' COMMENT '跳转类型 0-不跳转 1-跳转本地 2-跳H5页面',
+    int iJumpType = (int)_bannerJumpType[index];
+    if (0 != iJumpType)
+     {
+        return;
+     }
+    
 //    NSString *titleStr = _bannerTitleArr[index];
 //    if ([titleStr isEqualToString:@"抢单规则"]) {
 //        [self ljqdAction];

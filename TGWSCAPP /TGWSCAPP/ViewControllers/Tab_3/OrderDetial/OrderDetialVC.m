@@ -607,9 +607,9 @@
     lableTotalPrice.textColor = [ResourceManager priceColor];
     lableTotalPrice.font = [UIFont systemFontOfSize:18];
     float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK + postage;
-    lableTotalPrice.text = [NSString stringWithFormat:@"¥%.2f", fTotalPrice ];
+    lableTotalPrice.text = [NSString stringWithFormat:@"¥%.2f", fTotalPrice  ];
     
-    labelJF.text = [NSString stringWithFormat:@"%d", (int)(fTotalPrice * [dicOfUI[@"scorePrice"] floatValue])];
+    labelJF.text = [NSString stringWithFormat:@"%d", (int)(goodsTotalAmt - promocardValue)];
 
     
     iTopY += lableTotalPrice.height;

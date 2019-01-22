@@ -238,7 +238,7 @@
         
         [headerView setSHCollectionReusableViewHearderTitle:arrHeadName[indexPath.section]];
         
-        headerView.backgroundColor = [UIColor whiteColor];
+        headerView.backgroundColor = [UIColor clearColor];
         
         reusableview = headerView;
         

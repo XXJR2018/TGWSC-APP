@@ -40,9 +40,9 @@
     _titleLabel.font = [UIFont systemFontOfSize:14];
     [self addSubview:_titleLabel];
     
-    UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
-    [self addSubview:viewFG];
-    viewFG.backgroundColor = [ResourceManager color_5];
+    //UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
+    //[self addSubview:viewFG];
+    //viewFG.backgroundColor = [ResourceManager color_5];
     
 }
 

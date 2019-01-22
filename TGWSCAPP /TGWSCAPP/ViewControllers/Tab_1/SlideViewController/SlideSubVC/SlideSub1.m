@@ -312,6 +312,11 @@
             shopListView.delegate = self;
             shopListView.shopModel = sModel;
             iTopY += shopListView.height;
+            
+            UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 10)];
+            [scView addSubview:viewFG];
+            viewFG.backgroundColor = [ResourceManager viewBackgroundColor];
+            iTopY += viewFG.height;
          }
         else  if (1 == iShowType)
          {
@@ -323,7 +328,12 @@
             sModel.strTypeCode = strTypeCode;
             adListView.delegate = self;
             adListView.shopModel = sModel;
-            iTopY += adListView.height;
+            iTopY += adListView.height +10;
+            
+            UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 10)];
+            [scView addSubview:viewFG];
+            viewFG.backgroundColor = [ResourceManager viewBackgroundColor];
+            iTopY += viewFG.height;
          }
         else if (2 == iShowType)
          {
@@ -335,7 +345,12 @@
             sModel.strTypeCode = strTypeCode;
             adListView.delegate = self;
             adListView.shopModel = sModel;
-            iTopY += adListView.height;
+            iTopY += adListView.height +10;
+            
+            UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 10)];
+            [scView addSubview:viewFG];
+            viewFG.backgroundColor = [ResourceManager viewBackgroundColor];
+            iTopY += viewFG.height;
          }
 
      }

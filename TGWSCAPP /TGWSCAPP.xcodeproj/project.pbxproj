@@ -31,6 +31,7 @@
 		C067E8BB21E9D01C00395F91 /* RefundTXWLVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C067E8BA21E9D01C00395F91 /* RefundTXWLVC.m */; };
 		C067E8BF21EC3E1000395F91 /* MessageCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C067E8BE21EC3E0F00395F91 /* MessageCenterVC.m */; };
 		C067E8C221EC3E2300395F91 /* MessageListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C067E8C121EC3E2300395F91 /* MessageListVC.m */; };
+		C08FFF6D21F6CBFD0045A438 /* ShopActiveView.m in Sources */ = {isa = PBXBuildFile; fileRef = C08FFF6C21F6CBFD0045A438 /* ShopActiveView.m */; };
 		C098D2A821E058EC0008584B /* SelCouponVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2A721E058EC0008584B /* SelCouponVC.m */; };
 		C098D2AC21E0A43E0008584B /* SelPayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2AB21E0A43E0008584B /* SelPayVC.m */; };
 		C098D2B221E0A7480008584B /* PayResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2B121E0A7480008584B /* PayResultVC.m */; };
@@ -368,6 +369,8 @@
 		C067E8BE21EC3E0F00395F91 /* MessageCenterVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageCenterVC.m; sourceTree = "<group>"; };
 		C067E8C021EC3E2300395F91 /* MessageListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageListVC.h; sourceTree = "<group>"; };
 		C067E8C121EC3E2300395F91 /* MessageListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageListVC.m; sourceTree = "<group>"; };
+		C08FFF6B21F6CBFD0045A438 /* ShopActiveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopActiveView.h; sourceTree = "<group>"; };
+		C08FFF6C21F6CBFD0045A438 /* ShopActiveView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopActiveView.m; sourceTree = "<group>"; };
 		C098D2A621E058EC0008584B /* SelCouponVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelCouponVC.h; sourceTree = "<group>"; };
 		C098D2A721E058EC0008584B /* SelCouponVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelCouponVC.m; sourceTree = "<group>"; };
 		C098D2AA21E0A43E0008584B /* SelPayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelPayVC.h; sourceTree = "<group>"; };
@@ -1416,6 +1419,8 @@
 				C0CCC85821C391C2009352E0 /* AdvertingShopListView.m */,
 				C0CCC85A21C391F1009352E0 /* ShopModel.h */,
 				C0CCC85B21C391F1009352E0 /* ShopModel.m */,
+				C08FFF6B21F6CBFD0045A438 /* ShopActiveView.h */,
+				C08FFF6C21F6CBFD0045A438 /* ShopActiveView.m */,
 			);
 			path = ShopListView;
 			sourceTree = "<group>";
@@ -2713,6 +2718,7 @@
 				C250460A21BA711E00DA9C72 /* WCAlertview2.m in Sources */,
 				C250460021BA711E00DA9C72 /* WebviewProgressLine.m in Sources */,
 				C20525F121BE6E5C00E13893 /* TabViewController_4.m in Sources */,
+				C08FFF6D21F6CBFD0045A438 /* ShopActiveView.m in Sources */,
 				C0CCC83821C25810009352E0 /* JXButton.m in Sources */,
 				C250476221BA715500DA9C72 /* UIView+Additions.m in Sources */,
 				C25045FB21BA711E00DA9C72 /* NSDate+Extension.m in Sources */,

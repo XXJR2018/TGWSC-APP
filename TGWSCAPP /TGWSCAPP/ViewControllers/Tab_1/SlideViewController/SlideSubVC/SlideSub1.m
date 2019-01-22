@@ -15,10 +15,11 @@
 #import "ProductListViewController.h"
 #import "ShopMoreVC.h"
 #import "ShopMoreAtTimeVC.h"
+#import "ShopActiveView.h"
 
 #define  BANNER_HEIGHT       (170*ScaleSize)      // Banner的高度
 
-@interface SlideSub1 ()<SDCycleScrollViewDelegate,AdvertingShopListViewDelegate,ShopListViewDelegate>
+@interface SlideSub1 ()<SDCycleScrollViewDelegate,AdvertingShopListViewDelegate,ShopListViewDelegate,ShopActiveViewDelegate>
 {
     UIScrollView *scView;
     
@@ -296,6 +297,7 @@
             [tempArr addObject:sModel];
          }
 
+        //展示内容类型0-商品1-类目 2-活动 3-品牌
         // 目前，只有 商品 和  类目 两种  商品就是全部显示图片
         // 活动  和 商品是一样的，全部显示图片
        if (0 == iShowType)
@@ -323,18 +325,18 @@
             adListView.shopModel = sModel;
             iTopY += adListView.height;
          }
-//        else if (2 == iShowType)
-//         {
-//            AdvertingShopListView  *adListView = [[AdvertingShopListView alloc] initWithTitle:strTypeTitle itemArray:tempArr origin_Y:iTopY
-//                                                                               columnOneCount:iColumnOneCount  columnTwoCount:iColumnTwoCount];
-//            [scView addSubview:adListView];
-//            ShopModel *sModel = [[ShopModel alloc] init];
-//            sModel.strTypeName = strTypeTitle;
-//            sModel.strTypeCode = strTypeCode;
-//            adListView.delegate = self;
-//            adListView.shopModel = sModel;
-//            iTopY += adListView.height;
-//         }
+        else if (2 == iShowType)
+         {
+            ShopActiveView  *adListView = [[ShopActiveView alloc] initWithTitle:strTypeTitle itemArray:tempArr origin_Y:iTopY
+                                                                               columnOneCount:iColumnOneCount  columnTwoCount:iColumnTwoCount];
+            [scView addSubview:adListView];
+            ShopModel *sModel = [[ShopModel alloc] init];
+            sModel.strTypeName = strTypeTitle;
+            sModel.strTypeCode = strTypeCode;
+            adListView.delegate = self;
+            adListView.shopModel = sModel;
+            iTopY += adListView.height;
+         }
 
      }
     
@@ -617,6 +619,52 @@
          {
             NSLog(@"ShopID:%d", iShopID);
             NSLog(@"strGoodsName:%@ strGoodsSubName:%@  strGoodsCode:%@", clickObj.strGoodsName,clickObj.strGoodsSubName,clickObj.strGoodsCode);
+            
+            ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
+            VC.shopModel = clickObj;
+            VC.est = @"category";
+            VC.esi = clickObj.strCateCode;
+            [self.navigationController pushViewController:VC animated:YES];
+            
+         }
+        
+     }
+}
+
+// ShopActiveViewDelegate
+-(void)didShopActiveClickButtonAtObejct:(ShopModel*)clickObj
+{
+    if ([clickObj  isKindOfClass:[ShopModel class]])
+     {
+        int iShopID = clickObj.iShopID;
+        // 点击更多按钮
+        if (-1 == iShopID)
+         {
+            myClickObj = clickObj;
+            
+            NSLog(@"Click More ");
+            NSLog(@"strGoodsName:%@  strTypeCode:%@", clickObj.strTypeCode,clickObj.strTypeName);
+            [self queryTypeMoreInfoList:clickObj.strTypeCode];
+            
+         }
+        else
+         {
+            NSLog(@"ShopID:%d", iShopID);
+            NSLog(@"strGoodsName:%@ strGoodsSubName:%@  strGoodsCode:%@", clickObj.strGoodsName,clickObj.strGoodsSubName,clickObj.strGoodsCode);
+            
+            //010103003、010101023、080102001、080101001
+            NSArray *arrID = @[@"010103003",@"010101023",@"080102001",@"080101001"];
+            if (clickObj.iShopID < 4)
+             {
+                ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
+                clickObj.strGoodsCode = arrID[clickObj.iShopID];
+                VC.shopModel = clickObj;
+                VC.est = @"category";
+                VC.esi = clickObj.strCateCode;
+                [self.navigationController pushViewController:VC animated:YES];
+                return;
+             }
+                
             
             ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
             VC.shopModel = clickObj;

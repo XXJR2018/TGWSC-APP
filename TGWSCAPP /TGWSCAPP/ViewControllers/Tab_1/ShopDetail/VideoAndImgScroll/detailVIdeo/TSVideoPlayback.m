@@ -82,7 +82,7 @@
                 UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(i*self.frame.size.width, 0, self.frame.size.width, self.frame.size.height)];
                 img.userInteractionEnabled = YES;
                 
-                [img sd_setImageWithURL:[NSURL URLWithString:self.dataArray[i]] placeholderImage:[UIImage imageNamed:@"icon_video"]];
+                [img sd_setImageWithURL:[NSURL URLWithString:self.dataArray[i]] placeholderImage:[UIImage imageNamed:@"icon_video11"]];
                 [img sd_setImageWithURL:[NSURL URLWithString:self.dataArray[i]] ];
                 [self.scrolView addSubview:img];
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgTapClick)];
@@ -100,7 +100,7 @@
             }
         }else{//全图片
             UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(i*self.frame.size.width, 0, self.frame.size.width, self.frame.size.height)];
-            [img sd_setImageWithURL:[NSURL URLWithString:self.dataArray[i]] placeholderImage:[UIImage imageNamed:@"icon_video"]];
+            [img sd_setImageWithURL:[NSURL URLWithString:self.dataArray[i]] placeholderImage:[UIImage imageNamed:@"icon_video11"]];
             //[img sd_setImageWithURL:[NSURL URLWithString:self.dataArray[i]] ];
             img.userInteractionEnabled = YES;
             [self.scrolView addSubview:img];

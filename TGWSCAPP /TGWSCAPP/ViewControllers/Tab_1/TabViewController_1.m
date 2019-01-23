@@ -703,6 +703,11 @@
 
 -(void) getCartCount
 {
+    if (![CommonInfo isLoggedIn])
+     {
+        return;
+     }
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLorderCartList];
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl

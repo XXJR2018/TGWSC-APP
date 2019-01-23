@@ -339,9 +339,12 @@
     _phoneLabel.font = [UIFont systemFontOfSize:15];
     _phoneLabel.text = @"请登录";
     
-    UIButton *userInfoBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(backdropImgView.frame) - 50, CGRectGetMidY(_headImgView.frame) - 15, 30, 30)];
+    UIImageView *arrowImgView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(backdropImgView.frame) - 35, CGRectGetMidY(_headImgView.frame) - 11/2, 6, 11)];
+    [backdropImgView addSubview:arrowImgView];
+    arrowImgView.image = [UIImage imageNamed:@"Tab_4-3"];
+    
+    UIButton *userInfoBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMinX(_headImgView.frame), CGRectGetMinY(_headImgView.frame), CGRectGetMaxX(arrowImgView.frame) - CGRectGetMinX(_headImgView.frame) + 10, _headImgView.frame.size.height)];
     [backdropImgView addSubview:userInfoBtn];
-    [userInfoBtn setImage:[UIImage imageNamed:@"Tab_4-3"] forState:UIControlStateNormal];
     [userInfoBtn addTarget:self action:@selector(userInfo) forControlEvents:UIControlEventTouchUpInside];
     
     _orderImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_headImgView.frame) + 10, SCREEN_WIDTH, 168 * ScaleSize)];

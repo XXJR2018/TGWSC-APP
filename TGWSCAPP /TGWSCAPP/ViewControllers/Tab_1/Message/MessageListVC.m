@@ -7,6 +7,8 @@
 //
 
 #import "MessageListVC.h"
+#import "CouponViewController.h"
+#import "MyBalanceViewController.h"
 
 const  int  iMessageListCellHeight = 100;
 @interface MessageListVC ()
@@ -162,6 +164,22 @@ const  int  iMessageListCellHeight = 100;
         NSString *strUrl = dic[@"appSkipUrl"];
         //NSString *url = [NSString stringWithFormat:@"%@tgwproject/AgreePrivacy",[PDAPI WXSysRouteAPI]];
         [CCWebViewController showWithContro:self withUrlStr:strUrl withTitle:@"消息"];
+     }
+    
+    NSString *strSubject = dic[@"subject"];
+    if([strSubject containsString:@"余额"] &&
+       _msgType == 2)
+     {
+        //我的余额
+        MyBalanceViewController *ctl = [[MyBalanceViewController alloc]init];
+        [self.navigationController pushViewController:ctl animated:YES];
+     }
+    else if ([strSubject containsString:@"优惠券"]&&
+             _msgType == 2)
+     {
+        //优惠券
+        CouponViewController *ctl = [[CouponViewController alloc]init];
+        [self.navigationController pushViewController:ctl animated:YES];
      }
 }
 

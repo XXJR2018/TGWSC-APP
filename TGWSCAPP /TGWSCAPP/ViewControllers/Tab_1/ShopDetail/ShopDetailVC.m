@@ -834,9 +834,9 @@
     [self queryGoodsDetailInfo];
     
     [self querySkuProList];
-    
+
     [self querySkuList];
-    
+
     [self getShareQrcode];
 }
 

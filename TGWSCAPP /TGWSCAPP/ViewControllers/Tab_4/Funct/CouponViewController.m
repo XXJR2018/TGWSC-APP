@@ -99,7 +99,7 @@
     _wsyListBtn = [[UIButton alloc]init];
     _ysxListBtn = [[UIButton alloc]init];
     NSArray *btnArr = @[_wsyListBtn,_ysxListBtn];
-    NSArray *titleArr = @[@"未使用",@"已使用"];
+    NSArray *titleArr = @[@"未使用",@"已失效"];
     for (int i = 0; i < btnArr.count; i ++) {
         UIButton *btn = ((UIButton *)btnArr[i]);
         [headerView addSubview:btn];

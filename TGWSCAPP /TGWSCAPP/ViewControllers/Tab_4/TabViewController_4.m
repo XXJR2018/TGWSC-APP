@@ -183,9 +183,12 @@
     //优惠券按钮
     if ([[dic objectForKey:@"validCardCount"] intValue] > 0) {
         _couponNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"validCardCount"]];
-        [_couponBtn setImage:[UIImage imageNamed:@"Tab_4-18"] forState:UIControlStateNormal];
     }else{
         _couponNumLabel.text = @"";
+    }
+    if ([[dic objectForKey:@"newCardCount"] intValue] > 0) {
+        [_couponBtn setImage:[UIImage imageNamed:@"Tab_4-18"] forState:UIControlStateNormal];
+    }else{
         [_couponBtn setImage:[UIImage imageNamed:@"Tab_4-14"] forState:UIControlStateNormal];
     }
     //收藏

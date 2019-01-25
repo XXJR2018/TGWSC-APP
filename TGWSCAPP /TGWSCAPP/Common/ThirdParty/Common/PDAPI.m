@@ -13,7 +13,7 @@
  */
 
 // 接口URL
-static NSString *const kBaseURL = @"https://www.tiangouwo.com/";
+static NSString *const kBaseURL =   @"https://app.tgwmall.cn/"; //@"https://www.tiangouwo.com/";
 
 #if PMHEnableSwitchURLGesture
 /*!

@@ -69,7 +69,11 @@
     _changeNumLabel.font = [UIFont systemFontOfSize:14];
     _changeNumLabel.textColor = [ResourceManager color_1];
     _changeNumLabel.textAlignment = NSTextAlignmentRight;
-    _changeNumLabel.text = [NSString stringWithFormat:@"-%@",[_dataDicionary objectForKey:@"amount"]];
+    if ([[_dataDicionary objectForKey:@"fundFlag"] intValue] == 1) {
+        _changeNumLabel.text = [NSString stringWithFormat:@"+%@",[_dataDicionary objectForKey:@"amount"]];
+    }else{
+        _changeNumLabel.text = [NSString stringWithFormat:@"-%@",[_dataDicionary objectForKey:@"amount"]];
+    }
     
     UIImageView *arrowImgView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 20, 20 + (20 - 16)/2, 9, 16)];
     [self addSubview:arrowImgView];

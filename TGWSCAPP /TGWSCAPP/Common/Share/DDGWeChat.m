@@ -108,7 +108,7 @@ static DDGWeChat *weChatShare;
     NSData *data=  UIImageJPEGRepresentation(image,0.1);
     
     WXMiniProgramObject *object = [WXMiniProgramObject object];
-    object.webpageUrl = @"";  // 兼容低版本的网页链接
+    object.webpageUrl = @"https://j.youzan.com/RDmlV9";  // 兼容低版本的网页链接
     object.userName = @"gh_b9ba1ea2fafd"; // 小程序ID
     object.path = items[@"strUrl"];  // 小程序的页面路径
     object.hdImageData = data;  // 小程序新版本的预览图二进制数据

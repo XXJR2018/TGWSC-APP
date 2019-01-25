@@ -1200,6 +1200,12 @@
      }
     
     UIImage *image = [ToolsUtlis getImgFromStr:qrcodeUrl];
+    if (!image)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请求分享图片失败" toView:self.view];
+        return;
+     }
+    
     NSData *data=  UIImageJPEGRepresentation(image,0.5);
     
 

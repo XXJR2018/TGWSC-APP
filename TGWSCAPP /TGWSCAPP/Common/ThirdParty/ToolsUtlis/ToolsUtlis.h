@@ -329,6 +329,10 @@ usingVerticalAlign: (VerticalAlignment) vertAlign;
 #pragma mark ==== 画虚线 (宽度为1， 长度为任意)
 +(UIImage *)imageWithLineWithImageView:(UIImageView *)imageView;
 
+
+#pragma mark ==== 解决floalt类型，转换字符串时，丢失精度的问题. 转化为保留2位小数
++ (NSString *)getnumber:(id)numberId;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -189,7 +189,8 @@
     
     //设置原价
     id  marketPrice =  dicBaseGoods[@"marketPrice"];
-    NSString *strMarketPrice = [NSString stringWithFormat:@"¥%@",dicBaseGoods[@"marketPrice"]];
+    //NSString *strMarketPrice = [NSString stringWithFormat:@"¥%@",dicBaseGoods[@"marketPrice"]];
+    NSString *strMarketPrice = [NSString stringWithFormat:@"¥%@",[ToolsUtlis getnumber:marketPrice]];
     if (marketPrice &&
         ![strMarketPrice isEqualToString:@"¥0"])
      {

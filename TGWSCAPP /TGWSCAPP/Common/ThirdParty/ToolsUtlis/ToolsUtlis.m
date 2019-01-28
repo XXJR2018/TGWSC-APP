@@ -744,4 +744,20 @@ static NSString *currentIP = nil;
     return  UIGraphicsGetImageFromCurrentImageContext();
 }
 
+#pragma mark ==== 解决floalt类型，转换字符串时，丢失精度的问题. 转化为保留2位小数
++ (NSString *)getnumber:(id)numberId
+{
+    NSString *str = [NSString stringWithFormat:@"%@",numberId];
+    if([str rangeOfString:@"."].length>0)
+        
+     {
+        //return [NSString stringWithFormat:@"%g",str.floatValue];
+        return [NSString stringWithFormat:@"%.2f",str.floatValue];
+     }else
+         
+      {
+         return str;
+      }
+}
+
 @end

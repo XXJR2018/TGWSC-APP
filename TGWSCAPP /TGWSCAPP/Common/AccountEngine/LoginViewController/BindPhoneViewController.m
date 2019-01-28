@@ -82,7 +82,7 @@
 {
     smsTokenId = @"";
     [MBProgressHUD showHUDAddedTo:self.view];
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBaseUrlString], kDDGgetSmsToken];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/wxLoginBind", [PDAPI getBaseUrlString], kDDGgetSmsTokenByType];
     NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
     parmas[@"telephone"] = self.phoneTextField.text;
     
@@ -104,7 +104,7 @@
 -(void)getSMSSecond
 {
     [MBProgressHUD showHUDAddedTo:self.view];
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBaseUrlString], kDDGnologin];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBaseUrlString], @"appMall/smsSend/nologin/wxLoginBind"];
     NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
     parmas[@"telephone"] = self.phoneTextField.text;
     parmas[@"smsTokenId"] = smsTokenId;
@@ -189,6 +189,10 @@
 }
 
 
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
+    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -117,7 +117,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopName.font = [UIFont systemFontOfSize:13];
             labelShopName.textColor = [ResourceManager color_1];
-            labelShopName.text = sModel.strGoodsSubName;
+            labelShopName.text = sModel.strGoodsName;
             labelShopName.numberOfLines = 0;
             
             
@@ -223,7 +223,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopName.font = [UIFont systemFontOfSize:13];
             labelShopName.textColor = [ResourceManager color_1];
-            labelShopName.text = sModel.strGoodsSubName;
+            labelShopName.text = sModel.strGoodsName;
             labelShopName.numberOfLines = 0;
             
             
@@ -295,7 +295,7 @@
             //labelShopName.backgroundColor = [UIColor yellowColor];
             labelShopName.font = [UIFont systemFontOfSize:13];
             labelShopName.textColor = [ResourceManager color_1];
-            labelShopName.text = sModel.strGoodsSubName;
+            labelShopName.text = sModel.strGoodsName;
             labelShopName.numberOfLines = 0;
 
 

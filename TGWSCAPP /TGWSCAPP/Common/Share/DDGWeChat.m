@@ -113,7 +113,7 @@ static DDGWeChat *weChatShare;
     object.path = items[@"strUrl"];  // 小程序的页面路径
     object.hdImageData = data;  // 小程序新版本的预览图二进制数据
     //object.withShareTicket = withShareTicket;  // 是否使用带shareTicket的分享
-    object.miniProgramType = WXMiniProgramTypePreview;  // 小程序的类型  正式版: WXMiniProgramTypeRelease 测试版: WXMiniProgramTypeTest;体验版: WXMiniProgramTypePreview;
+    object.miniProgramType = WXMiniProgramTypeRelease;  // 小程序的类型  正式版: WXMiniProgramTypeRelease 测试版: WXMiniProgramTypeTest;体验版: WXMiniProgramTypePreview;
     
     
     WXMediaMessage *message = [WXMediaMessage message];

@@ -701,6 +701,11 @@ static NSString *currentIP = nil;
 {
     UIImage *img = nil;
     
+    if (![ToolsUtlis isNetworkReachable]) {
+        //[MBProgressHUD showErrorWithStatus:@"请检查网络" toView:self.view];
+        return  img;
+    }
+    
     NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:strImg]];
     if (imgData)
      {

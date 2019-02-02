@@ -482,11 +482,6 @@
                 iImgWidth = fixelW *FixelScaleSize*ScaleSize;
              }
 
-            
-            
-         
-        
-        
         //跳回主队列执行
         dispatch_async(dispatch_get_main_queue(), ^{
             

@@ -29,6 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *strMaxPrice;
 @property (nonatomic,copy) NSString *strMinPrice;
 
+// 为活动时， 格外添加的字段
+@property (nonatomic,assign) int   iSkipType;  //  0 - 不跳转， 1 - 跳转本地页面，  2 - 跳转URL
+@property (nonatomic,copy) NSString *strSkipUrl;
+
 
 @end
 

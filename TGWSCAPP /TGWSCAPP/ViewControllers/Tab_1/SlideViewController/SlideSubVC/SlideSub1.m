@@ -295,6 +295,12 @@
             sModel.strCateName = [NSString stringWithFormat:@"%@",dicObject[@"cateName"]];
             sModel.iIsSellOut = [dicObject[@"isSellOut"] intValue];
             sModel.iSaleStatus = [dicObject[@"isSellOut"] intValue];
+            
+            // 活动时，特别添加的字段
+            sModel.iSkipType = [dicObject[@"skipType"] intValue];
+            sModel.strSkipUrl = [NSString stringWithFormat:@"%@",dicObject[@"skipUrl"]];;
+            
+            
             [tempArr addObject:sModel];
          }
 
@@ -679,6 +685,57 @@
             NSLog(@"ShopID:%d", iShopID);
             NSLog(@"strGoodsName:%@ strGoodsSubName:%@  strGoodsCode:%@", clickObj.strGoodsName,clickObj.strGoodsSubName,clickObj.strGoodsCode);
             
+            int iSkipType = clickObj.iSkipType;  //  0 - 不跳转， 1 - 跳转本地页面，  2 - 跳转URL
+            
+            if (1 == iSkipType)
+             {
+                NSData *jsonData = [clickObj.strSkipUrl dataUsingEncoding:NSUTF8StringEncoding];
+                NSError *err = nil;
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                    options:NSJSONReadingMutableContainers
+                                                                      error:&err];
+                
+                if(err) {
+                    NSLog(@"json解析失败：%@",err);
+                    //return nil;
+                }
+                
+                if (dic)
+                 {
+                    NSString *strIosClassName = dic[@"iosClassName"];
+                    NSString *strInitparams = dic[@"initparams"];
+                    // 跳转商品详情页面
+                    if ([strIosClassName isEqualToString:@"ShopDetailVC"] &&
+                        strInitparams)
+                     {
+                        // 多个参数 用#来分割
+                        //NSArray *strarray = [strInitparams componentsSeparatedByString:@"#"];
+                        
+                        NSArray *arrParams = [strInitparams componentsSeparatedByString:@"|"];
+                        if (arrParams.count >= 2 )
+                         {                            
+                            ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
+                            ShopModel *tempObj = [[ShopModel alloc] init];
+                            tempObj.strGoodsCode = arrParams[1];
+                            VC.shopModel = tempObj;
+                            VC.est = @"category";
+                            VC.esi = clickObj.strGoodsCode;
+                            [self.navigationController pushViewController:VC animated:YES];
+                            return;
+                            
+                         }
+                        
+                     }
+                 }
+        
+                
+             }
+            else if (2 == iSkipType)
+             {
+                NSString *url = clickObj.strSkipUrl; //[NSString stringWithFormat:@"%@webMall/protocol/privacy",[PDAPI WXSysRouteAPI]];
+                [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"天狗窝商城隐私协议"];
+             }
+            
             //010103003、010101023、080102001、080101001
             NSArray *arrID = @[@"010103003",@"010101023",@"080102001",@"080101001"];
             if (clickObj.iShopID < 4)
@@ -691,13 +748,7 @@
                 [self.navigationController pushViewController:VC animated:YES];
                 return;
              }
-                
             
-            ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
-            VC.shopModel = clickObj;
-            VC.est = @"category";
-            VC.esi = clickObj.strCateCode;
-            [self.navigationController pushViewController:VC animated:YES];
             
          }
         

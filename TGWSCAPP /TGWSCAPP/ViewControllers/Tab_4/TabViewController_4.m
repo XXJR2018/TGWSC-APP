@@ -16,6 +16,7 @@
 #import "AddressViewController.h"
 #import "CustomerServiceViewController.h"
 #import "LogisticsDescViewController.h"
+#import "AppraiseViewController.h"
 #import "RefundListVC.h"
 #import "XcodeWebVC.h"
 
@@ -31,6 +32,7 @@
     UILabel *_dfkNumLabel;
     UILabel *_dfhNumLabel;
     UILabel *_yfhNumLabel;
+    UILabel *_dpjNumLabel;
     UILabel *_tkNumLabel;
     
     UILabel *_balanceNumLabel;  //余额
@@ -379,11 +381,11 @@
     [allOrderBtn setTitleColor:UIColorFromRGB(0x85775b) forState:UIControlStateNormal];
     [allOrderBtn addTarget:self action:@selector(orderTouch:) forControlEvents:UIControlEventTouchUpInside];
     
-    CGFloat btnLeft = (SCREEN_WIDTH - 310 * ScaleSize)/2;
-    CGFloat btnWidth = (310 * ScaleSize)/4;
-    NSArray *imgArr = @[@"Tab_4-5",@"Tab_4-6",@"Tab_4-7",@"Tab_4-8"];
-    NSArray *titleArr = @[@"待付款",@"待发货",@"已发货",@"退款/售后"];
-    for (int i = 0; i < 4; i ++) {
+    CGFloat btnLeft = (SCREEN_WIDTH - 355 * ScaleSize)/2;
+    CGFloat btnWidth = (355 * ScaleSize)/5;
+    NSArray *imgArr = @[@"Tab_4-5",@"Tab_4-6",@"Tab_4-7",@"Tab_4-35",@"Tab_4-8"];
+    NSArray *titleArr = @[@"待付款",@"待发货",@"已发货",@"待评价",@"退款/售后"];
+    for (int i = 0; i < imgArr.count; i ++) {
         JXButton *orderBtn = [[JXButton alloc]initWithFrame:CGRectMake(btnLeft + btnWidth * i, CGRectGetMaxY(titleLabel.frame) + 10, btnWidth, btnWidth)];
         [_orderImgView addSubview:orderBtn];
         orderBtn.tag = i + 100;
@@ -422,6 +424,16 @@
             _yfhNumLabel.font = [UIFont systemFontOfSize:8];
             _yfhNumLabel.hidden = YES;
         }else if (i == 3) {
+            _dpjNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth - 33, 5, 12, 12)];
+            [orderBtn addSubview:_dpjNumLabel];
+            _dpjNumLabel.clipsToBounds = YES;
+            _dpjNumLabel.layer.cornerRadius = 12/2;
+            _dpjNumLabel.backgroundColor = UIColorFromRGB(0xaf0e1d);
+            _dpjNumLabel.textColor = [UIColor whiteColor];
+            _dpjNumLabel.textAlignment = NSTextAlignmentCenter;
+            _dpjNumLabel.font = [UIFont systemFontOfSize:8];
+             _dpjNumLabel.hidden = YES;
+        }else if (i == 4) {
             _tkNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth - 33, 5, 12, 12)];
             [orderBtn addSubview:_tkNumLabel];
             _tkNumLabel.clipsToBounds = YES;
@@ -430,7 +442,7 @@
             _tkNumLabel.textColor = [UIColor whiteColor];
             _tkNumLabel.textAlignment = NSTextAlignmentCenter;
             _tkNumLabel.font = [UIFont systemFontOfSize:8];
-             _tkNumLabel.hidden = YES;
+            _tkNumLabel.hidden = YES;
         }
     }
     
@@ -565,6 +577,11 @@
             [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 103:{
+            //待评价
+            AppraiseViewController *ctl = [[AppraiseViewController alloc]init];
+            [self.navigationController pushViewController:ctl animated:YES];
+        }break;
+        case 104:{
             //退款/售后
             RefundListVC *ctl = [[RefundListVC alloc]init];
             [self.navigationController pushViewController:ctl animated:YES];

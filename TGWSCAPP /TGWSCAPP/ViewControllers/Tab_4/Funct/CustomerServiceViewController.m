@@ -30,9 +30,14 @@
     [self layoutNaviBarViewWithTitle:@"客服中心"];
 }
 
-- (IBAction)tell:(id)sender {
-    NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",[[CommonInfo userInfo] objectForKey:@"kfTel"]];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
+- (IBAction)consult:(UIButton *)sender {
+    if (sender.tag == 100) {
+        NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",[[CommonInfo userInfo] objectForKey:@"kfTel"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
+    }else if (sender.tag == 101) {
+        
+    }
+    
 }
 
 /*

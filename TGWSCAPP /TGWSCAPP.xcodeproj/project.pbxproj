@@ -123,6 +123,7 @@
 		C245272A21E47A1300CA4196 /* LogisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C245272921E47A1300CA4196 /* LogisticsViewController.m */; };
 		C245272D21E4859800CA4196 /* LogisticsDescViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C245272C21E4859800CA4196 /* LogisticsDescViewController.m */; };
 		C246D75C21CB9CE50054D7A0 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */; };
+		C24975C92213C56300949662 /* AppraiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C24975C82213C56300949662 /* AppraiseViewController.m */; };
 		C250435521BA51FC00DA9C72 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C250435421BA51FC00DA9C72 /* AppDelegate.mm */; };
 		C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435921BA51FC00DA9C72 /* Main.storyboard */; };
 		C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435E21BA51FD00DA9C72 /* LaunchScreen.storyboard */; };
@@ -543,6 +544,8 @@
 		C245272C21E4859800CA4196 /* LogisticsDescViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsDescViewController.m; sourceTree = "<group>"; };
 		C246D75A21CB9CE50054D7A0 /* ProductListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductListViewController.h; sourceTree = "<group>"; };
 		C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductListViewController.m; sourceTree = "<group>"; };
+		C24975C72213C56300949662 /* AppraiseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseViewController.h; sourceTree = "<group>"; };
+		C24975C82213C56300949662 /* AppraiseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseViewController.m; sourceTree = "<group>"; };
 		C250435021BA51FC00DA9C72 /* TGWSCAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGWSCAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C250435321BA51FC00DA9C72 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C250435421BA51FC00DA9C72 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
@@ -1490,6 +1493,7 @@
 				C0192E002213BAAA00D3E825 /* Chat */,
 				C222C37B21D2235700DD9797 /* UserInfo */,
 				C2F23AA721D61B0600E5332D /* Order */,
+				C24975C62213C55100949662 /* Appraise */,
 				C222C37721D217F800DD9797 /* Funct */,
 				C20525E121BE6E5C00E13893 /* TabViewController_4.h */,
 				C20525E321BE6E5C00E13893 /* TabViewController_4.m */,
@@ -1625,6 +1629,15 @@
 				C244951D21CCC6E100F8698B /* LSPTitleView.m */,
 			);
 			path = PageView;
+			sourceTree = "<group>";
+		};
+		C24975C62213C55100949662 /* Appraise */ = {
+			isa = PBXGroup;
+			children = (
+				C24975C72213C56300949662 /* AppraiseViewController.h */,
+				C24975C82213C56300949662 /* AppraiseViewController.m */,
+			);
+			path = Appraise;
 			sourceTree = "<group>";
 		};
 		C250434721BA51FC00DA9C72 = {
@@ -2861,6 +2874,7 @@
 				C250451021BA579100DA9C72 /* CommonViewController.m in Sources */,
 				C250477621BA715500DA9C72 /* Reachability.m in Sources */,
 				C250460C21BA711E00DA9C72 /* IdentifyAlertView.m in Sources */,
+				C24975C92213C56300949662 /* AppraiseViewController.m in Sources */,
 				C0A48A7D21D4BE37002AF226 /* HeaderCollectionReusableView.m in Sources */,
 				C25047DB21BA715500DA9C72 /* BaseController.m in Sources */,
 				C25047C421BA715500DA9C72 /* RsaUtil.m in Sources */,

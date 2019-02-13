@@ -13,6 +13,9 @@
 		AA78C88A01E4A707B158F4E0 /* libPods-TGWSCAPPUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76031F71D9C1512F49FA60B5 /* libPods-TGWSCAPPUITests.a */; };
 		C0192E072213BAEF00D3E825 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C0192E032213BAEE00D3E825 /* GCDAsyncSocket.m */; };
 		C0192E082213BAEF00D3E825 /* NetMessageObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C0192E052213BAEE00D3E825 /* NetMessageObj.m */; };
+		C0192E122213EB3300D3E825 /* InvoiceCommitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0192E112213EB3300D3E825 /* InvoiceCommitVC.m */; };
+		C0192E152213EB5E00D3E825 /* InvoiceJpegVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0192E142213EB5E00D3E825 /* InvoiceJpegVC.m */; };
+		C0192E182213EB7800D3E825 /* InvoiceInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0192E172213EB7800D3E825 /* InvoiceInfoVC.m */; };
 		C02C5F7821CC79530056A32E /* ShopDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C02C5F7721CC79530056A32E /* ShopDetailVC.m */; };
 		C02C5F9721CC991A0056A32E /* TSVideoPlayback.m in Sources */ = {isa = PBXBuildFile; fileRef = C02C5F8921CC991A0056A32E /* TSVideoPlayback.m */; };
 		C02C5F9821CC991A0056A32E /* icon_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8A21CC991A0056A32E /* icon_play@2x.png */; };
@@ -342,6 +345,12 @@
 		C0192E042213BAEE00D3E825 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		C0192E052213BAEE00D3E825 /* NetMessageObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetMessageObj.m; sourceTree = "<group>"; };
 		C0192E062213BAEF00D3E825 /* NetMessageObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetMessageObj.h; sourceTree = "<group>"; };
+		C0192E102213EB3300D3E825 /* InvoiceCommitVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvoiceCommitVC.h; sourceTree = "<group>"; };
+		C0192E112213EB3300D3E825 /* InvoiceCommitVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvoiceCommitVC.m; sourceTree = "<group>"; };
+		C0192E132213EB5E00D3E825 /* InvoiceJpegVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvoiceJpegVC.h; sourceTree = "<group>"; };
+		C0192E142213EB5E00D3E825 /* InvoiceJpegVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvoiceJpegVC.m; sourceTree = "<group>"; };
+		C0192E162213EB7800D3E825 /* InvoiceInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvoiceInfoVC.h; sourceTree = "<group>"; };
+		C0192E172213EB7800D3E825 /* InvoiceInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvoiceInfoVC.m; sourceTree = "<group>"; };
 		C02C5F7621CC79530056A32E /* ShopDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopDetailVC.h; sourceTree = "<group>"; };
 		C02C5F7721CC79530056A32E /* ShopDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopDetailVC.m; sourceTree = "<group>"; };
 		C02C5F8921CC991A0056A32E /* TSVideoPlayback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSVideoPlayback.m; sourceTree = "<group>"; };
@@ -995,11 +1004,25 @@
 			path = GCD;
 			sourceTree = "<group>";
 		};
+		C0192E0C2213EAC700D3E825 /* Invoice */ = {
+			isa = PBXGroup;
+			children = (
+				C0192E102213EB3300D3E825 /* InvoiceCommitVC.h */,
+				C0192E112213EB3300D3E825 /* InvoiceCommitVC.m */,
+				C0192E132213EB5E00D3E825 /* InvoiceJpegVC.h */,
+				C0192E142213EB5E00D3E825 /* InvoiceJpegVC.m */,
+				C0192E162213EB7800D3E825 /* InvoiceInfoVC.h */,
+				C0192E172213EB7800D3E825 /* InvoiceInfoVC.m */,
+			);
+			path = Invoice;
+			sourceTree = "<group>";
+		};
 		C02C5F7521CC78BE0056A32E /* ShopDetail */ = {
 			isa = PBXGroup;
 			children = (
 				C02C5F7621CC79530056A32E /* ShopDetailVC.h */,
 				C02C5F7721CC79530056A32E /* ShopDetailVC.m */,
+				C0192E0C2213EAC700D3E825 /* Invoice */,
 				C0A48A6A21D1F907002AF226 /* PopSelShop */,
 				C02C5F7921CC991A0056A32E /* VideoAndImgScroll */,
 			);
@@ -2733,6 +2756,7 @@
 				C0A48A7721D4A62A002AF226 /* ShopMoreVC.m in Sources */,
 				C250480021BA73B800DA9C72 /* AFURLConnectionOperation.m in Sources */,
 				C0A48A8021D5C380002AF226 /* SearchSubVC.m in Sources */,
+				C0192E152213EB5E00D3E825 /* InvoiceJpegVC.m in Sources */,
 				C250460421BA711E00DA9C72 /* TTRangeSlider.m in Sources */,
 				C20525DE21BE6E1D00E13893 /* TabBarViewController.m in Sources */,
 				C244952421CCC6E100F8698B /* LSPContentView.m in Sources */,
@@ -2830,6 +2854,7 @@
 				C0CCC84121C2603E009352E0 /* CKSlideMenu.m in Sources */,
 				C250475C21BA715500DA9C72 /* DDGSetting.m in Sources */,
 				C0CCC81421C0F30F009352E0 /* ZYHTFileNameConst.m in Sources */,
+				C0192E182213EB7800D3E825 /* InvoiceInfoVC.m in Sources */,
 				C250460221BA711E00DA9C72 /* CustomNavigationBarView.m in Sources */,
 				C0CCC7ED21C0F150009352E0 /* LLSearchHistorySaveUtils.m in Sources */,
 				C0CCC7E921C0F150009352E0 /* UIView+LLRect.m in Sources */,
@@ -2880,6 +2905,7 @@
 				C25047C421BA715500DA9C72 /* RsaUtil.m in Sources */,
 				C25047FF21BA73B800DA9C72 /* AFHTTPSessionManager.m in Sources */,
 				C250475B21BA715500DA9C72 /* DDGJsonParseManager.m in Sources */,
+				C0192E122213EB3300D3E825 /* InvoiceCommitVC.m in Sources */,
 				C25047B721BA715500DA9C72 /* UIImageView+AFNetworking.m in Sources */,
 				C2AEB46221BE3CB00078E788 /* CSAnimationView.m in Sources */,
 				C0CCC85921C391C2009352E0 /* AdvertingShopListView.m in Sources */,

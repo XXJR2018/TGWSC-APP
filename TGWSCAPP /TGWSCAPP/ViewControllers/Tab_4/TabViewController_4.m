@@ -383,7 +383,7 @@
     
     CGFloat btnLeft = (SCREEN_WIDTH - 355 * ScaleSize)/2;
     CGFloat btnWidth = (355 * ScaleSize)/5;
-    NSArray *imgArr = @[@"Tab_4-5",@"Tab_4-6",@"Tab_4-7",@"Tab_4-7",@"Tab_4-8"];
+    NSArray *imgArr = @[@"Tab_4-5",@"Tab_4-6",@"Tab_4-7",@"Tab_4-35",@"Tab_4-8"];
     NSArray *titleArr = @[@"待付款",@"待发货",@"已发货",@"待评价",@"退款/售后"];
     for (int i = 0; i < imgArr.count; i ++) {
         JXButton *orderBtn = [[JXButton alloc]initWithFrame:CGRectMake(btnLeft + btnWidth * i, CGRectGetMaxY(titleLabel.frame) + 10, btnWidth, btnWidth)];

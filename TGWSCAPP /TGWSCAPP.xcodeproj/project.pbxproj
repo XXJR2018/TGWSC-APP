@@ -122,6 +122,8 @@
 		C245272D21E4859800CA4196 /* LogisticsDescViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C245272C21E4859800CA4196 /* LogisticsDescViewController.m */; };
 		C246D75C21CB9CE50054D7A0 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */; };
 		C24975C92213C56300949662 /* AppraiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C24975C82213C56300949662 /* AppraiseViewController.m */; };
+		C24975CC2213CABC00949662 /* AppraiseViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C24975CB2213CABC00949662 /* AppraiseViewCell.m */; };
+		C24975D02214221200949662 /* YCMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = C24975CF2214221100949662 /* YCMenuView.m */; };
 		C250435521BA51FC00DA9C72 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C250435421BA51FC00DA9C72 /* AppDelegate.mm */; };
 		C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435921BA51FC00DA9C72 /* Main.storyboard */; };
 		C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435E21BA51FD00DA9C72 /* LaunchScreen.storyboard */; };
@@ -540,6 +542,10 @@
 		C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductListViewController.m; sourceTree = "<group>"; };
 		C24975C72213C56300949662 /* AppraiseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseViewController.h; sourceTree = "<group>"; };
 		C24975C82213C56300949662 /* AppraiseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseViewController.m; sourceTree = "<group>"; };
+		C24975CA2213CABC00949662 /* AppraiseViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseViewCell.h; sourceTree = "<group>"; };
+		C24975CB2213CABC00949662 /* AppraiseViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseViewCell.m; sourceTree = "<group>"; };
+		C24975CE2214221100949662 /* YCMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCMenuView.h; sourceTree = "<group>"; };
+		C24975CF2214221100949662 /* YCMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCMenuView.m; sourceTree = "<group>"; };
 		C250435021BA51FC00DA9C72 /* TGWSCAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGWSCAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C250435321BA51FC00DA9C72 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C250435421BA51FC00DA9C72 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
@@ -1602,8 +1608,19 @@
 			children = (
 				C24975C72213C56300949662 /* AppraiseViewController.h */,
 				C24975C82213C56300949662 /* AppraiseViewController.m */,
+				C24975CA2213CABC00949662 /* AppraiseViewCell.h */,
+				C24975CB2213CABC00949662 /* AppraiseViewCell.m */,
 			);
 			path = Appraise;
+			sourceTree = "<group>";
+		};
+		C24975CD2214221100949662 /* YCMenuViewCompont */ = {
+			isa = PBXGroup;
+			children = (
+				C24975CE2214221100949662 /* YCMenuView.h */,
+				C24975CF2214221100949662 /* YCMenuView.m */,
+			);
+			path = YCMenuViewCompont;
 			sourceTree = "<group>";
 		};
 		C250434721BA51FC00DA9C72 = {
@@ -1793,6 +1810,7 @@
 		C250459F21BA711E00DA9C72 /* CommonView */ = {
 			isa = PBXGroup;
 			children = (
+				C24975CD2214221100949662 /* YCMenuViewCompont */,
 				C0A48B4221DE3397002AF226 /* CDWAlertView */,
 				C244951921CCC6E100F8698B /* PageView */,
 				C0CCC83C21C2603E009352E0 /* SlideMenu */,
@@ -2714,6 +2732,7 @@
 				C222C37A21D2187700DD9797 /* MyBalanceViewController.m in Sources */,
 				C2AEB46321BE3CB00078E788 /* CSAnimation.m in Sources */,
 				C250475E21BA715500DA9C72 /* UIView+DDGExtras.m in Sources */,
+				C24975CC2213CABC00949662 /* AppraiseViewCell.m in Sources */,
 				C25047A221BA715500DA9C72 /* EGORefreshTableHeaderView.m in Sources */,
 				C250476A21BA715500DA9C72 /* NSEnumerator+Additions.m in Sources */,
 				C098D2A821E058EC0008584B /* SelCouponVC.m in Sources */,
@@ -2793,6 +2812,7 @@
 				C0CCC7E521C0F150009352E0 /* LLSearchResultListView.m in Sources */,
 				C250461721BA711E00DA9C72 /* RadioButtonView.m in Sources */,
 				C0CCC84121C2603E009352E0 /* CKSlideMenu.m in Sources */,
+				C24975D02214221200949662 /* YCMenuView.m in Sources */,
 				C250475C21BA715500DA9C72 /* DDGSetting.m in Sources */,
 				C0CCC81421C0F30F009352E0 /* ZYHTFileNameConst.m in Sources */,
 				C250460221BA711E00DA9C72 /* CustomNavigationBarView.m in Sources */,

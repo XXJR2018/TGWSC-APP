@@ -11,6 +11,8 @@
 		3D6EC135E4A46D7E2C5CD5F9 /* libPods-TGWSCAPP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A4B4C8AB5DBDC9E7E293B5 /* libPods-TGWSCAPP.a */; };
 		9B97EFDC6ED4E37075A67963 /* libPods-TGWSCAPP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBA4DD24E459D4913624CFA /* libPods-TGWSCAPP.a */; };
 		AA78C88A01E4A707B158F4E0 /* libPods-TGWSCAPPUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76031F71D9C1512F49FA60B5 /* libPods-TGWSCAPPUITests.a */; };
+		C0192E072213BAEF00D3E825 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C0192E032213BAEE00D3E825 /* GCDAsyncSocket.m */; };
+		C0192E082213BAEF00D3E825 /* NetMessageObj.m in Sources */ = {isa = PBXBuildFile; fileRef = C0192E052213BAEE00D3E825 /* NetMessageObj.m */; };
 		C02C5F7821CC79530056A32E /* ShopDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C02C5F7721CC79530056A32E /* ShopDetailVC.m */; };
 		C02C5F9721CC991A0056A32E /* TSVideoPlayback.m in Sources */ = {isa = PBXBuildFile; fileRef = C02C5F8921CC991A0056A32E /* TSVideoPlayback.m */; };
 		C02C5F9821CC991A0056A32E /* icon_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C02C5F8A21CC991A0056A32E /* icon_play@2x.png */; };
@@ -335,6 +337,10 @@
 		A1BF7B237F6B5F1E0CBC2A84 /* Pods-TGWSCAPPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGWSCAPPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TGWSCAPPTests/Pods-TGWSCAPPTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A55762B01C0EAB6F71094525 /* Pods-TGWSCAPPUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGWSCAPPUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TGWSCAPPUITests/Pods-TGWSCAPPUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AAAC5B9CD5ED42F9A79E9082 /* Pods-TGWSCAPPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TGWSCAPPTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TGWSCAPPTests/Pods-TGWSCAPPTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C0192E032213BAEE00D3E825 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		C0192E042213BAEE00D3E825 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		C0192E052213BAEE00D3E825 /* NetMessageObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetMessageObj.m; sourceTree = "<group>"; };
+		C0192E062213BAEF00D3E825 /* NetMessageObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetMessageObj.h; sourceTree = "<group>"; };
 		C02C5F7621CC79530056A32E /* ShopDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopDetailVC.h; sourceTree = "<group>"; };
 		C02C5F7721CC79530056A32E /* ShopDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopDetailVC.m; sourceTree = "<group>"; };
 		C02C5F8921CC991A0056A32E /* TSVideoPlayback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSVideoPlayback.m; sourceTree = "<group>"; };
@@ -959,6 +965,33 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		C0192E002213BAAA00D3E825 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				C0192E012213BABA00D3E825 /* Socket */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		C0192E012213BABA00D3E825 /* Socket */ = {
+			isa = PBXGroup;
+			children = (
+				C0192E022213BAEE00D3E825 /* GCD */,
+				C0192E062213BAEF00D3E825 /* NetMessageObj.h */,
+				C0192E052213BAEE00D3E825 /* NetMessageObj.m */,
+			);
+			path = Socket;
+			sourceTree = "<group>";
+		};
+		C0192E022213BAEE00D3E825 /* GCD */ = {
+			isa = PBXGroup;
+			children = (
+				C0192E032213BAEE00D3E825 /* GCDAsyncSocket.m */,
+				C0192E042213BAEE00D3E825 /* GCDAsyncSocket.h */,
+			);
+			path = GCD;
+			sourceTree = "<group>";
+		};
 		C02C5F7521CC78BE0056A32E /* ShopDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1454,6 +1487,7 @@
 		C20525E021BE6E5C00E13893 /* Tab_4 */ = {
 			isa = PBXGroup;
 			children = (
+				C0192E002213BAAA00D3E825 /* Chat */,
 				C222C37B21D2235700DD9797 /* UserInfo */,
 				C2F23AA721D61B0600E5332D /* Order */,
 				C222C37721D217F800DD9797 /* Funct */,
@@ -2760,6 +2794,7 @@
 				C250451821BA579100DA9C72 /* CalculatorManager.m in Sources */,
 				C250460721BA711E00DA9C72 /* SGQRCodeObtainConfigure.m in Sources */,
 				C0A48B3821DCA697002AF226 /* LZCartModel.m in Sources */,
+				C0192E072213BAEF00D3E825 /* GCDAsyncSocket.m in Sources */,
 				C2AEB45C21BE38850078E788 /* ToolsUtlis.m in Sources */,
 				C250451B21BA579100DA9C72 /* SessionCookieManager.m in Sources */,
 				C250476121BA715500DA9C72 /* UIDevice+Additions.m in Sources */,
@@ -2872,6 +2907,7 @@
 				C0A48B2F21DCA697002AF226 /* UIViewExt.m in Sources */,
 				C25047E021BA715500DA9C72 /* MBProgressHUD+PD.m in Sources */,
 				C29ABBE421D466D600428407 /* MyCollectCell.m in Sources */,
+				C0192E082213BAEF00D3E825 /* NetMessageObj.m in Sources */,
 				C250476921BA715500DA9C72 /* NSString+Additions.m in Sources */,
 				C29ABBEC21D4766F00428407 /* AddressViewCell.m in Sources */,
 				C25047E621BA715500DA9C72 /* CommonInfo.m in Sources */,

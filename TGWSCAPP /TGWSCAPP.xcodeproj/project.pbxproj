@@ -30,6 +30,24 @@
 		C04B180C21E5DD1000DBA0FE /* RefundRequstSecond.m in Sources */ = {isa = PBXBuildFile; fileRef = C04B180B21E5DD1000DBA0FE /* RefundRequstSecond.m */; };
 		C04B180F21E5DD6B00DBA0FE /* RefundCommitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C04B180E21E5DD6B00DBA0FE /* RefundCommitVC.m */; };
 		C04B181221E5DDAB00DBA0FE /* RefundScheduleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C04B181121E5DDAB00DBA0FE /* RefundScheduleVC.m */; };
+		C050C3572214FB7000BFACF5 /* me.png in Resources */ = {isa = PBXBuildFile; fileRef = C050C33A2214FB7000BFACF5 /* me.png */; };
+		C050C3582214FB7000BFACF5 /* CSEmojiCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C050C33C2214FB7000BFACF5 /* CSEmojiCollectionViewCell.m */; };
+		C050C3592214FB7000BFACF5 /* m.png in Resources */ = {isa = PBXBuildFile; fileRef = C050C33D2214FB7000BFACF5 /* m.png */; };
+		C050C35A2214FB7000BFACF5 /* CSMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C050C33E2214FB7000BFACF5 /* CSMessageModel.m */; };
+		C050C35B2214FB7000BFACF5 /* EmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = C050C3412214FB7000BFACF5 /* EmojiView.m */; };
+		C050C35C2214FB7000BFACF5 /* ISEmojiList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C050C3432214FB7000BFACF5 /* ISEmojiList.plist */; };
+		C050C35E2214FB7000BFACF5 /* ss.png in Resources */ = {isa = PBXBuildFile; fileRef = C050C3452214FB7000BFACF5 /* ss.png */; };
+		C050C35F2214FB7000BFACF5 /* CSRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C050C3462214FB7000BFACF5 /* CSRecord.m */; };
+		C050C3602214FB7000BFACF5 /* other.png in Resources */ = {isa = PBXBuildFile; fileRef = C050C3472214FB7000BFACF5 /* other.png */; };
+		C050C3622214FB7000BFACF5 /* UIImage+Han.m in Sources */ = {isa = PBXBuildFile; fileRef = C050C3492214FB7000BFACF5 /* UIImage+Han.m */; };
+		C050C3632214FB7000BFACF5 /* dd.png in Resources */ = {isa = PBXBuildFile; fileRef = C050C34C2214FB7000BFACF5 /* dd.png */; };
+		C050C3642214FB7000BFACF5 /* mm.png in Resources */ = {isa = PBXBuildFile; fileRef = C050C34F2214FB7000BFACF5 /* mm.png */; };
+		C050C3652214FB7000BFACF5 /* CSMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C050C3502214FB7000BFACF5 /* CSMessageCell.m */; };
+		C050C3662214FB7000BFACF5 /* CSBigView.m in Sources */ = {isa = PBXBuildFile; fileRef = C050C3512214FB7000BFACF5 /* CSBigView.m */; };
+		C050C3672214FB7000BFACF5 /* w.png in Resources */ = {isa = PBXBuildFile; fileRef = C050C3522214FB7000BFACF5 /* w.png */; };
+		C050C3692214FB7000BFACF5 /* UILabel+Han.m in Sources */ = {isa = PBXBuildFile; fileRef = C050C3552214FB7000BFACF5 /* UILabel+Han.m */; };
+		C050C36A2214FB7000BFACF5 /* ll.png in Resources */ = {isa = PBXBuildFile; fileRef = C050C3562214FB7000BFACF5 /* ll.png */; };
+		C050C36D2214FD6400BFACF5 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C050C36C2214FD6300BFACF5 /* ChatViewController.m */; };
 		C059DAD421EDDCDA00BC2A45 /* XcodeWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C059DAD221EDDCDA00BC2A45 /* XcodeWebVC.m */; };
 		C059DAD721EDDFE700BC2A45 /* RefundReCommitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C059DAD621EDDFE700BC2A45 /* RefundReCommitVC.m */; };
 		C067E8B521E83A2400395F91 /* RefundListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C067E8B421E83A2400395F91 /* RefundListViewCell.m */; };
@@ -75,7 +93,6 @@
 		C0CCC81321C0F30F009352E0 /* BaseCommonSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC80921C0F30F009352E0 /* BaseCommonSearchVC.m */; };
 		C0CCC81421C0F30F009352E0 /* ZYHTFileNameConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC80C21C0F30F009352E0 /* ZYHTFileNameConst.m */; };
 		C0CCC82021C0F47D009352E0 /* LLTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC81621C0F47C009352E0 /* LLTestViewController.m */; };
-		C0CCC82121C0F47D009352E0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC81921C0F47C009352E0 /* ViewController.m */; };
 		C0CCC82221C0F47D009352E0 /* HistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC81B21C0F47C009352E0 /* HistoryVC.m */; };
 		C0CCC82321C0F47D009352E0 /* HistoryAnimationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC81D21C0F47C009352E0 /* HistoryAnimationVC.m */; };
 		C0CCC82421C0F47D009352E0 /* CategoryAndHistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC81E21C0F47C009352E0 /* CategoryAndHistoryVC.m */; };
@@ -375,6 +392,34 @@
 		C04B180E21E5DD6B00DBA0FE /* RefundCommitVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefundCommitVC.m; sourceTree = "<group>"; };
 		C04B181021E5DDAB00DBA0FE /* RefundScheduleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefundScheduleVC.h; sourceTree = "<group>"; };
 		C04B181121E5DDAB00DBA0FE /* RefundScheduleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefundScheduleVC.m; sourceTree = "<group>"; };
+		C050C3392214FB7000BFACF5 /* UIImage+Han.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Han.h"; sourceTree = "<group>"; };
+		C050C33A2214FB7000BFACF5 /* me.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me.png; sourceTree = "<group>"; };
+		C050C33B2214FB7000BFACF5 /* CSRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRecord.h; sourceTree = "<group>"; };
+		C050C33C2214FB7000BFACF5 /* CSEmojiCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSEmojiCollectionViewCell.m; sourceTree = "<group>"; };
+		C050C33D2214FB7000BFACF5 /* m.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m.png; sourceTree = "<group>"; };
+		C050C33E2214FB7000BFACF5 /* CSMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSMessageModel.m; sourceTree = "<group>"; };
+		C050C33F2214FB7000BFACF5 /* CSBigView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSBigView.h; sourceTree = "<group>"; };
+		C050C3402214FB7000BFACF5 /* CSMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSMessageCell.h; sourceTree = "<group>"; };
+		C050C3412214FB7000BFACF5 /* EmojiView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiView.m; sourceTree = "<group>"; };
+		C050C3422214FB7000BFACF5 /* UILabel+Han.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Han.h"; sourceTree = "<group>"; };
+		C050C3432214FB7000BFACF5 /* ISEmojiList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ISEmojiList.plist; sourceTree = "<group>"; };
+		C050C3452214FB7000BFACF5 /* ss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ss.png; sourceTree = "<group>"; };
+		C050C3462214FB7000BFACF5 /* CSRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRecord.m; sourceTree = "<group>"; };
+		C050C3472214FB7000BFACF5 /* other.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = other.png; sourceTree = "<group>"; };
+		C050C3492214FB7000BFACF5 /* UIImage+Han.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Han.m"; sourceTree = "<group>"; };
+		C050C34A2214FB7000BFACF5 /* ConstantPart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantPart.h; sourceTree = "<group>"; };
+		C050C34B2214FB7000BFACF5 /* CSMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSMessageModel.h; sourceTree = "<group>"; };
+		C050C34C2214FB7000BFACF5 /* dd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dd.png; sourceTree = "<group>"; };
+		C050C34D2214FB7000BFACF5 /* CSEmojiCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSEmojiCollectionViewCell.h; sourceTree = "<group>"; };
+		C050C34E2214FB7000BFACF5 /* EmojiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiView.h; sourceTree = "<group>"; };
+		C050C34F2214FB7000BFACF5 /* mm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mm.png; sourceTree = "<group>"; };
+		C050C3502214FB7000BFACF5 /* CSMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSMessageCell.m; sourceTree = "<group>"; };
+		C050C3512214FB7000BFACF5 /* CSBigView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSBigView.m; sourceTree = "<group>"; };
+		C050C3522214FB7000BFACF5 /* w.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = w.png; sourceTree = "<group>"; };
+		C050C3552214FB7000BFACF5 /* UILabel+Han.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Han.m"; sourceTree = "<group>"; };
+		C050C3562214FB7000BFACF5 /* ll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ll.png; sourceTree = "<group>"; };
+		C050C36B2214FD6300BFACF5 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		C050C36C2214FD6300BFACF5 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		C059DAD221EDDCDA00BC2A45 /* XcodeWebVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XcodeWebVC.m; sourceTree = "<group>"; };
 		C059DAD321EDDCDA00BC2A45 /* XcodeWebVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XcodeWebVC.h; sourceTree = "<group>"; };
 		C059DAD521EDDFE600BC2A45 /* RefundReCommitVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefundReCommitVC.h; sourceTree = "<group>"; };
@@ -467,13 +512,11 @@
 		C0CCC81621C0F47C009352E0 /* LLTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLTestViewController.m; sourceTree = "<group>"; };
 		C0CCC81721C0F47C009352E0 /* HistoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryVC.h; sourceTree = "<group>"; };
 		C0CCC81821C0F47C009352E0 /* HistoryAnimationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryAnimationVC.h; sourceTree = "<group>"; };
-		C0CCC81921C0F47C009352E0 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C0CCC81A21C0F47C009352E0 /* CategoryAndHistoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryAndHistoryVC.h; sourceTree = "<group>"; };
 		C0CCC81B21C0F47C009352E0 /* HistoryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryVC.m; sourceTree = "<group>"; };
 		C0CCC81C21C0F47C009352E0 /* LLTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLTestViewController.h; sourceTree = "<group>"; };
 		C0CCC81D21C0F47C009352E0 /* HistoryAnimationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryAnimationVC.m; sourceTree = "<group>"; };
 		C0CCC81E21C0F47C009352E0 /* CategoryAndHistoryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryAndHistoryVC.m; sourceTree = "<group>"; };
-		C0CCC81F21C0F47C009352E0 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C0CCC82521C0F4C5009352E0 /* HistorySearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistorySearchVC.h; sourceTree = "<group>"; };
 		C0CCC82621C0F4C5009352E0 /* HistorySearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistorySearchVC.m; sourceTree = "<group>"; };
 		C0CCC82721C0F4C5009352E0 /* HistoryAndCategorySearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryAndCategorySearchVC.h; sourceTree = "<group>"; };
@@ -986,6 +1029,7 @@
 		C0192E002213BAAA00D3E825 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				C050C3382214FB7000BFACF5 /* ChatView */,
 				C0192E012213BABA00D3E825 /* Socket */,
 			);
 			path = Chat;
@@ -1086,6 +1130,41 @@
 				C067E8BA21E9D01C00395F91 /* RefundTXWLVC.m */,
 			);
 			path = Refund;
+			sourceTree = "<group>";
+		};
+		C050C3382214FB7000BFACF5 /* ChatView */ = {
+			isa = PBXGroup;
+			children = (
+				C050C36B2214FD6300BFACF5 /* ChatViewController.h */,
+				C050C36C2214FD6300BFACF5 /* ChatViewController.m */,
+				C050C3392214FB7000BFACF5 /* UIImage+Han.h */,
+				C050C3492214FB7000BFACF5 /* UIImage+Han.m */,
+				C050C3422214FB7000BFACF5 /* UILabel+Han.h */,
+				C050C3552214FB7000BFACF5 /* UILabel+Han.m */,
+				C050C33A2214FB7000BFACF5 /* me.png */,
+				C050C33D2214FB7000BFACF5 /* m.png */,
+				C050C3452214FB7000BFACF5 /* ss.png */,
+				C050C34C2214FB7000BFACF5 /* dd.png */,
+				C050C3472214FB7000BFACF5 /* other.png */,
+				C050C3522214FB7000BFACF5 /* w.png */,
+				C050C3562214FB7000BFACF5 /* ll.png */,
+				C050C34F2214FB7000BFACF5 /* mm.png */,
+				C050C3402214FB7000BFACF5 /* CSMessageCell.h */,
+				C050C3502214FB7000BFACF5 /* CSMessageCell.m */,
+				C050C33B2214FB7000BFACF5 /* CSRecord.h */,
+				C050C3462214FB7000BFACF5 /* CSRecord.m */,
+				C050C33C2214FB7000BFACF5 /* CSEmojiCollectionViewCell.m */,
+				C050C34D2214FB7000BFACF5 /* CSEmojiCollectionViewCell.h */,
+				C050C33E2214FB7000BFACF5 /* CSMessageModel.m */,
+				C050C33F2214FB7000BFACF5 /* CSBigView.h */,
+				C050C3512214FB7000BFACF5 /* CSBigView.m */,
+				C050C34E2214FB7000BFACF5 /* EmojiView.h */,
+				C050C3412214FB7000BFACF5 /* EmojiView.m */,
+				C050C3432214FB7000BFACF5 /* ISEmojiList.plist */,
+				C050C34A2214FB7000BFACF5 /* ConstantPart.h */,
+				C050C34B2214FB7000BFACF5 /* CSMessageModel.h */,
+			);
+			path = ChatView;
 			sourceTree = "<group>";
 		};
 		C067E8B221E839F200395F91 /* cell */ = {
@@ -1405,8 +1484,6 @@
 				C0CCC81B21C0F47C009352E0 /* HistoryVC.m */,
 				C0CCC81821C0F47C009352E0 /* HistoryAnimationVC.h */,
 				C0CCC81D21C0F47C009352E0 /* HistoryAnimationVC.m */,
-				C0CCC81921C0F47C009352E0 /* ViewController.m */,
-				C0CCC81F21C0F47C009352E0 /* ViewController.h */,
 				C0CCC81A21C0F47C009352E0 /* CategoryAndHistoryVC.h */,
 				C0CCC81E21C0F47C009352E0 /* CategoryAndHistoryVC.m */,
 			);
@@ -2618,6 +2695,7 @@
 				C20525F321BE6E5C00E13893 /* TabViewController_3.xib in Resources */,
 				C287FE7A21BF4ACB00B8D682 /* Images.xcassets in Resources */,
 				C02C5F9921CC991A0056A32E /* icon_play@3x.png in Resources */,
+				C050C35C2214FB7000BFACF5 /* ISEmojiList.plist in Resources */,
 				C2B51AF221C3462500AC76FB /* ProductCollectionViewCell.xib in Resources */,
 				C29ABBF221D4776A00428407 /* AddAddressViewController.xib in Resources */,
 				C25047AF21BA715500DA9C72 /* success@2x.png in Resources */,
@@ -2627,16 +2705,20 @@
 				C25047AA21BA715500DA9C72 /* grayArrow@2x.png in Resources */,
 				C25047AE21BA715500DA9C72 /* 37x-Checkmark@2x.png in Resources */,
 				C25047B121BA715500DA9C72 /* success.png in Resources */,
+				C050C35E2214FB7000BFACF5 /* ss.png in Resources */,
 				C25047A521BA715500DA9C72 /* grayArrow.png in Resources */,
 				C02C5F9821CC991A0056A32E /* icon_play@2x.png in Resources */,
 				C250460621BA711E00DA9C72 /* SGQRCode.bundle in Resources */,
 				C25047A421BA715500DA9C72 /* blueArrow@2x.png in Resources */,
 				C222C38F21D2235700DD9797 /* NickNameViewController.xib in Resources */,
+				C050C3592214FB7000BFACF5 /* m.png in Resources */,
 				C0CCC83221C1FD21009352E0 /* search@2x.png in Resources */,
 				C29ABBE521D466D600428407 /* MyCollectCell.xib in Resources */,
 				C2B41C1121D5CAA100944A86 /* CustomerServiceViewController.xib in Resources */,
 				C250479521BA715500DA9C72 /* CHANGELOG.md in Resources */,
+				C050C36A2214FB7000BFACF5 /* ll.png in Resources */,
 				C0CCC83421C1FD21009352E0 /* clearImage@3x.png in Resources */,
+				C050C3632214FB7000BFACF5 /* dd.png in Resources */,
 				C25047B021BA715500DA9C72 /* error.png in Resources */,
 				C25047A821BA715500DA9C72 /* blackArrow@2x.png in Resources */,
 				C20525F021BE6E5C00E13893 /* TabViewController_4.xib in Resources */,
@@ -2645,6 +2727,8 @@
 				C02C5F9B21CC991A0056A32E /* icon_video@3x.png in Resources */,
 				C250451321BA579100DA9C72 /* CitysViewController.xib in Resources */,
 				C2C149C521F16C3200A1C2F9 /* Images-Default.xcassets in Resources */,
+				C050C3642214FB7000BFACF5 /* mm.png in Resources */,
+				C050C3572214FB7000BFACF5 /* me.png in Resources */,
 				C244950821CCB3AC00F8698B /* SortProductCollectionViewCell.xib in Resources */,
 				C23EAF4321D32D3000B271A7 /* CouponViewCell.xib in Resources */,
 				C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */,
@@ -2652,6 +2736,7 @@
 				C25045F921BA711E00DA9C72 /* XHDatePickerView.xib in Resources */,
 				C25047AC21BA715500DA9C72 /* 37x-Checkmark.png in Resources */,
 				C250450C21BA579100DA9C72 /* BindPhoneViewController.xib in Resources */,
+				C050C3672214FB7000BFACF5 /* w.png in Resources */,
 				C0CCC83321C1FD21009352E0 /* search@3x.png in Resources */,
 				C0CCC83121C1FD21009352E0 /* clearImage@2x.png in Resources */,
 				C29ABBED21D4766F00428407 /* AddressViewCell.xib in Resources */,
@@ -2665,6 +2750,7 @@
 				C02C5F9A21CC991A0056A32E /* icon_video@2x.png in Resources */,
 				C20525F521BE6E5C00E13893 /* TabViewController_2.xib in Resources */,
 				C25047AD21BA715500DA9C72 /* error@2x.png in Resources */,
+				C050C3602214FB7000BFACF5 /* other.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2768,6 +2854,8 @@
 				C250479821BA715500DA9C72 /* DAOverlayView.m in Sources */,
 				C250461021BA711E00DA9C72 /* TADotView.m in Sources */,
 				C0A48A7A21D4A64A002AF226 /* ShopMoreAtTimeVC.m in Sources */,
+				C050C3652214FB7000BFACF5 /* CSMessageCell.m in Sources */,
+				C050C3582214FB7000BFACF5 /* CSEmojiCollectionViewCell.m in Sources */,
 				C059DAD721EDDFE700BC2A45 /* RefundReCommitVC.m in Sources */,
 				C0CCC85121C3461D009352E0 /* SlideSub2.m in Sources */,
 				C04B181221E5DDAB00DBA0FE /* RefundScheduleVC.m in Sources */,
@@ -2788,6 +2876,7 @@
 				C0CCC7FA21C0F1CB009352E0 /* HistoryAndCategorySearchCategoryViewP.m in Sources */,
 				C0CCC81321C0F30F009352E0 /* BaseCommonSearchVC.m in Sources */,
 				C222C37A21D2187700DD9797 /* MyBalanceViewController.m in Sources */,
+				C050C3662214FB7000BFACF5 /* CSBigView.m in Sources */,
 				C2AEB46321BE3CB00078E788 /* CSAnimation.m in Sources */,
 				C250475E21BA715500DA9C72 /* UIView+DDGExtras.m in Sources */,
 				C24975CC2213CABC00949662 /* AppraiseViewCell.m in Sources */,
@@ -2847,6 +2936,7 @@
 				C02C5F7821CC79530056A32E /* ShopDetailVC.m in Sources */,
 				C0CCC85621C390F7009352E0 /* ShopListView.m in Sources */,
 				C25047B821BA715500DA9C72 /* UIButton+AFNetworking.m in Sources */,
+				C050C3692214FB7000BFACF5 /* UILabel+Han.m in Sources */,
 				C250451821BA579100DA9C72 /* CalculatorManager.m in Sources */,
 				C250460721BA711E00DA9C72 /* SGQRCodeObtainConfigure.m in Sources */,
 				C0A48B3821DCA697002AF226 /* LZCartModel.m in Sources */,
@@ -2857,7 +2947,9 @@
 				C250476C21BA715500DA9C72 /* Json+Utils.m in Sources */,
 				C250475F21BA715500DA9C72 /* UIImageView+Addtions.m in Sources */,
 				C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */,
+				C050C36D2214FD6400BFACF5 /* ChatViewController.m in Sources */,
 				C250476521BA715500DA9C72 /* NSObject+Additions.m in Sources */,
+				C050C35F2214FB7000BFACF5 /* CSRecord.m in Sources */,
 				C25045FF21BA711E00DA9C72 /* CCWebViewController.m in Sources */,
 				C25047B321BA715500DA9C72 /* UIAlertView+AFNetworking.m in Sources */,
 				C2F23AB221D61D9500E5332D /* OrderListViewController.m in Sources */,
@@ -2947,7 +3039,6 @@
 				C25047BA21BA715500DA9C72 /* UIWebView+AFNetworking.m in Sources */,
 				C250460921BA711E00DA9C72 /* SGQRCodeScanView.m in Sources */,
 				C25047E921BA715500DA9C72 /* ResourceManager.m in Sources */,
-				C0CCC82121C0F47D009352E0 /* ViewController.m in Sources */,
 				C2F23AAA21D61B2B00E5332D /* OrderViewController.m in Sources */,
 				C250435521BA51FC00DA9C72 /* AppDelegate.mm in Sources */,
 				C29ABBF121D4776A00428407 /* AddAddressViewController.m in Sources */,
@@ -2961,6 +3052,7 @@
 				C250480121BA73B800DA9C72 /* AFURLSessionManager.m in Sources */,
 				C244952521CCC6E100F8698B /* LSPTitleView.m in Sources */,
 				C0CCC84A21C33E37009352E0 /* SlideModel.m in Sources */,
+				C050C35B2214FB7000BFACF5 /* EmojiView.m in Sources */,
 				C04B180621E5DC6600DBA0FE /* RefundInfoVC.m in Sources */,
 				C222C38B21D2235700DD9797 /* PhoneCheckViewController.m in Sources */,
 				C250477521BA715500DA9C72 /* RSA.m in Sources */,
@@ -2973,6 +3065,7 @@
 				C25047E621BA715500DA9C72 /* CommonInfo.m in Sources */,
 				C25045FC21BA711E00DA9C72 /* UIView+Extension.m in Sources */,
 				C25047DE21BA715500DA9C72 /* XXJRNetWorkCoverView.m in Sources */,
+				C050C3622214FB7000BFACF5 /* UIImage+Han.m in Sources */,
 				C250451D21BA579100DA9C72 /* DDGQQ.m in Sources */,
 				C0CCC84E21C345C5009352E0 /* SlideSub1.m in Sources */,
 				C0A48B5121DE3715002AF226 /* CDWAlertView.m in Sources */,
@@ -2994,6 +3087,7 @@
 				C250451621BA579100DA9C72 /* MJRefreshViewController.m in Sources */,
 				C0CCC7EB21C0F150009352E0 /* LLSearchVCConst.m in Sources */,
 				C222C38D21D2235700DD9797 /* AccountSecurityViewController.m in Sources */,
+				C050C35A2214FB7000BFACF5 /* CSMessageModel.m in Sources */,
 				C25047DF21BA715500DA9C72 /* XXJRCellBackgroundView.m in Sources */,
 				C20525F621BE6E5C00E13893 /* TabViewController_1.m in Sources */,
 				C04B180921E5DCEF00DBA0FE /* RefundRequstFrist.m in Sources */,

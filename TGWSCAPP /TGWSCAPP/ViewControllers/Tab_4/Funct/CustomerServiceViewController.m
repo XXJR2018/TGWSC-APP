@@ -7,6 +7,7 @@
 //
 
 #import "CustomerServiceViewController.h"
+#import "ChatViewController.h"
 
 @interface CustomerServiceViewController ()
 
@@ -35,7 +36,9 @@
         NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",[[CommonInfo userInfo] objectForKey:@"kfTel"]];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
     }else if (sender.tag == 101) {
-        
+        // 客服聊天
+        ChatViewController  *VC = [[ChatViewController alloc] init];
+        [self.navigationController  pushViewController:VC animated:YES];
     }
     
 }

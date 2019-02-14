@@ -251,6 +251,7 @@
         _orderLeftBtn.hidden = NO;
         _orderCentreBtn.hidden = YES;
         _orderRightBtn.hidden = NO;
+        _orderLeftBtn.width = 80;
         _orderRightBtn.layer.borderColor = color_3.CGColor;
         _orderRightBtn.backgroundColor = [UIColor whiteColor];
         [_orderRightBtn setTitle:@"再次购买" forState:UIControlStateNormal];
@@ -274,12 +275,17 @@
         _orderLeftBtn.hidden = NO;
         _orderCentreBtn.hidden = NO;
         _orderRightBtn.hidden = NO;
+        _orderLeftBtn.width = 50;
+        _orderLeftBtn.layer.borderColor = [UIColor clearColor].CGColor;
+        _orderLeftBtn.backgroundColor = [UIColor whiteColor];
+        [_orderLeftBtn setTitle:@"更多" forState:UIControlStateNormal];
+        [_orderLeftBtn setTitleColor:color_1 forState:UIControlStateNormal];
         _orderCentreBtn.layer.borderColor = color_3.CGColor;
         [_orderCentreBtn setTitle:@"申请售后" forState:UIControlStateNormal];
         [_orderCentreBtn setTitleColor:color_1 forState:UIControlStateNormal];
         _orderRightBtn.layer.borderColor = color_3.CGColor;
         _orderRightBtn.backgroundColor = [UIColor whiteColor];
-        [_orderRightBtn setTitle:@"再次购买" forState:UIControlStateNormal];
+        [_orderRightBtn setTitle:@"评价" forState:UIControlStateNormal];
         [_orderRightBtn setTitleColor:color_1 forState:UIControlStateNormal];
     }
     
@@ -296,7 +302,7 @@
 
 -(void)orderTouch:(UIButton *)sender{
     if (sender.tag == 100) {
-        self.orderLeftBlock();
+        self.orderLeftBlock(sender);
     }else if (sender.tag == 101) {
         self.orderCentreBlock();
     }else{

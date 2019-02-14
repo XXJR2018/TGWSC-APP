@@ -15,6 +15,7 @@
 #import "OrderListViewCell.h"
 #import "RefundRequstFrist.h"
 #import "RefundInfoVC.h"
+#import "YCMenuView.h"
 
 #define orderCellHeight  100
 
@@ -232,8 +233,8 @@
         cell = [[OrderListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.orderLeftBlock = ^{
-        [self orderLeftTouch:self.dataArray[indexPath.row]];
+    cell.orderLeftBlock = ^(UIButton *sender){
+        [self orderLeftTouch:self.dataArray[indexPath.row] leftBtn:sender];
     };
     cell.orderCentreBlock = ^{
         [self orderCentreTouch:self.dataArray[indexPath.row]];
@@ -265,19 +266,34 @@
 }
 
 #pragma mark--订单列表按钮点击事件
--(void)orderLeftTouch:(NSDictionary *)dic{
+-(void)orderLeftTouch:(NSDictionary *)dic leftBtn:(UIButton *)sender{
     //    状态（//0-待付款 1-交易成功 2-交易失败 3-卖家确认(待发货) 4-卖家审核失败 5-已发货  6-确认收货 7-交易关闭  8-退款成功  ）
     NSInteger status = [[dic objectForKey:@"status"] intValue];
     NSLog(@"status == %ld",status);
-    _orderNo  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:@"\n确定要删除订单?\n\n" preferredStyle:UIAlertControllerStyleAlert];
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-    }]];
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        //删除订单
-        [self deleteOrderUrl:self.orderNo];
-    }]];
-    [self presentViewController:actionSheet animated:YES completion:nil];
+    if (status != 6) {
+        _orderNo  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
+        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:@"\n确定要删除订单?\n\n" preferredStyle:UIAlertControllerStyleAlert];
+        [actionSheet addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        }]];
+        [actionSheet addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //删除订单
+            [self deleteOrderUrl:self.orderNo];
+        }]];
+        [self presentViewController:actionSheet animated:YES completion:nil];
+    }else{
+        //更多
+        YCMenuAction *action1 = [YCMenuAction actionWithTitle:@"申请开票" image:nil handler:^(YCMenuAction *action) {
+            NSLog(@"点击了%@",action.title);
+        }];
+        YCMenuAction *action2 = [YCMenuAction actionWithTitle:@"删除订单" image:nil handler:^(YCMenuAction *action) {
+            NSLog(@"点击了%@",action.title);
+        }];
+        
+        YCMenuView *view = [YCMenuView menuWithActions:@[action1,action2] width:140 relyonView:sender];
+        view.maxDisplayCount = 10;
+        
+        [view show];
+    }
     
 }
 
@@ -320,7 +336,7 @@
         VC.dicParams = [[NSDictionary alloc] init];
         VC.dicParams = dic;
         [self.navigationController pushViewController:VC animated:YES];
-    }else if (status == 4 || status == 6 || status == 7) {
+    }else if (status == 4 || status == 7) {
         //再次购买
         [self againShopUrl:_orderNo];
     }else if (status == 5) {
@@ -332,6 +348,10 @@
             [self confirmGoodsUrl:self.orderNo];
         }]];
         [self presentViewController:actionSheet animated:YES completion:nil];
+    }else if (status == 6) {
+        //评价
+        
+        
     }else if (status == 8) {
         //退款详情
         RefundInfoVC *VC = [[RefundInfoVC alloc] init];

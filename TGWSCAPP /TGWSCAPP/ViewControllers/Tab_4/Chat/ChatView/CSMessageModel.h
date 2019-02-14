@@ -9,6 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+//原代码地址   https://github.com/huangzhibiao/BGFMDB
+#import "BGFMDB.h" //添加该头文件,本类就具有了存储功能.
+
+
+extern NSString  *bg_chat_tablename;  // 数据库中的表名
+
+@class CSMessageModel;
+
 /*
  消息类型
  */

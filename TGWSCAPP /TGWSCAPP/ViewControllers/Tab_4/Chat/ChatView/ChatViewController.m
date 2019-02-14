@@ -16,6 +16,9 @@
 #import "EmojiView.h"
 #import "CSRecord.h"
 
+
+
+
 #define ScreenWidth  [UIScreen mainScreen].bounds.size.width
 #define ScreenHight [UIScreen mainScreen].bounds.size.height
 
@@ -29,7 +32,7 @@
 @property (nonatomic, strong) EmojiView *ev;
 @property (nonatomic, strong) UIImage *photoImage;
 @property (nonatomic, strong) NSIndexPath *selectIndex;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableBottomConstraint;
+
 
 @end
 
@@ -42,12 +45,15 @@
     
     _dataArray = [NSMutableArray arrayWithCapacity:0];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, SCREEN_HEIGHT-NavHeight - 180)   style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, SCREEN_HEIGHT-NavHeight - 44)   style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
     _tableView.backgroundColor = [[UIColor alloc] initWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     
+
+
+    [self getDBData];
     
     
     
@@ -60,6 +66,12 @@
     [self.view addSubview:_ev];
     
     
+    /**
+     想测试更多数据库功能,打开注释掉的代码即可.
+     */
+    bg_setDebug(YES);//打开调试模式,打印输出调试信息.
+    
+    
     CSMessageModel *model = [[CSMessageModel alloc] init];
     model.showMessageTime=YES;
     model.messageTime = @"2017年12月12日 16:37";
@@ -67,6 +79,16 @@
     model.messageType = MessageTypeText;
     model.messageText = @"推开窗看见星星依然守在夜空中心中不免多了些暖暖的感动一闪一闪的光努力把黑夜变亮气氛如此安详你在我的生命中是那最闪亮的星一直在无声夜空守护着我们的梦这世界那么大 我的爱只想要你懂 陪伴我孤寂旅程你知道我的梦 你知道我的痛你知道我们感受都相同    就算有再大的风也挡不住勇敢的冲动    努力的往前飞 再累也无所谓    黑夜过后的光芒有多美    分享你我的力量就能把对方的路照亮    我想我们都一样    渴望梦想的光芒    这一路喜悦彷徨    不要轻易说失望    回到最初时光    当时的你多么坚强    那鼓励让我难忘";
     [_dataArray addObject:model];
+    
+
+    /**
+     存储.
+     */
+    [model bg_save];
+    
+    
+    
+    
     
     model = [[CSMessageModel alloc] init];
     model.showMessageTime=YES;
@@ -229,7 +251,11 @@
     NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardRect = [aValue CGRectValue];
     int height = keyboardRect.size.height;
-    _tableBottomConstraint.constant = 44 + height;
+
+    // 调整_tableView的高度
+    _tableView.height = SCREEN_HEIGHT - 44 - NavHeight - height ;
+    [self tabeleViewScorllEnd];
+    
     UIView *vi = [self.view viewWithTag:100];
     CGRect rec = vi.frame ;
     rec.origin.y = _nowHeight - height;
@@ -238,7 +264,11 @@
 - (void)keyboardWillHide:(NSNotification *)aNotification
 {
     _ev.hidden = YES;
-    _tableBottomConstraint.constant = 44;
+
+    // 调整_tableView的高度
+    _tableView.height = SCREEN_HEIGHT - 44 - NavHeight;
+    [self tabeleViewScorllEnd];
+    
     UIView *vi = [self.view viewWithTag:100];
     vi.frame = CGRectMake(0, _nowHeight, [UIScreen mainScreen].bounds.size.width, 44);
 }
@@ -248,7 +278,7 @@
     UIView *vi = [self.view viewWithTag:100];
     if (!vi)
     {
-        _nowHeight =  _tableView.frame.size.height;
+       _nowHeight =  SCREEN_HEIGHT- 44; //_tableView.frame.size.height;
         [self bottomView];
     }
     
@@ -285,7 +315,10 @@
     if (_ev.hidden == NO)
     {
         _ev.hidden = YES;
-        _tableBottomConstraint.constant = 44;
+        // 调整tableView的高度
+        _tableView.height = SCREEN_HEIGHT - 44 - NavHeight;
+       [self tabeleViewScorllEnd];
+       
         UIView *vi = [self.view viewWithTag:100];
         vi.frame = CGRectMake(0, _nowHeight, [UIScreen mainScreen].bounds.size.width, 44);
     }
@@ -330,7 +363,7 @@
 -(void)bottomView
 {
     UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, _nowHeight, [UIScreen mainScreen].bounds.size.width, 44)];
-    bgView.tag = 100;
+    bgView.tag = 100;  // 底部view的 tag
     bgView.backgroundColor = [[UIColor alloc] initWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1];
     bgView.layer.masksToBounds = YES;
     bgView.layer.borderColor = [[UIColor alloc] initWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1].CGColor;
@@ -395,6 +428,18 @@
     
     return YES;
 }
+
+// 把tableView 滚动到底部
+-(void) tabeleViewScorllEnd
+{
+//    if (_dataArray.count > 1)
+//     {
+//        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_dataArray.count - 1 inSection:0]
+//                                animated:YES
+//                          scrollPosition:UITableViewScrollPositionMiddle];
+//     }
+}
+
 static int iiii = 0;
 - (void)touchDown:(UIButton *)btn
 {
@@ -415,7 +460,10 @@ static int iiii = 0;
 {
     [self.view endEditing:YES];
     _ev.hidden = YES;
-    _tableBottomConstraint.constant = 44;
+    //调整tableView的高度
+    _tableView.height = SCREEN_HEIGHT - 44 - NavHeight;
+    [self tabeleViewScorllEnd];
+    
     UIView *vi = [self.view viewWithTag:100];
     vi.frame = CGRectMake(0, _nowHeight, [UIScreen mainScreen].bounds.size.width, 44);
     switch (btn.tag)
@@ -428,7 +476,11 @@ static int iiii = 0;
         {
             
             _ev.hidden = NO;
-            _tableBottomConstraint.constant = 44 + 180;
+        
+           // 调整_tableView的高度
+           _tableView.height = SCREEN_HEIGHT - 44 - NavHeight - 180;
+           [self tabeleViewScorllEnd];
+           
             UIView *vi = [self.view viewWithTag:100];
             CGRect rec = vi.frame ;
             rec.origin.y = _nowHeight - 180;
@@ -517,11 +569,11 @@ static int iiii = 0;
      {
         UIImage * image =info[UIImagePickerControllerOriginalImage];
         CSMessageModel * model = [[CSMessageModel alloc] init];
-         model.showMessageTime=YES;
+         //model.showMessageTime=YES;
          model.messageSenderType = MessageSenderTypeOther;
          model.messageType = MessageTypeImage;
          model.imageSmall = image;
-         model.messageTime = @"16:40";
+         //model.messageTime = @"16:40";
          [_dataArray addObject:model];
          
          [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
@@ -535,11 +587,11 @@ static int iiii = 0;
     {
         UIImage * image =info[UIImagePickerControllerOriginalImage];
         CSMessageModel * model = [[CSMessageModel alloc] init];
-        model.showMessageTime=YES;
+        //model.showMessageTime=YES;
         model.messageSenderType = MessageSenderTypeOther;
         model.messageType = MessageTypeImage;
         model.imageSmall = image;
-        model.messageTime = @"16:40";
+        //model.messageTime = @"16:40";
         [_dataArray addObject:model];
         
         [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
@@ -561,6 +613,39 @@ static int iiii = 0;
     tv.text = [tv.text stringByAppendingString:strEmoji];
     
 }
+
+
+
+#pragma mark - 数据库操作
+-(void) initDB
+{
+    
+}
+
+-(void) getDBData
+{
+    /**
+     当数据量巨大时采用分页范围查询.
+     */
+    NSInteger count = [CSMessageModel bg_count:bg_chat_tablename where:nil];
+    for(int i=1;i<=count;i+=50){
+        NSArray* arr = [CSMessageModel bg_find:bg_chat_tablename range:NSMakeRange(i,50) orderBy:nil desc:NO];
+        for(CSMessageModel* pp in arr){
+            //具体数据请断点查看
+            //库新增两个自带字段createTime和updateTime方便开发者使用和做参考对比.
+            NSLog(@"主键 = %@, 表名 = %@, 创建时间 = %@, 更新时间 = %@",pp.bg_id,pp.bg_tableName,pp.bg_createTime,pp.bg_updateTime);
+        }
+        
+        //顺便取第一个对象数据测试
+        if(i==1){
+            CSMessageModel* lastP = arr.lastObject;
+            //_showImage.image = lastP.image;
+            //_showLab.attributedText = lastP.attriStr;
+        }
+    }
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

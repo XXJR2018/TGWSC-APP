@@ -417,6 +417,7 @@ static NSString *const menuCellID = @"YCMenuCell";
     YCMenuAction *action = _actions[indexPath.row];
     cell.backgroundColor = [UIColor clearColor];
     cell.textLabel.font = _textFont;
+    cell.textLabel.textAlignment = NSTextAlignmentCenter;
     cell.textLabel.textColor = _textColor;
     cell.textLabel.text = action.title;
     cell.separatorColor = _separatorColor;
@@ -428,6 +429,10 @@ static NSString *const menuCellID = @"YCMenuCell";
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //去除点击cell阴影
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (_dismissOnselected) [self dismiss];
     YCMenuAction *action = _actions[indexPath.row];

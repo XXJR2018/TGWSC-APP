@@ -10,6 +10,7 @@
 
 #import "LogisticsViewController.h"
 #import "OrderDetailsViewController.h"
+#import "AppraiseViewController.h"
 
 #import "SelPayVC.h"
 #import "OrderListViewCell.h"
@@ -21,6 +22,7 @@
 
 @interface OrderListViewController ()
 {
+    UIView *_headerView;
     NSString *_closeRemark;     //取消订单理由
     UIButton *_closeOrderBtn;
     NSMutableArray *_closeOrderBtnArr;
@@ -128,9 +130,15 @@
     
     if (operation.tag == 1000) {
         if (operation.jsonResult.rows.count > 0) {
+            [_tableView setTableHeaderView:[UIView new]];
+            if ([self.orderStatus isEqualToString:@"6"]) {
+                [_tableView setTableHeaderView:_headerView];
+            }
+            
             [self reloadTableViewWithArray:operation.jsonResult.rows];
         }else{
             if (self.pageIndex == 1) {
+                 [_tableView setTableHeaderView:[UIView new]];
                 [self.dataArray removeAllObjects];
                 [_tableView reloadData];
             }else{
@@ -195,6 +203,20 @@
     UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)];
     [self.view addSubview:viewX];
     viewX.backgroundColor = [ResourceManager color_5];
+    
+    _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
+    _headerView.backgroundColor = UIColorFromRGB(0xF9EBE1);
+    
+    UIImageView *LWImgView = [[UIImageView alloc]initWithFrame:CGRectMake(10, (40 - 15)/2, 15, 15)];
+    [_headerView addSubview:LWImgView];
+    LWImgView.image = [UIImage imageNamed:@"Tab_4-40"];
+    
+    UILabel *LWLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(LWImgView.frame) + 5, 0, 300, 40)];
+    [_headerView addSubview:LWLabel];
+    LWLabel.font = [UIFont systemFontOfSize:13];
+    LWLabel.textColor = UIColorFromRGB(0xCC5F40);
+    LWLabel.text = @"评价送积分，多评多得不限次数~~";
+    
 }
 
 - (CGRect)tableViewFrame{
@@ -283,16 +305,23 @@
     }else{
         //更多
         YCMenuAction *action1 = [YCMenuAction actionWithTitle:@"申请开票" image:nil handler:^(YCMenuAction *action) {
-            NSLog(@"点击了%@",action.title);
+             //申请开票
+            
         }];
         YCMenuAction *action2 = [YCMenuAction actionWithTitle:@"删除订单" image:nil handler:^(YCMenuAction *action) {
-            NSLog(@"点击了%@",action.title);
+            //删除订单
+            [self deleteOrderUrl:self.orderNo];
         }];
         
-        YCMenuView *view = [YCMenuView menuWithActions:@[action1,action2] width:140 relyonView:sender];
-        view.maxDisplayCount = 10;
-        
-        [view show];
+        YCMenuView *YCView = [YCMenuView menuWithActions:@[action1,action2] width:100 relyonView:sender];
+        YCView.maxDisplayCount = 2;
+        YCView.cornerRaius = 0;
+        YCView.menuCellHeight = 40;
+        YCView.separatorColor = [UIColor colorWithWhite:1 alpha:0.2];
+        YCView.menuColor = [UIColor colorWithWhite:0 alpha:0.7];
+        YCView.textFont = [UIFont systemFontOfSize:14];
+        YCView.textColor = [UIColor whiteColor];
+        [YCView show];
     }
     
 }
@@ -350,8 +379,9 @@
         [self presentViewController:actionSheet animated:YES completion:nil];
     }else if (status == 6) {
         //评价
-        
-        
+        AppraiseViewController *ctl = [[AppraiseViewController alloc]init];
+        ctl.dataArray = [dic objectForKey:@"orderDtlList"];
+        [self.navigationController pushViewController:ctl animated:YES];
     }else if (status == 8) {
         //退款详情
         RefundInfoVC *VC = [[RefundInfoVC alloc] init];

@@ -127,7 +127,6 @@
 		C245272D21E4859800CA4196 /* LogisticsDescViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C245272C21E4859800CA4196 /* LogisticsDescViewController.m */; };
 		C246D75C21CB9CE50054D7A0 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */; };
 		C24975C92213C56300949662 /* AppraiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C24975C82213C56300949662 /* AppraiseViewController.m */; };
-		C24975CC2213CABC00949662 /* AppraiseViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C24975CB2213CABC00949662 /* AppraiseViewCell.m */; };
 		C24975D02214221200949662 /* YCMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = C24975CF2214221100949662 /* YCMenuView.m */; };
 		C250435521BA51FC00DA9C72 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C250435421BA51FC00DA9C72 /* AppDelegate.mm */; };
 		C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C250435921BA51FC00DA9C72 /* Main.storyboard */; };
@@ -165,7 +164,6 @@
 		C250460221BA711E00DA9C72 /* CustomNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045B821BA711E00DA9C72 /* CustomNavigationBarView.m */; };
 		C250460321BA711E00DA9C72 /* XXJRLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045BC21BA711E00DA9C72 /* XXJRLineChartView.m */; };
 		C250460421BA711E00DA9C72 /* TTRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045BE21BA711E00DA9C72 /* TTRangeSlider.m */; };
-		C250460521BA711E00DA9C72 /* DisplayStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045C021BA711E00DA9C72 /* DisplayStarView.m */; };
 		C250460621BA711E00DA9C72 /* SGQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C25045C421BA711E00DA9C72 /* SGQRCode.bundle */; };
 		C250460721BA711E00DA9C72 /* SGQRCodeObtainConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045C521BA711E00DA9C72 /* SGQRCodeObtainConfigure.m */; };
 		C250460821BA711E00DA9C72 /* SGQRCodeObtain.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045C921BA711E00DA9C72 /* SGQRCodeObtain.m */; };
@@ -282,6 +280,12 @@
 		C29ABBF121D4776A00428407 /* AddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C29ABBEF21D4776A00428407 /* AddAddressViewController.m */; };
 		C29ABBF221D4776A00428407 /* AddAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C29ABBF021D4776A00428407 /* AddAddressViewController.xib */; };
 		C2A08F6A21BF4563005753F6 /* TabBarSelectButtn.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A08F6921BF4563005753F6 /* TabBarSelectButtn.m */; };
+		C2A7000422153B2400AB277C /* AppraiseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A7000322153B2400AB277C /* AppraiseListViewController.m */; };
+		C2A7000822153BB000AB277C /* AppraiseListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A7000622153BB000AB277C /* AppraiseListCell.m */; };
+		C2A7000D22153BF400AB277C /* AppraiseViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A7000B22153BF400AB277C /* AppraiseViewCell.m */; };
+		C2A7000E22153BF400AB277C /* AppraiseViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A7000C22153BF400AB277C /* AppraiseViewCell.xib */; };
+		C2A70011221558E400AB277C /* IssueAppraiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A70010221558E400AB277C /* IssueAppraiseViewController.m */; };
+		C2A7001522155E0100AB277C /* XHStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A7001422155E0100AB277C /* XHStarRateView.m */; };
 		C2A71B8521BE53F9007D849F /* DDGUserInfoEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A71B8421BE53F9007D849F /* DDGUserInfoEngine.m */; };
 		C2A71BBF21BE5FB6007D849F /* NSObject+Property.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A71BBE21BE5FB6007D849F /* NSObject+Property.m */; };
 		C2AAF66421E71B8400D9F505 /* OrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AAF66321E71B8400D9F505 /* OrderDetailsViewController.m */; };
@@ -557,8 +561,6 @@
 		C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductListViewController.m; sourceTree = "<group>"; };
 		C24975C72213C56300949662 /* AppraiseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseViewController.h; sourceTree = "<group>"; };
 		C24975C82213C56300949662 /* AppraiseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseViewController.m; sourceTree = "<group>"; };
-		C24975CA2213CABC00949662 /* AppraiseViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseViewCell.h; sourceTree = "<group>"; };
-		C24975CB2213CABC00949662 /* AppraiseViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseViewCell.m; sourceTree = "<group>"; };
 		C24975CE2214221100949662 /* YCMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCMenuView.h; sourceTree = "<group>"; };
 		C24975CF2214221100949662 /* YCMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCMenuView.m; sourceTree = "<group>"; };
 		C250435021BA51FC00DA9C72 /* TGWSCAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGWSCAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -628,10 +630,8 @@
 		C25045B921BA711E00DA9C72 /* CustomNavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationBarView.h; sourceTree = "<group>"; };
 		C25045BB21BA711E00DA9C72 /* TTRangeSliderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTRangeSliderDelegate.h; sourceTree = "<group>"; };
 		C25045BC21BA711E00DA9C72 /* XXJRLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXJRLineChartView.m; sourceTree = "<group>"; };
-		C25045BD21BA711E00DA9C72 /* DisplayStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayStarView.h; sourceTree = "<group>"; };
 		C25045BE21BA711E00DA9C72 /* TTRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTRangeSlider.m; sourceTree = "<group>"; };
 		C25045BF21BA711E00DA9C72 /* XXJRLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXJRLineChartView.h; sourceTree = "<group>"; };
-		C25045C021BA711E00DA9C72 /* DisplayStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayStarView.m; sourceTree = "<group>"; };
 		C25045C121BA711E00DA9C72 /* TTRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTRangeSlider.h; sourceTree = "<group>"; };
 		C25045C321BA711E00DA9C72 /* SGQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCode.h; sourceTree = "<group>"; };
 		C25045C421BA711E00DA9C72 /* SGQRCode.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SGQRCode.bundle; sourceTree = "<group>"; };
@@ -855,6 +855,17 @@
 		C29ABBF021D4776A00428407 /* AddAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAddressViewController.xib; sourceTree = "<group>"; };
 		C2A08F6821BF4563005753F6 /* TabBarSelectButtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarSelectButtn.h; sourceTree = "<group>"; };
 		C2A08F6921BF4563005753F6 /* TabBarSelectButtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarSelectButtn.m; sourceTree = "<group>"; };
+		C2A7000222153B2400AB277C /* AppraiseListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseListViewController.h; sourceTree = "<group>"; };
+		C2A7000322153B2400AB277C /* AppraiseListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseListViewController.m; sourceTree = "<group>"; };
+		C2A7000522153BB000AB277C /* AppraiseListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseListCell.h; sourceTree = "<group>"; };
+		C2A7000622153BB000AB277C /* AppraiseListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseListCell.m; sourceTree = "<group>"; };
+		C2A7000A22153BF400AB277C /* AppraiseViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseViewCell.h; sourceTree = "<group>"; };
+		C2A7000B22153BF400AB277C /* AppraiseViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseViewCell.m; sourceTree = "<group>"; };
+		C2A7000C22153BF400AB277C /* AppraiseViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppraiseViewCell.xib; sourceTree = "<group>"; };
+		C2A7000F221558E400AB277C /* IssueAppraiseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueAppraiseViewController.h; sourceTree = "<group>"; };
+		C2A70010221558E400AB277C /* IssueAppraiseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueAppraiseViewController.m; sourceTree = "<group>"; };
+		C2A7001322155E0100AB277C /* XHStarRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHStarRateView.h; sourceTree = "<group>"; };
+		C2A7001422155E0100AB277C /* XHStarRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHStarRateView.m; sourceTree = "<group>"; };
 		C2A71B8321BE53F9007D849F /* DDGUserInfoEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDGUserInfoEngine.h; sourceTree = "<group>"; };
 		C2A71B8421BE53F9007D849F /* DDGUserInfoEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDGUserInfoEngine.m; sourceTree = "<group>"; };
 		C2A71BBD21BE5FB6007D849F /* NSObject+Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Property.h"; sourceTree = "<group>"; };
@@ -1663,10 +1674,17 @@
 		C24975C62213C55100949662 /* Appraise */ = {
 			isa = PBXGroup;
 			children = (
+				C2A7000222153B2400AB277C /* AppraiseListViewController.h */,
+				C2A7000322153B2400AB277C /* AppraiseListViewController.m */,
 				C24975C72213C56300949662 /* AppraiseViewController.h */,
 				C24975C82213C56300949662 /* AppraiseViewController.m */,
-				C24975CA2213CABC00949662 /* AppraiseViewCell.h */,
-				C24975CB2213CABC00949662 /* AppraiseViewCell.m */,
+				C2A7000F221558E400AB277C /* IssueAppraiseViewController.h */,
+				C2A70010221558E400AB277C /* IssueAppraiseViewController.m */,
+				C2A7000522153BB000AB277C /* AppraiseListCell.h */,
+				C2A7000622153BB000AB277C /* AppraiseListCell.m */,
+				C2A7000A22153BF400AB277C /* AppraiseViewCell.h */,
+				C2A7000B22153BF400AB277C /* AppraiseViewCell.m */,
+				C2A7000C22153BF400AB277C /* AppraiseViewCell.xib */,
 			);
 			path = Appraise;
 			sourceTree = "<group>";
@@ -1867,6 +1885,7 @@
 		C250459F21BA711E00DA9C72 /* CommonView */ = {
 			isa = PBXGroup;
 			children = (
+				C2A7001222155E0100AB277C /* XHStarRateView */,
 				C24975CD2214221100949662 /* YCMenuViewCompont */,
 				C0A48B4221DE3397002AF226 /* CDWAlertView */,
 				C244951921CCC6E100F8698B /* PageView */,
@@ -1959,8 +1978,6 @@
 				C25045BB21BA711E00DA9C72 /* TTRangeSliderDelegate.h */,
 				C25045BF21BA711E00DA9C72 /* XXJRLineChartView.h */,
 				C25045BC21BA711E00DA9C72 /* XXJRLineChartView.m */,
-				C25045BD21BA711E00DA9C72 /* DisplayStarView.h */,
-				C25045C021BA711E00DA9C72 /* DisplayStarView.m */,
 				C25045C121BA711E00DA9C72 /* TTRangeSlider.h */,
 				C25045BE21BA711E00DA9C72 /* TTRangeSlider.m */,
 			);
@@ -2431,6 +2448,15 @@
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
+		C2A7001222155E0100AB277C /* XHStarRateView */ = {
+			isa = PBXGroup;
+			children = (
+				C2A7001322155E0100AB277C /* XHStarRateView.h */,
+				C2A7001422155E0100AB277C /* XHStarRateView.m */,
+			);
+			path = XHStarRateView;
+			sourceTree = "<group>";
+		};
 		C2A71B8621BE558F007D849F /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
@@ -2646,6 +2672,7 @@
 				C250451321BA579100DA9C72 /* CitysViewController.xib in Resources */,
 				C2C149C521F16C3200A1C2F9 /* Images-Default.xcassets in Resources */,
 				C244950821CCB3AC00F8698B /* SortProductCollectionViewCell.xib in Resources */,
+				C2A7000E22153BF400AB277C /* AppraiseViewCell.xib in Resources */,
 				C23EAF4321D32D3000B271A7 /* CouponViewCell.xib in Resources */,
 				C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */,
 				C25047A321BA715500DA9C72 /* blackArrow.png in Resources */,
@@ -2779,6 +2806,7 @@
 				C20525DE21BE6E1D00E13893 /* TabBarViewController.m in Sources */,
 				C244952421CCC6E100F8698B /* LSPContentView.m in Sources */,
 				C250461821BA711E00DA9C72 /* PickerView.m in Sources */,
+				C2A7001522155E0100AB277C /* XHStarRateView.m in Sources */,
 				C0CCC7E821C0F150009352E0 /* LLNaviSearchBaseVC.m in Sources */,
 				C250476321BA715500DA9C72 /* UIViewController+DDGExtras.m in Sources */,
 				C250476721BA715500DA9C72 /* NSDate+Additions.m in Sources */,
@@ -2790,7 +2818,6 @@
 				C222C37A21D2187700DD9797 /* MyBalanceViewController.m in Sources */,
 				C2AEB46321BE3CB00078E788 /* CSAnimation.m in Sources */,
 				C250475E21BA715500DA9C72 /* UIView+DDGExtras.m in Sources */,
-				C24975CC2213CABC00949662 /* AppraiseViewCell.m in Sources */,
 				C25047A221BA715500DA9C72 /* EGORefreshTableHeaderView.m in Sources */,
 				C250476A21BA715500DA9C72 /* NSEnumerator+Additions.m in Sources */,
 				C098D2A821E058EC0008584B /* SelCouponVC.m in Sources */,
@@ -2822,6 +2849,7 @@
 				C20525F221BE6E5C00E13893 /* TabViewController_3.m in Sources */,
 				C0CCC7E721C0F150009352E0 /* NBSSearchShopHistoryView.m in Sources */,
 				C29ABBDB21D4655300428407 /* MyCollectViewController.m in Sources */,
+				C2A7000D22153BF400AB277C /* AppraiseViewCell.m in Sources */,
 				C250480221BA73B800DA9C72 /* AFHTTPRequestOperationManager.m in Sources */,
 				C250461C21BA711E00DA9C72 /* UIBezierPath+BasicShapes.m in Sources */,
 				C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */,
@@ -2862,6 +2890,7 @@
 				C25047B321BA715500DA9C72 /* UIAlertView+AFNetworking.m in Sources */,
 				C2F23AB221D61D9500E5332D /* OrderListViewController.m in Sources */,
 				C250476421BA715500DA9C72 /* UIImage+Additions.m in Sources */,
+				C2A7000822153BB000AB277C /* AppraiseListCell.m in Sources */,
 				C250460121BA711E00DA9C72 /* RefreshTableView.m in Sources */,
 				C2A71BBF21BE5FB6007D849F /* NSObject+Property.m in Sources */,
 				C250476F21BA715500DA9C72 /* NSData+Additions.m in Sources */,
@@ -2924,6 +2953,7 @@
 				C25047DB21BA715500DA9C72 /* BaseController.m in Sources */,
 				C25047C421BA715500DA9C72 /* RsaUtil.m in Sources */,
 				C25047FF21BA73B800DA9C72 /* AFHTTPSessionManager.m in Sources */,
+				C2A70011221558E400AB277C /* IssueAppraiseViewController.m in Sources */,
 				C250475B21BA715500DA9C72 /* DDGJsonParseManager.m in Sources */,
 				C0192E122213EB3300D3E825 /* InvoiceCommitVC.m in Sources */,
 				C25047B721BA715500DA9C72 /* UIImageView+AFNetworking.m in Sources */,
@@ -2939,7 +2969,6 @@
 				C250461921BA711E00DA9C72 /* BaseLineView.m in Sources */,
 				C250480321BA73B800DA9C72 /* AFURLRequestSerialization.m in Sources */,
 				C25047B421BA715500DA9C72 /* UIProgressView+AFNetworking.m in Sources */,
-				C250460521BA711E00DA9C72 /* DisplayStarView.m in Sources */,
 				C098D2B221E0A7480008584B /* PayResultVC.m in Sources */,
 				C250479921BA715500DA9C72 /* DAContextMenuTableViewController.m in Sources */,
 				C0A48B4E21DE3608002AF226 /* RCLabel.m in Sources */,
@@ -2962,6 +2991,7 @@
 				C244952521CCC6E100F8698B /* LSPTitleView.m in Sources */,
 				C0CCC84A21C33E37009352E0 /* SlideModel.m in Sources */,
 				C04B180621E5DC6600DBA0FE /* RefundInfoVC.m in Sources */,
+				C2A7000422153B2400AB277C /* AppraiseListViewController.m in Sources */,
 				C222C38B21D2235700DD9797 /* PhoneCheckViewController.m in Sources */,
 				C250477521BA715500DA9C72 /* RSA.m in Sources */,
 				C0A48B2F21DCA697002AF226 /* UIViewExt.m in Sources */,

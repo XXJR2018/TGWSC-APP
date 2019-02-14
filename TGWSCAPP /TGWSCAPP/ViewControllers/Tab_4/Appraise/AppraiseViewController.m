@@ -7,13 +7,13 @@
 //
 
 #import "AppraiseViewController.h"
+#import "IssueAppraiseViewController.h"
 
 #import "AppraiseViewCell.h"
-@interface AppraiseViewController ()
+
+@interface AppraiseViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
-    UIView *_headerView;
-    UIButton *_dpjBtn;
-    UIButton *_wdpjBtn;
+    UITableView *_tableView;
 }
 @end
 
@@ -22,7 +22,7 @@
 -(void)loadData123{
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[kPage] = @(self.pageIndex);
+    params[@""] = @"";
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/myOrder/allList",[PDAPI getBaseUrlString]]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
@@ -32,26 +32,22 @@
                                                                                       [self handleErrorData:operation];
                                                                                   }];
     [operation start];
-    operation.tag = 1000;
 }
 
 #pragma mark 数据操作
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
-    [_tableView.mj_header endRefreshing];
-    [_tableView.mj_footer endRefreshing];
-    
-    if (operation.tag == 1000) {
-        if (operation.jsonResult.rows.count > 0) {
-            [self reloadTableViewWithArray:operation.jsonResult.rows];
-        }else{
-            if (self.pageIndex > 1) {
-                self.pageIndex --;
-                [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
-            }
-        }
+    if (operation.jsonResult.rows.count > 0) {
+        [self.dataArray removeAllObjects];
+        [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
+        [_tableView reloadData];
     }
     
+}
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
 }
          
 -(void)viewWillAppear:(BOOL)animated{
@@ -69,93 +65,46 @@
     
     [self layoutNaviBarViewWithTitle:@"评价"];
     
-    _tableView.backgroundColor = [UIColor whiteColor];
-    [_tableView setTableFooterView:[UIView new]];
-    [_tableView registerClass:[AppraiseViewCell class] forCellReuseIdentifier:@"Appraise_cell"];
-    [_tableView setSeparatorInset:UIEdgeInsetsMake(0, -20, 0, 0)];
-    [_tableView setSeparatorColor:[UIColor clearColor]];
-    
     [self layoutUI];
 }
 
 -(void)layoutUI{
-    _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
-    _headerView.backgroundColor = [UIColor whiteColor];
-    [_tableView setTableHeaderView:_headerView];
     
-    _dpjBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/2, 50)];
-    [_headerView addSubview:_dpjBtn];
-    _dpjBtn.tag = 100;
-    _dpjBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [_dpjBtn setTitle:@"待评价" forState:UIControlStateNormal];
-    [_dpjBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
-    [_dpjBtn setTitleColor:[ResourceManager mainColor] forState:UIControlStateSelected];
-    [_dpjBtn addTarget:self action:@selector(appraise:) forControlEvents:UIControlEventTouchUpInside];
-    _dpjBtn.selected = YES;
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavHeight)];
+    [self.view addSubview:_tableView];
+    _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [_tableView setTableFooterView:[UIView new]];
+    [_tableView registerNib:[UINib nibWithNibName:@"AppraiseViewCell" bundle:nil] forCellReuseIdentifier:@"Appraise_cell"];
+    [_tableView setSeparatorInset:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [_tableView setSeparatorColor:[ResourceManager color_5]];
     
-    _wdpjBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2, 0, SCREEN_WIDTH/2, 50)];
-    [_headerView addSubview:_wdpjBtn];
-    _wdpjBtn.tag = 101;
-    _wdpjBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [_wdpjBtn setTitle:@"我的评价" forState:UIControlStateNormal];
-    [_wdpjBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
-    [_wdpjBtn setTitleColor:[ResourceManager mainColor] forState:UIControlStateSelected];
-    [_wdpjBtn addTarget:self action:@selector(appraise:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 50 - 0.5, SCREEN_WIDTH, 0.5)];
-    [_headerView addSubview:lineView];
-    lineView.backgroundColor = [ResourceManager color_5];
-    
-}
-
--(void)appraise:(UIButton *)sender{
-    if (sender.selected) {
-        return;
-    }
-    if (sender.tag == 100) {
-        _dpjBtn.selected = YES;
-        _wdpjBtn.selected = NO;
-    }else{
-        _dpjBtn.selected = NO;
-        _wdpjBtn.selected = YES;
-    }
 }
 
 #pragma mark === UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (self.dataArray.count == 0) {
-        return 1;
-    }else{
-        return self.dataArray.count;
-    }
+    return self.dataArray.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.dataArray.count == 0) {
-        return tableView.frame.size.height;
-    }else{
-//        NSDictionary *dic = self.dataArray[indexPath.row];
-//        NSArray *orderDtlListArr = [dic objectForKey:@"orderDtlList"];
-//        if ([[dic objectForKey:@"freightAmt"] intValue] > 0) {
-//            return orderCellHeight * orderDtlListArr.count + 155;
-//        }
-//        return orderCellHeight * orderDtlListArr.count + 135;
-        return 200;
-    }
+    return 120;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.dataArray.count == 0) {
-        return  [self noDataCell:tableView];
-    }
-    NSString *cellID = [NSString stringWithFormat:@"%ld_Appraise_cell",indexPath.row];
-    AppraiseViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    AppraiseViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Appraise_cell"];
     if (!cell) {
-        cell = [[AppraiseViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell = [[AppraiseViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Appraise_cell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-   
-//    cell.dataDicionary = self.dataArray[indexPath.row];
+    NSDictionary *dic = self.dataArray[indexPath.row];
+    cell.appraiseBlock = ^{
+        IssueAppraiseViewController *ctl = [[IssueAppraiseViewController alloc]init];
+        ctl.goodsUrl = [dic objectForKey:@"goodsUrl"];
+        [self.navigationController pushViewController:ctl animated:YES];
+    };
+    
+    cell.dataDicionary = dic;
     return cell;
 }
 
@@ -163,11 +112,8 @@
     //（这种是没有点击后的阴影效果)
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    if (self.dataArray.count == 0) {
-        return;
-    }
    
-    
+   
 }
 
 /*

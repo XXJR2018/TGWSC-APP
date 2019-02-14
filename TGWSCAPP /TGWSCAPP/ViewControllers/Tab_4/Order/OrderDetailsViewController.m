@@ -11,9 +11,11 @@
 #import "LogisticsViewController.h"
 #import "LogisticsDescViewController.h"
 #import "AddressViewController.h"
+#import "AppraiseViewController.h"
 #import "SelPayVC.h"
 #import "RefundRequstFrist.h"
 #import "RefundInfoVC.h"
+#import "YCMenuView.h"
 
 @interface OrderDetailsViewController ()
 {
@@ -24,8 +26,6 @@
     NSInteger _status;
     
     UIButton *_agreeTreatyBtn;
-    UIImageView *_moreImgView;
-    UIButton *_moreAleartBtn;
     
     NSString *_closeRemark;     //取消订单理由
     UIButton *_closeOrderBtn;
@@ -807,19 +807,6 @@
     [_moreBtn setTitleColor:color_1 forState:UIControlStateNormal];
     [_moreBtn addTarget:self action:@selector(orderTouch:) forControlEvents:UIControlEventTouchUpInside];
     
-    _moreImgView = [[UIImageView alloc]initWithFrame:CGRectMake(10, CGRectGetMinY(orderBtnView.frame)  - 50, 86, 56)];
-    [_scView addSubview:_moreImgView];
-    _moreImgView.image = [UIImage imageNamed:@"Tab_4-33"];
-    _moreImgView.userInteractionEnabled = YES;
-    
-    _moreAleartBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 86, 50)];
-    [_moreImgView addSubview:_moreAleartBtn];
-    _moreAleartBtn.tag = 104;
-    _moreAleartBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [_moreAleartBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_moreAleartBtn addTarget:self action:@selector(orderTouch:) forControlEvents:UIControlEventTouchUpInside];
-    
-    _moreImgView.hidden = YES;
     _orderLeftBtn.hidden = YES;
     _orderCentreBtn.hidden = YES;
     _orderRightBtn.hidden = YES;
@@ -882,7 +869,7 @@
         _moreBtn.hidden = NO;
         [_orderLeftBtn setTitle:@"联系客服" forState:UIControlStateNormal];
         [_orderCentreBtn setTitle:@"申请售后" forState:UIControlStateNormal];
-        [_orderRightBtn setTitle:@"查看物流" forState:UIControlStateNormal];
+        [_orderRightBtn setTitle:@"评价" forState:UIControlStateNormal];
     }
     
     if (_status == 8) {
@@ -992,34 +979,48 @@
                 }]];
                 [self presentViewController:actionSheet animated:YES completion:nil];
             }else if (_status == 6) {
-                //查看物流
-                LogisticsViewController *ctl = [[LogisticsViewController alloc]init];
-                ctl.orderNo = self.orderNo;
+                //评价
+                AppraiseViewController *ctl = [[AppraiseViewController alloc]init];
+                ctl.dataArray = self.dataArray;
                 [self.navigationController pushViewController:ctl animated:YES];
             }
         }break;
         case 103:{
-            _moreBtn.selected = !_moreBtn.selected;
-            if (_moreBtn.selected) {
-                _moreImgView.hidden = NO;
-                //更多
-                if (_status == 5) {
-                    [_moreAleartBtn setTitle:@"联系客服" forState:UIControlStateNormal];
-                }else  if (_status == 6) {
-                    [_moreAleartBtn setTitle:@"删除订单" forState:UIControlStateNormal];
-                }
-            }else{
-                _moreImgView.hidden = YES;
-            }
-        }break;
-        case 104:{
             if (_status == 5) {
-                //联系客服
-                NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",[[CommonInfo userInfo] objectForKey:@"kfTel"]];
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
+                YCMenuAction *action1 = [YCMenuAction actionWithTitle:@"联系客服" image:nil handler:^(YCMenuAction *action) {
+                    //联系客服
+                    NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",[[CommonInfo userInfo] objectForKey:@"kfTel"]];
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
+                }];
+
+                YCMenuView *YCView = [YCMenuView menuWithActions:@[action1] width:100 relyonView:sender];
+                YCView.maxDisplayCount = 2;
+                YCView.cornerRaius = 0;
+                YCView.menuCellHeight = 40;
+                YCView.separatorColor = [UIColor colorWithWhite:1 alpha:0.2];
+                YCView.menuColor = [UIColor colorWithWhite:0 alpha:0.7];
+                YCView.textFont = [UIFont systemFontOfSize:14];
+                YCView.textColor = [UIColor whiteColor];
+                [YCView show];
             }else  if (_status == 6) {
-                //删除订单
-                [self deleteOrderUrl:_orderNo];
+                YCMenuAction *action1 = [YCMenuAction actionWithTitle:@"申请开票" image:nil handler:^(YCMenuAction *action) {
+                    //申请开票
+                    
+                }];
+                YCMenuAction *action2 = [YCMenuAction actionWithTitle:@"删除订单" image:nil handler:^(YCMenuAction *action) {
+                    //删除订单
+                    [self deleteOrderUrl:self.orderNo];
+                }];
+                
+                YCMenuView *YCView = [YCMenuView menuWithActions:@[action1,action2] width:100 relyonView:sender];
+                YCView.maxDisplayCount = 2;
+                YCView.cornerRaius = 0;
+                YCView.menuCellHeight = 40;
+                YCView.separatorColor = [UIColor colorWithWhite:1 alpha:0.2];
+                YCView.menuColor = [UIColor colorWithWhite:0 alpha:0.7];
+                YCView.textFont = [UIFont systemFontOfSize:14];
+                YCView.textColor = [UIColor whiteColor];
+                [YCView show];
             }
         }break;
         default:

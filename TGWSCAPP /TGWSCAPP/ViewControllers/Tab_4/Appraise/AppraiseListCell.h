@@ -1,5 +1,5 @@
 //
-//  AppraiseViewCell.h
+//  AppraiseListCell.h
 //  TGWSCAPP
 //
 //  Created by xxjr03 on 2019/2/14.
@@ -10,11 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AppraiseViewCell : UITableViewCell
+@interface AppraiseListCell : UITableViewCell
 
 @property (nonatomic,strong) NSDictionary *dataDicionary;
-
-@property(nonatomic, copy) Block_Void appraiseBlock;
 
 @end
 

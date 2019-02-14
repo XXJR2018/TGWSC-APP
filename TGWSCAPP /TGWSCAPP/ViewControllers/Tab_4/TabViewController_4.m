@@ -16,7 +16,7 @@
 #import "AddressViewController.h"
 #import "CustomerServiceViewController.h"
 #import "LogisticsDescViewController.h"
-#import "AppraiseViewController.h"
+#import "AppraiseListViewController.h"
 #import "RefundListVC.h"
 #import "XcodeWebVC.h"
 
@@ -578,7 +578,7 @@
         }break;
         case 103:{
             //待评价
-            AppraiseViewController *ctl = [[AppraiseViewController alloc]init];
+            AppraiseListViewController *ctl = [[AppraiseListViewController alloc]init];
             [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 104:{

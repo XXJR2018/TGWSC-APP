@@ -38,10 +38,14 @@
     UILabel *labelJF;       // 积分label
     
     UIButton *btnBalance;  // 余额抵扣按钮
+    UILabel  *labelDZFP;   // 电子发票label
+    UILabel  *lableDZQType;  // 电子发票的类型
+    UIButton *btnDZFP;      // 电子发票的按钮
     
     NSDictionary *dicOfUI;
     NSArray *arrOfUI;
     BOOL isCheckXY;  // 协议勾选标记位
+    BOOL isCheckDZFP;  // 电子发票勾选标记位
     
     NSString *promocardId; // 优惠券类型ID
     float promocardValue;  // 优惠券的面值
@@ -400,7 +404,7 @@
      {
         iTopY += iCellHeight + 10;
      }
-    NSArray *arrName = @[@"优惠券/优惠码",@"购买所得积分",@"配送方式"];
+    NSArray *arrName = @[@"优惠券/优惠码",@"购买所得积分",@"配送方式",@"我要开发票"];
     for(int i= 0 ; i <[arrName count]; i++)
      {
         iLeftX = 15;
@@ -413,6 +417,40 @@
         labelName.font = [UIFont systemFontOfSize:14];
         labelName.textColor = [ResourceManager color_1];
         labelName.text = arrName[i];
+        
+        
+        if (3 == i)
+         {
+            //  电子发票
+            labelName.left = 15 + 20;
+            labelDZFP = labelName;
+            
+            UIButton *btnCheck = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX,17, 15, 15)];
+            [viewCell addSubview:btnCheck];
+            [btnCheck setBackgroundImage:[UIImage imageNamed:@"com_gou3"] forState:UIControlStateNormal];
+            [btnCheck setBackgroundImage:[UIImage imageNamed:@"com_gou4"] forState:UIControlStateSelected];
+            btnCheck.selected = NO;
+            [btnCheck addTarget:self action:@selector(actionCheckDZFP:) forControlEvents:UIControlEventTouchUpInside];
+            
+            lableDZQType = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 100, (iCellHeight-20)/2, 80, 20)];
+            [viewCell addSubview:lableDZQType];
+            lableDZQType.font = [UIFont systemFontOfSize:14];
+            lableDZQType.textColor = [ResourceManager midGrayColor];
+            lableDZQType.text = @"";
+            lableDZQType.textAlignment = NSTextAlignmentRight;
+            //lableDZQType.hidden = YES;
+            
+            
+            UIImageView *imgRight = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-20, (iCellHeight - 19*ScaleSize)/2, 11*ScaleSize, 19*ScaleSize)];
+            [viewCell addSubview:imgRight];
+            imgRight.image = [UIImage imageNamed:@"arrow_right"];
+            
+            
+            btnDZFP = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-150, 0, 150, 50)];
+            [viewCell addSubview:btnDZFP];
+            [btnDZFP addTarget:self action:@selector(actionDZFP) forControlEvents:UIControlEventTouchUpInside];
+            btnDZFP.hidden = YES;
+         }
         
         
         if (0 == i)
@@ -540,10 +578,12 @@
     
     iTopY += 20;
     iLeftX = 15;
-    UIButton *btnCheck = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX,iTopY, 20, 20)];
+    UIButton *btnCheck = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX,iTopY+3, 15, 15)];
     [viewTail addSubview:btnCheck];
-    [btnCheck setImage:[UIImage imageNamed:@"sc_gou1"] forState:UIControlStateNormal];
-    [btnCheck setImage:[UIImage imageNamed:@"sc_gou2"] forState:UIControlStateSelected];
+    //[btnCheck setImage:[UIImage imageNamed:@"sc_gou1"] forState:UIControlStateNormal];
+    //[btnCheck setImage:[UIImage imageNamed:@"sc_gou2"] forState:UIControlStateSelected];
+    [btnCheck setBackgroundImage:[UIImage imageNamed:@"com_gou3"] forState:UIControlStateNormal];
+    [btnCheck setBackgroundImage:[UIImage imageNamed:@"com_gou4"] forState:UIControlStateSelected];
     btnCheck.selected = YES;
     [btnCheck addTarget:self action:@selector(actionCheck:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -975,6 +1015,30 @@
 {
     sender.selected = !sender.selected;
     isCheckXY = sender.selected;
+}
+
+-(void) actionCheckDZFP:(UIButton*) sender
+{
+    sender.selected = !sender.selected;
+    isCheckDZFP = sender.selected;
+    
+    if(isCheckDZFP)
+     {
+        btnDZFP.hidden = NO;
+        labelDZFP.text = @"电子发票";
+        lableDZQType.text = @"个人";
+     }
+    else
+     {
+        btnDZFP.hidden = YES;
+        labelDZFP.text = @"我要开发票";
+        lableDZQType.text = @"";
+     }
+}
+
+-(void) actionDZFP
+{
+    NSLog(@"actionDZFP");
 }
 
 -(void) actionXieYi

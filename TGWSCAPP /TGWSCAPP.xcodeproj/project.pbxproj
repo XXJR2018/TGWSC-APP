@@ -1022,7 +1022,6 @@
 			children = (
 				C02C5F7621CC79530056A32E /* ShopDetailVC.h */,
 				C02C5F7721CC79530056A32E /* ShopDetailVC.m */,
-				C0192E0C2213EAC700D3E825 /* Invoice */,
 				C0A48A6A21D1F907002AF226 /* PopSelShop */,
 				C02C5F7921CC991A0056A32E /* VideoAndImgScroll */,
 			);
@@ -1219,6 +1218,7 @@
 			children = (
 				C0A48B5321DE3D8A002AF226 /* OrderDetialVC.h */,
 				C0A48B5421DE3D8A002AF226 /* OrderDetialVC.m */,
+				C0192E0C2213EAC700D3E825 /* Invoice */,
 				C098D2A921E0A3D70008584B /* PayVC */,
 				C098D2A421E057800008584B /* SelCoupon */,
 			);

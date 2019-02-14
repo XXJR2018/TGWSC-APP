@@ -13,7 +13,8 @@
 
 #define ScreenWidth  [UIScreen mainScreen].bounds.size.width
 #define ScreenHight [UIScreen mainScreen].bounds.size.height
-const  NSString  *bg_chat_tablename =  @"chatmessage";
+
+NSString  *bg_chat_tablename =  @"chatmessage";
 
 
 @implementation CSMessageModel
@@ -44,8 +45,7 @@ const  NSString  *bg_chat_tablename =  @"chatmessage";
 
 - (instancetype)init {
     if (self = [super init]) {
-        //TODO...
-        
+
         self.bg_tableName = bg_chat_tablename;//自定义数据库表名称(库自带的字段).
     }
     return self;
@@ -216,7 +216,7 @@ const  NSString  *bg_chat_tablename =  @"chatmessage";
     /**
      想测试更多功能,打开注释掉的代码即可.
      */
-    bg_setDebug(YES);//打开调试模式,打印输出调试信息.
+//    bg_setDebug(YES);//打开调试模式,打印输出调试信息.
     
     /**
      如果频繁操作数据库时,建议进行此设置(即在操作过程不关闭数据库).

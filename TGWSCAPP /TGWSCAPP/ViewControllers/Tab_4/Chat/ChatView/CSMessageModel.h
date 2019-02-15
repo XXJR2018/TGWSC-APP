@@ -148,6 +148,12 @@ typedef NS_OPTIONS(NSUInteger, MessageReadStatus) {
 @property (nonatomic, retain) UIImage    *imageSmall;
 
 
+/*
+ 只显示时间条， 用来显示 （xxx人正在等待加入，请耐心等待。 xxx正在为你服务。）
+ */
+@property (nonatomic, assign) BOOL   onlyShowTime;
+
+
 - (CGRect)timeFrame;
 - (CGRect)logoFrame;
 - (CGRect)messageFrame;

@@ -75,11 +75,6 @@
     [self.view addSubview:_ev];
     
     
-    /**
-     想测试更多数据库功能,打开注释掉的代码即可.
-     */
-//    bg_setDebug(YES);//打开调试模式,打印输出调试信息.
-    
     
    
     
@@ -309,7 +304,7 @@
     if (_dataArray.count > 1)
      {
         NSIndexPath *indexpath = [NSIndexPath indexPathForRow:_dataArray.count-1 inSection:0];
-        [self.tableView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        [self.tableView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 //
 //        //[self.tableView setContentOffset:CGPointMake(0, CGFLOAT_MAX)];
 //        CGRect rectInTableView = [self.tableView rectForRowAtIndexPath:indexpath];
@@ -320,13 +315,32 @@
 
 
 // 有弹出界面时， 需要将tableview 底部往上滚动
--(void) tabeleViewMidScorllEnd:(float) fHeight
+-(void) tabeleViewMidScorllEnd:(float) popViewHeight
 {
+    if (_dataArray.count < 1)
+     {
+        return;
+     }
     NSIndexPath *indexpath = [NSIndexPath indexPathForRow:_dataArray.count-1 inSection:0];
     CGRect rectInTableView = [self.tableView rectForRowAtIndexPath:indexpath];
 
+    CGSize rect = self.tableView.contentSize;
     
-    [self.tableView setContentOffset:CGPointMake(0,rectInTableView.origin.y - rectInTableView.size.height - fHeight) animated:YES];
+    int iLastRecrodY = rectInTableView.origin.y + rectInTableView.size.height +NavHeight;
+    
+    int iViewPopY = SCREEN_HEIGHT - 44 - popViewHeight;
+    
+    if(iLastRecrodY > iViewPopY)
+     {
+        [self.tableView setContentOffset:CGPointMake(0,rect.height - popViewHeight) animated:YES];
+
+     }
+    
+    //[self.tableView setContentOffset:CGPointMake(0,rectInTableView.origin.y - rectInTableView.size.height - fHeight) animated:YES];
+
+    
+    
+    
 }
 
 
@@ -351,9 +365,7 @@ static int iiii = 0;
 {
     [self.view endEditing:YES];
     _ev.hidden = YES;
-    //调整tableView的高度
-    //_tableView.height = SCREEN_HEIGHT - 44 - NavHeight;
-    //[self tabeleViewScorllEnd];
+
     
     UIView *vi = [self.view viewWithTag:100];
     vi.frame = CGRectMake(0, _nowHeight, [UIScreen mainScreen].bounds.size.width, 44);
@@ -365,12 +377,12 @@ static int iiii = 0;
         case 12:
             
         {
-            
+           // 表情输入框显示出来
             _ev.hidden = NO;
         
            // 调整_tableView的高度
            //_tableView.height = SCREEN_HEIGHT - 44 - NavHeight - 180;
-           [self tabeleViewScorllEnd];
+           [self tabeleViewMidScorllEnd:180];
            
             UIView *vi = [self.view viewWithTag:100];
             CGRect rec = vi.frame ;
@@ -514,6 +526,9 @@ static int iiii = 0;
 #pragma mark --- 数据库操作
 -(void) initDB
 {
+    
+    return;
+    
     CSMessageModel *model = [[CSMessageModel alloc] init];
     model.showMessageTime=YES;
     model.messageTime = @"2017年12月12日 16:37";
@@ -674,6 +689,9 @@ static int iiii = 0;
 
 -(void) getDBData
 {
+    
+    bg_setDebug(YES);//打开调试模式,打印输出调试信息.
+    
     /**
      当数据量巨大时采用分页范围查询.
      */

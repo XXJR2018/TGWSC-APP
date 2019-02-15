@@ -4094,7 +4094,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Funct/CustomerServiceViewController.m"
-            timestampString = "571830355.800024"
+            timestampString = "571830547.372921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
@@ -5646,11 +5646,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "571829844.754964"
+            timestampString = "571887059.5843101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "373"
-            endingLineNumber = "373"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
             landmarkName = "-btnClicked:"
             landmarkType = "7">
          </BreakpointContent>
@@ -5662,11 +5662,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "571829844.755519"
+            timestampString = "571887059.584766"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "510"
-            endingLineNumber = "510"
+            startingLineNumber = "522"
+            endingLineNumber = "522"
             landmarkName = "-emojiClicked:"
             landmarkType = "7">
          </BreakpointContent>
@@ -5678,11 +5678,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "571829844.755918"
+            timestampString = "571887059.585113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "683"
-            endingLineNumber = "683"
+            startingLineNumber = "701"
+            endingLineNumber = "701"
             landmarkName = "-getDBData"
             landmarkType = "7">
          </BreakpointContent>
@@ -5694,11 +5694,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "571829844.756278"
+            timestampString = "571887059.5854419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "520"
-            endingLineNumber = "520"
+            startingLineNumber = "535"
+            endingLineNumber = "535"
             landmarkName = "-initDB"
             landmarkType = "7">
          </BreakpointContent>
@@ -5710,7 +5710,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/CSMessageCell.m"
-            timestampString = "571826728.576207"
+            timestampString = "571830743.64659"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "224"
@@ -5726,43 +5726,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "571829844.756649"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "321"
-            endingLineNumber = "321"
-            landmarkName = "-tabeleViewScorllEnd"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "571829844.75693"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
-            landmarkName = "-tabeleViewScorllEnd"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "571829844.757199"
+            timestampString = "571887059.5857871"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "316"
             endingLineNumber = "316"
+            landmarkName = "ChatViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
+            timestampString = "571887059.58613"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
             landmarkName = "-tabeleViewScorllEnd"
             landmarkType = "7">
          </BreakpointContent>
@@ -5774,11 +5758,155 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "571829844.757466"
+            timestampString = "571887059.586462"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
+            landmarkName = "-tabeleViewScorllEnd"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
+            timestampString = "571887059.58678"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
+            landmarkName = "-tabeleViewMidScorllEnd:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
+            timestampString = "571887059.587091"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "532"
+            endingLineNumber = "532"
+            landmarkName = "-initDB"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
+            timestampString = "571887059.587394"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
+            timestampString = "571887059.5876909"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "698"
+            endingLineNumber = "698"
+            landmarkName = "-getDBData"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
+            timestampString = "571887059.587989"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
+            landmarkName = "-tabeleViewMidScorllEnd:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
+            timestampString = "571887059.588271"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
+            landmarkName = "-tabeleViewMidScorllEnd:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
+            timestampString = "571887059.588537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "329"
             endingLineNumber = "329"
+            landmarkName = "-tabeleViewMidScorllEnd:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
+            timestampString = "571887142.919773"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "-keyboardWillShow:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
+            timestampString = "571887171.999862"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
             landmarkName = "-tabeleViewMidScorllEnd:"
             landmarkType = "7">
          </BreakpointContent>

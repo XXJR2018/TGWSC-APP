@@ -57,8 +57,9 @@ NSString  *bg_chat_tablename =  @"chatmessage";
     CGRect rect  = CGRectZero;
     if (self.showMessageTime)
     {
-        CGSize size = [self labelAutoCalculateRectWith:self.messageTime Font:[UIFont fontWithName:FONT_REGULAR size:10] MaxSize:CGSizeMake(MAXFLOAT, 17)];
-        rect = CGRectMake((ScreenWidth - size.width)/2, 0, size.width + 10, 17);
+        //CGSize size = [self labelAutoCalculateRectWith:self.messageTime Font:[UIFont fontWithName:FONT_REGULAR size:10] MaxSize:CGSizeMake(MAXFLOAT, 17)];
+        //rect = CGRectMake((ScreenWidth - size.width)/2, 0, size.width + 10, 17);
+        rect = CGRectMake(0, 0, ScreenWidth, 17);
     }
 
     return rect;

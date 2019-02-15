@@ -78,13 +78,13 @@
     _timeLabel.hidden        = YES;
     [self.contentView addSubview:_timeLabel];
     _timeLabel.font=[UIFont fontWithName:FONT_REGULAR size:10];
-    _timeLabel.backgroundColor=COLOR_cecece;
-    _timeLabel.textColor=COLOR_ffffff;
+    //_timeLabel.backgroundColor=COLOR_cecece;
+    _timeLabel.textColor= UIColorFromRGB(0x808080);
     _timeLabel.textAlignment=NSTextAlignmentCenter;
     _timeLabel.layer.masksToBounds=YES;
     _timeLabel.layer.cornerRadius=4;
-    _timeLabel.layer.borderColor=[COLOR_cecece CGColor];
-    _timeLabel.layer.borderWidth=1;
+    //_timeLabel.layer.borderColor=[COLOR_cecece CGColor];
+    //_timeLabel.layer.borderWidth=1;
 }
 
 - (void)creatSubViewLogo

@@ -221,7 +221,7 @@
     bgView.layer.borderWidth = 1;
     [self.view addSubview:bgView];
     
-    textSendView = [[UITextView alloc] initWithFrame:CGRectMake(49, 0, bgView.bounds.size.width - 132, 44)];
+    textSendView = [[UITextView alloc] initWithFrame:CGRectMake(49, 0, bgView.bounds.size.width - 122, 44)];
     textSendView.delegate = self;
     textSendView.tag = 101;
     textSendView.returnKeyType = UIReturnKeySend;
@@ -419,16 +419,12 @@
     if(iLastRecrodY > iViewPopY)
      {
         [self.tableView setContentOffset:CGPointMake(0,rect.height - popViewHeight) animated:YES];
-
      }
     
     // 笑脸弹框时，滚动位置
     if(iLastRecrodY > iViewPopY &&
        !_ev.hidden)
      {
-        //[self.tableView setContentOffset:CGPointMake(0,rect.height- popViewHeight -180 ) animated:YES];
-        //[self.tableView setContentOffset:CGPointMake(0,rect.height- iLastRecrodY + popViewHeight ) animated:YES];
-        
         [self.tableView setContentOffset:CGPointMake(0,rect.height- iViewPopY + popViewHeight ) animated:YES];
         
      }

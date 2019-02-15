@@ -45,7 +45,7 @@
     //最小两行之间的间距
     layout.minimumLineSpacing = 0;
     //这个是横向滑动
-//    layout.scrollDirection=UICollectionViewScrollDirectionHorizontal;
+    layout.scrollDirection=UICollectionViewScrollDirectionHorizontal;
     
     layout.itemSize = CGSizeMake(ScreenWidth/8, self.frame.size.height/3);
     

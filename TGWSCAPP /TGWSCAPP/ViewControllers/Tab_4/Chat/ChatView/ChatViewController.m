@@ -23,6 +23,9 @@
 #define ScreenHight [UIScreen mainScreen].bounds.size.height
 
 @interface ChatViewController ()< UITableViewDelegate, UITableViewDataSource, UITextViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,CSMessageCellDelegate, EmojiViewDelegate>
+{
+    UITextView *textSendView;  // 发送文本框
+}
 
 @property (nonatomic, strong)  UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -218,39 +221,88 @@
     bgView.layer.borderWidth = 1;
     [self.view addSubview:bgView];
     
-    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(49, 0, bgView.bounds.size.width - 152, 44)];
-    textView.delegate = self;
-    textView.tag = 101;
-    textView.returnKeyType = UIReturnKeySend;
-    textView.font = [UIFont fontWithName:@"PingFangSC-Regular" size:16];
-    textView.text = @"";
-    [bgView addSubview:textView];
+    textSendView = [[UITextView alloc] initWithFrame:CGRectMake(49, 0, bgView.bounds.size.width - 132, 44)];
+    textSendView.delegate = self;
+    textSendView.tag = 101;
+    textSendView.returnKeyType = UIReturnKeySend;
+    textSendView.font = [UIFont fontWithName:@"PingFangSC-Regular" size:16];
+    textSendView.text = @"";
+    [bgView addSubview:textSendView];
 
 
     
-    UIButton *recordBtn = [[UIButton alloc] init];
-    recordBtn.frame = CGRectMake(10, 5, 34, 34);
-    [recordBtn setBackgroundImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
-    [recordBtn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [recordBtn addTarget:self action:@selector(leaveBtnClicked:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
-    [recordBtn addTarget:self action:@selector(touchDown:)forControlEvents: UIControlEventTouchDragInside];
-    [bgView addSubview:recordBtn];
+//    UIButton *recordBtn = [[UIButton alloc] init];
+//    recordBtn.frame = CGRectMake(10, 5, 34, 34);
+//    [recordBtn setBackgroundImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
+//    [recordBtn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    [recordBtn addTarget:self action:@selector(leaveBtnClicked:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+//    [recordBtn addTarget:self action:@selector(touchDown:)forControlEvents: UIControlEventTouchDragInside];
+//    [bgView addSubview:recordBtn];
     
     UIButton *emojiBtn = [[UIButton alloc] init];
-    emojiBtn.frame = CGRectMake(bgView.frame.size.width - 83, 5, 34, 34);
+    emojiBtn.frame = CGRectMake(10, 5, 34, 34);//CGRectMake(bgView.frame.size.width - 83, 5, 34, 34);
     [emojiBtn setBackgroundImage:[UIImage imageNamed:@"emoji"] forState:UIControlStateNormal];
     [emojiBtn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
     emojiBtn.tag = 12;
     [bgView addSubview:emojiBtn];
     
-    UIButton *imageBtn = [[UIButton alloc] init];
-    imageBtn.frame = CGRectMake(bgView.frame.size.width - 39, 5, 34, 34);
-    [imageBtn setBackgroundImage:[UIImage imageNamed:@"image"] forState:UIControlStateNormal];
-    [imageBtn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    imageBtn.tag = 13;
-    [bgView addSubview:imageBtn];
+    UIButton *sendBtn = [[UIButton alloc] init];
+    sendBtn.frame = CGRectMake(bgView.frame.size.width - 60, 5, 55, 34);
+    [bgView addSubview:sendBtn];
+    sendBtn.backgroundColor = UIColorFromRGB(0xb7b7b7);
+    [sendBtn setTitle:@"发送" forState:UIControlStateNormal];
+    [sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    sendBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [sendBtn addTarget:self action:@selector(actionSendMessage) forControlEvents:UIControlEventTouchUpInside];
+    sendBtn.tag = 13;
+    
     
 }
+
+
+//-(void)bottomView
+//{
+//    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, _nowHeight, [UIScreen mainScreen].bounds.size.width, 44)];
+//    bgView.tag = 100;  // 底部view的 tag
+//    bgView.backgroundColor = [[UIColor alloc] initWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1];
+//    bgView.layer.masksToBounds = YES;
+//    bgView.layer.borderColor = [[UIColor alloc] initWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1].CGColor;
+//    bgView.layer.borderWidth = 1;
+//    [self.view addSubview:bgView];
+//
+//    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(49, 0, bgView.bounds.size.width - 152, 44)];
+//    textView.delegate = self;
+//    textView.tag = 101;
+//    textView.returnKeyType = UIReturnKeySend;
+//    textView.font = [UIFont fontWithName:@"PingFangSC-Regular" size:16];
+//    textView.text = @"";
+//    [bgView addSubview:textView];
+//
+//
+//
+//    UIButton *recordBtn = [[UIButton alloc] init];
+//    recordBtn.frame = CGRectMake(10, 5, 34, 34);
+//    [recordBtn setBackgroundImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
+//    [recordBtn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    [recordBtn addTarget:self action:@selector(leaveBtnClicked:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+//    [recordBtn addTarget:self action:@selector(touchDown:)forControlEvents: UIControlEventTouchDragInside];
+//    [bgView addSubview:recordBtn];
+//
+//    UIButton *emojiBtn = [[UIButton alloc] init];
+//    emojiBtn.frame = CGRectMake(bgView.frame.size.width - 83, 5, 34, 34);
+//    [emojiBtn setBackgroundImage:[UIImage imageNamed:@"emoji"] forState:UIControlStateNormal];
+//    [emojiBtn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    emojiBtn.tag = 12;
+//    [bgView addSubview:emojiBtn];
+//
+//    UIButton *imageBtn = [[UIButton alloc] init];
+//    imageBtn.frame = CGRectMake(bgView.frame.size.width - 39, 5, 34, 34);
+//    [imageBtn setBackgroundImage:[UIImage imageNamed:@"image"] forState:UIControlStateNormal];
+//    [imageBtn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    imageBtn.tag = 13;
+//    [bgView addSubview:imageBtn];
+//
+//}
 
 #pragma mark --- action
 // 隐藏所有输入框，笑脸符号框
@@ -264,6 +316,38 @@
     
 }
 
+-(void) actionSendMessage
+{
+    if (textSendView.text.length <= 0)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请输入文本" toView:self.view];
+        return;
+     }
+    
+
+    CSMessageModel *model = [[CSMessageModel alloc] init];
+    model.messageSenderType = MessageSenderTypeMe;
+    model.messageType = MessageTypeText;
+    model.messageText = textSendView.text;
+    //model.showMessageTime=YES;
+    //model.messageTime = @"16:40";
+    [_dataArray addObject:model];
+    
+    [model bg_save];
+    
+    [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_dataArray.count - 1 inSection:0]
+                                animated:YES
+                          scrollPosition:UITableViewScrollPositionMiddle];
+    textSendView.text = @"";
+    _ev.hidden = YES;
+    [self.view endEditing:YES];
+    
+    UIView *vi = [self.view viewWithTag:100];
+    vi.frame = CGRectMake(0, _nowHeight, [UIScreen mainScreen].bounds.size.width, 44);
+    
+}
+
 
 #pragma mark ---  输入完成
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
@@ -271,6 +355,7 @@
     {
         if (textView.text.length == 0)
         {
+           [MBProgressHUD showErrorWithStatus:@"请输入文本" toView:self.view];
             return NO;
         }
         CSMessageModel *model = [[CSMessageModel alloc] init];
@@ -330,10 +415,22 @@
     
     int iViewPopY = SCREEN_HEIGHT - 44 - popViewHeight;
     
+    // 文字弹框时，滚动位置
     if(iLastRecrodY > iViewPopY)
      {
         [self.tableView setContentOffset:CGPointMake(0,rect.height - popViewHeight) animated:YES];
 
+     }
+    
+    // 笑脸弹框时，滚动位置
+    if(iLastRecrodY > iViewPopY &&
+       !_ev.hidden)
+     {
+        //[self.tableView setContentOffset:CGPointMake(0,rect.height- popViewHeight -180 ) animated:YES];
+        //[self.tableView setContentOffset:CGPointMake(0,rect.height- iLastRecrodY + popViewHeight ) animated:YES];
+        
+        [self.tableView setContentOffset:CGPointMake(0,rect.height- iViewPopY + popViewHeight ) animated:YES];
+        
      }
     
     //[self.tableView setContentOffset:CGPointMake(0,rectInTableView.origin.y - rectInTableView.size.height - fHeight) animated:YES];
@@ -381,7 +478,6 @@ static int iiii = 0;
             _ev.hidden = NO;
         
            // 调整_tableView的高度
-           //_tableView.height = SCREEN_HEIGHT - 44 - NavHeight - 180;
            [self tabeleViewMidScorllEnd:180];
            
             UIView *vi = [self.view viewWithTag:100];

@@ -331,7 +331,14 @@
     model.messageText = textSendView.text;
     //model.showMessageTime=YES;
     //model.messageTime = @"16:40";
+    
+    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];//获取当前时间0秒后的时间
+    long time= [date timeIntervalSince1970]*1000;// *1000 是精确到毫秒，不乘就是精确到秒
+    model.lMessageTime = time;
+    
+    [self setShowTime:model];
     [_dataArray addObject:model];
+    
     
     [model bg_save];
     
@@ -365,7 +372,10 @@
         model.messageText = textView.text;
         //model.showMessageTime=YES;
         //model.messageTime = @"16:40";
+       
+        [self setShowTime:model];
         [_dataArray addObject:model];
+       
        
         [model bg_save];
        
@@ -383,6 +393,52 @@
     return YES;
 }
 
+// 设置此信息的时间， 是否显示， 显示为何种类型 (2019-01-01 15:11   或者 15:11)
+-(void) setShowTime:(CSMessageModel*) messageModel
+{
+    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
+    long time = (long)[datenow timeIntervalSince1970] *1000; // *1000 是精确到毫秒，不乘就是精确到秒
+    messageModel.lMessageTime = time;
+    
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    // ----------设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    NSString *currentTimeString = [formatter stringFromDate:datenow];
+    messageModel.wholeMessageTime = currentTimeString;
+    
+    if([self.dataArray count] == 0)
+     {
+        messageModel.showMessageTime = YES;
+        messageModel.messageTime = currentTimeString;
+     }
+    else
+     {
+        CSMessageModel* lastModel =   self.dataArray.lastObject;
+        
+        if ( messageModel.lMessageTime - lastModel.lMessageTime > 24*60*60*1000)
+         {
+            // 超过24小时
+            messageModel.showMessageTime = YES;
+            messageModel.messageTime = currentTimeString;
+            
+         }
+        else if ( messageModel.lMessageTime - lastModel.lMessageTime > 30*60*1000)
+         {
+            // 超过30分钟
+            messageModel.showMessageTime = YES;
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            // ----------设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
+            [formatter setDateFormat:@"HH:mm:ss"];
+            NSString *showTimeString = [formatter stringFromDate:datenow];
+            messageModel.messageTime = showTimeString;
+         }
+     }
+    
+    
+}
+
 // 把tableView 滚动到底部
 -(void) tabeleViewScorllEnd
 {
@@ -390,10 +446,6 @@
      {
         NSIndexPath *indexpath = [NSIndexPath indexPathForRow:_dataArray.count-1 inSection:0];
         [self.tableView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-//
-//        //[self.tableView setContentOffset:CGPointMake(0, CGFLOAT_MAX)];
-//        CGRect rectInTableView = [self.tableView rectForRowAtIndexPath:indexpath];
-//        [self.tableView setContentOffset:CGPointMake(0,rectInTableView.origin.y) animated:YES];
     
      }
 }

@@ -92,9 +92,27 @@ typedef NS_OPTIONS(NSUInteger, MessageReadStatus) {
 @property (nonatomic, assign) BOOL   showMessageTime;
 
 /*
- 消息时间  2017-09-11 11:11
+消息时间戳
+ */
+@property (nonatomic, assign) long   lMessageTime;
+
+/*
+ 消息完整的时间  2017-09-11 11:11:11
+ */
+@property (nonatomic, retain) NSString   *wholeMessageTime;
+
+
+/*
+ 消息显示时间  2017-09-11 11:11:12   或者 12:21:11
  */
 @property (nonatomic, retain) NSString    *messageTime;
+
+
+/*
+ 发送到Web成功标志
+ */
+
+@property (nonatomic, assign) BOOL   sendSuccess;
 
 
 /*

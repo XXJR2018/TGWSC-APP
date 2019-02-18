@@ -9,7 +9,7 @@
 #import "TabBarViewController.h"
 #import "WCAlertview.h"
 #import "PayResultVC.h"
-
+#import "AppraiseListViewController.h"
 
 #import <sys/utsname.h>
 
@@ -318,6 +318,13 @@
         [self setButtonsState:_tab3_Button];
     }else if (tab == 4) {
         [self setButtonsState:_tab4_Button];
+        int index = [[(NSDictionary *)notification.object objectForKey:@"index"] intValue];
+        if (index == 1) {
+            //评论
+            AppraiseListViewController *ctl = [[AppraiseListViewController alloc] init];
+            ctl.appraiseType = 2;
+            [nav4 pushViewController:ctl animated:NO];
+        }
     }
 }
 

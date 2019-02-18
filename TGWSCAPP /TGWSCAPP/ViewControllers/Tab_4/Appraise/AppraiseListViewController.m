@@ -7,6 +7,9 @@
 //
 
 #import "AppraiseListViewController.h"
+#import "AppraiseViewController.h"
+#import "OrderDetailsViewController.h"
+
 #import "AppraiseListCell.h"
 @interface AppraiseListViewController ()
 {
@@ -16,13 +19,16 @@
 }
 @end
 
+#define orderCellHeight  100
+
+
 @implementation AppraiseListViewController
 
--(void)loadData123{
+-(void)loadData{
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[kPage] = @(self.pageIndex);
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/myOrder/allList",[PDAPI getBaseUrlString]]
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/orderComment/queryWaitOrder",[PDAPI getBaseUrlString]]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       [self handleData:operation];
@@ -88,6 +94,11 @@
     [_tableView setSeparatorColor:[UIColor clearColor]];
     
     [self layoutUI];
+    
+    if (self.appraiseType == 2) {
+        [self appraise:_wdpjBtn];
+    }
+    
 }
 
 - (CGRect)tableViewFrame{
@@ -160,13 +171,12 @@
     if (self.dataArray.count == 0) {
         return tableView.frame.size.height;
     }else{
-        //        NSDictionary *dic = self.dataArray[indexPath.row];
-        //        NSArray *orderDtlListArr = [dic objectForKey:@"orderDtlList"];
-        //        if ([[dic objectForKey:@"freightAmt"] intValue] > 0) {
-        //            return orderCellHeight * orderDtlListArr.count + 155;
-        //        }
-        //        return orderCellHeight * orderDtlListArr.count + 135;
-        return 200;
+        NSDictionary *dic = self.dataArray[indexPath.row];
+        NSArray *orderDtlListArr = [dic objectForKey:@"orderDtlList"];
+        if ([[dic objectForKey:@"freightAmt"] intValue] > 0) {
+            return orderCellHeight * orderDtlListArr.count + 155;
+        }
+        return orderCellHeight * orderDtlListArr.count + 135;
     }
 }
 
@@ -180,8 +190,20 @@
         cell = [[AppraiseListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
-    //    cell.dataDicionary = self.dataArray[indexPath.row];
+    NSDictionary *dic = self.dataArray[indexPath.row];
+    cell.dataDicionary =  dic;
+    cell.checkOrderBlock = ^{
+        //查看订单
+        OrderDetailsViewController *ctl = [[OrderDetailsViewController alloc]init];
+        ctl.orderNo = [dic objectForKey:@"orderNo"];
+        [self.navigationController pushViewController:ctl animated:YES];
+    };
+    cell.appraiseBlock = ^{
+        //评价
+        AppraiseViewController *ctl = [[AppraiseViewController alloc]init];
+        ctl.orderNo = [dic objectForKey:@"orderNo"];
+        [self.navigationController pushViewController:ctl animated:YES];
+    };
     return cell;
 }
 

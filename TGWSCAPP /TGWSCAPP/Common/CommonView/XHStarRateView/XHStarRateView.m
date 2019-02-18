@@ -19,7 +19,6 @@ typedef void(^completeBlock)(CGFloat currentScore);
 @property (nonatomic, strong) UIView *backgroundStarView;
 
 @property (nonatomic, assign) NSInteger numberOfStars;
-@property (nonatomic,assign)CGFloat currentScore;   // 当前评分：0-5  默认0
 
 @property (nonatomic,strong)completeBlock complete;
 

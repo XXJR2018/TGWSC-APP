@@ -1,54 +1,32 @@
 //
-//  IssueAppraiseViewController.m
+//  ReviewAppraiseViewController.m
 //  TGWSCAPP
 //
-//  Created by xxjr03 on 2019/2/14.
+//  Created by xxjr03 on 2019/2/18.
 //  Copyright © 2019 xxjr03. All rights reserved.
 //
 
-#import "IssueAppraiseViewController.h"
+#import "ReviewAppraiseViewController.h"
 
 #import "AppraiseSuccessViewController.h"
-#import "XHStarRateView.h"
 
-@interface IssueAppraiseViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface ReviewAppraiseViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     UITextView *_textView;
     UIView *_updataView;
     NSMutableArray *_updataImgArr;
     
-    
-    UIButton *_anonymityBtn;
 }
-@property(nonatomic, strong) UILabel *msxfStateLabel;
-
-@property(nonatomic, strong) UILabel *wlfwStateLabel;
-
-@property(nonatomic, strong) UILabel *fwtdStateLabel;
-
-@property(nonatomic, assign) NSInteger msxfStar;
-
-@property(nonatomic, assign) NSInteger wlfwStar;
-
-@property(nonatomic, assign) NSInteger fwtdStar;
 
 @end
 
-@implementation IssueAppraiseViewController
+@implementation ReviewAppraiseViewController
 
 -(void)IssueAppraiseUrl{
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"subOrderNo"] = [self.orderDataDic objectForKey:@"subOrderNo"];
-    params[@"goodsCode"] = [self.orderDataDic objectForKey:@"goodsCode"];
-    params[@"goodsGrade"] = @(_msxfStar);
-    params[@"logisticsGrade"] = @(_wlfwStar);
-    params[@"serveGrade"] = @(_fwtdStar);
-    params[@"isHide"] = @"0";
-    if (_anonymityBtn.selected) {
-        params[@"isHide"] = @"1";
-    }
-    params[@"commentText"] = _textView.text;
+    params[@"appendText"] = _textView.text;
     
     if (_updataImgArr.count > 0) {
         NSMutableString *imgUrl = [NSMutableString string];
@@ -64,10 +42,10 @@
                 }
             }
         }
-        params[@"imgUrl"] = imgUrl;
+        params[@"appendImgUrl"] = imgUrl;
     }
     
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/orderComment/addComment",[PDAPI getBaseUrlString]]
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/orderComment/appendComment",[PDAPI getBaseUrlString]]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       [self handleData:operation];
@@ -81,6 +59,7 @@
 #pragma mark 数据操作
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
+    
     AppraiseSuccessViewController *ctl = [[AppraiseSuccessViewController alloc]init];
     [self.navigationController pushViewController:ctl animated:YES];
 }
@@ -126,17 +105,7 @@
 
 #pragma mark ---  发布评论
 -(void)IssueAppraise{
-    AppraiseSuccessViewController *ctl = [[AppraiseSuccessViewController alloc]init];
-    [self.navigationController pushViewController:ctl animated:YES];
-    return;
     [self.view endEditing:YES];
-    if (_wlfwStar == 0) {
-        [MBProgressHUD showErrorWithStatus:@"请评价物流服务" toView:self.view];
-        return;
-    } if (_fwtdStar == 0) {
-        [MBProgressHUD showErrorWithStatus:@"请评价服务态度" toView:self.view];
-        return;
-    }
     
     [self IssueAppraiseUrl];
 }
@@ -152,29 +121,15 @@
     [self.view addSubview:iconImgView];
     [iconImgView sd_setImageWithURL:[NSURL URLWithString:[self.orderDataDic objectForKey:@"goodsUrl"]]];
     
-    UILabel *msxfLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(iconImgView.frame) + 10, CGRectGetMidY(iconImgView.frame) - 10, 65, 20)];
-    [self.view addSubview:msxfLabel];
-    msxfLabel.font = font_1;
-    msxfLabel.textColor = color_1;
-    msxfLabel.text = @"描述相符";
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(iconImgView.frame) + 10, CGRectGetMidY(iconImgView.frame) - 10, 65, 20)];
+    [self.view addSubview:titleLabel];
+    titleLabel.font = font_1;
+    titleLabel.textColor = color_1;
+    titleLabel.text = @"";
     
-    XHStarRateView *msStarRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(msxfLabel.frame), CGRectGetMidY(iconImgView.frame) - 8, 140, 16) finish:^(CGFloat currentScore) {
-         [self.view endEditing:YES];
-        self.msxfStar = (NSInteger)currentScore;
-        NSArray *starArr = @[@"非常差",@"差",@"一般",@"好",@"非常好"];
-        self.msxfStateLabel.text = starArr[self.msxfStar - 1];
-    }];
-    [self.view addSubview:msStarRateView];
+  
     
-    msStarRateView.currentScore = 5;
-    self.msxfStar = 5;
     
-    _msxfStateLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(msStarRateView.frame) + 15, CGRectGetMidY(iconImgView.frame) - 10, 65, 20)];
-    [self.view addSubview:_msxfStateLabel];
-    _msxfStateLabel.font = font_1;
-    _msxfStateLabel.textColor = color_2;
-    _msxfStateLabel.text = @"非常好";
- 
     UIView *lineView_1 = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(iconImgView.frame) + 10, SCREEN_WIDTH, 0.5)];
     [self.view addSubview:lineView_1];
     lineView_1.backgroundColor = [ResourceManager color_5];
@@ -184,7 +139,7 @@
     _textView.delegate = self;
     _textView.font = font_2;
     _textView.textColor = color_2;
-    _textView.text = @"宝贝满足你的期许吗？说说它的优点和美中不足的地方吧...评论超10个字可送10积分，上传图片可再送5积分哦~";
+    _textView.text = @"已经用了一段时间了，有更多宝贝使用心得？分享给想买的他们吧";
     
     CGFloat imgWidth = (SCREEN_WIDTH - 10 * 6)/5;
     
@@ -215,77 +170,9 @@
         titleLabel.text = @"添加图片";
     }
     
-    UIView *lineView_2 = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_updataView.frame) + 20, SCREEN_WIDTH, 0.5)];
-    [self.view addSubview:lineView_2];
-    lineView_2.backgroundColor = [ResourceManager color_5];
-    
-    _anonymityBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(lineView_2.frame) + (45 - 17)/2, 17, 17)];
-    [self.view addSubview:_anonymityBtn];
-    [_anonymityBtn setImage:[UIImage imageNamed:@"Tab_4-28"] forState:UIControlStateNormal];
-    [_anonymityBtn setImage:[UIImage imageNamed:@"Tab_4-29"] forState:UIControlStateSelected];
-    [_anonymityBtn addTarget:self action:@selector(anonymity:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UILabel *anonymityLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_anonymityBtn.frame) + 8, CGRectGetMaxY(lineView_2.frame), 200, 45)];
-    [self.view addSubview:anonymityLabel];
-    anonymityLabel.font = font_1;
-    anonymityLabel.textColor = color_1;
-    anonymityLabel.text = @"匿名";
-    
-    UILabel *anonymityTSLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 210, CGRectGetMaxY(lineView_2.frame), 200, 45)];
-    [self.view addSubview:anonymityTSLabel];
-    anonymityTSLabel.font = [UIFont systemFontOfSize:12];
-    anonymityTSLabel.textAlignment = NSTextAlignmentRight;
-    anonymityTSLabel.textColor = color_2;
-    anonymityTSLabel.text = @"你的评价能帮助其他小伙伴呦~";
-    
-    UIView *lineView_3 = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(anonymityLabel.frame), SCREEN_WIDTH, 10)];
-    [self.view addSubview:lineView_3];
-    lineView_3.backgroundColor = [ResourceManager viewBackgroundColor];
-    
-    UILabel *wlfwLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(lineView_3.frame) + 25, 65, 20)];
-    [self.view addSubview:wlfwLabel];
-    wlfwLabel.font = font_1;
-    wlfwLabel.textColor = color_1;
-    wlfwLabel.text = @"物流服务";
-    
-    XHStarRateView *wlStarRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(wlfwLabel.frame), CGRectGetMidY(wlfwLabel.frame) - 8, 140, 16) finish:^(CGFloat currentScore) {
-         [self.view endEditing:YES];
-        self.wlfwStar = (NSInteger)currentScore;
-        NSArray *starArr = @[@"非常差",@"差",@"一般",@"好",@"非常好"];
-        self.wlfwStateLabel.text = starArr[self.wlfwStar - 1];
-    }];
-    [self.view addSubview:wlStarRateView];
-    
-    _wlfwStateLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(wlStarRateView.frame) + 15, CGRectGetMidY(wlfwLabel.frame) - 10, 65, 20)];
-    [self.view addSubview:_wlfwStateLabel];
-    _wlfwStateLabel.font = font_1;
-    _wlfwStateLabel.textColor = color_2;
-    
-    UILabel *fwtdLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(wlfwLabel.frame) + 25, 65, 20)];
-    [self.view addSubview:fwtdLabel];
-    fwtdLabel.font = font_1;
-    fwtdLabel.textColor = color_1;
-    fwtdLabel.text = @"服务态度";
-    
-    XHStarRateView *fwStarRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(fwtdLabel.frame), CGRectGetMidY(fwtdLabel.frame) - 8, 140, 16) finish:^(CGFloat currentScore) {
-         [self.view endEditing:YES];
-        self.fwtdStar = (NSInteger)currentScore;
-        NSArray *starArr = @[@"非常差",@"差",@"一般",@"好",@"非常好"];
-        self.fwtdStateLabel.text = starArr[self.fwtdStar - 1];
-    }];
-    [self.view addSubview:fwStarRateView];
-    
-    _fwtdStateLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(fwStarRateView.frame) + 15, CGRectGetMidY(fwtdLabel.frame) - 10, 65, 20)];
-    [self.view addSubview:_fwtdStateLabel];
-    _fwtdStateLabel.font = font_1;
-    _fwtdStateLabel.textColor = color_2;
+
 }
 
-//匿名
--(void)anonymity:(UIButton *)sender{
-     [self.view endEditing:YES];
-    sender.selected = !sender.selected;
-}
 
 #pragma  mark-- 改变上传图片控件布局
 -(void)changeUpdateImgViewUI{
@@ -575,7 +462,7 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView{
     if (textView.text.length == 0) {
-        textView.text = @"宝贝满足你的期许吗？说说它的优点和美中不足的地方吧...评论超10个字可送10积分，上传图片可再送5积分哦~";
+        textView.text = @"已经用了一段时间了，有更多宝贝使用心得？分享给想买的他们吧";
         textView.textColor = [ResourceManager color_6];
     }
 }

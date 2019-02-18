@@ -118,6 +118,7 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
 //    return  @"http://192.168.10.132:9991/";        //方然青服务器
 //    return @"http://192.168.10.129:82/";        //刘利伟服务器
 //    return  @"http://192.168.10.130/";     // 邹全洪
+//    return  @"http://192.168.10.167:6401/";     // 曾红卫
     return kBaseURL;
     
 #else

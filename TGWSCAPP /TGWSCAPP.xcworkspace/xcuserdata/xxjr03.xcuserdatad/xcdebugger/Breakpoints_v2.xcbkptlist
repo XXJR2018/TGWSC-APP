@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Order/OrderListViewController.m"
-            timestampString = "571830567.343895"
+            timestampString = "572172090.203365"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "308"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Order/OrderDetailsViewController.m"
-            timestampString = "571830567.343962"
+            timestampString = "572172090.203431"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1007"
@@ -38,16 +38,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Appraise/IssueAppraiseViewController.m"
-            timestampString = "572148230.616992"
+            timestampString = "572172090.203481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
-            landmarkName = "-changeUpdateImgViewUI"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "-IssueAppraiseUrl"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

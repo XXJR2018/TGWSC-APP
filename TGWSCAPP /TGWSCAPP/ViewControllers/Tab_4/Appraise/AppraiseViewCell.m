@@ -37,6 +37,13 @@
     self.goodsNameLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"goodsName"]];
     self.skuDescLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"skuDesc"]];
     
+    if ([[_dataDicionary objectForKey:@"commentStatus"] intValue] == 1) {
+        [self.appraiseBtn setTitle:@"评价" forState:UIControlStateNormal];
+    }else if ([[_dataDicionary objectForKey:@"commentStatus"] intValue] == 2) {
+        [self.appraiseBtn setTitle:@"追评" forState:UIControlStateNormal];
+    }else if ([[_dataDicionary objectForKey:@"commentStatus"] intValue] == 3) {
+        [self.appraiseBtn setTitle:@"查看评价" forState:UIControlStateNormal];
+    }
     
 }
 

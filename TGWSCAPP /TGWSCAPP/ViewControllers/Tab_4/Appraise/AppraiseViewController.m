@@ -19,11 +19,11 @@
 
 @implementation AppraiseViewController
 
--(void)loadData123{
+-(void)loadData{
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@""] = @"";
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/myOrder/allList",[PDAPI getBaseUrlString]]
+    params[@"orderNo"] = self.orderNo;
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/orderComment/queryWaitCommList",[PDAPI getBaseUrlString]]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       [self handleData:operation];
@@ -99,9 +99,16 @@
     }
     NSDictionary *dic = self.dataArray[indexPath.row];
     cell.appraiseBlock = ^{
-        IssueAppraiseViewController *ctl = [[IssueAppraiseViewController alloc]init];
-        ctl.goodsUrl = [dic objectForKey:@"goodsUrl"];
-        [self.navigationController pushViewController:ctl animated:YES];
+        if ([[dic objectForKey:@"commentStatus"] intValue] == 1 || [[dic objectForKey:@"commentStatus"] intValue] == 2) {
+            //评价/追评
+            IssueAppraiseViewController *ctl = [[IssueAppraiseViewController alloc]init];
+            ctl.orderDataDic = dic;
+            [self.navigationController pushViewController:ctl animated:YES];
+        }else if ([[dic objectForKey:@"commentStatus"] intValue] == 3) {
+            //查看评价
+            
+        }
+        
     };
     
     cell.dataDicionary = dic;

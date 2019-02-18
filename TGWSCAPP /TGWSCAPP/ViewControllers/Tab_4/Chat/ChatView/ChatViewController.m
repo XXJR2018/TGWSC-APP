@@ -240,14 +240,14 @@
 //    [bgView addSubview:recordBtn];
     
     UIButton *emojiBtn = [[UIButton alloc] init];
-    emojiBtn.frame = CGRectMake(10, 5, 34, 34);//CGRectMake(bgView.frame.size.width - 83, 5, 34, 34);
+    emojiBtn.frame = CGRectMake(10, 10, 24, 24);//CGRectMake(bgView.frame.size.width - 83, 5, 34, 34);
     [emojiBtn setBackgroundImage:[UIImage imageNamed:@"emoji"] forState:UIControlStateNormal];
     [emojiBtn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
     emojiBtn.tag = 12;
     [bgView addSubview:emojiBtn];
     
     UIButton *sendBtn = [[UIButton alloc] init];
-    sendBtn.frame = CGRectMake(bgView.frame.size.width - 60, 5, 55, 34);
+    sendBtn.frame = CGRectMake(bgView.frame.size.width - 60, 5, 50, 34);
     [bgView addSubview:sendBtn];
     sendBtn.backgroundColor = UIColorFromRGB(0xb7b7b7);
     [sendBtn setTitle:@"发送" forState:UIControlStateNormal];
@@ -316,6 +316,8 @@
     
 }
 
+
+#pragma mark ---  发送文本消息
 -(void) actionSendMessage
 {
     if (textSendView.text.length <= 0)
@@ -337,6 +339,13 @@
     model.lMessageTime = time;
     
     [self setShowTime:model];
+    
+    //FIXME: 此处为测试， 只发送时间字符串， 不显示头像和文本字符！！！！！！！！！
+//    model.onlyShowTime = YES;
+//    model.showMessageTime = YES;
+//    model.messageTime = @"我在测试啊";
+    
+    
     [_dataArray addObject:model];
     
     
@@ -356,7 +365,7 @@
 }
 
 
-#pragma mark ---  输入完成
+#pragma mark ---  点击键盘的“发送按钮”,发送文本消息
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([text isEqualToString:@"\n"])
     {
@@ -427,7 +436,7 @@
          {
             // 超过30分钟
             messageModel.showMessageTime = YES;
-            
+        
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             // ----------设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
             [formatter setDateFormat:@"HH:mm:ss"];
@@ -863,11 +872,16 @@ static int iiii = 0;
 }
 
 
-
+// 内存警告
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
+// 视图被销毁
+- (void)dealloc {
+    NSLog(@"%s", __FUNCTION__);
+}
 
 @end

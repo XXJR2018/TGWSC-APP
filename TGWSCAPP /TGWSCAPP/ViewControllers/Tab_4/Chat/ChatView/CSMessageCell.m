@@ -144,6 +144,13 @@
     _logoImageView.frame = [messageModel logoFrame];
     _logoImageView.layer.masksToBounds = YES;
     _logoImageView.layer.cornerRadius = _logoImageView.frame.size.width/2;
+    
+    
+    if (messageModel.onlyShowTime)
+     {
+        // 如果仅仅显示 时间字符串
+        _logoImageView.hidden = YES;
+     }
    
     _bubbleImageView.hidden = NO;
     _bubbleImageView.frame = [messageModel bubbleFrame];

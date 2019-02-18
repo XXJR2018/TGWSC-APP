@@ -102,6 +102,12 @@ NSString  *bg_chat_tablename =  @"chatmessage";
     {
         rect = CGRectMake(65 , timeRect.size.height + 10 , maxWith, size.height > 44 ? size.height : 44);
     }
+    
+    if(self.onlyShowTime)
+     {
+        return CGRectZero;
+     }
+    
     return rect;
 }
 
@@ -197,6 +203,11 @@ NSString  *bg_chat_tablename =  @"chatmessage";
 }
 - (CGFloat)cellHeight
 {
+    if (self.onlyShowTime)
+     {
+        return [self timeFrame].size.height;
+     }
+    
     return [self timeFrame].size.height + [self messageFrame].size.height + [self voiceFrame].size.height + [self imageFrame].size.height + 15;
 }
 

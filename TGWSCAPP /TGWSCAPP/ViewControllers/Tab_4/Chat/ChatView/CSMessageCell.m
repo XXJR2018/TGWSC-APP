@@ -24,6 +24,9 @@
 @property (nonatomic, strong) UIFont      *textFont;
 
 
+@property (nonatomic, strong) UILabel     *questionTilteLabel;
+@property (nonatomic, strong) UILabel     *questionContextLabel;
+@property (nonatomic, strong) UIView     *questionViewFG;
 
 
 @end
@@ -54,6 +57,7 @@
         [self creatSubViewVoice];
         [self creatSubViewAnimationVoice];
         [self creatSubViewImage];
+        [self creatSubViewQuestion];
         
     }
     return self;
@@ -65,7 +69,7 @@
     _messageLabel      = [[UILabel alloc] init];
     _messageLabel.hidden      = YES;
     [self.contentView addSubview:_messageLabel];
-    _textFont=[UIFont fontWithName:FONT_REGULAR size:16];
+    _textFont=[UIFont fontWithName:FONT_REGULAR size:MessageFontSize];
     _messageLabel.numberOfLines=0;
     _messageLabel.lineBreakMode=NSLineBreakByWordWrapping;
     _messageLabel.font = _textFont;
@@ -128,6 +132,36 @@
     [self.contentView addSubview:_imageImageView];
 }
 
+- (void)creatSubViewQuestion
+{
+    _questionTilteLabel      = [[UILabel alloc] init];
+    _questionTilteLabel.hidden      = YES;
+    [self.contentView addSubview:_questionTilteLabel];
+    _textFont =[UIFont fontWithName:FONT_REGULAR size:MessageFontSize];
+    _questionTilteLabel.numberOfLines=0;
+    _questionTilteLabel.lineBreakMode=NSLineBreakByWordWrapping;
+    _questionTilteLabel.font = _textFont;
+    _questionTilteLabel.textColor = COLOR_444444;
+    
+    
+    //_questionViewFG = [[UIView alloc] initWithFrame:CGRectMake(0, 20, 0.8*SCREEN_WIDTH, 1)];
+    _questionViewFG = [[UIView alloc] init];
+    _questionViewFG.hidden      = YES;
+    [self.contentView addSubview:_questionViewFG];
+    _questionViewFG.backgroundColor = [ResourceManager color_5];
+    
+    
+    
+    _questionContextLabel      = [[UILabel alloc] init];
+    _questionContextLabel.hidden      = YES;
+    [self.contentView addSubview:_questionContextLabel];
+    _textFont =[UIFont fontWithName:FONT_REGULAR size:MessageFontSize];
+    _questionContextLabel.numberOfLines=0;
+    _questionContextLabel.lineBreakMode=NSLineBreakByWordWrapping;
+    _questionContextLabel.font = _textFont;
+    _questionContextLabel.textColor = COLOR_444444;
+}
+
 
 
 - (void)setMessageModel:(CSMessageModel *)messageModel {
@@ -174,8 +208,28 @@
             _messageLabel.frame = [messageModel messageFrame];
             _messageLabel.text = messageModel.messageText;
              _messageLabel.textAlignment = NSTextAlignmentLeft;
-            
             break;
+        case MessageTypeQuestion:
+//           _messageLabel.hidden = NO;
+//           _messageLabel.frame = [messageModel messageFrame];
+//           _messageLabel.text = messageModel.messageText;
+//           _messageLabel.textAlignment = NSTextAlignmentLeft;
+           
+            {
+               CGRect timeRect = [messageModel timeFrame];
+               CGRect bubbleRect = [messageModel bubbleFrame];
+               
+                CGRect questionTilteRect =  CGRectMake(65+10, timeRect.size.height + 10, bubbleRect.size.width - 10, 30);
+               _questionTilteLabel.frame = questionTilteRect;
+               _questionTilteLabel.hidden = NO;
+               _questionTilteLabel.text = messageModel.tiltleQuestion;
+               
+               
+               CGRect viewFGRect =  CGRectMake(65, timeRect.size.height + 10 + 30 , bubbleRect.size.width-10, 1);
+               _questionViewFG.hidden = NO;
+               _questionViewFG.frame = viewFGRect;
+               break;
+            }
         case MessageTypeVoice:
             _voiceImageView.hidden = NO;
             _voiceImageView.frame = [messageModel voiceFrame];

@@ -15,6 +15,7 @@
 #define ScreenHight [UIScreen mainScreen].bounds.size.height
 
 NSString  *bg_chat_tablename =  @"chatmessage";
+int  MessageFontSize = 14;
 
 
 @implementation CSMessageModel
@@ -89,7 +90,7 @@ NSString  *bg_chat_tablename =  @"chatmessage";
     CGRect rect = CGRectZero;
     //CGFloat maxWith = ScreenWidth * 0.7 - 60;
     CGFloat maxWith = ScreenWidth * 0.80 - 60;
-     CGSize size = [self labelAutoCalculateRectWith:self.messageText Font:[UIFont fontWithName:FONT_REGULAR size:16] MaxSize:CGSizeMake(maxWith, MAXFLOAT)];
+     CGSize size = [self labelAutoCalculateRectWith:self.messageText Font:[UIFont fontWithName:FONT_REGULAR size:MessageFontSize] MaxSize:CGSizeMake(maxWith, MAXFLOAT)];
     if (self.messageText == nil)
     {
         return rect;
@@ -108,6 +109,27 @@ NSString  *bg_chat_tablename =  @"chatmessage";
         return CGRectZero;
      }
     
+    return rect;
+}
+
+- (CGRect)questionFrame
+{
+    CGRect timeRect = [self timeFrame];
+    CGRect rect = CGRectZero;
+    //CGFloat maxWith = ScreenWidth * 0.7 - 60;
+    CGFloat maxWith = ScreenWidth * 0.80 - 60;
+    
+    if (self.messageType != MessageTypeQuestion)
+     {
+        return  CGRectZero;
+     }
+    
+    //CGSize size = [self labelAutoCalculateRectWith:self.messageText Font:[UIFont fontWithName:FONT_REGULAR size:MessageFontSize] MaxSize:CGSizeMake(maxWith, MAXFLOAT)];
+    int iHeight = 200;
+
+    rect = CGRectMake(65 , timeRect.size.height + 10 , maxWith, iHeight);
+    
+
     return rect;
 }
 
@@ -193,6 +215,11 @@ NSString  *bg_chat_tablename =  @"chatmessage";
             break;
         case MessageTypeImage:
             rect = [self imageFrame];
+            break;
+        case MessageTypeQuestion:
+            rect = [self questionFrame];
+            rect.origin.x =  rect.origin.x + (self.messageSenderType == MessageSenderTypeMe? -10 : -15);
+            rect.size.width =  rect.size.width + 25;
             
             break;
         default:
@@ -208,7 +235,7 @@ NSString  *bg_chat_tablename =  @"chatmessage";
         return [self timeFrame].size.height;
      }
     
-    return [self timeFrame].size.height + [self messageFrame].size.height + [self voiceFrame].size.height + [self imageFrame].size.height + 15;
+    return [self timeFrame].size.height + [self messageFrame].size.height + [self voiceFrame].size.height + [self imageFrame].size.height +   [self questionFrame].size.height + 15;
 }
 
 - (CGSize)labelAutoCalculateRectWith:(NSString *)text Font:(UIFont *)textFont MaxSize:(CGSize)maxSize

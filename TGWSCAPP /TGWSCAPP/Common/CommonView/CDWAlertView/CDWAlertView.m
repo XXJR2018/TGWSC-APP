@@ -443,7 +443,7 @@ NSString *kButtonFont = @"HelveticaNeue-Bold";
     btn.layer.masksToBounds = YES;
     [btn setTitle:title forState:UIControlStateNormal];
     //btn.titleLabel.font = [UIFont fontWithName:kButtonFont size:16.0f];
-    btn.titleLabel.font = [UIFont systemFontOfSize:16];
+    btn.titleLabel.font = [UIFont systemFontOfSize:14];
     btn.showRed = showRed;
 
 

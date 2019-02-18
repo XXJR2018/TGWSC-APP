@@ -29,6 +29,8 @@
     UIButton *btnRGKF;  // 人工客服按钮
     UIButton *btnPJ;    // 评价按钮
     UIButton *btnExit;  // 退出按钮
+    
+    BOOL  isRGFW;   // 是否人工服务
 }
 
 
@@ -64,6 +66,9 @@
      }
 
     [self getDBData];
+    
+    // 初始化职能客服
+    //[self initCustonSerivce];
     
     
     
@@ -117,6 +122,8 @@
     vi.frame = CGRectMake(0, _nowHeight, [UIScreen mainScreen].bounds.size.width, 44);
 }
 
+
+
 #pragma mark  ---  布局UI
 - (void)viewDidLayoutSubviews
 {
@@ -145,7 +152,7 @@
        UIButton *rightNavBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60.f,fRightBtnTopY,60.f, 46.0f)];
        [nav addSubview:rightNavBtn];
        //rightNavBtn.backgroundColor = [UIColor yellowColor];
-       [rightNavBtn addTarget:self action:@selector(actionEidt) forControlEvents:UIControlEventTouchUpInside];
+       [rightNavBtn addTarget:self action:@selector(actionRGKF) forControlEvents:UIControlEventTouchUpInside];
        
        UIImageView *imgViewTop = [[UIImageView alloc] initWithFrame:CGRectMake(21, 10, 18, 18)];
        [rightNavBtn addSubview:imgViewTop];
@@ -167,7 +174,7 @@
        UIButton *rightNavBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - iBtnWidth -5,fRightBtnTopY,iBtnWidth, 46.0f)];
        [nav addSubview:rightNavBtn];
        //rightNavBtn.backgroundColor = [UIColor yellowColor];
-       [rightNavBtn addTarget:self action:@selector(actionEidt) forControlEvents:UIControlEventTouchUpInside];
+       [rightNavBtn addTarget:self action:@selector(actionExit) forControlEvents:UIControlEventTouchUpInside];
        
        UIImageView *imgViewTop = [[UIImageView alloc] initWithFrame:CGRectMake((iBtnWidth-18)/2, 10, 18, 18)];
        [rightNavBtn addSubview:imgViewTop];
@@ -191,7 +198,7 @@
        UIButton *rightNavBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 2*iBtnWidth -5,fRightBtnTopY,iBtnWidth, 46.0f)];
        [nav addSubview:rightNavBtn];
        //rightNavBtn.backgroundColor = [UIColor yellowColor];
-       [rightNavBtn addTarget:self action:@selector(actionEidt) forControlEvents:UIControlEventTouchUpInside];
+       [rightNavBtn addTarget:self action:@selector(actionPJ) forControlEvents:UIControlEventTouchUpInside];
        
        UIImageView *imgViewTop = [[UIImageView alloc] initWithFrame:CGRectMake((iBtnWidth-18)/2, 10, 18, 18)];
        [rightNavBtn addSubview:imgViewTop];
@@ -311,6 +318,36 @@
 //}
 
 
+#pragma mark ---  智能客服相关代码
+-(void) initCustonSerivce
+{
+    CSMessageModel *model = [[CSMessageModel alloc] init];
+    model.messageSenderType = MessageSenderTypeOther;
+    model.messageType = MessageTypeQuestion;
+    model.messageText = textSendView.text;
+    //model.showMessageTime=YES;
+    //model.messageTime = @"16:40";
+    
+    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];//获取当前时间0秒后的时间
+    long time= [date timeIntervalSince1970]*1000;// *1000 是精确到毫秒，不乘就是精确到秒
+    model.lMessageTime = time;
+    model.tiltleQuestion = @"热门问题";
+    
+    NSArray *arrQuestion = @[@"如何退差价",@"如何退货",@"退换快递单号填写错误了"];
+    model.arrQuestion = arrQuestion;
+    
+    [self setShowTime:model];
+    
+    
+    [_dataArray addObject:model];
+    [model bg_save];
+    
+    [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_dataArray.count - 1 inSection:0]
+                                animated:YES
+                          scrollPosition:UITableViewScrollPositionMiddle];
+}
+
 #pragma mark ---  UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -391,6 +428,82 @@
 
 
 #pragma mark --- action
+-(void)clickNavButton:(UIButton *)button
+{
+    if (!isRGFW)
+     {
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+     }
+    
+    
+    CDWAlertView *alertView = [[CDWAlertView alloc] init];
+    
+    alertView.shouldDismissOnTapOutside = NO;
+    alertView.textAlignment = RTTextAlignmentCenter;
+    
+    // 降低高度
+    [alertView subAlertCurHeight:10];
+    //[alertView addSubTitle:[NSString stringWithFormat:@"<font size = 18 color=#000000>确定要放弃付款吗？</font>"]];
+    
+    // 加入message
+    NSString *strXH= [NSString stringWithFormat:@"离开后，聊天将在5分钟后结束。"];
+    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 14 color=#333333> %@ </font>",strXH]];
+    
+    [alertView subAlertCurHeight:10];
+    
+    [alertView addCanelButton:@"暂时离开" actionBlock:^{
+        
+        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:0.5];// 延迟执行
+        
+    }];
+    
+    [alertView addButton:@"继续聊天" color:[ResourceManager priceColor] actionBlock:^{
+        
+        
+    }];
+    
+    [alertView showAlertView:self.parentViewController duration:0.0];
+}
+
+
+-(void) delayMethod
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void) actionExit
+{
+    CDWAlertView *alertView = [[CDWAlertView alloc] init];
+    
+    alertView.shouldDismissOnTapOutside = NO;
+    alertView.textAlignment = RTTextAlignmentCenter;
+    
+    // 降低高度
+    [alertView subAlertCurHeight:10];
+    //[alertView addSubTitle:[NSString stringWithFormat:@"<font size = 18 color=#000000>确定要放弃付款吗？</font>"]];
+    
+    // 加入message
+    NSString *strXH= [NSString stringWithFormat:@"确认退出对话？"];
+    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 14 color=#333333> %@ </font>",strXH]];
+    
+    [alertView subAlertCurHeight:10];
+    
+    [alertView addCanelButton:@"确定" actionBlock:^{
+        
+    }];
+    
+    [alertView addButton:@"取消" color:[ResourceManager priceColor] actionBlock:^{
+        
+        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:0.5];// 延迟执行
+        
+    }];
+    
+    [alertView showAlertView:self.parentViewController duration:0.0];
+    
+    
+}
+
 // 隐藏所有输入框，笑脸符号框
 -(void) TouchHideView
 {
@@ -535,10 +648,22 @@
     
 }
 
--(void) actionEidt
+
+-(void) actionRGKF
+{
+    isRGFW = YES;
+    btnRGKF.hidden = YES;
+    btnExit.hidden = NO;
+    btnPJ.hidden = NO;
+}
+
+-(void) actionPJ
 {
     
 }
+
+
+
 
 // 把tableView 滚动到底部
 -(void) tabeleViewScorllEnd
@@ -771,8 +896,6 @@ static int iiii = 0;
 #pragma mark --- 数据库操作
 -(void) initDB
 {
-    
-    return;
     
     CSMessageModel *model = [[CSMessageModel alloc] init];
     model.showMessageTime=YES;

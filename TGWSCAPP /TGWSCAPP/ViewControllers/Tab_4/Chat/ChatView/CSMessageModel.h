@@ -14,6 +14,7 @@
 
 
 extern NSString  *bg_chat_tablename;  // 数据库中的表名
+extern int MessageFontSize;           // 消息的字体大小
 
 @class CSMessageModel;
 
@@ -23,8 +24,8 @@ extern NSString  *bg_chat_tablename;  // 数据库中的表名
 typedef NS_OPTIONS(NSUInteger, MessageType) {
     MessageTypeText=1,
     MessageTypeVoice,
-    MessageTypeImage
-    
+    MessageTypeImage,
+    MessageTypeQuestion
     
 };
 
@@ -154,6 +155,22 @@ typedef NS_OPTIONS(NSUInteger, MessageReadStatus) {
 @property (nonatomic, assign) BOOL   onlyShowTime;
 
 
+
+
+/*
+ 热门问题标题
+ */
+@property (nonatomic, retain) NSString    *tiltleQuestion;
+
+
+/*
+ 热门问题列表
+ */
+@property (nonatomic, retain) NSArray    *arrQuestion;
+
+
+
+
 - (CGRect)timeFrame;
 - (CGRect)logoFrame;
 - (CGRect)messageFrame;
@@ -161,6 +178,7 @@ typedef NS_OPTIONS(NSUInteger, MessageReadStatus) {
 - (CGRect)voiceAnimationFrame;
 - (CGRect)bubbleFrame;
 - (CGRect)imageFrame;
+- (CGRect)questionFrame;
 - (CGFloat)cellHeight;
 
 

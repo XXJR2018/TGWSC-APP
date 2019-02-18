@@ -1172,12 +1172,12 @@
 		C050C3B422156FFD00BFACF5 /* Invoice */ = {
 			isa = PBXGroup;
 			children = (
+				C050C3B822156FFD00BFACF5 /* InvoiceJpegVC.h */,
 				C050C3B522156FFD00BFACF5 /* InvoiceJpegVC.m */,
+				C050C3BA22156FFD00BFACF5 /* InvoiceCommitVC.h */,
 				C050C3B622156FFD00BFACF5 /* InvoiceCommitVC.m */,
 				C050C3B722156FFD00BFACF5 /* InvoiceInfoVC.h */,
-				C050C3B822156FFD00BFACF5 /* InvoiceJpegVC.h */,
 				C050C3B922156FFD00BFACF5 /* InvoiceInfoVC.m */,
-				C050C3BA22156FFD00BFACF5 /* InvoiceCommitVC.h */,
 			);
 			path = Invoice;
 			sourceTree = "<group>";

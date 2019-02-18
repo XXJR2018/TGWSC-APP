@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Appraise/IssueAppraiseViewController.m"
-            timestampString = "571903464.3637069"
+            timestampString = "572148230.616992"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
             landmarkName = "-changeUpdateImgViewUI"
             landmarkType = "7">
          </BreakpointContent>

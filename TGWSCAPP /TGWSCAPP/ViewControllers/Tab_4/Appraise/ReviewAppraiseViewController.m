@@ -71,26 +71,26 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"发布评论"];
+    [MobClick beginLogPageView:@"发布追评"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"发布评论"];
+    [MobClick endLogPageView:@"发布追评"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     CustomNavigationBarView *naviView = [self layoutNaviBarViewWithTitle:@"评论"];
-    UIButton *issueBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 60,NavHeight - 35, 60, 35)];
+    UIButton *issueBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 80,NavHeight - 35, 80, 35)];
     [naviView addSubview:issueBtn];
-    [issueBtn setTitle:@"发布" forState:UIControlStateNormal];
+    [issueBtn setTitle:@"发布追评" forState:UIControlStateNormal];
     issueBtn .titleLabel.font = [UIFont systemFontOfSize:14];
     [issueBtn setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
     [issueBtn addTarget:self action:@selector(IssueAppraise) forControlEvents:UIControlEventTouchUpInside];
     _updataImgArr = [[NSMutableArray alloc]init];
-    self.view.backgroundColor = [UIColor whiteColor];
+
     [self layoutUI];
     
     //添加手势点击空白处隐藏键盘
@@ -116,26 +116,32 @@
     UIColor *color_2 = [ResourceManager color_6];
     UIFont *font_1 = [UIFont systemFontOfSize:14];
     UIFont *font_2 = [UIFont systemFontOfSize:13];
+    UIView *headerView = [[UIView alloc]init];
+    [self.view addSubview:headerView];
+    headerView.backgroundColor = [UIColor whiteColor];
     
-    UIImageView *iconImgView = [[UIImageView alloc]initWithFrame:CGRectMake(10, NavHeight + 10, 45, 45)];
-    [self.view addSubview:iconImgView];
+    UIImageView *iconImgView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 45, 45)];
+    [headerView addSubview:iconImgView];
     [iconImgView sd_setImageWithURL:[NSURL URLWithString:[self.orderDataDic objectForKey:@"goodsUrl"]]];
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(iconImgView.frame) + 10, CGRectGetMidY(iconImgView.frame) - 10, 65, 20)];
-    [self.view addSubview:titleLabel];
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(iconImgView.frame) + 10, CGRectGetMinY(iconImgView.frame), SCREEN_WIDTH - 80, 20)];
+    [headerView addSubview:titleLabel];
     titleLabel.font = font_1;
     titleLabel.textColor = color_1;
-    titleLabel.text = @"";
-    
+    titleLabel.text = [NSString stringWithFormat:@"%@",[self.orderDataDic objectForKey:@"goodsName"]];
+    UILabel *subTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(iconImgView.frame) + 10, CGRectGetMaxY(titleLabel.frame) + 5, SCREEN_WIDTH - 80, 20)];
+    [headerView addSubview:subTitleLabel];
+    subTitleLabel.font = font_2;
+    subTitleLabel.textColor = color_2;
+    subTitleLabel.text =[NSString stringWithFormat:@"%@",[self.orderDataDic objectForKey:@"skuDesc"]];
   
     
-    
     UIView *lineView_1 = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(iconImgView.frame) + 10, SCREEN_WIDTH, 0.5)];
-    [self.view addSubview:lineView_1];
+    [headerView addSubview:lineView_1];
     lineView_1.backgroundColor = [ResourceManager color_5];
     
     _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(lineView_1.frame) + 10, SCREEN_WIDTH - 20, 120)];
-    [self.view addSubview:_textView];
+    [headerView addSubview:_textView];
     _textView.delegate = self;
     _textView.font = font_2;
     _textView.textColor = color_2;
@@ -143,8 +149,8 @@
     
     CGFloat imgWidth = (SCREEN_WIDTH - 10 * 6)/5;
     
-    _updataView =  [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_textView.frame) + 10, SCREEN_WIDTH, imgWidth)];
-    [self.view addSubview:_updataView];
+    _updataView =  [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_textView.frame), SCREEN_WIDTH, imgWidth)];
+    [headerView addSubview:_updataView];
     _updataView.backgroundColor = [UIColor whiteColor];
     
     for (int i = 0; i < 1; i++) {
@@ -170,7 +176,7 @@
         titleLabel.text = @"添加图片";
     }
     
-
+    headerView.frame = CGRectMake(0, NavHeight, SCREEN_WIDTH, CGRectGetMaxY(_updataView.frame) + 15);
 }
 
 

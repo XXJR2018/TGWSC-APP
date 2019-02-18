@@ -126,9 +126,6 @@
 
 #pragma mark ---  发布评论
 -(void)IssueAppraise{
-    AppraiseSuccessViewController *ctl = [[AppraiseSuccessViewController alloc]init];
-    [self.navigationController pushViewController:ctl animated:YES];
-    return;
     [self.view endEditing:YES];
     if (_wlfwStar == 0) {
         [MBProgressHUD showErrorWithStatus:@"请评价物流服务" toView:self.view];
@@ -188,7 +185,7 @@
     
     CGFloat imgWidth = (SCREEN_WIDTH - 10 * 6)/5;
     
-    _updataView =  [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_textView.frame) + 10, SCREEN_WIDTH, imgWidth)];
+    _updataView =  [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_textView.frame), SCREEN_WIDTH, imgWidth)];
     [self.view addSubview:_updataView];
     _updataView.backgroundColor = [UIColor whiteColor];
     

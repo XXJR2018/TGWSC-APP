@@ -42,8 +42,12 @@
 -(void)setDataDicionary:(NSDictionary *)dataDicionary{
     _dataDicionary = dataDicionary;
     [self.contentView removeAllSubviews];
+    if (self.appraiseType == 1) {
+        [self layoutUI_1];
+    }else{
+        [self layoutUI_2];
+    }
     
-    [self layoutUI];
     [self layoutSubviews];
 }
 
@@ -52,7 +56,7 @@
 }
 
 #pragma --mark 手动布局cell内部j控件
--(void)layoutUI{
+-(void)layoutUI_1{
     UIColor *color_1 = [ResourceManager color_1];
     UIColor *color_2 = [ResourceManager color_6];
     UIFont *font_1 = [UIFont systemFontOfSize:13];
@@ -159,6 +163,44 @@
     [self.contentView addSubview:lineView];
     lineView.backgroundColor = [ResourceManager viewBackgroundColor];
     
+}
+
+-(void)layoutUI_2{
+    UIColor *color_1 = [ResourceManager color_1];
+    UIColor *color_2 = [ResourceManager color_6];
+    UIFont *font_1 = [UIFont systemFontOfSize:14];
+    UIFont *font_2 = [UIFont systemFontOfSize:12];
+    UIImageView *headImgView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 30, 30)];
+    [self.contentView addSubview:headImgView];
+    headImgView.layer.masksToBounds = YES;
+    headImgView.layer.cornerRadius = 30/2;
+    [headImgView sd_setImageWithURL:[_dataDicionary objectForKey:@"headImgUrl"]];
+    
+    UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(headImgView.frame) + 10, CGRectGetMidY(headImgView.frame) - 10, 250, 20)];
+    [self.contentView addSubview:nameLabel];
+    nameLabel.font = font_2;
+    nameLabel.textColor = color_1;
+    nameLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"nickName"]];
+    
+    UILabel *timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), CGRectGetMaxY(headImgView.frame), SCREEN_WIDTH - 20, 20)];
+    [self.contentView addSubview:timeLabel];
+    timeLabel.font = font_2;
+    timeLabel.textColor = color_2;
+    timeLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"createTime"]];
+    
+    UILabel *appraiseTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), CGRectGetMaxY(timeLabel.frame), SCREEN_WIDTH - 20, 50)];
+    [self.contentView addSubview:appraiseTextLabel];
+    appraiseTextLabel.numberOfLines = 0;
+    appraiseTextLabel.font = font_1;
+    appraiseTextLabel.textColor = color_1;
+    appraiseTextLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"commentText"]];
+//    appraiseTextLabel.text = @"带我去拍单抢完23欧文陪我23问我2是马嵬坡带我去拍单抢完23欧文陪我23问我2是马嵬坡带我去拍单抢完23欧文陪我23问我2是马嵬坡带我去拍单抢完23欧文陪我23问我2是马嵬坡带我去拍单抢完23欧文陪我23问我2是马嵬坡带我去拍单抢完23欧文陪我23问我2是马嵬坡带我去拍单抢完23欧文陪我23问我2是马嵬坡带我去拍单抢完23欧文陪我23问我2是马嵬坡带我去拍单抢完23欧文陪我23问我2是马嵬坡带我去拍单抢完23欧文陪我23问我2是马嵬坡带我去拍单抢完23欧文陪我23问我2是马嵬坡带我去拍单抢完23欧文陪我23问我2是马嵬坡带我去拍单抢完23欧文陪我23问我2是马嵬坡";
+    CGSize maximumLabelSize = CGSizeMake(SCREEN_WIDTH - 20, 500);//labelsize的最大值
+    //关键语句
+    CGSize expectSize = [appraiseTextLabel sizeThatFits:maximumLabelSize];
+    //别忘了把frame给回label，如果用xib加了约束的话可以只改一个约束的值
+    appraiseTextLabel.frame = CGRectMake(CGRectGetMinX(headImgView.frame), CGRectGetMaxY(timeLabel.frame), expectSize.width, expectSize.height);
+   
 }
 
 -(void)checkOrder{

@@ -8,7 +8,7 @@
 
 #import "AppraiseViewController.h"
 #import "IssueAppraiseViewController.h"
-
+#import "ReviewAppraiseViewController.h"
 #import "AppraiseViewCell.h"
 
 @interface AppraiseViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -99,14 +99,20 @@
     }
     NSDictionary *dic = self.dataArray[indexPath.row];
     cell.appraiseBlock = ^{
-        if ([[dic objectForKey:@"commentStatus"] intValue] == 1 || [[dic objectForKey:@"commentStatus"] intValue] == 2) {
-            //评价/追评
+        if ([[dic objectForKey:@"commentStatus"] intValue] == 1) {
+            //评价
             IssueAppraiseViewController *ctl = [[IssueAppraiseViewController alloc]init];
+            ctl.orderDataDic = dic;
+            [self.navigationController pushViewController:ctl animated:YES];
+        }else if ([[dic objectForKey:@"commentStatus"] intValue] == 2) {
+            //追评
+            ReviewAppraiseViewController *ctl = [[ReviewAppraiseViewController alloc]init];
             ctl.orderDataDic = dic;
             [self.navigationController pushViewController:ctl animated:YES];
         }else if ([[dic objectForKey:@"commentStatus"] intValue] == 3) {
             //查看评价
-            
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4),@"index":@(1)}];
         }
         
     };

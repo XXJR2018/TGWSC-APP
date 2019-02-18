@@ -28,7 +28,11 @@
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[kPage] = @(self.pageIndex);
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/orderComment/queryWaitOrder",[PDAPI getBaseUrlString]]
+    NSString *url = [NSString stringWithFormat:@"%@appMall/account/orderComment/queryWaitOrder",[PDAPI getBaseUrlString]];
+    if (_wdpjBtn.selected) {
+        url = [NSString stringWithFormat:@"%@appMall/account/orderComment/queryMyCommList",[PDAPI getBaseUrlString]];
+    }
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:url
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       [self handleData:operation];
@@ -49,6 +53,9 @@
     if (operation.tag == 1000) {
         if (operation.jsonResult.rows.count > 0) {
             [_tableView setTableHeaderView:_headerView];
+            if (_wdpjBtn.selected) {
+                [_tableView setTableHeaderView:[UIView new]];
+            }
             [self reloadTableViewWithArray:operation.jsonResult.rows];
         }else{
             if (self.pageIndex == 1) {
@@ -156,6 +163,10 @@
         _dpjBtn.selected = NO;
         _wdpjBtn.selected = YES;
     }
+    
+    self.pageIndex = 1;
+    [self loadData];
+    
 }
 
 #pragma mark === UITableViewDataSource
@@ -171,12 +182,17 @@
     if (self.dataArray.count == 0) {
         return tableView.frame.size.height;
     }else{
-        NSDictionary *dic = self.dataArray[indexPath.row];
-        NSArray *orderDtlListArr = [dic objectForKey:@"orderDtlList"];
-        if ([[dic objectForKey:@"freightAmt"] intValue] > 0) {
-            return orderCellHeight * orderDtlListArr.count + 155;
+        if (_dpjBtn.selected) {
+            NSDictionary *dic = self.dataArray[indexPath.row];
+            NSArray *orderDtlListArr = [dic objectForKey:@"orderDtlList"];
+            if ([[dic objectForKey:@"freightAmt"] intValue] > 0) {
+                return orderCellHeight * orderDtlListArr.count + 155;
+            }
+            return orderCellHeight * orderDtlListArr.count + 135;
+        }else{
+            return 120;
         }
-        return orderCellHeight * orderDtlListArr.count + 135;
+       
     }
 }
 
@@ -191,6 +207,11 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     NSDictionary *dic = self.dataArray[indexPath.row];
+    if (_dpjBtn.selected) {
+        cell.appraiseType = 1;
+    }else{
+        cell.appraiseType = 2;
+    }
     cell.dataDicionary =  dic;
     cell.checkOrderBlock = ^{
         //查看订单

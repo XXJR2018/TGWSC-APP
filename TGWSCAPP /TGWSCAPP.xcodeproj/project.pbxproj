@@ -80,6 +80,7 @@
 		C0A48B4E21DE3608002AF226 /* RCLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B4D21DE3608002AF226 /* RCLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C0A48B5121DE3715002AF226 /* CDWAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B5021DE3715002AF226 /* CDWAlertView.m */; };
 		C0A48B5521DE3D8A002AF226 /* OrderDetialVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B5421DE3D8A002AF226 /* OrderDetialVC.m */; };
+		C0C4B762221BE793002853D1 /* EvaluateView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C4B761221BE793002853D1 /* EvaluateView.m */; };
 		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
@@ -504,6 +505,8 @@
 		C0A48B5021DE3715002AF226 /* CDWAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDWAlertView.m; sourceTree = "<group>"; };
 		C0A48B5321DE3D8A002AF226 /* OrderDetialVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetialVC.h; sourceTree = "<group>"; };
 		C0A48B5421DE3D8A002AF226 /* OrderDetialVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetialVC.m; sourceTree = "<group>"; };
+		C0C4B760221BE793002853D1 /* EvaluateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvaluateView.h; sourceTree = "<group>"; };
+		C0C4B761221BE793002853D1 /* EvaluateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvaluateView.m; sourceTree = "<group>"; };
 		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
@@ -1191,6 +1194,8 @@
 				C050C3D52215704200BFACF5 /* CSMessageCell.m */,
 				C050C3D02215704200BFACF5 /* CSMessageModel.h */,
 				C050C3C42215704200BFACF5 /* CSMessageModel.m */,
+				C0C4B760221BE793002853D1 /* EvaluateView.h */,
+				C0C4B761221BE793002853D1 /* EvaluateView.m */,
 				C050C3C92215704200BFACF5 /* UILabel+Han.h */,
 				C050C3D82215704200BFACF5 /* UILabel+Han.m */,
 				C050C3BF2215704200BFACF5 /* UIImage+Han.h */,
@@ -3006,6 +3011,7 @@
 				C0CCC7EA21C0F150009352E0 /* UIColor+LLHex.m in Sources */,
 				C250476B21BA715500DA9C72 /* CommonFunc.m in Sources */,
 				C250476621BA715500DA9C72 /* NSDictionary+Additions.m in Sources */,
+				C0C4B762221BE793002853D1 /* EvaluateView.m in Sources */,
 				C250460F21BA711E00DA9C72 /* SDCollectionViewCell.m in Sources */,
 				C0A48B4121DDFE12002AF226 /* SKAutoScrollLabel.m in Sources */,
 				C0CCC7FB21C0F1CB009352E0 /* HistorySearchHistroyViewP.m in Sources */,

@@ -12,8 +12,8 @@
 #import "ChatViewController.h"
 #import "CSMessageCell.h"
 #import "CSMessageModel.h"
-
 #import "CSRecord.h"
+#import "EvaluateView.h"
 
 
 
@@ -29,6 +29,8 @@
     UIButton *btnRGKF;  // 人工客服按钮
     UIButton *btnPJ;    // 评价按钮
     UIButton *btnExit;  // 退出按钮
+    
+    EvaluateView  *evaluteView; // 评价view
     
     BOOL  isRGFW;   // 是否人工服务
     BOOL isGetData;  // 是否获取过历史记录
@@ -87,6 +89,7 @@
     _tableView.separatorColor = [UIColor clearColor];
     
     
+    
     //添加手势点击空白处隐藏 弹出框
     UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(TouchHideView)];
     gesture.numberOfTapsRequired  = 1;
@@ -139,6 +142,8 @@
        [self bottomView];
        
        [self tabeleViewScorllEnd];
+       
+       [self laytoutEvaluateView];
     }
     
 }
@@ -322,6 +327,14 @@
 //}
 
 
+-(void) laytoutEvaluateView
+{
+    evaluteView = [[EvaluateView alloc] initWithFrame:self.view.frame];
+    [self.view addSubview:evaluteView];
+    evaluteView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.7];
+    evaluteView.hidden = YES;
+}
+
 #pragma mark ---  智能客服相关代码
 -(void) initCustonSerivce
 {
@@ -383,8 +396,6 @@
     model.onlyShowTime = YES;
     model.showMessageTime = YES;
     model.messageTime = @"人工客服已经退出";
-    [_dataArray addObject:model];
-    [model bg_save];
     
     [self setShowTime:model];
     [_dataArray addObject:model];
@@ -733,7 +744,7 @@
 
 -(void) actionPJ
 {
-    
+    evaluteView.hidden = NO;
 }
 
 

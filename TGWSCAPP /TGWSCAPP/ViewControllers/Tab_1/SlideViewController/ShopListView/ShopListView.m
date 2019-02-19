@@ -199,7 +199,7 @@
         float fImgHeight = fixelH *FixelScaleSize*ScaleSize;
         float fImgWidth = fixelW *FixelScaleSize*ScaleSize;
         fImgTopY = fTopY;
-        float fImgBettewn = 5 *ScaleSize;
+        float fImgBettewn = 1.5 *ScaleSize;
         fLeftX = (SCREEN_WIDTH  - _columnOneCount *fImgWidth - (_columnOneCount -1)* fImgBettewn)/2;
         float fImgLeftX = fLeftX;
         
@@ -272,7 +272,7 @@
         fImgWidth = fixelW *FixelScaleSize*ScaleSize;
         //fImgTopY = fTopY;
         fImgTopY += fImgHeight + fImgBettewn + fLabelNameHeight + fLablePriceHeight + fImgBettewn;
-        fImgBettewn = 5 *ScaleSize;
+        fImgBettewn = 1.5 *ScaleSize;
         fLeftX = (SCREEN_WIDTH  - _columnTwoCount *fImgWidth - (_columnTwoCount -1)* fImgBettewn)/2;
         fImgLeftX = fLeftX;
 

@@ -310,9 +310,6 @@
 		C29ABBF221D4776A00428407 /* AddAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C29ABBF021D4776A00428407 /* AddAddressViewController.xib */; };
 		C2A08F6A21BF4563005753F6 /* TabBarSelectButtn.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A08F6921BF4563005753F6 /* TabBarSelectButtn.m */; };
 		C2A7000422153B2400AB277C /* AppraiseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A7000322153B2400AB277C /* AppraiseListViewController.m */; };
-		C2A7000822153BB000AB277C /* AppraiseListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A7000622153BB000AB277C /* AppraiseListCell.m */; };
-		C2A7000D22153BF400AB277C /* AppraiseViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A7000B22153BF400AB277C /* AppraiseViewCell.m */; };
-		C2A7000E22153BF400AB277C /* AppraiseViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A7000C22153BF400AB277C /* AppraiseViewCell.xib */; };
 		C2A70011221558E400AB277C /* IssueAppraiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A70010221558E400AB277C /* IssueAppraiseViewController.m */; };
 		C2A7001522155E0100AB277C /* XHStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A7001422155E0100AB277C /* XHStarRateView.m */; };
 		C2A71B8521BE53F9007D849F /* DDGUserInfoEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A71B8421BE53F9007D849F /* DDGUserInfoEngine.m */; };
@@ -335,7 +332,12 @@
 		C2B51AF121C3462500AC76FB /* ProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */; };
 		C2B51AF221C3462500AC76FB /* ProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */; };
 		C2C149C521F16C3200A1C2F9 /* Images-Default.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2C149C421F16C3100A1C2F9 /* Images-Default.xcassets */; };
-		C2C4B822221BB5B2007A0147 /* MyAPPraiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C4B821221BB5B2007A0147 /* MyAPPraiseView.m */; };
+		C2C4B82B221BFBAF007A0147 /* MyAPPraiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C4B824221BFBAF007A0147 /* MyAPPraiseView.m */; };
+		C2C4B82C221BFBAF007A0147 /* AppraiseViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C4B825221BFBAF007A0147 /* AppraiseViewCell.m */; };
+		C2C4B82D221BFBAF007A0147 /* AppraiseViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2C4B827221BFBAF007A0147 /* AppraiseViewCell.xib */; };
+		C2C4B82E221BFBAF007A0147 /* AppraiseListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C4B829221BFBAF007A0147 /* AppraiseListCell.m */; };
+		C2C4B832221BFBEB007A0147 /* AppraiseSuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C4B830221BFBEB007A0147 /* AppraiseSuccessCell.m */; };
+		C2C4B833221BFBEB007A0147 /* AppraiseSuccessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2C4B831221BFBEB007A0147 /* AppraiseSuccessCell.xib */; };
 		C2CF26CE21E5885D00CB8E76 /* LogisticsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CF26CD21E5885D00CB8E76 /* LogisticsViewCell.m */; };
 		C2F23AAA21D61B2B00E5332D /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AA921D61B2B00E5332D /* OrderViewController.m */; };
 		C2F23AAE21D61CA100E5332D /* OrderListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AAC21D61CA100E5332D /* OrderListViewCell.m */; };
@@ -940,11 +942,6 @@
 		C2A08F6921BF4563005753F6 /* TabBarSelectButtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarSelectButtn.m; sourceTree = "<group>"; };
 		C2A7000222153B2400AB277C /* AppraiseListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseListViewController.h; sourceTree = "<group>"; };
 		C2A7000322153B2400AB277C /* AppraiseListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseListViewController.m; sourceTree = "<group>"; };
-		C2A7000522153BB000AB277C /* AppraiseListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseListCell.h; sourceTree = "<group>"; };
-		C2A7000622153BB000AB277C /* AppraiseListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseListCell.m; sourceTree = "<group>"; };
-		C2A7000A22153BF400AB277C /* AppraiseViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseViewCell.h; sourceTree = "<group>"; };
-		C2A7000B22153BF400AB277C /* AppraiseViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseViewCell.m; sourceTree = "<group>"; };
-		C2A7000C22153BF400AB277C /* AppraiseViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppraiseViewCell.xib; sourceTree = "<group>"; };
 		C2A7000F221558E400AB277C /* IssueAppraiseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueAppraiseViewController.h; sourceTree = "<group>"; };
 		C2A70010221558E400AB277C /* IssueAppraiseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueAppraiseViewController.m; sourceTree = "<group>"; };
 		C2A7001322155E0100AB277C /* XHStarRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHStarRateView.h; sourceTree = "<group>"; };
@@ -978,8 +975,16 @@
 		C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductCollectionViewCell.m; sourceTree = "<group>"; };
 		C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCollectionViewCell.xib; sourceTree = "<group>"; };
 		C2C149C421F16C3100A1C2F9 /* Images-Default.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-Default.xcassets"; sourceTree = "<group>"; };
-		C2C4B820221BB5B2007A0147 /* MyAPPraiseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAPPraiseView.h; sourceTree = "<group>"; };
-		C2C4B821221BB5B2007A0147 /* MyAPPraiseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAPPraiseView.m; sourceTree = "<group>"; };
+		C2C4B824221BFBAF007A0147 /* MyAPPraiseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAPPraiseView.m; sourceTree = "<group>"; };
+		C2C4B825221BFBAF007A0147 /* AppraiseViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppraiseViewCell.m; sourceTree = "<group>"; };
+		C2C4B826221BFBAF007A0147 /* AppraiseListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppraiseListCell.h; sourceTree = "<group>"; };
+		C2C4B827221BFBAF007A0147 /* AppraiseViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppraiseViewCell.xib; sourceTree = "<group>"; };
+		C2C4B828221BFBAF007A0147 /* MyAPPraiseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAPPraiseView.h; sourceTree = "<group>"; };
+		C2C4B829221BFBAF007A0147 /* AppraiseListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppraiseListCell.m; sourceTree = "<group>"; };
+		C2C4B82A221BFBAF007A0147 /* AppraiseViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppraiseViewCell.h; sourceTree = "<group>"; };
+		C2C4B82F221BFBEB007A0147 /* AppraiseSuccessCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseSuccessCell.h; sourceTree = "<group>"; };
+		C2C4B830221BFBEB007A0147 /* AppraiseSuccessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseSuccessCell.m; sourceTree = "<group>"; };
+		C2C4B831221BFBEB007A0147 /* AppraiseSuccessCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppraiseSuccessCell.xib; sourceTree = "<group>"; };
 		C2CF26CC21E5885D00CB8E76 /* LogisticsViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticsViewCell.h; sourceTree = "<group>"; };
 		C2CF26CD21E5885D00CB8E76 /* LogisticsViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsViewCell.m; sourceTree = "<group>"; };
 		C2D2B19321BDF45F00FE810C /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
@@ -1839,6 +1844,7 @@
 		C24975C62213C55100949662 /* Appraise */ = {
 			isa = PBXGroup;
 			children = (
+				C2C4B823221BFBAF007A0147 /* cell */,
 				C2A7000222153B2400AB277C /* AppraiseListViewController.h */,
 				C2A7000322153B2400AB277C /* AppraiseListViewController.m */,
 				C24975C72213C56300949662 /* AppraiseViewController.h */,
@@ -1849,13 +1855,6 @@
 				C23550F7221A9CE4006C21B1 /* ReviewAppraiseViewController.m */,
 				C24293C122168E6800FFCE5D /* AppraiseSuccessViewController.h */,
 				C24293C222168E6800FFCE5D /* AppraiseSuccessViewController.m */,
-				C2A7000522153BB000AB277C /* AppraiseListCell.h */,
-				C2A7000622153BB000AB277C /* AppraiseListCell.m */,
-				C2C4B820221BB5B2007A0147 /* MyAPPraiseView.h */,
-				C2C4B821221BB5B2007A0147 /* MyAPPraiseView.m */,
-				C2A7000A22153BF400AB277C /* AppraiseViewCell.h */,
-				C2A7000B22153BF400AB277C /* AppraiseViewCell.m */,
-				C2A7000C22153BF400AB277C /* AppraiseViewCell.xib */,
 			);
 			path = Appraise;
 			sourceTree = "<group>";
@@ -2676,6 +2675,23 @@
 			path = SDK_QQ;
 			sourceTree = "<group>";
 		};
+		C2C4B823221BFBAF007A0147 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				C2C4B826221BFBAF007A0147 /* AppraiseListCell.h */,
+				C2C4B829221BFBAF007A0147 /* AppraiseListCell.m */,
+				C2C4B82A221BFBAF007A0147 /* AppraiseViewCell.h */,
+				C2C4B825221BFBAF007A0147 /* AppraiseViewCell.m */,
+				C2C4B827221BFBAF007A0147 /* AppraiseViewCell.xib */,
+				C2C4B828221BFBAF007A0147 /* MyAPPraiseView.h */,
+				C2C4B824221BFBAF007A0147 /* MyAPPraiseView.m */,
+				C2C4B82F221BFBEB007A0147 /* AppraiseSuccessCell.h */,
+				C2C4B830221BFBEB007A0147 /* AppraiseSuccessCell.m */,
+				C2C4B831221BFBEB007A0147 /* AppraiseSuccessCell.xib */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		C2F23AA721D61B0600E5332D /* Order */ = {
 			isa = PBXGroup;
 			children = (
@@ -2849,7 +2865,6 @@
 				C250451321BA579100DA9C72 /* CitysViewController.xib in Resources */,
 				C2C149C521F16C3200A1C2F9 /* Images-Default.xcassets in Resources */,
 				C244950821CCB3AC00F8698B /* SortProductCollectionViewCell.xib in Resources */,
-				C2A7000E22153BF400AB277C /* AppraiseViewCell.xib in Resources */,
 				C23EAF4321D32D3000B271A7 /* CouponViewCell.xib in Resources */,
 				C250436021BA51FD00DA9C72 /* LaunchScreen.storyboard in Resources */,
 				C050C3E12215704300BFACF5 /* ISEmojiList.plist in Resources */,
@@ -2869,10 +2884,12 @@
 				C250451221BA579100DA9C72 /* SelectCityViewController.xib in Resources */,
 				C2AEB46821BE45CD0078E788 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */,
+				C2C4B82D221BFBAF007A0147 /* AppraiseViewCell.xib in Resources */,
 				C02C5F9A21CC991A0056A32E /* icon_video@2x.png in Resources */,
 				C050C3EA2215704300BFACF5 /* w.png in Resources */,
 				C20525F521BE6E5C00E13893 /* TabViewController_2.xib in Resources */,
 				C25047AD21BA715500DA9C72 /* error@2x.png in Resources */,
+				C2C4B833221BFBEB007A0147 /* AppraiseSuccessCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3029,17 +3046,18 @@
 				C250451A21BA579100DA9C72 /* RemoteNTFManager.m in Sources */,
 				C050C3EB2215704300BFACF5 /* UILabel+Han.m in Sources */,
 				C0CCC85C21C391F1009352E0 /* ShopModel.m in Sources */,
+				C2C4B82C221BFBAF007A0147 /* AppraiseViewCell.m in Sources */,
 				C25047B621BA715500DA9C72 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				C25047E821BA715500DA9C72 /* DDGAssert.m in Sources */,
 				C20525F221BE6E5C00E13893 /* TabViewController_3.m in Sources */,
 				C0CCC7E721C0F150009352E0 /* NBSSearchShopHistoryView.m in Sources */,
 				C29ABBDB21D4655300428407 /* MyCollectViewController.m in Sources */,
-				C2A7000D22153BF400AB277C /* AppraiseViewCell.m in Sources */,
 				C050C4082215731900BFACF5 /* NSObject+BGModel.m in Sources */,
 				C250480221BA73B800DA9C72 /* AFHTTPRequestOperationManager.m in Sources */,
 				C250461C21BA711E00DA9C72 /* UIBezierPath+BasicShapes.m in Sources */,
 				C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */,
 				C24293C422168E6800FFCE5D /* AppraiseSuccessViewController.m in Sources */,
+				C2C4B82E221BFBAF007A0147 /* AppraiseListCell.m in Sources */,
 				C250451521BA579100DA9C72 /* SelectCityViewController.m in Sources */,
 				C244952321CCC6E100F8698B /* LSPPageView.m in Sources */,
 				C222C39121D2235700DD9797 /* UserInfoViewController.m in Sources */,
@@ -3055,6 +3073,7 @@
 				C0A48A6D21D1F969002AF226 /* PopSelShopView.m in Sources */,
 				C04B180321E5DC5000DBA0FE /* RefundListVC.m in Sources */,
 				C250476821BA715500DA9C72 /* ExceptionCatch.m in Sources */,
+				C2C4B82B221BFBAF007A0147 /* MyAPPraiseView.m in Sources */,
 				C250451F21BA579100DA9C72 /* DDGWeChat.m in Sources */,
 				C0CCC82221C0F47D009352E0 /* HistoryVC.m in Sources */,
 				C25047DD21BA715500DA9C72 /* XXJRModalView.m in Sources */,
@@ -3078,7 +3097,6 @@
 				C050C3E82215704300BFACF5 /* CSMessageCell.m in Sources */,
 				C2F23AB221D61D9500E5332D /* OrderListViewController.m in Sources */,
 				C250476421BA715500DA9C72 /* UIImage+Additions.m in Sources */,
-				C2A7000822153BB000AB277C /* AppraiseListCell.m in Sources */,
 				C250460121BA711E00DA9C72 /* RefreshTableView.m in Sources */,
 				C2A71BBF21BE5FB6007D849F /* NSObject+Property.m in Sources */,
 				C250476F21BA715500DA9C72 /* NSData+Additions.m in Sources */,
@@ -3129,7 +3147,6 @@
 				C250436321BA51FD00DA9C72 /* main.m in Sources */,
 				C25047FE21BA73B800DA9C72 /* AFURLResponseSerialization.m in Sources */,
 				C0CCC82A21C0F4C5009352E0 /* HistoryAndCategorySearchVC.m in Sources */,
-				C2C4B822221BB5B2007A0147 /* MyAPPraiseView.m in Sources */,
 				C250460E21BA711E00DA9C72 /* UIView+SDExtension.m in Sources */,
 				C245272D21E4859800CA4196 /* LogisticsDescViewController.m in Sources */,
 				C250450E21BA579100DA9C72 /* BindPhoneViewController.m in Sources */,
@@ -3144,6 +3161,7 @@
 				C250477621BA715500DA9C72 /* Reachability.m in Sources */,
 				C250460C21BA711E00DA9C72 /* IdentifyAlertView.m in Sources */,
 				C24975C92213C56300949662 /* AppraiseViewController.m in Sources */,
+				C2C4B832221BFBEB007A0147 /* AppraiseSuccessCell.m in Sources */,
 				C0A48A7D21D4BE37002AF226 /* HeaderCollectionReusableView.m in Sources */,
 				C050C3E02215704300BFACF5 /* ChatViewController.m in Sources */,
 				C25047DB21BA715500DA9C72 /* BaseController.m in Sources */,

@@ -124,10 +124,22 @@ int  MessageFontSize = 14;
         return  CGRectZero;
      }
     
-    //CGSize size = [self labelAutoCalculateRectWith:self.messageText Font:[UIFont fontWithName:FONT_REGULAR size:MessageFontSize] MaxSize:CGSizeMake(maxWith, MAXFLOAT)];
-    int iHeight = 200;
+    NSString *strQuestion = @"";
+    for (int i = 0; i < _arrQuestion.count; i++)
+     {
+        NSString *strTemp = [NSString stringWithFormat:@"%d. %@", i+1, _arrQuestion[i]];
+        strQuestion = [strQuestion stringByAppendingString:strTemp];
+     }
+    
+    if (strQuestion.length > 0)
+     {
+        strQuestion = [strQuestion stringByAppendingString:@"请输入对应数字，查询相关问题"];
+     }
+    
+    CGSize size = [self labelAutoCalculateRectWith:strQuestion Font:[UIFont fontWithName:FONT_REGULAR size:MessageFontSize] MaxSize:CGSizeMake(maxWith, MAXFLOAT)];
 
-    rect = CGRectMake(65 , timeRect.size.height + 10 , maxWith, iHeight);
+    //rect = CGRectMake(65 , timeRect.size.height + 10 , maxWith, size.height + 31 +5);
+    rect = CGRectMake(65 , timeRect.size.height + 10 , maxWith, size.height + 31 +40);
     
 
     return rect;
@@ -220,7 +232,6 @@ int  MessageFontSize = 14;
             rect = [self questionFrame];
             rect.origin.x =  rect.origin.x + (self.messageSenderType == MessageSenderTypeMe? -10 : -15);
             rect.size.width =  rect.size.width + 25;
-            
             break;
         default:
             break;
@@ -234,8 +245,8 @@ int  MessageFontSize = 14;
      {
         return [self timeFrame].size.height;
      }
-    
-    return [self timeFrame].size.height + [self messageFrame].size.height + [self voiceFrame].size.height + [self imageFrame].size.height +   [self questionFrame].size.height + 15;
+    CGFloat fH = [self timeFrame].size.height + [self messageFrame].size.height + [self voiceFrame].size.height + [self imageFrame].size.height +   [self questionFrame].size.height + 15;
+    return fH;
 }
 
 - (CGSize)labelAutoCalculateRectWith:(NSString *)text Font:(UIFont *)textFont MaxSize:(CGSize)maxSize

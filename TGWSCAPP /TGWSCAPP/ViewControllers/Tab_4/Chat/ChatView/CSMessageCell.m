@@ -163,7 +163,7 @@
 }
 
 
-
+#pragma mark  ---   根据model 设置UI
 - (void)setMessageModel:(CSMessageModel *)messageModel {
     _messageModel = messageModel;
 
@@ -219,15 +219,18 @@
                CGRect timeRect = [messageModel timeFrame];
                CGRect bubbleRect = [messageModel bubbleFrame];
                
-                CGRect questionTilteRect =  CGRectMake(65+10, timeRect.size.height + 10, bubbleRect.size.width - 10, 30);
+                CGRect questionTilteRect =  CGRectMake(65+10, timeRect.size.height + 10, bubbleRect.size.width - 35, 30);
                _questionTilteLabel.frame = questionTilteRect;
                _questionTilteLabel.hidden = NO;
                _questionTilteLabel.text = messageModel.tiltleQuestion;
+               //_questionTilteLabel.backgroundColor = [UIColor yellowColor];
                
-               
-               CGRect viewFGRect =  CGRectMake(65, timeRect.size.height + 10 + 30 , bubbleRect.size.width-10, 1);
+               CGRect viewFGRect =  CGRectMake(65, timeRect.size.height + 10 + 30 , bubbleRect.size.width-15, 1);
                _questionViewFG.hidden = NO;
                _questionViewFG.frame = viewFGRect;
+               
+               [self setQuestionContext];
+               
                break;
             }
         case MessageTypeVoice:
@@ -262,6 +265,43 @@
     
 
 
+}
+
+-(void) setQuestionContext
+{
+    NSString *strQuestion = @"";
+    for (int i = 0; i <  _messageModel.arrQuestion.count; i++)
+     {
+        NSString *strTemp = [NSString stringWithFormat:@"%d. %@\n", i+1, _messageModel.arrQuestion[i]];
+        strQuestion = [strQuestion stringByAppendingString:strTemp];
+     }
+    
+    strQuestion = [strQuestion stringByAppendingString:@"请输入对应数字，查询相关问题"];
+    
+    CGSize size = [self labelAutoCalculateRectWith:strQuestion Font:[UIFont fontWithName:FONT_REGULAR size:MessageFontSize] MaxSize:CGSizeMake(0.8*SCREEN_WIDTH- 60, MAXFLOAT)];
+    
+    
+    CGRect timeRect = [_messageModel timeFrame];
+    CGRect bubbleRect = [_messageModel bubbleFrame];
+    
+    
+    CGRect questionTilteRect =  CGRectMake(65+10, timeRect.size.height + 10 +31 +5, bubbleRect.size.width - 35, size.height);
+    _questionContextLabel.frame = questionTilteRect;
+    _questionContextLabel.hidden = NO;
+    _questionContextLabel.text = strQuestion;
+    //_questionContextLabel.backgroundColor = [UIColor blueColor];
+    _questionContextLabel.numberOfLines = 0;
+    
+}
+
+- (CGSize)labelAutoCalculateRectWith:(NSString *)text Font:(UIFont *)textFont MaxSize:(CGSize)maxSize
+{
+    NSDictionary *attributes = @{NSFontAttributeName: textFont};
+    CGRect rect = [text boundingRectWithSize:maxSize
+                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                  attributes:attributes
+                                     context:nil];
+    return rect.size;
 }
 
 - (void)prepareForReuse {

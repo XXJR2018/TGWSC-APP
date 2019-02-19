@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, copy)Block_Void appraiseBlock;
 
+@property(nonatomic, copy)Block_Void reviewAppraiseBlock;
 
 @end
 

@@ -9,6 +9,9 @@
 #import "AppraiseListViewController.h"
 #import "AppraiseViewController.h"
 #import "OrderDetailsViewController.h"
+#import "ReviewAppraiseViewController.h"
+
+#import "MyAPPraiseView.h"
 
 #import "AppraiseListCell.h"
 @interface AppraiseListViewController ()
@@ -18,9 +21,6 @@
     UIButton *_wdpjBtn;
 }
 @end
-
-#define orderCellHeight  100
-
 
 @implementation AppraiseListViewController
 
@@ -78,6 +78,23 @@
     [_tableView.mj_footer endRefreshing];
 }
 
+-(CGFloat)currentCellHeightSave:(NSDictionary *)dic{
+    if (_dpjBtn.selected) {
+        //待评价列表高度
+        NSArray *orderDtlListArr = [dic objectForKey:@"orderDtlList"];
+        if ([[dic objectForKey:@"freightAmt"] intValue] > 0) {
+            return 100 * orderDtlListArr.count + 155;
+        }else{
+            return 100 * orderDtlListArr.count + 135;
+        }
+    }else{
+        //我的评价列表高度
+        MyAPPraiseView *view = [[MyAPPraiseView alloc]initWithAppraiseListViewLayoutUI:dic];
+        return view.frame.size.height;
+    }
+    
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"评论"];
@@ -99,7 +116,7 @@
     [_tableView registerClass:[AppraiseListCell class] forCellReuseIdentifier:@"AppraiseList_cell"];
     [_tableView setSeparatorInset:UIEdgeInsetsMake(0, -20, 0, 0)];
     [_tableView setSeparatorColor:[UIColor clearColor]];
-    
+
     [self layoutUI];
     
     if (self.appraiseType == 2) {
@@ -182,17 +199,8 @@
     if (self.dataArray.count == 0) {
         return tableView.frame.size.height;
     }else{
-        if (_dpjBtn.selected) {
-            NSDictionary *dic = self.dataArray[indexPath.row];
-            NSArray *orderDtlListArr = [dic objectForKey:@"orderDtlList"];
-            if ([[dic objectForKey:@"freightAmt"] intValue] > 0) {
-                return orderCellHeight * orderDtlListArr.count + 155;
-            }
-            return orderCellHeight * orderDtlListArr.count + 135;
-        }else{
-            return 120;
-        }
-       
+        //根据数据计算当前cell高度
+       return  [self currentCellHeightSave:self.dataArray[indexPath.row]];
     }
 }
 
@@ -223,6 +231,12 @@
         //评价
         AppraiseViewController *ctl = [[AppraiseViewController alloc]init];
         ctl.orderNo = [dic objectForKey:@"orderNo"];
+        [self.navigationController pushViewController:ctl animated:YES];
+    };
+    cell.reviewAppraiseBlock = ^{
+        //写追评
+        ReviewAppraiseViewController *ctl = [[ReviewAppraiseViewController alloc]init];
+        ctl.orderDataDic = dic;
         [self.navigationController pushViewController:ctl animated:YES];
     };
     return cell;

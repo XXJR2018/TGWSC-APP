@@ -106,7 +106,10 @@
 #pragma mark ---  发布评论
 -(void)IssueAppraise{
     [self.view endEditing:YES];
-    
+    if (_textView.text.length == 0 || [_textView.text isEqualToString:@"已经用了一段时间了，有更多宝贝使用心得？分享给想买的他们吧"]) {
+        [MBProgressHUD showErrorWithStatus:@"追评内容不能为空" toView:self.view];
+        return;
+    }
     [self IssueAppraiseUrl];
 }
 

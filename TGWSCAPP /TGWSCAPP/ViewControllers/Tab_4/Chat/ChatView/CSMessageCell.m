@@ -324,7 +324,10 @@
     _messageLabel.hidden = YES;
     _timeLabel.hidden = YES;
     _imageImageView.hidden = YES;
-    
+    // 自己添加的UI控件，一定要预先隐藏
+    _questionContextLabel.hidden = YES;
+    _questionTilteLabel.hidden = YES;
+    _questionViewFG.hidden = YES;
     
     
 }

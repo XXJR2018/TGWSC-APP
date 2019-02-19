@@ -31,6 +31,7 @@
     UIButton *btnExit;  // 退出按钮
     
     BOOL  isRGFW;   // 是否人工服务
+    BOOL isGetData;  // 是否获取过历史记录
 }
 
 
@@ -64,11 +65,14 @@
      {
         bg_chat_tablename = [NSString stringWithFormat:@"chatmessage%@",dic[@"telephone"]];
      }
+    
+    
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getDBData)];
 
-    [self getDBData];
+    //[self getDBData];
     
     // 初始化职能客服
-    //[self initCustonSerivce];
+    [self initCustonSerivce];
     
     
     
@@ -325,27 +329,67 @@
     model.messageSenderType = MessageSenderTypeOther;
     model.messageType = MessageTypeQuestion;
     model.messageText = textSendView.text;
-    //model.showMessageTime=YES;
-    //model.messageTime = @"16:40";
-    
-    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];//获取当前时间0秒后的时间
-    long time= [date timeIntervalSince1970]*1000;// *1000 是精确到毫秒，不乘就是精确到秒
-    model.lMessageTime = time;
+
     model.tiltleQuestion = @"热门问题";
-    
     NSArray *arrQuestion = @[@"如何退差价",@"如何退货",@"退换快递单号填写错误了"];
     model.arrQuestion = arrQuestion;
     
     [self setShowTime:model];
-    
-    
     [_dataArray addObject:model];
     [model bg_save];
     
-    [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_dataArray.count - 1 inSection:0]
-                                animated:YES
-                          scrollPosition:UITableViewScrollPositionMiddle];
+    [_tableView reloadData];
+    [self tabeleViewScorllEnd];
+    
+}
+
+-(void) answerCostonService:(NSString*) strQuestion
+{
+    int iAllQuestionCount = 10;
+    for (int i  = 1; i <= iAllQuestionCount; i++)
+     {
+        NSString *strNo = [NSString stringWithFormat:@"%d",i];
+        NSString *strAnswer = [NSString stringWithFormat:@"正在回答第%d个问题",i];
+        if ([strQuestion isEqualToString:strNo])
+         {
+            CSMessageModel *model = [[CSMessageModel alloc] init];
+            model.messageSenderType = MessageSenderTypeOther;
+            model.messageType = MessageTypeText;
+            model.messageText = strAnswer;
+            
+            [self setShowTime:model];
+            [_dataArray addObject:model];
+            [model bg_save];
+            
+            [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_dataArray.count - 1 inSection:0]
+                                        animated:YES
+                                  scrollPosition:UITableViewScrollPositionMiddle];
+         }
+     }
+
+    
+}
+
+-(void) exitCustonSerivce
+{
+    CSMessageModel *model = [[CSMessageModel alloc] init];
+    model.messageSenderType = MessageSenderTypeOther;
+    model.messageType = MessageTypeText;
+    model.messageText = @"";
+    
+    [self setShowTime:model];
+    //FIXME: 此处为“人工客服已经退出”的的显示， 只发送时间字符串， 不显示头像和文本字符！！！！！！！！！
+    model.onlyShowTime = YES;
+    model.showMessageTime = YES;
+    model.messageTime = @"人工客服已经退出";
+    [_dataArray addObject:model];
+    [model bg_save];
+    
+    [self setShowTime:model];
+    [_dataArray addObject:model];
+    [model bg_save];
+    
 }
 
 #pragma mark ---  UITableViewDelegate
@@ -469,6 +513,8 @@
 
 -(void) delayMethod
 {
+    [self exitCustonSerivce];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -491,11 +537,11 @@
     
     [alertView addCanelButton:@"确定" actionBlock:^{
         
+        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:0.5];// 延迟执行
+        
     }];
     
     [alertView addButton:@"取消" color:[ResourceManager priceColor] actionBlock:^{
-        
-        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:0.5];// 延迟执行
         
     }];
     
@@ -533,22 +579,8 @@
     //model.showMessageTime=YES;
     //model.messageTime = @"16:40";
     
-    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];//获取当前时间0秒后的时间
-    long time= [date timeIntervalSince1970]*1000;// *1000 是精确到毫秒，不乘就是精确到秒
-    model.lMessageTime = time;
-    
     [self setShowTime:model];
-    
-    //FIXME: 此处为测试， 只发送时间字符串， 不显示头像和文本字符！！！！！！！！！
-//    model.onlyShowTime = YES;
-//    model.showMessageTime = YES;
-//    model.messageTime = @"我在测试啊";
-    
-    
     [_dataArray addObject:model];
-    
-    
-    [model bg_save];
     
     [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_dataArray.count - 1 inSection:0]
@@ -560,6 +592,14 @@
     
     UIView *vi = [self.view viewWithTag:100];
     vi.frame = CGRectMake(0, _nowHeight, [UIScreen mainScreen].bounds.size.width, 44);
+    
+    [model bg_save];
+    // 智能客服
+    if (!isRGFW)
+     {
+        [self answerCostonService:model.messageText];
+     }
+
     
 }
 
@@ -585,8 +625,6 @@
         [_dataArray addObject:model];
        
        
-        [model bg_save];
-       
         [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_dataArray.count - 1 inSection:0]
                                     animated:YES
@@ -595,6 +633,14 @@
        
         [self.view endEditing:YES];
        
+        [model bg_save];
+       
+        // 智能客服
+        if (!isRGFW)
+         {
+            [self answerCostonService:model.messageText];
+         }
+    
         return NO;
     }
     
@@ -645,6 +691,12 @@
          }
      }
     
+//    if (!isRGFW)
+//     {
+//        // 如果是人工客服，时间显示屏蔽掉
+//        messageModel.showMessageTime = NO;
+//     }
+    
     
 }
 
@@ -655,6 +707,28 @@
     btnRGKF.hidden = YES;
     btnExit.hidden = NO;
     btnPJ.hidden = NO;
+
+    CSMessageModel *model = [[CSMessageModel alloc] init];
+    model.messageSenderType = MessageSenderTypeMe;
+    model.messageType = MessageTypeText;
+    model.messageText = textSendView.text;
+    //model.showMessageTime=YES;
+    //model.messageTime = @"16:40";
+    
+    [self setShowTime:model];
+    
+    //FIXME: 此处为“人工客服接入”的的显示， 只发送时间字符串， 不显示头像和文本字符！！！！！！！！！
+    model.onlyShowTime = YES;
+    model.showMessageTime = YES;
+    model.messageTime = @"人工客服正在接入，请等待";
+    [_dataArray addObject:model];
+    [model bg_save];
+    
+    [_tableView reloadData];
+    [self tabeleViewScorllEnd];
+    
+    
+    
 }
 
 -(void) actionPJ
@@ -848,9 +922,8 @@ static int iiii = 0;
          model.imageSmall = image;
          //model.messageTime = @"16:40";
          [_dataArray addObject:model];
-        
          [model bg_save];
-         
+        
          [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
          [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_dataArray.count - 1 inSection:0]
                                      animated:YES
@@ -868,8 +941,8 @@ static int iiii = 0;
         model.imageSmall = image;
         //model.messageTime = @"16:40";
         [_dataArray addObject:model];
-       
         [model bg_save];
+       
         
         [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_dataArray.count - 1 inSection:0]
@@ -1057,6 +1130,16 @@ static int iiii = 0;
 
 -(void) getDBData
 {
+    [_tableView.mj_header endRefreshing];
+    
+    if (isGetData)
+     {
+        [MBProgressHUD showErrorWithStatus:@"没有更多聊天记录了" toView:self.view];
+        return;
+     }
+    
+    // 清除数据，开始读取历史数据
+    [_dataArray removeAllObjects];
     
     bg_setDebug(YES);//打开调试模式,打印输出调试信息.
     
@@ -1065,10 +1148,10 @@ static int iiii = 0;
      */
     NSInteger count = [CSMessageModel bg_count:bg_chat_tablename where:nil];
     
-    if (count == 0)
-     {
-        [self initDB];
-     }
+//    if (count == 0)
+//     {
+//        [self initDB];
+//     }
     
     
     for(int i=1;i<=count;i+=50){
@@ -1084,6 +1167,18 @@ static int iiii = 0;
         
         
     }
+    
+    if (_dataArray.count > 0)
+     {
+        [_tableView reloadData];
+        
+        NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        
+        isGetData = TRUE;
+     }
+    
+    
 }
 
 

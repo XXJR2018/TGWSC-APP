@@ -336,6 +336,7 @@
 		C2B51AF121C3462500AC76FB /* ProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */; };
 		C2B51AF221C3462500AC76FB /* ProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */; };
 		C2C149C521F16C3200A1C2F9 /* Images-Default.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2C149C421F16C3100A1C2F9 /* Images-Default.xcassets */; };
+		C2C4B822221BB5B2007A0147 /* MyAPPraiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C4B821221BB5B2007A0147 /* MyAPPraiseView.m */; };
 		C2CF26CE21E5885D00CB8E76 /* LogisticsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CF26CD21E5885D00CB8E76 /* LogisticsViewCell.m */; };
 		C2F23AAA21D61B2B00E5332D /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AA921D61B2B00E5332D /* OrderViewController.m */; };
 		C2F23AAE21D61CA100E5332D /* OrderListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AAC21D61CA100E5332D /* OrderListViewCell.m */; };
@@ -980,6 +981,8 @@
 		C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductCollectionViewCell.m; sourceTree = "<group>"; };
 		C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCollectionViewCell.xib; sourceTree = "<group>"; };
 		C2C149C421F16C3100A1C2F9 /* Images-Default.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-Default.xcassets"; sourceTree = "<group>"; };
+		C2C4B820221BB5B2007A0147 /* MyAPPraiseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAPPraiseView.h; sourceTree = "<group>"; };
+		C2C4B821221BB5B2007A0147 /* MyAPPraiseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAPPraiseView.m; sourceTree = "<group>"; };
 		C2CF26CC21E5885D00CB8E76 /* LogisticsViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticsViewCell.h; sourceTree = "<group>"; };
 		C2CF26CD21E5885D00CB8E76 /* LogisticsViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsViewCell.m; sourceTree = "<group>"; };
 		C2D2B19321BDF45F00FE810C /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
@@ -1853,6 +1856,8 @@
 				C24293C222168E6800FFCE5D /* AppraiseSuccessViewController.m */,
 				C2A7000522153BB000AB277C /* AppraiseListCell.h */,
 				C2A7000622153BB000AB277C /* AppraiseListCell.m */,
+				C2C4B820221BB5B2007A0147 /* MyAPPraiseView.h */,
+				C2C4B821221BB5B2007A0147 /* MyAPPraiseView.m */,
 				C2A7000A22153BF400AB277C /* AppraiseViewCell.h */,
 				C2A7000B22153BF400AB277C /* AppraiseViewCell.m */,
 				C2A7000C22153BF400AB277C /* AppraiseViewCell.xib */,
@@ -3130,6 +3135,7 @@
 				C250436321BA51FD00DA9C72 /* main.m in Sources */,
 				C25047FE21BA73B800DA9C72 /* AFURLResponseSerialization.m in Sources */,
 				C0CCC82A21C0F4C5009352E0 /* HistoryAndCategorySearchVC.m in Sources */,
+				C2C4B822221BB5B2007A0147 /* MyAPPraiseView.m in Sources */,
 				C250460E21BA711E00DA9C72 /* UIView+SDExtension.m in Sources */,
 				C245272D21E4859800CA4196 /* LogisticsDescViewController.m in Sources */,
 				C250450E21BA579100DA9C72 /* BindPhoneViewController.m in Sources */,

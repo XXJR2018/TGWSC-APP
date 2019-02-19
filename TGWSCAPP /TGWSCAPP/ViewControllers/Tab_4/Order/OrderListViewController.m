@@ -380,7 +380,7 @@
     }else if (status == 6) {
         //评价
         AppraiseViewController *ctl = [[AppraiseViewController alloc]init];
-        ctl.dataArray = [dic objectForKey:@"orderDtlList"];
+        ctl.orderNo = [dic objectForKey:@"orderNo"];
         [self.navigationController pushViewController:ctl animated:YES];
     }else if (status == 8) {
         //退款详情

@@ -981,7 +981,7 @@
             }else if (_status == 6) {
                 //评价
                 AppraiseViewController *ctl = [[AppraiseViewController alloc]init];
-                ctl.dataArray = self.dataArray;
+                ctl.orderNo = self.orderNo;
                 [self.navigationController pushViewController:ctl animated:YES];
             }
         }break;

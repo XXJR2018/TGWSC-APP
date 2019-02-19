@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AppraiseListViewController : MJRefreshViewController
 
+@property(nonatomic, assign) NSInteger appraiseType;
+
 @end
 
 NS_ASSUME_NONNULL_END

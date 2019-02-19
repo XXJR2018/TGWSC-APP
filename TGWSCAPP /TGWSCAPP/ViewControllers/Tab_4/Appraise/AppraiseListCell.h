@@ -14,6 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) NSDictionary *dataDicionary;
 
+@property(nonatomic, assign) NSInteger appraiseType;
+
+@property(nonatomic, copy)Block_Void checkOrderBlock;
+
+@property(nonatomic, copy)Block_Void appraiseBlock;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

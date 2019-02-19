@@ -1,8 +1,8 @@
 //
-//  IssueAppraiseViewController.h
+//  ReviewAppraiseViewController.h
 //  TGWSCAPP
 //
-//  Created by xxjr03 on 2019/2/14.
+//  Created by xxjr03 on 2019/2/18.
 //  Copyright © 2019 xxjr03. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IssueAppraiseViewController : CommonViewController
+@interface ReviewAppraiseViewController : CommonViewController
 
 /*!
  @brief     需要上传的图片

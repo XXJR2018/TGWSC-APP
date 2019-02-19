@@ -140,11 +140,11 @@
 		C222C39021D2235700DD9797 /* NickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C38821D2235700DD9797 /* NickNameViewController.m */; };
 		C222C39121D2235700DD9797 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C38921D2235700DD9797 /* UserInfoViewController.m */; };
 		C222C39521D2303D00DD9797 /* BalanceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C39321D2303D00DD9797 /* BalanceViewCell.m */; };
+		C23550F8221A9CE4006C21B1 /* ReviewAppraiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C23550F7221A9CE4006C21B1 /* ReviewAppraiseViewController.m */; };
 		C23EAF4221D32D3000B271A7 /* CouponViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C23EAF4021D32D3000B271A7 /* CouponViewCell.m */; };
 		C23EAF4321D32D3000B271A7 /* CouponViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C23EAF4121D32D3000B271A7 /* CouponViewCell.xib */; };
 		C23EAF4621D32D4500B271A7 /* CouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C23EAF4521D32D4500B271A7 /* CouponViewController.m */; };
 		C24293C422168E6800FFCE5D /* AppraiseSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C24293C222168E6800FFCE5D /* AppraiseSuccessViewController.m */; };
-		C24293C522168E6800FFCE5D /* AppraiseSuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C24293C322168E6800FFCE5D /* AppraiseSuccessViewController.xib */; };
 		C244950721CCB3AC00F8698B /* SortProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C244950521CCB3AC00F8698B /* SortProductCollectionViewCell.m */; };
 		C244950821CCB3AC00F8698B /* SortProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C244950621CCB3AC00F8698B /* SortProductCollectionViewCell.xib */; };
 		C244952221CCC6E100F8698B /* LSPTitleStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = C244951A21CCC6E100F8698B /* LSPTitleStyle.m */; };
@@ -613,6 +613,8 @@
 		C222C38921D2235700DD9797 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		C222C39221D2303D00DD9797 /* BalanceViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BalanceViewCell.h; sourceTree = "<group>"; };
 		C222C39321D2303D00DD9797 /* BalanceViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BalanceViewCell.m; sourceTree = "<group>"; };
+		C23550F6221A9CE4006C21B1 /* ReviewAppraiseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReviewAppraiseViewController.h; sourceTree = "<group>"; };
+		C23550F7221A9CE4006C21B1 /* ReviewAppraiseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReviewAppraiseViewController.m; sourceTree = "<group>"; };
 		C23EAF3F21D32D3000B271A7 /* CouponViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponViewCell.h; sourceTree = "<group>"; };
 		C23EAF4021D32D3000B271A7 /* CouponViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponViewCell.m; sourceTree = "<group>"; };
 		C23EAF4121D32D3000B271A7 /* CouponViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CouponViewCell.xib; sourceTree = "<group>"; };
@@ -620,7 +622,6 @@
 		C23EAF4521D32D4500B271A7 /* CouponViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponViewController.m; sourceTree = "<group>"; };
 		C24293C122168E6800FFCE5D /* AppraiseSuccessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseSuccessViewController.h; sourceTree = "<group>"; };
 		C24293C222168E6800FFCE5D /* AppraiseSuccessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseSuccessViewController.m; sourceTree = "<group>"; };
-		C24293C322168E6800FFCE5D /* AppraiseSuccessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppraiseSuccessViewController.xib; sourceTree = "<group>"; };
 		C244950421CCB3AC00F8698B /* SortProductCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SortProductCollectionViewCell.h; sourceTree = "<group>"; };
 		C244950521CCB3AC00F8698B /* SortProductCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SortProductCollectionViewCell.m; sourceTree = "<group>"; };
 		C244950621CCB3AC00F8698B /* SortProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SortProductCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1841,9 +1842,10 @@
 				C24975C82213C56300949662 /* AppraiseViewController.m */,
 				C2A7000F221558E400AB277C /* IssueAppraiseViewController.h */,
 				C2A70010221558E400AB277C /* IssueAppraiseViewController.m */,
+				C23550F6221A9CE4006C21B1 /* ReviewAppraiseViewController.h */,
+				C23550F7221A9CE4006C21B1 /* ReviewAppraiseViewController.m */,
 				C24293C122168E6800FFCE5D /* AppraiseSuccessViewController.h */,
 				C24293C222168E6800FFCE5D /* AppraiseSuccessViewController.m */,
-				C24293C322168E6800FFCE5D /* AppraiseSuccessViewController.xib */,
 				C2A7000522153BB000AB277C /* AppraiseListCell.h */,
 				C2A7000622153BB000AB277C /* AppraiseListCell.m */,
 				C2A7000A22153BF400AB277C /* AppraiseViewCell.h */,
@@ -2860,7 +2862,6 @@
 				C222C38C21D2235700DD9797 /* PhoneCheckViewController.xib in Resources */,
 				C25047A921BA715500DA9C72 /* blueArrow.png in Resources */,
 				C250451221BA579100DA9C72 /* SelectCityViewController.xib in Resources */,
-				C24293C522168E6800FFCE5D /* AppraiseSuccessViewController.xib in Resources */,
 				C2AEB46821BE45CD0078E788 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				C250435B21BA51FC00DA9C72 /* Main.storyboard in Resources */,
 				C02C5F9A21CC991A0056A32E /* icon_video@2x.png in Resources */,
@@ -3172,6 +3173,7 @@
 				C25047E521BA715500DA9C72 /* LanguageManager.m in Sources */,
 				C250451E21BA579100DA9C72 /* DDGShareManager.m in Sources */,
 				C250451721BA579100DA9C72 /* LocationManager.m in Sources */,
+				C23550F8221A9CE4006C21B1 /* ReviewAppraiseViewController.m in Sources */,
 				C25047D921BA715500DA9C72 /* DDGUser.m in Sources */,
 				C067E8BB21E9D01C00395F91 /* RefundTXWLVC.m in Sources */,
 				C25047DA21BA715500DA9C72 /* JsonResult.m in Sources */,

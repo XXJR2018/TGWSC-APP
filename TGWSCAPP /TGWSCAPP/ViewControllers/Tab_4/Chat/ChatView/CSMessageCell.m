@@ -276,21 +276,30 @@
         strQuestion = [strQuestion stringByAppendingString:strTemp];
      }
     
-    strQuestion = [strQuestion stringByAppendingString:@"请输入对应数字，查询相关问题"];
+    strQuestion = [strQuestion stringByAppendingString:@"请输入对应数字，查询相关问题。"];
     
     CGSize size = [self labelAutoCalculateRectWith:strQuestion Font:[UIFont fontWithName:FONT_REGULAR size:MessageFontSize] MaxSize:CGSizeMake(0.8*SCREEN_WIDTH- 60, MAXFLOAT)];
+    
+    // 问题设置为主色调
+    NSMutableAttributedString *LZString = [[NSMutableAttributedString alloc]initWithString:strQuestion];
+    for (int i = 0; i <  _messageModel.arrQuestion.count; i++)
+     {
+        NSRange rang = [strQuestion rangeOfString:_messageModel.arrQuestion[i]];
+        [LZString addAttribute:NSForegroundColorAttributeName value:[ResourceManager mainColor] range:rang];
+        //[LZString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:rang];
+     }
+    
+    
     
     
     CGRect timeRect = [_messageModel timeFrame];
     CGRect bubbleRect = [_messageModel bubbleFrame];
     
-    
     CGRect questionTilteRect =  CGRectMake(65+10, timeRect.size.height + 10 +31 +5, bubbleRect.size.width - 35, size.height);
     _questionContextLabel.frame = questionTilteRect;
     _questionContextLabel.hidden = NO;
-    _questionContextLabel.text = strQuestion;
-    //_questionContextLabel.backgroundColor = [UIColor blueColor];
     _questionContextLabel.numberOfLines = 0;
+    _questionContextLabel.attributedText = LZString;
     
 }
 
@@ -315,7 +324,10 @@
     _messageLabel.hidden = YES;
     _timeLabel.hidden = YES;
     _imageImageView.hidden = YES;
-    
+    // 自己添加的UI控件，一定要预先隐藏
+    _questionContextLabel.hidden = YES;
+    _questionTilteLabel.hidden = YES;
+    _questionViewFG.hidden = YES;
     
     
 }

@@ -133,13 +133,13 @@ int  MessageFontSize = 14;
     
     if (strQuestion.length > 0)
      {
-        strQuestion = [strQuestion stringByAppendingString:@"请输入对应数字，查询相关问题"];
+        strQuestion = [strQuestion stringByAppendingString:@"请输入对应数字，查询相关问题。"];
      }
     
     CGSize size = [self labelAutoCalculateRectWith:strQuestion Font:[UIFont fontWithName:FONT_REGULAR size:MessageFontSize] MaxSize:CGSizeMake(maxWith, MAXFLOAT)];
 
     //rect = CGRectMake(65 , timeRect.size.height + 10 , maxWith, size.height + 31 +5);
-    rect = CGRectMake(65 , timeRect.size.height + 10 , maxWith, size.height + 31 +40);
+    rect = CGRectMake(65 , timeRect.size.height + 10 , maxWith, size.height + 31 +50);
     
 
     return rect;

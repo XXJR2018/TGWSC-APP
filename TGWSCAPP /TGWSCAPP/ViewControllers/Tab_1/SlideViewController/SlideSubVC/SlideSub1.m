@@ -579,7 +579,50 @@
 //        }
 //
 //    }
-//     else
+    
+    if (1 == [iJumpType  intValue])
+     {
+        NSString *strURL = _bannerUrlArr[index];
+        NSData *jsonData = [strURL dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err = nil;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        
+        if(err) {
+            NSLog(@"json解析失败：%@",err);
+            //return nil;
+        }
+        
+        if (dic)
+         {
+            NSString *strIosClassName = dic[@"iosClassName"];
+            NSString *strInitparams = dic[@"initparams"];
+            // 跳转商品详情页面
+            if ([strIosClassName isEqualToString:@"ShopDetailVC"] &&
+                strInitparams)
+             {
+                // 多个参数 用#来分割
+                //NSArray *strarray = [strInitparams componentsSeparatedByString:@"#"];
+                
+                NSArray *arrParams = [strInitparams componentsSeparatedByString:@"|"];
+                if (arrParams.count >= 2 )
+                 {
+                     ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
+                     ShopModel *tempObj = [[ShopModel alloc] init];
+                     tempObj.strGoodsCode = arrParams[1];
+                     VC.shopModel = tempObj;
+                     VC.est = @"category";
+                     VC.esi = arrParams[1];
+                     [self.navigationController pushViewController:VC animated:YES];
+                     return;
+                     
+                 }
+                
+             }
+         }
+     }
+    else
      {
         //如果不是以上两个，跳转相应h5页面
         [CCWebViewController showWithContro:self withUrlStr:_bannerUrlArr[index] withTitle:_bannerTitleArr[index]];

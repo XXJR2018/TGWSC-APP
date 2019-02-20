@@ -590,7 +590,8 @@
          {
             strSKUCode = objSku[@"skuCode"];
             iAbleStock = [objSku[@"ableStock"] intValue];
-            labelCurPrice.text = [NSString stringWithFormat:@"¥%@", objSku[@"price"]];
+            
+            labelCurPrice.text = [NSString stringWithFormat:@"¥%@", [ToolsUtlis getnumber:objSku[@"price"]]];
             
             [self layoutViewSelCount:iAbleStock];
          }

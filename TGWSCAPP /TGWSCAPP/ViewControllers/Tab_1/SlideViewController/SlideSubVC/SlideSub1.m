@@ -397,7 +397,7 @@
         NSString *name = dic[@"bannerName"];
         NSString *imgUrl = dic[@"imgUrl"];
         NSString *skipUrl = dic[@"targetUrl"];
-        int iJumpType = [dic[@"jumpType"] intValue];
+        NSNumber *iJumpType = dic[@"jumpType"];
         [imgArr addObject:imgUrl];
         if (name)
          {
@@ -407,7 +407,7 @@
          {
             [_bannerUrlArr addObject:skipUrl];
          }
-        [_bannerJumpType addObject:@(iJumpType)];
+        [_bannerJumpType addObject:iJumpType];
         
      }
     _scrollView.imageURLStringsGroup = imgArr;
@@ -535,8 +535,8 @@
      }
     
     //`jumpType` int(2) DEFAULT '0' COMMENT '跳转类型 0-不跳转 1-跳转本地 2-跳H5页面',
-    int iJumpType = (int)_bannerJumpType[index];
-    if (0 != iJumpType)
+    NSNumber *iJumpType = (NSNumber *)_bannerJumpType[index];
+    if (0 == [iJumpType intValue])
      {
         return;
      }

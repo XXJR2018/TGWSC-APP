@@ -94,7 +94,112 @@
         }
     }
     
-    UIView *productView = [[UIView alloc]initWithFrame:CGRectMake(10, _currentHeight + 20, SCREEN_WIDTH - 20, 90)];
+    //商家回复评价内容
+    if ([dic objectForKey:@"replyText"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"replyText"]].length > 0) {
+        
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, SCREEN_WIDTH - 20, 20)];
+        [self addSubview:titleLabel];
+        titleLabel.font = font_2;
+        titleLabel.textColor = [ResourceManager mainColor];
+        titleLabel.text = @"商家回复:";
+        
+        UILabel *replyAppraiseLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), CGRectGetMaxY(titleLabel.frame) + 10, SCREEN_WIDTH - 20, 20)];
+        [self addSubview:replyAppraiseLabel];
+        replyAppraiseLabel.numberOfLines = 0;
+        replyAppraiseLabel.font = font_1;
+        replyAppraiseLabel.textColor = [ResourceManager mainColor];
+        replyAppraiseLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"replyText"]];
+        CGSize maximumLabelSize = CGSizeMake(SCREEN_WIDTH - 20, 200);//labelsize的最大值
+        //关键语句
+        CGSize expectSize = [replyAppraiseLabel sizeThatFits:maximumLabelSize];
+        //别忘了把frame给回label，如果用xib加了约束的话可以只改一个约束的值
+        replyAppraiseLabel.frame = CGRectMake(CGRectGetMinX(headImgView.frame), CGRectGetMaxY(titleLabel.frame) + 10, expectSize.width, expectSize.height);
+        
+        _currentHeight = CGRectGetMaxY(replyAppraiseLabel.frame) + 10;
+    }
+    
+    //已追评
+    if ([[dic objectForKey:@"commentStatus"] intValue] == 3) {
+        //追评时间
+        if ([dic objectForKey:@"appendDate"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"appendDate"]].length > 0) {
+            UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, _currentHeight + 10, SCREEN_WIDTH - 20, 0.5)];
+            [self addSubview:lineView];
+            lineView.backgroundColor = [ResourceManager color_5];
+            
+            UILabel *reviewtimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 20, SCREEN_WIDTH - 20, 20)];
+            [self addSubview:reviewtimeLabel];
+            reviewtimeLabel.font = font_1;
+            reviewtimeLabel.textColor = UIColorFromRGB(0xF66455);
+            reviewtimeLabel.text = [NSString stringWithFormat:@"用户%@天后追评",[dic objectForKey:@"appendDate"]];
+            if ([[dic objectForKey:@"appendDate"] intValue] == 0) {
+                reviewtimeLabel.text = @"用户当天追评";
+            }
+            _currentHeight = CGRectGetMaxY(reviewtimeLabel.frame);
+        }
+        
+        //追评内容
+        if ([dic objectForKey:@"appendText"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"appendText"]].length > 0) {
+            UILabel *reviewAppraiseTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, SCREEN_WIDTH - 20, 20)];
+            [self addSubview:reviewAppraiseTextLabel];
+            reviewAppraiseTextLabel.numberOfLines = 0;
+            reviewAppraiseTextLabel.font = font_1;
+            reviewAppraiseTextLabel.textColor = color_1;
+            reviewAppraiseTextLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"appendText"]];
+            CGSize maximumLabelSize = CGSizeMake(SCREEN_WIDTH - 20, 200);//labelsize的最大值
+            //关键语句
+            CGSize expectSize = [reviewAppraiseTextLabel sizeThatFits:maximumLabelSize];
+            //别忘了把frame给回label，如果用xib加了约束的话可以只改一个约束的值
+            reviewAppraiseTextLabel.frame = CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, expectSize.width, expectSize.height);
+            
+            _currentHeight = CGRectGetMaxY(reviewAppraiseTextLabel.frame);
+        }
+        
+        //追评图片
+        if ([dic objectForKey:@"appendImgUrl"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"appendImgUrl"]].length > 0) {
+            //3.分隔字符串
+            NSString *imgUrls =[NSString stringWithFormat:@"%@",[dic objectForKey:@"appendImgUrl"]];
+            NSArray *imgArr = [imgUrls componentsSeparatedByString:@","]; //从字符A中分隔成多个元素的数组
+            CGFloat imgWidth = (SCREEN_WIDTH - 40)/3;
+            CGFloat imgTop = _currentHeight + 15;
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (i * 3 + j < imgArr.count) {
+                        UIImageView *appraiseImgView = [[UIImageView alloc]initWithFrame:CGRectMake(10 + (imgWidth + 10) * j, imgTop + (imgWidth + 10) * i, imgWidth, imgWidth)];
+                        [self addSubview:appraiseImgView];
+                        [appraiseImgView sd_setImageWithURL:[NSURL URLWithString:imgArr[i * 3 + j]]];
+                        
+                        _currentHeight = CGRectGetMaxY(appraiseImgView.frame);
+                    }
+                }
+            }
+        }
+        
+        //商家回复追评内容
+        if ([dic objectForKey:@"replyAppendText"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"replyAppendText"]].length > 0) {
+            
+            UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, SCREEN_WIDTH - 20, 20)];
+            [self addSubview:titleLabel];
+            titleLabel.font = font_2;
+            titleLabel.textColor = [ResourceManager mainColor];
+            titleLabel.text = @"商家回复:";
+            
+            UILabel *replyAppraiseLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), CGRectGetMaxY(titleLabel.frame) + 10, SCREEN_WIDTH - 20, 20)];
+            [self addSubview:replyAppraiseLabel];
+            replyAppraiseLabel.numberOfLines = 0;
+            replyAppraiseLabel.font = font_1;
+            replyAppraiseLabel.textColor = [ResourceManager mainColor];
+            replyAppraiseLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"replyAppendText"]];
+            CGSize maximumLabelSize = CGSizeMake(SCREEN_WIDTH - 20, 200);//labelsize的最大值
+            //关键语句
+            CGSize expectSize = [replyAppraiseLabel sizeThatFits:maximumLabelSize];
+            //别忘了把frame给回label，如果用xib加了约束的话可以只改一个约束的值
+            replyAppraiseLabel.frame = CGRectMake(CGRectGetMinX(headImgView.frame), CGRectGetMaxY(titleLabel.frame) + 10, expectSize.width, expectSize.height);
+            
+            _currentHeight = CGRectGetMaxY(replyAppraiseLabel.frame) + 10;
+        }
+    }
+    
+    UIView *productView = [[UIView alloc]initWithFrame:CGRectMake(10, _currentHeight + 10, SCREEN_WIDTH - 20, 90)];
     [self addSubview:productView];
     productView.backgroundColor = [ResourceManager viewBackgroundColor];
     
@@ -152,68 +257,7 @@
        _currentHeight = CGRectGetMaxY(reviewAppraiseBtn.frame) + 10;
     }
     
-    //商家回复评价内容
-    if ([dic objectForKey:@"replyText"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"replyText"]].length > 0) {
-        
-        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(10, _currentHeight, SCREEN_WIDTH - 20, 0.5)];
-        [self addSubview:lineView];
-        lineView.backgroundColor = [ResourceManager color_5];
-        
-        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, SCREEN_WIDTH - 20, 20)];
-        [self addSubview:titleLabel];
-        titleLabel.font = font_2;
-        titleLabel.textColor = [ResourceManager mainColor];
-        titleLabel.text = @"商家回复:";
-        
-        UILabel *replyAppraiseLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), CGRectGetMaxY(titleLabel.frame) + 10, SCREEN_WIDTH - 20, 20)];
-        [self addSubview:replyAppraiseLabel];
-        replyAppraiseLabel.numberOfLines = 0;
-        replyAppraiseLabel.font = font_1;
-        replyAppraiseLabel.textColor = [ResourceManager mainColor];
-        replyAppraiseLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"commentText"]];
-        CGSize maximumLabelSize = CGSizeMake(SCREEN_WIDTH - 20, 200);//labelsize的最大值
-        //关键语句
-        CGSize expectSize = [replyAppraiseLabel sizeThatFits:maximumLabelSize];
-        //别忘了把frame给回label，如果用xib加了约束的话可以只改一个约束的值
-        replyAppraiseLabel.frame = CGRectMake(CGRectGetMinX(headImgView.frame), CGRectGetMaxY(titleLabel.frame) + 10, expectSize.width, expectSize.height);
-        
-        _currentHeight = CGRectGetMaxY(replyAppraiseLabel.frame) + 15;
-    }
-    
-    
-    
-//    //已追评
-//    if ([[dic objectForKey:@"commentStatus"] intValue] == 3) {
-//        //追评时间
-//        if ([dic objectForKey:@"appendDate"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"appendDate"]].length > 0) {
-//            UILabel *reviewtimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, SCREEN_WIDTH - 20, 20)];
-//            [self addSubview:reviewtimeLabel];
-//            reviewtimeLabel.font = font_1;
-//            reviewtimeLabel.textColor = UIColorFromRGB(0xF66455);
-//            reviewtimeLabel.text = [NSString stringWithFormat:@"用户%@天后追评",[dic objectForKey:@"appendDate"]];
-//            if ([[dic objectForKey:@"appendDate"] intValue] == 0) {
-//                reviewtimeLabel.text = @"用户当天追评";
-//            }
-//            _currentHeight = CGRectGetMaxY(reviewtimeLabel.frame);
-//        }
-//
-//        //追评内容
-//        if ([dic objectForKey:@"appendText"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"appendText"]].length > 0) {
-//            UILabel *reviewAppraiseTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, SCREEN_WIDTH - 20, 20)];
-//            [self addSubview:reviewAppraiseTextLabel];
-//            reviewAppraiseTextLabel.numberOfLines = 0;
-//            reviewAppraiseTextLabel.font = font_1;
-//            reviewAppraiseTextLabel.textColor = color_1;
-//            reviewAppraiseTextLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"appendText"]];
-//            CGSize maximumLabelSize = CGSizeMake(SCREEN_WIDTH - 20, 200);//labelsize的最大值
-//            //关键语句
-//            CGSize expectSize = [reviewAppraiseTextLabel sizeThatFits:maximumLabelSize];
-//            //别忘了把frame给回label，如果用xib加了约束的话可以只改一个约束的值
-//            reviewAppraiseTextLabel.frame = CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, expectSize.width, expectSize.height);
-//
-//            _currentHeight = CGRectGetMaxY(reviewAppraiseTextLabel.frame);
-//        }
-//    }
+ 
     
     UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, _currentHeight, SCREEN_WIDTH, 10)];
     [self addSubview:lineView];

@@ -35,13 +35,13 @@
     self.productSubNameLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"goodsSubName"]];
     
     if ([[_dataDicionary objectForKey:@"minPrice"] floatValue] > 0) {
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%@",[_dataDicionary objectForKey:@"minPrice"]];
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",[[_dataDicionary objectForKey:@"minPrice"] floatValue]];
     }
     
     if ([[_dataDicionary objectForKey:@"marketPrice"] floatValue] > 0 && [[_dataDicionary objectForKey:@"minPrice"] floatValue] > 0) {
         if ([[_dataDicionary objectForKey:@"marketPrice"] floatValue] != [[_dataDicionary objectForKey:@"minPrice"] floatValue]) {
-            NSString *minPrice = [NSString stringWithFormat:@"￥%@",[_dataDicionary objectForKey:@"minPrice"]];
-            NSString *marketPrice = [NSString stringWithFormat:@"￥%@",[_dataDicionary objectForKey:@"marketPrice"]];
+            NSString *minPrice = [NSString stringWithFormat:@"￥%.2f",[[_dataDicionary objectForKey:@"minPrice"] floatValue]];
+            NSString *marketPrice = [NSString stringWithFormat:@"￥%.2f",[[_dataDicionary objectForKey:@"marketPrice"] floatValue]];
             NSString *titleStr = [NSString stringWithFormat:@"%@ %@",minPrice,marketPrice];
             NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]
                                                   initWithString:titleStr];
@@ -55,7 +55,6 @@
         }
     }
    
-
     if ([[_dataDicionary objectForKey:@"isSellOut"] intValue] == 0) {
         self.selloutLabel.hidden = NO;
     }else{

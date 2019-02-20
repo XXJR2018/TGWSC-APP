@@ -48,7 +48,9 @@
     if (_anonymityBtn.selected) {
         params[@"isHide"] = @"1";
     }
-    params[@"commentText"] = _textView.text;
+    if (![_textView.text isEqualToString:@"宝贝满足你的期许吗？说说它的优点和美中不足的地方吧...评论超10个字可送10积分，上传图片可再送5积分哦~"]) {
+        params[@"commentText"] = _textView.text;
+    }
     
     if (_updataImgArr.count > 0) {
         NSMutableString *imgUrl = [NSMutableString string];

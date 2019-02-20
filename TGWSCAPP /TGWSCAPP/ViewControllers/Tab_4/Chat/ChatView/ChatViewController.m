@@ -14,6 +14,7 @@
 #import "CSMessageModel.h"
 #import "CSRecord.h"
 #import "EvaluateView.h"
+#import "SocketManager.h"
 
 
 
@@ -31,6 +32,8 @@
     UIButton *btnExit;  // 退出按钮
     
     EvaluateView  *evaluteView; // 评价view
+    
+    SocketManager   *socketManager; // 通讯管理组件
     
     BOOL  isRGFW;   // 是否人工服务
     BOOL isGetData;  // 是否获取过历史记录

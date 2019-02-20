@@ -81,6 +81,7 @@
 		C0A48B5121DE3715002AF226 /* CDWAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B5021DE3715002AF226 /* CDWAlertView.m */; };
 		C0A48B5521DE3D8A002AF226 /* OrderDetialVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B5421DE3D8A002AF226 /* OrderDetialVC.m */; };
 		C0C4B762221BE793002853D1 /* EvaluateView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C4B761221BE793002853D1 /* EvaluateView.m */; };
+		C0C4B768221CDFE8002853D1 /* SocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C4B767221CDFE8002853D1 /* SocketManager.m */; };
 		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
@@ -508,6 +509,8 @@
 		C0A48B5421DE3D8A002AF226 /* OrderDetialVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetialVC.m; sourceTree = "<group>"; };
 		C0C4B760221BE793002853D1 /* EvaluateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvaluateView.h; sourceTree = "<group>"; };
 		C0C4B761221BE793002853D1 /* EvaluateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvaluateView.m; sourceTree = "<group>"; };
+		C0C4B766221CDFE8002853D1 /* SocketManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketManager.h; sourceTree = "<group>"; };
+		C0C4B767221CDFE8002853D1 /* SocketManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SocketManager.m; sourceTree = "<group>"; };
 		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
@@ -1097,6 +1100,8 @@
 				C0192E022213BAEE00D3E825 /* GCD */,
 				C0192E062213BAEF00D3E825 /* NetMessageObj.h */,
 				C0192E052213BAEE00D3E825 /* NetMessageObj.m */,
+				C0C4B766221CDFE8002853D1 /* SocketManager.h */,
+				C0C4B767221CDFE8002853D1 /* SocketManager.m */,
 			);
 			path = Socket;
 			sourceTree = "<group>";
@@ -3015,6 +3020,7 @@
 				C250476021BA715500DA9C72 /* UIColor+Additions.m in Sources */,
 				C0CCC7EA21C0F150009352E0 /* UIColor+LLHex.m in Sources */,
 				C250476B21BA715500DA9C72 /* CommonFunc.m in Sources */,
+				C0C4B768221CDFE8002853D1 /* SocketManager.m in Sources */,
 				C250476621BA715500DA9C72 /* NSDictionary+Additions.m in Sources */,
 				C0C4B762221BE793002853D1 /* EvaluateView.m in Sources */,
 				C250460F21BA711E00DA9C72 /* SDCollectionViewCell.m in Sources */,

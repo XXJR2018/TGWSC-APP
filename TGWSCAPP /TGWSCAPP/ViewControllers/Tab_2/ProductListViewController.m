@@ -96,7 +96,6 @@
     
 }
 
-#
 #pragma mark -- UICollectionViewDataSource
 //定义展示的UICollectionViewCell的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{

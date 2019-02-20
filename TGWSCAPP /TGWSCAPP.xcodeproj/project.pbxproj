@@ -142,6 +142,8 @@
 		C222C39121D2235700DD9797 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C38921D2235700DD9797 /* UserInfoViewController.m */; };
 		C222C39521D2303D00DD9797 /* BalanceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C39321D2303D00DD9797 /* BalanceViewCell.m */; };
 		C23550F8221A9CE4006C21B1 /* ReviewAppraiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C23550F7221A9CE4006C21B1 /* ReviewAppraiseViewController.m */; };
+		C238801B221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2388019221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.m */; };
+		C238801C221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C238801A221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.xib */; };
 		C23EAF4221D32D3000B271A7 /* CouponViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C23EAF4021D32D3000B271A7 /* CouponViewCell.m */; };
 		C23EAF4321D32D3000B271A7 /* CouponViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C23EAF4121D32D3000B271A7 /* CouponViewCell.xib */; };
 		C23EAF4621D32D4500B271A7 /* CouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C23EAF4521D32D4500B271A7 /* CouponViewController.m */; };
@@ -621,6 +623,9 @@
 		C222C39321D2303D00DD9797 /* BalanceViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BalanceViewCell.m; sourceTree = "<group>"; };
 		C23550F6221A9CE4006C21B1 /* ReviewAppraiseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReviewAppraiseViewController.h; sourceTree = "<group>"; };
 		C23550F7221A9CE4006C21B1 /* ReviewAppraiseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReviewAppraiseViewController.m; sourceTree = "<group>"; };
+		C2388018221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseSuccessCollectionViewCell.h; sourceTree = "<group>"; };
+		C2388019221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseSuccessCollectionViewCell.m; sourceTree = "<group>"; };
+		C238801A221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppraiseSuccessCollectionViewCell.xib; sourceTree = "<group>"; };
 		C23EAF3F21D32D3000B271A7 /* CouponViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponViewCell.h; sourceTree = "<group>"; };
 		C23EAF4021D32D3000B271A7 /* CouponViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponViewCell.m; sourceTree = "<group>"; };
 		C23EAF4121D32D3000B271A7 /* CouponViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CouponViewCell.xib; sourceTree = "<group>"; };
@@ -2693,6 +2698,9 @@
 				C2C4B82F221BFBEB007A0147 /* AppraiseSuccessCell.h */,
 				C2C4B830221BFBEB007A0147 /* AppraiseSuccessCell.m */,
 				C2C4B831221BFBEB007A0147 /* AppraiseSuccessCell.xib */,
+				C2388018221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.h */,
+				C2388019221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.m */,
+				C238801A221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.xib */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2851,6 +2859,7 @@
 				C25047B121BA715500DA9C72 /* success.png in Resources */,
 				C25047A521BA715500DA9C72 /* grayArrow.png in Resources */,
 				C02C5F9821CC991A0056A32E /* icon_play@2x.png in Resources */,
+				C238801C221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.xib in Resources */,
 				C250460621BA711E00DA9C72 /* SGQRCode.bundle in Resources */,
 				C25047A421BA715500DA9C72 /* blueArrow@2x.png in Resources */,
 				C222C38F21D2235700DD9797 /* NickNameViewController.xib in Resources */,
@@ -3173,6 +3182,7 @@
 				C25047DB21BA715500DA9C72 /* BaseController.m in Sources */,
 				C050C3E92215704300BFACF5 /* CSBigView.m in Sources */,
 				C25047C421BA715500DA9C72 /* RsaUtil.m in Sources */,
+				C238801B221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.m in Sources */,
 				C25047FF21BA73B800DA9C72 /* AFHTTPSessionManager.m in Sources */,
 				C2A70011221558E400AB277C /* IssueAppraiseViewController.m in Sources */,
 				C250475B21BA715500DA9C72 /* DDGJsonParseManager.m in Sources */,

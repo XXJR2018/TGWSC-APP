@@ -464,8 +464,10 @@
 
 #pragma mark---- UITextViewDelegate
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
-    textView.text = nil;
-    textView.textColor = [ResourceManager color_1];
+    if ([textView.text isEqualToString:@"已经用了一段时间了，有更多宝贝使用心得？分享给想买的他们吧"]) {
+        textView.text = nil;
+        textView.textColor = [ResourceManager color_1];
+    }
     
     return YES;
 }

@@ -79,6 +79,8 @@
     // 初始化职能客服
     [self initCustonSerivce];
     
+    // 人工客服初始化代码
+    socketManager = [[SocketManager alloc] init];
     
     
     _bigImageView = [[CSBigView alloc] init];
@@ -741,7 +743,7 @@
     [_tableView reloadData];
     [self tabeleViewScorllEnd];
     
-    
+    [socketManager socketConnectHost];
     
 }
 

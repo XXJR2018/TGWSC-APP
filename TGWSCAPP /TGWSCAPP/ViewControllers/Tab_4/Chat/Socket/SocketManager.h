@@ -14,6 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)init;
 
+
+//初始化Socket并发起连接
+- (void)socketConnectHost;
+
+
+// 发送文本和简单表情 
+- (void)sendText:(NSString *) strSend;
+
 @end
 
 NS_ASSUME_NONNULL_END

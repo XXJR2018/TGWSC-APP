@@ -51,10 +51,10 @@
     labelTitle.text = _title;
     
     
-    UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 80, fTopY+3, 80, iTitleHeight)];
+    UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 90, fTopY+3, 80, iTitleHeight)];
     [self addSubview:btnRight];
     [btnRight setTitleColor:[ResourceManager lightGrayColor] forState:UIControlStateNormal];
-    //[btnRight setTitle:@"更多>" forState:UIControlStateNormal];
+    [btnRight setTitle:@"所有商品>" forState:UIControlStateNormal];
     btnRight.titleLabel.font = [UIFont systemFontOfSize:13];
     [btnRight addTarget:self action:@selector(actionMore) forControlEvents:UIControlEventTouchUpInside];
     

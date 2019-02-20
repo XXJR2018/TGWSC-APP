@@ -220,7 +220,6 @@
     lineView.backgroundColor = [ResourceManager viewBackgroundColor];
     
     _currentHeight = CGRectGetMaxY(lineView.frame);
-    NSLog(@"height = %f",_currentHeight);
 }
 
 

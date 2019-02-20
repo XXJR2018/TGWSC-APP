@@ -8,24 +8,31 @@
 
 #import "AppraiseSuccessViewController.h"
 #import "IssueAppraiseViewController.h"
+#import "ShopDetailVC.h"
 
 #import "AppraiseSuccessCell.h"
+#import "AppraiseSuccessCollectionViewCell.h"
 
-@interface AppraiseSuccessViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface AppraiseSuccessViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 {
     UIView *_headerView;
     UITableView *_tableView;
+    UICollectionView *_collectionView;
 }
 @end
 
 @implementation AppraiseSuccessViewController
+
+-(void)clickNavButton:(UIButton *)button{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self layoutNaviBarViewWithTitle:@"评论"];
     
-    [self layoutUI];
+    [self headerViewUI];
     
     if (self.appraiseDataDic.count > 0) {
         if ([[self.appraiseDataDic objectForKey:@"isComment"] intValue] == 0) {
@@ -35,6 +42,22 @@
                 [self.dataArray removeAllObjects];
                 [self.dataArray addObjectsFromArray:showGoodsList];
             }
+            
+            UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+            flowLayout.minimumLineSpacing = 0;
+            flowLayout.minimumInteritemSpacing = 0;
+            flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+            
+            _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavHeight) collectionViewLayout:flowLayout];
+            _collectionView.backgroundColor = [UIColor whiteColor];
+            [self.view addSubview:_collectionView];
+            _collectionView.delegate = self;
+            _collectionView.dataSource = self;
+            //注册头视图，相当于段头
+            [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"appraiseHeaderView"];
+            //以xib方式注册cell
+            [_collectionView registerNib:[UINib nibWithNibName:@"AppraiseSuccessCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"ASCVCell_ID"];
+            
         }else if ([[self.appraiseDataDic objectForKey:@"isComment"] intValue] == 1) {
             //未评论商品列表
             NSArray *orderDtlList = [self.appraiseDataDic objectForKey:@"orderDtlList"];
@@ -58,7 +81,8 @@
     
 }
 
--(void)layoutUI{
+-(void)headerViewUI{
+    [_headerView removeFromSuperview];
     _headerView = [[UIView alloc]init];
     _headerView.backgroundColor = [UIColor whiteColor];
     
@@ -106,25 +130,26 @@
     [checkAppraiseBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [checkAppraiseBtn addTarget:self action:@selector(checkAppraise) forControlEvents:UIControlEventTouchUpInside];
     
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 250)/2, CGRectGetMaxY(bgImgView.frame) + 30 - 0.5, 250, 1)];
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 250)/2, CGRectGetMaxY(bgImgView.frame) + 30 - 0.5, 250, 0.5)];
     [_headerView addSubview:lineView];
     lineView.backgroundColor = [ResourceManager mainColor];
     
-    UILabel *subTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 150)/2, CGRectGetMaxY(bgImgView.frame) + 20, SCREEN_WIDTH, 40)];
+    UILabel *subTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 120)/2, CGRectGetMidY(lineView.frame) - 20, 120, 40)];
     [_headerView addSubview:subTitleLabel];
+    subTitleLabel.backgroundColor = [UIColor whiteColor];
     subTitleLabel.textAlignment = NSTextAlignmentCenter;
     subTitleLabel.font = [UIFont systemFontOfSize:14];
     subTitleLabel.textColor = [ResourceManager color_1];
     
     if ([[self.appraiseDataDic objectForKey:@"isComment"] intValue] == 0) {
         //推荐商品列表
-      subTitleLabel.text = @"接着评论下去吧";
+      subTitleLabel.text = @"你可能还想买";
     }else if ([[self.appraiseDataDic objectForKey:@"isComment"] intValue] == 1) {
         //未评论商品列表
-      subTitleLabel.text = @"你可能还想买";
+      subTitleLabel.text = @"接着评论下去吧";
     }
     
-    _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(subTitleLabel.frame) + 10);
+    _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(subTitleLabel.frame));
 }
 
 //返回首页
@@ -174,6 +199,72 @@
     
 }
 
+#pragma mark -- UICollectionViewDataSource
+//定义展示的UICollectionViewCell的个数
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return self.dataArray.count;
+}
+
+//定义展示的Section的个数
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return  1;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"appraiseHeaderView" forIndexPath:indexPath];
+        
+        //头视图添加view
+        [header addSubview:_headerView];
+        return header;
+    }
+    return nil;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    CGSize size = CGSizeZero;
+    size = CGSizeMake(SCREEN_WIDTH, _headerView.frame.size.height);
+    return size;
+}
+
+//每个UICollectionView展示的内容
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    AppraiseSuccessCollectionViewCell *cell = (AppraiseSuccessCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"ASCVCell_ID" forIndexPath:indexPath];
+    
+    cell.dataDicionary = self.dataArray[indexPath.row];
+    return cell;
+}
+
+#pragma mark- FlowDelegate
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return CGSizeMake(SCREEN_WIDTH/3, SCREEN_WIDTH/3 + 70);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    return UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+//返回这个UICollectioncell是否可以被选择
+-(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+//UICollectionView被选中时调用的方法
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.backgroundColor = [UIColor whiteColor];
+    NSDictionary *dic = self.dataArray[indexPath.row];
+    NSString *goodsCode = [NSString stringWithFormat:@"%@",[dic objectForKey:@"goodsCode"]];
+    if (goodsCode.length > 0) {
+        ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
+        VC.shopModel = [[ShopModel alloc] init];
+        VC.shopModel.strGoodsCode = goodsCode;
+        VC.esi = @"category";
+        VC.esi =  [dic objectForKey:@"cateCode"];
+        [self.navigationController pushViewController:VC animated:YES];
+    }
+}
 
 
 

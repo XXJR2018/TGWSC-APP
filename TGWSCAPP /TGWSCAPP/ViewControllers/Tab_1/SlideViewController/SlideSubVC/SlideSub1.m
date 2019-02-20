@@ -16,6 +16,7 @@
 #import "ShopMoreVC.h"
 #import "ShopMoreAtTimeVC.h"
 #import "ShopActiveView.h"
+#import "ShopAllVC.h"
 
 #define  BANNER_HEIGHT       (170*ScaleSize)      // Banner的高度
 
@@ -677,7 +678,12 @@
             
             NSLog(@"Click More ");
             NSLog(@"strGoodsName:%@  strTypeCode:%@", clickObj.strTypeCode,clickObj.strTypeName);
-            [self queryTypeMoreInfoList:clickObj.strTypeCode];
+            
+            ShopAllVC *VC  = [[ShopAllVC alloc] init];
+            VC.strTypeCode = [NSString stringWithFormat:@"%@",myClickObj.strTypeCode];
+            VC.strTypeName = myClickObj.strTypeName;
+            [self.navigationController pushViewController:VC animated:YES];
+            return;
             
          }
         else

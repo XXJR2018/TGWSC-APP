@@ -48,6 +48,8 @@ static NSString *const kURLqueryGoodsByCondition = @"appMall/goods/queryGoodsByC
 static NSString *const kURLqueryGoodsKey = @"appMall/goodskey/queryGoodsKey";
 // 得到商品的分享图片(包含二维码)
 static NSString *const kURLgetShareQrcode = @"/appMall/goods/getShareQrcode";
+// 获取所有的商品
+static NSString *const kURLqueryGoodsAllList = @"/appMall/goods/queryGoodsAllList";
 
 
 #pragma mark ---- 购物车相关

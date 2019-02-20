@@ -82,6 +82,7 @@
 		C0A48B5521DE3D8A002AF226 /* OrderDetialVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B5421DE3D8A002AF226 /* OrderDetialVC.m */; };
 		C0C4B762221BE793002853D1 /* EvaluateView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C4B761221BE793002853D1 /* EvaluateView.m */; };
 		C0C4B768221CDFE8002853D1 /* SocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C4B767221CDFE8002853D1 /* SocketManager.m */; };
+		C0C4B76B221D2796002853D1 /* ShopAllVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C4B76A221D2796002853D1 /* ShopAllVC.m */; };
 		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
 		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
@@ -515,6 +516,8 @@
 		C0C4B761221BE793002853D1 /* EvaluateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvaluateView.m; sourceTree = "<group>"; };
 		C0C4B766221CDFE8002853D1 /* SocketManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketManager.h; sourceTree = "<group>"; };
 		C0C4B767221CDFE8002853D1 /* SocketManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SocketManager.m; sourceTree = "<group>"; };
+		C0C4B769221D2796002853D1 /* ShopAllVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopAllVC.h; sourceTree = "<group>"; };
+		C0C4B76A221D2796002853D1 /* ShopAllVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopAllVC.m; sourceTree = "<group>"; };
 		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
@@ -1342,6 +1345,8 @@
 				C0A48A7921D4A64A002AF226 /* ShopMoreAtTimeVC.m */,
 				C0A48A7B21D4BE37002AF226 /* HeaderCollectionReusableView.h */,
 				C0A48A7C21D4BE37002AF226 /* HeaderCollectionReusableView.m */,
+				C0C4B769221D2796002853D1 /* ShopAllVC.h */,
+				C0C4B76A221D2796002853D1 /* ShopAllVC.m */,
 			);
 			name = ShopMoreVC;
 			path = SlideSubVC/ShopMoreVC;
@@ -3128,6 +3133,7 @@
 				C250461721BA711E00DA9C72 /* RadioButtonView.m in Sources */,
 				C0CCC84121C2603E009352E0 /* CKSlideMenu.m in Sources */,
 				C24975D02214221200949662 /* YCMenuView.m in Sources */,
+				C0C4B76B221D2796002853D1 /* ShopAllVC.m in Sources */,
 				C250475C21BA715500DA9C72 /* DDGSetting.m in Sources */,
 				C0CCC81421C0F30F009352E0 /* ZYHTFileNameConst.m in Sources */,
 				C050C4092215731900BFACF5 /* BGTool.m in Sources */,

@@ -130,7 +130,7 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
 {
 #if DEBUG
 //    return @"https://www.tiangouwo.com/";     //生产环境
-//    return @"http://192.168.10.208/";        //测试环境
+    return @"http://192.168.10.208/";        //测试环境
 //    return @"http://192.168.10.129:82/";        //刘利伟服务器
 //    return  @"http://192.168.10.130/";     // 邹全洪
     return kBaseURL;

@@ -16,6 +16,28 @@
 @property(nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableDictionary *cellDic;
 
+/*!
+ @property  NSInteger pageIndex
+ @brief     页码
+ */
+@property (nonatomic, assign) NSInteger pageIndex;
+/*!
+ @property  NSInteger pageIndex
+ @brief     页大小
+ */
+@property (nonatomic, assign) NSInteger pageSizeCount;
+/*!
+ @property  BOOL pullDown
+ @brief     上拉还是下拉
+ */
+@property (nonatomic, assign) BOOL pullDown;
+
+/*!
+ @property  BOOL isLoading
+ @brief     是否正在刷新
+ */
+@property (nonatomic, assign) BOOL isLoading;
+
 @end
 
 
@@ -25,6 +47,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self initData];
     
     CustomNavigationBarView *naviView = [self layoutNaviBarViewWithTitle:_strTypeName];
     UIButton *searchBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 45,NavHeight - 39, 31, 33)];
@@ -36,6 +59,15 @@
     _cellDic = [[NSMutableDictionary alloc] init];
     
     [self layoutUI];
+}
+
+-(void) initData
+{
+    _pageSizeCount = 10;
+    _pageIndex = 1;
+    _pullDown = YES;
+
+    
 }
 
 #pragma mark --- 布局UI
@@ -53,7 +85,11 @@
     //以xib方式注册cell
     [_collectionView registerNib:[UINib nibWithNibName:@"SortProductCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"SortProductCell_ID"];
     _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self loadData];
+        [self reloadData];
+    }];
+    
+    _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [self loadMoreData];
     }];
     
 }
@@ -91,6 +127,8 @@
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"orderNum"] = @(4);
+    params[kPage] = @(self.pageIndex);
+    params[kPageSize] = @(10);
     
     NSString *strURL = [NSString stringWithFormat:@"%@%@",[PDAPI getBaseUrlString],kURLqueryGoodsAllList];
     
@@ -108,19 +146,118 @@
 }
 
 
+/*!
+ @brief     刷新数据
+ */
+- (void)reloadData
+{
+    //reset status
+    self.pullDown = YES;
+    //修改分页
+    self.pageIndex = 1;
+    self.isLoading = YES;
+    [self loadData];
+}
 
+/*
+ * 加载更多
+ **/
+-(void)loadMoreData{
+    //修改分页
+    self.pageIndex ++ ;
+    //reset status
+    self.pullDown = NO;
+    self.isLoading = YES;
+    [self loadData];
+}
 
+- (void)reloadTableViewWithArray:(NSArray *)array
+{
+    
+    if (self.pullDown){
+        [self refreshTableViewWithArray:array];
+        
+    }else{
+        [self refreshTableViewWithMoreArray:array];
+    }
+}
+
+/*!
+ @brief     刷新
+ */
+- (void)refreshTableViewWithArray:(NSArray *)array
+{
+    if (self.pullDown){
+        [self.dataArray removeAllObjects];
+    }
+    
+    [self.dataArray addObjectsFromArray:array];
+    
+    
+    [_collectionView reloadData];
+    
+    
+    
+}
+
+/*!
+ @brief     加载更多
+ */
+- (void)refreshTableViewWithMoreArray:(NSArray *)array
+{
+    if (self.pullDown)
+     {
+        [self.dataArray removeAllObjects];
+     }
+    
+    [self.dataArray addObjectsFromArray:array];
+    
+    [_collectionView reloadData];
+    
+}
+
+//-(void)handleData:(DDGAFHTTPRequestOperation *)operation{
+//    [MBProgressHUD hideHUDForView:self.view animated:NO];
+//    [_collectionView.mj_header endRefreshing];
+//    [_collectionView.mj_footer endRefreshing];
+//    [self.dataArray removeAllObjects];
+//    [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
+//    [_collectionView reloadData];
+//}
 
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
+    self.isLoading = NO;
     [MBProgressHUD hideHUDForView:self.view animated:NO];
+    
+    //    [_collectionView.mj_header endRefreshing];
+    //    [_collectionView.mj_footer endRefreshing];
+    //    [self.dataArray removeAllObjects];
+    //    [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
+    //    [_collectionView reloadData];
+    
     [_collectionView.mj_header endRefreshing];
-    [self.dataArray removeAllObjects];
-    [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
-    [_collectionView reloadData];
+    [_collectionView.mj_footer endRefreshing];
+    
+    if (operation.jsonResult.rows.count > 0) {
+        [self reloadTableViewWithArray:operation.jsonResult.rows];
+    }else{
+        self.pageIndex --;
+        if (self.pageIndex >= 1) {
+            [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
+        }
+        else
+         {
+            [self reloadTableViewWithArray:operation.jsonResult.rows];
+         }
+        
+    }
 }
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    self.pageIndex = self.pageIndex > 1 ? self.pageIndex - 1 : 1 ;
+    self.isLoading = NO;
     [_collectionView.mj_header endRefreshing];
+    [_collectionView.mj_footer endRefreshing];
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
 }

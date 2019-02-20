@@ -80,12 +80,13 @@
         NSString *imgUrls =[NSString stringWithFormat:@"%@",[dic objectForKey:@"imgUrl"]];
         NSArray *imgArr = [imgUrls componentsSeparatedByString:@","]; //从字符A中分隔成多个元素的数组
         CGFloat imgWidth = (SCREEN_WIDTH - 40)/3;
+        CGFloat imgTop = _currentHeight + 15;
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
                 if (i * 3 + j < imgArr.count) {
-                    UIImageView *appraiseImgView = [[UIImageView alloc]initWithFrame:CGRectMake(10 + (imgWidth + 10) * j, _currentHeight + 15 + (imgWidth + 10) * i, imgWidth, imgWidth)];
+                    UIImageView *appraiseImgView = [[UIImageView alloc]initWithFrame:CGRectMake(10 + (imgWidth + 10) * j, imgTop + (imgWidth + 10) * i, imgWidth, imgWidth)];
                     [self addSubview:appraiseImgView];
-                    [appraiseImgView sd_setImageWithURL:[NSURL URLWithString:imgArr[i]]];
+                    [appraiseImgView sd_setImageWithURL:[NSURL URLWithString:imgArr[i * 3 + j]]];
                     
                     _currentHeight = CGRectGetMaxY(appraiseImgView.frame);
                 }
@@ -127,7 +128,7 @@
     productNumLabel.textColor = color_2;
     productNumLabel.text = [NSString stringWithFormat:@"x%@",[dic objectForKey:@"num"]];
     
-    UILabel *appraiseNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(productView.frame), 100, 30)];
+    UILabel *appraiseNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(productView.frame), 100, 40)];
     [self addSubview:appraiseNumLabel];
     appraiseNumLabel.font = font_2;
     appraiseNumLabel.textColor = color_2;

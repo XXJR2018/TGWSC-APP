@@ -59,8 +59,8 @@
 #pragma mark 数据操作
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
-    
     AppraiseSuccessViewController *ctl = [[AppraiseSuccessViewController alloc]init];
+    ctl.appraiseDataDic = operation.jsonResult.attr;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
@@ -120,6 +120,7 @@
     UIFont *font_1 = [UIFont systemFontOfSize:14];
     UIFont *font_2 = [UIFont systemFontOfSize:13];
     UIView *headerView = [[UIView alloc]init];
+    
     [self.view addSubview:headerView];
     headerView.backgroundColor = [UIColor whiteColor];
     
@@ -152,7 +153,7 @@
     
     CGFloat imgWidth = (SCREEN_WIDTH - 10 * 6)/5;
     
-    _updataView =  [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_textView.frame), SCREEN_WIDTH, imgWidth)];
+    _updataView =  [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_textView.frame) + 10, SCREEN_WIDTH, imgWidth)];
     [headerView addSubview:_updataView];
     _updataView.backgroundColor = [UIColor whiteColor];
     

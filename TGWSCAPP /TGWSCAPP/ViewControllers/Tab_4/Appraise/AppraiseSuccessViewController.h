@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AppraiseSuccessViewController : CommonViewController
 
+@property(nonatomic, copy)NSDictionary *appraiseDataDic;
+
 @end
 
 NS_ASSUME_NONNULL_END

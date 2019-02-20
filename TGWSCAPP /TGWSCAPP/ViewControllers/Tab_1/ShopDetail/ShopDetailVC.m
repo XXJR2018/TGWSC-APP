@@ -173,8 +173,8 @@
     lablePrice.textColor = ShopRedColor;
     //lablePrice.text = dicBaseGoods[@"goodsSubName"];
     
-    NSString *strMinPrice = [NSString stringWithFormat:@"%@", dicBaseGoods[@"minPrice"]];
-    NSString *strMaxPrice = [NSString stringWithFormat:@"%@", dicBaseGoods[@"maxPrice"]];
+    NSString *strMinPrice = [NSString stringWithFormat:@"%@", [ToolsUtlis getnumber:dicBaseGoods[@"minPrice"]]];
+    NSString *strMaxPrice = [NSString stringWithFormat:@"%@", [ToolsUtlis getnumber:dicBaseGoods[@"maxPrice"]]];
     if ([strMinPrice isEqualToString:strMaxPrice])
      {
         lablePrice.text = [NSString stringWithFormat:@"%@",strMinPrice];
@@ -1023,8 +1023,8 @@
             ShopModel *sModel = [[ShopModel alloc] init];
 
             sModel.strGoodsImgUrl =  [NSString stringWithFormat:@"%@",dicObject[@"imgUrl"]];
-            sModel.strMinPrice = [NSString stringWithFormat:@"%@",dicObject[@"minPrice"]];
-            sModel.strMaxPrice = [NSString stringWithFormat:@"%@",dicObject[@"maxPrice"]];
+            sModel.strMinPrice = [NSString stringWithFormat:@"%@",[ToolsUtlis getnumber:dicObject[@"minPrice"]]];
+            sModel.strMaxPrice = [NSString stringWithFormat:@"%@",[ToolsUtlis getnumber:dicObject[@"maxPrice"]]];
             sModel.strGoodsCode = [NSString stringWithFormat:@"%@",dicObject[@"goodsCode"]];
             sModel.strGoodsName = [NSString stringWithFormat:@"%@",dicObject[@"goodsName"]];
             sModel.strGoodsSubName = [NSString stringWithFormat:@"%@",dicObject[@"goodsSubName"]];

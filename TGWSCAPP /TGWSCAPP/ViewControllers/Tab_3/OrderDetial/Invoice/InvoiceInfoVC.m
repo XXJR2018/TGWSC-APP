@@ -99,11 +99,16 @@
             
         }
     }else if (operation.tag == 1001) {
-//        if (_grInvoiceBtn.selected) {
-//            self.invoiceStr(@"个人");
-//        }else{
-//            self.invoiceStr(@"企业");
-//        }
+        NSString *invoiceId = [operation.jsonResult.attr objectForKey:@"invoiceId"];
+        if (_grInvoiceBtn.selected) {
+            if (self.invoiceBlock) {
+                self.invoiceBlock(@{@"invoice:":@"个人",@"invoiceId":invoiceId});
+            }
+        }else{
+            if (self.invoiceBlock) {
+                self.invoiceBlock(@{@"invoice:":@"企业",@"invoiceId":invoiceId});
+            }
+        }
         [self.navigationController popViewControllerAnimated:YES];
     }
     

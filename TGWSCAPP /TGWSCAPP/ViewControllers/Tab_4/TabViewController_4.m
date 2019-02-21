@@ -527,11 +527,6 @@
 }
 
 -(void)userInfo{
-    InvoiceInfoVC *invoiceCtl = [[InvoiceInfoVC alloc]init];
-    invoiceCtl.price = @"￥148.00";
-    [self.navigationController pushViewController:invoiceCtl animated:YES];
-    return;
-    
     if (![CommonInfo isLoggedIn]) {
         [DDGUserInfoEngine engine].parentViewController = self;
         [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];

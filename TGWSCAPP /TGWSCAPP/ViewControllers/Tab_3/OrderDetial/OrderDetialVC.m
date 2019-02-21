@@ -744,7 +744,7 @@
      {
         if (invoiceId.length <=0)
          {
-            [MBProgressHUD showErrorWithStatus:@"请选择发票类型" toView:self.view];
+            [MBProgressHUD showErrorWithStatus:@"请选择发票类型并保存" toView:self.view];
             return;
          }
         

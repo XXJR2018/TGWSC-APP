@@ -32,8 +32,15 @@
 
 -(void)loadData{
     [MBProgressHUD showHUDAddedTo:self.view];
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/orderInvoice/queryCustHis",[PDAPI getBaseUrlString]]
-                                                                               parameters:nil HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+
+    NSString *url = [NSString stringWithFormat:@"%@appMall/account/orderInvoice/queryCustHis",[PDAPI getBaseUrlString]];
+    if (self.invoiceId.length > 0) {
+        url = [NSString stringWithFormat:@"%@appMall/account/orderInvoice/queryCustHis",[PDAPI getBaseUrlString]];
+        params[@"invoiceId"] = self.invoiceId;
+    }
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:url
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       [self handleData:operation];
                                                                                   }
@@ -426,9 +433,14 @@
     
     if (_grInvoiceBtn.selected) {
         if (_invoiceNameField.text.length == 0) {
-            _invoiceNameField.text = @"个人";
+            [MBProgressHUD showErrorWithStatus:@"请填写发票抬头" toView:self.view];
+            return;
         }
     }else{
+        if (_dwmcField.text.length == 0) {
+            [MBProgressHUD showErrorWithStatus:@"请填写发票抬头" toView:self.view];
+            return;
+        }
         if (_sbhField.text.length == 0) {
             [MBProgressHUD showErrorWithStatus:@"请填写纳税人识别号或社会统一信用代码" toView:self.view];
             return;

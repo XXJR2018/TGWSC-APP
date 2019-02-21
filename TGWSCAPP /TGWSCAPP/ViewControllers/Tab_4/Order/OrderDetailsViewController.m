@@ -37,6 +37,8 @@
 
 @property(nonatomic, strong)UILabel *addressLabel;      //收货地址
 
+@property(nonatomic, strong)UILabel *invoiceLabel;      //发票名称
+
 @property(nonatomic, strong)UIButton *orderLeftBtn;      //订单左边按钮
 
 @property(nonatomic, strong)UIButton *orderCentreBtn;    //订单中间按钮
@@ -521,6 +523,32 @@
     UIColor *color_2 = [ResourceManager color_6];
     UIFont *font_1 = [UIFont systemFontOfSize:13];
     CGFloat _footerHeight = 10;
+    
+    if ([_orderDataDic objectForKey:@"invoiceId"] && [_orderDataDic objectForKey:@"invoiceName"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"invoiceName"]].length > 0) {
+        UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _footerHeight, 150, 20)];
+        [footerView addSubview:leftLabel];
+        leftLabel.font = font_1;
+        leftLabel.textColor = color_2;
+        leftLabel.text = @"发票";
+        
+        _invoiceLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 270, _footerHeight, 250, 20)];
+        [footerView addSubview:_invoiceLabel];
+        _invoiceLabel.font = font_1;
+        _invoiceLabel.textColor = color_1;
+        _invoiceLabel.textAlignment = NSTextAlignmentRight;
+        _invoiceLabel.text = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"invoiceName"]];
+        
+        UIImageView *arrowImgView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 20, CGRectGetMidY(_invoiceLabel.frame) - 15/2, 10, 15)];
+        [footerView addSubview:arrowImgView];
+        arrowImgView.image = [UIImage imageNamed:@"arrow_right"];
+        
+        UIButton *invoiceBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,  10, SCREEN_WIDTH, 60)];
+        [footerView addSubview:invoiceBtn];
+        [invoiceBtn addTarget:self action:@selector(invoice) forControlEvents:UIControlEventTouchUpInside];
+        
+        _footerHeight = CGRectGetMaxY(leftLabel.frame) + 5;
+    }
+    
     if ([_orderDataDic objectForKey:@"remark"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"remark"]].length > 0) {
         UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _footerHeight, 150, 20)];
         [footerView addSubview:leftLabel];
@@ -880,6 +908,11 @@
         [_orderCentreBtn setTitle:@"联系客服" forState:UIControlStateNormal];
         [_orderRightBtn setTitle:@"再次购买" forState:UIControlStateNormal];
     }
+    
+}
+
+//发票信息
+-(void)invoice{
     
 }
 

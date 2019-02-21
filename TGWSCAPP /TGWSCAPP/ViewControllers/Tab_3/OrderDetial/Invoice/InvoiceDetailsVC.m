@@ -1,23 +1,33 @@
 //
-//  InvoiceJpegVC.m
+//  InvoiceDetailsVC.m
 //  TGWSCAPP
 //
-//  Created by xxjr02 on 2019/2/13.
+//  Created by xxjr03 on 2019/2/21.
 //  Copyright © 2019 xxjr03. All rights reserved.
 //
 
-#import "InvoiceJpegVC.h"
+#import "InvoiceDetailsVC.h"
 
-@interface InvoiceJpegVC ()
+@interface InvoiceDetailsVC ()
 
 @end
 
-@implementation InvoiceJpegVC
+@implementation InvoiceDetailsVC
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"发票详情"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"发票详情"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self layoutNaviBarViewWithTitle:@"发票"];
     
+    [self layoutNaviBarViewWithTitle:@"发票详情"];
     [self layoutUI];
 }
 

@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface InvoiceInfoVC : CommonViewController
 
+@property(nonatomic, copy)Block_String invoiceStr;
+
+@property(nonatomic, copy)NSString *price;
+
 @end
 
 NS_ASSUME_NONNULL_END

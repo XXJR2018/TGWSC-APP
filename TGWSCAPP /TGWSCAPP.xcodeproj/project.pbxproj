@@ -28,7 +28,6 @@
 		C04B180F21E5DD6B00DBA0FE /* RefundCommitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C04B180E21E5DD6B00DBA0FE /* RefundCommitVC.m */; };
 		C04B181221E5DDAB00DBA0FE /* RefundScheduleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C04B181121E5DDAB00DBA0FE /* RefundScheduleVC.m */; };
 		C050C3BB22156FFD00BFACF5 /* InvoiceJpegVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C050C3B522156FFD00BFACF5 /* InvoiceJpegVC.m */; };
-		C050C3BC22156FFD00BFACF5 /* InvoiceCommitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C050C3B622156FFD00BFACF5 /* InvoiceCommitVC.m */; };
 		C050C3BD22156FFD00BFACF5 /* InvoiceInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C050C3B922156FFD00BFACF5 /* InvoiceInfoVC.m */; };
 		C050C3DB2215704300BFACF5 /* me.png in Resources */ = {isa = PBXBuildFile; fileRef = C050C3C02215704200BFACF5 /* me.png */; };
 		C050C3DC2215704300BFACF5 /* CSEmojiCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C050C3C22215704200BFACF5 /* CSEmojiCollectionViewCell.m */; };
@@ -319,6 +318,7 @@
 		C2A7001522155E0100AB277C /* XHStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A7001422155E0100AB277C /* XHStarRateView.m */; };
 		C2A71B8521BE53F9007D849F /* DDGUserInfoEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A71B8421BE53F9007D849F /* DDGUserInfoEngine.m */; };
 		C2A71BBF21BE5FB6007D849F /* NSObject+Property.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A71BBE21BE5FB6007D849F /* NSObject+Property.m */; };
+		C2AA3AB6221E3EC400F2C11F /* InvoiceDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AA3AB5221E3EC400F2C11F /* InvoiceDetailsVC.m */; };
 		C2AAF66421E71B8400D9F505 /* OrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AAF66321E71B8400D9F505 /* OrderDetailsViewController.m */; };
 		C2AEB45C21BE38850078E788 /* ToolsUtlis.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AEB45B21BE38850078E788 /* ToolsUtlis.m */; };
 		C2AEB46221BE3CB00078E788 /* CSAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AEB46021BE3CB00078E788 /* CSAnimationView.m */; };
@@ -411,11 +411,9 @@
 		C04B181021E5DDAB00DBA0FE /* RefundScheduleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefundScheduleVC.h; sourceTree = "<group>"; };
 		C04B181121E5DDAB00DBA0FE /* RefundScheduleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefundScheduleVC.m; sourceTree = "<group>"; };
 		C050C3B522156FFD00BFACF5 /* InvoiceJpegVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceJpegVC.m; sourceTree = "<group>"; };
-		C050C3B622156FFD00BFACF5 /* InvoiceCommitVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceCommitVC.m; sourceTree = "<group>"; };
 		C050C3B722156FFD00BFACF5 /* InvoiceInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceInfoVC.h; sourceTree = "<group>"; };
 		C050C3B822156FFD00BFACF5 /* InvoiceJpegVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceJpegVC.h; sourceTree = "<group>"; };
 		C050C3B922156FFD00BFACF5 /* InvoiceInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceInfoVC.m; sourceTree = "<group>"; };
-		C050C3BA22156FFD00BFACF5 /* InvoiceCommitVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceCommitVC.h; sourceTree = "<group>"; };
 		C050C3BF2215704200BFACF5 /* UIImage+Han.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Han.h"; sourceTree = "<group>"; };
 		C050C3C02215704200BFACF5 /* me.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me.png; sourceTree = "<group>"; };
 		C050C3C12215704200BFACF5 /* CSRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRecord.h; sourceTree = "<group>"; };
@@ -964,6 +962,8 @@
 		C2A71B8421BE53F9007D849F /* DDGUserInfoEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDGUserInfoEngine.m; sourceTree = "<group>"; };
 		C2A71BBD21BE5FB6007D849F /* NSObject+Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Property.h"; sourceTree = "<group>"; };
 		C2A71BBE21BE5FB6007D849F /* NSObject+Property.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Property.m"; sourceTree = "<group>"; };
+		C2AA3AB4221E3EC400F2C11F /* InvoiceDetailsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvoiceDetailsVC.h; sourceTree = "<group>"; };
+		C2AA3AB5221E3EC400F2C11F /* InvoiceDetailsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvoiceDetailsVC.m; sourceTree = "<group>"; };
 		C2AAF66221E71B8400D9F505 /* OrderDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailsViewController.h; sourceTree = "<group>"; };
 		C2AAF66321E71B8400D9F505 /* OrderDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailsViewController.m; sourceTree = "<group>"; };
 		C2AEB45A21BE38850078E788 /* ToolsUtlis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolsUtlis.h; sourceTree = "<group>"; };
@@ -1196,12 +1196,12 @@
 		C050C3B422156FFD00BFACF5 /* Invoice */ = {
 			isa = PBXGroup;
 			children = (
-				C050C3B822156FFD00BFACF5 /* InvoiceJpegVC.h */,
-				C050C3B522156FFD00BFACF5 /* InvoiceJpegVC.m */,
-				C050C3BA22156FFD00BFACF5 /* InvoiceCommitVC.h */,
-				C050C3B622156FFD00BFACF5 /* InvoiceCommitVC.m */,
 				C050C3B722156FFD00BFACF5 /* InvoiceInfoVC.h */,
 				C050C3B922156FFD00BFACF5 /* InvoiceInfoVC.m */,
+				C2AA3AB4221E3EC400F2C11F /* InvoiceDetailsVC.h */,
+				C2AA3AB5221E3EC400F2C11F /* InvoiceDetailsVC.m */,
+				C050C3B822156FFD00BFACF5 /* InvoiceJpegVC.h */,
+				C050C3B522156FFD00BFACF5 /* InvoiceJpegVC.m */,
 			);
 			path = Invoice;
 			sourceTree = "<group>";
@@ -3047,7 +3047,6 @@
 				C050C40C2215731900BFACF5 /* FMDatabase.m in Sources */,
 				C25047D821BA715500DA9C72 /* BaseModel.m in Sources */,
 				C250460D21BA711E00DA9C72 /* SDCycleScrollView.m in Sources */,
-				C050C3BC22156FFD00BFACF5 /* InvoiceCommitVC.m in Sources */,
 				C250476021BA715500DA9C72 /* UIColor+Additions.m in Sources */,
 				C0CCC7EA21C0F150009352E0 /* UIColor+LLHex.m in Sources */,
 				C250476B21BA715500DA9C72 /* CommonFunc.m in Sources */,
@@ -3134,6 +3133,7 @@
 				C0CCC84121C2603E009352E0 /* CKSlideMenu.m in Sources */,
 				C24975D02214221200949662 /* YCMenuView.m in Sources */,
 				C0C4B76B221D2796002853D1 /* ShopAllVC.m in Sources */,
+				C2AA3AB6221E3EC400F2C11F /* InvoiceDetailsVC.m in Sources */,
 				C250475C21BA715500DA9C72 /* DDGSetting.m in Sources */,
 				C0CCC81421C0F30F009352E0 /* ZYHTFileNameConst.m in Sources */,
 				C050C4092215731900BFACF5 /* BGTool.m in Sources */,

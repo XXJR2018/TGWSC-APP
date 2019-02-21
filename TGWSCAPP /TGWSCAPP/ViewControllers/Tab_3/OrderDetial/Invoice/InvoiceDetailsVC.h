@@ -1,8 +1,8 @@
 //
-//  InvoiceCommitVC.h
+//  InvoiceDetailsVC.h
 //  TGWSCAPP
 //
-//  Created by xxjr02 on 2019/2/13.
+//  Created by xxjr03 on 2019/2/21.
 //  Copyright © 2019 xxjr03. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface InvoiceCommitVC : CommonViewController
+@interface InvoiceDetailsVC : CommonViewController
 
 @end
 

@@ -35,13 +35,13 @@
     self.productSubNameLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"goodsSubName"]];
     
     if ([[_dataDicionary objectForKey:@"minPrice"] floatValue] > 0) {
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",[[_dataDicionary objectForKey:@"minPrice"] floatValue]];
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%@",[ToolsUtlis getnumber:[_dataDicionary objectForKey:@"minPrice"]]];
     }
     
     if ([[_dataDicionary objectForKey:@"marketPrice"] floatValue] > 0 && [[_dataDicionary objectForKey:@"minPrice"] floatValue] > 0) {
         if ([[_dataDicionary objectForKey:@"marketPrice"] floatValue] != [[_dataDicionary objectForKey:@"minPrice"] floatValue]) {
-            NSString *minPrice = [NSString stringWithFormat:@"￥%.2f",[[_dataDicionary objectForKey:@"minPrice"] floatValue]];
-            NSString *marketPrice = [NSString stringWithFormat:@"￥%.2f",[[_dataDicionary objectForKey:@"marketPrice"] floatValue]];
+            NSString *minPrice = [NSString stringWithFormat:@"￥%@",[ToolsUtlis getnumber:[_dataDicionary objectForKey:@"minPrice"]]];
+            NSString *marketPrice = [NSString stringWithFormat:@"￥%@",[ToolsUtlis getnumber:[_dataDicionary objectForKey:@"marketPrice"]]];
             NSString *titleStr = [NSString stringWithFormat:@"%@ %@",minPrice,marketPrice];
             NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]
                                                   initWithString:titleStr];

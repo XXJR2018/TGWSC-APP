@@ -739,6 +739,7 @@
     params[@"promocardId"] = promocardId;
     params[@"totalOrderAmt"] = [NSString stringWithFormat:@"%.2f", goodsTotalAmt - promocardValue - fYEDK];
     
+    params[@"invoiceFlag"] = @(0);
     if(isCheckDZFP)
      {
         //invoiceFlag    是否开发票标志(0-否 1-是)
@@ -746,8 +747,7 @@
         params[@"invoiceFlag"] = @(1);
         params[@"invoiceId"] = invoiceId;
      }
-    
-    
+
     params[@"useBalanceFlag"] = @(0);  //是否开启余额支付(1-开启 0-未开启)
     if (iISYuEPay)
      {

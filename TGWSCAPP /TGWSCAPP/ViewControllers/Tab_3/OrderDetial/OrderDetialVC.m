@@ -13,6 +13,7 @@
 #import "PayResultVC.h"
 #import "PhoneCheckViewController.h"
 #import "paymentPWViewController.h"
+#import "InvoiceInfoVC.h"
 
 #define        AddrViewHeight        70
 #define        BottomViewHeight      50
@@ -1039,6 +1040,17 @@
 -(void) actionDZFP
 {
     NSLog(@"actionDZFP");
+    InvoiceInfoVC  *VC = [[InvoiceInfoVC alloc] init];
+    
+    float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK + postage;
+    VC.price = [NSString stringWithFormat:@"¥%.2f", fTotalPrice];
+    VC.invoiceStr = ^(NSString *string) {
+        NSLog(@"actionDZFP  选择了 %@", string);
+    };
+    
+    [self.navigationController pushViewController:VC animated:YES];
+    
+    
 }
 
 -(void) actionXieYi

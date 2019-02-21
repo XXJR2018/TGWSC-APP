@@ -1044,7 +1044,7 @@
     
     float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK + postage;
     VC.price = [NSString stringWithFormat:@"¥%.2f", fTotalPrice];
-    VC.invoiceStr = ^(NSString *string) {
+    VC.invoiceBlock = ^(NSString *string) {
         NSLog(@"actionDZFP  选择了 %@", string);
     };
     

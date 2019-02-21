@@ -610,10 +610,15 @@
     vi.frame = CGRectMake(0, _nowHeight, [UIScreen mainScreen].bounds.size.width, 44);
     
     [model bg_save];
-    // 智能客服
     if (!isRGFW)
      {
+        // 智能客服
         [self answerCostonService:model.messageText];
+     }
+    else
+     {
+        //人工客服  发送文本到后台服务器
+        [socketManager sendText:model.messageText];
      }
 
     
@@ -651,10 +656,16 @@
        
         [model bg_save];
        
-        // 智能客服
+       
         if (!isRGFW)
          {
+            // 智能客服
             [self answerCostonService:model.messageText];
+         }
+        else
+         {
+            //人工客服  发送文本到后台服务器
+            [socketManager sendText:model.messageText];
          }
     
         return NO;

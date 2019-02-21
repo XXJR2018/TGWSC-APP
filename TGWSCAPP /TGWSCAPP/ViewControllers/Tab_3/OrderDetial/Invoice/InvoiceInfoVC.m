@@ -102,11 +102,11 @@
         NSString *invoiceId = [operation.jsonResult.attr objectForKey:@"invoiceId"];
         if (_grInvoiceBtn.selected) {
             if (self.invoiceBlock) {
-                self.invoiceBlock(@{@"invoice:":@"个人",@"invoiceId":invoiceId});
+                self.invoiceBlock(@{@"invoice":@"个人",@"invoiceId":invoiceId});
             }
         }else{
             if (self.invoiceBlock) {
-                self.invoiceBlock(@{@"invoice:":@"企业",@"invoiceId":invoiceId});
+                self.invoiceBlock(@{@"invoice":@"企业",@"invoiceId":invoiceId});
             }
         }
         [self.navigationController popViewControllerAnimated:YES];

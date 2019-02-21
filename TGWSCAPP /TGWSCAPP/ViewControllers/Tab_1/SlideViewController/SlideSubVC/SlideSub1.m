@@ -287,8 +287,8 @@
             sModel.iShopID = i;
             //sModel.strGoodsImgUrl = @"Tab1_TJSP";
             sModel.strGoodsImgUrl =  [NSString stringWithFormat:@"%@",dicObject[@"imgUrl"]];
-            sModel.strMinPrice = [NSString stringWithFormat:@"%@",dicObject[@"minPrice"]];
-            sModel.strMaxPrice = [NSString stringWithFormat:@"%@",dicObject[@"maxPrice"]];
+            sModel.strMinPrice = [NSString stringWithFormat:@"%@", [ToolsUtlis getnumber:[dicObject objectForKey:@"minPrice"]]];
+            sModel.strMaxPrice = [NSString stringWithFormat:@"%@",[ToolsUtlis getnumber:[dicObject objectForKey:@"maxPrice"]]];
             sModel.strGoodsCode = [NSString stringWithFormat:@"%@",dicObject[@"goodsCode"]];
             sModel.strGoodsName = [NSString stringWithFormat:@"%@",dicObject[@"goodsName"]];
             sModel.strGoodsSubName = [NSString stringWithFormat:@"%@",dicObject[@"goodsSubName"]];

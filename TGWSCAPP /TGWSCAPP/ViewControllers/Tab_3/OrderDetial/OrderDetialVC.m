@@ -742,6 +742,12 @@
     params[@"invoiceFlag"] = @(0);
     if(isCheckDZFP)
      {
+        if (invoiceId.length <=0)
+         {
+            [MBProgressHUD showErrorWithStatus:@"请选择发票类型" toView:self.view];
+            return;
+         }
+        
         //invoiceFlag    是否开发票标志(0-否 1-是)
         //invoiceId    发票ID
         params[@"invoiceFlag"] = @(1);
@@ -1042,7 +1048,7 @@
      {
         btnDZFP.hidden = NO;
         labelDZFP.text = @"电子发票";
-        lableDZQType.text = @"个人";
+        lableDZQType.text = @"";
         [self actionDZFP];
      }
     else
@@ -1056,6 +1062,7 @@
 -(void) actionDZFP
 {
     NSLog(@"actionDZFP");
+    
     InvoiceInfoVC  *VC = [[InvoiceInfoVC alloc] init];
     
     float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK + postage;

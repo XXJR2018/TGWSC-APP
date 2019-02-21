@@ -60,6 +60,9 @@
     NSString  *addrId;           // 收货地址ID
     
     NSDictionary *dicLastAddrInfo;  // 上一次的地址信息
+    
+    int   invoiceFlag;    //是否开发票标志(0-否 1-是)
+    NSString   *invoiceId;    //发票ID
 
 
 }
@@ -123,6 +126,9 @@
     isEmployee = NO;
     
     isCheckXY = YES;
+    
+    invoiceFlag = 0;    //是否开发票标志(0-否 1-是)
+    invoiceId = @"";    //发票ID
 }
 
 #pragma mark --- 布局UI
@@ -733,6 +739,15 @@
     params[@"promocardId"] = promocardId;
     params[@"totalOrderAmt"] = [NSString stringWithFormat:@"%.2f", goodsTotalAmt - promocardValue - fYEDK];
     
+    if(isCheckDZFP)
+     {
+        //invoiceFlag    是否开发票标志(0-否 1-是)
+        //invoiceId    发票ID
+        params[@"invoiceFlag"] = @(1);
+        params[@"invoiceId"] = invoiceId;
+     }
+    
+    
     params[@"useBalanceFlag"] = @(0);  //是否开启余额支付(1-开启 0-未开启)
     if (iISYuEPay)
      {
@@ -1028,6 +1043,7 @@
         btnDZFP.hidden = NO;
         labelDZFP.text = @"电子发票";
         lableDZQType.text = @"个人";
+        [self actionDZFP];
      }
     else
      {
@@ -1046,6 +1062,11 @@
     VC.price = [NSString stringWithFormat:@"¥%.2f", fTotalPrice];
     VC.invoiceBlock = ^(id invoiceData) {
         NSLog(@"actionDZFP  选择了 %@", invoiceData);
+        NSDictionary *dic = invoiceData;
+        
+        lableDZQType.text = [NSString stringWithFormat:@"%@", dic[@"invoice"]];
+        invoiceId = [NSString stringWithFormat:@"%@", dic[@"invoiceId"]];
+        
     };
     
     [self.navigationController pushViewController:VC animated:YES];

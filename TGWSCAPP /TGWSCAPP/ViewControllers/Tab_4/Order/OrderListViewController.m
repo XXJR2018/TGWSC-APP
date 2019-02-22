@@ -12,6 +12,9 @@
 #import "OrderDetailsViewController.h"
 #import "AppraiseViewController.h"
 
+#import "InvoiceInfoVC.h"
+#import "InvoiceDetailsVC.h"
+
 #import "SelPayVC.h"
 #import "OrderListViewCell.h"
 #import "RefundRequstFrist.h"
@@ -305,16 +308,31 @@
     }else{
         //更多
         YCMenuAction *action1 = [YCMenuAction actionWithTitle:@"申请开票" image:nil handler:^(YCMenuAction *action) {
-             //申请开票
-            
+            //申请开票
+            if ([[dic objectForKey:@"invoiceFlag"] intValue] == 1) {
+                InvoiceDetailsVC *ctl = [[InvoiceDetailsVC alloc]init];
+                 ctl.invoiceId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"invoiceId"]];
+                [self.navigationController pushViewController:ctl animated:YES];
+            }else{
+                InvoiceInfoVC *ctl = [[InvoiceInfoVC alloc]init];
+                ctl.price = [NSString stringWithFormat:@"¥%.2f", [[dic objectForKey:@"totalOrderAmt"] floatValue]];
+                [self.navigationController pushViewController:ctl animated:YES];
+            }
         }];
-        YCMenuAction *action2 = [YCMenuAction actionWithTitle:@"删除订单" image:nil handler:^(YCMenuAction *action) {
+        YCMenuAction *action2 = [YCMenuAction actionWithTitle:@"申请售后" image:nil handler:^(YCMenuAction *action) {
+            //申请售后
+            RefundRequstFrist *VC = [[RefundRequstFrist alloc] init];
+            VC.dicParams = [[NSDictionary alloc] init];
+            VC.dicParams = dic;
+            [self.navigationController pushViewController:VC animated:YES];
+        }];
+        YCMenuAction *action3 = [YCMenuAction actionWithTitle:@"删除订单" image:nil handler:^(YCMenuAction *action) {
             //删除订单
             [self deleteOrderUrl:self.orderNo];
         }];
         
-        YCMenuView *YCView = [YCMenuView menuWithActions:@[action1,action2] width:100 relyonView:sender];
-        YCView.maxDisplayCount = 2;
+        YCMenuView *YCView = [YCMenuView menuWithActions:@[action1,action2,action3] width:100 relyonView:sender];
+        YCView.maxDisplayCount = 5;
         YCView.cornerRaius = 0;
         YCView.menuCellHeight = 40;
         YCView.separatorColor = [UIColor colorWithWhite:1 alpha:0.2];
@@ -340,11 +358,8 @@
         ctl.orderNo = _orderNo;
         [self.navigationController pushViewController:ctl animated:YES];
     }else if (status == 6) {
-        //申请退货
-        RefundRequstFrist *VC = [[RefundRequstFrist alloc] init];
-        VC.dicParams = [[NSDictionary alloc] init];
-        VC.dicParams = dic;
-        [self.navigationController pushViewController:VC animated:YES];
+        //再次购买
+        [self againShopUrl:_orderNo];
     }
     
 }

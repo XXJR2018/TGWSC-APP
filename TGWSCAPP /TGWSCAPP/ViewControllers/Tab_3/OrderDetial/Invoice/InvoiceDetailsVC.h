@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface InvoiceDetailsVC : CommonViewController
 
+@property(nonatomic, copy)NSString *invoiceId;
+
 @end
 
 NS_ASSUME_NONNULL_END

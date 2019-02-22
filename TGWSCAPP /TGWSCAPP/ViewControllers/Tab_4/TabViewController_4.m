@@ -22,9 +22,6 @@
 
 #import "JXButton.h"
 
-#import "InvoiceInfoVC.h"
-
-
 @interface TabViewController_4 ()
 {
     UIImageView *_headImgView;

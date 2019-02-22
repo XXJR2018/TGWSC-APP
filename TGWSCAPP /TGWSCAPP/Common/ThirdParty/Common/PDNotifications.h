@@ -104,4 +104,9 @@ FOUNDATION_EXPORT NSString *const DDGCartNeedCountNotification;
  */
 FOUNDATION_EXPORT NSString *const DDGCartUpdateNotification;
 
+/*!
+ @brief 收到聊天消息的通知
+ */
+FOUNDATION_EXPORT NSString *const DDGReciveChatMsgNotification;
+
 

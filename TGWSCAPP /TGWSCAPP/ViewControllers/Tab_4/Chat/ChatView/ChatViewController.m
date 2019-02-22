@@ -42,7 +42,6 @@
 
 
 
-
 @end
 
 @implementation ChatViewController
@@ -104,6 +103,10 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    // 注册收到消息的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reciveChatMsg:) name:DDGReciveChatMsgNotification object:nil];
+
 }
 
 -(void)keyboardWillShow:(NSNotification *)aNotification
@@ -1000,12 +1003,35 @@ static int iiii = 0;
     
 }
 
+
+#pragma mark --- 收到消息
+-(void) reciveChatMsg:(NSNotification *)notification
+{
+    // 收到后台的消息
+    NSDictionary *dic = notification.object;
+    NSString *strMsg = dic[@"msg"];
+    
+    CSMessageModel *model = [[CSMessageModel alloc] init];
+    model.messageSenderType = MessageSenderTypeOther;
+    model.messageType = MessageTypeText;
+    model.messageText = strMsg;
+    
+    [self setShowTime:model];
+    [_dataArray addObject:model];
+    
+    [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_dataArray.count - 1 inSection:0]
+                                animated:YES
+                          scrollPosition:UITableViewScrollPositionMiddle];
+}
+
 #pragma mark --- EmojiViewDelegate
 - (void)emojiClicked:(NSString *)strEmoji {
     UITextView *tv = [self.view viewWithTag:101];
     tv.text = [tv.text stringByAppendingString:strEmoji];
     
 }
+
 
 
 
@@ -1235,6 +1261,10 @@ static int iiii = 0;
 // 视图被销毁
 - (void)dealloc {
     NSLog(@"%s", __FUNCTION__);
+    if (socketManager)
+     {
+        [socketManager stopConnectTimer];
+     }
 }
 
 @end

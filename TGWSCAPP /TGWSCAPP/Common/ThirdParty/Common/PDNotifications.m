@@ -92,6 +92,12 @@ NSString *const DDGCartNeedCountNotification = @"DDGCartNeedCountNotification";
 NSString *const DDGCartUpdateNotification = @"DDGCartUpdateNotification";
 
 
+/*!
+ @brief 收到聊天消息的通知
+ */
+NSString *const DDGReciveChatMsgNotification = @"DDGReciveChatMsgNotification";
+
+
 
 
 

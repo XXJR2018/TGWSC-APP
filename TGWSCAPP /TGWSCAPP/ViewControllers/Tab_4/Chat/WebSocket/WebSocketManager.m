@@ -9,6 +9,8 @@
 #import "WebSocketManager.h"
 #import "SocketRocket/SRWebSocket.h"
 
+
+
 @interface WebSocketManager ()<SRWebSocketDelegate>
 {
     
@@ -45,6 +47,16 @@
 }
 
 
+-(void) stopConnectTimer
+{
+    if (_connectTimer)
+     {
+        //取消定时器
+        [_connectTimer invalidate];
+        _connectTimer = nil;
+     }
+}
+
 //初始化Socket并发起连接
 - (void)socketConnectHost{
     if (!_webSocket)
@@ -71,21 +83,23 @@
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket;
 {
     NSLog(@"Websocket Connected");
-    //self.title = @"Connected!";
     
     //连接成功
     longSocket = YES;
+    
+    // 发送身份认证信息
+    [self sendLoginInfo];
+    
     // 每隔20秒向服务器发送心跳包  一般设置30秒发送一次心跳包
-    _connectTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];
+    _connectTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];
     [_connectTimer fire];
 }
 
 // 发生错误
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
 {
-    NSLog(@":Websocket Failed With Error %@", error);
+    NSLog(@"Websocket Failed With Error %@", error);
     
-    //self.title = @"Connection Failed! (see logs)";
     _webSocket = nil;
     
     // 发生错误，重连
@@ -126,7 +140,7 @@
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessageWithString:(nonnull NSString *)string
 {
     NSLog(@"Received \"%@\"", string);
-    //[self _addMessage:[[TCMessage alloc] initWithMessage:string incoming:YES]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGReciveChatMsgNotification object:@{@"msg":string}];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload;
@@ -135,19 +149,57 @@
 }
 
 #pragma mark ---  发送函数
-// 发送心跳包
-- (void)longConnectToSocket {
-    
+/*
+ 命令定义
+ 
+ 用户授权：reqType=1, msgData:{ signId：”app123”}
+ 心跳：reqType=2,
+ 用户发信息给客服：reqType=3, msgData:{content=”发送的内容”，type=”text”}
+ 客服发信息给客户：reqType=4, msgData:{content=”发送的内容”，type=”text”
+ */
+
+-(void)sendLoginInfo
+{
     // 根据服务器要求发送固定格式的数据
-    NSLog(@"我要发心跳包了");
-    //    NetMessageObj  *netObj = [[NetMessageObj alloc] init];
-    //    netObj.deviceId = [DDGSetting sharedSettings].UUID_MD5;
-    //    netObj.uid = [DDGSetting sharedSettings].uid;
-    //    netObj.cmdName = @"0001";
-    //    //    netObj.msgRemark = @{@"deviceId":[DDGSetting sharedSettings].UUID_MD5,@"uid":[DDGSetting sharedSettings].uid};
-    //    NSData *dataStream =  [netObj packCmd];
-    //    [_asyncSocket readDataWithTimeout:3 tag:1];
-    //    [_asyncSocket writeData:dataStream withTimeout:1 tag:1];
+    NSLog(@"我发送身份认证信息");
+    
+    NSMutableDictionary *dicMsgData = [[NSMutableDictionary alloc] init];
+    dicMsgData[@"signId"] = [CommonInfo signId];
+    
+    
+    NSMutableDictionary *dicSend = [[NSMutableDictionary alloc] init];
+    dicSend[@"reqType"] = @"1";
+    dicSend[@"msgData"] = dicMsgData;
+    
+    NSString  *nstrDic = [dicSend JSONString];
+    
+    NSError *error = nil;
+    BOOL  sendSuccess =  [_webSocket sendString:nstrDic error:&error];
+    if (!sendSuccess)
+     {
+        // 发送失败，重新连接服务器
+        [self longConnectToSocket];
+     }
+}
+
+// 发送心跳包
+- (void)longConnectToSocket
+{
+    // 根据服务器要求发送固定格式的数据
+    NSLog(@"我发送心跳包");
+    NSMutableDictionary *dicSend = [[NSMutableDictionary alloc] init];
+    dicSend[@"reqType"] = @"2";
+    //dicSend[@"msgData"] = dicMsgData;
+
+    NSString  *nstrDic = [dicSend JSONString];
+    
+    NSError *error = nil;
+    BOOL  sendSuccess =  [_webSocket sendString:nstrDic error:&error];
+    if (!sendSuccess)
+     {
+        // 发送失败，重新连接服务器
+        [self longConnectToSocket];
+     }
     
 }
 
@@ -168,7 +220,7 @@
     
     
     NSMutableDictionary *dicMsgData = [[NSMutableDictionary alloc] init];
-    dicMsgData[@"type="] = @"text";
+    dicMsgData[@"type"] = @"text";
     dicMsgData[@"contentText"] = strSend;
     
     NSMutableDictionary *dicSend = [[NSMutableDictionary alloc] init];
@@ -187,5 +239,8 @@
     
     return sendSuccess;
 }
+
+
+
 
 @end

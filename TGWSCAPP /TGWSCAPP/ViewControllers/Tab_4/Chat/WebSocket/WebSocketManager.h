@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)init;
 
+- (void) stopConnectTimer; // 停止心跳包定时器
+
 
 //初始化Socket并发起连接
 - (void)socketConnectHost;

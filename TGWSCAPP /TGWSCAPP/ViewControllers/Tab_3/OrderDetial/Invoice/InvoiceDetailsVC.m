@@ -39,8 +39,8 @@
 #pragma mark 数据操作
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
-    if (operation.jsonResult.attr.count > 0) {
-        _invoiceDic = operation.jsonResult.attr;
+    if (operation.jsonResult.rows.count > 0) {
+        _invoiceDic = operation.jsonResult.rows[0];
         [self layoutUI];
     }
     
@@ -66,10 +66,13 @@
     [super viewDidLoad];
     
     [self layoutNaviBarViewWithTitle:@"发票详情"];
-    [self layoutUI];
+//    [self layoutUI];
 }
 
 -(void)layoutUI{
+    [self.view removeAllSubviews];
+    [self layoutNaviBarViewWithTitle:@"发票详情"];
+    _currentHeight = 0;
     UIColor *color_1 = [ResourceManager color_1];
     UIColor *color_2 = [ResourceManager mainColor];
     UIFont *font_1 = [UIFont systemFontOfSize:14];
@@ -125,12 +128,121 @@
     [invoiceInfoView addSubview:orderImgView];
     orderImgView.image = [UIImage imageNamed:@"Inv_dd"];
     
+    _currentHeight = CGRectGetMidY(orderImgView.frame) - 10;
+    if ([_invoiceDic objectForKey:@"orderNo"]) {
+        UILabel *orderNoLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(orderImgView.frame) + 10, _currentHeight, 200, 20)];
+        [invoiceInfoView addSubview:orderNoLabel];
+        orderNoLabel.font = font_2;
+        orderNoLabel.textColor = color_1;
+        orderNoLabel.text = [NSString stringWithFormat:@"订单号：%@",[_invoiceDic objectForKey:@"orderNo"]];
+        
+        _currentHeight = CGRectGetMaxY(orderNoLabel.frame);
+    }
+    if ([_invoiceDic objectForKey:@"amount"]) {
+        UILabel *amountLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(orderImgView.frame) + 10,_currentHeight, 200, 20)];
+        [invoiceInfoView addSubview:amountLabel];
+        amountLabel.font = font_2;
+        amountLabel.textColor = color_1;
+        NSString *amountStr = [NSString stringWithFormat:@"实付金额：%@",[_invoiceDic objectForKey:@"amount"]];
+        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]
+                                              initWithString:amountStr];
+        //2.匹配字符串
+        [attrStr addAttribute:NSFontAttributeName value:font_2 range:NSMakeRange(0, 5)];
+        [attrStr addAttribute:NSFontAttributeName value:font_1 range:NSMakeRange(5, amountStr.length - 5)];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:color_1 range:NSMakeRange(0, 5)];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:color_2 range:NSMakeRange(5, amountStr.length - 5)];
+        amountLabel.attributedText = attrStr;
+        
+        _currentHeight = CGRectGetMaxY(amountLabel.frame);
+    }
+    
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, _currentHeight + 10, SCREEN_WIDTH, 0.5)];
+    [invoiceInfoView addSubview:lineView];
+    lineView.backgroundColor = [ResourceManager color_5];
+    
+    UIImageView *invoiceImgView = [[UIImageView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(lineView.frame) + 10, 14, 13)];
+    [invoiceInfoView addSubview:invoiceImgView];
+    invoiceImgView.image = [UIImage imageNamed:@"Inv_fplx"];
+    _currentHeight = CGRectGetMidY(invoiceImgView.frame) - 10;
+    
+    if ([_invoiceDic objectForKey:@"invoiceType"]) {
+        UILabel *invoiceTypeLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(invoiceImgView.frame) + 10, _currentHeight, 200, 20)];
+        [invoiceInfoView addSubview:invoiceTypeLabel];
+        invoiceTypeLabel.font = font_2;
+        invoiceTypeLabel.textColor = color_1;
+        if ([[_invoiceDic objectForKey:@"invoiceType"] intValue] == 1) {
+            invoiceTypeLabel.text = @"发票类型：电子个人发票";
+        }else if ([[_invoiceDic objectForKey:@"invoiceType"] intValue] == 2) {
+            invoiceTypeLabel.text = @"发票类型：电子单位发票";
+        }
+        
+        _currentHeight = CGRectGetMaxY(invoiceTypeLabel.frame);
+    }
+    
+    if ([_invoiceDic objectForKey:@"company"]) {
+        UILabel *companyLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(invoiceImgView.frame) + 10, _currentHeight, 200, 20)];
+        [invoiceInfoView addSubview:companyLabel];
+        companyLabel.font = font_2;
+        companyLabel.textColor = color_1;
+        companyLabel.text = [NSString stringWithFormat:@"发票抬头：%@",[_invoiceDic objectForKey:@"company"]];
+        
+        _currentHeight = CGRectGetMaxY(companyLabel.frame);
+    }
+    
+    if ([_invoiceDic objectForKey:@"unionCode"]) {
+        UILabel *unionCodeLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(invoiceImgView.frame) + 10, _currentHeight, 200, 20)];
+        [invoiceInfoView addSubview:unionCodeLabel];
+        unionCodeLabel.font = font_2;
+        unionCodeLabel.textColor = color_1;
+        NSString *amountStr = [NSString stringWithFormat:@"税一一号：%@",[_invoiceDic objectForKey:@"unionCode"]];
+        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]
+                                              initWithString:amountStr];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor clearColor] range:NSMakeRange(1, 2)];
+        unionCodeLabel.attributedText = attrStr;
+        _currentHeight = CGRectGetMaxY(unionCodeLabel.frame);
+    }
+    
+    if ([_invoiceDic objectForKey:@"detail"]) {
+        UILabel *detailLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(invoiceImgView.frame) + 10, _currentHeight, 200, 20)];
+        [invoiceInfoView addSubview:detailLabel];
+        detailLabel.font = font_2;
+        detailLabel.textColor = color_1;
+        detailLabel.text = [NSString stringWithFormat:@"发票内容：%@",[_invoiceDic objectForKey:@"detail"]];
+        
+        _currentHeight = CGRectGetMaxY(detailLabel.frame);
+    }
+    
+    invoiceInfoView.height = _currentHeight + 15;
+    _currentHeight = CGRectGetMaxY(invoiceInfoView.frame) + 10;
+   
+    if ([_invoiceDic objectForKey:@"updateTime"]) {
+        UIView *invoiceTimeView = [[UIView alloc]initWithFrame:CGRectMake(0, _currentHeight, SCREEN_WIDTH, 50)];
+        [self.view addSubview:invoiceTimeView];
+        invoiceTimeView.backgroundColor = [UIColor whiteColor];
+        
+        UIImageView *timeImgView = [[UIImageView alloc]initWithFrame:CGRectMake(10, (50 - 15)/2, 15, 15)];
+        [invoiceTimeView addSubview:timeImgView];
+        timeImgView.image = [UIImage imageNamed:@"Inv_fpsj"];
+        
+        
+        UILabel *invoiceTimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(orderImgView.frame) + 10, 0, 300, 50)];
+        [invoiceTimeView addSubview:invoiceTimeLabel];
+        invoiceTimeLabel.font = font_2;
+        invoiceTimeLabel.textColor = color_1;
+        invoiceTimeLabel.text = [NSString stringWithFormat:@"发票开具时间：%@",[_invoiceDic objectForKey:@"updateTime"]];
+        
+        _currentHeight = CGRectGetMaxY(invoiceTimeView.frame);
+    }
 }
 
 //修改发票信息
 -(void)changeInvoice{
     InvoiceInfoVC *ctl = [[InvoiceInfoVC alloc]init];
     ctl.invoiceId = [NSString stringWithFormat:@"%@",[_invoiceDic objectForKey:@"invoiceId"]];
+    ctl.price = [NSString stringWithFormat:@"¥%.2f", [[_invoiceDic objectForKey:@"amount"] floatValue]];
+    ctl.invoiceBlock = ^(id invoiceData){
+        [self loadData];
+    };
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

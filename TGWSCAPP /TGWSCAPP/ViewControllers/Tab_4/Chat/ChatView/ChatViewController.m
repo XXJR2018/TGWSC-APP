@@ -15,6 +15,7 @@
 #import "CSRecord.h"
 #import "EvaluateView.h"
 #import "SocketManager.h"
+#import "WebSocketManager.h"
 
 
 
@@ -33,7 +34,7 @@
     
     EvaluateView  *evaluteView; // 评价view
     
-    SocketManager   *socketManager; // 通讯管理组件
+    WebSocketManager   *socketManager; // 通讯管理组件
     
     BOOL  isRGFW;   // 是否人工服务
     BOOL isGetData;  // 是否获取过历史记录
@@ -80,7 +81,7 @@
     [self initCustonSerivce];
     
     // 人工客服初始化代码
-    socketManager = [[SocketManager alloc] init];
+    socketManager = [[WebSocketManager alloc] init];
     
     
     _bigImageView = [[CSBigView alloc] init];
@@ -595,6 +596,23 @@
     //model.showMessageTime=YES;
     //model.messageTime = @"16:40";
     
+    
+    if (!isRGFW)
+     {
+        // 智能客服
+        [self answerCostonService:model.messageText];
+     }
+    else
+     {
+        //人工客服  发送文本到后台服务器
+        BOOL sendSuccess = [socketManager sendText:model.messageText];
+        if (!sendSuccess)
+         {
+            [MBProgressHUD showErrorWithStatus:@"发送失败，请稍后再试" toView:self.view];
+            return;
+         }
+     }
+    
     [self setShowTime:model];
     [_dataArray addObject:model];
     
@@ -610,16 +628,6 @@
     vi.frame = CGRectMake(0, _nowHeight, [UIScreen mainScreen].bounds.size.width, 44);
     
     [model bg_save];
-    if (!isRGFW)
-     {
-        // 智能客服
-        [self answerCostonService:model.messageText];
-     }
-    else
-     {
-        //人工客服  发送文本到后台服务器
-        [socketManager sendText:model.messageText];
-     }
 
     
 }
@@ -642,19 +650,7 @@
         //model.showMessageTime=YES;
         //model.messageTime = @"16:40";
        
-        [self setShowTime:model];
-        [_dataArray addObject:model];
        
-       
-        [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_dataArray.count - 1 inSection:0]
-                                    animated:YES
-                              scrollPosition:UITableViewScrollPositionMiddle];
-        textView.text = @"";
-       
-        [self.view endEditing:YES];
-       
-        [model bg_save];
        
        
         if (!isRGFW)
@@ -665,9 +661,29 @@
         else
          {
             //人工客服  发送文本到后台服务器
-            [socketManager sendText:model.messageText];
+            BOOL sendSuccess = [socketManager sendText:model.messageText];
+            
+            if (!sendSuccess)
+             {
+                [MBProgressHUD showErrorWithStatus:@"发送失败，请稍后再试" toView:self.view];
+                return NO;
+             }
          }
     
+       [self setShowTime:model];
+       [_dataArray addObject:model];
+       
+       
+       [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+       [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_dataArray.count - 1 inSection:0]
+                                   animated:YES
+                             scrollPosition:UITableViewScrollPositionMiddle];
+       textView.text = @"";
+       
+       [self.view endEditing:YES];
+       
+       [model bg_save];
+       
         return NO;
     }
     

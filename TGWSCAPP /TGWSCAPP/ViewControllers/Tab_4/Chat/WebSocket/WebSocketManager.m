@@ -35,7 +35,7 @@
         // Initialize self.
         //        Host = @"127.0.0.1";
         //        Port = 1234;
-        
+        errCount = 0;
         Host = @"192.168.10.131";
         Port = 6406;
         
@@ -53,6 +53,7 @@
      }
     
     //_webSocket = [[SRWebSocket alloc] initWithURL:[NSURL URLWithString:@"wss://echo.websocket.org"]];
+    //_webSocket = [[SRWebSocket alloc] initWithURL:[NSURL URLWithString:@"http://192.168.10.208:6406/mallKefu/custSocket/customerId"]];
     _webSocket = [[SRWebSocket alloc] initWithURL:[NSURL URLWithString:@"http://192.168.10.208:6406/mallKefu/custSocket/customerId"]];
     _webSocket.delegate = self;
     
@@ -79,25 +80,53 @@
     [_connectTimer fire];
 }
 
+// 发生错误
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
 {
-    NSLog(@":( Websocket Failed With Error %@", error);
+    NSLog(@":Websocket Failed With Error %@", error);
     
     //self.title = @"Connection Failed! (see logs)";
     _webSocket = nil;
+    
+    // 发生错误，重连
+    [self reConnect];
 }
 
-- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessageWithString:(nonnull NSString *)string
-{
-    NSLog(@"Received \"%@\"", string);
-    //[self _addMessage:[[TCMessage alloc] initWithMessage:string incoming:YES]];
-}
-
+// 连接失败/连接断开
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
 {
     NSLog(@"WebSocket closed  reason:%@",reason);
     //self.title = @"Connection Closed! (see logs)";
-    _webSocket = nil;
+   
+    [self reConnect];
+
+}
+
+
+-(void) reConnect
+{
+    errCount ++;
+    //连接失败
+    longSocket = NO;
+    //取消定时器
+    [_connectTimer invalidate];
+    _connectTimer = nil;
+    
+    if (errCount <= 5) {
+        [_webSocket close];
+        // 延迟执行 ，重连接
+        [self performSelector:@selector(socketConnectHost) withObject:nil afterDelay:1.0];// 延迟执行
+    }else if(errCount == 6){
+        //重新获取服务器端口
+        //[self socketURL];
+    }
+}
+
+// 收到数据
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessageWithString:(nonnull NSString *)string
+{
+    NSLog(@"Received \"%@\"", string);
+    //[self _addMessage:[[TCMessage alloc] initWithMessage:string incoming:YES]];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload;
@@ -123,11 +152,40 @@
 }
 
 // 发送文本和 简单表情
-- (void)sendText:(NSString *) strSend
+- (BOOL)sendText:(NSString *) strSend
 {
     // 根据服务器要求发送固定格式的数据
     NSLog(@"我发送文本信息");
-
+    
+    if(!longSocket)
+     {
+        NSLog(@"网络连接断开，发送失败，即将进行重连");
+        
+        [self socketConnectHost];
+        
+        return FALSE;
+     }
+    
+    
+    NSMutableDictionary *dicMsgData = [[NSMutableDictionary alloc] init];
+    dicMsgData[@"type="] = @"text";
+    dicMsgData[@"contentText"] = strSend;
+    
+    NSMutableDictionary *dicSend = [[NSMutableDictionary alloc] init];
+    dicSend[@"reqType"] = @"1";
+    dicSend[@"msgData"] = dicMsgData;
+    
+    
+    NSString  *nstrDic = [dicSend JSONString];
+    
+    NSError *error = nil;
+    BOOL  sendSuccess =  [_webSocket sendString:nstrDic error:&error];
+    if (error!=nil)
+     {
+        NSLog(@"发送<%@>   失败：%@",strSend,error);
+     }
+    
+    return sendSuccess;
 }
 
 @end

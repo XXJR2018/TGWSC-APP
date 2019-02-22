@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 // 发送文本和简单表情
-- (void)sendText:(NSString *) strSend;
+- (BOOL)sendText:(NSString *) strSend;
 
 @end
 

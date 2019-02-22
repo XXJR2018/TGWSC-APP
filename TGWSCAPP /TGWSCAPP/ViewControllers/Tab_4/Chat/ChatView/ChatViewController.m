@@ -611,7 +611,7 @@
         BOOL sendSuccess = [socketManager sendText:model.messageText];
         if (!sendSuccess)
          {
-            [MBProgressHUD showErrorWithStatus:@"发送失败，请稍后再试" toView:self.view];
+            [MBProgressHUD showErrorWithStatus:@"网络异常，请稍后再试" toView:self.view];
             return;
          }
      }
@@ -668,7 +668,7 @@
             
             if (!sendSuccess)
              {
-                [MBProgressHUD showErrorWithStatus:@"发送失败，请稍后再试" toView:self.view];
+                [MBProgressHUD showErrorWithStatus:@"网络异常，请稍后再试" toView:self.view];
                 return NO;
              }
          }
@@ -749,6 +749,13 @@
 
 -(void) actionRGKF
 {
+    if (![ToolsUtlis isNetworkReachable])
+     {
+        [MBProgressHUD showErrorWithStatus:@"网络不稳定，无法连接人工客服。" toView:self.view];
+        return;
+     }
+    
+    
     isRGFW = YES;
     btnRGKF.hidden = YES;
     btnExit.hidden = NO;

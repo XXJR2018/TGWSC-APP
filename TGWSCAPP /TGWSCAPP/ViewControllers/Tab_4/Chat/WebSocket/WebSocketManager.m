@@ -92,15 +92,20 @@
     
     // 每隔20秒向服务器发送心跳包  一般设置30秒发送一次心跳包
     _connectTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];
+    
     [_connectTimer fire];
+    
+    // 解决定时器后台 无法运行的BUG
+    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+    
+    [[NSRunLoop currentRunLoop] addTimer:_connectTimer forMode:NSRunLoopCommonModes];
+ 
 }
 
 // 发生错误
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
 {
     NSLog(@"Websocket Failed With Error %@", error);
-    
-    _webSocket = nil;
     
     // 发生错误，重连
     [self reConnect];
@@ -110,8 +115,7 @@
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
 {
     NSLog(@"WebSocket closed  reason:%@",reason);
-    //self.title = @"Connection Closed! (see logs)";
-   
+    
     [self reConnect];
 
 }
@@ -189,14 +193,13 @@
     NSLog(@"我发送心跳包");
     NSMutableDictionary *dicSend = [[NSMutableDictionary alloc] init];
     dicSend[@"reqType"] = @"2";
-    //dicSend[@"msgData"] = dicMsgData;
 
     NSString  *nstrDic = [dicSend JSONString];
-    
     NSError *error = nil;
     BOOL  sendSuccess =  [_webSocket sendString:nstrDic error:&error];
     if (!sendSuccess)
      {
+        NSLog(@"sendheart err:%@",error);
         // 发送失败，重新连接服务器
         [self longConnectToSocket];
      }
@@ -226,7 +229,6 @@
     NSMutableDictionary *dicSend = [[NSMutableDictionary alloc] init];
     dicSend[@"reqType"] = @"1";
     dicSend[@"msgData"] = dicMsgData;
-    
     
     NSString  *nstrDic = [dicSend JSONString];
     

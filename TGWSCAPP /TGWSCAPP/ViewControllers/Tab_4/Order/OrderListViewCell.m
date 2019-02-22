@@ -281,7 +281,7 @@
         [_orderLeftBtn setTitle:@"更多" forState:UIControlStateNormal];
         [_orderLeftBtn setTitleColor:color_1 forState:UIControlStateNormal];
         _orderCentreBtn.layer.borderColor = color_3.CGColor;
-        [_orderCentreBtn setTitle:@"申请售后" forState:UIControlStateNormal];
+        [_orderCentreBtn setTitle:@"再次购买" forState:UIControlStateNormal];
         [_orderCentreBtn setTitleColor:color_1 forState:UIControlStateNormal];
         _orderRightBtn.layer.borderColor = color_3.CGColor;
         _orderRightBtn.backgroundColor = [UIColor whiteColor];

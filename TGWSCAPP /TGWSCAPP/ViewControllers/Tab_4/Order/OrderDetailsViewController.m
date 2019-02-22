@@ -17,6 +17,9 @@
 #import "RefundInfoVC.h"
 #import "YCMenuView.h"
 
+#import "InvoiceInfoVC.h"
+#import "InvoiceDetailsVC.h"
+
 @interface OrderDetailsViewController ()
 {
     UIScrollView *_scView;
@@ -524,6 +527,7 @@
     UIFont *font_1 = [UIFont systemFontOfSize:13];
     CGFloat _footerHeight = 10;
     
+    //发票信息
     if ([_orderDataDic objectForKey:@"invoiceId"] && [_orderDataDic objectForKey:@"invoiceName"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"invoiceName"]].length > 0) {
         UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _footerHeight, 150, 20)];
         [footerView addSubview:leftLabel];
@@ -913,7 +917,8 @@
 
 //发票信息
 -(void)invoice{
-    
+    InvoiceDetailsVC *ctl = [[InvoiceDetailsVC alloc]init];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 #pragma mark----- 物流点击事件
@@ -1038,7 +1043,18 @@
             }else  if (_status == 6) {
                 YCMenuAction *action1 = [YCMenuAction actionWithTitle:@"申请开票" image:nil handler:^(YCMenuAction *action) {
                     //申请开票
-                    
+                    if ([[_orderDataDic objectForKey:@"invoiceFlag"] intValue] == 1) {
+                        InvoiceDetailsVC *ctl = [[InvoiceDetailsVC alloc]init];
+                        ctl.invoiceId = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"invoiceId"]];
+                        [self.navigationController pushViewController:ctl animated:YES];
+                    }else{
+                        InvoiceInfoVC *ctl = [[InvoiceInfoVC alloc]init];
+                        ctl.price = [NSString stringWithFormat:@"¥%.2f", [[_orderDataDic objectForKey:@"totalOrderAmt"] floatValue]];
+                        ctl.invoiceBlock = ^(id invoiceData){
+                            [self loadData];
+                        };
+                        [self.navigationController pushViewController:ctl animated:YES];
+                    }
                 }];
                 YCMenuAction *action2 = [YCMenuAction actionWithTitle:@"删除订单" image:nil handler:^(YCMenuAction *action) {
                     //删除订单

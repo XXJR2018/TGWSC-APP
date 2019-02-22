@@ -14,10 +14,10 @@
     CGFloat _currentHeight;
     UIView *_centerView;
     UIView *_footerView;
+    UIView *_invoicewtView;
     
     UIButton *_grInvoiceBtn;
     UIButton *_dwInvoiceBtn;
-    UIButton *_saveInvoiceBtn;
     UITextField *_invoiceNameField;
     UITextField *_phoneField;
     UITextField *_dwmcField;
@@ -36,7 +36,7 @@
 
     NSString *url = [NSString stringWithFormat:@"%@appMall/account/orderInvoice/queryCustHis",[PDAPI getBaseUrlString]];
     if (self.invoiceId.length > 0) {
-        url = [NSString stringWithFormat:@"%@appMall/account/orderInvoice/queryCustHis",[PDAPI getBaseUrlString]];
+        url = [NSString stringWithFormat:@"%@appMall/account/orderInvoice/dtlInfo",[PDAPI getBaseUrlString]];
         params[@"invoiceId"] = self.invoiceId;
     }
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:url
@@ -147,7 +147,7 @@
 
 -(void)layoutUI{
     
-    _scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavHeight)];
+    _scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavHeight - 60)];
     [self.view addSubview:_scView];
     _scView.backgroundColor = [UIColor whiteColor];
     _scView.bounces = NO;
@@ -159,6 +159,15 @@
     [self footerViewUI];
     _scView.contentSize = CGSizeMake(0, _currentHeight);
 
+    UIButton *saveInvoiceBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, SCREEN_HEIGHT - 60, SCREEN_WIDTH - 40, 50)];
+    [self.view addSubview:saveInvoiceBtn];
+    saveInvoiceBtn.backgroundColor = [ResourceManager mainColor];
+    saveInvoiceBtn.layer.cornerRadius = 5;
+    saveInvoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [saveInvoiceBtn setTitle:@"保存" forState:UIControlStateNormal];
+    [saveInvoiceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [saveInvoiceBtn addTarget:self action:@selector(saveInvoice) forControlEvents:UIControlEventTouchUpInside];
+    
     //添加手势点击空白处隐藏键盘
     UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(TouchViewKeyBoard)];
     gesture.numberOfTapsRequired  = 1;
@@ -295,7 +304,7 @@
         
         UIButton *sbhsmBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 40, CGRectGetMidY(_sbhField.frame) - 15, 30, 30)];
         [_centerView addSubview:sbhsmBtn];
-        [sbhsmBtn setImage:[UIImage imageNamed:@"Tab_4-43"] forState:UIControlStateNormal];
+        [sbhsmBtn setImage:[UIImage imageNamed:@"inv_sm"] forState:UIControlStateNormal];
         [sbhsmBtn addTarget:self action:@selector(sbhsmTouch) forControlEvents:UIControlEventTouchUpInside];
         
          _invoiceTypeHeight = CGRectGetMaxY(_sbhField.frame);
@@ -339,7 +348,7 @@
         return;
     }
     [self centerViewUI:sender.tag];
-    _footerView.frame = CGRectMake(0, CGRectGetMaxY(_centerView.frame), SCREEN_WIDTH, CGRectGetMaxY(_saveInvoiceBtn.frame) + 10);
+    _footerView.frame = CGRectMake(0, CGRectGetMaxY(_centerView.frame), SCREEN_WIDTH, CGRectGetMaxY(_invoicewtView.frame));
     _currentHeight = CGRectGetMaxY(_footerView.frame);
     _scView.contentSize = CGSizeMake(0, _currentHeight);
 }
@@ -385,19 +394,19 @@
     _emailField.textColor = [ResourceManager color_1];
     _emailField.delegate = self;
     
-    UIView *tsView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_emailField.frame), SCREEN_WIDTH, 200)];
-    [_footerView addSubview:tsView];
-    tsView.backgroundColor = [ResourceManager viewBackgroundColor];
+    _invoicewtView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_emailField.frame), SCREEN_WIDTH, 200)];
+    [_footerView addSubview:_invoicewtView];
+    _invoicewtView.backgroundColor = [ResourceManager viewBackgroundColor];
     
     UILabel *tsLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 10, SCREEN_WIDTH - 30, 100)];
-    [tsView addSubview:tsLabel];
+    [_invoicewtView addSubview:tsLabel];
     tsLabel.numberOfLines = 0;
     tsLabel.font = font_2;
     tsLabel.textColor = color_2;
     tsLabel.text = @"1.依据税局最新开票法规，发票开局内容均为明细\n2.因发货仓库所在地贷权归属政策原因，订单可能为您拆分开具多张发票\n3.开票金额为用户实际支付的金额（不含礼品卡与不支持该发票类型的商品实付金额）\n4.电子发票可在确认收货后，在“订单详情页”下载";
     
     UIButton *cjwtBtn = [[UIButton alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 110)/2, CGRectGetMaxY(tsLabel.frame) + 10, 110, 30)];
-    [tsView addSubview:cjwtBtn];
+    [_invoicewtView addSubview:cjwtBtn];
     cjwtBtn.layer.borderWidth = 0.5;
     cjwtBtn.layer.borderColor = [ResourceManager color_5].CGColor;
     cjwtBtn.titleLabel.font = font_1;
@@ -405,19 +414,9 @@
     [cjwtBtn setTitleColor:color_2 forState:UIControlStateNormal];
     [cjwtBtn addTarget:self action:@selector(invoicecjwt) forControlEvents:UIControlEventTouchUpInside];
     
-    tsView.height = CGRectGetMaxY(cjwtBtn.frame) + 10;
-    
-    _saveInvoiceBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, CGRectGetMaxY(tsView.frame) + 10, SCREEN_WIDTH - 40, 50)];
-    [_footerView addSubview:_saveInvoiceBtn];
-    _saveInvoiceBtn.backgroundColor = [ResourceManager mainColor];
-    _saveInvoiceBtn.layer.cornerRadius = 5;
-    _saveInvoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    [_saveInvoiceBtn setTitle:@"保存" forState:UIControlStateNormal];
-    [_saveInvoiceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_saveInvoiceBtn addTarget:self action:@selector(saveInvoice) forControlEvents:UIControlEventTouchUpInside];
-    
-    _footerView.height = CGRectGetMaxY(_saveInvoiceBtn.frame) + 10;
-     _currentHeight = CGRectGetMaxY(_footerView.frame);
+    _invoicewtView.height = CGRectGetMaxY(cjwtBtn.frame) + 10;
+    _footerView.height = CGRectGetMaxY(_invoicewtView.frame) + 10;
+    _currentHeight = CGRectGetMaxY(_footerView.frame);
 }
 
 //发票常见问题

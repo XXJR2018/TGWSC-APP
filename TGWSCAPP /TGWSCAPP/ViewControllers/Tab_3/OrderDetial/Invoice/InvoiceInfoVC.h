@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, copy)NSString *price;
 
+@property(nonatomic, copy)NSString *invoiceId;
+
 @end
 
 NS_ASSUME_NONNULL_END

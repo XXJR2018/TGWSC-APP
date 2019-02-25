@@ -124,6 +124,14 @@ static NSString *const kURLpopups = @"appMall/account/cust/info/popups";
 // 弹框后领取奖励接口
 static NSString *const kURLgetCustReward = @"appMall/account/cust/activity/getCustReward";
 
+
+#pragma mark   ---  评价相关 （部分接口）
+// 商品评价的标签
+static NSString *const kURLqueryGoodsLable = @"appMall/account/orderComment/queryGoodsLable";
+// 商品评论列表
+static NSString *const kURLqueryAllCommList = @"appMall/account/orderComment/queryAllCommList";
+
+
 /*!
  @brief 管理所有接口URL
  */

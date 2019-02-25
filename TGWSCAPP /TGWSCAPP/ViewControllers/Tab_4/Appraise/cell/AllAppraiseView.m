@@ -1,25 +1,27 @@
 //
-//  MyAPPraiseView.m
+//  AllAppraiseView.m
 //  TGWSCAPP
 //
-//  Created by xxjr03 on 2019/2/19.
+//  Created by xxjr03 on 2019/2/25.
 //  Copyright © 2019 xxjr03. All rights reserved.
 //
 
-#import "MyAPPraiseView.h"
+#import "AllAppraiseView.h"
 
-@interface MyAPPraiseView ()
+#import "XHStarRateView.h"
+
+@interface AllAppraiseView ()
 
 @property(nonatomic, assign)CGFloat currentHeight;
 
 @end
 
-@implementation MyAPPraiseView
+@implementation AllAppraiseView
 
 -(UIView *)initWithAppraiseListViewLayoutUI:(NSDictionary *)dic{
     
     self = [super initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, CellHeight44)];
-
+    
     if (self) {
         _currentHeight = 0;
         self.backgroundColor = [UIColor whiteColor];
@@ -49,6 +51,11 @@
     nameLabel.font = font_2;
     nameLabel.textColor = color_1;
     nameLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"nickName"]];
+    [nameLabel sizeToFit];
+    
+    XHStarRateView *msStarRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(nameLabel.frame) + 5, CGRectGetMidY(nameLabel.frame) - 5, 80, 10)];
+    [self addSubview:msStarRateView];
+    msStarRateView.currentScore = [[dic objectForKey:@"goodsGrade"] intValue];
     
     UILabel *timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), CGRectGetMaxY(headImgView.frame), SCREEN_WIDTH - 20, 20)];
     [self addSubview:timeLabel];
@@ -59,7 +66,7 @@
     _currentHeight = CGRectGetMaxY(timeLabel.frame);
     //评价内容
     if ([dic objectForKey:@"commentText"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"commentText"]].length > 0) {
-        UILabel *appraiseTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, SCREEN_WIDTH - 20, 20)];
+        UILabel *appraiseTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 5, SCREEN_WIDTH - 20, 20)];
         [self addSubview:appraiseTextLabel];
         appraiseTextLabel.numberOfLines = 0;
         appraiseTextLabel.font = font_1;
@@ -69,9 +76,9 @@
         //关键语句
         CGSize expectSize = [appraiseTextLabel sizeThatFits:maximumLabelSize];
         //别忘了把frame给回label，如果用xib加了约束的话可以只改一个约束的值
-        appraiseTextLabel.frame = CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, expectSize.width, expectSize.height);
+        appraiseTextLabel.frame = CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 5, expectSize.width, expectSize.height);
         
-         _currentHeight = CGRectGetMaxY(appraiseTextLabel.frame);
+        _currentHeight = CGRectGetMaxY(appraiseTextLabel.frame);
     }
     
     //评价图片
@@ -80,7 +87,7 @@
         NSString *imgUrls =[NSString stringWithFormat:@"%@",[dic objectForKey:@"imgUrl"]];
         NSArray *imgArr = [imgUrls componentsSeparatedByString:@","]; //从字符A中分隔成多个元素的数组
         CGFloat imgWidth = (SCREEN_WIDTH - 40)/3;
-        CGFloat imgTop = _currentHeight + 15;
+        CGFloat imgTop = _currentHeight + 10;
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
                 if (i * 3 + j < imgArr.count) {
@@ -104,40 +111,43 @@
     //商家回复评价内容
     if ([dic objectForKey:@"replyText"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"replyText"]].length > 0) {
         
-        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, SCREEN_WIDTH - 20, 20)];
-        [self addSubview:titleLabel];
-        titleLabel.font = font_2;
-        titleLabel.textColor = [ResourceManager mainColor];
-        titleLabel.text = @"商家回复:";
+        UIView *replyView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, SCREEN_WIDTH - 20, 20)];
+        [self addSubview:replyView];
+        replyView.backgroundColor = [ResourceManager viewBackgroundColor];
+        replyView.layer.cornerRadius = 5;
         
-        UILabel *replyAppraiseLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), CGRectGetMaxY(titleLabel.frame) + 10, SCREEN_WIDTH - 20, 20)];
-        [self addSubview:replyAppraiseLabel];
-        replyAppraiseLabel.numberOfLines = 0;
-        replyAppraiseLabel.font = font_1;
-        replyAppraiseLabel.textColor = [ResourceManager mainColor];
-        replyAppraiseLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"replyText"]];
-        CGSize maximumLabelSize = CGSizeMake(SCREEN_WIDTH - 20, 200);//labelsize的最大值
+        UILabel *replyLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, replyView.frame.size.width - 20, 20)];
+        [replyView addSubview:replyLabel];
+        replyLabel.numberOfLines = 0;
+        replyLabel.font = font_1;
+        replyLabel.textColor = [ResourceManager mainColor];
+        NSString *replyStr = [NSString stringWithFormat:@"商家回复：%@",[dic objectForKey:@"replyText"]];
+        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]
+                                              initWithString:replyStr];
+        //2.匹配字符串
+        [attrStr addAttribute:NSForegroundColorAttributeName value:[ResourceManager mainColor] range:NSMakeRange(0, 5)];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:color_1 range:NSMakeRange(5, replyStr.length - 5)];
+        replyLabel.attributedText = attrStr;
+        
+        CGSize maximumLabelSize = CGSizeMake(replyView.frame.size.width - 20, 200);//labelsize的最大值
         //关键语句
-        CGSize expectSize = [replyAppraiseLabel sizeThatFits:maximumLabelSize];
+        CGSize expectSize = [replyLabel sizeThatFits:maximumLabelSize];
         //别忘了把frame给回label，如果用xib加了约束的话可以只改一个约束的值
-        replyAppraiseLabel.frame = CGRectMake(CGRectGetMinX(headImgView.frame), CGRectGetMaxY(titleLabel.frame) + 10, expectSize.width, expectSize.height);
+        replyLabel.frame = CGRectMake(10, 10, expectSize.width, expectSize.height);
         
-        _currentHeight = CGRectGetMaxY(replyAppraiseLabel.frame) + 10;
+        replyView.height = CGRectGetMaxY(replyLabel.frame) + 10;
+        _currentHeight = CGRectGetMaxY(replyView.frame) + 10;
     }
     
     //已追评
     if ([[dic objectForKey:@"commentStatus"] intValue] == 3) {
         //追评时间
         if ([dic objectForKey:@"appendDate"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"appendDate"]].length > 0) {
-            UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, _currentHeight + 10, SCREEN_WIDTH - 20, 0.5)];
-            [self addSubview:lineView];
-            lineView.backgroundColor = [ResourceManager color_5];
-            
-            UILabel *reviewtimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 20, SCREEN_WIDTH - 20, 20)];
+            UILabel *reviewtimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight, SCREEN_WIDTH - 20, 20)];
             [self addSubview:reviewtimeLabel];
             reviewtimeLabel.font = font_1;
-            reviewtimeLabel.textColor = UIColorFromRGB(0xF66455);
-            reviewtimeLabel.text = [NSString stringWithFormat:@"用户%@天后追评",[dic objectForKey:@"appendDate"]];
+            reviewtimeLabel.textColor = [ResourceManager mainColor];
+            reviewtimeLabel.text = [NSString stringWithFormat:@"用户%@天后追加评论",[dic objectForKey:@"appendDate"]];
             if ([[dic objectForKey:@"appendDate"] intValue] == 0) {
                 reviewtimeLabel.text = @"用户当天追评";
             }
@@ -182,7 +192,7 @@
                         [appraiseImgView addGestureRecognizer:tapGeture];
                         [tapGeture view].tag = i * 3 + j + 100;
                         
-                        _currentHeight = CGRectGetMaxY(appraiseImgView.frame);
+                        _currentHeight = CGRectGetMaxY(appraiseImgView.frame) + 10;
                     }
                 }
             }
@@ -190,103 +200,35 @@
         
         //商家回复追评内容
         if ([dic objectForKey:@"replyAppendText"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"replyAppendText"]].length > 0) {
+            UIView *replyAppendView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight, SCREEN_WIDTH - 20, 20)];
+            [self addSubview:replyAppendView];
+            replyAppendView.backgroundColor = [ResourceManager viewBackgroundColor];
+            replyAppendView.layer.cornerRadius = 5;
             
-            UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, SCREEN_WIDTH - 20, 20)];
-            [self addSubview:titleLabel];
-            titleLabel.font = font_2;
-            titleLabel.textColor = [ResourceManager mainColor];
-            titleLabel.text = @"商家回复:";
+            UILabel *replyAppendLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, replyAppendView.frame.size.width - 20, 20)];
+            [replyAppendView addSubview:replyAppendLabel];
+            replyAppendLabel.numberOfLines = 0;
+            replyAppendLabel.font = font_1;
+            replyAppendLabel.textColor = [ResourceManager mainColor];
+            NSString *replyStr = [NSString stringWithFormat:@"商家回复：%@",[dic objectForKey:@"replyAppendText"]];
+            NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]
+                                                  initWithString:replyStr];
+            //2.匹配字符串
+            [attrStr addAttribute:NSForegroundColorAttributeName value:[ResourceManager mainColor] range:NSMakeRange(0, 5)];
+            [attrStr addAttribute:NSForegroundColorAttributeName value:color_1 range:NSMakeRange(5, replyStr.length - 5)];
+            replyAppendLabel.attributedText = attrStr;
             
-            UILabel *replyAppraiseLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), CGRectGetMaxY(titleLabel.frame) + 10, SCREEN_WIDTH - 20, 20)];
-            [self addSubview:replyAppraiseLabel];
-            replyAppraiseLabel.numberOfLines = 0;
-            replyAppraiseLabel.font = font_1;
-            replyAppraiseLabel.textColor = [ResourceManager mainColor];
-            replyAppraiseLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"replyAppendText"]];
-            CGSize maximumLabelSize = CGSizeMake(SCREEN_WIDTH - 20, 200);//labelsize的最大值
+            CGSize maximumLabelSize = CGSizeMake(replyAppendView.frame.size.width - 20, 200);//labelsize的最大值
             //关键语句
-            CGSize expectSize = [replyAppraiseLabel sizeThatFits:maximumLabelSize];
+            CGSize expectSize = [replyAppendLabel sizeThatFits:maximumLabelSize];
             //别忘了把frame给回label，如果用xib加了约束的话可以只改一个约束的值
-            replyAppraiseLabel.frame = CGRectMake(CGRectGetMinX(headImgView.frame), CGRectGetMaxY(titleLabel.frame) + 10, expectSize.width, expectSize.height);
+            replyAppendLabel.frame = CGRectMake(10, 10, expectSize.width, expectSize.height);
             
-            _currentHeight = CGRectGetMaxY(replyAppraiseLabel.frame) + 10;
+            replyAppendView.height = CGRectGetMaxY(replyAppendLabel.frame) + 10;
+            _currentHeight = CGRectGetMaxY(replyAppendView.frame) + 10;
         }
     }
     
-    UIView *productView = [[UIView alloc]initWithFrame:CGRectMake(10, _currentHeight + 10, SCREEN_WIDTH - 20, 90)];
-    [self addSubview:productView];
-    productView.backgroundColor = [ResourceManager viewBackgroundColor];
-    
-    UIImageView *productImgView =  [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 70, 70)];
-    [productView addSubview:productImgView];
-    [productImgView sd_setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"goodsUrl"]]];
-    
-    UILabel *productNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(productImgView.frame) + 20, CGRectGetMinY(productImgView.frame) + 5, 200, 20)];
-    [productView addSubview:productNameLabel];
-    productNameLabel.font = font_1;
-    productNameLabel.textColor = color_1;
-    productNameLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"goodsName"]];
-    
-     UILabel *productDescLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(productImgView.frame) + 20, CGRectGetMaxY(productNameLabel.frame) + 5, 200, 20)];
-    [productView addSubview:productDescLabel];
-    productDescLabel.font = font_2;
-    productDescLabel.textColor = color_2;
-    productDescLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"skuDesc"]];
-    
-    UILabel *productPriceLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 180, CGRectGetMinY(productImgView.frame) + 5, 150, 20)];
-    [productView addSubview:productPriceLabel];
-    productPriceLabel.textAlignment = NSTextAlignmentRight;
-    productPriceLabel.font = font_1;
-    productPriceLabel.textColor = color_2;
-    productPriceLabel.text = [NSString stringWithFormat:@"￥%@",[dic objectForKey:@"price"]];
-    
-    UILabel *productNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 180, CGRectGetMaxY(productPriceLabel.frame) + 5, 150, 20)];
-    [productView addSubview:productNumLabel];
-    productNumLabel.textAlignment = NSTextAlignmentRight;
-    productNumLabel.font = font_2;
-    productNumLabel.textColor = color_2;
-    productNumLabel.text = [NSString stringWithFormat:@"x%@",[dic objectForKey:@"num"]];
-    
-    _currentHeight = CGRectGetMaxY(productView.frame) + 10;
-    
-//    UILabel *appraiseNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(productView.frame), 100, 40)];
-//    [self addSubview:appraiseNumLabel];
-//    appraiseNumLabel.font = font_2;
-//    appraiseNumLabel.textColor = color_2;
-//    appraiseNumLabel.text = [NSString stringWithFormat:@"评论%@次",[dic objectForKey:@"commCount"]];
-//    appraiseNumLabel.frame = CGRectMake(10, CGRectGetMaxY(productView.frame) + 10, 100, 30);
-    
-//    _currentHeight = CGRectGetMaxY(appraiseNumLabel.frame);
-    
-    //追评按钮
-   if ([[dic objectForKey:@"commentStatus"] intValue] == 2) {
-        UIButton *reviewAppraiseBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 90, _currentHeight, 80, 30)];
-       [self addSubview:reviewAppraiseBtn];
-       reviewAppraiseBtn.layer.cornerRadius = 3;
-       reviewAppraiseBtn.layer.borderWidth = 0.5;
-       reviewAppraiseBtn.layer.borderColor = [ResourceManager color_5].CGColor;
-       reviewAppraiseBtn.titleLabel.font = font_1;
-       [reviewAppraiseBtn setTitle:@"写追评" forState:UIControlStateNormal];
-       [reviewAppraiseBtn setTitleColor:color_1 forState:UIControlStateNormal];
-       [reviewAppraiseBtn addTarget:self action:@selector(reviewAppraise) forControlEvents:UIControlEventTouchUpInside];
-       
-       _currentHeight = CGRectGetMaxY(reviewAppraiseBtn.frame) + 10;
-    }
-    
- 
-    
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, _currentHeight, SCREEN_WIDTH, 10)];
-    [self addSubview:lineView];
-    lineView.backgroundColor = [ResourceManager viewBackgroundColor];
-    
-    _currentHeight = CGRectGetMaxY(lineView.frame);
-}
-
-
--(void)reviewAppraise{
-    if (self.myAppraiseBlock) {
-        self.myAppraiseBlock();
-    }
 }
 
 //点击图片放大
@@ -297,14 +239,5 @@
     }
 }
 
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

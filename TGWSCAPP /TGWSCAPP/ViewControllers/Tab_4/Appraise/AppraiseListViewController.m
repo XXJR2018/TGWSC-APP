@@ -19,6 +19,7 @@
     UIView *_headerView;
     UIButton *_dpjBtn;
     UIButton *_wdpjBtn;
+    UIView *_aleartView;
 }
 @end
 
@@ -97,18 +98,18 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"评论"];
+    [MobClick beginLogPageView:@"评价"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"评论"];
+    [MobClick endLogPageView:@"评价"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self layoutNaviBarViewWithTitle:@"评论"];
+    [self layoutNaviBarViewWithTitle:@"评价"];
     
     self.view.backgroundColor = [UIColor whiteColor];
     _tableView.backgroundColor = [UIColor whiteColor];
@@ -239,6 +240,22 @@
         ctl.orderDataDic = dic;
         [self.navigationController pushViewController:ctl animated:YES];
     };
+    cell.clickEnlargeBlock = ^(int touchTag){
+        NSString *imgUrl;
+        if (touchTag < 100) {
+            //3.分隔字符串
+            NSString *imgUrls =[NSString stringWithFormat:@"%@",[dic objectForKey:@"imgUrl"]];
+            NSArray *imgArr = [imgUrls componentsSeparatedByString:@","]; //从字符A中分隔成多个元素的数组
+            imgUrl = imgArr[touchTag];
+        }else{
+            //3.分隔字符串
+            NSString *imgUrls =[NSString stringWithFormat:@"%@",[dic objectForKey:@"appendImgUrl"]];
+            NSArray *imgArr = [imgUrls componentsSeparatedByString:@","]; //从字符A中分隔成多个元素的数组
+            imgUrl = imgArr[touchTag - 100];
+        }
+        //点击图片放大
+        [self clickEnlargeImg:imgUrl];
+    };
     return cell;
 }
 
@@ -250,8 +267,32 @@
         return;
     }
     
-    
 }
+
+#pragma mark---点击图片放大
+-(void)clickEnlargeImg:(NSString *)imgUrl{
+    [_aleartView  removeFromSuperview];
+    
+    _aleartView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self.view addSubview:_aleartView];
+    _aleartView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
+    
+    UIImageView *imgview = [[UIImageView alloc]initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - SCREEN_WIDTH)/2, SCREEN_WIDTH, SCREEN_WIDTH)];
+    [_aleartView addSubview:imgview];
+    [imgview sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
+    
+    //添加手势点击空白处隐藏键盘
+    UITapGestureRecognizer * tapGeture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hidenAlert)];
+    tapGeture.numberOfTapsRequired  = 1;
+    [self.view addGestureRecognizer:tapGeture];
+   
+}
+
+//点击背景消失弹窗
+-(void)hidenAlert{
+    [_aleartView removeFromSuperview];
+}
+
 
 /*
 #pragma mark - Navigation

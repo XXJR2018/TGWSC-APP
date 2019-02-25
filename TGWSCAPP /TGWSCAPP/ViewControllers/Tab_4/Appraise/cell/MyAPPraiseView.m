@@ -87,6 +87,13 @@
                     UIImageView *appraiseImgView = [[UIImageView alloc]initWithFrame:CGRectMake(10 + (imgWidth + 10) * j, imgTop + (imgWidth + 10) * i, imgWidth, imgWidth)];
                     [self addSubview:appraiseImgView];
                     [appraiseImgView sd_setImageWithURL:[NSURL URLWithString:imgArr[i * 3 + j]]];
+                    appraiseImgView.userInteractionEnabled = YES;
+                    
+                    //添加手势点击空白处隐藏键盘
+                    UITapGestureRecognizer * tapGeture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickEnlarge:)];
+                    tapGeture.numberOfTapsRequired  = 1;
+                    [appraiseImgView addGestureRecognizer:tapGeture];
+                    [tapGeture view].tag = i * 3 + j;
                     
                     _currentHeight = CGRectGetMaxY(appraiseImgView.frame);
                 }
@@ -167,6 +174,13 @@
                         UIImageView *appraiseImgView = [[UIImageView alloc]initWithFrame:CGRectMake(10 + (imgWidth + 10) * j, imgTop + (imgWidth + 10) * i, imgWidth, imgWidth)];
                         [self addSubview:appraiseImgView];
                         [appraiseImgView sd_setImageWithURL:[NSURL URLWithString:imgArr[i * 3 + j]]];
+                        appraiseImgView.userInteractionEnabled = YES;
+                        
+                        //添加手势点击空白处隐藏键盘
+                        UITapGestureRecognizer * tapGeture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickEnlarge:)];
+                        tapGeture.numberOfTapsRequired  = 1;
+                        [appraiseImgView addGestureRecognizer:tapGeture];
+                        [tapGeture view].tag = i * 3 + j + 100;
                         
                         _currentHeight = CGRectGetMaxY(appraiseImgView.frame);
                     }
@@ -233,17 +247,20 @@
     productNumLabel.textColor = color_2;
     productNumLabel.text = [NSString stringWithFormat:@"x%@",[dic objectForKey:@"num"]];
     
-    UILabel *appraiseNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(productView.frame), 100, 40)];
-    [self addSubview:appraiseNumLabel];
-    appraiseNumLabel.font = font_2;
-    appraiseNumLabel.textColor = color_2;
-    appraiseNumLabel.text = [NSString stringWithFormat:@"评论%@次",[dic objectForKey:@"commCount"]];
+    _currentHeight = CGRectGetMaxY(productView.frame) + 10;
     
-    _currentHeight = CGRectGetMaxY(appraiseNumLabel.frame);
+//    UILabel *appraiseNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(productView.frame), 100, 40)];
+//    [self addSubview:appraiseNumLabel];
+//    appraiseNumLabel.font = font_2;
+//    appraiseNumLabel.textColor = color_2;
+//    appraiseNumLabel.text = [NSString stringWithFormat:@"评论%@次",[dic objectForKey:@"commCount"]];
+//    appraiseNumLabel.frame = CGRectMake(10, CGRectGetMaxY(productView.frame) + 10, 100, 30);
+    
+//    _currentHeight = CGRectGetMaxY(appraiseNumLabel.frame);
     
     //追评按钮
    if ([[dic objectForKey:@"commentStatus"] intValue] == 2) {
-        UIButton *reviewAppraiseBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 90, CGRectGetMaxY(productView.frame) + 10, 80, 30)];
+        UIButton *reviewAppraiseBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 90, _currentHeight, 80, 30)];
        [self addSubview:reviewAppraiseBtn];
        reviewAppraiseBtn.layer.cornerRadius = 3;
        reviewAppraiseBtn.layer.borderWidth = 0.5;
@@ -253,7 +270,6 @@
        [reviewAppraiseBtn setTitleColor:color_1 forState:UIControlStateNormal];
        [reviewAppraiseBtn addTarget:self action:@selector(reviewAppraise) forControlEvents:UIControlEventTouchUpInside];
        
-       appraiseNumLabel.frame = CGRectMake(10, CGRectGetMaxY(productView.frame) + 10, 100, 30);
        _currentHeight = CGRectGetMaxY(reviewAppraiseBtn.frame) + 10;
     }
     
@@ -272,6 +288,16 @@
         self.myAppraiseBlock();
     }
 }
+
+//点击图片放大
+-(void)clickEnlarge:(UITapGestureRecognizer *)tapGesture{
+    UITapGestureRecognizer *singleTap = (UITapGestureRecognizer *)tapGesture;
+    if (self.clickEnlargeBlock) {
+        self.clickEnlargeBlock((int)singleTap.view.tag);
+    }
+}
+
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -462,11 +462,10 @@
     [self.view addSubview:_aleartView];
     _aleartView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
 
-    UIView *view = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, (SCREEN_HEIGHT - 320)/2, 300, 320)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, (SCREEN_HEIGHT - 320)/2, 300, 320)];
     [_aleartView addSubview:view];
     view.backgroundColor = [UIColor whiteColor];
     view.layer.cornerRadius = 8;
-    view.userInteractionEnabled = YES;
     
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(30, 20, view.bounds.size.width - 60, 200)];
     [view addSubview:titleLabel];

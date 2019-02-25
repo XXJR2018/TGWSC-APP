@@ -82,7 +82,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    CustomNavigationBarView *naviView = [self layoutNaviBarViewWithTitle:@"评论"];
+    CustomNavigationBarView *naviView = [self layoutNaviBarViewWithTitle:@"评价"];
     UIButton *issueBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 80,NavHeight - 35, 80, 35)];
     [naviView addSubview:issueBtn];
     [issueBtn setTitle:@"发布追评" forState:UIControlStateNormal];

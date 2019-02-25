@@ -33,13 +33,13 @@
 -(void)loadData{
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-
-    NSString *url = [NSString stringWithFormat:@"%@appMall/account/orderInvoice/queryCustHis",[PDAPI getBaseUrlString]];
     if (self.invoiceId.length > 0) {
-        url = [NSString stringWithFormat:@"%@appMall/account/orderInvoice/dtlInfo",[PDAPI getBaseUrlString]];
         params[@"invoiceId"] = self.invoiceId;
     }
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:url
+    if (self.invoiceId.length > 0) {
+        params[@"orderNo"] = self.orderNo;
+    }
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/orderInvoice/dtlInfo",[PDAPI getBaseUrlString]]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       [self handleData:operation];
@@ -65,7 +65,13 @@
     params[@"detail"] = @"明细";
     params[@"telephone"] = _phoneField.text;
     params[@"email"] = _emailField.text;
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/orderInvoice/save",[PDAPI getBaseUrlString]]
+    
+    NSString *url = [NSString stringWithFormat:@"%@appMall/account/orderInvoice/save",[PDAPI getBaseUrlString]];
+    if (self.orderNo.length > 0) {
+        url = [NSString stringWithFormat:@"%@appMall/account/orderInvoice/repairInvoice",[PDAPI getBaseUrlString]];
+        params[@"orderNo"] = self.orderNo;
+    }
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:url
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       [self handleData:operation];

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface InvoiceJpegVC : CommonViewController
 
+@property(nonatomic, copy) NSString *invoiceImgUrl;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -169,19 +169,32 @@
     
     MyAPPraiseView *view = [[MyAPPraiseView alloc]initWithAppraiseListViewLayoutUI:_dataDicionary];
     view.myAppraiseBlock = ^{
-       self.reviewAppraiseBlock();
+        if (self.reviewAppraiseBlock) {
+            self.reviewAppraiseBlock();
+        }
+    };
+    view.clickEnlargeBlock = ^(int touchTag){
+        if (self.clickEnlargeBlock) {
+            self.clickEnlargeBlock(touchTag);
+        }
     };
     [self.contentView addSubview:view];
 
 }
 
 -(void)checkOrder{
-    self.checkOrderBlock();
+    if (self.checkOrderBlock) {
+        self.checkOrderBlock();
+    }
 }
 
 -(void)appraise{
-    self.appraiseBlock();
+    if (self.appraiseBlock) {
+        self.appraiseBlock();
+    }
 }
+
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];

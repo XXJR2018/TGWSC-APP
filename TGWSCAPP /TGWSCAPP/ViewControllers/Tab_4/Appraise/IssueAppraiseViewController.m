@@ -95,18 +95,18 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"发布评论"];
+    [MobClick beginLogPageView:@"发布评价"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"发布评论"];
+    [MobClick endLogPageView:@"发布评价"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    CustomNavigationBarView *naviView = [self layoutNaviBarViewWithTitle:@"评论"];
+    CustomNavigationBarView *naviView = [self layoutNaviBarViewWithTitle:@"评价"];
     UIButton *issueBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 60,NavHeight - 35, 60, 35)];
     [naviView addSubview:issueBtn];
     [issueBtn setTitle:@"发布" forState:UIControlStateNormal];

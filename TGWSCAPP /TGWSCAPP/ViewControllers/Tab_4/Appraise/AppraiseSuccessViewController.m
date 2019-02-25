@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self layoutNaviBarViewWithTitle:@"评论"];
+    [self layoutNaviBarViewWithTitle:@"评价"];
     
     [self headerViewUI];
     

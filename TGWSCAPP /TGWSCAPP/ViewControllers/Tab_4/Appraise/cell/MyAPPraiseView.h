@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, copy)Block_Void myAppraiseBlock;
 
+@property(nonatomic, copy)Block_Int clickEnlargeBlock;
 
 -(UIView *)initWithAppraiseListViewLayoutUI:(NSDictionary *)dic;
 

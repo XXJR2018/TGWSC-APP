@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, copy)Block_Void reviewAppraiseBlock;
 
+@property(nonatomic, copy)Block_Int clickEnlargeBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

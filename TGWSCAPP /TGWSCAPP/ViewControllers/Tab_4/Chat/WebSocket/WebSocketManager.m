@@ -47,15 +47,7 @@
 }
 
 
--(void) stopConnectTimer
-{
-    if (_connectTimer)
-     {
-        //取消定时器
-        [_connectTimer invalidate];
-        _connectTimer = nil;
-     }
-}
+
 
 //初始化Socket并发起连接
 - (void)socketConnectHost{
@@ -75,6 +67,30 @@
     
 }
 
+-(void) creatConnectTimer
+{
+    [self stopConnectTimer];
+    
+    // 每隔20秒向服务器发送心跳包  一般设置30秒发送一次心跳包
+    _connectTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];
+    
+    [_connectTimer fire];
+    
+    // 解决定时器后台 无法运行的BUG
+    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+    
+    [[NSRunLoop currentRunLoop] addTimer:_connectTimer forMode:NSRunLoopCommonModes];
+}
+
+-(void) stopConnectTimer
+{
+    if (_connectTimer)
+     {
+        //取消定时器
+        [_connectTimer invalidate];
+        _connectTimer = nil;
+     }
+}
 
 //--------------------------------------
 #pragma mark - SRWebSocketDelegate
@@ -90,15 +106,8 @@
     // 发送身份认证信息
     [self sendLoginInfo];
     
-    // 每隔20秒向服务器发送心跳包  一般设置30秒发送一次心跳包
-    _connectTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];
+    [self creatConnectTimer];
     
-    [_connectTimer fire];
-    
-    // 解决定时器后台 无法运行的BUG
-    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
-    
-    [[NSRunLoop currentRunLoop] addTimer:_connectTimer forMode:NSRunLoopCommonModes];
  
 }
 

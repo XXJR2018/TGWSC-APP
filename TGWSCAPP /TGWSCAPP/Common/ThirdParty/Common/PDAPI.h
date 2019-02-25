@@ -47,9 +47,9 @@ static NSString *const kURLqueryGoodsByCondition = @"appMall/goods/queryGoodsByC
 // 搜索时，即时匹配的字符
 static NSString *const kURLqueryGoodsKey = @"appMall/goodskey/queryGoodsKey";
 // 得到商品的分享图片(包含二维码)
-static NSString *const kURLgetShareQrcode = @"/appMall/goods/getShareQrcode";
+static NSString *const kURLgetShareQrcode = @"appMall/goods/getShareQrcode";
 // 获取所有的商品
-static NSString *const kURLqueryGoodsAllList = @"/appMall/goods/queryGoodsAllList";
+static NSString *const kURLqueryGoodsAllList = @"appMall/goods/queryGoodsAllList";
 
 
 #pragma mark ---- 购物车相关
@@ -123,6 +123,14 @@ static NSString *const kURLupdateShow = @"appMall/account/cust/message/updateSho
 static NSString *const kURLpopups = @"appMall/account/cust/info/popups";
 // 弹框后领取奖励接口
 static NSString *const kURLgetCustReward = @"appMall/account/cust/activity/getCustReward";
+
+
+#pragma mark   ---  评价相关 （部分接口）
+// 商品评价的标签
+static NSString *const kURLqueryGoodsLable = @"appMall/account/orderComment/queryGoodsLable";
+// 商品评论列表
+static NSString *const kURLqueryAllCommList = @"appMall/account/orderComment/queryAllCommList";
+
 
 /*!
  @brief 管理所有接口URL

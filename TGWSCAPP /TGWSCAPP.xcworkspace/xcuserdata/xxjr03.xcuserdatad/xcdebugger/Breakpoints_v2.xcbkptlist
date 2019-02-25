@@ -6,16 +6,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_3/OrderDetial/Invoice/InvoiceInfoVC.m"
+            timestampString = "572772927.467526"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "-handleData:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TGWSCAPP/ViewControllers/Tab_4/Order/OrderListViewController.m"
-            timestampString = "572513140.775333"
+            filePath = "TGWSCAPP/ViewControllers/Tab_3/OrderDetial/Invoice/InvoiceDetailsVC.m"
+            timestampString = "572772927.467625"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
-            landmarkName = "-orderLeftTouch:leftBtn:"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "-layoutUI"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

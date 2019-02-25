@@ -9,11 +9,12 @@
 #import "InvoiceDetailsVC.h"
 
 #import "InvoiceInfoVC.h"
-
+#import "InvoiceJpegVC.h"
 @interface InvoiceDetailsVC ()
 {
     NSDictionary *_invoiceDic;
     CGFloat _currentHeight;
+    NSString *_invoiceImgUrl;
 }
 @end
 
@@ -22,7 +23,7 @@
 -(void)loadData{
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"invoiceId"] = self.invoiceId;
+    params[@"orderNo"] = self.orderNo;
     
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/orderInvoice/dtlInfo",[PDAPI getBaseUrlString]]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
@@ -39,8 +40,8 @@
 #pragma mark 数据操作
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
-    if (operation.jsonResult.rows.count > 0) {
-        _invoiceDic = operation.jsonResult.rows[0];
+    if (operation.jsonResult.attr.count > 0) {
+        _invoiceDic = operation.jsonResult.attr;
         [self layoutUI];
     }
     
@@ -103,7 +104,7 @@
     [kpztView addSubview:kpztLabel];
     kpztLabel.font = font_1;
     kpztLabel.textColor = color_1;
-    if ([[_invoiceDic objectForKey:@"invoiceStatus"] intValue] == 0) {
+    if ([[_invoiceDic objectForKey:@"invoiceStatus"] intValue] == 1) {
         kpztLabel.text = @"开票状态：开票中";
         
         UIButton *changeInvoiceBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 110, CGRectGetMidY(kpztLabel.frame) - 15, 100, 30)];
@@ -212,6 +213,17 @@
         _currentHeight = CGRectGetMaxY(detailLabel.frame);
     }
     
+    if ([[_invoiceDic objectForKey:@"invoiceStatus"] intValue] == 2 && [_invoiceDic objectForKey:@"invoiceUrl"] && [NSString stringWithFormat:@"%@",[_invoiceDic objectForKey:@"invoiceUrl"]].length > 0) {
+        _invoiceImgUrl = [NSString stringWithFormat:@"%@",[_invoiceDic objectForKey:@"invoiceUrl"]];
+        UIButton *checkImgBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 80, invoiceInfoView.frame.size.height/2 - 15, 80, 30)];
+        [invoiceInfoView addSubview:checkImgBtn];
+        checkImgBtn.titleLabel.font = font_1;
+        [checkImgBtn setTitle:@"查看>" forState:UIControlStateNormal];
+        [checkImgBtn setTitleColor:color_2 forState:UIControlStateNormal];
+        [checkImgBtn addTarget:self action:@selector(checkImg) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    
     invoiceInfoView.height = _currentHeight + 15;
     _currentHeight = CGRectGetMaxY(invoiceInfoView.frame) + 10;
    
@@ -238,11 +250,18 @@
 //修改发票信息
 -(void)changeInvoice{
     InvoiceInfoVC *ctl = [[InvoiceInfoVC alloc]init];
-    ctl.invoiceId = [NSString stringWithFormat:@"%@",[_invoiceDic objectForKey:@"invoiceId"]];
+    ctl.orderNo = [NSString stringWithFormat:@"%@",[_invoiceDic objectForKey:@"orderNo"]];
     ctl.price = [NSString stringWithFormat:@"¥%.2f", [[_invoiceDic objectForKey:@"amount"] floatValue]];
     ctl.invoiceBlock = ^(id invoiceData){
         [self loadData];
     };
+    [self.navigationController pushViewController:ctl animated:YES];
+}
+
+//查看发票图片
+-(void)checkImg{
+    InvoiceJpegVC *ctl = [[InvoiceJpegVC alloc]init];
+    ctl.invoiceImgUrl = _invoiceImgUrl;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

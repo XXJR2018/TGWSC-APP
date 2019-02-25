@@ -1045,7 +1045,7 @@
                     //申请开票
                     if ([[_orderDataDic objectForKey:@"invoiceFlag"] intValue] == 1) {
                         InvoiceDetailsVC *ctl = [[InvoiceDetailsVC alloc]init];
-                        ctl.invoiceId = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"invoiceId"]];
+                        ctl.orderNo = self.orderNo;
                         [self.navigationController pushViewController:ctl animated:YES];
                     }else{
                         InvoiceInfoVC *ctl = [[InvoiceInfoVC alloc]init];

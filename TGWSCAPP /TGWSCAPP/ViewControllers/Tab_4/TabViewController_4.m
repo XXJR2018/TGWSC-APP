@@ -22,6 +22,8 @@
 
 #import "JXButton.h"
 
+#import "AllAppraiseListViewController.h"
+
 @interface TabViewController_4 ()
 {
     UIImageView *_headImgView;
@@ -121,6 +123,8 @@
         _dfhNumLabel.text = @"";
         _yfhNumLabel.hidden = YES;
         _yfhNumLabel.text = @"";
+        _dfhNumLabel.hidden = YES;
+        _dpjNumLabel.text = @"";
         _tkNumLabel.hidden = YES;
         _tkNumLabel.text = @"";
         _balanceNumLabel.text = @"";
@@ -159,6 +163,14 @@
     }else{
         _yfhNumLabel.hidden = YES;
         _yfhNumLabel.text = @"";
+    }
+    //待评价
+    if ([[dic objectForKey:@"waitOrderCount"] intValue] > 0) {
+        _dpjNumLabel.hidden = NO;
+        _dpjNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"waitOrderCount"]];
+    }else{
+        _dpjNumLabel.hidden = YES;
+        _dpjNumLabel.text = @"";
     }
     //退款/售后
     if ([[dic objectForKey:@"refundCount"] intValue] > 0) {
@@ -577,8 +589,11 @@
         }break;
         case 103:{
             //待评价
-            AppraiseListViewController *ctl = [[AppraiseListViewController alloc]init];
+            
+            AllAppraiseListViewController *ctl = [[AllAppraiseListViewController alloc]init];
             [self.navigationController pushViewController:ctl animated:YES];
+//            AppraiseListViewController *ctl = [[AppraiseListViewController alloc]init];
+//            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 104:{
             //退款/售后

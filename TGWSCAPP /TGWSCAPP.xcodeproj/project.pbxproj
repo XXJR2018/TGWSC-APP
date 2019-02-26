@@ -357,6 +357,9 @@
 		C2B51AF121C3462500AC76FB /* ProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */; };
 		C2B51AF221C3462500AC76FB /* ProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */; };
 		C2C149C521F16C3200A1C2F9 /* Images-Default.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2C149C421F16C3100A1C2F9 /* Images-Default.xcassets */; };
+		C2C42D482223D8480082A37A /* AllAppraiseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C42D472223D8480082A37A /* AllAppraiseListViewController.m */; };
+		C2C42D4B2223D90C0082A37A /* AllAppraiseListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C42D4A2223D90C0082A37A /* AllAppraiseListCell.m */; };
+		C2C42D4E2223E6060082A37A /* AllAppraiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C42D4D2223E6060082A37A /* AllAppraiseView.m */; };
 		C2C4B82B221BFBAF007A0147 /* MyAPPraiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C4B824221BFBAF007A0147 /* MyAPPraiseView.m */; };
 		C2C4B82C221BFBAF007A0147 /* AppraiseViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C4B825221BFBAF007A0147 /* AppraiseViewCell.m */; };
 		C2C4B82D221BFBAF007A0147 /* AppraiseViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2C4B827221BFBAF007A0147 /* AppraiseViewCell.xib */; };
@@ -1052,6 +1055,12 @@
 		C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductCollectionViewCell.m; sourceTree = "<group>"; };
 		C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCollectionViewCell.xib; sourceTree = "<group>"; };
 		C2C149C421F16C3100A1C2F9 /* Images-Default.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-Default.xcassets"; sourceTree = "<group>"; };
+		C2C42D462223D8480082A37A /* AllAppraiseListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllAppraiseListViewController.h; sourceTree = "<group>"; };
+		C2C42D472223D8480082A37A /* AllAppraiseListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllAppraiseListViewController.m; sourceTree = "<group>"; };
+		C2C42D492223D90C0082A37A /* AllAppraiseListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllAppraiseListCell.h; sourceTree = "<group>"; };
+		C2C42D4A2223D90C0082A37A /* AllAppraiseListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllAppraiseListCell.m; sourceTree = "<group>"; };
+		C2C42D4C2223E6060082A37A /* AllAppraiseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllAppraiseView.h; sourceTree = "<group>"; };
+		C2C42D4D2223E6060082A37A /* AllAppraiseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllAppraiseView.m; sourceTree = "<group>"; };
 		C2C4B824221BFBAF007A0147 /* MyAPPraiseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAPPraiseView.m; sourceTree = "<group>"; };
 		C2C4B825221BFBAF007A0147 /* AppraiseViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppraiseViewCell.m; sourceTree = "<group>"; };
 		C2C4B826221BFBAF007A0147 /* AppraiseListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppraiseListCell.h; sourceTree = "<group>"; };
@@ -2053,6 +2062,8 @@
 				C23550F7221A9CE4006C21B1 /* ReviewAppraiseViewController.m */,
 				C24293C122168E6800FFCE5D /* AppraiseSuccessViewController.h */,
 				C24293C222168E6800FFCE5D /* AppraiseSuccessViewController.m */,
+				C2C42D462223D8480082A37A /* AllAppraiseListViewController.h */,
+				C2C42D472223D8480082A37A /* AllAppraiseListViewController.m */,
 			);
 			path = Appraise;
 			sourceTree = "<group>";
@@ -2889,6 +2900,10 @@
 				C2388018221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.h */,
 				C2388019221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.m */,
 				C238801A221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.xib */,
+				C2C42D492223D90C0082A37A /* AllAppraiseListCell.h */,
+				C2C42D4A2223D90C0082A37A /* AllAppraiseListCell.m */,
+				C2C42D4C2223E6060082A37A /* AllAppraiseView.h */,
+				C2C42D4D2223E6060082A37A /* AllAppraiseView.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -3258,6 +3273,7 @@
 				C25047B621BA715500DA9C72 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				C25047E821BA715500DA9C72 /* DDGAssert.m in Sources */,
 				C20525F221BE6E5C00E13893 /* TabViewController_3.m in Sources */,
+				C2C42D4B2223D90C0082A37A /* AllAppraiseListCell.m in Sources */,
 				C0CCC7E721C0F150009352E0 /* NBSSearchShopHistoryView.m in Sources */,
 				C29ABBDB21D4655300428407 /* MyCollectViewController.m in Sources */,
 				C050C4082215731900BFACF5 /* NSObject+BGModel.m in Sources */,
@@ -3350,6 +3366,7 @@
 				C0CCC82421C0F47D009352E0 /* CategoryAndHistoryVC.m in Sources */,
 				C0C4B888221E9211002853D1 /* SRRandom.m in Sources */,
 				C0CCC82921C0F4C5009352E0 /* HistorySearchVC.m in Sources */,
+				C2C42D482223D8480082A37A /* AllAppraiseListViewController.m in Sources */,
 				C250479A21BA715500DA9C72 /* DAContextMenuCell.m in Sources */,
 				C250476D21BA715500DA9C72 /* NSString + DesEncrypt.m in Sources */,
 				C0A48AAA21DC487E002AF226 /* LZCartViewController.m in Sources */,
@@ -3394,6 +3411,7 @@
 				C0CCC85921C391C2009352E0 /* AdvertingShopListView.m in Sources */,
 				C250461321BA711E00DA9C72 /* TAAbstractDotView.m in Sources */,
 				C250477021BA715500DA9C72 /* NSURL+Additions.m in Sources */,
+				C2C42D4E2223E6060082A37A /* AllAppraiseView.m in Sources */,
 				C250461221BA711E00DA9C72 /* TAAnimatedDotView.m in Sources */,
 				C04B180F21E5DD6B00DBA0FE /* RefundCommitVC.m in Sources */,
 				C0C4B87E221E9211002853D1 /* SRProxyConnect.m in Sources */,

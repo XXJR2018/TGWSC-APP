@@ -41,6 +41,9 @@
     int  maxPostFree;  // 包邮免费金额
     bool isFavorite;   // 是否收藏
     NSString *qrcodeUrl;
+    
+    int   userCommCount;  // 用户评价量
+    NSString *goodsRate;  // 用户满意度
 }
 
 @property (strong, nonatomic)AVPlayer *myPlayer;//播放器
@@ -96,6 +99,9 @@
     isFavorite = false;
     
     qrcodeUrl = @"";
+    
+    userCommCount = 0;
+    goodsRate = @"";
 }
 
 //清除缓存必须写
@@ -381,7 +387,9 @@
     viewFGK4.backgroundColor = [ResourceManager viewBackgroundColor];
 
     
+    
     iTopY += 10;
+    // 给底部的详情图片，分配顶部左边
     iTailViewTopY = iTopY;
     
     scView.contentSize = CGSizeMake(0, iTopY);
@@ -509,7 +517,140 @@
     __block  UIScrollView *_bSCView = scView;
     
     
-    NSArray *arrMediaList = dicUI[@"imageList"];
+    
+    userCommCount = [dicUI[@"userCommCount"]  intValue];
+    if (userCommCount > 0)
+     {
+        // 有用户评论， 开始画 评论UI
+        iTopY += 10;
+        int iLeftX = 15;
+        UILabel *labelPL = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 200, 20)];
+        [scView addSubview:labelPL];
+        labelPL.text = [NSString stringWithFormat:@"用户评论(%d)",userCommCount];
+        labelPL.textColor = [ResourceManager color_1];
+        labelPL.font = [UIFont systemFontOfSize:14];
+        
+        
+        UIImageView *imgRight2 = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 20, iTopY+3, 10, 15)];
+        [scView addSubview:imgRight2];
+        imgRight2.image = [UIImage imageNamed:@"arrow_right"];
+        
+        
+        goodsRate = dicUI[@"goodsRate"];
+        UILabel *labelMYD = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 200, iTopY, 175, 20)];
+        [scView addSubview:labelMYD];
+        labelMYD.textAlignment = NSTextAlignmentRight;
+        labelMYD.textColor = [ResourceManager mainColor];
+        labelMYD.font = [UIFont systemFontOfSize:14];
+        labelMYD.text = goodsRate;
+        
+        // 加入分割线
+        iTopY += labelPL.height + 10;
+        UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 1)];
+        [scView addSubview:viewFG];
+        viewFG.backgroundColor = [ResourceManager color_5];
+        
+        
+        // 第一条评论的信息
+        NSDictionary  *dicGoodsComm = dicUI[@"goodsCommList"];
+        if (dicGoodsComm)
+         {
+            // 头像
+            iTopY += 10;
+            UIImageView *imgHead = [[UIImageView alloc]  initWithFrame:CGRectMake(iLeftX, iTopY, 35, 35)];
+            [scView addSubview:imgHead];
+            imgHead.layer.masksToBounds = YES;
+            imgHead.layer.cornerRadius = imgHead.height/2;
+            NSString *strHeadUrl = dicGoodsComm[@"headImgUrl"];
+            [imgHead sd_setImageWithURL:[NSURL URLWithString:strHeadUrl] placeholderImage:[UIImage imageNamed:@"Tab_4-2"]];
+            
+            iLeftX += imgHead.width + 10;
+            UILabel *labelName = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY+10, 200, 15)];
+            [scView addSubview:labelName];
+            labelName.textColor = [ResourceManager color_1];
+            labelName.font = [UIFont systemFontOfSize:14];
+            labelName.text = dicGoodsComm[@"nickName"];
+            [labelName sizeToFit];
+            
+            iLeftX += labelName.width + 10;
+            int goodsGrade = [dicGoodsComm[@"goodsGrade"] intValue];
+            for (int i = 0; i < goodsGrade; i++)
+             {
+                UIImageView  *imgStar = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY+13, 10, 10)];
+                [scView addSubview:imgStar];
+                imgStar.image = [UIImage imageNamed:@"Tab_4-37"];
+                
+                iLeftX += imgStar.width + 5;
+             }
+            
+            // 日期
+            iLeftX = 15;
+            iTopY += imgHead.height + 7;
+            UILabel *labelDate = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - iLeftX - 10, 12)];
+            [scView addSubview:labelDate];
+            labelMYD.textAlignment = NSTextAlignmentRight;
+            labelDate.textColor = [ResourceManager lightGrayColor];
+            labelDate.font = [UIFont systemFontOfSize:10];
+            labelDate.text = [NSString stringWithFormat:@"%@   %@", dicGoodsComm[@"createTime"], dicGoodsComm[@"skuDesc"]];
+            
+            // 评论
+            iTopY += labelDate.height + 10;
+            UILabel *labelComm = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - 2*iLeftX , 100)];
+            [scView addSubview:labelComm];
+            labelComm.textColor = [ResourceManager color_1];
+            labelComm.font = [UIFont systemFontOfSize:14];
+            labelComm.numberOfLines = 0;
+            labelComm.text = dicGoodsComm[@"commentText"];
+            [labelComm sizeToFit];
+            
+            iTopY += labelComm.height +10;
+            
+            // 加入图片
+            NSString *imgUrl = dicGoodsComm[@"imgUrl"];
+            if (imgUrl &&
+                imgUrl.length > 0)
+             {
+                NSArray *arrImg = [imgUrl componentsSeparatedByString:@","];
+                if (arrImg &&
+                    arrImg.count > 0)
+                 {
+                    int iImgWidth = (SCREEN_WIDTH - 2*iLeftX - 4*10)/5;
+                    // 设置图片的顶点高度
+                    iTopY += labelDate.height + 10;
+                    
+                    for (int i = 0; i < arrImg.count; i++)
+                     {
+                        UIImageView *imgJpg = [[UIImageView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, iImgWidth, iImgWidth)];
+                        [scView addSubview:imgJpg];
+                        [imgJpg sd_setImageWithURL:[NSURL URLWithString:arrImg[i]]];
+                        imgJpg.backgroundColor = [UIColor yellowColor];
+                        
+                        iLeftX += iImgWidth +10;
+                     }
+                    // 设置评论控件的当前高度(加上图片的高度)
+                    iTopY += iImgWidth +10;
+                 }
+             }
+            
+         }
+        
+        
+        
+        UIButton *btnShowPL = [[UIButton alloc] initWithFrame:CGRectMake(0, iCurTop, SCREEN_WIDTH, iTopY - iCurTop)];
+        [scView addSubview:btnShowPL];
+        [btnShowPL addTarget:self action:@selector(actionShowPL) forControlEvents:UIControlEventTouchUpInside];
+        
+        // 分割块
+        UIView *viewFGK4 = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 10)];
+        [scView addSubview:viewFGK4];
+        viewFGK4.backgroundColor = [ResourceManager viewBackgroundColor];
+        
+        iTopY += viewFGK4.height;
+        
+     }
+    
+    NSDictionary *detailGoods = dicUI[@"detailGoods"];
+    NSArray *arrMediaList = detailGoods[@"imageList"];
     
     if (!arrMediaList ||
         0 == [arrMediaList count])
@@ -568,7 +709,7 @@
                 
                 UIImageView *imgViewTemp = [[UIImageView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, fImgHeight)];
                 [_bSCView addSubview:imgViewTemp];
-                [imgViewTemp setImageWithURL:[NSURL URLWithString:strImgUrl]];
+                [imgViewTemp sd_setImageWithURL:[NSURL URLWithString:strImgUrl]];
                 
                 iTopY += imgViewTemp.height;
                 
@@ -839,6 +980,7 @@
     [self querySkuList];
 
     [self getShareQrcode];
+
 }
 
 
@@ -980,6 +1122,9 @@
 }
 
 
+
+
+
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation
 {
     
@@ -1055,11 +1200,11 @@
         
         if  (iTailViewTopY)
          {
-            [self layoutTailJPG:detailGoods atTop:iTailViewTopY];
+            [self layoutTailJPG:dicTemp atTop:iTailViewTopY];
          }
         else
          {
-            [self performSelector:@selector(delayMethod:) withObject:detailGoods afterDelay:2.0];// 延迟执行
+            [self performSelector:@selector(delayMethod:) withObject:dicTemp afterDelay:2.0];// 延迟执行
          }
     }
     else if (1002 == operation.tag)
@@ -1090,6 +1235,7 @@
             qrcodeUrl = dic[@"qrcodeUrl"];
          }
      }
+    
 }
 
 -(void) delayMethod:(NSDictionary*)dic
@@ -1162,7 +1308,11 @@
     viewPopShare.hidden = NO;
     return;
 
-   
+}
+
+-(void) actionShowPL
+{
+    NSLog(@"actionShowPL");
 }
 
 -(void) actionCancel

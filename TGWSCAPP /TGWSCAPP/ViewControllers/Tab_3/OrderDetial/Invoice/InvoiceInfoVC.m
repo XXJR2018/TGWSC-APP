@@ -450,12 +450,11 @@
             [MBProgressHUD showErrorWithStatus:@"请填写纳税人识别号或社会统一信用代码" toView:self.view];
             return;
         }
-        if (_phoneField.text.length == 0 || _phoneField.text.length != 11) {
-            [MBProgressHUD showErrorWithStatus:@"请正确填写收票人手机号码" toView:self.view];
-            return;
-        }
     }
-    
+    if (_phoneField.text.length == 0 || _phoneField.text.length != 11) {
+        [MBProgressHUD showErrorWithStatus:@"请正确填写收票人手机号码" toView:self.view];
+        return;
+    }
     [self saveInvoiceUrl];
 }
 

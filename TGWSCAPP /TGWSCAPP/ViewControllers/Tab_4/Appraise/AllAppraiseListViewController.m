@@ -9,11 +9,21 @@
 #import "AllAppraiseListViewController.h"
 #import "AllAppraiseListCell.h"
 #import "AllAppraiseView.h"
+#import "XHStarRateView.h"
+
 @interface AllAppraiseListViewController ()
 {
     UIView *_aleartView;
-    NSInteger _lableId;
+    NSString *_lableId;
     UIView *_headerView;
+    CGFloat _currentHeight;
+    
+    UIButton *_sortBtn;
+    NSMutableArray *_sortBtnArr;
+    UIButton *_pullDownBtn;
+    BOOL _pullDown;
+    NSArray *_sortDataArr;
+    NSDictionary *_sortDataDic;
 }
 @end
 
@@ -24,7 +34,7 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[kPage] = @(self.pageIndex);
     params[@"goodsCode"] = self.goodsCode;
-    params[@"lableId"] = @(_lableId);
+    params[@"lableId"] = _lableId;
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/orderComment/queryAllCommList",[PDAPI getBaseUrlString]]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
@@ -70,7 +80,9 @@
         }
     }else if (operation.tag == 1001) {
         if (operation.jsonResult.attr.count > 0 && operation.jsonResult.rows.count > 0) {
-            [self headerViewUI:operation.jsonResult.attr lableList:operation.jsonResult.rows];
+            _sortDataArr = operation.jsonResult.rows;
+            _sortDataDic = operation.jsonResult.attr;
+            [self headerViewUI:_sortDataDic lableList:_sortDataArr];
             [_tableView reloadData];
         }
     }
@@ -113,11 +125,124 @@
 }
 
 -(void)headerViewUI:(NSDictionary *)dic lableList:(NSArray *)lableListArr{
+    [_headerView removeFromSuperview];
     _headerView = [[UIView alloc]init];
     _headerView.backgroundColor = [UIColor whiteColor];
     [_tableView setTableHeaderView:_headerView];
     
+    UILabel *appraiseLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 45, 20)];
+    [_headerView addSubview:appraiseLabel];
+    appraiseLabel.font = [UIFont systemFontOfSize:14];
+    appraiseLabel.textColor = [ResourceManager mainColor];
+    appraiseLabel.text = @"评分：";
+    
+    XHStarRateView *msStarRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(appraiseLabel.frame), CGRectGetMidY(appraiseLabel.frame) - 7, 100, 14)];
+    [_headerView addSubview:msStarRateView];
+    msStarRateView.currentScore = [[dic objectForKey:@"startClass"] intValue];
+    
+    UILabel *satisficeLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 120, CGRectGetMidY(appraiseLabel.frame) - 10, 110, 20)];
+    [_headerView addSubview:satisficeLabel];
+    satisficeLabel.font = [UIFont systemFontOfSize:14];
+    satisficeLabel.textAlignment = NSTextAlignmentRight;
+    satisficeLabel.textColor = [ResourceManager mainColor];
+    satisficeLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"goodsRate"]];
+    
+    _currentHeight = CGRectGetMaxY(appraiseLabel.frame);
+    
+    if (lableListArr.count > 0) {
+        _sortBtnArr = [NSMutableArray array];
+        NSInteger count = 0;
+        if (_pullDown) {
+            if (lableListArr.count%4 == 0) {
+                count = lableListArr.count/4;
+            }else{
+                count = lableListArr.count/4 + 1;
+            }
+        }else{
+            count = 1;
+        }
+        
+        CGFloat btnWidth = (SCREEN_WIDTH - 50)/4;
+        for (int i = 0; i < count; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (i * 4 + j < lableListArr.count) {
+                    NSDictionary *dic = lableListArr[i * 4 + j];
+                    _sortBtn = [[UIButton alloc]initWithFrame:CGRectMake(10 + (btnWidth + 10) * j, _currentHeight + 10 + 40 * i, btnWidth, 30)];
+                    [_headerView addSubview:_sortBtn];
+                    _sortBtn.tag = i * 4 + j;
+                    _sortBtn.layer.cornerRadius = 2;
+                    _sortBtn.backgroundColor = [ResourceManager viewBackgroundColor];
+                    _sortBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+                    NSString *titleaStr = [NSString stringWithFormat:@"%@(%@)",[dic objectForKey:@"lableName"],[dic objectForKey:@"lableCount"]];
+                    [_sortBtn setTitle:titleaStr forState:UIControlStateNormal];
+                    [_sortBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
+                    [_sortBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+                    [_sortBtn addTarget:self action:@selector(sortTouch:) forControlEvents:UIControlEventTouchUpInside];
+                    [_sortBtnArr addObject:_sortBtn];
+                }
+            }
+        }
+        
+        _currentHeight = CGRectGetMaxY(_sortBtn.frame);
+        ((UIButton *)_sortBtnArr[0]).selected = YES;
+        ((UIButton *)_sortBtnArr[0]).backgroundColor = [ResourceManager mainColor];
+        if (lableListArr.count > 4) {
+            _pullDownBtn = [[UIButton alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 200)/2, _currentHeight, 200, 35)];
+            [_headerView addSubview:_pullDownBtn];
+            [_pullDownBtn setImage:[UIImage imageNamed:@"Tab_4-43"] forState:UIControlStateNormal];
+            [_pullDownBtn setImage:[UIImage imageNamed:@"Tab_4-44"] forState:UIControlStateSelected];
+            [_pullDownBtn addTarget:self action:@selector(pullDown:) forControlEvents:UIControlEventTouchUpInside];
+            if (_pullDown) {
+                _pullDownBtn.selected = YES;
+            }else{
+                _pullDownBtn.selected = NO;
+            }
+            _currentHeight = CGRectGetMaxY(_pullDownBtn.frame);
+        }
+    }
+    
+    if (lableListArr.count <= 4) {
+        _currentHeight =  _currentHeight + 10;
+    }
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, _currentHeight, SCREEN_WIDTH, 0.5)];
+    [_headerView addSubview:lineView];
+    lineView.backgroundColor = [ResourceManager color_5];
+    _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(lineView.frame));
+    
 }
+
+-(void)pullDown:(UIButton *)sender{
+    _pullDown = !_pullDown;
+    if (_pullDown) {
+        _pullDownBtn.selected = YES;
+    }else{
+        _pullDownBtn.selected = NO;
+    }
+    [self headerViewUI:_sortDataDic lableList:_sortDataArr];
+    [_tableView reloadData];
+}
+
+-(void)sortTouch:(UIButton *)sender{
+    if (sender.selected) {
+        return;
+    }
+    ((UIButton *)_sortBtnArr[0]).selected = NO;
+    ((UIButton *)_sortBtnArr[0]).backgroundColor = [ResourceManager viewBackgroundColor];
+    if (sender != _sortBtn) {
+        _sortBtn.selected = NO;
+         _sortBtn.backgroundColor = [ResourceManager viewBackgroundColor];
+        _sortBtn = sender;
+    }
+    _sortBtn.selected = YES;
+    _sortBtn.backgroundColor = [ResourceManager mainColor];
+    NSDictionary *dic = _sortDataArr[sender.tag];
+    _lableId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"lableId"]];
+    if (_lableId.length > 0) {
+        [self loadData];
+    }
+    
+}
+
 
 #pragma mark === UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

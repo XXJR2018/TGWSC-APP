@@ -11,6 +11,7 @@
 #import "TSVideoPlayback.h"
 #import "PopSelShopView.h"
 #import "LZCartViewController.h"
+#import "AllAppraiseListViewController.h"
 
 
 //#define   BannerHeight     300
@@ -1313,6 +1314,9 @@
 -(void) actionShowPL
 {
     NSLog(@"actionShowPL");
+    AllAppraiseListViewController  *VC = [[AllAppraiseListViewController alloc] init];
+    VC.goodsCode = _shopModel.strGoodsCode;
+    [self.navigationController pushViewController:VC animated:YES];
 }
 
 -(void) actionCancel

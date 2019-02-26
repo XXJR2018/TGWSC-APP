@@ -22,8 +22,6 @@
 
 #import "JXButton.h"
 
-#import "AllAppraiseListViewController.h"
-
 @interface TabViewController_4 ()
 {
     UIImageView *_headImgView;
@@ -589,11 +587,8 @@
         }break;
         case 103:{
             //待评价
-            
-            AllAppraiseListViewController *ctl = [[AllAppraiseListViewController alloc]init];
+            AppraiseListViewController *ctl = [[AppraiseListViewController alloc]init];
             [self.navigationController pushViewController:ctl animated:YES];
-//            AppraiseListViewController *ctl = [[AppraiseListViewController alloc]init];
-//            [self.navigationController pushViewController:ctl animated:YES];
         }break;
         case 104:{
             //退款/售后

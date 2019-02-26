@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/TabViewController_4.m"
-            timestampString = "572780452.168794"
+            timestampString = "572856372.0691791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "587"
-            endingLineNumber = "587"
+            startingLineNumber = "585"
+            endingLineNumber = "585"
             landmarkName = "-orderTouch:"
             landmarkType = "7">
          </BreakpointContent>

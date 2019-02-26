@@ -110,9 +110,8 @@
     [super viewDidLoad];
     
     [self layoutNaviBarViewWithTitle:@"全部评价"];
-    
+    _lableId = @"0";
     [self layoutUI];
-    self.goodsCode = @"10201008";
     [self GoodsLableUrl];
 }
 

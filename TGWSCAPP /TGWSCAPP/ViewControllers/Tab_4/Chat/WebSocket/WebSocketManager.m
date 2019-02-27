@@ -41,7 +41,7 @@
         Host = @"192.168.10.131";
         Port = 6406;
         
-        //  http://192.168.10.208:6406/mallKefu/custSocket/customerId
+        //  http://192.168.10.208/mallKefu/custSocket/
     }
     return self;
 }
@@ -56,9 +56,11 @@
         _webSocket=nil;
      }
     
-    //_webSocket = [[SRWebSocket alloc] initWithURL:[NSURL URLWithString:@"wss://echo.websocket.org"]];
-    //_webSocket = [[SRWebSocket alloc] initWithURL:[NSURL URLWithString:@"http://192.168.10.208:6406/mallKefu/custSocket/customerId"]];
-    _webSocket = [[SRWebSocket alloc] initWithURL:[NSURL URLWithString:@"http://192.168.10.208:6406/mallKefu/custSocket/customerId"]];
+    NSString *strSerURL = [NSString stringWithFormat:@"%@mallKefu/custSocket",[PDAPI getBaseUrlString]];
+    //strSerURL = @"http://192.168.10.131/mallKefu/custSocket";
+    //strSerURL = @"http://192.168.10.208/mallKefu/custSocket";
+    
+    _webSocket = [[SRWebSocket alloc] initWithURL:[NSURL URLWithString:strSerURL]];
     _webSocket.delegate = self;
     
     [_webSocket open];
@@ -106,7 +108,8 @@
     // 发送身份认证信息
     [self sendLoginInfo];
     
-    [self creatConnectTimer];
+    // 创建心跳包
+    [self performSelector:@selector(creatConnectTimer) withObject:nil afterDelay:1.0];// 延迟执行
     
  
 }
@@ -174,7 +177,7 @@
 -(void)sendLoginInfo
 {
     // 根据服务器要求发送固定格式的数据
-    NSLog(@"我发送身份认证信息");
+    
     
     NSMutableDictionary *dicMsgData = [[NSMutableDictionary alloc] init];
     dicMsgData[@"signId"] = [CommonInfo signId];
@@ -185,6 +188,8 @@
     dicSend[@"msgData"] = dicMsgData;
     
     NSString  *nstrDic = [dicSend JSONString];
+    
+    NSLog(@"我发送身份认证信息：%@", nstrDic);
     
     NSError *error = nil;
     BOOL  sendSuccess =  [_webSocket sendString:nstrDic error:&error];
@@ -199,11 +204,14 @@
 - (void)longConnectToSocket
 {
     // 根据服务器要求发送固定格式的数据
-    NSLog(@"我发送心跳包");
+    
     NSMutableDictionary *dicSend = [[NSMutableDictionary alloc] init];
     dicSend[@"reqType"] = @"2";
 
     NSString  *nstrDic = [dicSend JSONString];
+    
+    NSLog(@"我发送心跳包: %@", nstrDic);
+    
     NSError *error = nil;
     BOOL  sendSuccess =  [_webSocket sendString:nstrDic error:&error];
     if (!sendSuccess)
@@ -219,7 +227,7 @@
 - (BOOL)sendText:(NSString *) strSend
 {
     // 根据服务器要求发送固定格式的数据
-    NSLog(@"我发送文本信息");
+    
     
     if(!longSocket)
      {
@@ -236,10 +244,12 @@
     dicMsgData[@"contentText"] = strSend;
     
     NSMutableDictionary *dicSend = [[NSMutableDictionary alloc] init];
-    dicSend[@"reqType"] = @"1";
+    dicSend[@"reqType"] = @"3";
     dicSend[@"msgData"] = dicMsgData;
     
     NSString  *nstrDic = [dicSend JSONString];
+    
+    NSLog(@"我发送文本信息:  %@" ,nstrDic);
     
     NSError *error = nil;
     BOOL  sendSuccess =  [_webSocket sendString:nstrDic error:&error];

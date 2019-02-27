@@ -1015,13 +1015,37 @@ static int iiii = 0;
 -(void) reciveChatMsg:(NSNotification *)notification
 {
     // 收到后台的消息
-    NSDictionary *dic = notification.object;
-    NSString *strMsg = dic[@"msg"];
+    NSDictionary *obj = notification.object;
+
+    NSString *strJson = obj[@"msg"];
+    NSData *data = [strJson dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err = nil;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:&err];
+    if (err)
+     {
+         NSLog(@"reciveChatMsg  json解析失败：%@",err);
+        return;
+     }
     
+    int iType = [dic[@"type"] intValue];
+    if (iType == 1)
+     {
+        // 系统级别的消息，放弃
+        return;
+     }
+    
+    NSString  *strMsg = dic[@"message"];
     CSMessageModel *model = [[CSMessageModel alloc] init];
     model.messageSenderType = MessageSenderTypeOther;
     model.messageType = MessageTypeText;
     model.messageText = strMsg;
+    
+    if (iType == 2)
+     {
+        // 提示消息
+        model.onlyShowTime = YES;
+        model.showMessageTime = YES;
+     }
     
     [self setShowTime:model];
     [_dataArray addObject:model];

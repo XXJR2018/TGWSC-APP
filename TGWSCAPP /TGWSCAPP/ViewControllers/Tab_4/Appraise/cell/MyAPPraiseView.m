@@ -54,7 +54,7 @@
     [self addSubview:timeLabel];
     timeLabel.font = font_2;
     timeLabel.textColor = color_2;
-    timeLabel.text = [NSString stringWithFormat:@"%@ %@",[dic objectForKey:@"createTime"],[dic objectForKey:@"skuDesc"]];
+    timeLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"createTime"]];
     
     _currentHeight = CGRectGetMaxY(timeLabel.frame);
     //评价内容

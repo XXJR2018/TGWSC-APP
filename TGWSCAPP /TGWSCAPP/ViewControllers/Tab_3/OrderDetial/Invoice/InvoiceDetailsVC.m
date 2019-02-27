@@ -250,7 +250,7 @@
 //修改发票信息
 -(void)changeInvoice{
     InvoiceInfoVC *ctl = [[InvoiceInfoVC alloc]init];
-    ctl.orderNo = [NSString stringWithFormat:@"%@",[_invoiceDic objectForKey:@"orderNo"]];
+    ctl.invoiceId = [NSString stringWithFormat:@"%@",[_invoiceDic objectForKey:@"invoiceId"]];
     ctl.price = [NSString stringWithFormat:@"¥%.2f", [[_invoiceDic objectForKey:@"amount"] floatValue]];
     ctl.invoiceBlock = ^(id invoiceData){
         [self loadData];

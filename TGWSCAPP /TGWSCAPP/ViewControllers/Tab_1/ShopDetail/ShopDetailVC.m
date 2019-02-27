@@ -457,7 +457,7 @@
     
     self.video = [[TSVideoPlayback alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, BannerHeight) ];
     self.video.delegate = self;
-    self.type = 0;
+    self.type = iTopType;
     if (self.type == 0)
      {
         //self.title = @"纯图片详情";

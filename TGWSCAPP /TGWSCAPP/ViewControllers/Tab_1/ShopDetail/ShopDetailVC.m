@@ -1274,8 +1274,21 @@
 {
     NSLog(@"%ld",(long)index);
     
-    ShowBannerJpegView  *View = [[ShowBannerJpegView alloc] initWithArrImg:arrTopIMG  withNo:(int)index];
-    [self.view addSubview:View];
+    if(iTopType == 1)
+     {
+        // 有视频时的处理方式
+        NSMutableArray *arrTemp = arrTopIMG;
+        [arrTemp removeObjectAtIndex:0];
+
+        ShowBannerJpegView  *View = [[ShowBannerJpegView alloc] initWithArrImg:arrTemp  withNo:index];
+        [self.view addSubview:View];
+     }
+    else
+     {
+        // 纯图片的处理方式
+        ShowBannerJpegView  *View = [[ShowBannerJpegView alloc] initWithArrImg:arrTopIMG  withNo:(int)index];
+        [self.view addSubview:View];
+     }
 }
 
 

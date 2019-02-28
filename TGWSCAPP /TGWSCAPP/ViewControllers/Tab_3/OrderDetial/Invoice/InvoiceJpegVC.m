@@ -22,17 +22,31 @@
 }
 
 -(void)layoutUI{
-    UIImageView *invoiceImgView = [[UIImageView alloc]init];
-    [self.view addSubview:invoiceImgView];
-    invoiceImgView.backgroundColor = [UIColor whiteColor];
-    [invoiceImgView sd_setImageWithURL:[NSURL URLWithString:self.invoiceImgUrl]];
+    UIScrollView *scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavHeight )];
+    [self.view addSubview:scView];
+    scView.backgroundColor = [UIColor whiteColor];
+    scView.bounces = NO;
+    scView.pagingEnabled = NO;
+    scView.showsVerticalScrollIndicator = NO;
     
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.invoiceImgUrl]];
-    UIImage *image = [UIImage imageWithData:data];
-    invoiceImgView.frame =CGRectMake( 20, NavHeight + 10, SCREEN_WIDTH - 40, image.size.height/image.size.width * (SCREEN_WIDTH - 40));
-
-    UIButton *saveImgBtn = [[UIButton alloc]initWithFrame:CGRectMake(40, CGRectGetMaxY(invoiceImgView.frame) + 20, SCREEN_WIDTH - 80, 50)];
-    [self.view addSubview:saveImgBtn];
+    CGFloat _currentHeight = 0;
+    //3.分隔字符串
+    NSArray *imgArr = [self.invoiceImgUrl componentsSeparatedByString:@","]; //从字符A中分隔成多个元素的数组
+    for (int i = 0; i < imgArr.count; i++) {
+        NSString *imgUrl = imgArr[i];
+        UIImageView *invoiceImgView = [[UIImageView alloc]init];
+        [scView addSubview:invoiceImgView];
+        invoiceImgView.backgroundColor = [UIColor whiteColor];
+        [invoiceImgView sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
+        
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imgUrl]];
+        UIImage *image = [UIImage imageWithData:data];
+        invoiceImgView.frame =CGRectMake( 20, _currentHeight + 10, SCREEN_WIDTH - 40, image.size.height/image.size.width * (SCREEN_WIDTH - 40));
+        _currentHeight = CGRectGetMaxY(invoiceImgView.frame);
+    }
+    
+    UIButton *saveImgBtn = [[UIButton alloc]initWithFrame:CGRectMake(40, _currentHeight + 20, SCREEN_WIDTH - 80, 50)];
+    [scView addSubview:saveImgBtn];
     saveImgBtn.backgroundColor = UIColorFromRGB(0xCFA971);
     saveImgBtn.layer.cornerRadius = 50/2;
     saveImgBtn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -40,13 +54,19 @@
     [saveImgBtn setTitle:@"保存图片" forState:UIControlStateNormal];
     [saveImgBtn addTarget:self action:@selector(saveImg) forControlEvents:UIControlEventTouchUpInside];
     
+    _currentHeight = CGRectGetMaxY(saveImgBtn.frame) + 20;
+    scView.contentSize = CGSizeMake(0, _currentHeight);
 }
 
 #pragma mark======保存图片到系统相册
 -(void)saveImg{
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.invoiceImgUrl]];
-    UIImage *image = [UIImage imageWithData:data];
-    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void *)self);
+    NSArray *imgArr = [self.invoiceImgUrl componentsSeparatedByString:@","]; //从字符A中分隔成多个元素的数组
+    for (NSString *imgStr in imgArr) {
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imgStr]];
+        UIImage *image = [UIImage imageWithData:data];
+        UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void *)self);
+    }
+    
 }
 
 //保存图片回调方法

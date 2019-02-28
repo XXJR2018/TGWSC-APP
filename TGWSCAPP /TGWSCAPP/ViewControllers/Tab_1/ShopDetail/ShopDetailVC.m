@@ -12,6 +12,8 @@
 #import "PopSelShopView.h"
 #import "LZCartViewController.h"
 #import "AllAppraiseListViewController.h"
+#import "ShowBigJpgView.h"
+#import "ShowBannerJpegView.h"
 
 
 //#define   BannerHeight     300
@@ -38,6 +40,8 @@
     
     NSArray *arrSku;
     NSArray *arrSkuShow;
+    
+    NSArray *arrDetailJpgUrl; // 详情图片数组
     
     int  maxPostFree;  // 包邮免费金额
     bool isFavorite;   // 是否收藏
@@ -651,10 +655,11 @@
      }
     
     NSDictionary *detailGoods = dicUI[@"detailGoods"];
-    NSArray *arrMediaList = detailGoods[@"imageList"];
+    NSArray *arrImgList = detailGoods[@"imageList"];
+    arrDetailJpgUrl = arrImgList;
     
-    if (!arrMediaList ||
-        0 == [arrMediaList count])
+    if (!arrImgList ||
+        0 == [arrImgList count])
      {
         scView.contentSize = CGSizeMake(0, iTopY);
         return;
@@ -668,9 +673,9 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         // 线程中国中 加载图片
-        for (int i = 0; i < [arrMediaList count]; i++)
+        for (int i = 0; i < [arrImgList count]; i++)
          {
-            NSDictionary *dicObj = arrMediaList[i];
+            NSDictionary *dicObj = arrImgList[i];
             NSString *strImgUrl = dicObj[@"url"];
             
             // 异步方式加载图片
@@ -702,17 +707,23 @@
             // 必须在主线程中隐藏 加载动画
             [MBProgressHUD hideHUDForView:viewShowLoad animated:YES];
             
-            for (int i = 0; i < [arrMediaList count]; i++)
+            for (int i = 0; i < [arrImgList count]; i++)
              {
-                NSDictionary *dicObj = arrMediaList[i];
+                NSDictionary *dicObj = arrImgList[i];
                 NSString *strImgUrl = dicObj[@"url"];
                 float  fImgHeight =  [_bArrImg[i] floatValue];
                 
                 UIImageView *imgViewTemp = [[UIImageView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, fImgHeight)];
                 [_bSCView addSubview:imgViewTemp];
                 [imgViewTemp sd_setImageWithURL:[NSURL URLWithString:strImgUrl]];
+                imgViewTemp.tag = i;
                 
                 iTopY += imgViewTemp.height;
+                
+                imgViewTemp.userInteractionEnabled = YES;
+                UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(actionDetailJPG:)];
+                gesture.numberOfTapsRequired  = 1;
+                [imgViewTemp addGestureRecognizer:gesture];
                 
                 _bSCView.contentSize = CGSizeMake(0, iTopY);
              }
@@ -1262,6 +1273,22 @@
 -(void)videoView:(TSVideoPlayback *)view didSelectItemAtIndexPath:(NSInteger)index
 {
     NSLog(@"%ld",(long)index);
+    
+    if(iTopType == 1)
+     {
+        // 有视频时的处理方式
+        NSMutableArray *arrTemp = arrTopIMG;
+        [arrTemp removeObjectAtIndex:0];
+
+        ShowBannerJpegView  *View = [[ShowBannerJpegView alloc] initWithArrImg:arrTemp  withNo:index];
+        [self.view addSubview:View];
+     }
+    else
+     {
+        // 纯图片的处理方式
+        ShowBannerJpegView  *View = [[ShowBannerJpegView alloc] initWithArrImg:arrTopIMG  withNo:(int)index];
+        [self.view addSubview:View];
+     }
 }
 
 
@@ -1377,6 +1404,22 @@
             [MBProgressHUD showErrorWithStatus:@"分享失败" toView:self.view];
         }
     }];
+}
+
+-(void) actionDetailJPG:(UITapGestureRecognizer*) tag
+{
+    UIView *view = tag.view;
+    int iTag = (int)view.tag;
+    
+    float  fImgHeight =  [arrTailIMG[iTag] floatValue];
+    NSDictionary *dicObj = arrDetailJpgUrl[iTag];
+    NSString *strImgUrl = dicObj[@"url"];
+    
+    ShowBigJpgView *bigView = [[ShowBigJpgView alloc] initWithImgUrl:strImgUrl height:fImgHeight];
+    [self.view addSubview:bigView];
+    
+    
+    
 }
 
 -(void) actionBtn:(UIButton*) sender

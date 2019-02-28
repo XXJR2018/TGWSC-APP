@@ -66,6 +66,9 @@
 		C098D2A821E058EC0008584B /* SelCouponVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2A721E058EC0008584B /* SelCouponVC.m */; };
 		C098D2AC21E0A43E0008584B /* SelPayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2AB21E0A43E0008584B /* SelPayVC.m */; };
 		C098D2B221E0A7480008584B /* PayResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C098D2B121E0A7480008584B /* PayResultVC.m */; };
+		C09B384722276B8800B60FCB /* ShowBigJpgView.m in Sources */ = {isa = PBXBuildFile; fileRef = C09B384622276B8800B60FCB /* ShowBigJpgView.m */; };
+		C09B384A22278E1C00B60FCB /* ShowBannerJpegView.m in Sources */ = {isa = PBXBuildFile; fileRef = C09B384922278E1C00B60FCB /* ShowBannerJpegView.m */; };
+		C09B384D2227BBE800B60FCB /* ShareShopJpegView.m in Sources */ = {isa = PBXBuildFile; fileRef = C09B384C2227BBE800B60FCB /* ShareShopJpegView.m */; };
 		C0A48A6D21D1F969002AF226 /* PopSelShopView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A6C21D1F969002AF226 /* PopSelShopView.m */; };
 		C0A48A7721D4A62A002AF226 /* ShopMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7621D4A62A002AF226 /* ShopMoreVC.m */; };
 		C0A48A7A21D4A64A002AF226 /* ShopMoreAtTimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48A7921D4A64A002AF226 /* ShopMoreAtTimeVC.m */; };
@@ -506,6 +509,12 @@
 		C098D2AB21E0A43E0008584B /* SelPayVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelPayVC.m; sourceTree = "<group>"; };
 		C098D2B021E0A7480008584B /* PayResultVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayResultVC.h; sourceTree = "<group>"; };
 		C098D2B121E0A7480008584B /* PayResultVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayResultVC.m; sourceTree = "<group>"; };
+		C09B384522276B8800B60FCB /* ShowBigJpgView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShowBigJpgView.h; sourceTree = "<group>"; };
+		C09B384622276B8800B60FCB /* ShowBigJpgView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShowBigJpgView.m; sourceTree = "<group>"; };
+		C09B384822278E1C00B60FCB /* ShowBannerJpegView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShowBannerJpegView.h; sourceTree = "<group>"; };
+		C09B384922278E1C00B60FCB /* ShowBannerJpegView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShowBannerJpegView.m; sourceTree = "<group>"; };
+		C09B384B2227BBE800B60FCB /* ShareShopJpegView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareShopJpegView.h; sourceTree = "<group>"; };
+		C09B384C2227BBE800B60FCB /* ShareShopJpegView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareShopJpegView.m; sourceTree = "<group>"; };
 		C0A48A6B21D1F969002AF226 /* PopSelShopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopSelShopView.h; sourceTree = "<group>"; };
 		C0A48A6C21D1F969002AF226 /* PopSelShopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopSelShopView.m; sourceTree = "<group>"; };
 		C0A48A7521D4A62A002AF226 /* ShopMoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopMoreVC.h; sourceTree = "<group>"; };
@@ -1206,6 +1215,8 @@
 			children = (
 				C02C5F7621CC79530056A32E /* ShopDetailVC.h */,
 				C02C5F7721CC79530056A32E /* ShopDetailVC.m */,
+				C09B384422276B1E00B60FCB /* ShowShopBigJPEG */,
+				C09B384322276B0500B60FCB /* ShareShop */,
 				C0A48A6A21D1F907002AF226 /* PopSelShop */,
 				C02C5F7921CC991A0056A32E /* VideoAndImgScroll */,
 			);
@@ -1398,6 +1409,26 @@
 				C098D2B121E0A7480008584B /* PayResultVC.m */,
 			);
 			path = PayVC;
+			sourceTree = "<group>";
+		};
+		C09B384322276B0500B60FCB /* ShareShop */ = {
+			isa = PBXGroup;
+			children = (
+				C09B384822278E1C00B60FCB /* ShowBannerJpegView.h */,
+				C09B384922278E1C00B60FCB /* ShowBannerJpegView.m */,
+				C09B384B2227BBE800B60FCB /* ShareShopJpegView.h */,
+				C09B384C2227BBE800B60FCB /* ShareShopJpegView.m */,
+			);
+			path = ShareShop;
+			sourceTree = "<group>";
+		};
+		C09B384422276B1E00B60FCB /* ShowShopBigJPEG */ = {
+			isa = PBXGroup;
+			children = (
+				C09B384522276B8800B60FCB /* ShowBigJpgView.h */,
+				C09B384622276B8800B60FCB /* ShowBigJpgView.m */,
+			);
+			path = ShowShopBigJPEG;
 			sourceTree = "<group>";
 		};
 		C0A48A6A21D1F907002AF226 /* PopSelShop */ = {
@@ -3244,6 +3275,7 @@
 				C250460D21BA711E00DA9C72 /* SDCycleScrollView.m in Sources */,
 				C250476021BA715500DA9C72 /* UIColor+Additions.m in Sources */,
 				C0CCC7EA21C0F150009352E0 /* UIColor+LLHex.m in Sources */,
+				C09B384D2227BBE800B60FCB /* ShareShopJpegView.m in Sources */,
 				C250476B21BA715500DA9C72 /* CommonFunc.m in Sources */,
 				C0C4B768221CDFE8002853D1 /* SocketManager.m in Sources */,
 				C250476621BA715500DA9C72 /* NSDictionary+Additions.m in Sources */,
@@ -3382,6 +3414,7 @@
 				C25047FE21BA73B800DA9C72 /* AFURLResponseSerialization.m in Sources */,
 				C0CCC82A21C0F4C5009352E0 /* HistoryAndCategorySearchVC.m in Sources */,
 				C250460E21BA711E00DA9C72 /* UIView+SDExtension.m in Sources */,
+				C09B384722276B8800B60FCB /* ShowBigJpgView.m in Sources */,
 				C245272D21E4859800CA4196 /* LogisticsDescViewController.m in Sources */,
 				C250450E21BA579100DA9C72 /* BindPhoneViewController.m in Sources */,
 				C250451C21BA579100DA9C72 /* ShareView.m in Sources */,
@@ -3404,6 +3437,7 @@
 				C25047C421BA715500DA9C72 /* RsaUtil.m in Sources */,
 				C238801B221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.m in Sources */,
 				C25047FF21BA73B800DA9C72 /* AFHTTPSessionManager.m in Sources */,
+				C09B384A22278E1C00B60FCB /* ShowBannerJpegView.m in Sources */,
 				C2A70011221558E400AB277C /* IssueAppraiseViewController.m in Sources */,
 				C250475B21BA715500DA9C72 /* DDGJsonParseManager.m in Sources */,
 				C25047B721BA715500DA9C72 /* UIImageView+AFNetworking.m in Sources */,

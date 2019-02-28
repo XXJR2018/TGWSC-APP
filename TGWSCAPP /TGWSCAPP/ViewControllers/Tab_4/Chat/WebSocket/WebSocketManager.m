@@ -51,7 +51,7 @@
 
 //初始化Socket并发起连接
 - (void)socketConnectHost{
-    if (!_webSocket)
+    if (_webSocket)
      {
         _webSocket=nil;
      }

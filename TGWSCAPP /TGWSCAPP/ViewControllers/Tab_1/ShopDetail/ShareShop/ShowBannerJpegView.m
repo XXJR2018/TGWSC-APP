@@ -14,7 +14,9 @@
     UIScrollView * scrolView;
     UILabel  *labelIndex;
     
-    NSArray *arrImg;
+    NSArray *arrImgURL;
+    NSMutableArray *arrImg;
+    int iCurNO;
 }
 
 
@@ -22,9 +24,7 @@
 
 
 @implementation ShowBannerJpegView
-{
-    int iCurNO;
-}
+
 
 
 
@@ -32,9 +32,11 @@
 {
     self =  [super initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     
-    arrImg = arr;
+    arrImgURL = arr;
     
     iCurNO = iNo;
+    
+    arrImg = [[NSMutableArray alloc] init];
     
     [self drawUI];
     
@@ -71,7 +73,7 @@
     scrolView.backgroundColor = [UIColor whiteColor];
     
     
-    for (int i = 0; i < arrImg.count; i ++)
+    for (int i = 0; i < arrImgURL.count; i ++)
      {
         
         UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_WIDTH)];
@@ -81,18 +83,38 @@
         
         img.userInteractionEnabled = YES;
         
-        [img sd_setImageWithURL:[NSURL URLWithString:arrImg[i]] ];
+        [img sd_setImageWithURL:[NSURL URLWithString:arrImgURL[i]] ];
+        
+        [arrImg addObject:img];
+        
         [scrolView addSubview:img];
      }
     
-    scrolView.contentSize = CGSizeMake(arrImg.count*SCREEN_WIDTH, 0);
+    scrolView.contentSize = CGSizeMake(arrImgURL.count*SCREEN_WIDTH, 0);
     
-    labelIndex.text = [NSString stringWithFormat:@"%d/%d",(int)iCurNO,(int)arrImg.count];
+    labelIndex.text = [NSString stringWithFormat:@"%d/%d",(int)iCurNO,(int)arrImgURL.count];
     
     if (iCurNO > 1)
      {
         [scrolView setContentOffset:CGPointMake((iCurNO-1)*SCREEN_WIDTH,0) animated:YES];
      }
+    
+    
+    // 布局底部图片
+    UIButton *btnBottom = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/2 - 100)/2, SCREEN_HEIGHT - 50, 100, 50)];
+    [self addSubview:btnBottom];
+    [btnBottom setTitle:@"  保存图片" forState:UIControlStateNormal];
+    btnBottom.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btnBottom setImage:[UIImage imageNamed:@"com_download"] forState:UIControlStateNormal];
+    [btnBottom addTarget:self action:@selector(actionSave) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    UIButton *btnBottomR = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2+ (SCREEN_WIDTH/2 - 150)/2, SCREEN_HEIGHT - 50, 150, 50)];
+    [self addSubview:btnBottomR];
+    [btnBottomR setTitle:@"  生成商品二维码" forState:UIControlStateNormal];
+    btnBottomR.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btnBottomR setImage:[UIImage imageNamed:@"com_ewm"] forState:UIControlStateNormal];
+    [btnBottomR addTarget:self action:@selector(actionEWM) forControlEvents:UIControlEventTouchUpInside];
     
     
 }
@@ -104,7 +126,7 @@
     iCurNO = (int)index+1;
     
     //self.indexLab.hidden = NO;
-    labelIndex.text = [NSString stringWithFormat:@"%d/%d",(int)index+1,(int)arrImg.count];
+    labelIndex.text = [NSString stringWithFormat:@"%d/%d",(int)index+1,(int)arrImgURL.count];
     
 }
 
@@ -114,8 +136,32 @@
     [self removeAllSubviews];
     [self removeFromSuperview];
     self.hidden = YES;
-    
 }
+
+
+-(void)actionSave
+{
+    UIImageView *imgView = (UIImageView*)arrImg[iCurNO -1];
+    UIImage *image = imgView.image;
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void *)self);
+}
+
+-(void)actionEWM
+{
+}
+
+//保存图片回调方法
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+    NSLog(@"image = %@, error = %@, contextInfo = %@", image, error, contextInfo);
+    if (error) {
+        NSString *message = [NSString stringWithFormat:@"保存图片失败,失败原因：%@",error];
+        [MBProgressHUD showErrorWithStatus:message toView:self];
+    }else{
+        [MBProgressHUD showSuccessWithStatus:@"图片已成功保存到相册" toView:self];
+    }
+}
+
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

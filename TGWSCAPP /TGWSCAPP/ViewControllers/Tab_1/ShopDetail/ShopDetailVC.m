@@ -14,6 +14,7 @@
 #import "AllAppraiseListViewController.h"
 #import "ShowBigJpgView.h"
 #import "ShowBannerJpegView.h"
+#import "ShareShopJpegView.h"
 
 
 //#define   BannerHeight     300
@@ -1280,13 +1281,15 @@
         NSMutableArray *arrTemp = arrTopIMG;
         [arrTemp removeObjectAtIndex:0];
 
-        ShowBannerJpegView  *View = [[ShowBannerJpegView alloc] initWithArrImg:arrTemp  withNo:index];
+        ShowBannerJpegView  *View = [[ShowBannerJpegView alloc] initWithArrImg:arrTemp  withNo:(int)index];
+        View.shopModel = _shopModel;
         [self.view addSubview:View];
      }
     else
      {
         // 纯图片的处理方式
         ShowBannerJpegView  *View = [[ShowBannerJpegView alloc] initWithArrImg:arrTopIMG  withNo:(int)index];
+        View.shopModel = _shopModel;
         [self.view addSubview:View];
      }
 }
@@ -1333,8 +1336,26 @@
 
 -(void) actionShare
 {
-    viewPopShare.hidden = NO;
-    return;
+    //viewPopShare.hidden = NO;
+    //return;
+    
+    if(iTopType == 1)
+     {
+        // 有视频时的处理方式
+        NSMutableArray *arrTemp = arrTopIMG;
+        [arrTemp removeObjectAtIndex:0];
+        
+        ShareShopJpegView  *View = [[ShareShopJpegView alloc] initWithArrImg:arrTemp  withNo:(int)1];
+        View.shopModel = _shopModel;
+        [self.view addSubview:View];
+     }
+    else
+     {
+        // 纯图片的处理方式
+        ShareShopJpegView  *View = [[ShareShopJpegView alloc] initWithArrImg:arrTopIMG  withNo:(int)1];
+        View.shopModel = _shopModel;
+        [self.view addSubview:View];
+     }
 
 }
 

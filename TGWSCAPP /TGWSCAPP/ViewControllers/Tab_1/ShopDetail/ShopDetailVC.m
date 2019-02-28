@@ -1282,12 +1282,14 @@
         [arrTemp removeObjectAtIndex:0];
 
         ShowBannerJpegView  *View = [[ShowBannerJpegView alloc] initWithArrImg:arrTemp  withNo:(int)index];
+        View.shopModel = _shopModel;
         [self.view addSubview:View];
      }
     else
      {
         // 纯图片的处理方式
         ShowBannerJpegView  *View = [[ShowBannerJpegView alloc] initWithArrImg:arrTopIMG  withNo:(int)index];
+        View.shopModel = _shopModel;
         [self.view addSubview:View];
      }
 }
@@ -1344,12 +1346,14 @@
         [arrTemp removeObjectAtIndex:0];
         
         ShareShopJpegView  *View = [[ShareShopJpegView alloc] initWithArrImg:arrTemp  withNo:(int)1];
+        View.shopModel = _shopModel;
         [self.view addSubview:View];
      }
     else
      {
         // 纯图片的处理方式
         ShareShopJpegView  *View = [[ShareShopJpegView alloc] initWithArrImg:arrTopIMG  withNo:(int)1];
+        View.shopModel = _shopModel;
         [self.view addSubview:View];
      }
 

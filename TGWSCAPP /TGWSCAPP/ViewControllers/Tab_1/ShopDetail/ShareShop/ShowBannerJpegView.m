@@ -38,6 +38,8 @@
     
     arrImg = [[NSMutableArray alloc] init];
     
+    _shopModel = [[ShopModel alloc] init];
+    
     [self drawUI];
     
     return self;

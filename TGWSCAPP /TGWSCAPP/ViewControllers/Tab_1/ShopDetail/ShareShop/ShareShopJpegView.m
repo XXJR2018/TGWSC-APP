@@ -16,6 +16,8 @@
     NSArray *arrImgURL;
     NSMutableArray *arrImg;
     int iCurNO;
+    
+    NSString *qrcodeUrl; // 商品二维码图片
 }
 
 -(ShareShopJpegView*) initWithArrImg:(NSArray *)arr   withNo:(int) iNo
@@ -27,6 +29,8 @@
     iCurNO = iNo;
     
     arrImg = [[NSMutableArray alloc] init];
+    
+    _shopModel = [[ShopModel alloc] init];
     
     [self drawUI];
     
@@ -52,8 +56,72 @@
     [btnColse setImage:[UIImage imageNamed:@"com_colse3"] forState:UIControlStateNormal];
     [btnColse addTarget:self action:@selector(actionClose) forControlEvents:UIControlEventTouchUpInside];
     
+    // 布局图片
+    scrolView = [[UIScrollView alloc]init];
+    scrolView.pagingEnabled  = YES;
+    scrolView.delegate = self;
+    scrolView.showsVerticalScrollIndicator = NO;
+    scrolView.showsHorizontalScrollIndicator = NO;
+    scrolView.userInteractionEnabled = YES;
+    
+    scrolView.alwaysBounceVertical = NO;
+    scrolView.alwaysBounceHorizontal = NO;
+    
+    [self addSubview:scrolView];
+    scrolView.frame = CGRectMake(0, 130, SCREEN_WIDTH, SCREEN_WIDTH);
+    scrolView.backgroundColor = [UIColor whiteColor];
+    
+    
+    for (int i = 0; i < arrImgURL.count; i ++)
+     {
+        
+        UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_WIDTH)];
+        
+        //int iBetwwen = 20;
+        //UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH + iBetwwen, 0, SCREEN_WIDTH - 2*iBetwwen, SCREEN_WIDTH - 2*iBetwwen)];
+        
+        img.userInteractionEnabled = YES;
+        
+        [img sd_setImageWithURL:[NSURL URLWithString:arrImgURL[i]] ];
+        
+        [arrImg addObject:img];
+        
+        [scrolView addSubview:img];
+     }
+    
+    scrolView.contentSize = CGSizeMake(arrImgURL.count*SCREEN_WIDTH, 0);
+    
+    labelIndex.text = [NSString stringWithFormat:@"%d/%d",(int)iCurNO,(int)arrImgURL.count];
+    
+    if (iCurNO > 1)
+     {
+        [scrolView setContentOffset:CGPointMake((iCurNO-1)*SCREEN_WIDTH,0) animated:YES];
+     }
+    
+    
 }
 
+
+// 得到商品的分享的图片 （带二维码）
+-(void) getShareQrcode
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"goodsCode"] = _shopModel.strGoodsCode;
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLgetXcxQrcode];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      //[self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      //[self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1000;
+    //[operation start];
+    
+    
+    qrcodeUrl = [operation.URL absoluteString];
+}
 
 #pragma mark --- action
 -(void) actionClose
@@ -65,6 +133,7 @@
 
 -(void) actionSaveAll
 {
+    
 }
 
 /*

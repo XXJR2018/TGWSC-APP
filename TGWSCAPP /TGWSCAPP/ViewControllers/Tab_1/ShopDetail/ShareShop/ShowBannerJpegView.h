@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @property (nonatomic,strong) UIViewController *parentVC;
+@property (nonatomic,strong) ShopModel  *shopModel;
 
 
 @end

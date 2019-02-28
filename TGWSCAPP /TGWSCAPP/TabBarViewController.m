@@ -499,32 +499,25 @@
     if (currentVersion.integerValue  < upVersion.integerValue && [[CommonInfo Verify] intValue] != 1) {
         if (currentVersion.integerValue <= forceUpVersion.integerValue) {
             //强制升级
-            NSString *strMessageTemp = [dic objectForKey:@"upDesc"];
-            strMessageTemp =  [strMessageTemp stringByReplacingOccurrencesOfString:@"/n" withString:@"\n"];
-            
-            WCAlertview * alert = [[WCAlertview alloc] initWithTitle:@"更新提示"
-                                                             Message:strMessageTemp
-                                                               Image:[UIImage imageNamed:@"upVersionImg"]
+            NSString *message = [NSString stringWithFormat:@"%@",[dic objectForKey:@"upDesc"]];
+            WCAlertview * alert = [[WCAlertview alloc] initWithTitle:[NSString stringWithFormat:@"V%@",[dic objectForKey:@"upVersion"]]
+                                                             Message:message
                                                             OkButton:@"立即升级"
-                                                        CancelButton:@""];
-            alert.strVerion = [NSString stringWithFormat:@"版本：v%@",[dic objectForKey:@"upVersion"]];
+                                                        CancelButton:nil];
             alert.delegate = self;
             [alert show];
         }else{
             //非强制升级
-            NSString *strMessageTemp = [dic objectForKey:@"upDesc"];
-            strMessageTemp =  [strMessageTemp stringByReplacingOccurrencesOfString:@"/n" withString:@"\n"];
-            WCAlertview * alert = [[WCAlertview alloc] initWithTitle:@"更新提示"
-                                                             Message:strMessageTemp
-                                                               Image:[UIImage imageNamed:@"upVersionImg"]
+            NSString *message = [NSString stringWithFormat:@"%@",[dic objectForKey:@"upDesc"]];
+            WCAlertview * alert = [[WCAlertview alloc] initWithTitle:[NSString stringWithFormat:@"V%@",[dic objectForKey:@"upVersion"]]
+                                                             Message:message
                                                             OkButton:@"立即升级"
                                                         CancelButton:@"下次再说"];
             alert.strVerion = [NSString stringWithFormat:@"版本：v%@",[dic objectForKey:@"upVersion"]];
             alert.delegate = self;
             [alert show];
         }
-    }
-    
+    }    
 }
 
 -(void)didClickButtonAtIndex:(NSUInteger)index{

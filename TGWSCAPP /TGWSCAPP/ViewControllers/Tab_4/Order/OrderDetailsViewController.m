@@ -918,6 +918,7 @@
 //发票信息
 -(void)invoice{
     InvoiceDetailsVC *ctl = [[InvoiceDetailsVC alloc]init];
+    ctl.orderNo = self.orderNo;
     [self.navigationController pushViewController:ctl animated:YES];
 }
 

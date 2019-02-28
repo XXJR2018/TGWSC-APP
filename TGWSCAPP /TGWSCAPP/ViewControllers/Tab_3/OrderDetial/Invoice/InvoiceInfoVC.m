@@ -36,7 +36,7 @@
     if (self.invoiceId.length > 0) {
         params[@"invoiceId"] = self.invoiceId;
     }
-    if (self.invoiceId.length > 0) {
+    if (self.orderNo.length > 0) {
         params[@"orderNo"] = self.orderNo;
     }
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/orderInvoice/dtlInfo",[PDAPI getBaseUrlString]]
@@ -65,11 +65,14 @@
     params[@"detail"] = @"明细";
     params[@"telephone"] = _phoneField.text;
     params[@"email"] = _emailField.text;
-    
+
     NSString *url = [NSString stringWithFormat:@"%@appMall/account/orderInvoice/save",[PDAPI getBaseUrlString]];
     if (self.orderNo.length > 0) {
         url = [NSString stringWithFormat:@"%@appMall/account/orderInvoice/repairInvoice",[PDAPI getBaseUrlString]];
         params[@"orderNo"] = self.orderNo;
+    }
+    if (self.invoiceId.length > 0) {
+        params[@"invoiceId"] = self.invoiceId;
     }
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:url
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
@@ -87,8 +90,8 @@
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     if (operation.tag == 1000) {
-        if (operation.jsonResult.rows.count > 0) {
-            NSDictionary *dic = operation.jsonResult.rows[0];
+        if (operation.jsonResult.attr.count > 0) {
+            NSDictionary *dic = operation.jsonResult.attr;
             if ([[dic objectForKey:@"invoiceType"] intValue] == 1) {
                 [self invoiceTouch:_grInvoiceBtn];
                 if ([dic objectForKey:@"company"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"company"]].length > 0) {
@@ -115,11 +118,19 @@
         NSString *invoiceId = [operation.jsonResult.attr objectForKey:@"invoiceId"];
         if (_grInvoiceBtn.selected) {
             if (self.invoiceBlock) {
-                self.invoiceBlock(@{@"invoice":@"个人",@"invoiceId":invoiceId});
+                if (invoiceId.length == 0) {
+                     self.invoiceBlock(@{@"invoice":@"个人"});
+                }else{
+                    self.invoiceBlock(@{@"invoice":@"个人",@"invoiceId":invoiceId});
+                }
             }
         }else{
             if (self.invoiceBlock) {
-                self.invoiceBlock(@{@"invoice":@"企业",@"invoiceId":invoiceId});
+                if (invoiceId.length == 0) {
+                    self.invoiceBlock(@{@"invoice":@"企业"});
+                }else{
+                    self.invoiceBlock(@{@"invoice":@"企业",@"invoiceId":invoiceId});
+                }
             }
         }
         [self.navigationController popViewControllerAnimated:YES];

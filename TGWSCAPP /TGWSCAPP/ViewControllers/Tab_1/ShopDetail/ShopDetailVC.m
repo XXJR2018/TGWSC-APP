@@ -13,6 +13,7 @@
 #import "LZCartViewController.h"
 #import "AllAppraiseListViewController.h"
 #import "ShowBigJpgView.h"
+#import "ShowBannerJpegView.h"
 
 
 //#define   BannerHeight     300
@@ -1272,6 +1273,9 @@
 -(void)videoView:(TSVideoPlayback *)view didSelectItemAtIndexPath:(NSInteger)index
 {
     NSLog(@"%ld",(long)index);
+    
+    ShowBannerJpegView  *View = [[ShowBannerJpegView alloc] initWithArrImg:arrTopIMG  withNo:(int)index];
+    [self.view addSubview:View];
 }
 
 

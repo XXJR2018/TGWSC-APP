@@ -12,6 +12,7 @@
 {
     float fImgHeight;
     NSString *strImgUrl;
+    UIImageView *imgView;
 }
 
 -(ShowBigJpgView*) initWithImgUrl:(NSString *)imgUrl   height:(float) fHeight
@@ -42,7 +43,7 @@
         iTop = (SCREEN_HEIGHT - fImgHeight)/2;
      }
     
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, iTop, SCREEN_WIDTH, fImgHeight)];
+    imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, iTop, SCREEN_WIDTH, fImgHeight)];
     [self addSubview:imgView];
     [imgView sd_setImageWithURL:[NSURL URLWithString:strImgUrl]];
     
@@ -50,17 +51,36 @@
     [self addSubview:btnBottom];
     [btnBottom setTitle:@"  保存图片" forState:UIControlStateNormal];
     btnBottom.titleLabel.font = [UIFont systemFontOfSize:14];
-    [btnBottom setImage:[UIImage imageNamed:@"com_gou1"] forState:UIControlStateNormal];
+    [btnBottom setImage:[UIImage imageNamed:@"com_download"] forState:UIControlStateNormal];
+    [btnBottom addTarget:self action:@selector(actionSave) forControlEvents:UIControlEventTouchUpInside];
     
 }
 
-
+#pragma mark ---  action
 -(void) actionClose
 {
     [self removeAllSubviews];
     [self removeFromSuperview];
     self.hidden = YES;
 
+}
+
+#pragma mark======保存图片到系统相册
+-(void)actionSave
+{
+    UIImage *image = imgView.image;
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void *)self);
+}
+
+//保存图片回调方法
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+    NSLog(@"image = %@, error = %@, contextInfo = %@", image, error, contextInfo);
+    if (error) {
+        NSString *message = [NSString stringWithFormat:@"保存图片失败,失败原因：%@",error];
+        [MBProgressHUD showErrorWithStatus:message toView:self];
+    }else{
+        [MBProgressHUD showSuccessWithStatus:@"图片已成功保存到相册" toView:self];
+    }
 }
 
 // Only override drawRect: if you perform custom drawing.

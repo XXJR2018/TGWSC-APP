@@ -40,11 +40,11 @@ static const CGFloat buttonWidth = 90;
 #pragma mark - Gesture
 -(void)click:(UITapGestureRecognizer *)sender{
     // 屏蔽掉点击任何区域，消失
-//    CGPoint tapLocation = [sender locationInView:self.backgroundview];
-//    CGRect alertFrame = self.alertview.frame;
-//    if (!CGRectContainsPoint(alertFrame, tapLocation)) {
-//        [self dismiss];
-//    }
+    //    CGPoint tapLocation = [sender locationInView:self.backgroundview];
+    //    CGRect alertFrame = self.alertview.frame;
+    //    if (!CGRectContainsPoint(alertFrame, tapLocation)) {
+    //        [self dismiss];
+    //    }
 }
 
 #pragma mark -  private function
@@ -84,13 +84,13 @@ static const CGFloat buttonWidth = 90;
 -(void)dismiss{
     [self.animator removeAllBehaviors];
     [UIView animateWithDuration:0.7 animations:^{
-//        self.alpha = 0.0;
-//        CGAffineTransform rotate = CGAffineTransformMakeRotation(0.9 * M_PI);
-//        CGAffineTransform scale = CGAffineTransformMakeScale(0.1, 0.1);
-//        self.alertview.transform = CGAffineTransformConcat(rotate, scale);
+        //        self.alpha = 0.0;
+        //        CGAffineTransform rotate = CGAffineTransformMakeRotation(0.9 * M_PI);
+        //        CGAffineTransform scale = CGAffineTransformMakeScale(0.1, 0.1);
+        //        self.alertview.transform = CGAffineTransformConcat(rotate, scale);
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
-         self.alertview = nil;
+        self.alertview = nil;
     }];
     
 }
@@ -110,7 +110,7 @@ static const CGFloat buttonWidth = 90;
     self.alertview.backgroundColor = UIColorFromRGB11(0xfefcfb);//[UIColor whiteColor];
     self.alertview.clipsToBounds = YES;
     [self addSubview:self.alertview];
-
+    
     UIImageView * imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, alertviewWidth,imageviewHeight)];
     imageview.image = self.image;
     [self.alertview addSubview:imageview];
@@ -156,7 +156,7 @@ static const CGFloat buttonWidth = 90;
     self.buttonVesion.titleLabel.font = [UIFont systemFontOfSize:14];
     [self.buttonVesion setTitleColor:UIColorFromRGB(0x3f9dff) forState:UIControlStateNormal];
     [self.alertview addSubview:self.buttonVesion];
-
+    
     UILabel * titleMesage = [[UILabel alloc] initWithFrame:CGRectMake(15,CGRectGetMaxY(self.buttonVesion.frame), CGRectGetMaxY(self.buttonVesion.frame) + 10,titleHeight)];
     titleMesage.numberOfLines = 0;
     titleMesage.font = [UIFont systemFontOfSize:14];
@@ -174,7 +174,7 @@ static const CGFloat buttonWidth = 90;
     paragraphStyle.alignment = NSTextAlignmentCenter;
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [self.message length])];
     [titleMesage setAttributedText:attributedString];
-
+    
     [titleMesage sizeToFit]; // 高度自适应
     titleMesage.frame = CGRectMake(15, CGRectGetMaxY(self.buttonVesion.frame) + 10, alertviewWidth * ScaleSize - 30, titleMesage.frame.size.height);
     [self.alertview addSubview:titleMesage];
@@ -200,10 +200,120 @@ static const CGFloat buttonWidth = 90;
         
         iTopY +=CGRectGetMaxY(okButton.frame) + 15;
     }
-   
+    
     CGRect  frameTemp =  self.alertview.frame;
     frameTemp.size.height = iTopY;
     self.alertview.frame = frameTemp;
+}
+
+-(void)setUp3{
+    CGFloat _alertViewWidth = 270 * ScaleSize;
+    CGFloat _alertViewHejght = 245 * ScaleSize;
+    self.backgroundview = [[UIView alloc] initWithFrame:[[UIApplication sharedApplication] keyWindow].frame];
+    self.backgroundview.backgroundColor = [UIColor blackColor];
+    self.backgroundview.alpha = 0.4;
+    [self addSubview:self.backgroundview];
+    
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click:)];
+    [self.backgroundview addGestureRecognizer:tap];
+    
+    self.alertview = [[UIView alloc] initWithFrame:CGRectMake( (SCREEN_WIDTH - _alertViewWidth)/2, 0, _alertViewWidth, _alertViewHejght)];
+    UIView * keywindow = [[UIApplication sharedApplication] keyWindow];
+    self.alertview.layer.cornerRadius = 10;
+    self.alertview.center = CGPointMake(CGRectGetMidX(keywindow.frame), -CGRectGetMidY(keywindow.frame));
+    self.alertview.backgroundColor = [UIColor whiteColor];
+    self.alertview.clipsToBounds = YES;
+    [self addSubview:self.alertview];
+    
+    UIImageView * imgView = [[UIImageView alloc] initWithFrame:CGRectMake( 0, 0, _alertViewWidth,self.alertview.frame.size.height)];
+    imgView.image = [UIImage imageNamed:@"upVersionImg"];
+    [self.alertview addSubview:imgView];
+    imgView.userInteractionEnabled = YES;
+    
+    UIImageView * newVesionImg = [[UIImageView alloc] initWithFrame:CGRectMake( (_alertViewWidth - 142.5 * ScaleSize)/2, 30 * ScaleSize, 142.5 * ScaleSize, 27.5 * ScaleSize)];
+    newVesionImg.image = [UIImage imageNamed:@"newVersion"];
+    [imgView addSubview:newVesionImg];
+    
+    UIView *vesionLine = [[UIView alloc]initWithFrame:CGRectMake((_alertViewWidth - 140)/2,CGRectGetMaxY(newVesionImg.frame) + 25, 140, 0.5)];
+    [imgView addSubview:vesionLine];
+    vesionLine.backgroundColor = UIColorFromRGB(0xAF812F);
+    
+    UILabel * vesionLabel = [[UILabel alloc] initWithFrame:CGRectMake((_alertViewWidth - 80)/2,CGRectGetMidY(vesionLine.frame) - 10, 80, 20)];
+    [imgView addSubview:vesionLabel];
+    vesionLabel.backgroundColor = UIColorFromRGB(0xF7E9DB);
+    vesionLabel.font = [UIFont systemFontOfSize:20];
+    vesionLabel.textColor = UIColorFromRGB(0xAF812F);
+    vesionLabel.textAlignment = NSTextAlignmentCenter;
+    vesionLabel.text = self.title;
+    
+    UILabel * titleMesage = [[UILabel alloc] initWithFrame:CGRectMake(25,CGRectGetMaxY(vesionLabel.frame) + 15, _alertViewWidth - 50,titleHeight)];
+    titleMesage.numberOfLines = 0;
+    titleMesage.font = [UIFont systemFontOfSize:14];
+    titleMesage.textColor = [ResourceManager color_1];
+    titleMesage.lineBreakMode = NSLineBreakByWordWrapping;
+    // 设置label的行间距
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.message];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:8];
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [self.message length])];
+    [titleMesage setAttributedText:attributedString];
+    
+    [titleMesage sizeToFit]; // 高度自适应
+    titleMesage.frame = CGRectMake( 25,CGRectGetMaxY(vesionLabel.frame) + 15, _alertViewWidth - 50, titleMesage.frame.size.height);
+    [imgView addSubview:titleMesage];
+    
+    
+    if (self.cancelButtonTitle.length == 0) {
+        UIButton * okButton = [[UIButton alloc]initWithFrame:CGRectMake((_alertViewWidth - 200)/2, CGRectGetMaxY(titleMesage.frame) + 20, 200, 40)];
+        okButton.tag = 1;
+        [imgView addSubview:okButton];
+        okButton.titleLabel.font = [UIFont systemFontOfSize:15];
+        [okButton setTitle:@"立即升级" forState:UIControlStateNormal];
+        [okButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        okButton.layer.cornerRadius = 5;
+        okButton.backgroundColor = UIColorFromRGB(0xcbaf7e);
+        [okButton addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+        [okButton setShowsTouchWhenHighlighted:YES];
+        
+        if (CGRectGetMaxY(okButton.frame) + 15 > _alertViewHejght) {
+            self.alertview.height = CGRectGetMaxY(okButton.frame) + 15;
+            imgView.height = self.alertview.frame.size.height;
+        }else{
+            okButton.frame = CGRectMake((_alertViewWidth - 200)/2, self.alertview.frame.size.height - 55, 200, 40);
+        }
+    }else{
+        UIButton * cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(25, CGRectGetMaxY(titleMesage.frame) + 20, _alertViewWidth/2 - 35, 40)];
+        cancelButton.tag = 2;
+        [imgView addSubview:cancelButton];
+        cancelButton.titleLabel.font = [UIFont systemFontOfSize:15];
+        [cancelButton setTitle:@"下次再说" forState:UIControlStateNormal];
+        [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        cancelButton.layer.cornerRadius = 5;
+        cancelButton.backgroundColor = UIColorFromRGB(0xbcb7ae);
+        [cancelButton addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+        [cancelButton setShowsTouchWhenHighlighted:YES];
+        
+        UIButton * okButton = [[UIButton alloc]initWithFrame:CGRectMake(_alertViewWidth/2 + 10, CGRectGetMaxY(titleMesage.frame) + 20, _alertViewWidth/2 - 35, 40)];
+        okButton.tag = 1;
+        [imgView addSubview:okButton];
+        okButton.titleLabel.font = [UIFont systemFontOfSize:15];
+        [okButton setTitle:@"立即升级" forState:UIControlStateNormal];
+        [okButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        okButton.layer.cornerRadius = 5;
+        okButton.backgroundColor = UIColorFromRGB(0xcbaf7e);
+        [okButton addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+        [okButton setShowsTouchWhenHighlighted:YES];
+        
+        if (CGRectGetMaxY(okButton.frame) + 15 > _alertViewHejght) {
+            self.alertview.height = CGRectGetMaxY(okButton.frame) + 15;
+            imgView.height = self.alertview.frame.size.height;
+        }else{
+            cancelButton.frame = CGRectMake(25, self.alertview.frame.size.height - 55, _alertViewWidth/2 - 35, 40);
+            okButton.frame = CGRectMake(_alertViewWidth/2 + 10, self.alertview.frame.size.height - 55, _alertViewWidth/2 - 35, 40);
+        }
+    }
+    
+    
 }
 
 
@@ -238,11 +348,11 @@ static const CGFloat buttonWidth = 90;
 -(instancetype)initWithTitle:(NSString *) title
                      Message:(NSString*)message
                        Image:(UIImage *)image
-                  OkButton:(NSString *)okButton
+                    OkButton:(NSString *)okButton
                 CancelButton:(NSString *)cancelButton
 {
     if (self = [super initWithFrame:[[UIApplication sharedApplication] keyWindow].frame])
-     {
+    {
         self.title = title;
         self.image = image;
         self.message = message;
@@ -253,4 +363,21 @@ static const CGFloat buttonWidth = 90;
     }
     return self;
 }
+
+-(instancetype)initWithTitle:(NSString *) title
+                     Message:(NSString*)message
+                    OkButton:(NSString *)okButton
+                CancelButton:(NSString *)cancelButton
+{
+    if (self = [super initWithFrame:[[UIApplication sharedApplication] keyWindow].frame]) {
+        self.title = title;
+        self.message = message;
+        self.cancelButtonTitle = cancelButton;
+        self.okButtonTitle = okButton;
+        
+        [self setUp3];
+    }
+    return self;
+}
+
 @end

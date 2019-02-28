@@ -19,7 +19,9 @@
 -(instancetype)initWithTitle:(NSString *) title Image:(UIImage *)image OkButton:(NSString *)okButton CancelButton:(NSString *)cancelButton;
 
 
--(instancetype)initWithTitle:(NSString *) title   Message:(NSString*)message  Image:(UIImage *)image OkButton:(NSString *)okButton CancelButton:(NSString *)cancelButton;
+-(instancetype)initWithTitle:(NSString *) title Message:(NSString*)message  Image:(UIImage *)image OkButton:(NSString *)okButton CancelButton:(NSString *)cancelButton;
+
+-(instancetype)initWithTitle:(NSString *) title Message:(NSString*)message OkButton:(NSString *)okButton CancelButton:(NSString *)cancelButton;
 
 - (void)show;
 

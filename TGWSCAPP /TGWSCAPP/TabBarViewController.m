@@ -605,6 +605,8 @@
     }
     [CommonInfo setUserInfo:dic];
     
+    [CommonInfo setKey:K_ShopTopImgUrl withValue:[operation.jsonResult.attr objectForKey:@"shareBgImg"]];
+    
     //用户信息保存成功，更新显示用户信息
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NotificationChangeUserInfo" object:nil];
 }

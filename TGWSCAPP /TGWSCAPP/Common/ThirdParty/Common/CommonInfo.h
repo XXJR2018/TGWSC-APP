@@ -12,6 +12,7 @@
 #define  K_Home_TJ_UIData  @"K_Home_TJ_UIData" // 首页-推荐子页面的数据KEY
 #define  K_Home_IS_YSXY  @"K_Home_IS_YSXY" // 是否点击过 用户隐私协议
 #define  K_XCODE         @"K_XCODE"    // h5页面的 xcode
+#define  K_ShopTopImgUrl   @"K_ShopTopImgUrl"    // 商品详情分析页面的顶部图片
 
 
 @interface CommonInfo : NSObject

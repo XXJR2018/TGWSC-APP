@@ -8,7 +8,8 @@
 
 #import "ShareShopJpegView.h"
 
-@implementation ShareShopJpegView
+
+@interface ShareShopJpegView ()<UIScrollViewDelegate>
 {
     UIScrollView * scrolView;
     UILabel  *labelIndex;
@@ -17,8 +18,13 @@
     NSMutableArray *arrImg;
     int iCurNO;
     
-    NSString *qrcodeUrl; // 商品二维码图片
+    NSString *qrcodeUrl;
 }
+
+@end
+
+
+@implementation ShareShopJpegView
 
 -(ShareShopJpegView*) initWithArrImg:(NSArray *)arr   withNo:(int) iNo
 {
@@ -68,21 +74,32 @@
     scrolView.alwaysBounceHorizontal = NO;
     
     [self addSubview:scrolView];
-    scrolView.frame = CGRectMake(0, 130, SCREEN_WIDTH, SCREEN_WIDTH);
-    scrolView.backgroundColor = [UIColor whiteColor];
     
+    
+    int iScrolViewHeight = 110 + SCREEN_WIDTH;
+    scrolView.frame = CGRectMake(0, 130, SCREEN_WIDTH, iScrolViewHeight);
+    //scrolView.backgroundColor = [UIColor whiteColor];
+    
+    
+    
+    
+    NSString *strTopImgUrl =  [CommonInfo getKey:K_ShopTopImgUrl];
     
     for (int i = 0; i < arrImgURL.count; i ++)
      {
+        int iBetwwen = 20;
+        //UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_WIDTH)];
+        UIView *viewImg = [[UIView alloc] initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, iScrolViewHeight)];
+        //[]
         
-        UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_WIDTH)];
         
-        //int iBetwwen = 20;
-        //UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH + iBetwwen, 0, SCREEN_WIDTH - 2*iBetwwen, SCREEN_WIDTH - 2*iBetwwen)];
+        UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH + iBetwwen, 0, SCREEN_WIDTH - 2*iBetwwen, SCREEN_WIDTH - 2*iBetwwen)];
         
         img.userInteractionEnabled = YES;
         
-        [img sd_setImageWithURL:[NSURL URLWithString:arrImgURL[i]] ];
+        NSString *strUrl = arrImgURL[i];
+        
+        [img sd_setImageWithURL:[NSURL URLWithString:strUrl]];
         
         [arrImg addObject:img];
         
@@ -133,7 +150,7 @@
 
 -(void) actionSaveAll
 {
-    
+    [self getShareQrcode];
 }
 
 /*

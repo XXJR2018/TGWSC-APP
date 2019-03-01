@@ -87,11 +87,11 @@
     [self addSubview:scrolView];
     
     int iBetwwen = 50;
-    if (IS_IPHONE_X_MORE)
-     {
-        iBetwwen = 40;
-     }
-    int iTopImgHeight = 110;
+//    if (IS_IPHONE_X_MORE)
+//     {
+//        iBetwwen = 50;
+//     }
+    int iTopImgHeight = 90;
     int iTaiImgHeight = 90;
     int iViewImgWidth = SCREEN_WIDTH  - 2*iBetwwen;
     int iScrolViewHeight = iTopImgHeight +  iViewImgWidth  + iTaiImgHeight + 20;
@@ -135,7 +135,7 @@
         [viewImg addSubview:labelShopName];
         //labelShopName.backgroundColor = [UIColor yellowColor];
         labelShopName.textColor = [ResourceManager color_1];
-        labelShopName.font = [UIFont systemFontOfSize:17];
+        labelShopName.font = [UIFont systemFontOfSize:15];
         labelShopName.numberOfLines = 0;
         labelShopName.text = _shopModel.strGoodsName;
         
@@ -181,7 +181,7 @@
         labelNote.text = @"长按进入小程序";
         labelNote.textAlignment = NSTextAlignmentRight;
         
-        if (!imageEWM)
+        if (imageEWM)
          {
             UIImageView *imgViewEWM = [[UIImageView alloc] initWithFrame:CGRectMake(iViewImgWidth - iTaiImgHeight, iTailTop, iTaiImgHeight, iTaiImgHeight)];
             [viewImg addSubview:imgViewEWM];

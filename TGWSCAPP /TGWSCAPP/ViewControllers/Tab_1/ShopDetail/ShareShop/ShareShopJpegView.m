@@ -183,12 +183,10 @@
         
         if (!imageEWM)
          {
-            return;
+            UIImageView *imgViewEWM = [[UIImageView alloc] initWithFrame:CGRectMake(iViewImgWidth - iTaiImgHeight, iTailTop, iTaiImgHeight, iTaiImgHeight)];
+            [viewImg addSubview:imgViewEWM];
+            imgViewEWM.image = imageEWM;
          }
-
-        UIImageView *imgViewEWM = [[UIImageView alloc] initWithFrame:CGRectMake(iViewImgWidth - iTaiImgHeight, iTailTop, iTaiImgHeight, iTaiImgHeight)];
-        [viewImg addSubview:imgViewEWM];
-        imgViewEWM.image = imageEWM;
         
      }
     

@@ -105,8 +105,8 @@
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.font = [UIFont systemFontOfSize:13];
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.text = @"已获得0积分\n坚持写有图评价，赚更多积分吧~";
-    if ([self.appraiseDataDic objectForKey:@"commScore"]) {
+    titleLabel.text = @"非常感谢您的评价\n您的评价是对我们最好的帮助和鼓励";
+    if ([[self.appraiseDataDic objectForKey:@"commScore"] intValue] > 0) {
         titleLabel.text = [NSString stringWithFormat:@"已获得%@积分\n坚持写有图评价，赚更多积分吧~",[self.appraiseDataDic objectForKey:@"commScore"]];
     }
     

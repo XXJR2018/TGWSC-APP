@@ -115,7 +115,7 @@
             
         }
     }else if (operation.tag == 1001) {
-        NSString *invoiceId = [operation.jsonResult.attr objectForKey:@"invoiceId"];
+        NSString *invoiceId = [NSString stringWithFormat:@"%@",[operation.jsonResult.attr objectForKey:@"invoiceId"]];
         if (_grInvoiceBtn.selected) {
             if (self.invoiceBlock) {
                 if (invoiceId.length == 0) {

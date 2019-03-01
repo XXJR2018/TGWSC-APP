@@ -7,6 +7,7 @@
 //
 
 #import "ShowBannerJpegView.h"
+#import "ShareShopJpegView.h"
 
 
 @interface ShowBannerJpegView ()<UIScrollViewDelegate>
@@ -143,6 +144,9 @@
 
 -(void)actionEWM
 {
+    // 纯图片的处理方式
+    ShareShopJpegView  *View = [[ShareShopJpegView alloc] initWithArrImg:arrImgURL  withNo:(int)iCurNO withShopModel:_shopModel];
+    [self addSubview:View];
 }
 
 

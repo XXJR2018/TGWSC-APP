@@ -9,6 +9,7 @@
 #import "ShareShopJpegView.h"
 
 
+
 @interface ShareShopJpegView ()<UIScrollViewDelegate>
 {
     UIScrollView * scrolView;
@@ -53,7 +54,7 @@
 {
     self.backgroundColor =  [[UIColor blackColor] colorWithAlphaComponent:0.85];
     
-    int iTopY = 30;
+    int iTopY = 10;
     if (IS_IPHONE_X_MORE)
      {
         iTopY = 70;
@@ -94,7 +95,7 @@
     int iTaiImgHeight = 90;
     int iViewImgWidth = SCREEN_WIDTH  - 2*iBetwwen;
     int iScrolViewHeight = iTopImgHeight +  iViewImgWidth  + iTaiImgHeight + 20;
-    iTopY += btnColse.height + 10;
+    iTopY += btnColse.height + 10 ;
     scrolView.frame = CGRectMake(0, iTopY, SCREEN_WIDTH, iScrolViewHeight);
     //scrolView.backgroundColor = [UIColor yellowColor];
     
@@ -198,6 +199,76 @@
         [scrolView setContentOffset:CGPointMake((iCurNO-1)*SCREEN_WIDTH,0) animated:YES];
      }
     
+    // 加入底部的分享
+    UIColor *color1 =  [UIColor whiteColor];
+    
+    int iIMGWdith = 50;
+    int iViewWdith = SCREEN_WIDTH/3;
+    iTopY += scrolView.height +  10;
+    
+    iLeftX = 0;
+    
+    // 保存到图片和按钮
+    {
+       UIView * view1 = [[UIView alloc] initWithFrame:CGRectMake(iLeftX, iTopY, iViewWdith, 100)];
+       [self addSubview:view1];
+       
+       UIImageView *imag1 = [[UIImageView alloc] initWithFrame:CGRectMake((iViewWdith-iIMGWdith)/2, 20, iIMGWdith, iIMGWdith)];
+       [view1 addSubview:imag1];
+       imag1.image = [UIImage imageNamed:@"com_wedownload"];
+       
+       UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 20+iIMGWdith, iViewWdith, 20)];
+       label1.font = [UIFont systemFontOfSize:12];
+       label1.textColor = color1;
+       label1.text = @"保存此图片";
+       label1.textAlignment = NSTextAlignmentCenter;
+       [view1 addSubview:label1];
+       
+       UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionSave)];
+       [view1 addGestureRecognizer:singleTap];
+    }
+    
+    
+    // 微信好友图片和按钮
+    {
+       UIView * view1 = [[UIView alloc] initWithFrame:CGRectMake(iLeftX + iViewWdith, iTopY, iViewWdith, 100)];
+       [self addSubview:view1];
+       
+       UIImageView *imag1 = [[UIImageView alloc] initWithFrame:CGRectMake((iViewWdith-iIMGWdith)/2, 20, iIMGWdith, iIMGWdith)];
+       [view1 addSubview:imag1];
+       imag1.image = [UIImage imageNamed:@"com_wechat"];
+       
+       UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 20+iIMGWdith, iViewWdith, 20)];
+       label1.font = [UIFont systemFontOfSize:12];
+       label1.textColor = color1;
+       label1.text = @"微信好友";
+       label1.textAlignment = NSTextAlignmentCenter;
+       [view1 addSubview:label1];
+       
+       UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionWeChat)];
+       [view1 addGestureRecognizer:singleTap];
+    }
+    
+    // 微信好友图片和按钮
+    {
+       UIView * view1 = [[UIView alloc] initWithFrame:CGRectMake(iLeftX + 2*iViewWdith, iTopY, iViewWdith, 100)];
+       [self addSubview:view1];
+       
+       UIImageView *imag1 = [[UIImageView alloc] initWithFrame:CGRectMake((iViewWdith-iIMGWdith)/2, 20, iIMGWdith, iIMGWdith)];
+       [view1 addSubview:imag1];
+       imag1.image = [UIImage imageNamed:@"com_wepyq"];
+       
+       UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 20+iIMGWdith, iViewWdith, 20)];
+       label1.font = [UIFont systemFontOfSize:12];
+       label1.textColor = color1;
+       label1.text = @"朋友圈";
+       label1.textAlignment = NSTextAlignmentCenter;
+       [view1 addSubview:label1];
+       
+       UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionWePYQ)];
+       [view1 addGestureRecognizer:singleTap];
+    }
+    
     
 }
 
@@ -269,6 +340,57 @@
     UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void *)self);
 }
 
+-(void) actionWeChat
+{
+    NSMutableDictionary *parmams = [[NSMutableDictionary alloc] init];
+    parmams[@"strUrl"] = [NSString stringWithFormat:@"/pages/product/product?goodsCode=%@&goodsName=%@",_shopModel.strGoodsCode,_shopModel.strGoodsName];
+    parmams[@"strImgUrl"] = _shopModel.strGoodsImgUrl;
+    parmams[@"strDesc"] = _shopModel.strGoodsName;
+    parmams[@"strName"] = _shopModel.strGoodsName;
+    
+    [[DDGShareManager shareManager] weChatShareXCX:parmams];
+    
+    [[DDGShareManager  shareManager] setBlock:^(id obj) {
+        
+        NSDictionary *dic = (NSDictionary *)obj;
+        if ([[dic objectForKey:@"success"] boolValue]) {
+            [MBProgressHUD showSuccessWithStatus:@"分享成功" toView:self];
+        }else{
+            [MBProgressHUD showErrorWithStatus:@"分享失败" toView:self];
+        }
+    }];
+}
+
+
+-(void) actionWePYQ
+{
+    
+    UIImageView *imgView = (UIImageView*)arrImg[iCurNO -1];
+    
+    // 设置绘制图片的大小
+    UIGraphicsBeginImageContextWithOptions(imgView.bounds.size, NO, 0.0);
+    // 绘制图片
+    [imgView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    NSData *data=  UIImageJPEGRepresentation(image,0.5);
+    
+    
+    NSMutableDictionary *parmams = [[NSMutableDictionary alloc] init];
+    parmams[@"image"] = data;
+    [[DDGShareManager shareManager] weChatShare:parmams shareScene:1];
+    
+    [[DDGShareManager  shareManager] setBlock:^(id obj) {
+        
+        NSDictionary *dic = (NSDictionary *)obj;
+        if ([[dic objectForKey:@"success"] boolValue]) {
+            [MBProgressHUD showSuccessWithStatus:@"分享成功" toView:self];
+        }else{
+            [MBProgressHUD showErrorWithStatus:@"分享失败" toView:self];
+        }
+    }];
+}
 
 //保存图片回调方法
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{

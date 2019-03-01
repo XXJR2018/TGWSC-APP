@@ -850,7 +850,7 @@
         btnLJGM.layer.borderColor = [ResourceManager mainColor].CGColor;
         btnLJGM.layer.borderWidth = 1;
         btnLJGM.cornerRadius = btnLJGM.height/2;
-        [btnLJGM setTitle:@"立即购买" forState:UIControlStateNormal];
+        [btnLJGM setTitle:@"购买" forState:UIControlStateNormal];
         [btnLJGM setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
         btnLJGM.titleLabel.font = [UIFont systemFontOfSize:15];
         [btnLJGM addTarget:self action:@selector(actionLJGM) forControlEvents:UIControlEventTouchUpInside];
@@ -862,10 +862,10 @@
         //btnLJGM.layer.borderWidth = 1;
         btnJRGWC.cornerRadius = btnJRGWC.height/2;
         btnJRGWC.backgroundColor = ShopRedColor;
-        [btnJRGWC setTitle:@"加入购物车" forState:UIControlStateNormal];
+        [btnJRGWC setTitle:@"分享" forState:UIControlStateNormal];
         [btnJRGWC setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         btnJRGWC.titleLabel.font = [UIFont systemFontOfSize:15];
-        [btnJRGWC addTarget:self action:@selector(actionJRGWC) forControlEvents:UIControlEventTouchUpInside];
+        [btnJRGWC addTarget:self action:@selector(actionShare) forControlEvents:UIControlEventTouchUpInside];
      }
     
     
@@ -1275,6 +1275,12 @@
 {
     NSLog(@"%ld",(long)index);
     
+    if (![CommonInfo isLoggedIn]) {
+        [DDGUserInfoEngine engine].parentViewController = self;
+        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+        return;
+    }
+    
     if(iTopType == 1)
      {
         // 有视频时的处理方式
@@ -1338,6 +1344,12 @@
 {
     //viewPopShare.hidden = NO;
     //return;
+    
+    if (![CommonInfo isLoggedIn]) {
+        [DDGUserInfoEngine engine].parentViewController = self;
+        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+        return;
+    }
     
     if(iTopType == 1)
      {
@@ -1427,6 +1439,12 @@
 
 -(void) actionDetailJPG:(UITapGestureRecognizer*) tag
 {
+    if (![CommonInfo isLoggedIn]) {
+        [DDGUserInfoEngine engine].parentViewController = self;
+        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+        return;
+    }
+    
     UIView *view = tag.view;
     int iTag = (int)view.tag;
     
@@ -1468,6 +1486,21 @@
 // 立即购买
 -(void) actionLJGM
 {
+//    if (!arrSku ||
+//        !arrSkuShow)
+//     {
+//        [self querySkuList];
+//        [self querySkuProList];
+//        [MBProgressHUD showErrorWithStatus:@"获取规格参数失败，请稍后再试" toView:self.view];
+//        return;
+//     }
+//
+//    PopSelShopView  *popView = [[PopSelShopView alloc] init];
+//    popView.shopModel = _shopModel;
+//    popView.arrSku = arrSku;
+//    popView.arrSkuShow = arrSkuShow;
+//    popView.parentVC = self;
+//    [popView show];
     if (!arrSku ||
         !arrSkuShow)
      {

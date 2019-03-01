@@ -141,6 +141,11 @@
 }
 
 
+-(void)actionEWM
+{
+}
+
+
 -(void)actionSave
 {
     UIImageView *imgView = (UIImageView*)arrImg[iCurNO -1];
@@ -148,9 +153,6 @@
     UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void *)self);
 }
 
--(void)actionEWM
-{
-}
 
 //保存图片回调方法
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{

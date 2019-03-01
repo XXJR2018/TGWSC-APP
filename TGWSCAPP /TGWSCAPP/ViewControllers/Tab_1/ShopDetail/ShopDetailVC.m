@@ -1345,15 +1345,13 @@
         NSMutableArray *arrTemp = arrTopIMG;
         [arrTemp removeObjectAtIndex:0];
         
-        ShareShopJpegView  *View = [[ShareShopJpegView alloc] initWithArrImg:arrTemp  withNo:(int)1];
-        View.shopModel = _shopModel;
+        ShareShopJpegView  *View = [[ShareShopJpegView alloc] initWithArrImg:arrTemp  withNo:(int)1  withShopModel:_shopModel];
         [self.view addSubview:View];
      }
     else
      {
         // 纯图片的处理方式
-        ShareShopJpegView  *View = [[ShareShopJpegView alloc] initWithArrImg:arrTopIMG  withNo:(int)1];
-        View.shopModel = _shopModel;
+        ShareShopJpegView  *View = [[ShareShopJpegView alloc] initWithArrImg:arrTopIMG  withNo:(int)1 withShopModel:_shopModel];
         [self.view addSubview:View];
      }
 

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ShareShopJpegView : UIView
 
--(ShareShopJpegView*) initWithArrImg:(NSArray *)arrImg   withNo:(int) iCurNo;
+-(ShareShopJpegView*) initWithArrImg:(NSArray *)arrImg   withNo:(int) iCurNo  withShopModel:(ShopModel*) sModel;
 
 
 @property (nonatomic,strong) UIViewController *parentVC;

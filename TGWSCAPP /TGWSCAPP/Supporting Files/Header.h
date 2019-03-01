@@ -16,6 +16,7 @@
 #define IS_IPHONE_5 (IS_IPHONE && SCREEN_HEIGHT == 568.0)
 #define IS_IPHONE_6 (IS_IPHONE && SCREEN_HEIGHT == 667.0)
 #define IS_IPHONE_6P (IS_IPHONE && SCREEN_HEIGHT == 736.0)
+#define IS_IPHONE_6P_MORE (IS_IPHONE && SCREEN_HEIGHT >= 736.0)
 #define IS_IPHONE_X_MORE (IS_IPHONE && SCREEN_HEIGHT >= 812.0)
 // > iOS7
 #define AtLeast_iOS7 ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0f ? NO : YES)

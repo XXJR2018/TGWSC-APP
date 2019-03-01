@@ -16,9 +16,11 @@
     
     NSArray *arrImgURL;
     NSMutableArray *arrImg;
-    int iCurNO;
+    int iCurNO;  // 从1开始计数
     
     NSString *qrcodeUrl;
+    UIImage *imageEWM;
+    int iIMGSaveNo;     // 当为零时， 确认保存图片成功
 }
 
 @end
@@ -26,7 +28,7 @@
 
 @implementation ShareShopJpegView
 
--(ShareShopJpegView*) initWithArrImg:(NSArray *)arr   withNo:(int) iNo
+-(ShareShopJpegView*) initWithArrImg:(NSArray *)arr   withNo:(int) iNo  withShopModel:(ShopModel*) sModel
 {
     self =  [super initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     
@@ -38,6 +40,10 @@
     
     _shopModel = [[ShopModel alloc] init];
     
+    _shopModel = sModel;
+    
+    [self getShareQrcode];
+    
     [self drawUI];
     
     return self;
@@ -47,7 +53,11 @@
 {
     self.backgroundColor =  [[UIColor blackColor] colorWithAlphaComponent:0.85];
     
-    int iTopY = 70;
+    int iTopY = 30;
+    if (IS_IPHONE_X_MORE)
+     {
+        iTopY = 70;
+     }
     int iLeftX = 15;
     UIButton *btnSaveAllImg = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, iTopY, 150, 50)];
     [self addSubview:btnSaveAllImg];
@@ -75,40 +85,113 @@
     
     [self addSubview:scrolView];
     
-    
-    int iScrolViewHeight = 110 + SCREEN_WIDTH;
-    scrolView.frame = CGRectMake(0, 130, SCREEN_WIDTH, iScrolViewHeight);
-    //scrolView.backgroundColor = [UIColor whiteColor];
+    int iBetwwen = 50;
+    if (IS_IPHONE_X_MORE)
+     {
+        iBetwwen = 40;
+     }
+    int iTopImgHeight = 110;
+    int iTaiImgHeight = 90;
+    int iViewImgWidth = SCREEN_WIDTH  - 2*iBetwwen;
+    int iScrolViewHeight = iTopImgHeight +  iViewImgWidth  + iTaiImgHeight + 20;
+    iTopY += btnColse.height + 10;
+    scrolView.frame = CGRectMake(0, iTopY, SCREEN_WIDTH, iScrolViewHeight);
+    //scrolView.backgroundColor = [UIColor yellowColor];
     
     
     
     
     NSString *strTopImgUrl =  [CommonInfo getKey:K_ShopTopImgUrl];
     
+    
     for (int i = 0; i < arrImgURL.count; i ++)
      {
-        int iBetwwen = 20;
-        //UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_WIDTH)];
-        UIView *viewImg = [[UIView alloc] initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, iScrolViewHeight)];
-        //[]
         
+        // 加入整体的viewImg
+        UIView *viewImg = [[UIView alloc] initWithFrame:CGRectMake(i*SCREEN_WIDTH + iBetwwen, 0, iViewImgWidth, iScrolViewHeight)];
+        [scrolView addSubview:viewImg];
+        viewImg.backgroundColor = [UIColor whiteColor];
+        [arrImg addObject:viewImg];
+ 
         
-        UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH + iBetwwen, 0, SCREEN_WIDTH - 2*iBetwwen, SCREEN_WIDTH - 2*iBetwwen)];
-        
+        // 加入头部的LOGO图片
+        UIImageView * imgLogo = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, iViewImgWidth, iTopImgHeight)];
+        [imgLogo sd_setImageWithURL:[NSURL URLWithString:strTopImgUrl]];
+        [viewImg addSubview:imgLogo];
+
+        // 加入中部的商品详情图片
+        UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(0, iTopImgHeight, iViewImgWidth, iViewImgWidth)];
         img.userInteractionEnabled = YES;
-        
         NSString *strUrl = arrImgURL[i];
-        
         [img sd_setImageWithURL:[NSURL URLWithString:strUrl]];
+        [viewImg addSubview:img];
+        //[scrolView addSubview:img];
         
-        [arrImg addObject:img];
+        // 加入底部的 二维码图片 和 商品基本信息
+        int iTailTop = iTopImgHeight + iViewImgWidth;
+        int iLabelWidth = iViewImgWidth - 10  - iTopImgHeight;
+        UILabel *labelShopName = [[UILabel alloc] initWithFrame:CGRectMake(10, iTailTop + 5, iLabelWidth, 50)];
+        [viewImg addSubview:labelShopName];
+        //labelShopName.backgroundColor = [UIColor yellowColor];
+        labelShopName.textColor = [ResourceManager color_1];
+        labelShopName.font = [UIFont systemFontOfSize:17];
+        labelShopName.numberOfLines = 0;
+        labelShopName.text = _shopModel.strGoodsName;
         
-        [scrolView addSubview:img];
+        UILabel *labelPrice = [[UILabel alloc] initWithFrame:CGRectMake(10, iTailTop + 10 + 50+ 5, iLabelWidth, 20)];
+        [viewImg addSubview:labelPrice];
+        labelPrice.textColor = [ResourceManager priceColor];
+        labelPrice.font = [UIFont systemFontOfSize:17];
+        //labelPrice.text = [NSString stringWithFormat:@"¥%@",_shopModel.strMinPrice];
+        if (![_shopModel.strMinPrice isEqualToString:_shopModel.strMaxPrice])
+         {
+            NSString *strAll = [NSString stringWithFormat:@"¥%@起",_shopModel.strMinPrice];;
+            NSString *strSub = @"起";
+            NSRange range = [strAll rangeOfString:strSub];
+            NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:strAll];
+            //[str addAttribute:NSForegroundColorAttributeName value:[ResourceManager priceColor] range:range]; //设置字体颜色
+            [str addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Arial" size:14.0] range:range]; //设置字体字号和字体类别
+            
+            strSub = @"¥";
+            range = [strAll rangeOfString:strSub];
+            //[str addAttribute:NSForegroundColorAttributeName value:[ResourceManager priceColor] range:range]; //设置字体颜色
+            [str addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Arial" size:14.0] range:range]; //设置字体字号和字体类别
+            
+            labelPrice.attributedText = str;
+         }
+        else
+         {
+          
+            NSString *strAll = [NSString stringWithFormat:@"¥%@",_shopModel.strMinPrice];;
+            NSString *strSub = @"¥";
+            NSRange range = [strAll rangeOfString:strSub];
+            NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:strAll];
+            //[str addAttribute:NSForegroundColorAttributeName value:[ResourceManager priceColor] range:range]; //设置字体颜色
+            [str addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Arial" size:14.0] range:range]; //设置字体字号和字
+        
+            labelPrice.attributedText = str;
+         }
+        
+        UILabel *labelNote = [[UILabel alloc] initWithFrame:CGRectMake(0, iTailTop + iTaiImgHeight, iViewImgWidth-10, 20)];
+        [viewImg addSubview:labelNote];
+        //labelShopName.backgroundColor = [UIColor yellowColor];
+        labelNote.textColor = [ResourceManager color_1];
+        labelNote.font = [UIFont systemFontOfSize:9];
+        labelNote.text = @"长按进入小程序";
+        labelNote.textAlignment = NSTextAlignmentRight;
+        
+        if (!imageEWM)
+         {
+            return;
+         }
+
+        UIImageView *imgViewEWM = [[UIImageView alloc] initWithFrame:CGRectMake(iViewImgWidth - iTaiImgHeight, iTailTop, iTaiImgHeight, iTaiImgHeight)];
+        [viewImg addSubview:imgViewEWM];
+        imgViewEWM.image = imageEWM;
+        
      }
     
     scrolView.contentSize = CGSizeMake(arrImgURL.count*SCREEN_WIDTH, 0);
-    
-    labelIndex.text = [NSString stringWithFormat:@"%d/%d",(int)iCurNO,(int)arrImgURL.count];
     
     if (iCurNO > 1)
      {
@@ -119,25 +202,26 @@
 }
 
 
-// 得到商品的分享的图片 （带二维码）
+// 得到商品的分享的图片 （仅仅只有二维码）
 -(void) getShareQrcode
 {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    params[@"goodsCode"] = _shopModel.strGoodsCode;
+
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@?signId=%@&goodsCode=%@", [PDAPI getBusiUrlString],kURLgetXcxQrcode, [CommonInfo signId],_shopModel.strGoodsCode];
+    qrcodeUrl = strUrl;
     
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLgetXcxQrcode];
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
-                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
-                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
-                                                                                      //[self handleData:operation];
-                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
-                                                                                      //[self handleErrorData:operation];
-                                                                                  }];
-    operation.tag = 1000;
-    //[operation start];
+    // 获取底部二维码图片
+    imageEWM = [ToolsUtlis getImgFromStr:qrcodeUrl];
+}
+
+
+#pragma mark - scrollView的代理方法
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    NSInteger index = scrollView.contentOffset.x/self.bounds.size.width;
+    iCurNO = (int)index+1;
     
+    //self.indexLab.hidden = NO;
+    //labelIndex.text = [NSString stringWithFormat:@"%d/%d",(int)index+1,(int)arrImgURL.count];
     
-    qrcodeUrl = [operation.URL absoluteString];
 }
 
 #pragma mark --- action
@@ -151,7 +235,56 @@
 -(void) actionSaveAll
 {
     [self getShareQrcode];
+    
+    iIMGSaveNo = (int)arrImg.count -1;
+    for (int i =0 ; i <arrImg.count; i++)
+     {
+        UIView *imgView = (UIView*)arrImg[i];
+        
+        // 设置绘制图片的大小
+        UIGraphicsBeginImageContextWithOptions(imgView.bounds.size, NO, 0.0);
+        // 绘制图片
+        [imgView.layer renderInContext:UIGraphicsGetCurrentContext()];
+        UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void *)self);
+     }
 }
+
+
+
+-(void)actionSave
+{
+    iIMGSaveNo = 0;
+    UIImageView *imgView = (UIImageView*)arrImg[iCurNO -1];
+    
+    // 设置绘制图片的大小
+    UIGraphicsBeginImageContextWithOptions(imgView.bounds.size, NO, 0.0);
+    // 绘制图片
+    [imgView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void *)self);
+}
+
+
+//保存图片回调方法
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+    NSLog(@"image = %@, error = %@, contextInfo = %@", image, error, contextInfo);
+    if (error) {
+        NSString *message = [NSString stringWithFormat:@"保存图片失败,失败原因：%@",error];
+        [MBProgressHUD showErrorWithStatus:message toView:self];
+    }else{
+        if ( 0 == iIMGSaveNo)
+         {
+            [MBProgressHUD showSuccessWithStatus:@"图片已成功保存到相册" toView:self];
+         }
+        iIMGSaveNo--;
+    }
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

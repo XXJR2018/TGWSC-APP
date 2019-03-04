@@ -91,7 +91,7 @@
 //     {
 //        iBetwwen = 50;
 //     }
-    int iTopImgHeight = 90;
+    int iTopImgHeight = 100;
     int iTaiImgHeight = 90;
     int iViewImgWidth = SCREEN_WIDTH  - 2*iBetwwen;
     int iScrolViewHeight = iTopImgHeight +  iViewImgWidth  + iTaiImgHeight + 20;
@@ -135,7 +135,7 @@
         [viewImg addSubview:labelShopName];
         //labelShopName.backgroundColor = [UIColor yellowColor];
         labelShopName.textColor = [ResourceManager color_1];
-        labelShopName.font = [UIFont systemFontOfSize:15];
+        labelShopName.font = [UIFont systemFontOfSize:14];
         labelShopName.numberOfLines = 0;
         labelShopName.text = _shopModel.strGoodsName;
         
@@ -183,7 +183,7 @@
         
         if (imageEWM)
          {
-            UIImageView *imgViewEWM = [[UIImageView alloc] initWithFrame:CGRectMake(iViewImgWidth - iTaiImgHeight, iTailTop, iTaiImgHeight, iTaiImgHeight)];
+            UIImageView *imgViewEWM = [[UIImageView alloc] initWithFrame:CGRectMake(iViewImgWidth - iTaiImgHeight+5, iTailTop+5, iTaiImgHeight-10, iTaiImgHeight-10)];
             [viewImg addSubview:imgViewEWM];
             imgViewEWM.image = imageEWM;
          }

@@ -1027,28 +1027,40 @@ static int iiii = 0;
         return;
      }
     
-    int iType = [dic[@"type"] intValue];
-    if (iType == 1)
+    // sys系统信息， tips提示消息 text文本消息
+    // content  消息具体内容
+    NSString *strType = dic[@"type"];
+    if (!strType)
+     {
+        return;
+     }
+    
+    if ([strType isEqualToString:@"sys"])
      {
         // 系统级别的消息，放弃
         return;
      }
     
-    NSString  *strMsg = dic[@"message"];
+    NSString  *strMsg = dic[@"content"];
     CSMessageModel *model = [[CSMessageModel alloc] init];
     model.messageSenderType = MessageSenderTypeOther;
     model.messageType = MessageTypeText;
     model.messageText = strMsg;
     
-    if (iType == 2)
+    [self setShowTime:model];
+    
+    if ([strType isEqualToString:@"tips"])
      {
         // 提示消息
         model.onlyShowTime = YES;
         model.showMessageTime = YES;
+        model.messageTime = strMsg;
+
      }
     
-    [self setShowTime:model];
+    
     [_dataArray addObject:model];
+    [model bg_save];
     
     [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:_dataArray.count - 1 inSection:0]

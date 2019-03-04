@@ -56,7 +56,7 @@
         _webSocket=nil;
      }
     
-    NSString *strSerURL = [NSString stringWithFormat:@"%@mallKefu/custSocket",[PDAPI getBaseUrlString]];
+    NSString *strSerURL = [NSString stringWithFormat:@"%@mallKefu/custSocket/%@",[PDAPI getBaseUrlString],[CommonInfo signId]];
     //strSerURL = @"http://192.168.10.131/mallKefu/custSocket";
     //strSerURL = @"http://192.168.10.208/mallKefu/custSocket";
     
@@ -106,7 +106,7 @@
     longSocket = YES;
     
     // 发送身份认证信息
-    [self sendLoginInfo];
+    //[self sendLoginInfo];
     
     // 创建心跳包
     [self performSelector:@selector(creatConnectTimer) withObject:nil afterDelay:1.0];// 延迟执行
@@ -196,7 +196,7 @@
     if (!sendSuccess)
      {
         // 发送失败，重新连接服务器
-        [self longConnectToSocket];
+        [self socketConnectHost];
      }
 }
 
@@ -218,7 +218,7 @@
      {
         NSLog(@"sendheart err:%@",error);
         // 发送失败，重新连接服务器
-        [self longConnectToSocket];
+        [self socketConnectHost];
      }
     
 }
@@ -241,7 +241,7 @@
     
     NSMutableDictionary *dicMsgData = [[NSMutableDictionary alloc] init];
     dicMsgData[@"type"] = @"text";
-    dicMsgData[@"contentText"] = strSend;
+    dicMsgData[@"content"] = strSend;
     
     NSMutableDictionary *dicSend = [[NSMutableDictionary alloc] init];
     dicSend[@"reqType"] = @"3";

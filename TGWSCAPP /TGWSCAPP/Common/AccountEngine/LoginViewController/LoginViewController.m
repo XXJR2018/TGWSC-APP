@@ -45,11 +45,6 @@
     UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(TouchViewKeyBoard)];
     gesture.numberOfTapsRequired  = 1;
     [self.view addGestureRecognizer:gesture];
-    
-//    //第一次打开该版本弹出隐私协议
-//     if ([ToolsUtlis isAppFirstLoaded]){
-//         [self YSAleartViewUI];
-//     }
 }
 
 //添加手势点击空白处隐藏键盘
@@ -292,106 +287,5 @@
     }
 }
 
-
-//#pragma mark 隐私协议布局
-//-(void)YSAleartViewUI{
-//    [_YSAleartView  removeFromSuperview];
-//
-//    _YSAleartView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-//    [self.view addSubview:_YSAleartView];
-//    _YSAleartView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
-//
-//    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 251 * ScaleSize)/2, (SCREEN_HEIGHT - 383 * ScaleSize)/2, 251 * ScaleSize, 383 * ScaleSize)];
-//    [_YSAleartView addSubview:imgView];
-//    imgView.image = [UIImage imageNamed:@"Tab_1-32"];
-//    imgView.userInteractionEnabled = YES;
-//
-//    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 10, imgView.bounds.size.width, 60)];
-//    [imgView addSubview:titleLabel];
-//    titleLabel.textColor = [ResourceManager color_1];
-//    titleLabel.textAlignment = NSTextAlignmentCenter;
-//    titleLabel.font = [UIFont systemFontOfSize:14];
-//    titleLabel.text = @"天狗口袋隐私协议";
-//
-//    UILabel *subTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(titleLabel.frame), imgView.bounds.size.width - 60, 200)];
-//    [imgView addSubview:subTitleLabel];
-//    subTitleLabel.textColor = [ResourceManager color_1];
-//    subTitleLabel.numberOfLines = 0;
-//    subTitleLabel.font = [UIFont systemFontOfSize:13];
-//    subTitleLabel.text = @"感谢您下载天狗口袋APP,当您开始使用本软件时，我们可能会对您的部分个人信息收集、使用和分享。\n\n请您仔细阅读《天狗口袋隐私协议》并确认了解我们对您个人信息的处理规则。\n\n开始使用我们的软件和服务，我们尽全力保护您的个人信息安全。";
-//    [subTitleLabel sizeToFit];
-//
-//    UILabel *treatyLabel = [[UILabel alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(subTitleLabel.frame) + 25, 115, 30)];
-//    [imgView addSubview:treatyLabel];
-//    treatyLabel.textColor = [ResourceManager color_6];
-//    treatyLabel.font = [UIFont systemFontOfSize:12];
-//    treatyLabel.text = @"点击按钮即表示同意";
-//
-//    UIButton *treatyBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(treatyLabel.frame) - 10, CGRectGetMinY(treatyLabel.frame), 125, 30)];
-//    [imgView addSubview:treatyBtn];
-//    [treatyBtn setTitle:@"《天狗口袋隐私协议》" forState:UIControlStateNormal];
-//    treatyBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-//    [treatyBtn setTitleColor:UIColorFromRGB(0x3f9dff) forState:UIControlStateNormal];
-//    [treatyBtn addTarget:self action:@selector(treaty) forControlEvents:UIControlEventTouchUpInside];
-//
-//    UIButton *agreeBtn = [[UIButton alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(treatyLabel.frame) + 10, imgView.bounds.size.width - 60, 40)];
-//    [imgView addSubview:agreeBtn];
-//    agreeBtn.backgroundColor = UIColorFromRGB(0x3f9dff);
-//    agreeBtn.layer.cornerRadius = 40/2;
-//    [agreeBtn setTitle:@"同意" forState:UIControlStateNormal];
-//    agreeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-//    [agreeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [agreeBtn addTarget:self action:@selector(agree) forControlEvents:UIControlEventTouchUpInside];
-//
-//    UIButton *disaccordBtn = [[UIButton alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(agreeBtn.frame) + 10, imgView.bounds.size.width - 60, 40)];
-//    [imgView addSubview:disaccordBtn];
-//    disaccordBtn.backgroundColor = [UIColor whiteColor];
-//    disaccordBtn.layer.cornerRadius = 40/2;
-//    disaccordBtn.layer.borderWidth = 0.5;
-//    disaccordBtn.layer.borderColor = [ResourceManager color_5].CGColor;
-//    [disaccordBtn setTitle:@"不同意" forState:UIControlStateNormal];
-//    disaccordBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-//    [disaccordBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
-//    [disaccordBtn addTarget:self action:@selector(disaccord) forControlEvents:UIControlEventTouchUpInside];
-//}
-//
-////隐私协议
-//- (void)treaty {
-//    NSString *url = [NSString stringWithFormat:@"%@tgwproject/AgreePrivacy",[PDAPI WXSysRouteAPI]];
-//    [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"隐私协议"];
-//}
-//
-////同意隐私协议
-//-(void)agree{
-//     [_YSAleartView removeFromSuperview];
-//
-//    //更新第一次打开该版本信息
-//    [ToolsUtlis saveBundleVersion];
-//
-//}
-//
-////不同意隐私协议
-//-(void)disaccord{
-//    //退出代码
-//    exit(0);
-//}
-
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

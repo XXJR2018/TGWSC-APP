@@ -101,12 +101,10 @@ static DDGUserInfoEngine *singleton;
 }
 
 - (void)dismissFinishUserInfoController:(Block_Void)block{
-    
     _isLogging = NO;
     //跳转首页
 	[self.parentViewController dismissViewControllerAnimated:YES completion:^{
-        
-		_loginViewController = nil;
+		self.loginViewController = nil;
         if (block) {
             block();
         }

@@ -105,8 +105,6 @@
 		C0C4B88C221E9211002853D1 /* SRConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C4B875221E9211002853D1 /* SRConstants.m */; };
 		C0C4B88D221E9211002853D1 /* NSURLRequest+SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C4B87A221E9211002853D1 /* NSURLRequest+SRWebSocket.m */; };
 		C0C4B891221E9326002853D1 /* WebSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C4B890221E9326002853D1 /* WebSocketManager.m */; };
-		C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */; };
-		C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */; };
 		C0CCC7DE21C0F150009352E0 /* LLSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7B921C0F150009352E0 /* LLSearchBar.m */; };
 		C0CCC7E321C0F150009352E0 /* LLNaviSearchHistorySaveBasePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7C021C0F150009352E0 /* LLNaviSearchHistorySaveBasePresenter.m */; };
 		C0CCC7E421C0F150009352E0 /* NBSSearchShopCategoryViewCellP.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC7C421C0F150009352E0 /* NBSSearchShopCategoryViewCellP.m */; };
@@ -589,10 +587,6 @@
 		C0C4B87A221E9211002853D1 /* NSURLRequest+SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+SRWebSocket.m"; sourceTree = "<group>"; };
 		C0C4B88F221E9326002853D1 /* WebSocketManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebSocketManager.h; sourceTree = "<group>"; };
 		C0C4B890221E9326002853D1 /* WebSocketManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebSocketManager.m; sourceTree = "<group>"; };
-		C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
-		C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
-		C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindPhoneVC.h; sourceTree = "<group>"; };
-		C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BindPhoneVC.m; sourceTree = "<group>"; };
 		C0CCC7B821C0F150009352E0 /* LLSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSearchBar.h; sourceTree = "<group>"; };
 		C0CCC7B921C0F150009352E0 /* LLSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSearchBar.m; sourceTree = "<group>"; };
 		C0CCC7C021C0F150009352E0 /* LLNaviSearchHistorySaveBasePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLNaviSearchHistorySaveBasePresenter.m; sourceTree = "<group>"; };
@@ -2197,10 +2191,6 @@
 		C25044BD21BA579100DA9C72 /* LoginViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C0CCC7AC21BFA7C4009352E0 /* LoginVC.h */,
-				C0CCC7AB21BFA7C4009352E0 /* LoginVC.m */,
-				C0CCC7AE21C0A7C7009352E0 /* BindPhoneVC.h */,
-				C0CCC7AF21C0A7C7009352E0 /* BindPhoneVC.m */,
 				C25044C321BA579100DA9C72 /* LoginViewController.h */,
 				C25044BF21BA579100DA9C72 /* LoginViewController.m */,
 				C25044C121BA579100DA9C72 /* LoginViewController.xib */,
@@ -3284,7 +3274,6 @@
 				C0C4B88A221E9211002853D1 /* SRIOConsumer.m in Sources */,
 				C250476E21BA715500DA9C72 /* NSArray+Additions.m in Sources */,
 				C067E8B521E83A2400395F91 /* RefundListViewCell.m in Sources */,
-				C0CCC7B021C0A7C7009352E0 /* BindPhoneVC.m in Sources */,
 				C250451A21BA579100DA9C72 /* RemoteNTFManager.m in Sources */,
 				C050C3EB2215704300BFACF5 /* UILabel+Han.m in Sources */,
 				C0CCC85C21C391F1009352E0 /* ShopModel.m in Sources */,
@@ -3336,7 +3325,6 @@
 				C250476121BA715500DA9C72 /* UIDevice+Additions.m in Sources */,
 				C250476C21BA715500DA9C72 /* Json+Utils.m in Sources */,
 				C250475F21BA715500DA9C72 /* UIImageView+Addtions.m in Sources */,
-				C0CCC7AD21BFA7C4009352E0 /* LoginVC.m in Sources */,
 				C250476521BA715500DA9C72 /* NSObject+Additions.m in Sources */,
 				C0C4B884221E9211002853D1 /* SRURLUtilities.m in Sources */,
 				C25045FF21BA711E00DA9C72 /* CCWebViewController.m in Sources */,
@@ -3623,6 +3611,10 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-Objc",
+					"-all_load",
+				);
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -3676,6 +3668,10 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-Objc",
+					"-all_load",
+				);
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

@@ -1020,13 +1020,14 @@ static int iiii = 0;
     NSString *strJson = obj[@"msg"];
     NSData *data = [strJson dataUsingEncoding:NSUTF8StringEncoding];
     NSError *err = nil;
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:&err];
+    NSDictionary *dicALL = [NSJSONSerialization JSONObjectWithData:data options:0 error:&err];
     if (err)
      {
          NSLog(@"reciveChatMsg  json解析失败：%@",err);
         return;
      }
     
+    NSDictionary *dic = dicALL[@"body"];
     // sys系统信息， tips提示消息 text文本消息
     // content  消息具体内容
     NSString *strType = dic[@"type"];

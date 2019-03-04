@@ -170,8 +170,8 @@
  
  用户授权：reqType=1, msgData:{ signId：”app123”}
  心跳：reqType=2,
- 用户发信息给客服：reqType=3, msgData:{content=”发送的内容”，type=”text”}
- 客服发信息给客户：reqType=4, msgData:{content=”发送的内容”，type=”text”
+ 用户发信息给客服：reqType=3, body:{content=”发送的内容”，type=”text”}
+ 客服发信息给客户：reqType=4, body:{content=”发送的内容”，type=”text”
  */
 
 -(void)sendLoginInfo
@@ -185,7 +185,7 @@
     
     NSMutableDictionary *dicSend = [[NSMutableDictionary alloc] init];
     dicSend[@"reqType"] = @"1";
-    dicSend[@"msgData"] = dicMsgData;
+    dicSend[@"body"] = dicMsgData;
     
     NSString  *nstrDic = [dicSend JSONString];
     
@@ -245,7 +245,7 @@
     
     NSMutableDictionary *dicSend = [[NSMutableDictionary alloc] init];
     dicSend[@"reqType"] = @"3";
-    dicSend[@"msgData"] = dicMsgData;
+    dicSend[@"body"] = dicMsgData;
     
     NSString  *nstrDic = [dicSend JSONString];
     

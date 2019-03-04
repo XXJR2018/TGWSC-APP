@@ -43,7 +43,7 @@ typedef enum {
 
 
 
-//贷款申请用，两边有距离 文本颜色 后面单位 初始位置
+//两边有距离 文本颜色 后面单位 初始位置
 -(TextFieldView *)initWithTitle:(NSString *)title unitStr:(NSString *)unitStr textColor:(UIColor *)color placeHolder:(NSString *)placeHolder originY:(CGFloat)originY originX:(CGFloat)originX  fieldViewType:(TextFieldViewType)type;
 
 @end

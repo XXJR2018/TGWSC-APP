@@ -202,7 +202,6 @@
 		C250451521BA579100DA9C72 /* SelectCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C25044CE21BA579100DA9C72 /* SelectCityViewController.m */; };
 		C250451621BA579100DA9C72 /* MJRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C25044D321BA579100DA9C72 /* MJRefreshViewController.m */; };
 		C250451721BA579100DA9C72 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C25044D521BA579100DA9C72 /* LocationManager.m */; };
-		C250451821BA579100DA9C72 /* CalculatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C25044D621BA579100DA9C72 /* CalculatorManager.m */; };
 		C250451921BA579100DA9C72 /* CustomerServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C25044D821BA579100DA9C72 /* CustomerServiceManager.m */; };
 		C250451A21BA579100DA9C72 /* RemoteNTFManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C25044D921BA579100DA9C72 /* RemoteNTFManager.m */; };
 		C250451B21BA579100DA9C72 /* SessionCookieManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C25044DD21BA579100DA9C72 /* SessionCookieManager.m */; };
@@ -224,7 +223,6 @@
 		C250460721BA711E00DA9C72 /* SGQRCodeObtainConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045C521BA711E00DA9C72 /* SGQRCodeObtainConfigure.m */; };
 		C250460821BA711E00DA9C72 /* SGQRCodeObtain.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045C921BA711E00DA9C72 /* SGQRCodeObtain.m */; };
 		C250460921BA711E00DA9C72 /* SGQRCodeScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045CA21BA711E00DA9C72 /* SGQRCodeScanView.m */; };
-		C250460A21BA711E00DA9C72 /* WCAlertview2.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045CC21BA711E00DA9C72 /* WCAlertview2.m */; };
 		C250460B21BA711E00DA9C72 /* WCAlertview.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045CF21BA711E00DA9C72 /* WCAlertview.m */; };
 		C250460C21BA711E00DA9C72 /* IdentifyAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045D221BA711E00DA9C72 /* IdentifyAlertView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C250460D21BA711E00DA9C72 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C25045D721BA711E00DA9C72 /* SDCycleScrollView.m */; };
@@ -767,11 +765,9 @@
 		C25044D221BA579100DA9C72 /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
 		C25044D321BA579100DA9C72 /* MJRefreshViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshViewController.m; sourceTree = "<group>"; };
 		C25044D521BA579100DA9C72 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
-		C25044D621BA579100DA9C72 /* CalculatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorManager.m; sourceTree = "<group>"; };
 		C25044D721BA579100DA9C72 /* SessionCookieManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionCookieManager.h; sourceTree = "<group>"; };
 		C25044D821BA579100DA9C72 /* CustomerServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerServiceManager.m; sourceTree = "<group>"; };
 		C25044D921BA579100DA9C72 /* RemoteNTFManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteNTFManager.m; sourceTree = "<group>"; };
-		C25044DA21BA579100DA9C72 /* CalculatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorManager.h; sourceTree = "<group>"; };
 		C25044DB21BA579100DA9C72 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		C25044DC21BA579100DA9C72 /* CustomerServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerServiceManager.h; sourceTree = "<group>"; };
 		C25044DD21BA579100DA9C72 /* SessionCookieManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionCookieManager.m; sourceTree = "<group>"; };
@@ -813,9 +809,7 @@
 		C25045C821BA711E00DA9C72 /* SGQRCodeObtainConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeObtainConfigure.h; sourceTree = "<group>"; };
 		C25045C921BA711E00DA9C72 /* SGQRCodeObtain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeObtain.m; sourceTree = "<group>"; };
 		C25045CA21BA711E00DA9C72 /* SGQRCodeScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeScanView.m; sourceTree = "<group>"; };
-		C25045CC21BA711E00DA9C72 /* WCAlertview2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCAlertview2.m; sourceTree = "<group>"; };
 		C25045CD21BA711E00DA9C72 /* WCAlertview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCAlertview.h; sourceTree = "<group>"; };
-		C25045CE21BA711E00DA9C72 /* WCAlertview2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCAlertview2.h; sourceTree = "<group>"; };
 		C25045CF21BA711E00DA9C72 /* WCAlertview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCAlertview.m; sourceTree = "<group>"; };
 		C25045D121BA711E00DA9C72 /* IdentifyAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentifyAlertView.h; sourceTree = "<group>"; };
 		C25045D221BA711E00DA9C72 /* IdentifyAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentifyAlertView.m; sourceTree = "<group>"; };
@@ -2249,8 +2243,6 @@
 			children = (
 				C25044D521BA579100DA9C72 /* LocationManager.m */,
 				C25044DB21BA579100DA9C72 /* LocationManager.h */,
-				C25044DA21BA579100DA9C72 /* CalculatorManager.h */,
-				C25044D621BA579100DA9C72 /* CalculatorManager.m */,
 				C25044D721BA579100DA9C72 /* SessionCookieManager.h */,
 				C25044DD21BA579100DA9C72 /* SessionCookieManager.m */,
 				C25044DC21BA579100DA9C72 /* CustomerServiceManager.h */,
@@ -2415,8 +2407,6 @@
 			children = (
 				C25045CD21BA711E00DA9C72 /* WCAlertview.h */,
 				C25045CF21BA711E00DA9C72 /* WCAlertview.m */,
-				C25045CE21BA711E00DA9C72 /* WCAlertview2.h */,
-				C25045CC21BA711E00DA9C72 /* WCAlertview2.m */,
 			);
 			path = WCAlertView;
 			sourceTree = "<group>";
@@ -3285,7 +3275,6 @@
 				C0CCC7FB21C0F1CB009352E0 /* HistorySearchHistroyViewP.m in Sources */,
 				C25047E721BA715500DA9C72 /* DDGError.m in Sources */,
 				C0CCC7E321C0F150009352E0 /* LLNaviSearchHistorySaveBasePresenter.m in Sources */,
-				C250460A21BA711E00DA9C72 /* WCAlertview2.m in Sources */,
 				C250460021BA711E00DA9C72 /* WebviewProgressLine.m in Sources */,
 				C20525F121BE6E5C00E13893 /* TabViewController_4.m in Sources */,
 				C08FFF6D21F6CBFD0045A438 /* ShopActiveView.m in Sources */,
@@ -3338,7 +3327,6 @@
 				C02C5F7821CC79530056A32E /* ShopDetailVC.m in Sources */,
 				C0CCC85621C390F7009352E0 /* ShopListView.m in Sources */,
 				C25047B821BA715500DA9C72 /* UIButton+AFNetworking.m in Sources */,
-				C250451821BA579100DA9C72 /* CalculatorManager.m in Sources */,
 				C250460721BA711E00DA9C72 /* SGQRCodeObtainConfigure.m in Sources */,
 				C0A48B3821DCA697002AF226 /* LZCartModel.m in Sources */,
 				C0192E072213BAEF00D3E825 /* GCDAsyncSocket.m in Sources */,

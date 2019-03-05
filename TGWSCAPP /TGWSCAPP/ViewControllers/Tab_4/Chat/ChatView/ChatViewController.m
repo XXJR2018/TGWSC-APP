@@ -600,12 +600,7 @@
     //model.messageTime = @"16:40";
     
     
-    if (!isRGFW)
-     {
-        // 智能客服
-        [self answerCostonService:model.messageText];
-     }
-    else
+    if (isRGFW)
      {
         //人工客服  发送文本到后台服务器
         BOOL sendSuccess = [socketManager sendText:model.messageText];
@@ -631,6 +626,13 @@
     vi.frame = CGRectMake(0, _nowHeight, [UIScreen mainScreen].bounds.size.width, 44);
     
     [model bg_save];
+    
+    
+    if (!isRGFW)
+     {
+        // 智能客服
+        [self answerCostonService:model.messageText];
+     }
 
     
 }

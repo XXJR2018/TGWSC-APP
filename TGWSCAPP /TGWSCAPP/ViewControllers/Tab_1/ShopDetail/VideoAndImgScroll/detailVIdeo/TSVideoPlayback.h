@@ -25,6 +25,8 @@ typedef enum : NSUInteger {
 @property (nonatomic,weak) id<TSVideoPlaybackDelegate> delegate;
 @property (nonatomic,assign) TSDETAILTYPE type;
 
+@property (nonatomic,strong) UIViewController *parentVC;
+
 /*
  * isVideo  是否带视屏链接
  * array    数据

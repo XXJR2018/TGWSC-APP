@@ -32,6 +32,11 @@
 @property (nonatomic,strong) NSArray *dataArray;
 @property (nonatomic,strong) UIImageView *placeholderImg;//占位图img
 
+@property (nonatomic,strong) UIButton  *btnBigScreen;  // 全屏播放按钮
+@property (nonatomic,strong) UIButton  *btnSmallScreen; // 小屏播放
+@property (nonatomic,strong) UIView  *viewHideOther; // 全屏时，遮挡其他控件的响应事件
+
+
 @end
 
 @implementation TSVideoPlayback
@@ -78,6 +83,20 @@
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoPlayEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
                 //通过KVO来观察status属性的变化，来获得播放之前的错误信息
                 [self.item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+                
+                
+                self.btnBigScreen = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 60, self.frame.size.height -60, 60, 60)];
+                [self.scrolView addSubview:self.btnBigScreen];
+                [self.btnBigScreen setBackgroundImage:[UIImage imageNamed:@"Shop_BigScreen"] forState:UIControlStateNormal];
+                [self.btnBigScreen addTarget:self action:@selector(actionBigScreen) forControlEvents:UIControlEventTouchUpInside];
+                
+                
+                self.btnSmallScreen  = [[UIButton alloc] initWithFrame:CGRectMake(30, 35, 30, 30)];
+                [self.btnSmallScreen setBackgroundImage:[UIImage imageNamed:@"com_colse2"] forState:UIControlStateNormal];
+                [self.btnSmallScreen addTarget:self action:@selector(actionSmallScreen) forControlEvents:UIControlEventTouchUpInside];
+                
+                self.viewHideOther = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+                
             }
             else{
                 UIImageView * img = [[UIImageView alloc]initWithFrame:CGRectMake(i*self.frame.size.width, 0, self.frame.size.width, self.frame.size.height)];
@@ -194,22 +213,58 @@
         [self.playBtn setHidden:YES];
         
         
-        // 缩放播放
-        self.playerLayer.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-        //self.scrolView.frame =  CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-        [self.scrolView.layer addSublayer:self.playerLayer];
-        
     }else{
         [self.playBtn setHidden:NO];
         
-        // 全屏播放
-        self.playerLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        //self.scrolView.frame =  CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        [self.parentVC.view.layer addSublayer:self.playerLayer];
-        
-        
     }
 }
+
+-(void)actionBigScreen
+{
+    
+    // 如果已经缓冲好视频
+    if (isReadToPlay)
+     {
+        // 如果没有点击播放按钮
+        if (!self.playBtn.selected)
+         {
+            [self playClick:self.playBtn];
+         }
+     }
+    
+    // 全屏播放
+    self.playerLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    //self.scrolView.frame =  CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    [self.parentVC.view.layer addSublayer:self.playerLayer];
+    
+    
+    // 全屏时，遮挡其他控件的响应
+    [self.parentVC.view addSubview:self.viewHideOther];
+    
+    [self.parentVC.view addSubview:self.btnSmallScreen];
+    
+
+
+}
+
+-(void)actionSmallScreen
+{
+    // 缩放播放
+    self.playerLayer.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    //self.scrolView.frame =  CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    [self.scrolView.layer addSublayer:self.playerLayer];
+    
+    // 移除缩放按钮
+    [self.btnSmallScreen removeFromSuperview];
+    
+    [self.viewHideOther removeFromSuperview];
+    
+    // 加入全屏播放按钮
+    [self.scrolView addSubview:self.btnBigScreen];
+    
+}
+
+
 - (void)changeBtnClick:(UIButton *)btn{
     if (btn.tag == 1) {
         self.videoBtn.selected = YES;

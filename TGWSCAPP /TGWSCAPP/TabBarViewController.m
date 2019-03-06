@@ -39,6 +39,10 @@
  */
 @property (nonatomic, strong) NSString *APP_URL;
 
+/*!
+ @brief     开启定位
+ */
+@property (nonatomic, strong) CLLocationManager* locationManager;
 
 @end
 
@@ -150,6 +154,29 @@
     return self;
 }
 
+-(void) initMap{
+    //检测定位功能是否开启
+    if([CLLocationManager locationServicesEnabled]){
+        if(!self.locationManager){
+            self.locationManager = [[CLLocationManager alloc] init];
+            if([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]){
+                
+                [self.locationManager requestWhenInUseAuthorization];
+                [self.locationManager requestAlwaysAuthorization];
+            }
+            //设置代理
+            //[self.locationManager setDelegate:self];
+            //设置定位精度
+            [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+            //设置距离筛选
+            [self.locationManager setDistanceFilter:100];
+            //开始定位
+            [self.locationManager startUpdatingLocation];
+            //设置开始识别方向
+            [self.locationManager startUpdatingHeading];
+        }
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -164,7 +191,8 @@
      if ([ToolsUtlis isAppFirstLoaded]){
          [self deviceInfo];
      }
-    
+    //开启定位权限
+    [self initMap];
 }
 
 -(void)layoutViews{

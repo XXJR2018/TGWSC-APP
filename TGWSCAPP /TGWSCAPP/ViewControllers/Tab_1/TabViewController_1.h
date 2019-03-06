@@ -13,8 +13,6 @@
 
 @property(nonatomic,strong) UIView *tabBar;
 
-@property (nonatomic, strong) CLLocationManager* locationManager;
-
 -(void)addButtonView;
 
 @end

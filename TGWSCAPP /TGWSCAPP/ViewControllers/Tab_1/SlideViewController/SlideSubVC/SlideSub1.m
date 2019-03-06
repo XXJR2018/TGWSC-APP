@@ -781,8 +781,8 @@
              }
             else if (2 == iSkipType)
              {
-                NSString *url = clickObj.strSkipUrl; //[NSString stringWithFormat:@"%@webMall/protocol/privacy",[PDAPI WXSysRouteAPI]];
-                [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"天狗窝商城隐私协议"];
+                NSString *url = clickObj.strSkipUrl;
+                [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"详情"];
              }
             
             //010103003、010101023、080102001、080101001

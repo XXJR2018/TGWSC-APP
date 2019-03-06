@@ -202,7 +202,6 @@
     }else{
         [self.playBtn setHidden:NO];
         
-        
         // 全屏播放
         self.playerLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         //self.scrolView.frame =  CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);

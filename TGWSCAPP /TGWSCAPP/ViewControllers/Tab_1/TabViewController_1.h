@@ -7,10 +7,13 @@
 //
 
 #import "CommonViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface TabViewController_1 : CommonViewController
 
 @property(nonatomic,strong) UIView *tabBar;
+
+@property (nonatomic, strong) CLLocationManager* locationManager;
 
 -(void)addButtonView;
 

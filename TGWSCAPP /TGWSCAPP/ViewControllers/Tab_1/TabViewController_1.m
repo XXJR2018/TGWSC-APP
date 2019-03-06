@@ -64,6 +64,8 @@
 
     [self initData];
     
+    [self initMap];
+    
     [self layoutUI];
     
     [self performSelector:@selector(isPopView) withObject:nil afterDelay:2.0];// 延迟执行
@@ -76,6 +78,31 @@
 {
     titles = [[NSMutableArray alloc] init];
     arrSubViewController = [[NSMutableArray alloc] init];
+}
+
+-(void) initMap
+{
+    //检测定位功能是否开启
+    if([CLLocationManager locationServicesEnabled]){
+        if(!_locationManager){
+            self.locationManager = [[CLLocationManager alloc] init];
+            if([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]){
+                
+                [self.locationManager requestWhenInUseAuthorization];
+                [self.locationManager requestAlwaysAuthorization];
+            }
+            //设置代理
+            //[self.locationManager setDelegate:self];
+            //设置定位精度
+            [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+            //设置距离筛选
+            [self.locationManager setDistanceFilter:100];
+            //开始定位
+            [self.locationManager startUpdatingLocation];
+            //设置开始识别方向
+            [self.locationManager startUpdatingHeading];
+        }
+    }
 }
 
 #pragma mark --- 布局UI

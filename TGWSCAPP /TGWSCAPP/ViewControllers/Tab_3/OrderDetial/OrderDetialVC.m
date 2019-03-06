@@ -1087,7 +1087,7 @@
 -(void) actionXieYi
 {
     NSLog(@"actionXieYi");
-    NSString *url = [NSString stringWithFormat:@"%@webMall/protocol/service",[PDAPI WXSysRouteAPI]];
+    NSString *url = [NSString stringWithFormat:@"%@webMall/protocol/service?type=ios",[PDAPI WXSysRouteAPI]];
     [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"天狗窝商城服务协议"];
 }
 

@@ -74,13 +74,13 @@
 
 - (IBAction)treaty_YH:(UIButton *)sender {
     [self.view endEditing:YES];
-    NSString *url = [NSString stringWithFormat:@"%@webMall/protocol/user",[PDAPI WXSysRouteAPI]];
+    NSString *url = [NSString stringWithFormat:@"%@webMall/protocol/user?type=ios",[PDAPI WXSysRouteAPI]];
     [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"天狗窝商城用户协议"];
 }
 
 - (IBAction)treaty_YS:(UIButton *)sender {
     [self.view endEditing:YES];
-    NSString *url = [NSString stringWithFormat:@"%@webMall/protocol/privacy",[PDAPI WXSysRouteAPI]];
+    NSString *url = [NSString stringWithFormat:@"%@webMall/protocol/privacy?type=ios",[PDAPI WXSysRouteAPI]];
     [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"天狗窝商城隐私协议"];
 }
 

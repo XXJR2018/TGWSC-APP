@@ -71,7 +71,8 @@
                 self.item = [AVPlayerItem playerItemWithURL:url];
                 self.myPlayer = [AVPlayer playerWithPlayerItem:self.item];
                 self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.myPlayer];
-                self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+                //self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill; // 均匀填充模式，会导致视频丢失一部分
+                self.playerLayer.videoGravity =AVLayerVideoGravityResize;  // 视频非均匀 填充模式
                 self.playerLayer.frame = CGRectMake(i*self.frame.size.width, 0, self.frame.size.width, self.frame.size.height);
                 [self.scrolView.layer addSublayer:self.playerLayer];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoPlayEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
@@ -184,13 +185,30 @@
         }
     }
 }
+
+#pragma mark  ---  播放按钮 隐藏/显示
 -(void)playShowAndHidden
 {
     isCliakVIew = !isCliakVIew;
     if (isCliakVIew) {
         [self.playBtn setHidden:YES];
+        
+        
+        // 缩放播放
+        self.playerLayer.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+        //self.scrolView.frame =  CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+        [self.scrolView.layer addSublayer:self.playerLayer];
+        
     }else{
         [self.playBtn setHidden:NO];
+        
+        
+        // 全屏播放
+        self.playerLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        //self.scrolView.frame =  CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        [self.parentVC.view.layer addSublayer:self.playerLayer];
+        
+        
     }
 }
 - (void)changeBtnClick:(UIButton *)btn{

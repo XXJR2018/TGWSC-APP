@@ -72,7 +72,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0.0.3</string>
+	<string>1.0.0.4</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>XXJLApp</string>
@@ -108,10 +108,12 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>是否允许此App使用摄像头权限用于上传头像？</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>是否允许该App获取定位权限用以添加收货地址？</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>是否允许该App获取定位权限用以添加收货地址？</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>是否允许此App为您添加照片用于上传图片？</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>是否允许此App使用相册用于上传图片？</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

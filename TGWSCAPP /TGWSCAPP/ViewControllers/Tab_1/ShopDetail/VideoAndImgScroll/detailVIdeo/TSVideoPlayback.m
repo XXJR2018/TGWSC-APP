@@ -77,7 +77,7 @@
                 self.myPlayer = [AVPlayer playerWithPlayerItem:self.item];
                 self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.myPlayer];
                 //self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill; // 均匀填充模式，会导致视频丢失一部分
-                self.playerLayer.videoGravity =AVLayerVideoGravityResize;  // 视频非均匀 填充模式
+                self.playerLayer.videoGravity = AVLayerVideoGravityResize;  // 视频非均匀 填充模式
                 self.playerLayer.frame = CGRectMake(i*self.frame.size.width, 0, self.frame.size.width, self.frame.size.height);
                 [self.scrolView.layer addSublayer:self.playerLayer];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoPlayEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];

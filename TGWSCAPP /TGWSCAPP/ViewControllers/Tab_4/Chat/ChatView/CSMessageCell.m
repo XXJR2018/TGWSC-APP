@@ -191,12 +191,19 @@
     
     if (messageModel.messageSenderType == MessageSenderTypeMe)
     {
-        _logoImageView.image = [UIImage imageNamed:@"w"];
+        //_logoImageView.image = [UIImage imageNamed:@"Tab_4-2"];
+       NSString *strHead = @"";
+       NSDictionary *dicUser = [CommonInfo userInfo];
+       if (dicUser)
+        {
+           strHead = dicUser[@"headImgUrl"];
+        }
+        [_logoImageView sd_setImageWithURL:[NSURL URLWithString:strHead] placeholderImage:[UIImage imageNamed:@"Tab_4-2"]];
         _bubbleImageView.image = [[UIImage imageNamed:@"me"] stretchableImageWithLeftCapWidth:20 topCapHeight:40];
     }
     else
     {
-        _logoImageView.image = [UIImage imageNamed:@"m"];
+        _logoImageView.image = [UIImage imageNamed:@"com_tgw"];
         _bubbleImageView.image = [[UIImage imageNamed:@"other"] stretchableImageWithLeftCapWidth:20 topCapHeight:40];
     }
     

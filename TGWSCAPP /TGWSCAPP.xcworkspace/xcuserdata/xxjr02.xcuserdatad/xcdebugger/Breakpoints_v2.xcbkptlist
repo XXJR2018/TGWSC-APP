@@ -58,28 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/TabBarViewController.m"
-            timestampString = "573114731.53636"
+            timestampString = "573529899.619164"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "439"
             endingLineNumber = "439"
-            landmarkName = "TabBarViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TGWSCAPP/TabBarViewController.m"
-            timestampString = "573114731.536443"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "449"
-            endingLineNumber = "449"
-            landmarkName = "-PushNextViewControllerWith:"
+            landmarkName = "-ailiPayReslut:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,12 +74,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/TabBarViewController.m"
-            timestampString = "573114731.5365"
+            timestampString = "573529899.619568"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "449"
+            endingLineNumber = "449"
+            landmarkName = "-ailiPayReslut:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/TabBarViewController.m"
+            timestampString = "573529899.619833"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "442"
             endingLineNumber = "442"
-            landmarkName = "-PushNextViewControllerWith:"
+            landmarkName = "-ailiPayReslut:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,13 +122,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.324231"
+            timestampString = "573534354.928188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "672"
             endingLineNumber = "672"
-            landmarkName = "TabViewController_1"
-            landmarkType = "3">
+            landmarkName = "-getPopFromWeb"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -440,13 +440,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/TabBarViewController.m"
-            timestampString = "573114731.5369101"
+            timestampString = "573529899.620594"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "535"
             endingLineNumber = "535"
-            landmarkName = "TabBarViewController"
-            landmarkType = "3">
+            landmarkName = "-upVersionAlertView:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -456,12 +456,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/TabBarViewController.m"
-            timestampString = "573114731.536971"
+            timestampString = "573529899.620917"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "548"
             endingLineNumber = "548"
-            landmarkName = "-parseDic:"
+            landmarkName = "-upVersionAlertView:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -472,12 +472,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/TabBarViewController.m"
-            timestampString = "573114731.53704"
+            timestampString = "573529899.62129"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "554"
             endingLineNumber = "554"
-            landmarkName = "-parseDic:"
+            landmarkName = "-didClickButtonAtIndex:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -488,12 +488,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/TabBarViewController.m"
-            timestampString = "573114731.537091"
+            timestampString = "573529899.621694"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "554"
             endingLineNumber = "554"
-            landmarkName = "-parseDic:"
+            landmarkName = "-didClickButtonAtIndex:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -520,7 +520,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.326447"
+            timestampString = "573534354.928789"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "41"
@@ -696,12 +696,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.327044"
+            timestampString = "573534354.929064"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "201"
             endingLineNumber = "201"
-            landmarkName = "-layoutMain"
+            landmarkName = "-layoutMenu:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -882,11 +882,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/VideoAndImgScroll/detailVIdeo/TSVideoPlayback.m"
-            timestampString = "573529256.327649"
+            timestampString = "573534354.929373"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
             landmarkName = "-changeBtnClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -898,11 +898,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/VideoAndImgScroll/detailVIdeo/TSVideoPlayback.m"
-            timestampString = "573529256.327718"
+            timestampString = "573534354.929794"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
             landmarkName = "-imgTapClick"
             landmarkType = "7">
          </BreakpointContent>
@@ -1666,12 +1666,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.32918"
+            timestampString = "573534354.931182"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "680"
             endingLineNumber = "680"
-            landmarkName = "-getMenuFromWeb"
+            landmarkName = "-getPopFromWeb"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3920,13 +3920,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.333506"
+            timestampString = "573534354.934394"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "698"
             endingLineNumber = "698"
-            landmarkName = "-getPopFromWeb"
-            landmarkType = "7">
+            landmarkName = "TabViewController_1"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4080,7 +4080,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.33404"
+            timestampString = "573534354.934667"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
@@ -4096,7 +4096,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.334288"
+            timestampString = "573534354.93472"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "44"
@@ -4112,12 +4112,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.3345259"
+            timestampString = "573534354.9347709"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "600"
             endingLineNumber = "600"
-            landmarkName = "-actionSearch1"
+            landmarkName = "-actionSearch2"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4128,12 +4128,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.334762"
+            timestampString = "573534354.9348201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "592"
             endingLineNumber = "592"
-            landmarkName = "-actionSearch1"
+            landmarkName = "-actionSearch2"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4144,12 +4144,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.334995"
+            timestampString = "573534354.934868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "584"
             endingLineNumber = "584"
-            landmarkName = "-actionSearch1"
+            landmarkName = "-actionSearch2"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4160,12 +4160,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.3352261"
+            timestampString = "573534354.934917"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "623"
             endingLineNumber = "623"
-            landmarkName = "-actionSearch2"
+            landmarkName = "-actionMenu:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4208,13 +4208,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.33555"
+            timestampString = "573534354.935016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "777"
             endingLineNumber = "777"
-            landmarkName = "-handleData:"
-            landmarkType = "7">
+            landmarkName = "TabViewController_1"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4224,12 +4224,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.3357919"
+            timestampString = "573534354.935066"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "546"
             endingLineNumber = "546"
-            landmarkName = "-actionDilckPop:"
+            landmarkName = "-actionSearch1"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4800,7 +4800,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.337042"
+            timestampString = "573534354.93591"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
@@ -4816,12 +4816,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/TabBarViewController.m"
-            timestampString = "573114731.548591"
+            timestampString = "573529899.6282589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "472"
             endingLineNumber = "472"
-            landmarkName = "-onCheckVersion"
+            landmarkName = "-PushNextViewControllerWith:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4832,12 +4832,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/TabBarViewController.m"
-            timestampString = "573114731.548645"
+            timestampString = "573529899.628583"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "541"
             endingLineNumber = "541"
-            landmarkName = "-parseDic:"
+            landmarkName = "-upVersionAlertView:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4848,12 +4848,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/TabBarViewController.m"
-            timestampString = "573114731.548691"
+            timestampString = "573529899.628857"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "484"
             endingLineNumber = "484"
-            landmarkName = "-onCheckVersion"
+            landmarkName = "-PushNextViewControllerWith:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5024,13 +5024,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.337669"
+            timestampString = "573534354.936247"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "790"
-            endingLineNumber = "790"
-            landmarkName = "-handleData:"
-            landmarkType = "7">
+            startingLineNumber = "780"
+            endingLineNumber = "780">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5072,12 +5070,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/TabViewController_1.m"
-            timestampString = "573529256.3379771"
+            timestampString = "573534354.936344"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "738"
             endingLineNumber = "738"
-            landmarkName = "-getCartCount"
+            landmarkName = "-handleData:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5152,12 +5150,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/TabBarViewController.m"
-            timestampString = "573114731.552471"
+            timestampString = "573529899.629513"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "329"
             endingLineNumber = "329"
-            landmarkName = "-switchTab:"
+            landmarkName = "-setButtonsState:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5552,12 +5550,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/TabBarViewController.m"
-            timestampString = "573114731.5549411"
+            timestampString = "573529899.63046"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "475"
             endingLineNumber = "475"
-            landmarkName = "-onCheckVersion"
+            landmarkName = "-PushNextViewControllerWith:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5568,13 +5566,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/TabBarViewController.m"
-            timestampString = "573114731.554991"
+            timestampString = "573529899.630859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "468"
             endingLineNumber = "468"
-            landmarkName = "-reachabilityChanged:"
-            landmarkType = "7">
+            landmarkName = "TabBarViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5584,7 +5582,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.339103"
+            timestampString = "573534354.937076"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "886"
@@ -5600,7 +5598,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.339179"
+            timestampString = "573534354.937155"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1082"
@@ -5616,7 +5614,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.339239"
+            timestampString = "573534354.937215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1093"
@@ -5648,7 +5646,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.339331"
+            timestampString = "573534354.937322"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "810"
@@ -5664,7 +5662,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.339402"
+            timestampString = "573534354.9374011"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "805"
@@ -5680,7 +5678,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.339485"
+            timestampString = "573534354.937479"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "841"
@@ -5696,7 +5694,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.3395441"
+            timestampString = "573534354.937537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1090"
@@ -5712,7 +5710,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.339602"
+            timestampString = "573534354.937602"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
@@ -5728,7 +5726,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.339659"
+            timestampString = "573534354.937669"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1270"
@@ -5744,7 +5742,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.339756"
+            timestampString = "573534354.937726"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "823"
@@ -5760,7 +5758,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.3398139"
+            timestampString = "573534354.937783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "119"
@@ -5776,7 +5774,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.339873"
+            timestampString = "573534354.937837"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "828"
@@ -5808,7 +5806,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.339972"
+            timestampString = "573534354.93792"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "654"
@@ -5824,7 +5822,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.340034"
+            timestampString = "573534354.937979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "647"
@@ -5840,7 +5838,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.3400919"
+            timestampString = "573534354.938036"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1279"
@@ -5856,7 +5854,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.340149"
+            timestampString = "573534354.93811"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "704"
@@ -5872,7 +5870,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.340206"
+            timestampString = "573534354.9381649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "722"
@@ -5888,7 +5886,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.340264"
+            timestampString = "573534354.9382221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1315"
@@ -6032,7 +6030,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.340559"
+            timestampString = "573534354.938458"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "422"
@@ -6048,7 +6046,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.340619"
+            timestampString = "573534354.938542"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "429"
@@ -6096,7 +6094,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.340739"
+            timestampString = "573534354.938659"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "370"
@@ -6112,7 +6110,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.3407969"
+            timestampString = "573534354.938718"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "702"
@@ -6128,7 +6126,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.340854"
+            timestampString = "573534354.938774"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1295"
@@ -6144,7 +6142,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.340909"
+            timestampString = "573534354.93883"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "800"
@@ -6416,7 +6414,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/WebSocket/WebSocketManager.m"
-            timestampString = "573529256.341437"
+            timestampString = "573534354.939302"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "120"
@@ -6432,7 +6430,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/WebSocket/WebSocketManager.m"
-            timestampString = "573529256.341496"
+            timestampString = "573534354.9393981"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "129"
@@ -6448,7 +6446,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/WebSocket/WebSocketManager.m"
-            timestampString = "573529256.34155"
+            timestampString = "573534354.939466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "132"
@@ -6512,7 +6510,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/WebSocket/WebSocketManager.m"
-            timestampString = "573529256.341691"
+            timestampString = "573534354.9396271"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "242"
@@ -6528,7 +6526,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/WebSocket/WebSocketManager.m"
-            timestampString = "573529256.341742"
+            timestampString = "573534354.939701"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "138"
@@ -6544,7 +6542,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/WebSocket/WebSocketManager.m"
-            timestampString = "573529256.34179"
+            timestampString = "573534354.9397629"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "207"
@@ -6560,7 +6558,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/WebSocket/WebSocketManager.m"
-            timestampString = "573529256.341841"
+            timestampString = "573534354.939827"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "106"
@@ -6688,7 +6686,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.342113"
+            timestampString = "573534354.940051"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "643"
@@ -6704,7 +6702,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.342185"
+            timestampString = "573534354.940118"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "588"
@@ -6736,7 +6734,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/WebSocket/WebSocketManager.m"
-            timestampString = "573529256.342308"
+            timestampString = "573534354.940204"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
@@ -6752,7 +6750,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/WebSocket/WebSocketManager.m"
-            timestampString = "573529256.342363"
+            timestampString = "573534354.940258"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "103"
@@ -6768,7 +6766,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.342415"
+            timestampString = "573534354.94031"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1021"
@@ -6800,11 +6798,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/VideoAndImgScroll/detailVIdeo/TSVideoPlayback.m"
-            timestampString = "573529256.342512"
+            timestampString = "573534354.940401"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
             landmarkName = "-changeBtnClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6816,11 +6814,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/VideoAndImgScroll/detailVIdeo/TSVideoPlayback.m"
-            timestampString = "573529256.342575"
+            timestampString = "573534354.940765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
+            startingLineNumber = "330"
+            endingLineNumber = "330"
             landmarkName = "-scrollViewDidScroll:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6928,12 +6926,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/TabBarViewController.m"
-            timestampString = "573114731.560815"
+            timestampString = "573529899.6345921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "606"
             endingLineNumber = "606"
-            landmarkName = "-handleData:"
+            landmarkName = "-deviceInfo"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7072,7 +7070,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/WebSocket/WebSocketManager.m"
-            timestampString = "573529256.343011"
+            timestampString = "573534354.941361"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "59"
@@ -7088,7 +7086,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.343069"
+            timestampString = "573534354.941419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1020"
@@ -7104,7 +7102,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_4/Chat/ChatView/ChatViewController.m"
-            timestampString = "573529256.34312"
+            timestampString = "573534354.941473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1022"
@@ -7120,11 +7118,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/VideoAndImgScroll/detailVIdeo/TSVideoPlayback.m"
-            timestampString = "573529256.34317"
+            timestampString = "573534354.941527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "320"
+            endingLineNumber = "320"
             landmarkName = "-scrollViewDidEndDecelerating:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7136,11 +7134,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/VideoAndImgScroll/detailVIdeo/TSVideoPlayback.m"
-            timestampString = "573529256.343228"
+            timestampString = "573534354.9418401"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "-scrollViewDidEndDecelerating:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7152,11 +7150,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/VideoAndImgScroll/detailVIdeo/TSVideoPlayback.m"
-            timestampString = "573529256.343285"
+            timestampString = "573534354.942138"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "-setWithIsVideo:andDataArray:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7168,12 +7166,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/VideoAndImgScroll/detailVIdeo/TSVideoPlayback.m"
-            timestampString = "573529256.343343"
+            timestampString = "573534354.942448"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
             landmarkName = "-playShowAndHidden"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TGWSCAPP/ViewControllers/Tab_1/ShopDetail/VideoAndImgScroll/detailVIdeo/TSVideoPlayback.m"
+            timestampString = "573534354.942742"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "-actionBigScreen"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

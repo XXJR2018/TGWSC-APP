@@ -342,6 +342,28 @@
     [self.view addSubview:evaluteView];
     evaluteView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.7];
     evaluteView.hidden = YES;
+    
+    
+    __weak WebSocketManager *weakSockM = socketManager;
+    __weak EvaluateView *weakEvaluteView= evaluteView;
+    __weak typeof(self) weakSelf = self;
+    evaluteView.bolck_comit = ^(id obj) {
+      
+        NSLog(@"evaluteView.bolck_comit :%@", obj);
+        
+        if(obj)
+         {
+            BOOL sendSucees =   [weakSockM sendDic:obj];
+            if (sendSucees)
+             {
+                weakEvaluteView.hidden = YES;
+             }
+            else
+             {
+                [MBProgressHUD showErrorWithStatus:@"网络异常，请稍后再发送" toView:weakSelf.view];
+             }
+         }
+    };
 }
 
 #pragma mark ---  智能客服相关代码
@@ -657,23 +679,20 @@
        
        
        
+    
+
        
-        if (!isRGFW)
-         {
-            // 智能客服
-            [self answerCostonService:model.messageText];
-         }
-        else
-         {
-            //人工客服  发送文本到后台服务器
-            BOOL sendSuccess = [socketManager sendText:model.messageText];
-            
-            if (!sendSuccess)
-             {
-                [MBProgressHUD showErrorWithStatus:@"网络异常，请稍后再试" toView:self.view];
-                return NO;
-             }
-         }
+       if (isRGFW)
+        {
+           //人工客服  发送文本到后台服务器
+           BOOL sendSuccess = [socketManager sendText:model.messageText];
+           
+           if (!sendSuccess)
+            {
+               [MBProgressHUD showErrorWithStatus:@"网络异常，请稍后再试" toView:self.view];
+               return NO;
+            }
+        }
     
        [self setShowTime:model];
        [_dataArray addObject:model];
@@ -689,8 +708,17 @@
        
        [model bg_save];
        
+       
+       if (!isRGFW)
+        {
+           // 智能客服
+           [self answerCostonService:model.messageText];
+        }
+       
         return NO;
     }
+    
+    
     
     return YES;
 }

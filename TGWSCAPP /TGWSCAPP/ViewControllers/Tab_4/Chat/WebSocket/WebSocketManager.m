@@ -226,8 +226,6 @@
 // 发送文本和 简单表情
 - (BOOL)sendText:(NSString *) strSend
 {
-    // 根据服务器要求发送固定格式的数据
-    
     
     if(!longSocket)
      {
@@ -238,7 +236,7 @@
         return FALSE;
      }
     
-    
+    // 根据服务器要求发送固定格式的数据
     NSMutableDictionary *dicMsgData = [[NSMutableDictionary alloc] init];
     dicMsgData[@"type"] = @"text";
     dicMsgData[@"content"] = strSend;
@@ -261,6 +259,31 @@
     return sendSuccess;
 }
 
+// 发送组装好的命令
+- (BOOL)sendDic:(NSDictionary *) dicSend
+{
+    if(!longSocket)
+     {
+        NSLog(@"网络连接断开，发送失败，即将进行重连");
+        
+        [self socketConnectHost];
+        
+        return FALSE;
+     }
+    
+    NSString  *nstrDic = [dicSend JSONString];
+    
+    NSLog(@"我发送文本信息:  %@" ,nstrDic);
+    
+    NSError *error = nil;
+    BOOL  sendSuccess =  [_webSocket sendString:nstrDic error:&error];
+    if (error!=nil)
+     {
+        NSLog(@"发送<%@>   失败：%@",dicSend,error);
+     }
+    
+    return sendSuccess;
+}
 
 
 

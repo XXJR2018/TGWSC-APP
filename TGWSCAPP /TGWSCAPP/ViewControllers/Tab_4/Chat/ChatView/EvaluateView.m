@@ -10,11 +10,13 @@
 
 @implementation EvaluateView
 {
+    UITextField *filedYY;
+    
     NSMutableArray *arrAnserBtn;
     NSMutableArray *arrPJBtn;
 
-    int iAnserNo;
-    int iPJNo;
+    int iAnserNo;  // 是否已经解决   -1 表示未选择， 1  表示已经解决， 2 表示 未解决
+    int iPJNo;     // 评价的星级，  -1 表示未选择， 1到5表示 星级
 }
 
 
@@ -145,7 +147,7 @@
     
     iTopY +=  label3.height + 10;
     iLeftX = 20;
-    UITextField *filedYY = [[UITextField alloc] initWithFrame:CGRectMake(iLeftX, iTopY, iPopWidth-2*iLeftX, 30)];
+    filedYY = [[UITextField alloc] initWithFrame:CGRectMake(iLeftX, iTopY, iPopWidth-2*iLeftX, 30)];
     [viewPop addSubview:filedYY];
     filedYY.layer.borderColor = [ResourceManager lightGrayColor].CGColor;
     filedYY.layer.borderWidth = 0.3;
@@ -184,7 +186,42 @@
 -(void) actionCommit
 {
     [self endEditing:YES];
-    self.hidden = YES;
+    
+    if (-1 == iAnserNo)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请选择是否解决问题" toView:self];
+        return;
+     }
+    
+    if (-1 == iPJNo)
+     {
+        [MBProgressHUD showErrorWithStatus:@"请您打分" toView:self];
+        return;
+     }
+    
+    
+    if (_bolck_comit)
+     {
+        if(iAnserNo == 2)
+         {
+            iAnserNo = 0;
+         }
+        
+//        客户对服务进行评价{"reqType":"10","body"::{"solvestatus":"0","pfScore":"5","pfReason":"因为xxxx"}}     （solvestatus：是否解决问题（0未解决，1已解决））
+        
+        NSMutableDictionary *dicSend = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary *dicBody = [[NSMutableDictionary alloc] init];
+        dicBody[@"solvestatus"] = @(iAnserNo);
+        dicBody[@"pfScore"] = @(iPJNo);
+        dicBody[@"pfReason"] = filedYY.text;
+        
+        dicSend[@"reqType"] = @(10);
+        dicSend[@"body"] = dicBody;
+    
+        _bolck_comit(dicSend);
+     }
+    
+    //self.hidden = YES;
 }
 
 -(void) actionAnser:(UIButton*) sender
@@ -207,8 +244,8 @@
         [btnTemp setImage:[UIImage imageNamed:@"chat_pj_unsel"] forState:UIControlStateNormal];
      }
     
-    iAnserNo = (int)sender.tag;
-    for (int i = 0; i < iAnserNo; i++)
+    iPJNo = (int)sender.tag;
+    for (int i = 0; i < iPJNo; i++)
      {
         UIButton *btnTemp = (UIButton*)arrPJBtn[i];
         [btnTemp setImage:[UIImage imageNamed:@"chat_pj_sel"] forState:UIControlStateNormal];

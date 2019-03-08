@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 // 发送文本和简单表情
 - (BOOL)sendText:(NSString *) strSend;
 
+
+// 发送组装好的命令
+- (BOOL)sendDic:(NSDictionary *) dicSend;
+
 @end
 
 NS_ASSUME_NONNULL_END

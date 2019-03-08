@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EvaluateView : UIView
 
+
+@property (nonatomic, strong) Block_Id  bolck_comit;
+
 @end
 
 NS_ASSUME_NONNULL_END

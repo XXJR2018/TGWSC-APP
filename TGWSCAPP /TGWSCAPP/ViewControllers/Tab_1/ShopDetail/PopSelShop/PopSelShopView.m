@@ -481,6 +481,11 @@
 
 -(void) actionShopCart
 {
+    
+    if (![CommonInfo isLoggedIn])
+     {
+        [self hide];
+     }
 
     if (strSKUCode.length <= 0)
      {

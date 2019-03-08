@@ -603,7 +603,11 @@
     
     [alertView subAlertCurHeight:10];
     
+    __weak typeof(WebSocketManager*) weakSocketM = socketManager;
+    
     [alertView addCanelButton:@"确定" actionBlock:^{
+        
+        [weakSocketM sendClose];
         
         [self performSelector:@selector(delayMethod) withObject:nil afterDelay:0.5];// 延迟执行
         

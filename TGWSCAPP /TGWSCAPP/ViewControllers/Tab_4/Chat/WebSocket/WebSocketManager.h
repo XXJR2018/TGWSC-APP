@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 //初始化Socket并发起连接
 - (void)socketConnectHost;
 
+// 发送断开命令到后台
+-(BOOL)sendClose;
+
 
 // 发送文本和简单表情
 - (BOOL)sendText:(NSString *) strSend;
@@ -27,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 发送组装好的命令
 - (BOOL)sendDic:(NSDictionary *) dicSend;
+
+
 
 @end
 

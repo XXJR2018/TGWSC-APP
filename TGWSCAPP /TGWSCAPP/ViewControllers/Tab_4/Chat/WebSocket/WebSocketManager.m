@@ -19,6 +19,8 @@
     NSString *Host;
     NSInteger Port;
     NSInteger errCount;      //重连次数计数器
+    
+    BOOL  activeDisconnection;  // 是否主动断开
 }
 
 // websocket
@@ -41,6 +43,7 @@
         Host = @"192.168.10.131";
         Port = 6406;
         
+        activeDisconnection = FALSE;
         //  http://192.168.10.208/mallKefu/custSocket/
     }
     return self;
@@ -127,6 +130,12 @@
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
 {
     NSLog(@"WebSocket closed  reason:%@",reason);
+    
+    if (activeDisconnection)
+     {
+        // 主动断开，不要重连
+        return;
+     }
     
     [self reConnect];
 
@@ -285,6 +294,29 @@
     return sendSuccess;
 }
 
-
+// 发送断开命令到后台
+-(BOOL)sendClose
+{
+    NSMutableDictionary  *dicSend = [[NSMutableDictionary alloc] init];
+    dicSend[@"reqType"] = @(11);
+    
+    NSString  *nstrDic = [dicSend JSONString];
+    
+    NSLog(@"我发送文本信息:  %@" ,nstrDic);
+    
+    NSError *error = nil;
+    BOOL  sendSuccess =  [_webSocket sendString:nstrDic error:&error];
+    if (error!=nil)
+     {
+        NSLog(@"发送<%@>   失败：%@",dicSend,error);
+     }
+    else
+     {
+        activeDisconnection = TRUE;
+     }
+    
+    return  sendSuccess;
+    
+}
 
 @end

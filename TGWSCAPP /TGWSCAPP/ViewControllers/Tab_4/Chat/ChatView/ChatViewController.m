@@ -32,9 +32,15 @@
     UIButton *btnPJ;    // 评价按钮
     UIButton *btnExit;  // 退出按钮
     
+    UIImageView *imgBtnPJ;
+    UILabel   *lableBtnPJ;
+    
     EvaluateView  *evaluteView; // 评价view
     
     WebSocketManager   *socketManager; // 通讯管理组件
+    
+    NSMutableArray  *arrQuestion;  // 热门问题数组
+    NSMutableArray  *arrAnswer;    // 热门问题的答案数组
     
     BOOL  isRGFW;   // 是否人工服务
     BOOL isGetData;  // 是否获取过历史记录
@@ -51,6 +57,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    [self initData];
+    
     nav = [self layoutNaviBarViewWithTitle:@"客服聊天"];
     
     [self layoutNavButton];
@@ -76,8 +84,9 @@
 
     //[self getDBData];
     
-    // 初始化职能客服
-    [self initCustonSerivce];
+    // 从后台获取热门问题
+    [self queryHotQuestion];
+    
     
     // 人工客服初始化代码
     socketManager = [[WebSocketManager alloc] init];
@@ -138,6 +147,12 @@
     vi.frame = CGRectMake(0, _nowHeight, [UIScreen mainScreen].bounds.size.width, 44);
 }
 
+
+-(void) initData
+{
+    arrQuestion = [[NSMutableArray alloc] init];  // 热门问题数组
+    arrAnswer = [[NSMutableArray alloc] init];    // 热门问题的答案数组
+}
 
 
 #pragma mark  ---  布局UI
@@ -228,6 +243,9 @@
        labelT.textColor = [ResourceManager navgationTitleColor];
        labelT.textAlignment = NSTextAlignmentCenter;
        labelT.text = @"评价";
+       
+       imgBtnPJ = imgViewTop;
+       lableBtnPJ = labelT;
        
        btnPJ = rightNavBtn;
        btnPJ.hidden = YES;
@@ -357,6 +375,8 @@
             if (sendSucees)
              {
                 weakEvaluteView.hidden = YES;
+                
+                [weakSelf chagePJState];
              }
             else
              {
@@ -364,6 +384,12 @@
              }
          }
     };
+}
+
+-(void) chagePJState
+{
+    imgBtnPJ.image = [UIImage imageNamed:@"chat_pj_success"];;
+    lableBtnPJ.text = @"已评价";
 }
 
 #pragma mark ---  智能客服相关代码
@@ -375,7 +401,7 @@
     model.messageText = textSendView.text;
 
     model.tiltleQuestion = @"热门问题";
-    NSArray *arrQuestion = @[@"如何退差价",@"如何退货",@"退换快递单号填写错误了"];
+    //NSArray *arrQuestion = @[@"如何退差价",@"如何退货",@"退换快递单号填写错误了"];
     model.arrQuestion = arrQuestion;
     
     [self setShowTime:model];
@@ -389,11 +415,11 @@
 
 -(void) answerCostonService:(NSString*) strQuestion
 {
-    int iAllQuestionCount = 10;
-    for (int i  = 1; i <= iAllQuestionCount; i++)
+    int iAllQuestionCount = (int)arrAnswer.count;
+    for (int i  = 0; i < iAllQuestionCount; i++)
      {
-        NSString *strNo = [NSString stringWithFormat:@"%d",i];
-        NSString *strAnswer = [NSString stringWithFormat:@"正在回答第%d个问题",i];
+        NSString *strNo = [NSString stringWithFormat:@"%d",i+1];
+        NSString *strAnswer = arrAnswer[i]; //[NSString stringWithFormat:@"正在回答第%d个问题",i];
         if ([strQuestion isEqualToString:strNo])
          {
             CSMessageModel *model = [[CSMessageModel alloc] init];
@@ -677,10 +703,7 @@
         //model.showMessageTime=YES;
         //model.messageTime = @"16:40";
        
-       
-       
     
-
        
        if (isRGFW)
         {
@@ -1331,6 +1354,55 @@ static int iiii = 0;
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark --- 请求后台接口
+-(void) queryHotQuestion
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    //params[@"msgType"] = @(1);
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLqueryqueryHotQuestion];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    operation.tag = 1000;
+    [operation start];
+}
+
+
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation
+{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    if (operation.tag == 1000)
+     {
+        NSArray *arr = operation.jsonResult.rows;
+        if (arr &&
+            arr.count > 0)
+         {
+            for (int i = 0; i < arr.count ; i++)
+             {
+                NSDictionary *dicQ = arr[i];
+                [arrQuestion addObject:dicQ[@"question"]];
+                [arrAnswer addObject:dicQ[@"answer"]];
+             }
+            
+            // 初始化职能客服
+            [self initCustonSerivce];
+         }
+     }
+    
+}
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation
+{
+    if (operation.tag == 1000)
+     {
+        
+     }
+}
 
 // 视图被销毁
 - (void)dealloc {

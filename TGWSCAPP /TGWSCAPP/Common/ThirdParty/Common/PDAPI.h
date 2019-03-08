@@ -133,6 +133,9 @@ static NSString *const kURLqueryGoodsLable = @"appMall/account/orderComment/quer
 // 商品评论列表
 static NSString *const kURLqueryAllCommList = @"appMall/account/orderComment/queryAllCommList";
 
+#pragma mark   ---  聊天相关 （部分接口）
+// 获取所有热门问题
+static NSString *const kURLqueryqueryHotQuestion = @"appMall/kf/manager/queryHotQuestion";
 
 /*!
  @brief 管理所有接口URL

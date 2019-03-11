@@ -12,6 +12,8 @@
 
 #import "OrderDetailsViewController.h"
 #import "RefundInfoVC.h"
+#import "RechargeViewController.h"
+#import "RechargeDetailsViewController.h"
 
 @interface MyBalanceViewController ()
 {
@@ -19,7 +21,7 @@
     UIButton *_xfListBtn;
     UIButton *_lqListBtn;
     UIButton *_gqListBtn;
-    UIButton *_makeBtn;
+    UIButton *_RechargeBtn;
     UILabel *_balanceLabel;
     UILabel *_zsfyeLabel;
     UILabel *_zsfyeNumLabel;
@@ -60,13 +62,21 @@
         NSDictionary *dic = operation.jsonResult.attr;
         if (_xfListBtn.selected) {
             _zsfyeLabel.text = @"总消费余额";
-            _zsfyeNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"totalExpend"]];
+            _zsfyeNumLabel.text = [NSString stringWithFormat:@"%.2f",[[dic objectForKey:@"totalExpend"] floatValue]];
         }else if (_lqListBtn.selected) {
             _zsfyeLabel.text = @"总领取余额";
-            _zsfyeNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"totalIncome"]];
+            _zsfyeNumLabel.text = [NSString stringWithFormat:@"%.2f",[[dic objectForKey:@"totalIncome"] floatValue]];
+            if ([[dic objectForKey:@"totalIncome"] intValue] == 0) {
+                _balanceTypeView.frame = CGRectMake(0, CGRectGetMaxY(_zsfyeNumLabel.frame), SCREEN_WIDTH, 0);
+                [_balanceTypeView removeAllSubviews];
+            }
         }else{
             _zsfyeLabel.text = @"总过期余额";
-            _zsfyeNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"totalOverdue"]];
+             _zsfyeNumLabel.text = [NSString stringWithFormat:@"%.2f",[[dic objectForKey:@"totalOverdue"] floatValue]];
+            if ([[dic objectForKey:@"totalOverdue"] intValue] == 0) {
+                _balanceTypeView.frame = CGRectMake(0, CGRectGetMaxY(_zsfyeNumLabel.frame), SCREEN_WIDTH, 0);
+                [_balanceTypeView removeAllSubviews];
+            }
         }
     }
     if (operation.jsonResult.rows.count > 0) {
@@ -115,7 +125,7 @@
 -(void)layoutUI{
     _headerView = [[UIView alloc]init];
     [_tableView setTableHeaderView:_headerView];
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 15, 100, 20)];
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, 100, 20)];
     [_headerView addSubview:titleLabel];
     titleLabel.font = [UIFont systemFontOfSize:13];
     titleLabel.textColor = [ResourceManager color_1];
@@ -124,29 +134,27 @@
     [_headerView addSubview:_balanceLabel];
     _balanceLabel.font = [UIFont systemFontOfSize:20];
     _balanceLabel.textColor = UIColorFromRGB(0xB00000);
-    _balanceLabel.text = [NSString stringWithFormat:@"￥%@",[[CommonInfo userInfo] objectForKey:@"usableAmount"]];
+    _balanceLabel.text = [NSString stringWithFormat:@"￥%.2f",[[[CommonInfo userInfo] objectForKey:@"usableAmount"] floatValue]];
     
-    if ([[[CommonInfo userInfo] objectForKey:@"usableAmount"] floatValue] > 0) {
-        _makeBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH  - 95, CGRectGetMidY(_balanceLabel.frame) - 35/2, 80, 35)];
-        [_headerView addSubview:_makeBtn];
-        _makeBtn.layer.borderWidth = 0.5;
-        _makeBtn.layer.borderColor = UIColorFromRGB(0xB00000).CGColor;
-        [_makeBtn setTitle:@"去使用" forState:UIControlStateNormal];
-        _makeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_makeBtn setTitleColor:UIColorFromRGB(0xB00000) forState:UIControlStateNormal];
-        [_makeBtn addTarget:self action:@selector(makeTouch) forControlEvents:UIControlEventTouchUpInside];
-    }
+    _RechargeBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH  - 90, CGRectGetMidY(_balanceLabel.frame) - 30/2, 70, 30)];
+    [_headerView addSubview:_RechargeBtn];
+    _RechargeBtn.layer.borderWidth = 0.5;
+    _RechargeBtn.layer.borderColor = UIColorFromRGB(0xB00000).CGColor;
+    [_RechargeBtn setTitle:@"充值" forState:UIControlStateNormal];
+    _RechargeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [_RechargeBtn setTitleColor:UIColorFromRGB(0xB00000) forState:UIControlStateNormal];
+    [_RechargeBtn addTarget:self action:@selector(Recharge) forControlEvents:UIControlEventTouchUpInside];
     
     _xfListBtn = [[UIButton alloc]init];
     _lqListBtn = [[UIButton alloc]init];
     _gqListBtn = [[UIButton alloc]init];
     _xfListBtn.selected = YES;
     NSArray *btnArr = @[_xfListBtn,_lqListBtn,_gqListBtn];
-    NSArray *titleArr = @[@"消费明细",@"领取记录",@"过期记录"];
+    NSArray *titleArr = @[@"收支明细",@"领取记录",@"过期记录"];
     for (int i = 0; i < btnArr.count; i ++) {
         UIButton *btn = ((UIButton *)btnArr[i]);
         [_headerView addSubview:btn];
-        btn.frame = CGRectMake(SCREEN_WIDTH/3 * i, CGRectGetMaxY(_balanceLabel.frame) + 20, SCREEN_WIDTH/3, 50);
+        btn.frame = CGRectMake(SCREEN_WIDTH/3 * i, CGRectGetMaxY(_balanceLabel.frame) + 25, SCREEN_WIDTH/3, 50);
         btn.backgroundColor = [ResourceManager viewBackgroundColor];
         btn.tag = i;
         [btn setTitle:titleArr[i] forState:UIControlStateNormal];
@@ -185,9 +193,9 @@
     _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, CGRectGetMaxY(_balanceTypeView.frame));
 }
 
--(void)makeTouch{
-    [self.navigationController popToRootViewControllerAnimated:NO];
-    [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@"1"}];
+#pragma mark ---充值
+-(void)Recharge{
+    
 }
 
 

@@ -108,11 +108,11 @@
     //连接成功
     longSocket = YES;
     
-    // 发送身份认证信息
-    //[self sendLoginInfo];
+    // 是否有评价过
+    [self performSelector:@selector(sendHasPJ) withObject:nil afterDelay:0.5];// 延迟执行
     
     // 创建心跳包
-    [self performSelector:@selector(creatConnectTimer) withObject:nil afterDelay:1.0];// 延迟执行
+    [self performSelector:@selector(creatConnectTimer) withObject:nil afterDelay:3.0];// 延迟执行
     
  
 }
@@ -186,8 +186,6 @@
 -(void)sendLoginInfo
 {
     // 根据服务器要求发送固定格式的数据
-    
-    
     NSMutableDictionary *dicMsgData = [[NSMutableDictionary alloc] init];
     dicMsgData[@"signId"] = [CommonInfo signId];
     
@@ -208,6 +206,30 @@
         [self socketConnectHost];
      }
 }
+
+// 获取是否评价过
+-(void)sendHasPJ
+{
+    // 根据服务器要求发送固定格式的数据
+    NSMutableDictionary *dicSend = [[NSMutableDictionary alloc] init];
+    dicSend[@"reqType"] = @"12";
+   
+    
+    NSString  *nstrDic = [dicSend JSONString];
+    
+    NSLog(@"我发送是否评论过信息：%@", nstrDic);
+    
+    NSError *error = nil;
+    BOOL  sendSuccess =  [_webSocket sendString:nstrDic error:&error];
+    if (!sendSuccess)
+     {
+        // 发送失败，重新连接服务器
+        [self socketConnectHost];
+     }
+}
+
+
+
 
 // 发送心跳包
 - (void)longConnectToSocket

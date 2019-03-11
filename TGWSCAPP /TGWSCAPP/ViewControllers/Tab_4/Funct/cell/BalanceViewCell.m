@@ -70,9 +70,9 @@
     _changeNumLabel.textColor = [ResourceManager color_1];
     _changeNumLabel.textAlignment = NSTextAlignmentRight;
     if ([[_dataDicionary objectForKey:@"fundFlag"] intValue] == 1) {
-        _changeNumLabel.text = [NSString stringWithFormat:@"+%@",[_dataDicionary objectForKey:@"amount"]];
+        _changeNumLabel.text = [NSString stringWithFormat:@"+%.2f",[[_dataDicionary objectForKey:@"amount"] floatValue]];
     }else{
-        _changeNumLabel.text = [NSString stringWithFormat:@"-%@",[_dataDicionary objectForKey:@"amount"]];
+        _changeNumLabel.text = [NSString stringWithFormat:@"-%.2f",[[_dataDicionary objectForKey:@"amount"] floatValue]];
     }
     
     UIImageView *arrowImgView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 20, 20 + (20 - 16)/2, 9, 16)];
@@ -104,6 +104,7 @@
             label.textAlignment = NSTextAlignmentCenter;
         }else{
             label.textAlignment = NSTextAlignmentRight;
+            label.text = [NSString stringWithFormat:@"%.2f",[titleArr[i] floatValue]];
         }
     }
 }
@@ -131,6 +132,7 @@
             label.textAlignment = NSTextAlignmentLeft;
         }else{
             label.textAlignment = NSTextAlignmentRight;
+            label.text = [NSString stringWithFormat:@"%.2f",[titleArr[i] floatValue]];
         }
     }
 }

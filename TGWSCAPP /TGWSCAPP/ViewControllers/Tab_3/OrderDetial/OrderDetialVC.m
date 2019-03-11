@@ -105,6 +105,7 @@
     addrId = @"";
     tradePassword = @"";
     iISYuEPay = 0;
+    fYEDK = 0.0;
     
     [self initData];
     
@@ -120,7 +121,6 @@
     promocardValue = 0;
     goodsTotalAmt = 0;
     usableAmount = 0;
-    fYEDK = 0.0;
     promocardId = @"";
     _custPromocardId = @"";
     isEmployee = NO;

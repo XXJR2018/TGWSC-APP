@@ -147,6 +147,7 @@
 
 -(void)scViewUI{
     [_scView removeFromSuperview];
+    [_sortFirstBtnArr removeAllObjects];
     _scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, NavHeight, leftListWidth, SCREEN_HEIGHT - NavHeight - TabbarHeight)];
     [self.view addSubview:_scView];
     _scView.backgroundColor = [UIColor whiteColor];
@@ -252,7 +253,6 @@
 }
 
 -(void)collectionViewUI{
-
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.minimumLineSpacing = (SCREEN_WIDTH - 100 - 210 * ScaleSize)/6;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -311,6 +311,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
   
+    [cell.contentView removeAllSubviews];
     [self collectionViewUI];
     [cell.contentView addSubview:_collectView];
     

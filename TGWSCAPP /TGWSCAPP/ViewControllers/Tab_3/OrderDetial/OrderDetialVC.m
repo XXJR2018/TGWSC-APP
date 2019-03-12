@@ -105,6 +105,7 @@
     addrId = @"";
     tradePassword = @"";
     iISYuEPay = 0;
+    fYEDK = 0.0;
     
     [self initData];
     
@@ -120,7 +121,6 @@
     promocardValue = 0;
     goodsTotalAmt = 0;
     usableAmount = 0;
-    fYEDK = 0.0;
     promocardId = @"";
     _custPromocardId = @"";
     isEmployee = NO;
@@ -1065,7 +1065,7 @@
     
     InvoiceInfoVC  *VC = [[InvoiceInfoVC alloc] init];
     
-    float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK + postage;
+    float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK;
     VC.price = [NSString stringWithFormat:@"¥%.2f", fTotalPrice];
     
     VC.invoiceBlock = ^(id invoiceData) {

@@ -1090,6 +1090,19 @@ static int iiii = 0;
     NSString *strType = dic[@"type"];
     if (!strType)
      {
+        NSString *strReqType  = dicALL[@"reqType"];
+        if (strReqType &&
+            [strReqType isEqualToString:@"12"])
+         {
+            // 12 为 是否有评价的返回
+            NSDictionary *dicAttr = dic[@"attr"];
+            int hasPf = [dicAttr[@"hasPf"] intValue];
+            if (1 == hasPf)
+             {
+                [self chagePJState];
+             }
+         }
+        
         return;
      }
     

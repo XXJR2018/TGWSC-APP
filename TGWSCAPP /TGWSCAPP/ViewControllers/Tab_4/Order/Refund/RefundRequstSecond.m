@@ -93,9 +93,9 @@
     labelAll.font = [UIFont systemFontOfSize:14];
     labelAll.text = @"全选";
     
-    UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
-    [viewAllCheck addSubview:viewFG];
-    viewFG.backgroundColor = [ResourceManager color_5];
+//    UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
+//    [viewAllCheck addSubview:viewFG];
+//    viewFG.backgroundColor = [ResourceManager color_5];
     
     UIView *viewFG2 = [[UIView alloc] initWithFrame:CGRectMake(15, viewAllCheck.height - 1, SCREEN_WIDTH- 30, 1)];
     [viewAllCheck addSubview:viewFG2];

@@ -35,7 +35,7 @@
 @property (nonatomic, strong) NSDate *intoBackground;
 
 /*!
- @brief     app升级链接
+ @brief     app升级下载链接  https://itunes.apple.com/us/app/tian-gou-wo-shang-cheng/id1449821012?l=zh&ls=1&mt=8
  */
 @property (nonatomic, strong) NSString *APP_URL;
 

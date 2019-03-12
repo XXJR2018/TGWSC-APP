@@ -14,9 +14,9 @@
  */
 #define UMENG_APPKEY @"5c0f1501f1f5561d9f0000d4"
 /**
- *  极光推送 6ad6adf3f386761424873f63(天狗窝商城)
+ *  极光推送 
  */
-#define JPUSH_APPKEY @"7b580bbdb21ed2c41b7fbd46"
+#define JPUSH_APPKEY @"6ad6adf3f386761424873f63"
 
 
 #endif /* APPConstants_h */

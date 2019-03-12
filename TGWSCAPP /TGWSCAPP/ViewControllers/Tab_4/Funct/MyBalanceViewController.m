@@ -195,7 +195,8 @@
 
 #pragma mark ---充值
 -(void)Recharge{
-    
+    RechargeViewController *ctl = [[RechargeViewController alloc]init];
+    [self.navigationController pushViewController:ctl animated:YES];
 }
 
 
@@ -302,7 +303,6 @@
     }
     
     return cell;
-    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

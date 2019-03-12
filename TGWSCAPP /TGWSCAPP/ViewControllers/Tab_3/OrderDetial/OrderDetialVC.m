@@ -1065,7 +1065,7 @@
     
     InvoiceInfoVC  *VC = [[InvoiceInfoVC alloc] init];
     
-    float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK + postage;
+    float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK;
     VC.price = [NSString stringWithFormat:@"¥%.2f", fTotalPrice];
     
     VC.invoiceBlock = ^(id invoiceData) {

@@ -162,14 +162,14 @@
         _productDescLabel.textColor = color_2;
         _productDescLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"skuDesc"]];
         
-        _productPriceLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 160, CGRectGetMinY(_productImgView.frame) + 5, 150, 20)];
+        _productPriceLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 160, CGRectGetMinY(_productImgView.frame) + 5, 143, 20)];
         [viewCell addSubview:_productPriceLabel];
         _productPriceLabel.textAlignment = NSTextAlignmentRight;
         _productPriceLabel.font = font_1;
         _productPriceLabel.textColor = color_2;
         _productPriceLabel.text = [NSString stringWithFormat:@"￥%@",[dic objectForKey:@"price"]];
         
-        _productNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 160, CGRectGetMaxY(_productPriceLabel.frame) + 5, 150, 20)];
+        _productNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 160, CGRectGetMaxY(_productPriceLabel.frame) + 5, 143, 20)];
         [viewCell addSubview:_productNumLabel];
         _productNumLabel.textAlignment = NSTextAlignmentRight;
         _productNumLabel.font = font_2;
@@ -187,9 +187,10 @@
     scView.contentSize =  CGSizeMake(0, iTopY);
     
     
-    UIButton *btnCommit = [[UIButton alloc] initWithFrame:CGRectMake(15, SCREEN_HEIGHT - 50, SCREEN_WIDTH - 30, 40)];
+    UIButton *btnCommit = [[UIButton alloc] initWithFrame:CGRectMake(15, SCREEN_HEIGHT - 50, SCREEN_WIDTH - 30, 45)];
     [self.view addSubview:btnCommit];
     [btnCommit setTitle:@"提交申请" forState:UIControlStateNormal];
+    btnCommit.cornerRadius = 3;
     [btnCommit setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
     btnCommit.titleLabel.font = [UIFont systemFontOfSize:14];
     btnCommit.borderColor = [ResourceManager mainColor];

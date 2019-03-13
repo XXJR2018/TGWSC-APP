@@ -749,7 +749,7 @@
         return NO;
     }
     
-    sendBtn.backgroundColor = [ResourceManager blueColor];
+    sendBtn.backgroundColor = UIColorFromRGB(0x167ef9); //[ResourceManager blueColor];
     
     return YES;
 }

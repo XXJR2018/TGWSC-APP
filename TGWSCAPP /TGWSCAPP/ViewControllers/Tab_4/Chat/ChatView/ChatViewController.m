@@ -26,6 +26,7 @@
 @interface ChatViewController ()< UITableViewDelegate, UITableViewDataSource, UITextViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,CSMessageCellDelegate, EmojiViewDelegate>
 {
     UITextView *textSendView;  // 发送文本框
+    UIButton *sendBtn;         // 发送按钮
     
     CustomNavigationBarView *nav;
     UIButton *btnRGKF;  // 人工客服按钮
@@ -295,7 +296,7 @@
     emojiBtn.tag = 12;
     [bgView addSubview:emojiBtn];
     
-    UIButton *sendBtn = [[UIButton alloc] init];
+    sendBtn = [[UIButton alloc] init];
     sendBtn.frame = CGRectMake(bgView.frame.size.width - 60, 5, 50, 34);
     [bgView addSubview:sendBtn];
     sendBtn.backgroundColor = UIColorFromRGB(0xb7b7b7);
@@ -304,6 +305,7 @@
     sendBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [sendBtn addTarget:self action:@selector(actionSendMessage) forControlEvents:UIControlEventTouchUpInside];
     sendBtn.tag = 13;
+    sendBtn.cornerRadius = 3;
     
     
 }
@@ -686,7 +688,7 @@
         [self answerCostonService:model.messageText];
      }
 
-    
+    sendBtn.backgroundColor = UIColorFromRGB(0xb7b7b7);
 }
 
 
@@ -742,10 +744,12 @@
            [self answerCostonService:model.messageText];
         }
        
+        sendBtn.backgroundColor = UIColorFromRGB(0xb7b7b7);
+       
         return NO;
     }
     
-    
+    sendBtn.backgroundColor = [ResourceManager blueColor];
     
     return YES;
 }

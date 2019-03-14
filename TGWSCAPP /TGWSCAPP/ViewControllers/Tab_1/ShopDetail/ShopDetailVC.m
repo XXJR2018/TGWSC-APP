@@ -15,6 +15,7 @@
 #import "ShowBigJpgView.h"
 #import "ShowBannerJpegView.h"
 #import "ShareShopJpegView.h"
+#import "ChatViewController.h"
 
 
 //#define   BannerHeight     300
@@ -1468,7 +1469,9 @@
     //NSArray *arrTitle =  @[@"客 服",@"收 藏",@"购物车"];
     if (0 == iTag)
      {
-        
+        // 客服聊天
+        ChatViewController  *VC = [[ChatViewController alloc] init];
+        [self.navigationController  pushViewController:VC animated:YES];
      }
     else if (1 == iTag)
      {

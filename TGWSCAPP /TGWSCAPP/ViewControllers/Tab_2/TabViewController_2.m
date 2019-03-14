@@ -198,7 +198,7 @@
     }
     _sortFirstBtn.selected = YES;
     _sortFristView.frame = CGRectMake(0, (50 - 20)/2 + (sender.tag) * 50, 2, 20);
-    
+    [_tableView reloadData];
     /* 滚动指定段的指定row  到 指定位置*/
     [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:sender.tag inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     cellCount = sender.tag;
@@ -495,7 +495,6 @@
     if (cellCount < self.dataArray.count - 1) {
         NSLog(@"跳到下一个cell");
         cellCount = cellCount + 1;
-        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:cellCount inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         [self sortFirstTouch:_sortFirstBtnArr[cellCount]];
     }
 }

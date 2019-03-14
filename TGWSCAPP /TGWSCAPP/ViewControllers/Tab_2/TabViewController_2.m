@@ -355,8 +355,11 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView" forIndexPath:indexPath];
-        UIView *headerView = [[UIView alloc] init];
-        headerView.backgroundColor = [UIColor whiteColor];
+        //防止段头下拉复用显示bug
+        for (UIView *view in header.subviews) {
+            [view removeFromSuperview];
+        }
+        
         NSDictionary *firstDataDic = self.dataArray[cellCount];
         NSArray *secondDataArr = [firstDataDic objectForKey:@"subCate"];
         if ([[firstDataDic objectForKey:@"havSubCount"] intValue] == 2) {
@@ -364,7 +367,7 @@
              //三级菜单头视图
             if (indexPath.section == 0) {
                 UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, rightListWidth - 29, 90 * ScaleSize)];
-                [headerView addSubview:imgView];
+                [header addSubview:imgView];
                 imgView.backgroundColor = UIColorFromRGB(0xf6f6f6);
                 [imgView sd_setImageWithURL:[NSURL URLWithString:[firstDataDic objectForKey:@"imgUrl"]]];
                 
@@ -372,32 +375,29 @@
                 titleLabel.text = [NSString stringWithFormat:@"%@",[thirdDic objectForKey:@"cateName"]];
                 titleLabel.font= [UIFont boldSystemFontOfSize:15];
                 titleLabel.textColor = [ResourceManager color_1];
-                [headerView addSubview:titleLabel];
+                [header addSubview:titleLabel];
                 
                 UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(titleLabel.frame) - 0.5, rightListWidth - 29, 0.5)];
-                [headerView addSubview:viewX];
+                [header addSubview:viewX];
                 viewX.backgroundColor = [ResourceManager color_5];
             }else{
                 UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 150, 30)];
                 titleLabel.text = [NSString stringWithFormat:@"%@",[thirdDic objectForKey:@"cateName"]];;
                 titleLabel.font= [UIFont boldSystemFontOfSize:15];
                 titleLabel.textColor = [ResourceManager color_1];
-                [headerView addSubview:titleLabel];
+                [header addSubview:titleLabel];
                 
                 UIView *viewX = [[UIView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(titleLabel.frame) - 0.5, rightListWidth - 29, 0.5)];
-                [headerView addSubview:viewX];
+                [header addSubview:viewX];
                 viewX.backgroundColor = [ResourceManager color_5];
             }
         }else{
             //二级菜单头视图
             UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, rightListWidth - 29, 90 * ScaleSize)];
-            [headerView addSubview:imgView];
+            [header addSubview:imgView];
              imgView.backgroundColor = UIColorFromRGB(0xf6f6f6);
             [imgView sd_setImageWithURL:[NSURL URLWithString:[firstDataDic objectForKey:@"imgUrl"]]];
         }
-        
-        //头视图添加view
-        [header addSubview:headerView];
         return header;
     }
     return nil;

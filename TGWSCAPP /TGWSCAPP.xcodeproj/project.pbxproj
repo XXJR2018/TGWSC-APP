@@ -333,7 +333,6 @@
 		C29ABBF221D4776A00428407 /* AddAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C29ABBF021D4776A00428407 /* AddAddressViewController.xib */; };
 		C2A08F6A21BF4563005753F6 /* TabBarSelectButtn.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A08F6921BF4563005753F6 /* TabBarSelectButtn.m */; };
 		C2A373AD2236384D00C9AC29 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A373AB2236384D00C9AC29 /* RechargeViewController.m */; };
-		C2A373AE2236384D00C9AC29 /* RechargeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A373AC2236384D00C9AC29 /* RechargeViewController.xib */; };
 		C2A373B2223638D600C9AC29 /* RechargeDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A373B0223638D600C9AC29 /* RechargeDetailsViewController.m */; };
 		C2A373B3223638D600C9AC29 /* RechargeDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A373B1223638D600C9AC29 /* RechargeDetailsViewController.xib */; };
 		C2A7000422153B2400AB277C /* AppraiseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A7000322153B2400AB277C /* AppraiseListViewController.m */; };
@@ -1021,7 +1020,6 @@
 		C2A08F6921BF4563005753F6 /* TabBarSelectButtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarSelectButtn.m; sourceTree = "<group>"; };
 		C2A373AA2236384D00C9AC29 /* RechargeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
 		C2A373AB2236384D00C9AC29 /* RechargeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
-		C2A373AC2236384D00C9AC29 /* RechargeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RechargeViewController.xib; sourceTree = "<group>"; };
 		C2A373AF223638D600C9AC29 /* RechargeDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeDetailsViewController.h; sourceTree = "<group>"; };
 		C2A373B0223638D600C9AC29 /* RechargeDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeDetailsViewController.m; sourceTree = "<group>"; };
 		C2A373B1223638D600C9AC29 /* RechargeDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RechargeDetailsViewController.xib; sourceTree = "<group>"; };
@@ -2855,7 +2853,6 @@
 			children = (
 				C2A373AA2236384D00C9AC29 /* RechargeViewController.h */,
 				C2A373AB2236384D00C9AC29 /* RechargeViewController.m */,
-				C2A373AC2236384D00C9AC29 /* RechargeViewController.xib */,
 				C2A373AF223638D600C9AC29 /* RechargeDetailsViewController.h */,
 				C2A373B0223638D600C9AC29 /* RechargeDetailsViewController.m */,
 				C2A373B1223638D600C9AC29 /* RechargeDetailsViewController.xib */,
@@ -3104,7 +3101,6 @@
 				C050C3DD2215704300BFACF5 /* m.png in Resources */,
 				C0CCC83221C1FD21009352E0 /* search@2x.png in Resources */,
 				C29ABBE521D466D600428407 /* MyCollectCell.xib in Resources */,
-				C2A373AE2236384D00C9AC29 /* RechargeViewController.xib in Resources */,
 				C2B41C1121D5CAA100944A86 /* CustomerServiceViewController.xib in Resources */,
 				C250479521BA715500DA9C72 /* CHANGELOG.md in Resources */,
 				C050C3EC2215704300BFACF5 /* ll.png in Resources */,

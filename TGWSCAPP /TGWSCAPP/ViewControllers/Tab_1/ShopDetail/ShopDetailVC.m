@@ -15,6 +15,7 @@
 #import "ShowBigJpgView.h"
 #import "ShowBannerJpegView.h"
 #import "ShareShopJpegView.h"
+#import "CustomerServiceViewController.h"
 
 
 //#define   BannerHeight     300
@@ -1462,13 +1463,21 @@
 
 -(void) actionBtn:(UIButton*) sender
 {
+    if (![CommonInfo isLoggedIn]) {
+        [DDGUserInfoEngine engine].parentViewController = self;
+        [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
+        return;
+    }
+    
     int iTag = (int)sender.tag;
     NSLog(@"iTag :%d", iTag);
     
     //NSArray *arrTitle =  @[@"客 服",@"收 藏",@"购物车"];
     if (0 == iTag)
      {
-        
+        // 客服聊天
+        CustomerServiceViewController  *VC = [[CustomerServiceViewController alloc] init];
+        [self.navigationController  pushViewController:VC animated:YES];
      }
     else if (1 == iTag)
      {

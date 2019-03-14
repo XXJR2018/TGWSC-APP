@@ -127,19 +127,19 @@ int  MessageFontSize = 14;
     NSString *strQuestion = @"";
     for (int i = 0; i < _arrQuestion.count; i++)
      {
-        NSString *strTemp = [NSString stringWithFormat:@"%d. %@", i+1, _arrQuestion[i]];
+        NSString *strTemp = [NSString stringWithFormat:@"\n%d. %@", i+1, _arrQuestion[i]];
         strQuestion = [strQuestion stringByAppendingString:strTemp];
      }
     
     if (strQuestion.length > 0)
      {
-        strQuestion = [strQuestion stringByAppendingString:@"请输入对应数字，查询相关问题。"];
+        strQuestion = [strQuestion stringByAppendingString:@"\n请输入对应数字，查询相关问题。"];
      }
     
     CGSize size = [self labelAutoCalculateRectWith:strQuestion Font:[UIFont fontWithName:FONT_REGULAR size:MessageFontSize] MaxSize:CGSizeMake(maxWith, MAXFLOAT)];
 
     //rect = CGRectMake(65 , timeRect.size.height + 10 , maxWith, size.height + 31 +5);
-    rect = CGRectMake(65 , timeRect.size.height + 10 , maxWith, size.height + 31 +50);
+    rect = CGRectMake(65 , timeRect.size.height + 10 , maxWith, size.height + 31);
     
 
     return rect;

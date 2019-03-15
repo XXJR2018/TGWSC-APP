@@ -8,6 +8,8 @@
 
 #import "RechargeViewController.h"
 
+#import <AlipaySDK/AlipaySDK.h>
+
 @interface RechargeViewController ()
 {
     UIScrollView *_scView;
@@ -15,7 +17,7 @@
     
     UIButton *_amountBtn;
     NSMutableArray *_amountBtnArr;
-    NSInteger _rechargeAmount;
+    NSDictionary *_rechargeData;
     
     UIButton *_zfbPayBtn;
     UIButton *_wxPayBtn;
@@ -24,6 +26,75 @@
 @end
 
 @implementation RechargeViewController
+
+-(void)loadData{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/cust/recharge/queryRechargeList",[PDAPI getBaseUrlString]]
+                                                                               parameters:nil HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+    operation.tag = 1000;
+}
+
+-(void)RechargeUrl{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (_zfbPayBtn.selected) {
+        params[@"payType"] = @"2";
+        params[@"payCode"] = @"appWxpay";
+    }else{
+        params[@"payType"] = @"1";
+        params[@"payCode"] = @"appAlipay";
+    }
+    params[@"configId"] = [_rechargeData objectForKey:@"configId"];
+    params[@"rechargeAmonut"] = [_rechargeData objectForKey:@"rechargeAmonut"];
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/cust/recharge/goRecharge",[PDAPI getBaseUrlString]]
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+}
+
+#pragma mark 数据操作
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+   
+    if (operation.tag == 1000) {
+        if (operation.jsonResult.rows.count > 0) {
+            [self.dataArray addObjectsFromArray:operation.jsonResult.rows ];
+            [self layoutUI];
+        }
+        if ([operation.jsonResult.attr objectForKey:@"usableAmount"]) {
+            _balanceLabel.text = [NSString stringWithFormat:@"%.2f",[[operation.jsonResult.attr objectForKey:@"usableAmount"] floatValue]];
+        }
+    }else if (operation.tag == 1001) {
+        if ([operation.jsonResult.attr objectForKey:@"payParams"]) {
+            if (_zfbPayBtn.selected) {
+                //支付宝支付
+                [self ailiPay:[operation.jsonResult.attr objectForKey:@"payParams"]];
+            }else{
+                //微信支付
+                [self weChatPay:[operation.jsonResult.attr objectForKey:@"payParams"]];
+            }
+        }
+    }
+    
+}
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
+}
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -39,7 +110,7 @@
     [super viewDidLoad];
     
     [self layoutNaviBarViewWithTitle:@"充值"];
-    [self layoutUI];
+    
 }
 
 -(void)layoutUI{
@@ -63,7 +134,6 @@
     [bgImgView addSubview:_balanceLabel];
     _balanceLabel.font = [UIFont boldSystemFontOfSize:35];
     _balanceLabel.textColor = [UIColor whiteColor];
-    _balanceLabel.text = @"1200";
     
     UIView *rechargeView = [[UIView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(bgImgView.frame) - 40, 2, 15)];
     [_scView addSubview:rechargeView];
@@ -77,42 +147,49 @@
     
     CGFloat btnWidth = 160 * ScaleSize;
     CGFloat btnHeight = 81 * ScaleSize;
-    NSArray *rechargeNumArr = @[@"100元",@"200元",@"500元",@"1000元"];
-    NSArray *rechargetitleArr = @[@"赠送100元购物劵",@"赠送200元购物劵",@"赠送500元购物劵",@"赠送1000元购物劵"];
+    NSInteger count = 0;
+    if (self.dataArray.count%2 == 0) {
+        count = self.dataArray.count/2;
+    }else{
+        count = self.dataArray.count/2 + 1;
+    }
     _amountBtnArr = [NSMutableArray array];
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < count; i++) {
         for (int j = 0; j < 2; j++) {
-            _amountBtn = [[UIButton alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - btnWidth * 2)/2 + btnWidth * j, CGRectGetMaxY(rechargeTitleLabel.frame) + 20 + btnHeight * i, btnWidth, btnHeight)];
-            [_scView addSubview:_amountBtn];
-            [_amountBtn setImage:[UIImage imageNamed:@"Recharge-2"] forState:UIControlStateNormal];
-            [_amountBtn setImage:[UIImage imageNamed:@"Recharge-3"] forState:UIControlStateSelected];
-            [_amountBtn setImage:[UIImage imageNamed:@"Recharge-2"] forState:UIControlStateHighlighted];
-            [_amountBtn setImage:[UIImage imageNamed:@"Recharge-3"] forState:UIControlStateSelected | UIControlStateHighlighted];
-            _amountBtn.tag = i * 2 + j;
-            [_amountBtn addTarget:self action:@selector(amountTouch:) forControlEvents:UIControlEventTouchUpInside];
-            
-            UILabel *numLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 15 * ScaleSize, _amountBtn.frame.size.width, 30)];
-            [_amountBtn addSubview:numLabel];
-            numLabel.font = [UIFont boldSystemFontOfSize:16];
-            numLabel.textAlignment = NSTextAlignmentCenter;
-            numLabel.textColor = [ResourceManager color_1];
-            numLabel.text = rechargeNumArr[i * 2 + j];
-            
-            UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(numLabel.frame), _amountBtn.frame.size.width, 20)];
-            [_amountBtn addSubview:titleLabel];
-            titleLabel.font = [UIFont systemFontOfSize:12];
-            titleLabel.textAlignment = NSTextAlignmentCenter;
-            titleLabel.textColor = [ResourceManager color_6];
-            titleLabel.text = rechargetitleArr[i * 2 + j];
-            
-            [_amountBtnArr addObject:_amountBtn];
+            if (i * 2 + j < self.dataArray.count) {
+                NSDictionary *dic = self.dataArray[i * 2 + j];
+                _amountBtn = [[UIButton alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - btnWidth * 2)/2 + btnWidth * j, CGRectGetMaxY(rechargeTitleLabel.frame) + 20 + btnHeight * i, btnWidth, btnHeight)];
+                [_scView addSubview:_amountBtn];
+                [_amountBtn setImage:[UIImage imageNamed:@"Recharge-2"] forState:UIControlStateNormal];
+                [_amountBtn setImage:[UIImage imageNamed:@"Recharge-3"] forState:UIControlStateSelected];
+                [_amountBtn setImage:[UIImage imageNamed:@"Recharge-2"] forState:UIControlStateHighlighted];
+                [_amountBtn setImage:[UIImage imageNamed:@"Recharge-3"] forState:UIControlStateSelected | UIControlStateHighlighted];
+                _amountBtn.tag = i * 2 + j;
+                [_amountBtn addTarget:self action:@selector(amountTouch:) forControlEvents:UIControlEventTouchUpInside];
+                
+                UILabel *numLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 15 * ScaleSize, _amountBtn.frame.size.width, 30)];
+                [_amountBtn addSubview:numLabel];
+                numLabel.font = [UIFont boldSystemFontOfSize:16];
+                numLabel.textAlignment = NSTextAlignmentCenter;
+                numLabel.textColor = [ResourceManager color_1];
+                numLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"rechargeAmonut"]];;
+                
+                UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(numLabel.frame), _amountBtn.frame.size.width, 20)];
+                [_amountBtn addSubview:titleLabel];
+                titleLabel.font = [UIFont systemFontOfSize:12];
+                titleLabel.textAlignment = NSTextAlignmentCenter;
+                titleLabel.textColor = [ResourceManager color_6];
+                titleLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"rechargeDesc"]];
+                
+                [_amountBtnArr addObject:_amountBtn];
+            }
         }
     }
-    ((UIButton *)_amountBtnArr[2]).selected = YES;
-    _rechargeAmount = 500;
+    ((UIButton *)_amountBtnArr[0]).selected = YES;
+    _rechargeData = self.dataArray[0];
     
     for (int i = 0; i < 2; i++) {
-        UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(_amountBtn.frame) + 25 + 50 * i, 20, 20)];
+        UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(_amountBtn.frame) + 20 + 45 * i, 20, 20)];
         [_scView addSubview:imgView];
         
         UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(imgView.frame)+ 5, CGRectGetMidY(imgView.frame) - 10, 100, 20)];
@@ -141,19 +218,19 @@
             [_wxPayBtn addTarget:self action:@selector(payTypeTouch:) forControlEvents:UIControlEventTouchUpInside];
         }
     }
-    UIImageView *rechargeImg = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 309 * ScaleSize)/2, CGRectGetMaxY(_wxPayBtn.frame) + 20, 309 * ScaleSize, 63.5 * ScaleSize)];
+    UIImageView *rechargeImg = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 309 * ScaleSize)/2, CGRectGetMaxY(_wxPayBtn.frame) + 15, 309 * ScaleSize, 70 * ScaleSize)];
     [_scView addSubview:rechargeImg];
      rechargeImg.image = [UIImage imageNamed:@"Recharge-6"];
     rechargeImg.userInteractionEnabled = YES;
     
-    UIButton *rechargeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, rechargeImg.frame.size.width, rechargeImg.frame.size.height)];
+    UIButton *rechargeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, rechargeImg.frame.size.width, rechargeImg.frame.size.height - 20)];
     [rechargeImg addSubview:rechargeBtn];
     [rechargeBtn setTitle:@"立即充值" forState:UIControlStateNormal];
     rechargeBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    [rechargeBtn setTitleColor:[ResourceManager mainColor] forState:UIControlStateNormal];
+    [rechargeBtn setTitleColor:UIColorFromRGB(0x8F7D58) forState:UIControlStateNormal];
     [rechargeBtn addTarget:self action:@selector(recharge) forControlEvents:UIControlEventTouchUpInside];
     
-    UILabel *rechargeTreatyLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(rechargeImg.frame) + 10, SCREEN_WIDTH, 20)];
+    UILabel *rechargeTreatyLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(rechargeImg.frame), SCREEN_WIDTH, 20)];
     [_scView addSubview:rechargeTreatyLabel];
     rechargeTreatyLabel.textAlignment = NSTextAlignmentCenter;
     rechargeTreatyLabel.font = [UIFont systemFontOfSize:12];
@@ -181,15 +258,15 @@
     if (sender.selected) {
         return;
     }
-    ((UIButton *)_amountBtnArr[2]).selected = NO;
+    ((UIButton *)_amountBtnArr[0]).selected = NO;
+    _rechargeData = nil;
     if (sender != _amountBtn) {
         _amountBtn.selected = NO;
         _amountBtn = sender;
     }
     _amountBtn.selected = YES;
-    NSArray *rechargeNumArr = @[@(100),@(200),@(500),@(1000)];
-     _rechargeAmount = [rechargeNumArr[sender.tag] intValue];
-    NSLog(@"%ld-----",_rechargeAmount);
+    _rechargeData = self.dataArray[sender.tag];
+  
 }
 
 //选择支付方式
@@ -208,15 +285,52 @@
 
 #pragma mark --- 充值
 -(void)recharge{
-    if (_zfbPayBtn.selected) {
-        //支付宝支付
-        
-    }else{
-        //微信支付
-        
-    }
+    [self RechargeUrl];
 }
 
+-(void)weChatPay:(NSDictionary*)payParams {
+    if (payParams.count == 0) {
+        return;
+    }
+    DDGWeChat *manager = [DDGWeChat getSharedWeChat];
+    manager.payblock = ^(id obj) {
+        BaseResp *resp = ( BaseResp *) obj;
+        if (resp.errCode == 0){
+            // 支付成功
+           
+            
+        }else{
+            // 支付错误
+         
+        }
+    };
+    
+    // 微信支付
+    WXPayModel *model = [[WXPayModel alloc] init];
+    model.partnerId = payParams[@"mchId"];
+    model.prepayid = payParams[@"prepayId"];
+    model.timestamp = [NSString stringWithFormat:@"%@",payParams[@"timeStamp"]];
+    model.sign = payParams[@"sign"];
+    model.noncestr = payParams[@"nonceStr"];
+    model.appid = payParams[@"appId"];
+    model.partner_key = APPSecret_WC;
+    [manager wxPayWith:model];
+    
+}
+
+-(void)ailiPay:(NSDictionary*)payParams {
+    if (payParams.count == 0) {
+        return;
+    }
+    
+    //应用注册scheme,在XXXX-Info.plist定义URL types
+    NSString *appScheme = @"TGWSCAPP";
+    NSString *orderInfo = payParams[@"orderInfo"];
+    [[AlipaySDK defaultService] payOrder:orderInfo fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+        NSLog(@"reslut = %@",resultDic);
+    }];
+    
+}
 
 
 

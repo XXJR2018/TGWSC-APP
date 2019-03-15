@@ -10,6 +10,7 @@
 #import "WCAlertview.h"
 #import "PayResultVC.h"
 #import "AppraiseListViewController.h"
+#import "CustomerServiceViewController.h"
 
 #import <sys/utsname.h>
 
@@ -351,6 +352,11 @@
             //评论
             AppraiseListViewController *ctl = [[AppraiseListViewController alloc] init];
             ctl.appraiseType = 2;
+            [nav4 pushViewController:ctl animated:NO];
+        }
+        if (index == 2) {
+            //客服
+            CustomerServiceViewController *ctl = [[CustomerServiceViewController alloc] init];
             [nav4 pushViewController:ctl animated:NO];
         }
     }

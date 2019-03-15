@@ -963,8 +963,8 @@
                 [self.navigationController pushViewController:VC animated:YES];
             }else if (_status == 6) {
                 //联系客服
-                NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",[[CommonInfo userInfo] objectForKey:@"kfTel"]];
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
+                [self.navigationController popToRootViewControllerAnimated:NO];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4),@"index":@(2)}];
             }
         }break;
         case 101:{
@@ -973,8 +973,8 @@
                 [self closeOrderAleartViewUI:_orderNo];
             }else if (_status == 1 || _status == 3 || _status == 4 || _status == 7 || _status == 8) {
                 //联系客服
-                NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",[[CommonInfo userInfo] objectForKey:@"kfTel"]];
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
+                [self.navigationController popToRootViewControllerAnimated:NO];
+                [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4),@"index":@(2)}];
             }else if (_status == 5) {
                 //查看物流
                 LogisticsViewController *ctl = [[LogisticsViewController alloc]init];
@@ -1028,8 +1028,8 @@
             if (_status == 5) {
                 YCMenuAction *action1 = [YCMenuAction actionWithTitle:@"联系客服" image:nil handler:^(YCMenuAction *action) {
                     //联系客服
-                    NSString *tellStr=[[NSString alloc] initWithFormat:@"telprompt://%@",[[CommonInfo userInfo] objectForKey:@"kfTel"]];
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tellStr] options:@{} completionHandler:nil];
+                    [self.navigationController popToRootViewControllerAnimated:NO];
+                   [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(4),@"index":@(2)}];
                 }];
 
                 YCMenuView *YCView = [YCMenuView menuWithActions:@[action1] width:100 relyonView:sender];

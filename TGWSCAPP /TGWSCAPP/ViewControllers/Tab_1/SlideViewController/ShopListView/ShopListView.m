@@ -184,9 +184,13 @@
         int iShopCount = (int)[_items count];
         
         // 画第一行
-        ShopModel *sModel= _items[0];
+        //ShopModel *sModel= _items[0];
         //NSString *strImgName = sModel.strShopImgUrl;
         NSString *strImgName = @"Tab1_RMSP";
+        if (_columnOneCount == 2)
+         {
+            strImgName = @"Tab1_TJSP";
+         }
         UIImage *imgTemp = [ToolsUtlis getImgFromStr:strImgName];
         if (!imgTemp)
          {
@@ -250,14 +254,20 @@
         if (_columnOneCount == iShopCount)
          {
             fImgTopY += fImgHeight + fImgBettewn;
-            self.height = fImgTopY;
+            self.height = fImgTopY  + fLabelNameHeight + fLablePriceHeight + 10 ;
             return;
          }
         
+        
+        
          // 画第二行
-        ShopModel *sModel2= _items[_columnOneCount];
+        //ShopModel *sModel2= _items[_columnOneCount];
         //NSString *strImgName2 = sModel2.strShopImgUrl;
         NSString *strImgName2 = @"Tab1_RMSP";
+        if (_columnTwoCount == 2)
+         {
+            strImgName2 = @"Tab1_TJSP";
+         }
         UIImage *imgTemp2 = [ToolsUtlis getImgFromStr:strImgName2];
         if (!imgTemp2)
          {

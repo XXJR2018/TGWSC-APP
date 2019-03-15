@@ -13,6 +13,8 @@
     float fImgHeight;
     NSString *strImgUrl;
     UIImageView *imgView;
+    
+    UIScrollView *scView;
 }
 
 -(ShowBigJpgView*) initWithImgUrl:(NSString *)imgUrl   height:(float) fHeight
@@ -37,14 +39,24 @@
     gesture.numberOfTapsRequired  = 1;
     [self addGestureRecognizer:gesture];
     
+    
+    scView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 50 )];
+    [self addSubview:scView];
+    scView.contentSize = CGSizeMake(0, fImgHeight);
+    scView.pagingEnabled = NO;
+    scView.bounces = NO;
+    scView.showsVerticalScrollIndicator = FALSE;
+    scView.showsHorizontalScrollIndicator = FALSE;
+    scView.backgroundColor = [UIColor blackColor];//[ResourceManager viewBackgroundColor];
+    
     int iTop = 0;
-    if (fImgHeight < SCREEN_HEIGHT)
+    if (fImgHeight < SCREEN_HEIGHT-50)
      {
         iTop = (SCREEN_HEIGHT - fImgHeight)/2;
      }
     
     imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, iTop, SCREEN_WIDTH, fImgHeight)];
-    [self addSubview:imgView];
+    [scView addSubview:imgView];
     [imgView sd_setImageWithURL:[NSURL URLWithString:strImgUrl]];
     
     UIButton *btnBottom = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100)/2, SCREEN_HEIGHT - 50, 100, 50)];

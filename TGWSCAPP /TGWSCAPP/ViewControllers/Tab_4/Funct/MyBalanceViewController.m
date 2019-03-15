@@ -144,6 +144,7 @@
     _RechargeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [_RechargeBtn setTitleColor:UIColorFromRGB(0xB00000) forState:UIControlStateNormal];
     [_RechargeBtn addTarget:self action:@selector(Recharge) forControlEvents:UIControlEventTouchUpInside];
+    _RechargeBtn.hidden = YES; // 隐藏充值按钮
     
     _xfListBtn = [[UIButton alloc]init];
     _lqListBtn = [[UIButton alloc]init];

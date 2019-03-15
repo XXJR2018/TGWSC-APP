@@ -250,9 +250,11 @@
         if (_columnOneCount == iShopCount)
          {
             fImgTopY += fImgHeight + fImgBettewn;
-            self.height = fImgTopY;
+            self.height = fImgTopY  + fLabelNameHeight + fLablePriceHeight + 10 ;
             return;
          }
+        
+        
         
          // 画第二行
         ShopModel *sModel2= _items[_columnOneCount];

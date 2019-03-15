@@ -544,40 +544,50 @@
 #pragma mark --- action
 -(void)clickNavButton:(UIButton *)button
 {
-    if (!isRGFW)
+    
+    if (isRGFW)
      {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:0.5];// 延迟执行
         return;
      }
     
+    [self.navigationController popViewControllerAnimated:YES];
+    return;
     
-    CDWAlertView *alertView = [[CDWAlertView alloc] init];
-    
-    alertView.shouldDismissOnTapOutside = NO;
-    alertView.textAlignment = RTTextAlignmentCenter;
-    
-    // 降低高度
-    [alertView subAlertCurHeight:10];
-    //[alertView addSubTitle:[NSString stringWithFormat:@"<font size = 18 color=#000000>确定要放弃付款吗？</font>"]];
-    
-    // 加入message
-    NSString *strXH= [NSString stringWithFormat:@"离开后，聊天将在5分钟后结束。"];
-    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 14 color=#333333> %@ </font>",strXH]];
-    
-    [alertView subAlertCurHeight:10];
-    
-    [alertView addCanelButton:@"暂时离开" actionBlock:^{
-        
-        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:0.5];// 延迟执行
-        
-    }];
-    
-    [alertView addButton:@"继续聊天" color:[ResourceManager priceColor] actionBlock:^{
-        
-        
-    }];
-    
-    [alertView showAlertView:self.parentViewController duration:0.0];
+//    if (!isRGFW)
+//     {
+//        [self.navigationController popViewControllerAnimated:YES];
+//        return;
+//     }
+//    
+//    
+//    CDWAlertView *alertView = [[CDWAlertView alloc] init];
+//    
+//    alertView.shouldDismissOnTapOutside = NO;
+//    alertView.textAlignment = RTTextAlignmentCenter;
+//    
+//    // 降低高度
+//    [alertView subAlertCurHeight:10];
+//    //[alertView addSubTitle:[NSString stringWithFormat:@"<font size = 18 color=#000000>确定要放弃付款吗？</font>"]];
+//    
+//    // 加入message
+//    NSString *strXH= [NSString stringWithFormat:@"离开后，聊天将在5分钟后结束。"];
+//    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 14 color=#333333> %@ </font>",strXH]];
+//    
+//    [alertView subAlertCurHeight:10];
+//    
+//    [alertView addCanelButton:@"暂时离开" actionBlock:^{
+//        
+//        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:0.5];// 延迟执行
+//        
+//    }];
+//    
+//    [alertView addButton:@"继续聊天" color:[ResourceManager priceColor] actionBlock:^{
+//        
+//        
+//    }];
+//    
+//    [alertView showAlertView:self.parentViewController duration:0.0];
 }
 
 

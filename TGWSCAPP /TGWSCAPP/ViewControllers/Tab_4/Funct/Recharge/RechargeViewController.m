@@ -8,7 +8,7 @@
 
 #import "RechargeViewController.h"
 
-#import "RechargeResultViewController.h"
+#import "RechargeFruitViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
 
 @interface RechargeViewController ()
@@ -301,13 +301,12 @@
         BaseResp *resp = ( BaseResp *) obj;
         if (resp.errCode == 0){
             // 支付成功
-            RechargeResultViewController *ctl = [[RechargeResultViewController alloc]init];
-            ctl.rechargeType = 100;
+            RechargeFruitViewController *ctl = [[RechargeFruitViewController alloc]init];
+            ctl.configId = [NSString stringWithFormat:@"%@",[_rechargeData objectForKey:@"configId"]];
             [self.navigationController pushViewController:ctl animated:YES];
         }else{
-            // 支付错误
-            RechargeResultViewController *ctl = [[RechargeResultViewController alloc]init];
-            ctl.rechargeType = 101;
+            // 支付失败
+            RechargeFruitViewController *ctl = [[RechargeFruitViewController alloc]init];
             [self.navigationController pushViewController:ctl animated:YES];
         }
     };
@@ -358,15 +357,14 @@
         
         if ([resultStatus isEqualToString:@"9000"]){
             // 支付成功
-            RechargeResultViewController *ctl = [[RechargeResultViewController alloc]init];
-            ctl.rechargeType = 100;
+            RechargeFruitViewController *ctl = [[RechargeFruitViewController alloc]init];
+            ctl.configId = [NSString stringWithFormat:@"%@",[_rechargeData objectForKey:@"configId"]];
             [self.navigationController pushViewController:ctl animated:YES];
         }else if ([resultStatus isEqualToString:@"6001"]){
             // 用户取消
         }else{
             // 支付错误
-            RechargeResultViewController *ctl = [[RechargeResultViewController alloc]init];
-            ctl.rechargeType = 101;
+            RechargeFruitViewController *ctl = [[RechargeFruitViewController alloc]init];
             [self.navigationController pushViewController:ctl animated:YES];
         }
     }

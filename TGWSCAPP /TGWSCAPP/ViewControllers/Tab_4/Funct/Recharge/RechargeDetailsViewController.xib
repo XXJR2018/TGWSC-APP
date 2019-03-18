@@ -107,10 +107,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sir-gF-dut">
-                            <rect key="frame" x="160" y="0.0" width="200" height="45"/>
+                            <rect key="frame" x="110" y="0.0" width="250" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="Ddd-Db-KcD"/>
-                                <constraint firstAttribute="width" constant="200" id="bXV-2t-5hg"/>
+                                <constraint firstAttribute="width" constant="250" id="bXV-2t-5hg"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -137,9 +137,9 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rP6-Fd-xQB">
-                            <rect key="frame" x="160" y="135" width="200" height="45"/>
+                            <rect key="frame" x="110" y="135" width="250" height="45"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="200" id="4Rh-j7-hQD"/>
+                                <constraint firstAttribute="width" constant="250" id="4Rh-j7-hQD"/>
                                 <constraint firstAttribute="height" constant="45" id="Pmk-96-UhF"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>

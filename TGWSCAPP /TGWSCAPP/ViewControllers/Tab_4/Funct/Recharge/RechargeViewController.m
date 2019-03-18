@@ -8,6 +8,7 @@
 
 #import "RechargeViewController.h"
 
+#import "RechargeResultViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
 
 @interface RechargeViewController ()
@@ -46,10 +47,10 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (_zfbPayBtn.selected) {
         params[@"payType"] = @"2";
-        params[@"payCode"] = @"appWxpay";
+        params[@"payCode"] = @"appAlipay";
     }else{
         params[@"payType"] = @"1";
-        params[@"payCode"] = @"appAlipay";
+        params[@"payCode"] = @"appWxpay";
     }
     params[@"configId"] = [_rechargeData objectForKey:@"configId"];
     params[@"rechargeAmonut"] = [_rechargeData objectForKey:@"rechargeAmonut"];
@@ -62,6 +63,7 @@
                                                                                       [self handleErrorData:operation];
                                                                                   }];
     [operation start];
+    operation.tag = 1001;
 }
 
 #pragma mark 数据操作
@@ -111,6 +113,8 @@
     
     [self layoutNaviBarViewWithTitle:@"充值"];
     
+    // 支付宝支付结果通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ailiPayReslut:) name:DDGPayResultNotification object:nil];
 }
 
 -(void)layoutUI{
@@ -297,11 +301,14 @@
         BaseResp *resp = ( BaseResp *) obj;
         if (resp.errCode == 0){
             // 支付成功
-           
-            
+            RechargeResultViewController *ctl = [[RechargeResultViewController alloc]init];
+            ctl.rechargeType = 100;
+            [self.navigationController pushViewController:ctl animated:YES];
         }else{
             // 支付错误
-         
+            RechargeResultViewController *ctl = [[RechargeResultViewController alloc]init];
+            ctl.rechargeType = 101;
+            [self.navigationController pushViewController:ctl animated:YES];
         }
     };
     
@@ -332,6 +339,39 @@
     
 }
 
+#pragma mark ---通知事件
+-(void) ailiPayReslut:(NSNotification *)notification{
+    NSLog(@"ailiPayReslut user info is %@",notification.object);
+    NSDictionary *dic = notification.object;
+    
+    if (dic){
+        NSString *memo = dic[@"memo"];
+        NSString *result = dic[@"result"];
+        NSString *resultStatus = dic[@"resultStatus"];
+        
+        NSLog(@"memo: %@ result: %@  resultStatus: %@",memo,result,resultStatus);
+        //    9000 订单支付成功
+        //    8000 正在处理中
+        //    4000 订单支付失败
+        //    6001 用户中途取消
+        //    6002 网络连接出错
+        
+        if ([resultStatus isEqualToString:@"9000"]){
+            // 支付成功
+            RechargeResultViewController *ctl = [[RechargeResultViewController alloc]init];
+            ctl.rechargeType = 100;
+            [self.navigationController pushViewController:ctl animated:YES];
+        }else if ([resultStatus isEqualToString:@"6001"]){
+            // 用户取消
+        }else{
+            // 支付错误
+            RechargeResultViewController *ctl = [[RechargeResultViewController alloc]init];
+            ctl.rechargeType = 101;
+            [self.navigationController pushViewController:ctl animated:YES];
+        }
+    }
+    
+}
 
 
 

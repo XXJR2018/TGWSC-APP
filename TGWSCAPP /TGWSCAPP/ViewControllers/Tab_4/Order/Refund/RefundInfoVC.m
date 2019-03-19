@@ -421,10 +421,10 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     params[@"refundNo"] = _dicParams[@"refundNo"];
-    // 如果退款订单号为nil， 将订单号 当作退款订单号
+    // 如果退款订单号为nil， 传订单号
     if (!_dicParams[@"refundNo"] )
      {
-        params[@"refundNo"] = _dicParams[@"orderNo"];
+        params[@"orderNo"] = _dicParams[@"orderNo"];
      }
     params[@"subOrderNo"] = _dicParams[@"subOrderNo"];
     

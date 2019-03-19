@@ -29,6 +29,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginOutBtn;
 
 @property(nonatomic, strong) UIView *sexAlertView;
+
+@property (weak, nonatomic) IBOutlet UILabel *cacheNumLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
+
 @end
 
 @implementation UserInfoViewController
@@ -99,6 +104,10 @@
     self.loginOutBtn.layer.borderWidth = 0.5;
     self.loginOutBtn.layer.borderColor = [ResourceManager mainColor].CGColor;
     
+    self.cacheNumLabel.text = [NSString stringWithFormat:@"%.2f M",[self folderSizeAtPath]];
+    
+    NSString *bundleStr = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    self.versionLabel.text  = [NSString stringWithFormat:@"版本: v%@", bundleStr];
     
     UITapGestureRecognizer * gestureSearch = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(uploadImg)];
     gestureSearch.numberOfTapsRequired  = 1;
@@ -243,6 +252,7 @@
         _sexNum = 2;
     }
 }
+
 
 #pragma mark--  上传头像
 -(void)uploadImg{
@@ -438,6 +448,68 @@
                                                                                       [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
                                                                                   }];
     [operation start];
+}
+
+//清除本地缓存
+- (IBAction)clearLocalCache:(UIButton *)sender {
+    NSString *cacheStr = [NSString stringWithFormat:@"缓存大小为%@,确定要清除吗?",self.cacheNumLabel.text];
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"清除缓存" message:cacheStr preferredStyle:UIAlertControllerStyleAlert];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self clearCaches];
+        self.cacheNumLabel.text = [NSString stringWithFormat:@"%.2f M",[self folderSizeAtPath]];
+    }]];
+    [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+#pragma mark - 单个文件大小的计算
+-(long long)fileSizeAtPath:(NSString *)path{
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    if([fileManager fileExistsAtPath:path]){
+        long long size=[fileManager attributesOfItemAtPath:path error:nil].fileSize;
+        return size;
+    }
+    return 0;
+}
+
+#pragma mark----文件夹大小的计算(要利用上面的$1提供的方法)
+-(float)folderSizeAtPath{
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    NSString *cachePath=[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+    long long folderSize=0;
+    if ([fileManager fileExistsAtPath:cachePath]){
+        NSArray *childerFiles=[fileManager subpathsAtPath:cachePath];
+        for (NSString *fileName in childerFiles){
+            NSString *fileAbsolutePath=[cachePath stringByAppendingPathComponent:fileName];
+            long long size=[self fileSizeAtPath:fileAbsolutePath];
+            folderSize += size;
+            NSLog(@"fileAbsolutePath=%@",fileAbsolutePath);
+        }
+        //SDWebImage框架自身计算缓存的实现
+        folderSize+=[[SDImageCache sharedImageCache] getSize];
+        return folderSize/1024.0/1024.0;
+    }
+    return 0;
+}
+
+#pragma mark----清除缓存
+//同样也是利用NSFileManager API进行文件操作，SDWebImage框架自己实现了清理缓存操作，我们可以直接调用。
+-(void)clearCaches{
+    NSString *cachePath=[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+//    cachePath=[cachePath stringByAppendingPathComponent:path];
+    
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:cachePath]) {
+        NSArray *childerFiles=[fileManager subpathsAtPath:cachePath];
+        for (NSString *fileName in childerFiles) {
+            //如有需要，加入条件，过滤掉不想删除的文件
+            NSString *fileAbsolutePath=[cachePath stringByAppendingPathComponent:fileName];
+            NSLog(@"fileAbsolutePath=%@",fileAbsolutePath);
+            [fileManager removeItemAtPath:fileAbsolutePath error:nil];
+        }
+    }
+    [[SDImageCache sharedImageCache] clearMemory];
 }
 
 

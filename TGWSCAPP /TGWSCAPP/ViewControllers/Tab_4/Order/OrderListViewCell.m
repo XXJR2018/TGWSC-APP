@@ -295,7 +295,7 @@
         _orderRightBtn.hidden = NO;
         _orderRightBtn.layer.borderColor = color_2.CGColor;
         _orderRightBtn.backgroundColor = [UIColor whiteColor];
-        [_orderRightBtn setTitle:@"退款详情" forState:UIControlStateNormal];
+        [_orderRightBtn setTitle:@"再次购买" forState:UIControlStateNormal];
         [_orderRightBtn setTitleColor:color_2 forState:UIControlStateNormal];
     }
 }

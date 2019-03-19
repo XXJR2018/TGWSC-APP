@@ -1070,7 +1070,7 @@
     
     if (fTotalPrice <= 0)
      {
-        [MBProgressHUD showErrorWithStatus:@"支付金额为零，不需开发票。" toView:self.view];
+        [MBProgressHUD showErrorWithStatus:@"支付金额为零，不能开发票。" toView:self.view];
         isCheckDZFP = NO;
         return;
      }

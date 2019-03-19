@@ -19,6 +19,42 @@
 
 @implementation RechargeDetailsViewController
 
+-(void)loadData{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"recordId"] = self.recordId;
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/cust/recharge/queryRechargeDtl",[PDAPI getBaseUrlString]]
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+}
+
+
+
+#pragma mark 数据操作
+-(void)handleData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    if (operation.jsonResult.attr.count > 0) {
+        NSDictionary *dic = operation.jsonResult.attr;
+        self.lshNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"tradeId"]];
+        self.rechargeType.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"fundType"]];
+        self.rechargeNumLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"amount"]];
+        self.timeLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"createTime"]];
+        self.balanceLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"usableAmount"]];
+    }
+    
+}
+
+-(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [MBProgressHUD showErrorWithStatus:operation.jsonResult.message toView:self.view];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

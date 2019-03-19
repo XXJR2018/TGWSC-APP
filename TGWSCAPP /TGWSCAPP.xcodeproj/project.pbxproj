@@ -153,7 +153,7 @@
 		C20525F521BE6E5C00E13893 /* TabViewController_2.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EA21BE6E5C00E13893 /* TabViewController_2.xib */; };
 		C20525F621BE6E5C00E13893 /* TabViewController_1.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525ED21BE6E5C00E13893 /* TabViewController_1.m */; };
 		C20525F721BE6E5C00E13893 /* TabViewController_1.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */; };
-		C21509B5223F348A0087447E /* RechargeResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C21509B4223F348A0087447E /* RechargeResultViewController.m */; };
+		C21509BB223F72690087447E /* RechargeFruitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C21509BA223F72690087447E /* RechargeFruitViewController.m */; };
 		C222C37A21D2187700DD9797 /* MyBalanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C37921D2187700DD9797 /* MyBalanceViewController.m */; };
 		C222C38A21D2235700DD9797 /* paymentPWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C38021D2235700DD9797 /* paymentPWViewController.m */; };
 		C222C38B21D2235700DD9797 /* PhoneCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222C38221D2235700DD9797 /* PhoneCheckViewController.m */; };
@@ -679,8 +679,8 @@
 		C20525ED21BE6E5C00E13893 /* TabViewController_1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController_1.m; sourceTree = "<group>"; };
 		C20525EE21BE6E5C00E13893 /* TabViewController_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController_1.h; sourceTree = "<group>"; };
 		C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabViewController_1.xib; sourceTree = "<group>"; };
-		C21509B3223F348A0087447E /* RechargeResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeResultViewController.h; sourceTree = "<group>"; };
-		C21509B4223F348A0087447E /* RechargeResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeResultViewController.m; sourceTree = "<group>"; };
+		C21509B9223F72690087447E /* RechargeFruitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeFruitViewController.h; sourceTree = "<group>"; };
+		C21509BA223F72690087447E /* RechargeFruitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeFruitViewController.m; sourceTree = "<group>"; };
 		C222C37821D2187700DD9797 /* MyBalanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyBalanceViewController.h; sourceTree = "<group>"; };
 		C222C37921D2187700DD9797 /* MyBalanceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyBalanceViewController.m; sourceTree = "<group>"; };
 		C222C37C21D2235700DD9797 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
@@ -2859,8 +2859,8 @@
 				C2A373AF223638D600C9AC29 /* RechargeDetailsViewController.h */,
 				C2A373B0223638D600C9AC29 /* RechargeDetailsViewController.m */,
 				C2A373B1223638D600C9AC29 /* RechargeDetailsViewController.xib */,
-				C21509B3223F348A0087447E /* RechargeResultViewController.h */,
-				C21509B4223F348A0087447E /* RechargeResultViewController.m */,
+				C21509B9223F72690087447E /* RechargeFruitViewController.h */,
+				C21509BA223F72690087447E /* RechargeFruitViewController.m */,
 			);
 			path = Recharge;
 			sourceTree = "<group>";
@@ -3332,7 +3332,6 @@
 				C2AAF66421E71B8400D9F505 /* OrderDetailsViewController.m in Sources */,
 				C250461A21BA711E00DA9C72 /* RangeSliderView.m in Sources */,
 				C067E8C221EC3E2300395F91 /* MessageListVC.m in Sources */,
-				C21509B5223F348A0087447E /* RechargeResultViewController.m in Sources */,
 				C0A48A6D21D1F969002AF226 /* PopSelShopView.m in Sources */,
 				C04B180321E5DC5000DBA0FE /* RefundListVC.m in Sources */,
 				C250476821BA715500DA9C72 /* ExceptionCatch.m in Sources */,
@@ -3438,6 +3437,7 @@
 				C0A48A7D21D4BE37002AF226 /* HeaderCollectionReusableView.m in Sources */,
 				C050C3E02215704300BFACF5 /* ChatViewController.m in Sources */,
 				C25047DB21BA715500DA9C72 /* BaseController.m in Sources */,
+				C21509BB223F72690087447E /* RechargeFruitViewController.m in Sources */,
 				C050C3E92215704300BFACF5 /* CSBigView.m in Sources */,
 				C25047C421BA715500DA9C72 /* RsaUtil.m in Sources */,
 				C238801B221CEFCA00673E71 /* AppraiseSuccessCollectionViewCell.m in Sources */,

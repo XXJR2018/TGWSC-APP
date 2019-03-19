@@ -11,6 +11,7 @@
 #import "PayResultVC.h"
 #import "AppraiseListViewController.h"
 #import "CustomerServiceViewController.h"
+#import "CouponViewController.h"
 
 #import <sys/utsname.h>
 
@@ -354,6 +355,11 @@
         if (index == 2) {
             //客服
             CustomerServiceViewController *ctl = [[CustomerServiceViewController alloc] init];
+            [nav4 pushViewController:ctl animated:NO];
+        }
+        if (index == 3) {
+            //购物劵
+            CouponViewController *ctl = [[CouponViewController alloc] init];
             [nav4 pushViewController:ctl animated:NO];
         }
     }

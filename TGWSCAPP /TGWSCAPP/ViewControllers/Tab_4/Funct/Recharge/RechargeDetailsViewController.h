@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RechargeDetailsViewController : CommonViewController
 
+@property(nonatomic,copy)NSString *recordId;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -144,7 +144,6 @@
     _RechargeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [_RechargeBtn setTitleColor:UIColorFromRGB(0xB00000) forState:UIControlStateNormal];
     [_RechargeBtn addTarget:self action:@selector(Recharge) forControlEvents:UIControlEventTouchUpInside];
-    _RechargeBtn.hidden = YES; // 隐藏充值按钮
     
     _xfListBtn = [[UIButton alloc]init];
     _lqListBtn = [[UIButton alloc]init];
@@ -325,6 +324,10 @@
             VC.dicParams = [[NSDictionary alloc] init];
             VC.dicParams = dic;
             [self.navigationController pushViewController:VC animated:YES];
+        }else if ([fundType isEqualToString:@"recharge"]) {
+            RechargeDetailsViewController *ctl = [[RechargeDetailsViewController alloc] init];
+            ctl.recordId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"recordId"]];
+            [self.navigationController pushViewController:ctl animated:YES];
         }
     }
 

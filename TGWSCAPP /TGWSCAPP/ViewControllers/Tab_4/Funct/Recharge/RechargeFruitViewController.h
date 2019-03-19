@@ -1,5 +1,5 @@
 //
-//  RechargeResultViewController.h
+//  RechargeFruitViewController.h
 //  TGWSCAPP
 //
 //  Created by xxjr03 on 2019/3/18.
@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RechargeResultViewController : CommonViewController
+@interface RechargeFruitViewController : CommonViewController
 
-@property(nonatomic,assign)NSInteger rechargeType;
+@property(nonatomic,copy)NSString *configId;
 
 @end
 

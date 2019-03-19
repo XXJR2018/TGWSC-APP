@@ -25,7 +25,6 @@
     UIScrollView *_scView;
     CGFloat _currentHeight;
     
-    NSDictionary *_orderDataDic;
     NSInteger _status;
     
     UIButton *_agreeTreatyBtn;
@@ -37,6 +36,8 @@
     
     NSString *_logisticsId;   //物流ID
 }
+
+@property(nonatomic, strong)NSDictionary *orderDataDic;
 
 @property(nonatomic, strong)UILabel *addressLabel;      //收货地址
 
@@ -1045,19 +1046,24 @@
             }else  if (_status == 6) {
                 YCMenuAction *action1 = [YCMenuAction actionWithTitle:@"申请开票" image:nil handler:^(YCMenuAction *action) {
                     //申请开票
-                    if ([[_orderDataDic objectForKey:@"invoiceFlag"] intValue] == 1) {
+                    if ([[self.orderDataDic objectForKey:@"invoiceFlag"] intValue] == 1) {
                         InvoiceDetailsVC *ctl = [[InvoiceDetailsVC alloc]init];
-                        ctl.orderNo = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"orderNo"]];
-                         ctl.invoiceId = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"invoiceId"]];
+                        ctl.orderNo = [NSString stringWithFormat:@"%@",[self.orderDataDic objectForKey:@"orderNo"]];
+                         ctl.invoiceId = [NSString stringWithFormat:@"%@",[self.orderDataDic objectForKey:@"invoiceId"]];
                         [self.navigationController pushViewController:ctl animated:YES];
                     }else{
-                        InvoiceInfoVC *ctl = [[InvoiceInfoVC alloc]init];
-                        ctl.orderNo = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"orderNo"]];
-                        ctl.price = [NSString stringWithFormat:@"¥%.2f", [[_orderDataDic objectForKey:@"totalOrderAmt"] floatValue]];
-                        ctl.invoiceBlock = ^(id invoiceData){
-                            [self loadData];
-                        };
-                        [self.navigationController pushViewController:ctl animated:YES];
+                        if ( [[self.orderDataDic objectForKey:@"invoiceAmount"] floatValue] > 0) {
+                            InvoiceInfoVC *ctl = [[InvoiceInfoVC alloc]init];
+                            ctl.orderNo = [NSString stringWithFormat:@"%@",[self.orderDataDic objectForKey:@"orderNo"]];
+                            ctl.price = [NSString stringWithFormat:@"¥%.2f", [[self.orderDataDic objectForKey:@"invoiceAmount"] floatValue]];
+                            ctl.invoiceBlock = ^(id invoiceData){
+                                [self loadData];
+                            };
+                            [self.navigationController pushViewController:ctl animated:YES];
+                        }else{
+                            [MBProgressHUD showErrorWithStatus:@"支付金额为零，不能开发票。" toView:self.view];
+                        }
+                      
                     }
                 }];
                 YCMenuAction *action2 = [YCMenuAction actionWithTitle:@"删除订单" image:nil handler:^(YCMenuAction *action) {

@@ -314,10 +314,14 @@
                 ctl.orderNo = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
                 [self.navigationController pushViewController:ctl animated:YES];
             }else{
-                InvoiceInfoVC *ctl = [[InvoiceInfoVC alloc]init];
-                ctl.orderNo = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
-                ctl.price = [NSString stringWithFormat:@"¥%.2f", [[dic objectForKey:@"totalOrderAmt"] floatValue]];
-                [self.navigationController pushViewController:ctl animated:YES];
+                if ( [[dic objectForKey:@"invoiceAmount"] floatValue] > 0) {
+                    InvoiceInfoVC *ctl = [[InvoiceInfoVC alloc]init];
+                    ctl.orderNo = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
+                    ctl.price = [NSString stringWithFormat:@"¥%.2f", [[dic objectForKey:@"invoiceAmount"] floatValue]];
+                    [self.navigationController pushViewController:ctl animated:YES];
+                }else{
+                    [MBProgressHUD showErrorWithStatus:@"支付金额为零，不能开发票。" toView:self.view];
+                }
             }
         }];
         YCMenuAction *action2 = [YCMenuAction actionWithTitle:@"申请售后" image:nil handler:^(YCMenuAction *action) {

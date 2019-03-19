@@ -1068,6 +1068,13 @@
     float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK;
     VC.price = [NSString stringWithFormat:@"¥%.2f", fTotalPrice];
     
+    if (fTotalPrice <= 0)
+     {
+        [MBProgressHUD showErrorWithStatus:@"支付金额为零，不需开发票。" toView:self.view];
+        isCheckDZFP = NO;
+        return;
+     }
+    
     VC.invoiceBlock = ^(id invoiceData) {
         NSLog(@"actionDZFP  选择了 %@", invoiceData);
         NSDictionary *dic = invoiceData;

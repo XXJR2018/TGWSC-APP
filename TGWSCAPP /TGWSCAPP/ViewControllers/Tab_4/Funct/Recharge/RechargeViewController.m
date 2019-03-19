@@ -254,7 +254,8 @@
 
 //查看协议
 -(void)treaty{
-    
+    NSString *url = [NSString stringWithFormat:@"%@webMall/protocol/recharge",[PDAPI WXSysRouteAPI]];
+    [CCWebViewController showWithContro:self withUrlStr:url withTitle:@"充值活动协议"];
 }
 
 //选择额度

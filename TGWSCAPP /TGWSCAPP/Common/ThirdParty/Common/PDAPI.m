@@ -50,8 +50,8 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
 // 跳转微信端h5路径
 + (NSString *)WXSysRouteAPI{
 #if DEBUG
-//    return kBaseURL;
-    return @"http://192.168.10.208/";   // 测试环境
+    return @"https://app.tgwmall.cn/";           //生产环境
+//    return @"http://192.168.10.208/";   // 测试环境
     
 #else
     return kBaseURL;

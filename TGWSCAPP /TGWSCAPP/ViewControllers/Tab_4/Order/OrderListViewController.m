@@ -311,10 +311,11 @@
             //申请开票
             if ([[dic objectForKey:@"invoiceFlag"] intValue] == 1) {
                 InvoiceDetailsVC *ctl = [[InvoiceDetailsVC alloc]init];
-                 ctl.orderNo = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
+                ctl.orderNo = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
                 [self.navigationController pushViewController:ctl animated:YES];
             }else{
                 InvoiceInfoVC *ctl = [[InvoiceInfoVC alloc]init];
+                ctl.orderNo = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderNo"]];
                 ctl.price = [NSString stringWithFormat:@"¥%.2f", [[dic objectForKey:@"totalOrderAmt"] floatValue]];
                 [self.navigationController pushViewController:ctl animated:YES];
             }

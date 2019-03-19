@@ -66,15 +66,13 @@
     params[@"telephone"] = _phoneField.text;
     params[@"email"] = _emailField.text;
 
-    NSString *url = [NSString stringWithFormat:@"%@appMall/account/orderInvoice/save",[PDAPI getBaseUrlString]];
     if (self.orderNo.length > 0) {
-        url = [NSString stringWithFormat:@"%@appMall/account/orderInvoice/repairInvoice",[PDAPI getBaseUrlString]];
         params[@"orderNo"] = self.orderNo;
     }
     if (self.invoiceId.length > 0) {
         params[@"invoiceId"] = self.invoiceId;
     }
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:url
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/orderInvoice/save",[PDAPI getBaseUrlString]]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       [self handleData:operation];

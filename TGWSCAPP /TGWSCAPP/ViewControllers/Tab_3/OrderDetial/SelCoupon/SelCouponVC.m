@@ -158,6 +158,9 @@
      }
     
     
+    scView.contentSize = CGSizeMake(0, iTopY);
+    
+    
 }
 -(void) AllUnCheck
 {

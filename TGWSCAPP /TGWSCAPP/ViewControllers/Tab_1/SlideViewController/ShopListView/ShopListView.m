@@ -154,7 +154,7 @@
     
 }
 
-
+// 全部用正方形来画图
 -(void) drawListTwo
 {
     float fTopY = 0;
@@ -182,8 +182,6 @@
         [_items count])
      {
         int iShopCount = (int)[_items count];
-        
-
         
         float fImgBettewn = 1.5 *ScaleSize;
         float fImgHeight = (SCREEN_WIDTH - 2*fLeftX - (_columnOneCount -1)* fImgBettewn) / _columnOneCount;
@@ -242,9 +240,6 @@
             return;
          }
         
-        
-        
-
 
         fImgHeight = (SCREEN_WIDTH - 2*fLeftX - (_columnTwoCount -1)* fImgBettewn) / _columnTwoCount;
         fImgWidth = fImgHeight;

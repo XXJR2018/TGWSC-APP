@@ -23,8 +23,12 @@
 -(void)loadData{
     [MBProgressHUD showHUDAddedTo:self.view];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"orderNo"] = self.orderNo;
-    
+    if (self.invoiceId.length > 0) {
+        params[@"invoiceId"] = self.invoiceId;
+    }
+    if (self.orderNo.length > 0) {
+       params[@"orderNo"] = self.orderNo;
+    }
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/orderInvoice/dtlInfo",[PDAPI getBaseUrlString]]
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
@@ -251,6 +255,7 @@
 -(void)changeInvoice{
     InvoiceInfoVC *ctl = [[InvoiceInfoVC alloc]init];
     ctl.invoiceId = [NSString stringWithFormat:@"%@",[_invoiceDic objectForKey:@"invoiceId"]];
+    ctl.orderNo = [NSString stringWithFormat:@"%@",[_invoiceDic objectForKey:@"orderNo"]];
     ctl.price = [NSString stringWithFormat:@"¥%.2f", [[_invoiceDic objectForKey:@"amount"] floatValue]];
     ctl.invoiceBlock = ^(id invoiceData){
         [self loadData];

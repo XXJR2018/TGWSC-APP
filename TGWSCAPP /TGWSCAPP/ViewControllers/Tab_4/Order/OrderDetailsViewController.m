@@ -918,7 +918,8 @@
 //发票信息
 -(void)invoice{
     InvoiceDetailsVC *ctl = [[InvoiceDetailsVC alloc]init];
-    ctl.orderNo = self.orderNo;
+    ctl.orderNo = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"orderNo"]];
+    ctl.invoiceId = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"invoiceId"]];
     [self.navigationController pushViewController:ctl animated:YES];
 }
 
@@ -1046,10 +1047,12 @@
                     //申请开票
                     if ([[_orderDataDic objectForKey:@"invoiceFlag"] intValue] == 1) {
                         InvoiceDetailsVC *ctl = [[InvoiceDetailsVC alloc]init];
-                        ctl.orderNo = self.orderNo;
+                        ctl.orderNo = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"orderNo"]];
+                         ctl.invoiceId = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"invoiceId"]];
                         [self.navigationController pushViewController:ctl animated:YES];
                     }else{
                         InvoiceInfoVC *ctl = [[InvoiceInfoVC alloc]init];
+                        ctl.orderNo = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"orderNo"]];
                         ctl.price = [NSString stringWithFormat:@"¥%.2f", [[_orderDataDic objectForKey:@"totalOrderAmt"] floatValue]];
                         ctl.invoiceBlock = ^(id invoiceData){
                             [self loadData];

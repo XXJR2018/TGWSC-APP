@@ -11,7 +11,7 @@
 #import "CouponViewCell.h"
 #import "ShopCouponViewCell.h"
 
-@interface CouponViewController ()
+@interface CouponViewController ()<UIGestureRecognizerDelegate>
 {
     
     UIButton *_yhjBtn;
@@ -20,7 +20,9 @@
     UIButton *_wsyListBtn;
     UIButton *_ysyListBtn;
     UIButton *_ygqListBtn;
-
+    NSString *_custPromocardId;
+    UIView *_shareAlertView;
+    UIView *_sheetView;
 }
 @end
 
@@ -51,6 +53,7 @@
                                                                                       [self handleErrorData:operation];
                                                                                   }];
     [operation start];
+    operation.tag = 1001;
 }
 
 #pragma mark 数据操作
@@ -58,21 +61,30 @@
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     [_tableView.mj_header endRefreshing];
     [_tableView.mj_footer endRefreshing];
-    
-    if (operation.jsonResult.rows.count > 0) {
-        [self reloadTableViewWithArray:operation.jsonResult.rows];
-    }else{
-        self.pageIndex --;
-        if (self.pageIndex > 1) {
-            [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
-        }
-        
-        if (self.pageIndex <= 1)
-         {
+    if (operation.tag == 1001) {
+        if (operation.jsonResult.rows.count > 0) {
             [self reloadTableViewWithArray:operation.jsonResult.rows];
-         }
+        }else{
+            self.pageIndex --;
+            if (self.pageIndex > 1) {
+                [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
+            }
+            if (self.pageIndex <= 1){
+                [self reloadTableViewWithArray:operation.jsonResult.rows];
+            }
+        }
+    }else if (operation.tag == 1002) {
+        NSDictionary *shareInfo = [operation.jsonResult.attr objectForKey:@"shareInfo"];
+        if (shareInfo.count > 0) {
+            [self freeShare:shareInfo];
+        }
+    }else if (operation.tag == 1003) {
+        NSString *imageUrl = [operation.jsonResult.attr objectForKey:@"imageUrl"];
+        if (imageUrl.length > 0) {
+            [self shareImg:imageUrl];
+        }
     }
-    
+   
 }
 
 -(void)handleErrorData:(DDGAFHTTPRequestOperation *)operation{
@@ -276,8 +288,9 @@
             cell = [[ShopCouponViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShopCoupon_Cell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+         _custPromocardId = [NSString stringWithFormat:@"%@",[self.dataArray[indexPath.row] objectForKey:@"custPromocardId"]];
         cell.shareBlock = ^{
-            
+            [self shareAlertViewUI];
         };
         
         cell.dataDicionary = self.dataArray[indexPath.row];
@@ -290,6 +303,151 @@
     //（这种是没有点击后的阴影效果)
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+}
+
+#pragma mark ------share
+-(void)sharePromocardUrl{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"custPromocardId"] = _custPromocardId;
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/cust/activity/sharePromocard",[PDAPI getBaseUrlString]]
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+    operation.tag = 1002;
+}
+
+-(void)shareCodeUrl{
+    [MBProgressHUD showHUDAddedTo:self.view];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"custPromocardId"] = _custPromocardId;
+    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/cust/activity/shareCode",[PDAPI getBaseUrlString]]
+                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
+                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
+                                                                                      [self handleData:operation];
+                                                                                  }
+                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
+                                                                                      [self handleErrorData:operation];
+                                                                                  }];
+    [operation start];
+    operation.tag = 1003;
+}
+
+//分享链接给好友
+-(void)freeShare:(NSDictionary *)dicShare {
+    NSString *shareUrl = dicShare[@"url"];
+    NSString *shareTitle = dicShare[@"title"];
+    NSString *shareSubTitle = dicShare[@"content"];
+    NSString *shareImgStr = dicShare[@"image"];
+    
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareImgStr]]];
+    if (image && (image.size.width > 100  || image.size.height > 100)) {
+        image = [image scaledToSize:CGSizeMake(100, 100*image.size.height/image.size.width)];
+    }
+    [[DDGShareManager shareManager] weChatShare:@{@"title":shareTitle, @"subTitle":shareSubTitle,@"image":UIImageJPEGRepresentation(image,1.0),@"url": shareUrl} shareScene:1];
+//    [[DDGShareManager shareManager] share:ShareContentTypeNews items:@{@"title":shareTitle, @"subTitle":shareSubTitle?:@"",@"image":UIImageJPEGRepresentation(image,1.0),@"url": shareUrl} types:@[DDGShareTypeWeChat_haoyou,DDGShareTypeWeChat_pengyouquan,DDGShareTypeQQ,DDGShareTypeQQqzone,DDGShareTypeCopyUrl] showIn:self block:^(id result){
+//        NSDictionary *dic = (NSDictionary *)result;
+//        if ([[dic objectForKey:@"success"] boolValue]) {
+//            [MBProgressHUD showSuccessWithStatus:@"分享成功" toView:self.view];
+//        }else{
+//            [MBProgressHUD showErrorWithStatus:@"分享失败" toView:self.view];
+//        }
+//    }];
+}
+
+// 分享二维码图片到朋友圈
+-(void)shareImg:(NSString *)imgStr{
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imgStr]]];
+    [[DDGShareManager shareManager] weChatShare:@{@"image":UIImageJPEGRepresentation(image,1.0)} shareScene:1];
+    
+//    [[DDGShareManager shareManager] share:ShareContentTypeNews items:@{@"image":UIImageJPEGRepresentation(image,1.0)} types:@[DDGShareTypeWeChat_haoyou,DDGShareTypeWeChat_pengyouquan,DDGShareTypeQQ,DDGShareTypeQQqzone] showIn:self block:^(id result){
+//        NSDictionary *dic = (NSDictionary *)result;
+//        if ([[dic objectForKey:@"success"] boolValue]) {
+//            [MBProgressHUD showSuccessWithStatus:@"分享成功" toView:self.view];
+//        }else{
+//            [MBProgressHUD showErrorWithStatus:@"分享失败" toView:self.view];
+//        }
+//    }];
+    
+}
+
+
+#pragma mark - shareAlertViewUI
+-(void)shareAlertViewUI{
+    [_shareAlertView removeFromSuperview];
+    
+    _shareAlertView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self.view addSubview:_shareAlertView];
+    _shareAlertView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
+    //添加手势点击空白处隐藏键盘
+    UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hidenAlert)];
+    gesture.numberOfTapsRequired  = 1;
+    gesture.delegate = self;
+    [_shareAlertView addGestureRecognizer:gesture];
+    
+    _sheetView = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 280, SCREEN_WIDTH, 280)];
+    [_shareAlertView addSubview:_sheetView];
+    _sheetView.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
+    [_sheetView addSubview:titleLabel];
+    titleLabel.textColor = [ResourceManager color_1];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont systemFontOfSize:14];
+    titleLabel.text = @"赠送给好友";
+
+    UIView *ruleView = [[UIView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(titleLabel.frame), SCREEN_WIDTH - 30, 100)];
+    [_sheetView addSubview:ruleView];
+    ruleView.layer.cornerRadius = 8;
+    ruleView.layer.borderWidth = 0.5;
+    ruleView.layer.borderColor = [ResourceManager color_5].CGColor;
+    
+    UILabel *subitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, ruleView.frame.size.width - 20, 90)];
+    [ruleView addSubview:subitleLabel];
+    subitleLabel.textColor = [ResourceManager color_1];
+    subitleLabel.numberOfLines = 0;
+    subitleLabel.font = [UIFont systemFontOfSize:12];
+    subitleLabel.text = @"赠送规则：\n1.赠送出的劵在您的账户中不能使用了\n2.分享后没有人领取会在24小时后退回，若购物劵有效期小于24小时，那么购物劵退回时会自动作废";
+    
+    for (int i = 0; i < 2; i++) {
+        UIButton *shareBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/4 - 50 + SCREEN_WIDTH/2 * i, CGRectGetMaxY(ruleView.frame), 100, 120)];
+        [_sheetView addSubview:shareBtn];
+        shareBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [shareBtn setTitleColor:[ResourceManager color_1] forState:UIControlStateNormal];
+       
+        if (i == 0) {
+            [shareBtn setTitle:@"微信好友" forState:UIControlStateNormal];
+            [shareBtn setImage:[UIImage imageNamed:@"com_wechat"] forState:UIControlStateNormal];
+            [shareBtn addTarget:self action:@selector(sharePromocardUrl) forControlEvents:UIControlEventTouchUpInside];
+        }else{
+            [shareBtn setTitle:@"微信朋友圈" forState:UIControlStateNormal];
+            [shareBtn setImage:[UIImage imageNamed:@"com_wepyq"] forState:UIControlStateNormal];
+            [shareBtn addTarget:self action:@selector(shareCodeUrl) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        //使图片和文字水平居中显示
+        [shareBtn setTitleEdgeInsets:UIEdgeInsetsMake(0,-shareBtn.imageView.frame.size.width, -shareBtn.imageView.frame.size.height - 10,0)];
+        [shareBtn setImageEdgeInsets:UIEdgeInsetsMake(-shareBtn.titleLabel.intrinsicContentSize.height - 10, 0, 0, -shareBtn.titleLabel.intrinsicContentSize.width)];
+    }
+    
+}
+
+//确定
+-(void)hidenAlert{
+    [_shareAlertView removeFromSuperview];
+}
+
+#pragma mark-UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch {
+    if ([touch.view isDescendantOfView:_sheetView]) {
+        return NO;
+    }
+    return YES;
 }
 
 

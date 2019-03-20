@@ -27,9 +27,9 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHw-rn-ZqY">
-                        <rect key="frame" x="6" y="30" width="124" height="50"/>
+                        <rect key="frame" x="6" y="40" width="124" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="50" id="EIg-pd-cUn"/>
+                            <constraint firstAttribute="height" constant="40" id="EIg-pd-cUn"/>
                             <constraint firstAttribute="width" constant="124" id="joI-n7-vBp"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -37,10 +37,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pf0-WQ-otD">
-                        <rect key="frame" x="6" y="80" width="124" height="25"/>
+                        <rect key="frame" x="6" y="80" width="124" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="124" id="Dco-4I-NXh"/>
-                            <constraint firstAttribute="height" constant="25" id="i0V-Wv-21s"/>
+                            <constraint firstAttribute="height" constant="20" id="i0V-Wv-21s"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.69019607839999997" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -114,7 +114,7 @@
                     <constraint firstItem="eZx-TT-fxw" firstAttribute="leading" secondItem="pf0-WQ-otD" secondAttribute="trailing" constant="-123.5" id="kuk-uQ-194"/>
                     <constraint firstItem="fP8-yQ-DiY" firstAttribute="leading" secondItem="d7Q-Pw-5UT" secondAttribute="trailing" constant="2" id="lMF-bb-qF7"/>
                     <constraint firstItem="fP8-yQ-DiY" firstAttribute="leading" secondItem="2uP-F2-eCH" secondAttribute="trailing" constant="2" id="mzQ-iX-Sk3"/>
-                    <constraint firstItem="mHw-rn-ZqY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="s14-xk-rUX"/>
+                    <constraint firstItem="mHw-rn-ZqY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="40" id="s14-xk-rUX"/>
                     <constraint firstItem="eZx-TT-fxw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="vvH-ks-VjB"/>
                 </constraints>
             </tableViewCellContentView>

@@ -324,6 +324,8 @@
 		C250480521BA73B800DA9C72 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C25047FB21BA73B800DA9C72 /* AFNetworkReachabilityManager.m */; };
 		C250480621BA73B800DA9C72 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C25047FC21BA73B800DA9C72 /* AFSecurityPolicy.m */; };
 		C287FE7A21BF4ACB00B8D682 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C287FE7821BF4ACB00B8D682 /* Images.xcassets */; };
+		C29A90D72241E6150077994C /* ShopCouponViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C29A90D52241E6150077994C /* ShopCouponViewCell.m */; };
+		C29A90D82241E6150077994C /* ShopCouponViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C29A90D62241E6150077994C /* ShopCouponViewCell.xib */; };
 		C29ABBDB21D4655300428407 /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C29ABBDA21D4655300428407 /* MyCollectViewController.m */; };
 		C29ABBE421D466D600428407 /* MyCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C29ABBE221D466D600428407 /* MyCollectCell.m */; };
 		C29ABBE521D466D600428407 /* MyCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C29ABBE321D466D600428407 /* MyCollectCell.xib */; };
@@ -1006,6 +1008,9 @@
 		C25047FD21BA73B800DA9C72 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		C287FE7821BF4ACB00B8D682 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C29736A021EEBC76008EFD9E /* TGWSCAPP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TGWSCAPP.entitlements; sourceTree = "<group>"; };
+		C29A90D42241E6150077994C /* ShopCouponViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopCouponViewCell.h; sourceTree = "<group>"; };
+		C29A90D52241E6150077994C /* ShopCouponViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopCouponViewCell.m; sourceTree = "<group>"; };
+		C29A90D62241E6150077994C /* ShopCouponViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopCouponViewCell.xib; sourceTree = "<group>"; };
 		C29ABBD921D4655300428407 /* MyCollectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectViewController.h; sourceTree = "<group>"; };
 		C29ABBDA21D4655300428407 /* MyCollectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectViewController.m; sourceTree = "<group>"; };
 		C29ABBE121D466D600428407 /* MyCollectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectCell.h; sourceTree = "<group>"; };
@@ -2054,6 +2059,9 @@
 				C23EAF3F21D32D3000B271A7 /* CouponViewCell.h */,
 				C23EAF4021D32D3000B271A7 /* CouponViewCell.m */,
 				C23EAF4121D32D3000B271A7 /* CouponViewCell.xib */,
+				C29A90D42241E6150077994C /* ShopCouponViewCell.h */,
+				C29A90D52241E6150077994C /* ShopCouponViewCell.m */,
+				C29A90D62241E6150077994C /* ShopCouponViewCell.xib */,
 				C29ABBE121D466D600428407 /* MyCollectCell.h */,
 				C29ABBE221D466D600428407 /* MyCollectCell.m */,
 				C29ABBE321D466D600428407 /* MyCollectCell.xib */,
@@ -3130,6 +3138,7 @@
 				C0CCC83321C1FD21009352E0 /* search@3x.png in Resources */,
 				C050C3DB2215704300BFACF5 /* me.png in Resources */,
 				C0CCC83121C1FD21009352E0 /* clearImage@2x.png in Resources */,
+				C29A90D82241E6150077994C /* ShopCouponViewCell.xib in Resources */,
 				C29ABBED21D4766F00428407 /* AddressViewCell.xib in Resources */,
 				C050C3E72215704300BFACF5 /* mm.png in Resources */,
 				C250479721BA715500DA9C72 /* README.md in Resources */,
@@ -3436,6 +3445,7 @@
 				C2C4B832221BFBEB007A0147 /* AppraiseSuccessCell.m in Sources */,
 				C0A48A7D21D4BE37002AF226 /* HeaderCollectionReusableView.m in Sources */,
 				C050C3E02215704300BFACF5 /* ChatViewController.m in Sources */,
+				C29A90D72241E6150077994C /* ShopCouponViewCell.m in Sources */,
 				C25047DB21BA715500DA9C72 /* BaseController.m in Sources */,
 				C21509BB223F72690087447E /* RechargeFruitViewController.m in Sources */,
 				C050C3E92215704300BFACF5 /* CSBigView.m in Sources */,

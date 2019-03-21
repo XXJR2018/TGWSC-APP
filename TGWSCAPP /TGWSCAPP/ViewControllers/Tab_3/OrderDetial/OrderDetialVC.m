@@ -934,8 +934,39 @@
     [self commitOrder];
 
     
-    //PayResultVC *VC = [[PayResultVC alloc] init];
-    //[self.navigationController pushViewController:VC animated:YES];
+}
+
+-(void) actionPopIsPay
+{
+    CDWAlertView *alertView = [[CDWAlertView alloc] init];
+    
+    alertView.shouldDismissOnTapOutside = NO;
+    alertView.textAlignment = RTTextAlignmentCenter;
+    
+    // 降低高度
+    [alertView subAlertCurHeight:10];
+    //[alertView addSubTitle:[NSString stringWithFormat:@"<font size = 18 color=#000000>确定要放弃付款吗？</font>"]];
+    
+    // 加入message
+    NSString *strXH= [NSString stringWithFormat:@"土豪，您用的%d元无门槛购物券，要不要多买点东西？",(int)promocardValue];
+    [alertView addSubTitle:[NSString stringWithFormat:@"<font size = 14 color=#333333> %@ </font>",strXH]];
+    
+    [alertView subAlertCurHeight:10];
+    
+    //__weak typeof(self) weakSelf = self;
+    
+    [alertView addCanelButton:@"不差钱" actionBlock:^{
+        
+    }];
+    
+    [alertView addButton:@"好的" color:[ResourceManager priceColor] actionBlock:^{
+        
+        [self.navigationController popToRootViewControllerAnimated:NO];
+        [[NSNotificationCenter defaultCenter] postNotificationName:DDGSwitchTabNotification object:@{@"tab":@(1),@"index":@(0)}];
+    }];
+    
+    [alertView showAlertView:self.parentViewController duration:0.0];
+    
     
 }
 
@@ -1039,6 +1070,13 @@
      }
     
     [self layoutBottomView];
+    
+    float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK + postage;
+    if (fTotalPrice < 0.00)
+     {
+        // 如果抵扣券大于 实际支付的金额
+        [self performSelector:@selector(actionPopIsPay) withObject:nil afterDelay:0.5];// 延迟执行;
+     }
     
 }
 
@@ -1211,7 +1249,7 @@
     
     if (usableAmount >= (goodsTotalAmt - promocardValue))
      {
-        [self commitOrder];
+       [self  commitOrder];
      }
     
 }

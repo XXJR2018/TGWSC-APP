@@ -57,7 +57,7 @@
     if ([self.stataLabel.text isEqualToString:@"未开始"]) {
         self.stataLabel.textColor = [ResourceManager color_6];
     }
-    self.atLeastLabel.text = [NSString stringWithFormat:@"满%@元使用",[_dataDicionary objectForKey:@"atLeast"]];
+    self.atLeastLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"useRemark"]];
     self.validTlmeLabel.text = [NSString stringWithFormat:@"有效期%@-%@",[_dataDicionary objectForKey:@"validStartDate"],[_dataDicionary objectForKey:@"validEndDate"]];
   
     if ([[_dataDicionary objectForKey:@"usableFlag"] intValue] == 1) {

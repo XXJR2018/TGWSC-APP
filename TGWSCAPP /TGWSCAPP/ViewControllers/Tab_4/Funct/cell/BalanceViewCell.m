@@ -63,6 +63,10 @@
     _orderNumber.font = [UIFont systemFontOfSize:12];
     _orderNumber.textColor = [ResourceManager color_6];
     _orderNumber.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"orderNo"]];
+    NSString *fundType = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"fundType"]];
+    if ([fundType isEqualToString:@"recharge"]) {
+        _orderNumber.text = [NSString stringWithFormat:@"余额：%@",[_dataDicionary objectForKey:@"usableAmount"]];
+    }
     
     _changeNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 125, 20, 100, 20)];
     [self addSubview:_changeNumLabel];

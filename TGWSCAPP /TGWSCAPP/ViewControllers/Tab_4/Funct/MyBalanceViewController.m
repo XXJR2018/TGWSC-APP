@@ -144,9 +144,7 @@
     _RechargeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [_RechargeBtn setTitleColor:UIColorFromRGB(0xB00000) forState:UIControlStateNormal];
     [_RechargeBtn addTarget:self action:@selector(Recharge) forControlEvents:UIControlEventTouchUpInside];
-    if ([[[CommonInfo userInfo] objectForKey:@"isStaff"] intValue] != 1) {
-        _RechargeBtn.hidden = YES;
-    }
+    
     _xfListBtn = [[UIButton alloc]init];
     _lqListBtn = [[UIButton alloc]init];
     _gqListBtn = [[UIButton alloc]init];

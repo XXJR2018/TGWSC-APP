@@ -135,6 +135,11 @@
          {
             lablelAtLeast.text = @"无门槛使用";
          }
+        NSString *useRemark = _dataDicionary[@"useRemark"];
+        if (useRemark)
+         {
+            lablelAtLeast.text = useRemark;
+         }
         
         iCellTopY += lablelAtLeast.height+15;
         iLeftX = 10;

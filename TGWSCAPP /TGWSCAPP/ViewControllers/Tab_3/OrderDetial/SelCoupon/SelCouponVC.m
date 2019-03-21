@@ -129,12 +129,6 @@
         [imgCellBG addSubview:lablelAtLeast];
         lablelAtLeast.font = [UIFont systemFontOfSize:10];
         lablelAtLeast.textColor = [ResourceManager midGrayColor];
-        lablelAtLeast.text = [NSString stringWithFormat:@"满%@元使用",[_dataDicionary objectForKey:@"atLeast"]];
-        int preferentialType = [[_dataDicionary objectForKey:@"preferentialType"] intValue];
-        if (2 == preferentialType)
-         {
-            lablelAtLeast.text = @"无门槛使用";
-         }
         NSString *useRemark = _dataDicionary[@"useRemark"];
         if (useRemark)
          {

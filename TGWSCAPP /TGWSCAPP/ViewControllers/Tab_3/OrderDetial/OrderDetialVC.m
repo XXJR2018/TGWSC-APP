@@ -654,9 +654,18 @@
     lableTotalPrice.textColor = [ResourceManager priceColor];
     lableTotalPrice.font = [UIFont systemFontOfSize:18];
     float fTotalPrice = goodsTotalAmt - promocardValue - fYEDK + postage;
+    if (fTotalPrice <= 0.000)
+     {
+        fTotalPrice = 0.00;
+     }
     lableTotalPrice.text = [NSString stringWithFormat:@"¥%.2f", fTotalPrice  ];
     
-    labelJF.text = [NSString stringWithFormat:@"%d", (int)(goodsTotalAmt - promocardValue)];
+    int  iJF = goodsTotalAmt - promocardValue;
+    if (iJF < 0)
+     {
+        iJF = 0;
+     }
+    labelJF.text = [NSString stringWithFormat:@"%d", iJF];
 
     
     iTopY += lableTotalPrice.height;

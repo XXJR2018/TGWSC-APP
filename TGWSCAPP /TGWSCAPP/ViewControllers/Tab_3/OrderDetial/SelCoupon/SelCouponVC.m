@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self layoutNaviBarViewWithTitle:@"选择优惠券"];
+    [self layoutNaviBarViewWithTitle:@"选择券"];
     
     [self initData];
     
@@ -51,7 +51,7 @@
     [viewHead addSubview:labelUnuse];
     labelUnuse.textColor = [ResourceManager color_1];
     labelUnuse.font = [UIFont systemFontOfSize:14];
-    labelUnuse.text = @"不使用优惠券";
+    labelUnuse.text = @"不使用券";
     
     btnUnse = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 45, iTopY+5, 18, 18)];
     [viewHead addSubview:btnUnse];
@@ -130,6 +130,11 @@
         lablelAtLeast.font = [UIFont systemFontOfSize:10];
         lablelAtLeast.textColor = [ResourceManager midGrayColor];
         lablelAtLeast.text = [NSString stringWithFormat:@"满%@元使用",[_dataDicionary objectForKey:@"atLeast"]];
+        int preferentialType = [[_dataDicionary objectForKey:@"preferentialType"] intValue];
+        if (2 == preferentialType)
+         {
+            lablelAtLeast.text = @"无门槛使用";
+         }
         
         iCellTopY += lablelAtLeast.height+15;
         iLeftX = 10;

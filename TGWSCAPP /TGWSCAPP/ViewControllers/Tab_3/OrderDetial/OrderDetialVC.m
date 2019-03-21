@@ -411,7 +411,7 @@
      {
         iTopY += iCellHeight + 10;
      }
-    NSArray *arrName = @[@"优惠券/优惠码",@"购买所得积分",@"配送方式",@"我要开发票"];
+    NSArray *arrName = @[@"优惠券/购物券",@"购买所得积分",@"配送方式",@"我要开发票"];
     for(int i= 0 ; i <[arrName count]; i++)
      {
         iLeftX = 15;

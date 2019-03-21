@@ -130,10 +130,8 @@
         lablelAtLeast.font = [UIFont systemFontOfSize:10];
         lablelAtLeast.textColor = [ResourceManager midGrayColor];
         NSString *useRemark = _dataDicionary[@"useRemark"];
-        if (useRemark)
-         {
-            lablelAtLeast.text = useRemark;
-         }
+        lablelAtLeast.text = useRemark?useRemark:@"";
+        
         
         iCellTopY += lablelAtLeast.height+15;
         iLeftX = 10;

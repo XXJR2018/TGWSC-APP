@@ -51,7 +51,8 @@
     self.shareBtn.layer.cornerRadius = 25/2;
     self.shareBtn.layer.borderWidth = 0.5;
     self.shareBtn.layer.borderColor = [ResourceManager mainColor].CGColor;
-    
+    self.statusImgViewLayoutWidth.constant = 53.5;
+    self.statusImgViewLayoutHeight.constant = 41;
     self.userNameLabel.text = [NSString stringWithFormat:@"赠送人：%@",[_dataDicionary objectForKey:@"giveBy"]];
     self.zsTimeLabel.text = [NSString stringWithFormat:@"赠送日期：%@",[_dataDicionary objectForKey:@"receiveTime"]];
     

@@ -65,12 +65,11 @@
         if (operation.jsonResult.rows.count > 0) {
             [self reloadTableViewWithArray:operation.jsonResult.rows];
         }else{
-            self.pageIndex --;
-            if (self.pageIndex > 1) {
-                [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
-            }
-            if (self.pageIndex <= 1){
+            if (self.pageIndex == 1){
                 [self reloadTableViewWithArray:operation.jsonResult.rows];
+            }else{
+                self.pageIndex --;
+                [MBProgressHUD showErrorWithStatus:@"没有更多数据了" toView:self.view];
             }
         }
     }else if (operation.tag == 1002) {
@@ -288,8 +287,8 @@
             cell = [[ShopCouponViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShopCoupon_Cell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-         _custPromocardId = [NSString stringWithFormat:@"%@",[self.dataArray[indexPath.row] objectForKey:@"custPromocardId"]];
         cell.shareBlock = ^{
+            _custPromocardId = [NSString stringWithFormat:@"%@",[self.dataArray[indexPath.row] objectForKey:@"custPromocardId"]];
             [self shareAlertViewUI];
         };
         
@@ -340,6 +339,8 @@
 
 //分享链接给好友
 -(void)freeShare:(NSDictionary *)dicShare {
+     [self hidenAlert];
+    
     NSString *shareUrl = dicShare[@"url"];
     NSString *shareTitle = dicShare[@"title"];
     NSString *shareSubTitle = dicShare[@"content"];
@@ -349,7 +350,16 @@
     if (image && (image.size.width > 100  || image.size.height > 100)) {
         image = [image scaledToSize:CGSizeMake(100, 100*image.size.height/image.size.width)];
     }
-    [[DDGShareManager shareManager] weChatShare:@{@"title":shareTitle, @"subTitle":shareSubTitle,@"image":UIImageJPEGRepresentation(image,1.0),@"url": shareUrl} shareScene:1];
+    [[DDGShareManager shareManager] weChatShare:@{@"title":shareTitle, @"subTitle":shareSubTitle,@"image":UIImageJPEGRepresentation(image,1.0),@"url": shareUrl} shareScene:0];
+    [[DDGShareManager  shareManager] setBlock:^(id obj) {
+        NSDictionary *dic = (NSDictionary *)obj;
+        if ([[dic objectForKey:@"success"] boolValue]) {
+            [MBProgressHUD showSuccessWithStatus:@"分享成功" toView:self.view];
+            [self loadData];
+        }else{
+            [MBProgressHUD showErrorWithStatus:@"分享失败" toView:self.view];
+        }
+    }];
 //    [[DDGShareManager shareManager] share:ShareContentTypeNews items:@{@"title":shareTitle, @"subTitle":shareSubTitle?:@"",@"image":UIImageJPEGRepresentation(image,1.0),@"url": shareUrl} types:@[DDGShareTypeWeChat_haoyou,DDGShareTypeWeChat_pengyouquan,DDGShareTypeQQ,DDGShareTypeQQqzone,DDGShareTypeCopyUrl] showIn:self block:^(id result){
 //        NSDictionary *dic = (NSDictionary *)result;
 //        if ([[dic objectForKey:@"success"] boolValue]) {
@@ -362,9 +372,19 @@
 
 // 分享二维码图片到朋友圈
 -(void)shareImg:(NSString *)imgStr{
+     [self hidenAlert];
+    
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imgStr]]];
     [[DDGShareManager shareManager] weChatShare:@{@"image":UIImageJPEGRepresentation(image,1.0)} shareScene:1];
-    
+    [[DDGShareManager  shareManager] setBlock:^(id obj) {
+        NSDictionary *dic = (NSDictionary *)obj;
+        if ([[dic objectForKey:@"success"] boolValue]) {
+            [MBProgressHUD showSuccessWithStatus:@"分享成功" toView:self.view];
+            [self loadData];
+        }else{
+            [MBProgressHUD showErrorWithStatus:@"分享失败" toView:self.view];
+        }
+    }];
 //    [[DDGShareManager shareManager] share:ShareContentTypeNews items:@{@"image":UIImageJPEGRepresentation(image,1.0)} types:@[DDGShareTypeWeChat_haoyou,DDGShareTypeWeChat_pengyouquan,DDGShareTypeQQ,DDGShareTypeQQqzone] showIn:self block:^(id result){
 //        NSDictionary *dic = (NSDictionary *)result;
 //        if ([[dic objectForKey:@"success"] boolValue]) {

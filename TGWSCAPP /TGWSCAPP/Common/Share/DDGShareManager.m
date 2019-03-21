@@ -144,8 +144,7 @@ static DDGShareManager *_DDGShareManager = nil;
 }
 
 // 回调
--(void) weChatShareFinishedWithResult:(NSMutableDictionary *)result
-{
+-(void) weChatShareFinishedWithResult:(NSMutableDictionary *)result{
     _block(result);
 }
 

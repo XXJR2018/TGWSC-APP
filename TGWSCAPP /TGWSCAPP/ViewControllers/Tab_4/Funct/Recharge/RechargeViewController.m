@@ -241,7 +241,7 @@
     rechargeTreatyLabel.textColor = [ResourceManager color_1];
     
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]
-                                          initWithString:@"点击立即支付，即表示已阅读并同意充值活动协议"];
+                                          initWithString:@"点击立即充值，即表示已阅读并同意充值活动协议"];
     [attrStr addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0xD8B576) range:NSMakeRange(attrStr.length - 6, 6)];
     rechargeTreatyLabel.attributedText = attrStr;
     

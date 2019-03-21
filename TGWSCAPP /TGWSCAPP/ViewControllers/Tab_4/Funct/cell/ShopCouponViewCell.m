@@ -66,7 +66,7 @@
     if ([self.stataLabel.text isEqualToString:@"未开始"]) {
         self.stataLabel.textColor = [ResourceManager color_6];
     }
-    self.atLeastLabel.text = @"无门槛使用";
+    self.atLeastLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"useRemark"]];
     self.validTlmeLabel.text = [NSString stringWithFormat:@"有效期%@-%@",[_dataDicionary objectForKey:@"validStartDate"],[_dataDicionary objectForKey:@"validEndDate"]];
 
     //status 0未启用 1有效 2已使用 3已过期 4使用中 5分享中 6分享成功

@@ -59,6 +59,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"我的收藏"];
+    
+    [self loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{

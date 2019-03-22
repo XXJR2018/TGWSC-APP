@@ -183,7 +183,7 @@
      {
         int iShopCount = (int)[_items count];
         
-        float fImgBettewn = 1.5 *ScaleSize;
+        float fImgBettewn = 5 *ScaleSize;
         float fImgHeight = (SCREEN_WIDTH - 2*fLeftX - (_columnOneCount -1)* fImgBettewn) / _columnOneCount;
         float fImgWidth = fImgHeight;
         fImgTopY = fTopY;
@@ -207,7 +207,7 @@
             UILabel *labelShopName = [[UILabel alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY + fImgHeight, fImgWidth, fLabelNameHeight)];
             [self addSubview:labelShopName];
             //labelShopName.backgroundColor = [UIColor yellowColor];
-            labelShopName.font = [UIFont systemFontOfSize:13];
+            labelShopName.font = [UIFont systemFontOfSize:14];
             labelShopName.textColor = [ResourceManager color_1];
             labelShopName.text = sModel.strGoodsName;
             labelShopName.numberOfLines = 0;
@@ -216,7 +216,7 @@
             UILabel *labelShopPrice = [[UILabel alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY + fImgHeight + fLabelNameHeight, fImgWidth, fLablePriceHeight)];
             [self addSubview:labelShopPrice];
             //labelShopName.backgroundColor = [UIColor yellowColor];
-            labelShopPrice.font = [UIFont systemFontOfSize:15];
+            labelShopPrice.font = [UIFont systemFontOfSize:16];
             labelShopPrice.textColor = UIColorFromRGB(0x9f1421);
             labelShopPrice.text =  [NSString stringWithFormat:@"￥%@", sModel.strMinPrice];
             labelShopPrice.numberOfLines = 0;
@@ -235,7 +235,7 @@
         // 如果只有一排
         if (_columnOneCount == iShopCount)
          {
-            fImgTopY += fImgHeight + fImgBettewn;
+            fImgTopY += fImgHeight + 2*fImgBettewn;
             self.height = fImgTopY  + fLabelNameHeight + fLablePriceHeight + 10 ;
             return;
          }
@@ -243,8 +243,8 @@
 
         fImgHeight = (SCREEN_WIDTH - 2*fLeftX - (_columnTwoCount -1)* fImgBettewn) / _columnTwoCount;
         fImgWidth = fImgHeight;
-        fImgTopY += fImgHeight + fImgBettewn + fLabelNameHeight + fLablePriceHeight + fImgBettewn;
-        fImgBettewn = 1.5 *ScaleSize;
+        fImgTopY += fImgHeight + 2*fImgBettewn + fLabelNameHeight + fLablePriceHeight + fImgBettewn;
+        fImgBettewn = 5 *ScaleSize;
         fImgLeftX = fLeftX;
 
         fLabelNameHeight = 45.f;
@@ -264,7 +264,7 @@
             UILabel *labelShopName = [[UILabel alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY + fImgHeight, fImgWidth, fLabelNameHeight)];
             [self addSubview:labelShopName];
             //labelShopName.backgroundColor = [UIColor yellowColor];
-            labelShopName.font = [UIFont systemFontOfSize:13];
+            labelShopName.font = [UIFont systemFontOfSize:14];
             labelShopName.textColor = [ResourceManager color_1];
             labelShopName.text = sModel.strGoodsName;
             labelShopName.numberOfLines = 0;
@@ -273,7 +273,7 @@
             UILabel *labelShopPrice = [[UILabel alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY + fImgHeight + fLabelNameHeight, fImgWidth, fLablePriceHeight)];
             [self addSubview:labelShopPrice];
             //labelShopName.backgroundColor = [UIColor yellowColor];
-            labelShopPrice.font = [UIFont systemFontOfSize:15];
+            labelShopPrice.font = [UIFont systemFontOfSize:16];
             labelShopPrice.textColor = UIColorFromRGB(0x9f1421);
             labelShopPrice.text = [NSString stringWithFormat:@"￥%@", sModel.strMinPrice];//sModel.strMaxPrice;
             labelShopPrice.numberOfLines = 0;

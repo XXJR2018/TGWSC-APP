@@ -66,7 +66,7 @@
                         <color key="textColor" red="0.60392156862745094" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全场通用" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d7Q-Pw-5UT">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d7Q-Pw-5UT">
                         <rect key="frame" x="160" y="30" width="100" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="UO0-S9-1wQ"/>
@@ -120,6 +120,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
+                <outlet property="astrictLabel" destination="d7Q-Pw-5UT" id="80g-en-nEt"/>
                 <outlet property="atLeastLabel" destination="2uP-F2-eCH" id="e3b-7O-Tpv"/>
                 <outlet property="bgImgView" destination="eZx-TT-fxw" id="fUR-qc-jMq"/>
                 <outlet property="employBtn" destination="fP8-yQ-DiY" id="Fe8-wb-Xq1"/>

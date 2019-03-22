@@ -634,47 +634,14 @@
     UIView *lineViewX_1 = [[UIView alloc]initWithFrame:CGRectMake(10, _footerHeight  + 5, SCREEN_WIDTH - 20, 0.5)];
     [footerView addSubview:lineViewX_1];
     lineViewX_1.backgroundColor = [ResourceManager color_5];
-    
-    if ([_orderDataDic objectForKey:@"balanceAmt"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"balanceAmt"]].length > 0) {
-        UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _footerHeight + 15, 150, 20)];
-        [footerView addSubview:leftLabel];
-        leftLabel.font = font_1;
-        leftLabel.textColor = color_2;
-        leftLabel.text = @"余额";
-        
-        UILabel *rightLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 260, _footerHeight + 15, 250, 20)];
-        [footerView addSubview:rightLabel];
-        rightLabel.font = font_1;
-        rightLabel.textColor = color_1;
-        rightLabel.textAlignment = NSTextAlignmentRight;
-        rightLabel.text = [NSString stringWithFormat:@"-￥%@",[_orderDataDic objectForKey:@"balanceAmt"]];
-        
-        _footerHeight = CGRectGetMaxY(leftLabel.frame);
-    }
-    
-    if ([_orderDataDic objectForKey:@"promocardTotalAmt"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"promocardTotalAmt"]].length > 0) {
-        UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _footerHeight, 150, 20)];
-        [footerView addSubview:leftLabel];
-        leftLabel.font = font_1;
-        leftLabel.textColor = color_2;
-        leftLabel.text = @"优惠券";
-        
-        UILabel *rightLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 260, _footerHeight, 250, 20)];
-        [footerView addSubview:rightLabel];
-        rightLabel.font = font_1;
-        rightLabel.textColor = color_1;
-        rightLabel.textAlignment = NSTextAlignmentRight;
-        rightLabel.text = [NSString stringWithFormat:@"-￥%@",[_orderDataDic objectForKey:@"promocardTotalAmt"]];
-        
-        _footerHeight = CGRectGetMaxY(leftLabel.frame);
-    }
+    _footerHeight = CGRectGetMaxY(lineViewX_1.frame) + 15;
     
     if ([_orderDataDic objectForKey:@"receiveScore"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"receiveScore"]].length > 0) {
         UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _footerHeight, 150, 20)];
         [footerView addSubview:leftLabel];
         leftLabel.font = font_1;
         leftLabel.textColor = color_2;
-        leftLabel.text = @"购买所得积分";
+        leftLabel.text = @"购物所得积分";
         
         UILabel *rightLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 260, _footerHeight, 250, 20)];
         [footerView addSubview:rightLabel];
@@ -686,29 +653,12 @@
         _footerHeight = CGRectGetMaxY(leftLabel.frame);
     }
     
-    if ([_orderDataDic objectForKey:@"payTypeText"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"payTypeText"]].length > 0) {
-        UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _footerHeight, 150, 20)];
-        [footerView addSubview:leftLabel];
-        leftLabel.font = font_1;
-        leftLabel.textColor = color_2;
-        leftLabel.text = @"支付方式";
-        
-        UILabel *rightLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 260, _footerHeight, 250, 20)];
-        [footerView addSubview:rightLabel];
-        rightLabel.font = font_1;
-        rightLabel.textColor = color_1;
-        rightLabel.textAlignment = NSTextAlignmentRight;
-        rightLabel.text = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"payTypeText"]];
-        
-        _footerHeight = CGRectGetMaxY(leftLabel.frame);
-    }
-    
     if ([_orderDataDic objectForKey:@"goodsTotalAmt"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"goodsTotalAmt"]].length > 0) {
         UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _footerHeight, 150, 20)];
         [footerView addSubview:leftLabel];
         leftLabel.font = font_1;
         leftLabel.textColor = color_2;
-        leftLabel.text = @"商品合计";
+        leftLabel.text = @"商品金额";
         
         UILabel *rightLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 260, _footerHeight, 250, 20)];
         [footerView addSubview:rightLabel];
@@ -737,23 +687,81 @@
         _footerHeight = CGRectGetMaxY(leftLabel.frame);
     }
     
+    if ([_orderDataDic objectForKey:@"promocardTotalAmt"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"promocardTotalAmt"]].length > 0) {
+        UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _footerHeight, 150, 20)];
+        [footerView addSubview:leftLabel];
+        leftLabel.font = font_1;
+        leftLabel.textColor = color_2;
+        if ([[_orderDataDic objectForKey:@"promocardType"] intValue] == 1) {
+            leftLabel.text = @"优惠券";
+        }else{
+            leftLabel.text = @"购物券";
+        }
+        
+        UILabel *rightLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 260, _footerHeight, 250, 20)];
+        [footerView addSubview:rightLabel];
+        rightLabel.font = font_1;
+        rightLabel.textColor = color_1;
+        rightLabel.textAlignment = NSTextAlignmentRight;
+        rightLabel.text = [NSString stringWithFormat:@"-￥%@",[_orderDataDic objectForKey:@"promocardTotalAmt"]];
+        
+        _footerHeight = CGRectGetMaxY(leftLabel.frame);
+    }
+    
+    if ([_orderDataDic objectForKey:@"balanceAmt"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"balanceAmt"]].length > 0) {
+        UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _footerHeight, 150, 20)];
+        [footerView addSubview:leftLabel];
+        leftLabel.font = font_1;
+        leftLabel.textColor = color_2;
+        leftLabel.text = @"余额抵扣";
+        
+        UILabel *rightLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 260, _footerHeight, 250, 20)];
+        [footerView addSubview:rightLabel];
+        rightLabel.font = font_1;
+        rightLabel.textColor = color_1;
+        rightLabel.textAlignment = NSTextAlignmentRight;
+        rightLabel.text = [NSString stringWithFormat:@"-￥%@",[_orderDataDic objectForKey:@"balanceAmt"]];
+        
+        _footerHeight = CGRectGetMaxY(leftLabel.frame);
+    }
+    
+    if ([_orderDataDic objectForKey:@"payTypeText"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"payTypeText"]].length > 0) {
+        UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _footerHeight, 150, 20)];
+        [footerView addSubview:leftLabel];
+        leftLabel.font = font_1;
+        leftLabel.textColor = color_2;
+        leftLabel.text = @"支付方式";
+        
+        UILabel *rightLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 260, _footerHeight, 250, 20)];
+        [footerView addSubview:rightLabel];
+        rightLabel.font = font_1;
+        rightLabel.textColor = color_1;
+        rightLabel.textAlignment = NSTextAlignmentRight;
+        rightLabel.text = [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"payTypeText"]];
+        
+        _footerHeight = CGRectGetMaxY(leftLabel.frame);
+    }
+    
     UIView *lineViewX_2 = [[UIView alloc]initWithFrame:CGRectMake(10, _footerHeight + 10, SCREEN_WIDTH - 20, 0.5)];
     [footerView addSubview:lineViewX_2];
     lineViewX_2.backgroundColor = [ResourceManager color_5];
     
-    if ([_orderDataDic objectForKey:@"totalOrderAmt"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"totalOrderAmt"]].length > 0) {
+    if ([_orderDataDic objectForKey:@"payAmt"] && [NSString stringWithFormat:@"%@",[_orderDataDic objectForKey:@"payAmt"]].length > 0) {
         UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _footerHeight + 10, 150, 50)];
         [footerView addSubview:leftLabel];
         leftLabel.font = font_1;
         leftLabel.textColor = color_2;
-        leftLabel.text = @"应付合计";
+        leftLabel.text = @"实付金额";
+        if (_status == 0 || _status == 2 || _status == 7) {
+            leftLabel.text = @"应付金额";
+        }
         
         UILabel *rightLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 260, _footerHeight + 10, 250, 50)];
         [footerView addSubview:rightLabel];
         rightLabel.font = font_1;
         rightLabel.textColor = UIColorFromRGB(0xB00000);
         rightLabel.textAlignment = NSTextAlignmentRight;
-        rightLabel.text = [NSString stringWithFormat:@"￥%@",[_orderDataDic objectForKey:@"totalOrderAmt"]];
+        rightLabel.text = [NSString stringWithFormat:@"￥%@",[_orderDataDic objectForKey:@"payAmt"]];
         
         _footerHeight = CGRectGetMaxY(leftLabel.frame);
     }

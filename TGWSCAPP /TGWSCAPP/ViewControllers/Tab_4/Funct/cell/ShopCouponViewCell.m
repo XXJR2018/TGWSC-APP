@@ -20,6 +20,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *qplgwjLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *astrictLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *atLeastLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *validTlmeLabel;
@@ -66,6 +68,7 @@
     if ([self.stataLabel.text isEqualToString:@"未开始"]) {
         self.stataLabel.textColor = [ResourceManager color_6];
     }
+    self.astrictLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"useDesc"]];
     self.atLeastLabel.text = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"useRemark"]];
     self.validTlmeLabel.text = [NSString stringWithFormat:@"有效期%@-%@",[_dataDicionary objectForKey:@"validStartDate"],[_dataDicionary objectForKey:@"validEndDate"]];
 

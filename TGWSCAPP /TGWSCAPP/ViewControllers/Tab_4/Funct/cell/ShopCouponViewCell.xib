@@ -66,7 +66,7 @@
                         <color key="textColor" red="0.69019607839999997" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全品类购物劵" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zEU-MC-9k5">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zEU-MC-9k5">
                         <rect key="frame" x="160" y="45" width="100" height="25"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="8wt-fg-bqB"/>
@@ -144,6 +144,7 @@
             <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
+                <outlet property="astrictLabel" destination="zEU-MC-9k5" id="0uv-xP-Jhm"/>
                 <outlet property="atLeastLabel" destination="etg-ZL-uTn" id="DHu-Un-bVl"/>
                 <outlet property="bgImgView" destination="The-Hb-kDf" id="bhf-Eb-lIc"/>
                 <outlet property="promocardValueLabel" destination="tjq-w3-yad" id="LSx-QS-v2p"/>

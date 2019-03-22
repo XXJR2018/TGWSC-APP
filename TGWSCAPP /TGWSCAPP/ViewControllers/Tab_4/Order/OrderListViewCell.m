@@ -29,8 +29,6 @@
 
 @property(nonatomic, strong)UILabel *orderDescLabel;      //订单描述
 
-@property(nonatomic, strong)UILabel *orderFreightLabel;  //运费描述
-
 @property(nonatomic, strong)UIButton *orderLeftBtn;      //订单左边按钮
 
 @property(nonatomic, strong)UIButton *orderCentreBtn;    //订单中间按钮
@@ -120,7 +118,7 @@
     [self.contentView addSubview:_orderDescLabel];
     _orderDescLabel.textAlignment = NSTextAlignmentRight;
 
-    NSString *orderDescStr = [NSString stringWithFormat:@"共%@件商品，总金额￥%@",[_dataDicionary objectForKey:@"subOrderNum"],[_dataDicionary objectForKey:@"totalOrderAmt"]];
+    NSString *orderDescStr = [NSString stringWithFormat:@"共%@件商品，实付金额￥%@",[_dataDicionary objectForKey:@"subOrderNum"],[_dataDicionary objectForKey:@"payAmt"]];
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]
                                           initWithString:orderDescStr];
     //2.匹配字符串
@@ -131,17 +129,7 @@
     [attrStr addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0xB00000) range:NSMakeRange(range.location, orderDescStr.length - range.location)];
     _orderDescLabel.attributedText = attrStr;
     
-    _orderFreightLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 260, CGRectGetMaxY(_orderDescLabel.frame), 200, 0)];
-    [self.contentView addSubview:_orderFreightLabel];
-    _orderFreightLabel.textAlignment = NSTextAlignmentRight;
-    _orderFreightLabel.font = font_2;
-    _orderFreightLabel.textColor = color_1;
-    if ([[_dataDicionary objectForKey:@"freightAmt"] intValue] > 0) {
-        _orderFreightLabel.frame = CGRectMake(SCREEN_WIDTH - 260, CGRectGetMaxY(_orderDescLabel.frame), 250, 20);
-         _orderFreightLabel.text = [NSString stringWithFormat:@"(含运费￥%@)",[_dataDicionary objectForKey:@"freightAmt"]];
-    }
-    
-    _orderLeftBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(_orderFreightLabel.frame) + 10, 80, 30)];
+    _orderLeftBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(_orderDescLabel.frame) + 10, 80, 30)];
     [self.contentView addSubview:_orderLeftBtn];
     _orderLeftBtn.tag = 100;
     _orderLeftBtn.layer.cornerRadius = 3;

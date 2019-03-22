@@ -198,7 +198,7 @@
     _sortFristView.frame = CGRectMake(0, (50 - 20)/2 + (sender.tag) * 50, 2, 20);
     [_tableView reloadData];
     /* 滚动指定段的指定row  到 指定位置*/
-    [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:sender.tag inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:sender.tag inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
     cellCount = sender.tag;
     NSDictionary *dic = self.dataArray[cellCount];
     _leftMenuStr = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cateName"]];

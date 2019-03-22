@@ -170,6 +170,7 @@
 		C23EAF4221D32D3000B271A7 /* CouponViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C23EAF4021D32D3000B271A7 /* CouponViewCell.m */; };
 		C23EAF4321D32D3000B271A7 /* CouponViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C23EAF4121D32D3000B271A7 /* CouponViewCell.xib */; };
 		C23EAF4621D32D4500B271A7 /* CouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C23EAF4521D32D4500B271A7 /* CouponViewController.m */; };
+		C2428BC82244BFF700BF9729 /* BrandProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2428BC72244BFF700BF9729 /* BrandProductViewController.m */; };
 		C24293C422168E6800FFCE5D /* AppraiseSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C24293C222168E6800FFCE5D /* AppraiseSuccessViewController.m */; };
 		C244950721CCB3AC00F8698B /* SortProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C244950521CCB3AC00F8698B /* SortProductCollectionViewCell.m */; };
 		C244950821CCB3AC00F8698B /* SortProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C244950621CCB3AC00F8698B /* SortProductCollectionViewCell.xib */; };
@@ -710,6 +711,8 @@
 		C23EAF4121D32D3000B271A7 /* CouponViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CouponViewCell.xib; sourceTree = "<group>"; };
 		C23EAF4421D32D4500B271A7 /* CouponViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponViewController.h; sourceTree = "<group>"; };
 		C23EAF4521D32D4500B271A7 /* CouponViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponViewController.m; sourceTree = "<group>"; };
+		C2428BC62244BFF700BF9729 /* BrandProductViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrandProductViewController.h; sourceTree = "<group>"; };
+		C2428BC72244BFF700BF9729 /* BrandProductViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrandProductViewController.m; sourceTree = "<group>"; };
 		C24293C122168E6800FFCE5D /* AppraiseSuccessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppraiseSuccessViewController.h; sourceTree = "<group>"; };
 		C24293C222168E6800FFCE5D /* AppraiseSuccessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppraiseSuccessViewController.m; sourceTree = "<group>"; };
 		C244950421CCB3AC00F8698B /* SortProductCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SortProductCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1974,6 +1977,8 @@
 				C20525EA21BE6E5C00E13893 /* TabViewController_2.xib */,
 				C244952621CCC75D00F8698B /* MenuViewController.h */,
 				C244952721CCC75D00F8698B /* MenuViewController.m */,
+				C2428BC62244BFF700BF9729 /* BrandProductViewController.h */,
+				C2428BC72244BFF700BF9729 /* BrandProductViewController.m */,
 				C246D75A21CB9CE50054D7A0 /* ProductListViewController.h */,
 				C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */,
 				C2B51AEE21C3462500AC76FB /* ProductCollectionViewCell.h */,
@@ -3427,6 +3432,7 @@
 				C25047FE21BA73B800DA9C72 /* AFURLResponseSerialization.m in Sources */,
 				C0CCC82A21C0F4C5009352E0 /* HistoryAndCategorySearchVC.m in Sources */,
 				C250460E21BA711E00DA9C72 /* UIView+SDExtension.m in Sources */,
+				C2428BC82244BFF700BF9729 /* BrandProductViewController.m in Sources */,
 				C09B384722276B8800B60FCB /* ShowBigJpgView.m in Sources */,
 				C245272D21E4859800CA4196 /* LogisticsDescViewController.m in Sources */,
 				C250450E21BA579100DA9C72 /* BindPhoneViewController.m in Sources */,

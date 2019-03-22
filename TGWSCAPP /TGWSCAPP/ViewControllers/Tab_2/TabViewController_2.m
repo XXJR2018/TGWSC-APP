@@ -11,6 +11,7 @@
 #import "ProductCollectionViewCell.h"
 #import "HistorySearchVC.h"
 #import "MenuViewController.h"
+#import "ProductListViewController.h"
 
 #define  leftListWidth   80
 #define  rightListWidth  [UIScreen mainScreen].bounds.size.width - 80
@@ -77,14 +78,11 @@
         [self scViewUI];
         [_tableView reloadData];
     }else if (operation.tag == 1001) {
-        if (_cateId > 0) {
-            MenuViewController *ctl = [[MenuViewController alloc]init];
-            ctl.sortDataArr = operation.jsonResult.rows;
-            ctl.titleStr = _leftMenuStr;
-            ctl.cateId = _cateId;
-            _cateId = 0;
-            [self.navigationController pushViewController:ctl animated:YES];
-        }
+        MenuViewController *ctl = [[MenuViewController alloc]init];
+        ctl.sortDataArr = operation.jsonResult.rows;
+        ctl.titleStr = _leftMenuStr;
+        ctl.cateId = _cateId;
+        [self.navigationController pushViewController:ctl animated:YES];
     }
     
 }
@@ -469,9 +467,13 @@
     }
     
     _cateId = [[selectDataDic objectForKey:@"cateId"] intValue];
-    NSLog(@"cateId = %ld",_cateId);
-    if (_cateId > 0) {
-        [self CateListUrl];
+    if ([[selectDataDic objectForKey:@"brandFlag"] intValue] == 1) {
+        ProductListViewController *ctl = [[ProductListViewController alloc]init];
+        ctl.titleStr = [NSString stringWithFormat:@"%@",[selectDataDic objectForKey:@"cateName"]];
+        ctl.cateCode = [NSString stringWithFormat:@"%@",[selectDataDic objectForKey:@"cateCode"]];
+        [self.navigationController pushViewController:ctl animated:YES];
+    }else{
+       [self CateListUrl];
     }
    
 }

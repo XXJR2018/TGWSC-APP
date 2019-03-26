@@ -15,7 +15,7 @@
 #import "ShowBigJpgView.h"
 #import "ShowBannerJpegView.h"
 #import "ShareShopJpegView.h"
-#import "CustomerServiceViewController.h"
+#import "ChatViewController.h"
 
 
 //#define   BannerHeight     300
@@ -1476,8 +1476,8 @@
     if (0 == iTag)
      {
         // 客服聊天
-        CustomerServiceViewController  *VC = [[CustomerServiceViewController alloc] init];
-        [self.navigationController  pushViewController:VC animated:YES];
+         ChatViewController  *VC = [[ChatViewController alloc] init];
+         [self.navigationController  pushViewController:VC animated:YES];
      }
     else if (1 == iTag)
      {

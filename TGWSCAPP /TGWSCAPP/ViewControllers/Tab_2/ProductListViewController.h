@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, copy)NSString *cateCode;
 
-@property(nonatomic, copy)NSString *titleStr;
-
 @end
 
 NS_ASSUME_NONNULL_END

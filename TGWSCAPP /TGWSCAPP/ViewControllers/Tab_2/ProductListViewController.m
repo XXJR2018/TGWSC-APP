@@ -71,10 +71,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (self.titleStr.length > 0) {
-        [self layoutNaviBarViewWithTitle:self.titleStr];
-    }
-    
     _cellDic = [[NSMutableDictionary alloc] init];
     [self layoutUI];
    
@@ -86,12 +82,7 @@
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
-    
-    if (self.titleStr.length > 0) {
-        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, NavHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavHeight) collectionViewLayout:flowLayout];
-    }else{
-        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, SCREEN_HEIGHT - NavHeight - 50) collectionViewLayout:flowLayout];
-    }
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, SCREEN_HEIGHT - NavHeight - 50) collectionViewLayout:flowLayout];
     _collectionView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_collectionView];
     _collectionView.delegate = self;

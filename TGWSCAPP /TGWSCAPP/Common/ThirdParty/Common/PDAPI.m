@@ -51,7 +51,7 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
 + (NSString *)WXSysRouteAPI{
 #if DEBUG
     return @"https://app.tgwmall.cn/";           //生产环境
-//    return @"http://192.168.10.208/";   // 测试环境
+//    return @"http://192.168.10.182/";   // 测试环境
     
 #else
     return kBaseURL;
@@ -62,7 +62,7 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
 + (NSString *)getBaseUrlString{
 #if DEBUG
 //    return @"https://www.tiangouwo.com/";     //生产环境
-//    return @"http://192.168.10.208/";        //测试环境
+    return @"http://192.168.10.182/";        //测试环境
 //    return  @"http://192.168.10.132:9991/";        //方然青服务器
 //    return @"http://192.168.10.129:82/";        //刘利伟服务器
 //    return  @"http://192.168.10.130/";     // 邹全洪
@@ -74,11 +74,10 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
 #endif
 }
 
-+ (NSString *)getBusiUrlString
-{
++ (NSString *)getBusiUrlString{
 #if DEBUG
 //    return @"https://www.tiangouwo.com/";     //生产环境
-//    return @"http://192.168.10.208/";        //测试环境
+    return @"http://192.168.10.182/";        //测试环境
 //    return @"http://192.168.10.129:82/";        //刘利伟服务器
 //    return  @"http://192.168.10.130/";     // 邹全洪
     return kBaseURL;

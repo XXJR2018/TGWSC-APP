@@ -373,6 +373,7 @@
 		C2C4B832221BFBEB007A0147 /* AppraiseSuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C4B830221BFBEB007A0147 /* AppraiseSuccessCell.m */; };
 		C2C4B833221BFBEB007A0147 /* AppraiseSuccessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2C4B831221BFBEB007A0147 /* AppraiseSuccessCell.xib */; };
 		C2CF26CE21E5885D00CB8E76 /* LogisticsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CF26CD21E5885D00CB8E76 /* LogisticsViewCell.m */; };
+		C2EDB4952249F54E00F0C639 /* BrandListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EDB4942249F54E00F0C639 /* BrandListViewController.m */; };
 		C2F23AAA21D61B2B00E5332D /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AA921D61B2B00E5332D /* OrderViewController.m */; };
 		C2F23AAE21D61CA100E5332D /* OrderListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AAC21D61CA100E5332D /* OrderListViewCell.m */; };
 		C2F23AB221D61D9500E5332D /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F23AB121D61D9500E5332D /* OrderListViewController.m */; };
@@ -1090,6 +1091,8 @@
 		C2CF26CC21E5885D00CB8E76 /* LogisticsViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticsViewCell.h; sourceTree = "<group>"; };
 		C2CF26CD21E5885D00CB8E76 /* LogisticsViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsViewCell.m; sourceTree = "<group>"; };
 		C2D2B19321BDF45F00FE810C /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		C2EDB4932249F54E00F0C639 /* BrandListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrandListViewController.h; sourceTree = "<group>"; };
+		C2EDB4942249F54E00F0C639 /* BrandListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrandListViewController.m; sourceTree = "<group>"; };
 		C2F23AA821D61B2B00E5332D /* OrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
 		C2F23AA921D61B2B00E5332D /* OrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
 		C2F23AAB21D61CA100E5332D /* OrderListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderListViewCell.h; sourceTree = "<group>"; };
@@ -1981,6 +1984,8 @@
 				C2428BC72244BFF700BF9729 /* BrandProductViewController.m */,
 				C246D75A21CB9CE50054D7A0 /* ProductListViewController.h */,
 				C246D75B21CB9CE50054D7A0 /* ProductListViewController.m */,
+				C2EDB4932249F54E00F0C639 /* BrandListViewController.h */,
+				C2EDB4942249F54E00F0C639 /* BrandListViewController.m */,
 				C2B51AEE21C3462500AC76FB /* ProductCollectionViewCell.h */,
 				C2B51AEF21C3462500AC76FB /* ProductCollectionViewCell.m */,
 				C2B51AF021C3462500AC76FB /* ProductCollectionViewCell.xib */,
@@ -3547,6 +3552,7 @@
 				C20525F621BE6E5C00E13893 /* TabViewController_1.m in Sources */,
 				C04B180921E5DCEF00DBA0FE /* RefundRequstFrist.m in Sources */,
 				C2CF26CE21E5885D00CB8E76 /* LogisticsViewCell.m in Sources */,
+				C2EDB4952249F54E00F0C639 /* BrandListViewController.m in Sources */,
 				C0C4B88D221E9211002853D1 /* NSURLRequest+SRWebSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

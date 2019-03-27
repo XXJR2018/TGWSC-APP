@@ -12,6 +12,7 @@
 #import "HistorySearchVC.h"
 #import "MenuViewController.h"
 #import "ProductListViewController.h"
+#import "BrandListViewController.h"
 
 #define  leftListWidth   80
 #define  rightListWidth  [UIScreen mainScreen].bounds.size.width - 80
@@ -468,7 +469,7 @@
     
     _cateId = [[selectDataDic objectForKey:@"cateId"] intValue];
     if ([[selectDataDic objectForKey:@"brandFlag"] intValue] == 1) {
-        ProductListViewController *ctl = [[ProductListViewController alloc]init];
+        BrandListViewController *ctl = [[BrandListViewController alloc]init];
         ctl.titleStr = [NSString stringWithFormat:@"%@",[selectDataDic objectForKey:@"cateName"]];
         ctl.cateCode = [NSString stringWithFormat:@"%@",[selectDataDic objectForKey:@"cateCode"]];
         [self.navigationController pushViewController:ctl animated:YES];

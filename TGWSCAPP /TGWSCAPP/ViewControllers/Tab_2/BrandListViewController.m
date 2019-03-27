@@ -53,8 +53,6 @@ DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWi
     }
     [self.dataArray removeAllObjects];
     [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
-    [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
-    [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
     [_collectionView reloadData];
     
 }

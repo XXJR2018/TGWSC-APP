@@ -73,11 +73,12 @@
 -(void)handleData:(DDGAFHTTPRequestOperation *)operation{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     if (operation.tag == 1000) {
-        [self.dataArray removeAllObjects];
-        [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
-        
-        [self scViewUI];
-        [_tableView reloadData];
+        if (operation.jsonResult.rows.count > 0) {
+            [self.dataArray removeAllObjects];
+            [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
+            [self scViewUI];
+            [_tableView reloadData];
+        }
     }else if (operation.tag == 1001) {
         MenuViewController *ctl = [[MenuViewController alloc]init];
         ctl.sortDataArr = operation.jsonResult.rows;

@@ -360,6 +360,7 @@
         if (index == 3) {
             //购物劵
             CouponViewController *ctl = [[CouponViewController alloc] init];
+            ctl.couponType = 2;
             [nav4 pushViewController:ctl animated:NO];
         }
     }

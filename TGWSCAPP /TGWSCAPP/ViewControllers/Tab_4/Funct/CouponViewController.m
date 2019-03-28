@@ -110,6 +110,11 @@
     [_tableView setSeparatorColor:[UIColor clearColor]];
     
     [self layoutUI];
+    if (self.couponType == 1) {
+        [self couponSort:_yhjBtn];
+    }else if (self.couponType == 2) {
+        [self couponSort:_gwjBtn];
+    }
 }
 
 -(void)layoutUI{

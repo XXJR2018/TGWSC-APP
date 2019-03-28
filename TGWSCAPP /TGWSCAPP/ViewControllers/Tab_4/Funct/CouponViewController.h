@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CouponViewController : MJRefreshViewController
 
+@property(nonatomic, assign) NSInteger couponType;
+
 @end
 
 NS_ASSUME_NONNULL_END

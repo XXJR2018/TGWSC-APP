@@ -127,7 +127,6 @@
         self.statusImgViewLayoutHeight.constant = 45.5;
     }
     
-    
 }
 
 - (IBAction)share:(id)sender {

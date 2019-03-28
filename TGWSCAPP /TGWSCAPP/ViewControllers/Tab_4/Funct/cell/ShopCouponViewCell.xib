@@ -152,6 +152,8 @@
                 <outlet property="shareBtn" destination="wh5-dC-45V" id="8hH-cm-81r"/>
                 <outlet property="stataLabel" destination="ryV-FC-n9t" id="CX6-Am-RKq"/>
                 <outlet property="statusImgView" destination="044-B3-xr5" id="mtW-me-lv7"/>
+                <outlet property="statusImgViewLayoutHeight" destination="2ne-MO-M5y" id="Eot-e5-SJ6"/>
+                <outlet property="statusImgViewLayoutWidth" destination="irW-3l-PVp" id="2oo-Jg-WbT"/>
                 <outlet property="userNameLabel" destination="mpW-eF-JNk" id="VPs-Hm-NiM"/>
                 <outlet property="validTlmeLabel" destination="x8t-HK-GsG" id="1xH-mf-rbJ"/>
                 <outlet property="zsTimeLabel" destination="A1j-Oy-W8E" id="Zqy-6x-aBH"/>

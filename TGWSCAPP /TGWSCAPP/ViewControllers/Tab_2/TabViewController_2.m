@@ -393,10 +393,12 @@
             }
         }else{
             //二级菜单头视图
-            UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, rightListWidth - 29, 90 * ScaleSize)];
-            [header addSubview:imgView];
-             imgView.backgroundColor = UIColorFromRGB(0xf6f6f6);
-            [imgView sd_setImageWithURL:[NSURL URLWithString:[firstDataDic objectForKey:@"imgUrl"]]];
+            if ([firstDataDic objectForKey:@"imgUrl"]) {
+                UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, rightListWidth - 29, 90 * ScaleSize)];
+                [header addSubview:imgView];
+                imgView.backgroundColor = UIColorFromRGB(0xf6f6f6);
+                [imgView sd_setImageWithURL:[NSURL URLWithString:[firstDataDic objectForKey:@"imgUrl"]]];
+            }
         }
         return header;
     }
@@ -413,7 +415,9 @@
             size = CGSizeMake(rightListWidth, 30);
         }
     }else{
-        size = CGSizeMake(rightListWidth, 90 * ScaleSize + 20);
+        if ([firstDataDic objectForKey:@"imgUrl"]) {
+            size = CGSizeMake(rightListWidth, 90 * ScaleSize + 20);
+        }
     }
     
     return size;

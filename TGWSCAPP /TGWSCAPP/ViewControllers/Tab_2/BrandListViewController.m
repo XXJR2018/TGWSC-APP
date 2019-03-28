@@ -51,6 +51,10 @@ DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWi
     if ([operation.jsonResult.attr objectForKey:@"bannerUrl"]) {
         _bannerImgStr = [NSString stringWithFormat:@"%@",[operation.jsonResult.attr objectForKey:@"bannerUrl"]];
     }
+    if (_bannerImgStr.length == 0) {
+        [self layoutNaviBarViewWithTitle:self.titleStr];
+        _collectionView.frame = CGRectMake(0, NavHeight, SCREEN_WIDTH, SCREEN_HEIGHT - NavHeight);
+    }
     [self.dataArray removeAllObjects];
     [self.dataArray addObjectsFromArray:operation.jsonResult.rows];
     [_collectionView reloadData];
@@ -145,16 +149,17 @@ DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWi
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"brandHeaderView" forIndexPath:indexPath];
-        UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 190 * ScaleSize)];
-        imgView.backgroundColor = UIColorFromRGB(0xF6F6F6);
-        imgView.userInteractionEnabled = YES;
-        [imgView sd_setImageWithURL:[NSURL URLWithString:_bannerImgStr]];
-        [header addSubview:imgView];
-        UIButton *clickBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, NavHeight - 40, 50, 40)];
-        [imgView addSubview:clickBtn];
-        [clickBtn setImage:[UIImage imageNamed:@"com_back"] forState:UIControlStateNormal];
-        [clickBtn addTarget:self action:@selector(clickNavButton) forControlEvents:UIControlEventTouchUpInside];
-        
+        if (_bannerImgStr.length > 0) {
+            UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 150 * ScaleSize)];
+            imgView.backgroundColor = UIColorFromRGB(0xF6F6F6);
+            imgView.userInteractionEnabled = YES;
+            [imgView sd_setImageWithURL:[NSURL URLWithString:_bannerImgStr]];
+            [header addSubview:imgView];
+            UIButton *clickBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, NavHeight - 40, 50, 40)];
+            [imgView addSubview:clickBtn];
+            [clickBtn setImage:[UIImage imageNamed:@"com_back"] forState:UIControlStateNormal];
+            [clickBtn addTarget:self action:@selector(clickNavButton) forControlEvents:UIControlEventTouchUpInside];
+        }
         return header;
     }
     return nil;
@@ -162,7 +167,11 @@ DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWi
 
 //段头高度
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(SCREEN_WIDTH, 190 * ScaleSize);
+    CGSize size = CGSizeZero;
+     if (_bannerImgStr.length > 0) {
+         size =  CGSizeMake(SCREEN_WIDTH, 150 * ScaleSize);
+     }
+    return size;
 }
 
 //每个UICollectionView展示的内容
@@ -205,11 +214,13 @@ DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWi
 
 #pragma mark- UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (_collectionView.contentOffset.y >= NavHeight) {
-        _naviView.hidden = NO;
-         [self.view addSubview:_naviView];
-    }else{
-        _naviView.hidden = YES;
+    if (_bannerImgStr.length > 0) {
+        if (_collectionView.contentOffset.y >= NavHeight) {
+            _naviView.hidden = NO;
+            [self.view addSubview:_naviView];
+        }else{
+            _naviView.hidden = YES;
+        }
     }
 }
 

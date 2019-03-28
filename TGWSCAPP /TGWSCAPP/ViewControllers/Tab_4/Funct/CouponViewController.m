@@ -77,11 +77,6 @@
         if (shareInfo.count > 0) {
             [self freeShare:shareInfo];
         }
-    }else if (operation.tag == 1003) {
-        NSString *imageUrl = [operation.jsonResult.attr objectForKey:@"imageUrl"];
-        if (imageUrl.length > 0) {
-            [self shareImg:imageUrl];
-        }
     }
    
 }
@@ -321,22 +316,6 @@
     operation.tag = 1002;
 }
 
--(void)shareCodeUrl{
-    [MBProgressHUD showHUDAddedTo:self.view];
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"custPromocardId"] = _custPromocardId;
-    DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[NSString stringWithFormat:@"%@appMall/account/cust/activity/shareCode",[PDAPI getBaseUrlString]]
-                                                                               parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
-                                                                                  success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
-                                                                                      [self handleData:operation];
-                                                                                  }
-                                                                                  failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
-                                                                                      [self handleErrorData:operation];
-                                                                                  }];
-    [operation start];
-    operation.tag = 1003;
-}
-
 //分享链接给好友
 -(void)freeShare:(NSDictionary *)dicShare {
      [self hidenAlert];
@@ -371,10 +350,10 @@
 }
 
 // 分享二维码图片到朋友圈
--(void)shareImg:(NSString *)imgStr{
+-(void)shareCodeUrl{
      [self hidenAlert];
-    
-    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imgStr]]];
+    NSString *shareCodeUrl =  [NSString stringWithFormat:@"%@appMall/account/cust/activity/shareCode?signId=%@&custPromocardId=%@",[PDAPI getBaseUrlString],[CommonInfo signId],_custPromocardId];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareCodeUrl]]];
     [[DDGShareManager shareManager] weChatShare:@{@"image":UIImageJPEGRepresentation(image,1.0)} shareScene:1];
     [[DDGShareManager  shareManager] setBlock:^(id obj) {
         NSDictionary *dic = (NSDictionary *)obj;

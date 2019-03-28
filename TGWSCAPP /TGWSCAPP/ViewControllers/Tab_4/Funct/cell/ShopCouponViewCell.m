@@ -89,6 +89,14 @@
         self.qplgwjLabel.textColor = [ResourceManager color_1];
         self.statusImgView.hidden = YES;
         self.shareBtn.hidden = NO;
+    }else if ([[_dataDicionary objectForKey:@"status"] intValue] == 2 || [[_dataDicionary objectForKey:@"status"] intValue] == 4) {
+        self.bgImgView.image = [UIImage imageNamed:@"Tab_4-45"];
+        self.stataLabel.textColor = [ResourceManager color_6];
+        self.promocardValueLabel.textColor = [ResourceManager color_6];
+        self.qplgwjLabel.textColor = [ResourceManager color_6];
+        self.statusImgView.hidden = NO;
+        self.statusImgView.image = [UIImage imageNamed:@"Tab_4-21"];
+        self.shareBtn.hidden = YES;
     }else if ([[_dataDicionary objectForKey:@"status"] intValue] == 3) {
         self.bgImgView.image = [UIImage imageNamed:@"Tab_4-45"];
         self.stataLabel.textColor = [ResourceManager color_6];
@@ -97,14 +105,26 @@
         self.statusImgView.hidden = NO;
         self.statusImgView.image = [UIImage imageNamed:@"Tab_4-22"];
         self.shareBtn.hidden = YES;
-    }else{
+    }else if ([[_dataDicionary objectForKey:@"status"] intValue] == 5) {
         self.bgImgView.image = [UIImage imageNamed:@"Tab_4-45"];
         self.stataLabel.textColor = [ResourceManager color_6];
         self.promocardValueLabel.textColor = [ResourceManager color_6];
         self.qplgwjLabel.textColor = [ResourceManager color_6];
         self.statusImgView.hidden = NO;
-        self.statusImgView.image = [UIImage imageNamed:@"Tab_4-21"];
+        self.statusImgView.image = [UIImage imageNamed:@"Tab_4-48"];
         self.shareBtn.hidden = YES;
+        self.statusImgViewLayoutWidth.constant = 54;
+        self.statusImgViewLayoutHeight.constant = 45.5;
+    }else if ([[_dataDicionary objectForKey:@"status"] intValue] == 6) {
+        self.bgImgView.image = [UIImage imageNamed:@"Tab_4-45"];
+        self.stataLabel.textColor = [ResourceManager color_6];
+        self.promocardValueLabel.textColor = [ResourceManager color_6];
+        self.qplgwjLabel.textColor = [ResourceManager color_6];
+        self.statusImgView.hidden = NO;
+        self.statusImgView.image = [UIImage imageNamed:@"Tab_4-49"];
+        self.shareBtn.hidden = YES;
+        self.statusImgViewLayoutWidth.constant = 54;
+        self.statusImgViewLayoutHeight.constant = 45.5;
     }
     
     

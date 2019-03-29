@@ -157,13 +157,38 @@ const  int  iMessageListCellHeight = 100;
     
     NSDictionary *dic = self.dataArray[indexPath.row];
     
-
+    
+    
+    //  `skipType` smallint(1) DEFAULT '0' COMMENT '跳转类型，0，不跳转，1，到原生界面，2.到指定界面',
     int skipType = [dic[@"skipType"] intValue];
-    if (skipType ==1)
+    if (2 == skipType)
      {
         NSString *strUrl = dic[@"appSkipUrl"];
         //NSString *url = [NSString stringWithFormat:@"%@tgwproject/AgreePrivacy",[PDAPI WXSysRouteAPI]];
         [CCWebViewController showWithContro:self withUrlStr:strUrl withTitle:@"消息"];
+     }
+    if (1 == skipType &&
+        _msgType == 1)
+     {
+        NSString *strURL = dic[@"appSkipUrl"];
+        NSData *jsonData = [strURL dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err = nil;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        
+        if(err) {
+            NSLog(@"json解析失败：%@",err);
+            //return nil;
+        }
+        
+        if (dic)
+         {
+            NSString *strIosClassName = dic[@"iosClassName"];
+            if (strIosClassName.length > 0) {
+                [self PushNextViewControllerWith:strIosClassName];
+            }
+         }
      }
     
     NSString *strSubject = dic[@"subject"];
@@ -183,6 +208,24 @@ const  int  iMessageListCellHeight = 100;
      }
 }
 
+
+- (void)PushNextViewControllerWith:(NSString *)VCName {
+    // 类名
+    const char *className = [VCName cStringUsingEncoding:NSASCIIStringEncoding];
+    // 从一个字串返回一个类
+    Class newClass = objc_getClass(className);
+    if (!newClass){
+        // 创建一个类
+        Class superClass = [NSObject class];
+        newClass = objc_allocateClassPair(superClass, className, 0);
+        // 注册你创建的这个类
+        objc_registerClassPair(newClass);
+    }
+    // 创建对象
+    id instance = [[newClass alloc] init];
+    [self.navigationController pushViewController:instance animated:YES];
+    
+}
 
 #pragma mark  ---  网络请求
 -(void)loadData{

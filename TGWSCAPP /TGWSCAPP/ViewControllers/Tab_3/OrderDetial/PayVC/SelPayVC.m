@@ -331,10 +331,9 @@
     [MBProgressHUD showHUDAddedTo:self.view];
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLgoPay];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params addEntriesFromDictionary:_dicPay];
     params[@"payType"] = @(1);
     params[@"payCode"] = @"appWxpay";
-   
+   params[@"orderNo"] = [_dicPay objectForKey:@"orderNo"];
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
@@ -351,10 +350,9 @@
     [MBProgressHUD showHUDAddedTo:self.view];
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLgoPay];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params addEntriesFromDictionary:_dicPay];
     params[@"payType"] = @(2);
     params[@"payCode"] = @"appAlipay";
-    
+    params[@"orderNo"] = [_dicPay objectForKey:@"orderNo"];
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){

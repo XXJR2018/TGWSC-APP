@@ -44,14 +44,13 @@ static DDGWeChat *weChatShare;
         [self sendAuthRequest];
 }
 
--(void)sendAuthRequest
-{
+-(void)sendAuthRequest{
     //构造SendAuthReq结构体
     SendAuthReq* req =[[SendAuthReq alloc ] init];
     req.scope = @"snsapi_userinfo" ;
-    req.state = @"wechat_XXJR" ;
+    req.state = @"wechat_TGWSC" ;
     //第三方向微信终端发送一个SendAuthReq消息结构
-    [WXApi sendReq:req]; 
+    [WXApi sendReq:req];
 }
 
 - (void)logout{
@@ -97,9 +96,6 @@ static DDGWeChat *weChatShare;
 
 //分享  0--朋友会话
 -(BOOL) shareXCX:(NSDictionary *) items  {
-    
-    
-
     //商品详情页 /pages/product/product
     //参数 goodsCode  goodsName
     
@@ -194,10 +190,8 @@ static DDGWeChat *weChatShare;
 }
 
 //从微信回
--(void) onResp:(BaseResp*)resp
-{
-    if(resp.errCode == 0)
-    {
+-(void) onResp:(BaseResp*)resp{
+    if(resp.errCode == 0){
         // 分享
         if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
             if([_delegate respondsToSelector:@selector(weChatShareFinishedWithResult:)]){
@@ -208,17 +202,12 @@ static DDGWeChat *weChatShare;
         else if ([resp isKindOfClass:[SendAuthResp class]]) {
             // 获取access_token
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            NSString *url = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",APPID_WC,APPSecret_WC,((SendAuthResp *)resp).code];
-            manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+             NSString *url = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",APPID_WC,APPSecret_WC,((SendAuthResp *)resp).code];
             [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSString *requestTmp = [NSString stringWithString:operation.responseString];
                 NSData *resData = [[NSData alloc] initWithData:[requestTmp dataUsingEncoding:NSUTF8StringEncoding]];
                 //系统自带JSON解析
                 NSDictionary *resultDic = [NSJSONSerialization JSONObjectWithData:resData options:NSJSONReadingMutableLeaves error:nil];
-                if (resultDic[@"errcode"] && [resultDic[@"errcode"] intValue] > 0) {
-                    NSLog(@"error ");
-                    return ;
-                }
                 if([self.delegate respondsToSelector:@selector(weChatLoginFinishedWithResult:)]) {
                     [self.delegate weChatLoginFinishedWithResult:resultDic];
                 }
@@ -226,6 +215,7 @@ static DDGWeChat *weChatShare;
                 NSDictionary *result = @{@"code":@(-1),
                                          @"resultText":@"微信登录失败"};
                 [self.delegate performSelector:@selector(qqLoginFinishedWithResult:) withObject:result];
+                NSLog(@"获取access_token时出错 = %@", error);
             }];
         }
         // 支付
@@ -260,13 +250,3 @@ static DDGWeChat *weChatShare;
 
 
 @end
-
-
-//Could not load IOSurface for time string. Rendering locally instead.
-//2019-03-04 15:21:17.283128+0800 TGWSCAPP[13194:4617105] -[AFHTTPRequestOperation setCompletionBlockWithSuccess:failure:]_block_invoke [Line 109] url is https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx06afab08425bd34e&secret=920ffb536569908cfbfac5725296f1e5&code=061db8uY08ejtV16YStY0TLWtY0db8ua&grant_type=authorization_code
-//self.responseString =
-//{"access_token":"19_ApGPorGYzoINBIMxolsUVmq1pSdEXVGgfWKOAfkfYvSdJ8TcktNF-tAFolLEY8BW0e09A6wZ6Dp-kPKEAZ_TNX0QlxuLnG9nFZ28yykNn8M","expires_in":7200,"refresh_token":"19_5PQrGpzDnbFkn_x12fNtu0ITxd9Wv1MnVbNuqfz51WIiO5Ch_X8lNamAX9kleZs0i3XidyrTaMxXUHuN5X-KMxZpA2nsD2VViyqpzFGFDrA","openid":"oFCD85-lxL9kMZP3Dt1-IZesT3jc","scope":"snsapi_userinfo","unionid":"o3pur1RaBEuGr0aQCXAjDmJq7N-8"}
-
-//-[AFHTTPRequestOperation setCompletionBlockWithSuccess:failure:]_block_invoke [Line 109] url is https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx06afab08425bd34e&secret=920ffb536569908cfbfac5725296f1e5&code=081cXnsc0hSjeA1vZPsc0qxwsc0cXnsK&grant_type=authorization_code
-//self.responseString =
-//{"access_token":"19_SwIW7-j8-3EEttI6asFQTpCC72qmKsVCSX7aCIcYubTiAit-_eOU3AOAz5C2gQW16U5fizOosrM79Q9bQcvoUGqi-sRMWXYjY4pEb4M-CaI","expires_in":7200,"refresh_token":"19_vxYSH77tNxuP4k759qnffY8IM6WOSNMRv6G8EEeJ1fOk8cIcHg2OLrXy05v8pExEdGBPhwi57yZB8zO8x6Y8uBh-T_wtQIc17oMVJtG5X2o","openid":"oFCD85-lxL9kMZP3Dt1-IZesT3jc","scope":"snsapi_userinfo","unionid":"o3pur1RaBEuGr0aQCXAjDmJq7N-8"}

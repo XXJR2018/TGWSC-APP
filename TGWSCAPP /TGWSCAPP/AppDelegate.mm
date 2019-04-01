@@ -135,37 +135,15 @@
 }
 
 
-#pragma mark == 从其他APP跳转回自己APP回调
+#pragma mark == 从其他APP跳转回自己APP回调 此处接收外部信息
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
-    //  此处接收外部信息
+
     if ([url.host isEqualToString:@"safepay"]) {
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             //发送支付宝支付结果消息
             [[NSNotificationCenter defaultCenter] postNotificationName:DDGPayResultNotification object:resultDic];
         }];
-
-//        // 授权跳转支付宝钱包进行支付，处理支付结果
-//        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
-//            NSLog(@"result = %@",resultDic);
-//
-//            //发送支付宝支付结果消息
-//            [[NSNotificationCenter defaultCenter] postNotificationName:DDGPayResultNotification object:resultDic];
-//
-//            // 解析 auth code
-//            NSString *result = resultDic[@"result"];
-//            NSString *authCode = nil;
-//            if (result.length>0) {
-//                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
-//                for (NSString *subResult in resultArr) {
-//                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
-//                        authCode = [subResult substringFromIndex:10];
-//                        break;
-//                    }
-//                }
-//            }
-//            NSLog(@"授权结果 authCode = %@", authCode?:@"");
-//        }];
     }
     
     NSDictionary *dic = options;

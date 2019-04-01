@@ -40,7 +40,7 @@
 @property (nonatomic,strong) Block_Id payblock;
 
 
-+(DDGWeChat *) getSharedWeChat;
++(DDGWeChat *)getSharedWeChat;
 
 
 - (void)loginBlock:(Block_Void)block;

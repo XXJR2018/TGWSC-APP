@@ -99,5 +99,12 @@ NSString *const DDGReciveChatMsgNotification = @"DDGReciveChatMsgNotification";
 
 
 
+/*!
+ @brief 滚到详情页面的通知
+ */
+NSString *const DDGGotoInfoNotification = @"DDGGotoInfoNotification";
+
+
+
 
 

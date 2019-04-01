@@ -181,7 +181,7 @@
     
     //余额
     if ([[dic objectForKey:@"usableAmount"] floatValue] > 0) {
-        _balanceNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"usableAmount"]];
+        _balanceNumLabel.text  = [NSString stringWithFormat:@"%@",[ToolsUtlis getnumber:[dic objectForKey:@"usableAmount"]]];
     }else{
         _balanceNumLabel.text = @"";
     }

@@ -181,7 +181,7 @@
     
     //余额
     if ([[dic objectForKey:@"usableAmount"] floatValue] > 0) {
-        _balanceNumLabel.text  = [NSString stringWithFormat:@"%@",[dic objectForKey:@"usableAmount"]];
+        _balanceNumLabel.text  = [NSString stringWithFormat:@"%@",[ToolsUtlis getnumber:[dic objectForKey:@"usableAmount"]]];
     }else{
         _balanceNumLabel.text = @"";
     }
@@ -534,6 +534,12 @@
 }
 
 -(void)userInfo{
+    [[DDGShareManager shareManager] loginType:2 block:^(id obj){
+        NSDictionary *dic = (NSDictionary *)obj;
+       
+    } view:self.view];
+    
+    return;
     if (![CommonInfo isLoggedIn]) {
         [DDGUserInfoEngine engine].parentViewController = self;
         [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];

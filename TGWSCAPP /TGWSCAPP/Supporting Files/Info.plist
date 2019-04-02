@@ -75,7 +75,7 @@
 	<string>1.2.0.0</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>XXJLApp</string>
+		<string>wechat</string>
 		<string>weixin</string>
 		<string>mqq</string>
 		<string>mqqapi</string>

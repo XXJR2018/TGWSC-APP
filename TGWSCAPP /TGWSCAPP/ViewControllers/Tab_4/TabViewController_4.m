@@ -534,12 +534,7 @@
 }
 
 -(void)userInfo{
-    [[DDGShareManager shareManager] loginType:2 block:^(id obj){
-        NSDictionary *dic = (NSDictionary *)obj;
-       
-    } view:self.view];
-    
-    return;
+
     if (![CommonInfo isLoggedIn]) {
         [DDGUserInfoEngine engine].parentViewController = self;
         [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];

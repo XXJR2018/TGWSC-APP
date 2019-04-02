@@ -88,6 +88,9 @@
     // 购物车需要更新的通知函数 注册
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(upDateCartCount:) name:DDGCartUpdateNotification object:nil];
     
+    // 滚到详情页面的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoInfo) name:DDGGotoInfoNotification object:nil];
+    
     
 }
 
@@ -1616,5 +1619,11 @@
         labelCartNum.width = 20;
         labelCartNum.text = @"99+";
      }
+}
+
+-(void) gotoInfo
+{
+    //  滚动详情图片的位置
+    [scView setContentOffset:CGPointMake(0, iTailViewTopY) animated:NO];
 }
 @end

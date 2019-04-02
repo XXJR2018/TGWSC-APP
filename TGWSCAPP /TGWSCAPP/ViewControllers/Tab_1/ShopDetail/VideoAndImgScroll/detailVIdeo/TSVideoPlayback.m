@@ -342,6 +342,18 @@
             [self.playBtn setSelected:NO];
         }
     }else{
+        
+        if (scrollView.contentOffset.x > ((self.dataArray.count-1) * self.bounds.size.width) + 50)
+         {
+            NSString *strIndex = [NSString stringWithFormat:@"%d/%d",(int)self.dataArray.count,(int)self.dataArray.count];
+            if ([self.indexLab.text isEqualToString:strIndex])
+             {
+                NSLog(@"scrollView.contentOffset.x: %f",scrollView.contentOffset.x);
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:DDGGotoInfoNotification object:nil];
+             }
+         }
+        
         return;
     }
     

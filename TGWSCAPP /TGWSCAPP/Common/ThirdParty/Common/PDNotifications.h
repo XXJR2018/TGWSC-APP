@@ -110,3 +110,9 @@ FOUNDATION_EXPORT NSString *const DDGCartUpdateNotification;
 FOUNDATION_EXPORT NSString *const DDGReciveChatMsgNotification;
 
 
+/*!
+ @brief 滚到详情页面的通知
+ */
+FOUNDATION_EXPORT NSString *const DDGGotoInfoNotification;
+
+

@@ -189,6 +189,7 @@ const  int  iMessageListCellHeight = 100;
                 [self PushNextViewControllerWith:strIosClassName];
             }
          }
+        
      }
     
     NSString *strSubject = dic[@"subject"];

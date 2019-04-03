@@ -164,9 +164,8 @@ static DDGShareManager *_DDGShareManager = nil;
     [_tcQQ qqShareNewsType:type title:items[@"title"] Content:items[@"subTitle"] ImageUrl:items[@"image"] gotoUrl:items[@"url"] other:nil];
 }
 
-// 回调
--(void)qqShareFinishedWithResult:(NSMutableDictionary *)result //分享结果
-{
+// 回调  分享结果
+-(void)qqShareFinishedWithResult:(NSMutableDictionary *)result{
     _block(result);
 }
 

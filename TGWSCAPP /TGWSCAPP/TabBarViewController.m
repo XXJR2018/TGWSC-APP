@@ -435,7 +435,8 @@
 }
 
 - (void)handleWillEnterForegroundNotificaiton:(NSNotification *)notification{
-    CFRunLoopRunInMode(kCFRunLoopDefaultMode,0.4, NO);
+//    此行不注释掉微信登陆会偶尔黑屏
+//    CFRunLoopRunInMode(kCFRunLoopDefaultMode,0.4, NO);
 }
 
 #pragma mark  ---  传类名， 跳转页面

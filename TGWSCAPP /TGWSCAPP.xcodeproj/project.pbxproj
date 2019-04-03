@@ -324,7 +324,6 @@
 		C250480421BA73B800DA9C72 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C25047F921BA73B800DA9C72 /* AFHTTPRequestOperation.m */; };
 		C250480521BA73B800DA9C72 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C25047FB21BA73B800DA9C72 /* AFNetworkReachabilityManager.m */; };
 		C250480621BA73B800DA9C72 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C25047FC21BA73B800DA9C72 /* AFSecurityPolicy.m */; };
-		C26B12CF225366B70003F217 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C26B12CE225366B70003F217 /* WXApiManager.m */; };
 		C287FE7A21BF4ACB00B8D682 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C287FE7821BF4ACB00B8D682 /* Images.xcassets */; };
 		C29A90D72241E6150077994C /* ShopCouponViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C29A90D52241E6150077994C /* ShopCouponViewCell.m */; };
 		C29A90D82241E6150077994C /* ShopCouponViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C29A90D62241E6150077994C /* ShopCouponViewCell.xib */; };
@@ -1011,8 +1010,6 @@
 		C25047FB21BA73B800DA9C72 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		C25047FC21BA73B800DA9C72 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
 		C25047FD21BA73B800DA9C72 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
-		C26B12CD225366B70003F217 /* WXApiManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
-		C26B12CE225366B70003F217 /* WXApiManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		C287FE7821BF4ACB00B8D682 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C29736A021EEBC76008EFD9E /* TGWSCAPP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TGWSCAPP.entitlements; sourceTree = "<group>"; };
 		C29A90D42241E6150077994C /* ShopCouponViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopCouponViewCell.h; sourceTree = "<group>"; };
@@ -2287,8 +2284,6 @@
 				C25044E221BA579100DA9C72 /* ShareView.m */,
 				C25044E321BA579100DA9C72 /* DDGWeChat.h */,
 				C25044E721BA579100DA9C72 /* DDGWeChat.m */,
-				C26B12CD225366B70003F217 /* WXApiManager.h */,
-				C26B12CE225366B70003F217 /* WXApiManager.m */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -3401,7 +3396,6 @@
 				C0CCC81421C0F30F009352E0 /* ZYHTFileNameConst.m in Sources */,
 				C050C4092215731900BFACF5 /* BGTool.m in Sources */,
 				C250460221BA711E00DA9C72 /* CustomNavigationBarView.m in Sources */,
-				C26B12CF225366B70003F217 /* WXApiManager.m in Sources */,
 				C0CCC7ED21C0F150009352E0 /* LLSearchHistorySaveUtils.m in Sources */,
 				C0CCC7E921C0F150009352E0 /* UIView+LLRect.m in Sources */,
 				C098D2AC21E0A43E0008584B /* SelPayVC.m in Sources */,

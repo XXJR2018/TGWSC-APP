@@ -374,8 +374,8 @@
     
     //创建底部视图
     [self setupCustomBottomView];
-    
-    UITableView *table = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    // UITableViewStylePlain 风格时， 动态变为分组，才没有BUG
+    UITableView *table = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     table.delegate = self;
     table.dataSource = self;

@@ -523,6 +523,11 @@
 //返回分组数
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     NSLog(@"计算分组数");
+    
+    if ([self.dataArrayUnUse count] <= 0)
+     {
+        return 1;
+     }
     return 2;
 }
 
@@ -544,6 +549,7 @@
 // 自定义段头高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    
     if (0 == section)
      {
         return   0;
@@ -554,15 +560,26 @@
         return 0;
      }
     
-    return 70;
+    if (1 == section  &&
+        [self.dataArrayUnUse count] > 0)
+     {
+        return 70;
+     }
+    
+    return 0;
 }
 
 // 自定义头部view
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
+    int iHeight = 70;
+    if (0 == section)
+     {
+        iHeight = 0;
+     }
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 70)];//创建一个视图
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, iHeight)];//创建一个视图
     //headerView.backgroundColor = [UIColor blueColor];
     
     int iTopY = 0;

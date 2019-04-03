@@ -31,7 +31,7 @@
     [super viewDidLoad];
     
     if (iOS11Less) {
-        self.layoutTop.constant = NavHeight + 35;
+        self.layoutTop.constant = NavHeight + 20;
     }
     
     [self layoutNaviBarViewWithTitle:@"客服中心"];

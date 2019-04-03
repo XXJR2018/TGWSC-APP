@@ -534,7 +534,6 @@
 }
 
 -(void)userInfo{
-
     if (![CommonInfo isLoggedIn]) {
         [DDGUserInfoEngine engine].parentViewController = self;
         [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];

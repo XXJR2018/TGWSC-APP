@@ -34,7 +34,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>tencent</string>
+			<string>QQ</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>tencent101529177</string>
@@ -44,17 +44,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>tencentApiIdentifier</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>tencent101529177.content</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string> mqqapi</string>
+			<string>Qzone</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>QQ60d3659</string>

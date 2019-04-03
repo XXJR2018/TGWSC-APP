@@ -13,9 +13,6 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/QQApiInterfaceObject.h>
 
-#define APPID_QQ        @"101529177"
-#define APPSecret_QQ    @"84767349e3f3ce8c23307f191a1e1949"
-
 @protocol DDGQQDelegate <NSObject>
 
 @optional

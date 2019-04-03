@@ -20,7 +20,6 @@
 - (void)umengTrack {
     [UMConfigure initWithAppkey:UMENG_APPKEY channel:@"App Store"];
     [MobClick setScenarioType:E_UM_NORMAL];
-    
 }
 
 -(void)JPushSet:(NSDictionary *)JPushDic{
@@ -196,18 +195,8 @@
     self.window.backgroundColor = [ResourceManager navgationTitleColor];
     [self.window makeKeyAndVisible];
     
-    [self getStartUpViewController];
-}
-
-- (void)getStartUpViewController{
-    
-    //初始化界面
     self.tabBarRootViewController = [[TabBarViewController alloc] init];
     self.window.rootViewController = self.tabBarRootViewController;
-    self.window.backgroundColor = [ResourceManager navgationTitleColor];
-    
-    [self.window makeKeyAndVisible];
-    
 }
 
 #pragma mark ===

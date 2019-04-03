@@ -10,10 +10,6 @@
 #import "WXApi.h"
 #import "WXApiObject.h"
 
-//天狗窝商城
-#define APPID_WC @"wx06afab08425bd34e"
-#define APPSecret_WC @"920ffb536569908cfbfac5725296f1e5"
-
 @class WXPayModel;
 
 @protocol DDGWeChatDelegate <NSObject>

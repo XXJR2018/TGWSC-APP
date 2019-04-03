@@ -27,7 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UIButton *acquiesceBtn;
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutTop;
 @end
 
 @implementation AddAddressViewController
@@ -141,6 +141,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (iOS11Less) {
+        self.layoutTop.constant = NavHeight;
+    }
     
     CustomNavigationBarView *naviBarView  = [self layoutNaviBarViewWithTitle:self.titleStr];
     

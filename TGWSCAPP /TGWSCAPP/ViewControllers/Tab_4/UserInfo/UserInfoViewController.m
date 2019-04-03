@@ -34,6 +34,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutTop;
+
 @end
 
 @implementation UserInfoViewController
@@ -100,6 +102,10 @@
 }
 
 -(void)layoutUI{
+    
+    if (iOS11Less) {
+        self.layoutTop.constant = NavHeight;
+    }
     self.loginOutBtn.layer.cornerRadius = 3;
     self.loginOutBtn.layer.borderWidth = 0.5;
     self.loginOutBtn.layer.borderColor = [ResourceManager mainColor].CGColor;

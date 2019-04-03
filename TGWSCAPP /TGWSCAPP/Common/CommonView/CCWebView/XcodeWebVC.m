@@ -48,7 +48,7 @@
 - (void)configUI {
     
     // 初始化progressView
-    self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, NavHeight, [[UIScreen mainScreen] bounds].size.width, 1)];
+    self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, NavHeight, [[UIScreen mainScreen] bounds].size.width, 0.5)];
     self.progressView.backgroundColor = [UIColor whiteColor];
     self.progressView.progressTintColor= [ResourceManager mainColor];//设置已过进度部分
     //设置进度条的高度，下面这句代码表示进度条的宽度变为原来的1倍，高度变为原来的0.5倍.

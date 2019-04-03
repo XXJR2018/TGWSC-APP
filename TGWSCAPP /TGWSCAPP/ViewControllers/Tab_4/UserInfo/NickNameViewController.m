@@ -15,7 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutTop;
 
 @end
 
@@ -24,6 +24,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self layoutNaviBarViewWithTitle:@"设置昵称"];
+    
+    if (iOS11Less) {
+        self.layoutTop.constant = NavHeight + 10;
+    }
     
     self.nextBtn.layer.cornerRadius = 3;
     self.nextBtn.layer.borderWidth = 0.5;

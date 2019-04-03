@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NickNameViewController">
             <connections>
-                <outlet property="layoutTop" destination="fHk-qk-YeY" id="YFL-g5-C9Z"/>
+                <outlet property="layoutTop" destination="fHk-qk-YeY" id="WOj-0W-zd2"/>
                 <outlet property="nextBtn" destination="kxC-YN-8Lr" id="6vE-uK-QiT"/>
                 <outlet property="nickNameField" destination="HSg-oJ-69l" id="tnZ-Vr-IVb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

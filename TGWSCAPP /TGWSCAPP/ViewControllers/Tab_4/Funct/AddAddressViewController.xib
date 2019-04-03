@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="acquiesceBtn" destination="VQB-m3-hNJ" id="9KC-yz-MPm"/>
                 <outlet property="addressLabel" destination="UbG-uV-vey" id="dH7-JY-z8A"/>
+                <outlet property="layoutTop" destination="i5M-Pr-FkT" id="h1T-pn-HJ5"/>
                 <outlet property="nameField" destination="zPG-QM-MSb" id="d10-SL-jwb"/>
                 <outlet property="phoneField" destination="iwh-5o-wlu" id="S6k-SG-aQV"/>
                 <outlet property="saveBtn" destination="IEK-Br-k0w" id="I1v-nN-LwD"/>
@@ -276,6 +277,6 @@
     <resources>
         <image name="Tab_4-25" width="20" height="20"/>
         <image name="Tab_4-26" width="19" height="19"/>
-        <image name="arrow_right" width="18" height="32"/>
+        <image name="arrow_right" width="9" height="16"/>
     </resources>
 </document>

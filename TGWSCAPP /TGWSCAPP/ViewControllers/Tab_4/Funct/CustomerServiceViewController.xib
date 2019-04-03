@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomerServiceViewController">
             <connections>
+                <outlet property="layoutTop" destination="Z6y-NT-EBW" id="ahn-gS-PVe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4zd-IQ-Cjk">
-                    <rect key="frame" x="0.0" y="100" width="375" height="110"/>
+                    <rect key="frame" x="0.0" y="84" width="375" height="110"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天狗窝商城平台问题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uoY-ne-wCE">
                             <rect key="frame" x="15" y="5" width="200" height="45"/>
@@ -71,7 +72,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="954-aa-G2H">
-                    <rect key="frame" x="0.0" y="225" width="375" height="110"/>
+                    <rect key="frame" x="0.0" y="209" width="375" height="110"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天狗窝商城自营品牌" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFh-az-EyY">
                             <rect key="frame" x="15" y="5" width="200" height="45"/>
@@ -127,7 +128,7 @@
                 <constraint firstItem="954-aa-G2H" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="LCh-in-NHE"/>
                 <constraint firstItem="4zd-IQ-Cjk" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="PN9-s8-txq"/>
                 <constraint firstItem="954-aa-G2H" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="YUs-l5-ilx"/>
-                <constraint firstItem="4zd-IQ-Cjk" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="80" id="Z6y-NT-EBW"/>
+                <constraint firstItem="4zd-IQ-Cjk" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="64" id="Z6y-NT-EBW"/>
                 <constraint firstItem="4zd-IQ-Cjk" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="rr7-eN-QWJ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>

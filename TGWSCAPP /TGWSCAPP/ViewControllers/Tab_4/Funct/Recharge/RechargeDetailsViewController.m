@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *rechargeNumLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutTop;
 @end
 
 @implementation RechargeDetailsViewController
@@ -59,6 +59,10 @@
     [super viewDidLoad];
     
     [self layoutNaviBarViewWithTitle:@"充值详情"];
+    
+    if (iOS11Less) {
+        self.layoutTop.constant = NavHeight;
+    }
     
 }
 

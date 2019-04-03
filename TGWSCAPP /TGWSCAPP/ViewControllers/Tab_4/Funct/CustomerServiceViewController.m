@@ -11,6 +11,8 @@
 
 @interface CustomerServiceViewController ()
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutTop;
+
 @end
 
 @implementation CustomerServiceViewController
@@ -27,6 +29,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (iOS11Less) {
+        self.layoutTop.constant = NavHeight + 20;
+    }
     
     [self layoutNaviBarViewWithTitle:@"客服中心"];
 }

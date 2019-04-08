@@ -445,11 +445,15 @@
 
 #pragma mark- FlowDelegate
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(70 * ScaleSize, 100 * ScaleSize);
+  
+    return CGSizeMake(60, 100);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    return UIEdgeInsetsMake(10, (SCREEN_WIDTH - 100 - 70 * 3)/6, 5, (SCREEN_WIDTH - 100 - 70 * 3)/6);
+    if ([_leftMenuStr isEqualToString:@"品牌"]) {
+        return UIEdgeInsetsMake(10, (SCREEN_WIDTH - 100 - 60 * 4)/8, 5, (SCREEN_WIDTH - 100 - 60 * 4)/8);
+    }
+    return UIEdgeInsetsMake(10, (SCREEN_WIDTH - 100 - 60 * 3)/6, 5, (SCREEN_WIDTH - 100 - 60 * 3)/6);
 }
 
 //返回这个UICollectioncell是否可以被选择

@@ -475,8 +475,6 @@
                                                                                parameters:@{@"appID":@"tgwscIOS"} HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
                                                                                       NSDictionary *dic = operation.jsonResult.attr;
-                                                                                      //审核状态
-                                                                                      [self parseDic:dic];
                                                                                       //升级弹窗
                                                                                       [self upVersionAlertView:dic];
                                                                                   }
@@ -535,35 +533,11 @@
     }
 }
 
-
-// 判断是否审核中
--(void) parseDic:(NSDictionary*) dic{
-    if (!dic){
-        return;
-    }
-    // isTestByIos   1 表示审核中，   0  表示审核通过
-    NSString *version = dic[@"upVersion"];
-    version = [version stringByReplacingOccurrencesOfString:@"." withString:@""];
-    NSInteger isTestByIosXxjr  = [dic[@"isTestByIos"] boolValue];
-    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-    NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
-    currentVersion = [currentVersion stringByReplacingOccurrencesOfString:@"." withString:@""];
-    
-    // 网络版本号 和 isTestByIos ，都匹配，才是审核中
-    if ([currentVersion intValue] > [version intValue] && isTestByIosXxjr == 1){
-        [CommonInfo setVerify:@"1"];
-    }else{
-        [CommonInfo setVerify:@"0"];
-    }
-    
-}
-
 //获取并保存用户信息
 -(void)getUserInfo {
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:[PDAPI getUserBaseInfoAPI]
                                                                                parameters:nil HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
-                                                                                      
                                                                                       [self handleData:operation];
                                                                                   }
                                                                                   failure:^(DDGAFHTTPRequestOperation *operation, NSError *error){
@@ -605,12 +579,13 @@
             [dic setValue:@"" forKey:key];
         }
     }
+   
     [CommonInfo setUserInfo:dic];
-    
     [CommonInfo setKey:K_ShopTopImgUrl withValue:[operation.jsonResult.attr objectForKey:@"shareBgImg"]];
     
     //用户信息保存成功，更新显示用户信息
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NotificationChangeUserInfo" object:nil];
+    
 }
 
 - (NSString *)iphoneType {

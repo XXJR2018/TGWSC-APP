@@ -262,11 +262,15 @@
             ctl.unionid = _unionid;
             [self.navigationController pushViewController:ctl animated:YES];
         }else{
-            //登陆成功,发送通知更新用户信息
-            [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
             //跳转首页
             [[DDGUserInfoEngine engine] finishDoBlock];
             [[DDGUserInfoEngine engine] dismissFinishUserInfoController:nil];
+            //创建异步队列添加并发任务
+            dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+            dispatch_async(queue, ^{
+                //登陆成功,发送通知更新用户信息
+                [[NSNotificationCenter defaultCenter] postNotificationName:DDGNotificationAccountNeedRefresh object:nil];
+            });
         }
     }
 }

@@ -233,7 +233,8 @@
         
         
         // 如果只有一排
-        if (_columnOneCount == iShopCount)
+        if (_columnOneCount == iShopCount ||
+            _columnTwoCount == 0)
          {
             fImgTopY += fImgHeight + 2*fImgBettewn;
             self.height = fImgTopY  + fLabelNameHeight + fLablePriceHeight + 10 ;

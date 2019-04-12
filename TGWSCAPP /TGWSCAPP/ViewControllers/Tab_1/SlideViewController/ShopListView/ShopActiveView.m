@@ -119,7 +119,8 @@
         
         
         // 如果只有一排
-        if (_columnOneCount == iShopCount)
+        if (_columnOneCount == iShopCount ||
+            _columnTwoCount == 0)
          {
             fImgTopY += fImgHeight + fImgBettewn;
             self.height = fImgTopY;

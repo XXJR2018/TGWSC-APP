@@ -608,7 +608,6 @@
         [[DDGUserInfoEngine engine] finishUserInfoWithFinish:nil];
         return;
     }
-    NSLog(@"%ld",sender.tag);
     switch (sender.tag) {
         case 0:{
             //我的余额

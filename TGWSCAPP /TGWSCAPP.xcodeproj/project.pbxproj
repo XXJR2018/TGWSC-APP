@@ -82,6 +82,8 @@
 		C0A48B4E21DE3608002AF226 /* RCLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B4D21DE3608002AF226 /* RCLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C0A48B5121DE3715002AF226 /* CDWAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B5021DE3715002AF226 /* CDWAlertView.m */; };
 		C0A48B5521DE3D8A002AF226 /* OrderDetialVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B5421DE3D8A002AF226 /* OrderDetialVC.m */; };
+		C0A7C80222606CF600F047A6 /* ShopSecKillView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A7C80122606CF600F047A6 /* ShopSecKillView.m */; };
+		C0A7C80522606D2B00F047A6 /* ShopLimitationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A7C80422606D2B00F047A6 /* ShopLimitationsView.m */; };
 		C0C4B762221BE793002853D1 /* EvaluateView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C4B761221BE793002853D1 /* EvaluateView.m */; };
 		C0C4B768221CDFE8002853D1 /* SocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C4B767221CDFE8002853D1 /* SocketManager.m */; };
 		C0C4B76B221D2796002853D1 /* ShopAllVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C4B76A221D2796002853D1 /* ShopAllVC.m */; };
@@ -546,6 +548,10 @@
 		C0A48B5021DE3715002AF226 /* CDWAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDWAlertView.m; sourceTree = "<group>"; };
 		C0A48B5321DE3D8A002AF226 /* OrderDetialVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetialVC.h; sourceTree = "<group>"; };
 		C0A48B5421DE3D8A002AF226 /* OrderDetialVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetialVC.m; sourceTree = "<group>"; };
+		C0A7C80022606CF600F047A6 /* ShopSecKillView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopSecKillView.h; sourceTree = "<group>"; };
+		C0A7C80122606CF600F047A6 /* ShopSecKillView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopSecKillView.m; sourceTree = "<group>"; };
+		C0A7C80322606D2B00F047A6 /* ShopLimitationsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopLimitationsView.h; sourceTree = "<group>"; };
+		C0A7C80422606D2B00F047A6 /* ShopLimitationsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopLimitationsView.m; sourceTree = "<group>"; };
 		C0C4B760221BE793002853D1 /* EvaluateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvaluateView.h; sourceTree = "<group>"; };
 		C0C4B761221BE793002853D1 /* EvaluateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvaluateView.m; sourceTree = "<group>"; };
 		C0C4B766221CDFE8002853D1 /* SocketManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketManager.h; sourceTree = "<group>"; };
@@ -1915,6 +1921,10 @@
 				C0CCC85B21C391F1009352E0 /* ShopModel.m */,
 				C08FFF6B21F6CBFD0045A438 /* ShopActiveView.h */,
 				C08FFF6C21F6CBFD0045A438 /* ShopActiveView.m */,
+				C0A7C80022606CF600F047A6 /* ShopSecKillView.h */,
+				C0A7C80122606CF600F047A6 /* ShopSecKillView.m */,
+				C0A7C80322606D2B00F047A6 /* ShopLimitationsView.h */,
+				C0A7C80422606D2B00F047A6 /* ShopLimitationsView.m */,
 			);
 			path = ShopListView;
 			sourceTree = "<group>";
@@ -3366,6 +3376,7 @@
 				C250460721BA711E00DA9C72 /* SGQRCodeObtainConfigure.m in Sources */,
 				C0A48B3821DCA697002AF226 /* LZCartModel.m in Sources */,
 				C0192E072213BAEF00D3E825 /* GCDAsyncSocket.m in Sources */,
+				C0A7C80522606D2B00F047A6 /* ShopLimitationsView.m in Sources */,
 				C0C4B88B221E9211002853D1 /* SRIOConsumerPool.m in Sources */,
 				C2AEB45C21BE38850078E788 /* ToolsUtlis.m in Sources */,
 				C250451B21BA579100DA9C72 /* SessionCookieManager.m in Sources */,
@@ -3543,6 +3554,7 @@
 				C25047E121BA715500DA9C72 /* XXJRInfoCoverView.m in Sources */,
 				C0CCC84621C261C2009352E0 /* SlideParentVC.m in Sources */,
 				C0C4B891221E9326002853D1 /* WebSocketManager.m in Sources */,
+				C0A7C80222606CF600F047A6 /* ShopSecKillView.m in Sources */,
 				C244950721CCB3AC00F8698B /* SortProductCollectionViewCell.m in Sources */,
 				C2A71B8521BE53F9007D849F /* DDGUserInfoEngine.m in Sources */,
 				C250451621BA579100DA9C72 /* MJRefreshViewController.m in Sources */,

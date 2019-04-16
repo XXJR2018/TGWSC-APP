@@ -19,6 +19,8 @@
 #import "ShopMoreAtTimeVC.h"
 #import "ShopActiveView.h"
 #import "ShopAllVC.h"
+#import "ShopSecKillMoreVC.h"
+#import "ShopLimitationsMoreVC.h"
 
 #define  BANNER_HEIGHT       (170*ScaleSize)      // Banner的高度
 
@@ -32,6 +34,7 @@
     NSMutableArray *_bannerJumpType;
     
     ShopModel *myClickObj;
+    
 }
 @end
 
@@ -40,7 +43,7 @@
 #pragma mark --- lifecylce
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self getUIformWeb];
+    //[self getUIformWeb];
 }
 
 - (void)viewDidLoad {
@@ -835,7 +838,32 @@
 //ShopSecKillClickDelegate
 -(void)didShopSecKillClickButtonAtObejct:(ShopModel*)clickObj
 {
+    if ([clickObj  isKindOfClass:[ShopModel class]])
+     {
+        int iShopID = clickObj.iShopID;
+        // 点击更多按钮
+        if (-1 == iShopID)
+         {
+            ShopSecKillMoreVC *ctl = [[ShopSecKillMoreVC alloc] init];
+            ctl.strTypeCode = [NSString stringWithFormat:@"%@",clickObj.strTypeCode];
+            ctl.strTypeName = clickObj.strTypeName;
+            [self.navigationController pushViewController:ctl animated:YES];
+         }
+        else
+         {
+            NSLog(@"ShopID:%d", iShopID);
+            NSLog(@"strGoodsName:%@ strGoodsSubName:%@  strGoodsCode:%@", clickObj.strGoodsName,clickObj.strGoodsSubName,clickObj.strGoodsCode);
+            
+            ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
+            VC.shopModel = clickObj;
+            VC.est = @"category";
+            VC.esi = clickObj.strCateCode;
+            [self.navigationController pushViewController:VC animated:YES];
+            
+         }
+     }
     
+   
 }
 
 #pragma mark  ---  Notification

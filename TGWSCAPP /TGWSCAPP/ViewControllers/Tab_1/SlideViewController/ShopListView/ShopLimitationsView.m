@@ -126,6 +126,12 @@
             labelBottom1.font = [UIFont systemFontOfSize:11];
             labelBottom1.text = @"距结束";
             
+            int secKillStatus = sModel.iSecKillStatus;
+            if (secKillStatus == 2)
+             {
+                labelBottom1.text = @"距开始";
+             }
+            
             UILabel *labelBottom2 = [[UILabel alloc] initWithFrame:CGRectMake(45, 0, viewBottom.width - 45 -5, viewBottom.height)];
             [viewBottom addSubview:labelBottom2];
             //labelBottom1.backgroundColor = [UIColor yellowColor];
@@ -262,6 +268,12 @@
             labelBottom1.textColor = [UIColor whiteColor];
             labelBottom1.font = [UIFont systemFontOfSize:11];
             labelBottom1.text = @"距结束";
+            
+            int secKillStatus = sModel.iSecKillStatus;
+            if (secKillStatus == 2)
+             {
+                labelBottom1.text = @"距开始";
+             }
             
             UILabel *labelBottom2 = [[UILabel alloc] initWithFrame:CGRectMake(36, 0, viewBottom.width - 36 -5, viewBottom.height)];
             [viewBottom addSubview:labelBottom2];
@@ -412,6 +424,12 @@
             labelBottom1.textColor = [UIColor whiteColor];
             labelBottom1.font = [UIFont systemFontOfSize:11];
             labelBottom1.text = @"距结束";
+            
+            int secKillStatus = sModel.iSecKillStatus;
+            if (secKillStatus == 2)
+             {
+                labelBottom1.text = @"距开始";
+             }
             
             UILabel *labelBottom2 = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, viewBottom.width - 37 -5, viewBottom.height)];
             [viewBottom addSubview:labelBottom2];

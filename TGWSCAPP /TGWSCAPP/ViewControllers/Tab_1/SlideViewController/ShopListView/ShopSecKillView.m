@@ -284,6 +284,12 @@
             labelBottom2.textAlignment = NSTextAlignmentRight;
             labelBottom2.text = @"20天12:12:12";
             
+            if (_columnOneCount == 3)
+             {
+                labelBottom1.font = [UIFont systemFontOfSize:10];
+                labelBottom2.font = [UIFont systemFontOfSize:10];
+             }
+            
             
             // 加入倒计时的label
             [arrTimeLable addObject:labelBottom2];
@@ -440,6 +446,12 @@
             labelBottom2.font = [UIFont systemFontOfSize:11];
             labelBottom2.textAlignment = NSTextAlignmentRight;
             labelBottom2.text = @"20天12:12:12";
+            
+            if (_columnTwoCount == 3)
+             {
+                labelBottom1.font = [UIFont systemFontOfSize:10];
+                labelBottom2.font = [UIFont systemFontOfSize:10];
+             }
             
             // 加入倒计时的label
             [arrTimeLable addObject:labelBottom2];

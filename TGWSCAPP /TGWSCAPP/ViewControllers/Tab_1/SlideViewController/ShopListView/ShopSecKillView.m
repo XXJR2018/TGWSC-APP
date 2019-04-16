@@ -16,7 +16,15 @@
     CGFloat _origin_Y;
     int  _columnOneCount; // 第一行的元素个数
     int  _columnTwoCount; // 第二行之后的 每行的元素个数
+    int  _totalShopCount; // 所有的的商品个数
+    
+    NSMutableArray *arrTime;        // 定时器的计数器
+    NSMutableArray *arrTimeLable;   // 定时器的显示label
 }
+
+// 倒计时计时器
+@property(nonatomic,strong)NSTimer *countDownTimer;
+
 @end
 
 @implementation ShopSecKillView
@@ -31,6 +39,10 @@
     _origin_Y = origin_Y;
     _columnOneCount = columnOneCount; // 第一行的元素个数
     _columnTwoCount = columnTwoCount; // 第二行之后的 每行的元素个数
+    _totalShopCount = (int)[items count];
+    
+    arrTime = [[NSMutableArray alloc] init];
+    arrTimeLable = [[NSMutableArray alloc] init];
     
     [self drawListTwo];
     
@@ -51,7 +63,11 @@
     float fTopY = 0;
     float fLeftX = 15*ScaleSize;
     int iTitleHeight = 50;
-    UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(fLeftX, fTopY, SCREEN_WIDTH - fLeftX - 100, iTitleHeight)];
+    UIImageView *imgTiltle = [[UIImageView alloc] initWithFrame:CGRectMake(fLeftX, fTopY + (iTitleHeight-20)/2, 15, 20)];
+    [self addSubview:imgTiltle];
+    imgTiltle.image = [UIImage imageNamed:@"ac_miaosha"];
+    
+    UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(fLeftX + imgTiltle.width + 5, fTopY, SCREEN_WIDTH - fLeftX - 100, iTitleHeight)];
     [self addSubview:labelTitle];
     labelTitle.font = [ResourceManager fontTitle];
     labelTitle.textColor = [ResourceManager color_1];
@@ -100,7 +116,7 @@
             btnTemp.tag = i;
             [btnTemp addTarget:self action:@selector(actionImg:) forControlEvents:UIControlEventTouchUpInside];
             
-            UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY+fImgWidth, fImgWidth, 30)];
+            UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY+fImgWidth, fImgWidth, 25)];
             [self addSubview:viewBottom];
             viewBottom.backgroundColor = UIColorFromRGB(0xa9454f);
             
@@ -118,6 +134,12 @@
             labelBottom2.font = [UIFont systemFontOfSize:11];
             labelBottom2.textAlignment = NSTextAlignmentRight;
             labelBottom2.text = @"20天12:12:12";
+            
+            // 加入倒计时的label
+            [arrTimeLable addObject:labelBottom2];
+            // 加入倒计时的秒数
+            NSNumber *numCountDownSecond = [NSNumber numberWithInt:sModel.iCountDownSecond];
+            [arrTime addObject:numCountDownSecond];
             
             
             
@@ -174,7 +196,6 @@
             NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
             NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:strMinePrice attributes:attribtDic];
             labelMinPrice.attributedText = attribtStr;
-            
             [labelMinPrice sizeToFit];
             
             float fLabeSeckillStockLeftX = fLabLeftX + labelSeckillPricee.width + labelMinPrice.width + 8;
@@ -187,7 +208,7 @@
             
             
             // 换行，画另一个元素
-            fImgTopY += fImgBettewn + fImgWidth + 30 +20;
+            fImgTopY += fImgBettewn + fImgWidth + viewBottom.height +20;
             fImgLeftX = fLeftX;
             
             // 分割线
@@ -214,6 +235,7 @@
         
         
         float fImgLeftX = fLeftX;
+        float fLabelBottomHeight = 25;
         
         for (int i = 0;  i < _columnOneCount; i++)
          {
@@ -231,8 +253,102 @@
             btnTemp.tag = i;
             [btnTemp addTarget:self action:@selector(actionImg:) forControlEvents:UIControlEventTouchUpInside];
             
+            UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY+fImgWidth, fImgWidth, fLabelBottomHeight)];
+            [self addSubview:viewBottom];
+            viewBottom.backgroundColor = UIColorFromRGB(0xa9454f);
+            
+            UILabel *labelBottom1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 40, viewBottom.height)];
+            [viewBottom addSubview:labelBottom1];
+            //labelBottom1.backgroundColor = [UIColor yellowColor];
+            labelBottom1.textColor = [UIColor whiteColor];
+            labelBottom1.font = [UIFont systemFontOfSize:11];
+            labelBottom1.text = @"距结束";
+            
+            UILabel *labelBottom2 = [[UILabel alloc] initWithFrame:CGRectMake(36, 0, viewBottom.width - 36 -5, viewBottom.height)];
+            [viewBottom addSubview:labelBottom2];
+            //labelBottom1.backgroundColor = [UIColor yellowColor];
+            labelBottom2.textColor = [UIColor whiteColor];
+            labelBottom2.font = [UIFont systemFontOfSize:11];
+            labelBottom2.textAlignment = NSTextAlignmentRight;
+            labelBottom2.text = @"20天12:12:12";
             
             
+            // 加入倒计时的label
+            [arrTimeLable addObject:labelBottom2];
+            // 加入倒计时的秒数
+            NSNumber *numCountDownSecond = [NSNumber numberWithInt:sModel.iCountDownSecond];
+            [arrTime addObject:numCountDownSecond];
+            
+            
+            //底部的文字
+            float  fLabLeftX = fImgLeftX;
+            float  fLabTopY = fImgTopY + fImgWidth + fLabelBottomHeight + 10;
+            float  fLabWidth = fImgWidth;
+            
+            
+            UILabel *labelYH = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY, fImgWidth, 20)];
+            [self  addSubview:labelYH];
+            labelYH.backgroundColor = UIColorFromRGB(0xf8eae9);
+            labelYH.font = [UIFont systemFontOfSize:11];
+            labelYH.textColor = [ResourceManager priceColor];
+            labelYH.text = [NSString stringWithFormat:@" 减%@元 ", sModel.reducePrice] ;
+            labelYH.layer.borderColor = UIColorFromRGB(0xccb9bd).CGColor;
+            labelYH.layer.borderWidth = 0.6;
+            labelYH.layer.masksToBounds = YES;
+            labelYH.layer.cornerRadius = 2;
+            [labelYH sizeToFit];
+            labelYH.height = 20;
+
+            UILabel *labelName = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX + labelYH.width, fLabTopY, fLabWidth - labelYH.width, 20)];
+            [self  addSubview:labelName];
+            labelName.font = [UIFont systemFontOfSize:14];
+            labelName.textColor = [ResourceManager color_1];
+            labelName.text = sModel.strGoodsName;
+            
+            fLabTopY += labelName.height;
+            UILabel *labelSubName = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY , fLabWidth, 20)];
+            [self  addSubview:labelSubName];
+            labelSubName.font = [UIFont systemFontOfSize:12];
+            labelSubName.textColor = [ResourceManager midGrayColor];
+            labelSubName.text = sModel.strGoodsSubName;
+            
+            fLabTopY += labelSubName.height;
+            UILabel *labelCount = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY , fLabWidth, 15)];
+            [self  addSubview:labelCount];
+            labelCount.font = [UIFont systemFontOfSize:10];
+            labelCount.textColor = [ResourceManager lightGrayColor];
+            labelCount.text = [NSString stringWithFormat:@"仅剩%d件", sModel.iSeckillStock];
+            
+            
+            fLabTopY += labelCount.height+10;
+            UILabel *labelSeckillPricee = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY, fLabWidth, 40)];
+            [self  addSubview:labelSeckillPricee];
+            labelSeckillPricee.font = [UIFont systemFontOfSize:18];
+            labelSeckillPricee.textColor = [ResourceManager priceColor];
+            labelSeckillPricee.text =  [NSString stringWithFormat:@"¥%@",sModel.seckillPrice];
+            if (_columnOneCount ==3)
+             {
+                labelSeckillPricee.font = [UIFont systemFontOfSize:14];
+             }
+            [labelSeckillPricee sizeToFit];
+            
+            
+            UILabel *labelMinPrice = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX + labelSeckillPricee.width + 5, fLabTopY, fLabWidth, 40)];
+            [self  addSubview:labelMinPrice];
+            labelMinPrice.font = [UIFont systemFontOfSize:15];
+            labelMinPrice.textColor = [ResourceManager midGrayColor];
+            NSString *strMinePrice =  [NSString stringWithFormat:@"¥%@",sModel.strMinPrice];
+            // 中划线
+            NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+            NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:strMinePrice attributes:attribtDic];
+            labelMinPrice.attributedText = attribtStr;
+            if (_columnOneCount ==3)
+             {
+                labelMinPrice.font = [UIFont systemFontOfSize:12];
+             }
+            [labelMinPrice sizeToFit];
+            
+            // 换列
             fImgLeftX += fImgBettewn + fImgWidth;
             
          }
@@ -243,8 +359,14 @@
         if (_columnOneCount == iShopCount ||
             _columnTwoCount == 0)
          {
-            fImgTopY += fImgHeight + fImgBettewn;
-            self.height = fImgTopY;
+            fImgTopY += fImgHeight + fImgBettewn + fLabelBottomHeight;
+            self.height = fImgTopY  + 100;
+            
+            if ([arrTimeLable count] >0)
+             {
+                [self creatCountDownTimer];
+             }
+            
             return;
          }
         
@@ -252,8 +374,8 @@
         fImgHeight = (SCREEN_WIDTH - 2*fLeftX - (_columnTwoCount -1)* fImgBettewn) / _columnTwoCount;
         fImgWidth = fImgHeight;
         //fImgTopY = fTopY;
-        fImgTopY += fImgHeight + fImgBettewn;
-        fImgBettewn = 1.5 *ScaleSize;
+        fImgTopY += fImgHeight + fImgBettewn + fLabelBottomHeight +100;
+        fImgBettewn = 5 *ScaleSize;
         fLeftX = (SCREEN_WIDTH  - _columnTwoCount *fImgWidth - (_columnTwoCount - 1)*fImgBettewn)/2;
         
         if (_columnTwoCount == 1)
@@ -280,9 +402,104 @@
             btnTemp.tag = i;
             [btnTemp addTarget:self action:@selector(actionImg:) forControlEvents:UIControlEventTouchUpInside];
             
+            
+            UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY+fImgWidth, fImgWidth, fLabelBottomHeight)];
+            [self addSubview:viewBottom];
+            viewBottom.backgroundColor = UIColorFromRGB(0xa9454f);
+            
+            UILabel *labelBottom1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 40, viewBottom.height)];
+            [viewBottom addSubview:labelBottom1];
+            //labelBottom1.backgroundColor = [UIColor yellowColor];
+            labelBottom1.textColor = [UIColor whiteColor];
+            labelBottom1.font = [UIFont systemFontOfSize:11];
+            labelBottom1.text = @"距结束";
+            
+            UILabel *labelBottom2 = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, viewBottom.width - 37 -5, viewBottom.height)];
+            [viewBottom addSubview:labelBottom2];
+            //labelBottom1.backgroundColor = [UIColor yellowColor];
+            labelBottom2.textColor = [UIColor whiteColor];
+            labelBottom2.font = [UIFont systemFontOfSize:11];
+            labelBottom2.textAlignment = NSTextAlignmentRight;
+            labelBottom2.text = @"20天12:12:12";
+            
+            // 加入倒计时的label
+            [arrTimeLable addObject:labelBottom2];
+            // 加入倒计时的秒数
+            NSNumber *numCountDownSecond = [NSNumber numberWithInt:sModel.iCountDownSecond];
+            [arrTime addObject:numCountDownSecond];
+            
+            //底部的文字
+            float  fLabLeftX = fImgLeftX;
+            float  fLabTopY = fImgTopY + fImgWidth + fLabelBottomHeight + 10;
+            float  fLabWidth = fImgWidth;
+            
+            
+            UILabel *labelYH = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY, fImgWidth, 20)];
+            [self  addSubview:labelYH];
+            labelYH.backgroundColor = UIColorFromRGB(0xf8eae9);
+            labelYH.font = [UIFont systemFontOfSize:11];
+            labelYH.textColor = [ResourceManager priceColor];
+            labelYH.text = [NSString stringWithFormat:@" 减%@元 ", sModel.reducePrice] ;
+            labelYH.layer.borderColor = UIColorFromRGB(0xccb9bd).CGColor;
+            labelYH.layer.borderWidth = 0.6;
+            labelYH.layer.masksToBounds = YES;
+            labelYH.layer.cornerRadius = 2;
+            [labelYH sizeToFit];
+            labelYH.height = 20;
+            
+            UILabel *labelName = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX + labelYH.width, fLabTopY, fLabWidth - labelYH.width, 20)];
+            [self  addSubview:labelName];
+            labelName.font = [UIFont systemFontOfSize:14];
+            labelName.textColor = [ResourceManager color_1];
+            labelName.text = sModel.strGoodsName;
+            
+            fLabTopY += labelName.height;
+            UILabel *labelSubName = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY , fLabWidth, 20)];
+            [self  addSubview:labelSubName];
+            labelSubName.font = [UIFont systemFontOfSize:12];
+            labelSubName.textColor = [ResourceManager midGrayColor];
+            labelSubName.text = sModel.strGoodsSubName;
+            
+            fLabTopY += labelSubName.height;
+            UILabel *labelCount = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY , fLabWidth, 15)];
+            [self  addSubview:labelCount];
+            labelCount.font = [UIFont systemFontOfSize:10];
+            labelCount.textColor = [ResourceManager lightGrayColor];
+            labelCount.text = [NSString stringWithFormat:@"仅剩%d件", sModel.iSeckillStock];
+            
+            
+            fLabTopY += labelCount.height+10;
+            UILabel *labelSeckillPricee = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY, fLabWidth, 40)];
+            [self  addSubview:labelSeckillPricee];
+            labelSeckillPricee.font = [UIFont systemFontOfSize:18];
+            labelSeckillPricee.textColor = [ResourceManager priceColor];
+            labelSeckillPricee.text =  [NSString stringWithFormat:@"¥%@",sModel.seckillPrice];
+            if (_columnOneCount ==3)
+             {
+                labelSeckillPricee.font = [UIFont systemFontOfSize:14];
+             }
+            [labelSeckillPricee sizeToFit];
+            
+            
+            UILabel *labelMinPrice = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX + labelSeckillPricee.width + 5, fLabTopY, fLabWidth, 40)];
+            [self  addSubview:labelMinPrice];
+            labelMinPrice.font = [UIFont systemFontOfSize:15];
+            labelMinPrice.textColor = [ResourceManager midGrayColor];
+            NSString *strMinePrice =  [NSString stringWithFormat:@"¥%@",sModel.strMinPrice];
+            // 中划线
+            NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+            NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:strMinePrice attributes:attribtDic];
+            labelMinPrice.attributedText = attribtStr;
+            if (_columnOneCount ==3)
+             {
+                labelMinPrice.font = [UIFont systemFontOfSize:12];
+             }
+            [labelMinPrice sizeToFit];
+            
+            
             if ((i +1 - _columnOneCount) %_columnTwoCount == 0)
              {
-                fImgTopY += fImgHeight + fImgBettewn;
+                fImgTopY += fImgHeight + fImgBettewn + fLabelBottomHeight +100;
                 fImgLeftX = fLeftX;
              }
             else
@@ -295,6 +512,11 @@
      }
     
     self.height = fImgTopY;
+    
+    if ([arrTimeLable count] >0)
+     {
+        [self creatCountDownTimer];
+     }
 }
 
 #pragma mark --- action
@@ -320,5 +542,75 @@
      }
 }
 
+
+#pragma mark   --- 定时器相关
+-(void) creatCountDownTimer
+{
+    [self stopCountDownTimer];
+    
+    // 每一秒执行一次方法
+    _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showCountDown) userInfo:nil repeats:YES];
+    
+    [_countDownTimer fire];
+    
+    // 解决定时器后台 无法运行的BUG
+    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+    
+    [[NSRunLoop currentRunLoop] addTimer:_countDownTimer forMode:NSRunLoopCommonModes];
+}
+
+-(void) stopCountDownTimer
+{
+    if (_countDownTimer)
+     {
+        //取消定时器
+        [_countDownTimer invalidate];
+        _countDownTimer = nil;
+     }
+}
+
+-(void) showCountDown
+{
+    
+    for (int i = 0; i < _totalShopCount; i++)
+     {
+        UILabel *labelTemp = arrTimeLable[i];
+        if (!labelTemp)
+         {
+            continue;
+         }
+        
+        
+        NSNumber *numCountDownSecond = arrTime[i];
+        int iCountDownSecond = [numCountDownSecond intValue];
+        
+        if (iCountDownSecond <= 0)
+         {
+            labelTemp.text = @"0天00:00:00";
+            continue;
+         }
+        
+        // 计算总共还有 X天X小时X分X秒
+        int iDay = iCountDownSecond/(24*60*60);
+        int iOtherSFM = iCountDownSecond - iDay*24*60*60;  // 去除天后，剩余的时分秒
+        int iHour = iOtherSFM/ (60*60);
+        int iOherFM = iOtherSFM - iHour *60*60;
+        int iMiuter = iOherFM/60;
+        int iSecond = iCountDownSecond%60;
+        
+        labelTemp.text = [NSString stringWithFormat:@"%d天%02d:%02d:%02d",iDay,iHour,iMiuter,iSecond];
+        
+        
+        if (iCountDownSecond >= 0)
+         {
+            iCountDownSecond--;
+         }
+        numCountDownSecond = [NSNumber numberWithInt:iCountDownSecond];
+        // 替换元素
+        [arrTime replaceObjectAtIndex:i withObject:numCountDownSecond];
+        
+     }
+
+}
 
 @end

@@ -22,7 +22,7 @@
 
 #define  BANNER_HEIGHT       (170*ScaleSize)      // Banner的高度
 
-@interface SlideSub1 ()<SDCycleScrollViewDelegate,AdvertingShopListViewDelegate,ShopListViewDelegate,ShopActiveViewDelegate>
+@interface SlideSub1 ()<SDCycleScrollViewDelegate,AdvertingShopListViewDelegate,ShopListViewDelegate,ShopActiveViewDelegate,ShopSecKillViewDelegate>
 {
     UIScrollView *scView;
     
@@ -307,6 +307,7 @@
             sModel.iSecKillStatus = [dicObject[@"secKillStatus"] intValue];  // 活动状态(0未开始 1进行中 2已结束 3已失效)
             sModel.iQuota = [dicObject[@"quota"] intValue];  // 是否限购；0为不限购 其他为限购数量
             sModel.iSeckillStock = [dicObject[@"seckillStock"] intValue];  // 秒杀商品剩余件数
+            sModel.iCountDownSecond = [dicObject[@"countDownSecond"] intValue]; // 剩余秒数
             sModel.minPrice = [ToolsUtlis getnumber:dicObject[@"minPrice"]];  // 原价
             sModel.seckillPrice = [ToolsUtlis getnumber:dicObject[@"seckillPrice"]]; // 秒杀价
             sModel.reducePrice = [ToolsUtlis getnumber:dicObject[@"reducePrice"]]; //价差（减xx元）
@@ -829,6 +830,12 @@
          }
         
      }
+}
+
+//ShopSecKillClickDelegate
+-(void)didShopSecKillClickButtonAtObejct:(ShopModel*)clickObj
+{
+    
 }
 
 #pragma mark  ---  Notification

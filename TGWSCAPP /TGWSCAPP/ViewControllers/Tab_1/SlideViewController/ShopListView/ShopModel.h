@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) int   iSecKillStatus;  // 活动状态(0未开始 1进行中 2已结束 3已失效)
 @property (nonatomic,assign) int   iQuota;  // 是否限购；0为不限购 其他为限购数量
 @property (nonatomic,assign) int   iSeckillStock;  // 秒杀商品剩余件数
+@property (nonatomic,assign) int   iCountDownSecond; // 剩余秒数
 @property (nonatomic,copy) NSString *minPrice;  // 原价
 @property (nonatomic,copy) NSString *seckillPrice; // 秒杀价
 @property (nonatomic,copy) NSString *reducePrice;  // 价差（减xx元）

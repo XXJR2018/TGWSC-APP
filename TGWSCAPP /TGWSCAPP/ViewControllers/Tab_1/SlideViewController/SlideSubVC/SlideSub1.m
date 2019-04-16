@@ -11,6 +11,8 @@
 #import "SDCycleScrollView.h"
 #import "ShopListView.h"
 #import "AdvertingShopListView.h"
+#import "ShopSecKillView.h"
+#import "ShopLimitationsView.h"
 #import "ShopDetailVC.h"
 #import "ProductListViewController.h"
 #import "ShopMoreVC.h"
@@ -259,7 +261,7 @@
      {
         NSDictionary *dicType = arrTypeList[i];
         
-        int iShowType = [dicType[@"showType"] intValue]; //展示内容类型0-商品1-类目 2-活动 3-品牌
+        int iShowType = [dicType[@"showType"] intValue]; //展示内容类型0-商品1-类目 2-活动 3-品牌  4—秒杀活动
         
         NSString  *strTypeTitle = [NSString stringWithFormat:@"%@",dicType[@"typeTitle"]]; // 类别标题
         NSString  *strTypeCode = [NSString stringWithFormat:@"%@",dicType[@"typeCode"]];    // 类别code
@@ -299,13 +301,21 @@
             
             // 活动时，特别添加的字段
             sModel.iSkipType = [dicObject[@"skipType"] intValue];
-            sModel.strSkipUrl = [NSString stringWithFormat:@"%@",dicObject[@"skipUrl"]];;
+            sModel.strSkipUrl = [NSString stringWithFormat:@"%@",dicObject[@"skipUrl"]];
+            
+            // 限购和秒杀活动时， 特别添加的字端
+            sModel.iSecKillStatus = [dicObject[@"secKillStatus"] intValue];  // 活动状态(0未开始 1进行中 2已结束 3已失效)
+            sModel.iQuota = [dicObject[@"quota"] intValue];  // 是否限购；0为不限购 其他为限购数量
+            sModel.iSeckillStock = [dicObject[@"seckillStock"] intValue];  // 秒杀商品剩余件数
+            sModel.minPrice = [ToolsUtlis getnumber:dicObject[@"minPrice"]];  // 原价
+            sModel.seckillPrice = [ToolsUtlis getnumber:dicObject[@"seckillPrice"]]; // 秒杀价
+            sModel.reducePrice = [ToolsUtlis getnumber:dicObject[@"reducePrice"]]; //价差（减xx元）
             
             
             [tempArr addObject:sModel];
          }
 
-        //展示内容类型0-商品1-类目 2-活动 3-品牌
+        //展示内容类型0-商品1-类目 2-活动 3-品牌  4—秒杀活动
         // 目前，只有 商品 和  类目 两种  商品就是全部显示图片
         // 活动  和 商品是一样的，全部显示图片
        if (0 == iShowType)
@@ -354,6 +364,23 @@
             adListView.delegate = self;
             adListView.shopModel = sModel;
             iTopY += adListView.height +10;
+            
+            UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 10)];
+            [scView addSubview:viewFG];
+            viewFG.backgroundColor = [ResourceManager viewBackgroundColor];
+            iTopY += viewFG.height;
+         }
+        else if (4 == iShowType)
+         {
+            ShopSecKillView  *adListView = [[ShopSecKillView alloc] initWithTitle:strTypeTitle itemArray:tempArr origin_Y:iTopY
+                                                                               columnOneCount:iColumnOneCount  columnTwoCount:iColumnTwoCount];
+            [scView addSubview:adListView];
+            ShopModel *sModel = [[ShopModel alloc] init];
+            sModel.strTypeName = strTypeTitle;
+            sModel.strTypeCode = strTypeCode;
+            adListView.delegate = self;
+            adListView.shopModel = sModel;
+            iTopY += adListView.height;
             
             UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 10)];
             [scView addSubview:viewFG];

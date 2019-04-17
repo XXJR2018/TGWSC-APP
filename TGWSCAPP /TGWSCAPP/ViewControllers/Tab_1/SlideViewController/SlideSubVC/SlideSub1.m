@@ -14,6 +14,7 @@
 #import "ShopSecKillView.h"
 #import "ShopLimitationsView.h"
 #import "ShopDetailVC.h"
+#import "ShopSecKillDetailVC.h"
 #import "ProductListViewController.h"
 #import "ShopMoreVC.h"
 #import "ShopMoreAtTimeVC.h"
@@ -854,7 +855,7 @@
             NSLog(@"ShopID:%d", iShopID);
             NSLog(@"strGoodsName:%@ strGoodsSubName:%@  strGoodsCode:%@", clickObj.strGoodsName,clickObj.strGoodsSubName,clickObj.strGoodsCode);
             
-            ShopDetailVC *VC  = [[ShopDetailVC alloc] init];
+            ShopSecKillDetailVC *VC  = [[ShopSecKillDetailVC alloc] init];
             VC.shopModel = clickObj;
             VC.est = @"category";
             VC.esi = clickObj.strCateCode;

@@ -84,6 +84,7 @@
 		C0A48B5521DE3D8A002AF226 /* OrderDetialVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A48B5421DE3D8A002AF226 /* OrderDetialVC.m */; };
 		C0A5A3682265AF0500A8A6F0 /* ShopSecKillMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A5A3672265AF0500A8A6F0 /* ShopSecKillMoreVC.m */; };
 		C0A5A36B2265AF6900A8A6F0 /* ShopLimitationsMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A5A36A2265AF6900A8A6F0 /* ShopLimitationsMoreVC.m */; };
+		C0A5A36F2266F80000A8A6F0 /* ShopSecKillDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A5A36E2266F80000A8A6F0 /* ShopSecKillDetailVC.m */; };
 		C0A7C80222606CF600F047A6 /* ShopSecKillView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A7C80122606CF600F047A6 /* ShopSecKillView.m */; };
 		C0A7C80522606D2B00F047A6 /* ShopLimitationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A7C80422606D2B00F047A6 /* ShopLimitationsView.m */; };
 		C0C4B762221BE793002853D1 /* EvaluateView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C4B761221BE793002853D1 /* EvaluateView.m */; };
@@ -554,6 +555,8 @@
 		C0A5A3672265AF0500A8A6F0 /* ShopSecKillMoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopSecKillMoreVC.m; sourceTree = "<group>"; };
 		C0A5A3692265AF6900A8A6F0 /* ShopLimitationsMoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopLimitationsMoreVC.h; sourceTree = "<group>"; };
 		C0A5A36A2265AF6900A8A6F0 /* ShopLimitationsMoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopLimitationsMoreVC.m; sourceTree = "<group>"; };
+		C0A5A36D2266F80000A8A6F0 /* ShopSecKillDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopSecKillDetailVC.h; sourceTree = "<group>"; };
+		C0A5A36E2266F80000A8A6F0 /* ShopSecKillDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopSecKillDetailVC.m; sourceTree = "<group>"; };
 		C0A7C80022606CF600F047A6 /* ShopSecKillView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopSecKillView.h; sourceTree = "<group>"; };
 		C0A7C80122606CF600F047A6 /* ShopSecKillView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopSecKillView.m; sourceTree = "<group>"; };
 		C0A7C80322606D2B00F047A6 /* ShopLimitationsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopLimitationsView.h; sourceTree = "<group>"; };
@@ -1562,6 +1565,15 @@
 			path = OrderDetial;
 			sourceTree = "<group>";
 		};
+		C0A5A36C2266F7CB00A8A6F0 /* ShopSecKillDetail */ = {
+			isa = PBXGroup;
+			children = (
+				C0A5A36D2266F80000A8A6F0 /* ShopSecKillDetailVC.h */,
+				C0A5A36E2266F80000A8A6F0 /* ShopSecKillDetailVC.m */,
+			);
+			path = ShopSecKillDetail;
+			sourceTree = "<group>";
+		};
 		C0C4B84A221E9211002853D1 /* SocketRocket */ = {
 			isa = PBXGroup;
 			children = (
@@ -2023,6 +2035,7 @@
 				C20525ED21BE6E5C00E13893 /* TabViewController_1.m */,
 				C20525EF21BE6E5C00E13893 /* TabViewController_1.xib */,
 				C02C5F7521CC78BE0056A32E /* ShopDetail */,
+				C0A5A36C2266F7CB00A8A6F0 /* ShopSecKillDetail */,
 				C0CCC84321C2616F009352E0 /* SlideViewController */,
 				C0CCC7B121C0E237009352E0 /* SearchViewController */,
 				C067E8BC21EC3DE700395F91 /* Message */,
@@ -3480,6 +3493,7 @@
 				C0A48A7D21D4BE37002AF226 /* HeaderCollectionReusableView.m in Sources */,
 				C050C3E02215704300BFACF5 /* ChatViewController.m in Sources */,
 				C29A90D72241E6150077994C /* ShopCouponViewCell.m in Sources */,
+				C0A5A36F2266F80000A8A6F0 /* ShopSecKillDetailVC.m in Sources */,
 				C25047DB21BA715500DA9C72 /* BaseController.m in Sources */,
 				C21509BB223F72690087447E /* RechargeFruitViewController.m in Sources */,
 				C050C3E92215704300BFACF5 /* CSBigView.m in Sources */,

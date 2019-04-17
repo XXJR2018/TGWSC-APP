@@ -57,6 +57,14 @@
  */
 -(CustomNavigationBarView *)layoutNaviBarViewBackdropTitle:(NSString *)title;
 
+
+/**
+ *  导航条 白色字体，可以设置背景图片
+ *
+ *  @param title <#title description#>
+ */
+-(CustomNavigationBarView *)layoutNaviBarViewWithWhiteTitle:(NSString *)title;
+
 /*
  * 没有网络的视图
  **/

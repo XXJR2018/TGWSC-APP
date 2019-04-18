@@ -137,6 +137,21 @@ static NSString *const kURLqueryAllCommList = @"appMall/account/orderComment/que
 // 获取所有热门问题
 static NSString *const kURLqueryqueryHotQuestion = @"appMall/kf/manager/queryHotQuestion";
 
+
+#pragma mark   --- 限时秒杀
+// 秒杀商品列表
+static NSString *const kURLquerySecKillAllList = @"appMall/activity/querySecKillAllList";
+// 秒杀商品详情
+static NSString *const kURLquerySecGoodsDtl = @"appMall/activity/querySecGoodsDtl";
+// 查询秒杀商品SKU展示规格列表
+static NSString *const kURLquerySecSkuProList = @"appMall/activity/querySecSkuProList";
+// 查询秒杀商品SKU所有列表
+static NSString *const kURLquerySecSkuList = @"appMall/activity/querySecSkuList";
+// 秒杀商品详情页面中，立即购买获取订单详情， 需要调用此接口（相当于下单接口）
+static NSString *const kURLseckillSingleOrder = @"appMall/account/cust/activity/singleOrder";
+//   秒杀商品提交订单，获取最重要的支付参数 (注意：如果是余额充足，并且选择余额支付， 提交订单后会直接成功)
+static NSString *const kURLseckillCommitOrder = @"appMall/account/cust/activity/commitOrder";
+
 /*!
  @brief 管理所有接口URL
  */

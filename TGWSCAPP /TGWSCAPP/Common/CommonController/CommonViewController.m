@@ -113,6 +113,24 @@
     return navBarView;
 }
 
+#pragma mark ==== Layout-UI
+-(CustomNavigationBarView *)layoutNaviBarViewWithWhiteTitle:(NSString *)title {
+    CustomNavigationBarView *navBarView;
+
+    UIButton *buttonLeft              = [UIButton buttonWithType:UIButtonTypeCustom];
+    [buttonLeft setImage:[UIImage imageNamed:@"return_white"] forState:UIControlStateNormal];
+    buttonLeft.tag = 10011;
+    [buttonLeft addTarget:self action:@selector(clickNavButton:) forControlEvents:UIControlEventTouchUpInside];
+    navBarView = [[CustomNavigationBarView alloc] initWithTitle:title withLeftButton:buttonLeft withRightButton:nil withBackColorStyle:NavigationBarViewBackColorBlack backdrop:NO];
+    [self.view addSubview:navBarView];
+
+    
+    navBarView.titleLab.textColor = [UIColor whiteColor];
+    
+    
+    return navBarView;
+}
+
 -(void)clickNavButton:(UIButton *)button{
     [self.navigationController popViewControllerAnimated:YES];
 }

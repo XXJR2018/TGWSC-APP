@@ -345,6 +345,7 @@
     sModel.strSkipUrl = [NSString stringWithFormat:@"%@",dicObject[@"skipUrl"]];
     
     // 限购和秒杀活动时， 特别添加的字端
+    sModel.iSeckillId = [dicObject[@"seckillId"] intValue]; // 活动ID
     sModel.iSecKillStatus = [dicObject[@"secKillStatus"] intValue];  // 活动状态(0未开始 1进行中 2已结束 3已失效)
     sModel.iQuota = [dicObject[@"quota"] intValue];  // 是否限购；0为不限购 其他为限购数量
     sModel.iSeckillStock = [dicObject[@"seckillStock"] intValue];  // 秒杀商品剩余件数

@@ -1009,6 +1009,8 @@
     params[@"goodsCode"] = _shopModel.strGoodsCode;
     params[@"est"] = _est;
     params[@"esi"] = _esi;
+    params[@"activityFlag"] = @"1";
+    params[@"seckillId"] = @(_shopModel.iSeckillId);
     
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLqueryGoodsBaseInfo];
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl

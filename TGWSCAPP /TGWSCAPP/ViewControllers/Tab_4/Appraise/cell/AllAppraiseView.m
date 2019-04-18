@@ -28,7 +28,7 @@
         
         [self layoutCellUI:dic];
         
-        self.frame = CGRectMake(0, 0, SCREEN_WIDTH, _currentHeight);
+        self.frame = CGRectMake(0, 0, SCREEN_WIDTH, _currentHeight + 10);
     }
     
     return self;
@@ -136,14 +136,14 @@
         replyLabel.frame = CGRectMake(10, 10, expectSize.width, expectSize.height);
         
         replyView.height = CGRectGetMaxY(replyLabel.frame) + 10;
-        _currentHeight = CGRectGetMaxY(replyView.frame) + 10;
+        _currentHeight = CGRectGetMaxY(replyView.frame);
     }
     
     //已追评
     if ([[dic objectForKey:@"commentStatus"] intValue] == 3) {
         //追评时间
         if ([dic objectForKey:@"appendDate"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"appendDate"]].length > 0) {
-            UILabel *reviewtimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight, SCREEN_WIDTH - 20, 20)];
+            UILabel *reviewtimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, SCREEN_WIDTH - 20, 20)];
             [self addSubview:reviewtimeLabel];
             reviewtimeLabel.font = font_1;
             reviewtimeLabel.textColor = [ResourceManager mainColor];
@@ -192,7 +192,7 @@
                         [appraiseImgView addGestureRecognizer:tapGeture];
                         [tapGeture view].tag = i * 3 + j + 100;
                         
-                        _currentHeight = CGRectGetMaxY(appraiseImgView.frame) + 10;
+                        _currentHeight = CGRectGetMaxY(appraiseImgView.frame);
                     }
                 }
             }
@@ -200,7 +200,7 @@
         
         //商家回复追评内容
         if ([dic objectForKey:@"replyAppendText"] && [NSString stringWithFormat:@"%@",[dic objectForKey:@"replyAppendText"]].length > 0) {
-            UIView *replyAppendView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight, SCREEN_WIDTH - 20, 20)];
+            UIView *replyAppendView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMinX(headImgView.frame), _currentHeight + 10, SCREEN_WIDTH - 20, 20)];
             [self addSubview:replyAppendView];
             replyAppendView.backgroundColor = [ResourceManager viewBackgroundColor];
             replyAppendView.layer.cornerRadius = 5;
@@ -225,7 +225,7 @@
             replyAppendLabel.frame = CGRectMake(10, 10, expectSize.width, expectSize.height);
             
             replyAppendView.height = CGRectGetMaxY(replyAppendLabel.frame) + 10;
-            _currentHeight = CGRectGetMaxY(replyAppendView.frame) + 10;
+            _currentHeight = CGRectGetMaxY(replyAppendView.frame);
         }
     }
     

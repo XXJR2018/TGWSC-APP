@@ -51,6 +51,7 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
 + (NSString *)WXSysRouteAPI{
 #if DEBUG
     return @"https://app.tgwmall.cn/";           //生产环境
+//    return @"http://xxjiaotong.f3322.net:5000/";  // 测试环境外网地址
 //    return @"http://192.168.10.182/";   // 测试环境
     
 #else

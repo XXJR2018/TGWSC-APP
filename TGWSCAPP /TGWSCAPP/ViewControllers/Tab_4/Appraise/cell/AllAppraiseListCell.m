@@ -2,7 +2,7 @@
 //  AllAppraiseListCell.m
 //  TGWSCAPP
 //
-//  Created by xxjr03 on 2019/2/25.
+//  Created by xxjr03 on 2019/4/18.
 //  Copyright © 2019 xxjr03. All rights reserved.
 //
 
@@ -32,7 +32,7 @@
         }
     };
     [self.contentView addSubview:view];
-   
+    
 }
 
 - (void)awakeFromNib {

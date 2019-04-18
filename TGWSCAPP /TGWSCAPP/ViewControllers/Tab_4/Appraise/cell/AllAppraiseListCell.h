@@ -2,7 +2,7 @@
 //  AllAppraiseListCell.h
 //  TGWSCAPP
 //
-//  Created by xxjr03 on 2019/2/25.
+//  Created by xxjr03 on 2019/4/18.
 //  Copyright © 2019 xxjr03. All rights reserved.
 //
 
@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSDictionary *dataDicionary;
 
 @property(nonatomic, copy)Block_Int clickEnlargeBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

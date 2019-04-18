@@ -49,6 +49,8 @@
     
     int   userCommCount;  // 用户评价量
     NSString *goodsRate;  // 用户满意度
+    
+    int  countDownSecond;  // 倒计时秒数
 }
 
 @property (strong, nonatomic)AVPlayer *myPlayer;//播放器
@@ -154,9 +156,31 @@
         return;
      }
     
+    iTopY =  BannerHeight;
+    
+    UIView *viewBottom = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 35)];
+    [scView addSubview:viewBottom];
+    viewBottom.backgroundColor = UIColorFromRGB(0xa9454f);
+    
+    UILabel *labelBottom1 = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 40, viewBottom.height)];
+    [viewBottom addSubview:labelBottom1];
+    //labelBottom1.backgroundColor = [UIColor yellowColor];
+    labelBottom1.textColor = [UIColor whiteColor];
+    labelBottom1.font = [UIFont systemFontOfSize:18 weight:UIFontWeightBlack];
+    labelBottom1.text = @"秒杀";
+    
+    
+    UILabel *labelBottom2 = [[UILabel alloc] initWithFrame:CGRectMake(45, 0, viewBottom.width - 45 -15, viewBottom.height)];
+    [viewBottom addSubview:labelBottom2];
+    //labelBottom1.backgroundColor = [UIColor yellowColor];
+    labelBottom2.textColor = [UIColor whiteColor];
+    labelBottom2.font = [UIFont systemFontOfSize:14 weight:UIFontWeightBlack];
+    labelBottom2.textAlignment = NSTextAlignmentRight;
+    labelBottom2.text = @"距离结束仅剩下   20天 12 时 12 分 12 秒";
+    
     
     // 设置标题
-    iTopY =  BannerHeight + 10;
+    iTopY +=  viewBottom.height +10;
     int iLeftX = 15;
     UILabel *lableTitle = [[UILabel alloc] initWithFrame:CGRectMake(iLeftX, iTopY, SCREEN_WIDTH - 2*iLeftX, 25)];
     [scView addSubview:lableTitle];
@@ -1182,6 +1206,8 @@
         if (baseGoods &&
             [baseGoods count] > 0)
          {
+            countDownSecond  =  [baseGoods[@"countDownSecond"] intValue];  // 倒计时的秒数
+            
             NSDictionary *dicObject = baseGoods;
             ShopModel *sModel = [[ShopModel alloc] init];
             

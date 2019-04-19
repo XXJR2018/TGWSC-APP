@@ -482,6 +482,7 @@
     OrderDetialVC  *VC = [[OrderDetialVC alloc] init];
     VC.dicToWeb = params;
     VC.iType = 1;
+    VC.shopModel = _shopModel;
     [self.parentVC.navigationController pushViewController:VC animated:YES];
     [self hide];
 }

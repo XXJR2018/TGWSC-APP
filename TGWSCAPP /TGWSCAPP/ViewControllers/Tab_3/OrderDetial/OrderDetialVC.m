@@ -412,8 +412,29 @@
         iTopY += iCellHeight + 10;
      }
     NSArray *arrName = @[@"优惠券/购物券",@"购买所得积分",@"配送方式",@"我要开发票"];
+    
+    if (_shopModel.iSeckillStock > 0 ||
+        _shopModel.iCountDownSecond > 0 ||
+        _shopModel.iSeckillId > 0)
+     {
+        // 是秒杀活动
+        arrName = @[@"优惠券/购物券",@"购买所得积分",@"配送方式"];
+     }
+    
     for(int i= 0 ; i <[arrName count]; i++)
      {
+        // 是秒杀活动
+        if (_shopModel.iSeckillStock > 0 ||
+            _shopModel.iCountDownSecond > 0 ||
+            _shopModel.iSeckillId > 0)
+         {
+            
+            if (i == 0)
+             {
+                continue;
+             }
+         }
+        
         iLeftX = 15;
         UIView *viewCell = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, iCellHeight)];
         [viewTail addSubview:viewCell];
@@ -717,6 +738,14 @@
         strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLbatchOrderInfo];
      }
     
+    if (_shopModel.iSeckillStock > 0 ||
+        _shopModel.iCountDownSecond > 0 ||
+        _shopModel.iSeckillId > 0)
+     {
+        // 是秒杀活动
+        params[@"activityFlag"] = @"1";
+     }
+    
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
                                                                                   success:^(DDGAFHTTPRequestOperation *operation, id responseObject){
@@ -770,6 +799,14 @@
         params[@"tradePassword"] = tradePassword; // 支付密码(余额开启需要)
      }
     
+    
+    if (_shopModel.iSeckillStock > 0 ||
+        _shopModel.iCountDownSecond > 0 ||
+        _shopModel.iSeckillId > 0)
+     {
+        // 是秒杀活动
+        params[@"activityFlag"] = @"1";
+     }
     
     
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl

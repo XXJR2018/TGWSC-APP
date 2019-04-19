@@ -186,7 +186,6 @@
     btnBuy.titleLabel.font = [UIFont systemFontOfSize:15];
     [btnBuy addTarget:self action:@selector(actionBuy) forControlEvents:UIControlEventTouchUpInside];
     
-    
     UIButton *btnShopCart = [[UIButton alloc] initWithFrame:CGRectMake(10 + iBtnWidth +10, 5, iBtnWidth, iBtnHegiht)];
     [viewNormal addSubview:btnShopCart];
     btnShopCart.cornerRadius = btnShopCart.height/2;
@@ -196,6 +195,14 @@
     btnShopCart.titleLabel.font = [UIFont systemFontOfSize:15];
     [btnShopCart addTarget:self action:@selector(actionShopCart) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    if (_shopModel.iSeckillStock > 0 ||
+        _shopModel.iCountDownSecond > 0 ||
+        _shopModel.iSeckillId > 0)
+     {
+        // 是秒杀活动
+        btnShopCart.hidden = YES;
+     }
     
     // 售罄的view
     viewSellOut = [[UIView alloc] initWithFrame:CGRectMake(0, _tailView.height - iButtonViewHeight, SCREEN_WIDTH, iButtonViewHeight)];

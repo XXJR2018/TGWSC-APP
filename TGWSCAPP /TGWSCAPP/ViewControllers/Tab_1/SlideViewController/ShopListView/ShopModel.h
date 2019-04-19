@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 // 限时秒杀活动，限时抢购活动，格外添加的字端
-@property (nonatomic,assign) int   iSeckillId;     // 活动ID
+@property (nonatomic,assign) int   iSeckillId;     // 秒杀活动ID
 @property (nonatomic,assign) int   iSecKillStatus;  // 活动状态(0未开始 1进行中 2已结束 3已失效)
 @property (nonatomic,assign) int   iQuota;  // 是否限购；0为不限购 其他为限购数量
 @property (nonatomic,assign) int   iSeckillStock;  // 秒杀商品剩余件数

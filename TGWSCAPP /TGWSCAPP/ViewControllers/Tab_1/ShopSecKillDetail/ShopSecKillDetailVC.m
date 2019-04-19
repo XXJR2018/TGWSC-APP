@@ -30,6 +30,11 @@
     
     UIView *viewPopShare;  // 分享的弹框
     
+    UILabel *labelDay; // “距离开始 xxx” label
+    UILabel *labelHour; // “距离开始 xxx” label
+    UILabel *labelMinute; // “距离开始 xxx” label
+    UILabel *labelSecond; // “距离开始 xxx” label
+    
     NSMutableArray *arrTopIMG; // 顶部的 视频和图片 数组
     int iTopType;    //   0 - 表示全图片，  1 -  表示为首张为视频，剩下的为图片
     
@@ -58,6 +63,7 @@
 @property (strong, nonatomic)AVPlayerLayer *playerLayer;//播放界面（layer
 @property (nonatomic,assign) int type;  // 0  图片，  1  视频和图片混合
 @property (nonatomic,strong) TSVideoPlayback *video;
+@property(nonatomic,strong)NSTimer *countDownTimer;  // 倒计时计时器
 
 @end
 
@@ -174,9 +180,49 @@
     [viewBottom addSubview:labelBottom2];
     //labelBottom1.backgroundColor = [UIColor yellowColor];
     labelBottom2.textColor = [UIColor whiteColor];
-    labelBottom2.font = [UIFont systemFontOfSize:14 weight:UIFontWeightBlack];
+    //labelBottom2.font = [UIFont systemFontOfSize:14 weight:UIFontWeightBlack];
+    labelBottom2.font = [UIFont systemFontOfSize:12];
     labelBottom2.textAlignment = NSTextAlignmentRight;
-    labelBottom2.text = @"距离结束仅剩下   20天 12 时 12 分 12 秒";
+    labelBottom2.text = @"距离结束仅剩下           天        时        分        秒";
+    
+    // 设置 天  时 分  秒 label
+    int iLeftSFM = viewBottom.width - 15 - 39;
+    labelSecond = [[UILabel alloc] initWithFrame:CGRectMake(iLeftSFM, 0, 25, viewBottom.height)];
+    [viewBottom addSubview:labelSecond];
+    //labelSecond.backgroundColor = [UIColor yellowColor];
+    labelSecond.textColor = [UIColor whiteColor];
+    labelSecond.font = [UIFont systemFontOfSize:13 weight:UIFontWeightBlack];
+    labelSecond.textAlignment = NSTextAlignmentCenter;
+    labelSecond.text = @"";
+    
+    iLeftSFM -= 39;
+    labelMinute = [[UILabel alloc] initWithFrame:CGRectMake(iLeftSFM, 0, 25, viewBottom.height)];
+    [viewBottom addSubview:labelMinute];
+    //labelMinute.backgroundColor = [UIColor yellowColor];
+    labelMinute.textColor = [UIColor whiteColor];
+    labelMinute.font = [UIFont systemFontOfSize:13 weight:UIFontWeightBlack];
+    labelMinute.textAlignment = NSTextAlignmentCenter;
+    labelMinute.text = @"";
+    
+    iLeftSFM -= 39;
+    labelHour = [[UILabel alloc] initWithFrame:CGRectMake(iLeftSFM, 0, 25, viewBottom.height)];
+    [viewBottom addSubview:labelHour];
+    //labelHour.backgroundColor = [UIColor yellowColor];
+    labelHour.textColor = [UIColor whiteColor];
+    labelHour.font = [UIFont systemFontOfSize:13 weight:UIFontWeightBlack];
+    labelHour.textAlignment = NSTextAlignmentCenter;
+    labelHour.text = @"";
+    
+    iLeftSFM -= 39;
+    labelDay = [[UILabel alloc] initWithFrame:CGRectMake(iLeftSFM, 0, 25, viewBottom.height)];
+    [viewBottom addSubview:labelDay];
+    //labelDay.backgroundColor = [UIColor yellowColor];
+    labelDay.textColor = [UIColor whiteColor];
+    labelDay.font = [UIFont systemFontOfSize:13 weight:UIFontWeightBlack];
+    labelDay.textAlignment = NSTextAlignmentCenter;
+    labelDay.text = @"";
+    
+    [self creatCountDownTimer];
     
     
     // 设置标题
@@ -225,6 +271,7 @@
     
     iTopY += lablePrice.height +10;
     
+    
     //设置原价
     id  marketPrice =  dicBaseGoods[@"marketPrice"];
     //NSString *strMarketPrice = [NSString stringWithFormat:@"¥%@",dicBaseGoods[@"marketPrice"]];
@@ -251,6 +298,17 @@
     UIView *viewFG1 = [[UIView alloc] initWithFrame:CGRectMake(iLeftX, iTopY-1, SCREEN_WIDTH - 2*iLeftX, 1)];
     [scView addSubview:viewFG1];
     viewFG1.backgroundColor = [ResourceManager color_5];
+    
+    // 设置库存
+    UILabel *labelStore =  [[UILabel alloc] initWithFrame:CGRectMake(150, iTopY - 50, SCREEN_WIDTH - 150-15, 20)];
+    [scView addSubview:labelStore];
+    //labelStore.backgroundColor = [UIColor yellowColor];
+    labelStore.textColor = [ResourceManager lightGrayColor];
+    labelStore.font = [UIFont systemFontOfSize:14];
+    labelStore.textAlignment = NSTextAlignmentRight;
+    labelStore.text = [NSString stringWithFormat:@"仅剩%d件", [dicBaseGoods[@"seckillStock"] intValue] ] ;
+    
+    
     
     // 设置包邮的价格
     iTopY += 10;
@@ -430,7 +488,7 @@
     [self layoutShareUI];
     
     // 需要刷新购物车下标
-    [[NSNotificationCenter defaultCenter] postNotificationName:DDGCartNeedCountNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:DDGCartNeedCountNotification object:nil];
     
 }
 
@@ -786,12 +844,14 @@
     viewFG.backgroundColor = [ResourceManager color_5];
     
     
-    NSArray *arrTitle =  @[@"客 服",@"收 藏",@"购物车"];
-    NSArray *arrImg =  @[@"Shop_kf",@"Shop_shoucang",@"Shop_che"];
+    //NSArray *arrTitle =  @[@"客 服",@"收 藏",@"购物车"];
+    //NSArray *arrImg =  @[@"Shop_kf",@"Shop_shoucang",@"Shop_che"];
+    NSArray *arrTitle =  @[@"客 服",@"收 藏"];
+    NSArray *arrImg =  @[@"Shop_kf",@"Shop_shoucang"];
     
     if (isFavorite)
      {
-        arrImg =  @[@"Shop_kf",@"Shop_shoucang2",@"Shop_che"];
+        arrImg =  @[@"Shop_kf",@"Shop_shoucang2"];
      }
     
     int iLeftX = 12;
@@ -858,7 +918,9 @@
      }
     
     int iIsSellOut = _shopModel.iIsSellOut; //  "isSellOut": 0 代表售罄 1代表尚有库存
-    if (iIsSellOut == 0)
+    int iSeckillStock = _shopModel.iSeckillStock; // 秒杀的库存数
+    if (iIsSellOut == 0 ||
+        iSeckillStock == 0)
      {
         int iBtnWidth =  (SCREEN_WIDTH - iLeftX  - 10);
         UIButton *btnSellOut = [[UIButton alloc] initWithFrame:CGRectMake(iLeftX, 10, iBtnWidth, 40)];
@@ -1072,6 +1134,14 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params[@"goodsCode"] = _shopModel.strGoodsCode;
     
+    if (_shopModel.iSeckillStock > 0 ||
+        _shopModel.iCountDownSecond > 0 ||
+        _shopModel.iSeckillId > 0)
+     {
+        // 是秒杀活动
+        params[@"activityFlag"] = @"1";
+     }
+    
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLquerySkuProList];
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
                                                                                parameters:params HTTPCookies:[DDGAccountManager sharedManager].sessionCookiesArray
@@ -1092,6 +1162,14 @@
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     params[@"goodsCode"] = _shopModel.strGoodsCode;
+    
+    if (_shopModel.iSeckillStock > 0 ||
+        _shopModel.iCountDownSecond > 0 ||
+        _shopModel.iSeckillId > 0)
+     {
+        // 是秒杀活动
+        params[@"activityFlag"] = @"1";
+     }
     
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLquerySkuList];
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
@@ -1221,6 +1299,22 @@
             sModel.strCateName = [NSString stringWithFormat:@"%@",dicObject[@"cateName"]];
             sModel.iIsSellOut = [dicObject[@"isSellOut"] intValue];
             sModel.iSaleStatus = [dicObject[@"saleStatus"] intValue];
+            
+            // 活动时，特别添加的字段
+            sModel.iSkipType = [dicObject[@"skipType"] intValue];
+            sModel.strSkipUrl = [NSString stringWithFormat:@"%@",dicObject[@"skipUrl"]];
+            
+            // 限购和秒杀活动时， 特别添加的字端
+            sModel.iSeckillId = [dicObject[@"seckillId"] intValue]; // 活动ID
+            sModel.iSecKillStatus = [dicObject[@"secKillStatus"] intValue];  // 活动状态(0未开始 1进行中 2已结束 3已失效)
+            sModel.iQuota = [dicObject[@"quota"] intValue];  // 是否限购；0为不限购 其他为限购数量
+            sModel.iSeckillStock = [dicObject[@"seckillStock"] intValue];  // 秒杀商品剩余件数
+            sModel.iCountDownSecond = [dicObject[@"countDownSecond"] intValue]; // 剩余秒数
+            sModel.minPrice = [ToolsUtlis getnumber:dicObject[@"minPrice"]];  // 原价
+            sModel.seckillPrice = [ToolsUtlis getnumber:dicObject[@"seckillPrice"]]; // 秒杀价
+            sModel.reducePrice = [ToolsUtlis getnumber:dicObject[@"reducePrice"]]; //价差（减xx元）
+            
+            
             _shopModel = sModel;
          }
         
@@ -1652,14 +1746,73 @@
     //  滚动详情图片的位置
     [scView setContentOffset:CGPointMake(0, iTailViewTopY) animated:NO];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+#pragma mark   --- 定时器相关
+-(void) creatCountDownTimer
+{
+    [self stopCountDownTimer];
+    
+    // 每一秒执行一次方法
+    _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showCountDown) userInfo:nil repeats:YES];
+    
+    [_countDownTimer fire];
+    
+    // 解决定时器后台 无法运行的BUG
+    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+    
+    [[NSRunLoop currentRunLoop] addTimer:_countDownTimer forMode:NSRunLoopCommonModes];
 }
-*/
+
+-(void) stopCountDownTimer
+{
+    if (_countDownTimer)
+     {
+        //取消定时器
+        [_countDownTimer invalidate];
+        _countDownTimer = nil;
+     }
+}
+
+-(void) showCountDown
+{
+
+    
+    
+    int iCountDownSecond = countDownSecond;
+    
+    if (iCountDownSecond <= 0)
+     {
+        labelDay.text = @"0";
+        labelHour.text = @"0";
+        labelMinute.text = @"0";
+        labelSecond.text = @"0";
+        return;
+     }
+    
+    // 计算总共还有 X天X小时X分X秒
+    int iDay = iCountDownSecond/(24*60*60);
+    int iOtherSFM = iCountDownSecond - iDay*24*60*60;  // 去除天后，剩余的时分秒
+    int iHour = iOtherSFM/ (60*60);
+    int iOherFM = iOtherSFM - iHour *60*60;
+    int iMiuter = iOherFM/60;
+    int iSecond = iCountDownSecond%60;
+    
+    labelDay.text = [NSString stringWithFormat:@"%02d",iDay];
+    labelHour.text = [NSString stringWithFormat:@"%02d",iHour];
+    labelMinute.text = [NSString stringWithFormat:@"%02d",iMiuter];
+    labelSecond.text = [NSString stringWithFormat:@"%02d",iSecond];
+    
+    
+    if (iCountDownSecond >= 0)
+     {
+        iCountDownSecond--;
+        countDownSecond--;
+     }
+
+        
+ 
+    
+}
 
 @end

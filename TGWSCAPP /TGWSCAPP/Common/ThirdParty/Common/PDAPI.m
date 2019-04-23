@@ -72,6 +72,7 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
     return kBaseURL;
     
 #else
+    return @"http://xxjiaotong.f3322.net:5000/";  // 测试环境外网地址
     return kBaseURL;
 #endif
 }
@@ -86,6 +87,7 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
     return kBaseURL;
     
 #else
+    return @"http://xxjiaotong.f3322.net:5000/";  // 测试环境外网地址
     return kBaseURL;
 #endif
 }

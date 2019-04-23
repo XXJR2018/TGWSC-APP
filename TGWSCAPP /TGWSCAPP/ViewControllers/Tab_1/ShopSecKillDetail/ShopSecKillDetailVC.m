@@ -488,7 +488,7 @@
     [self layoutShareUI];
     
     // 需要刷新购物车下标
-    //[[NSNotificationCenter defaultCenter] postNotificationName:DDGCartNeedCountNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDGCartNeedCountNotification object:nil];
     
 }
 
@@ -844,14 +844,13 @@
     viewFG.backgroundColor = [ResourceManager color_5];
     
     
-    //NSArray *arrTitle =  @[@"客 服",@"收 藏",@"购物车"];
-    //NSArray *arrImg =  @[@"Shop_kf",@"Shop_shoucang",@"Shop_che"];
-    NSArray *arrTitle =  @[@"客 服",@"收 藏"];
-    NSArray *arrImg =  @[@"Shop_kf",@"Shop_shoucang"];
+    NSArray *arrTitle =  @[@"客 服",@"收 藏",@"购物车"];
+    NSArray *arrImg =  @[@"Shop_kf",@"Shop_shoucang",@"Shop_che"];
+
     
     if (isFavorite)
      {
-        arrImg =  @[@"Shop_kf",@"Shop_shoucang2"];
+        arrImg =  @[@"Shop_kf",@"Shop_shoucang2",@"Shop_che"];
      }
     
     int iLeftX = 12;

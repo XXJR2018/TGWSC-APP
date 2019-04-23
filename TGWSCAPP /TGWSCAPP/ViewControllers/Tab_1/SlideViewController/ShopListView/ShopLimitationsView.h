@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 //  columnOneCount - 第一行的元素个数
 //  columnTwoCount - 第二行之后的 每行的元素个数
 -(ShopLimitationsView*)initWithTitle:(NSString *)title  itemArray:(NSArray *)items origin_Y:(CGFloat)origin_Y
-                  columnOneCount:(int)columnOneCount  columnTwoCount:(int)columnTwoCount;
+                      columnOneCount:(int)columnOneCount  columnTwoCount:(int)columnTwoCount  totoalCount:(int) iTotalCount;
 
 
 @property (nonatomic, strong) id<ShopLimitationsViewDelegate> delegate;

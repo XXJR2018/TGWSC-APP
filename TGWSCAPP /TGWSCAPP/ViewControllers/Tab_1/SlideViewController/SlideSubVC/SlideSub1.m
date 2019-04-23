@@ -272,7 +272,7 @@
         
         int iColumnOneCount = [dicType[@"oneRowStyle"] intValue];  // 第一行的元素个数
         int iColumnTwoCount = [dicType[@"twoRowStyle"] intValue];  // 第二行之后的元素个数
-        
+        int iTotalCount = [dicType[@"totalCount"] intValue];  // 总元素个数
         
         // 显示数组为空， continue
         NSArray *arrShowList  = dicType[@"showIdList"];
@@ -321,7 +321,7 @@
             [tempArr addObject:sModel];
          }
 
-        //展示内容类型0-商品1-类目 2-活动 3-品牌  4—秒杀活动
+        //展示内容类型0-商品1-类目 2-活动 3-品牌  4—秒杀活动  5-限时抢购
         // 目前，只有 商品 和  类目 两种  商品就是全部显示图片
         // 活动  和 商品是一样的，全部显示图片
        if (0 == iShowType)
@@ -361,6 +361,7 @@
          }
         else if (2 == iShowType)
          {
+
             ShopActiveView  *adListView = [[ShopActiveView alloc] initWithTitle:strTypeTitle itemArray:tempArr origin_Y:iTopY
                                                                                columnOneCount:iColumnOneCount  columnTwoCount:iColumnTwoCount];
             [scView addSubview:adListView];
@@ -370,7 +371,7 @@
             adListView.delegate = self;
             adListView.shopModel = sModel;
             iTopY += adListView.height +10;
-            
+
             UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 10)];
             [scView addSubview:viewFG];
             viewFG.backgroundColor = [ResourceManager viewBackgroundColor];
@@ -388,6 +389,23 @@
             adListView.shopModel = sModel;
             iTopY += adListView.height;
             
+            UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 10)];
+            [scView addSubview:viewFG];
+            viewFG.backgroundColor = [ResourceManager viewBackgroundColor];
+            iTopY += viewFG.height;
+         }
+        else if (5 == iShowType)
+         {
+            ShopLimitationsView  *adListView = [[ShopLimitationsView alloc] initWithTitle:strTypeTitle itemArray:tempArr origin_Y:iTopY
+                                                                           columnOneCount:iColumnOneCount  columnTwoCount:iColumnTwoCount totoalCount:iTotalCount];
+            [scView addSubview:adListView];
+            ShopModel *sModel = [[ShopModel alloc] init];
+            sModel.strTypeName = strTypeTitle;
+            sModel.strTypeCode = strTypeCode;
+            adListView.delegate = self;
+            adListView.shopModel = sModel;
+            iTopY += adListView.height;
+
             UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(0, iTopY, SCREEN_WIDTH, 10)];
             [scView addSubview:viewFG];
             viewFG.backgroundColor = [ResourceManager viewBackgroundColor];

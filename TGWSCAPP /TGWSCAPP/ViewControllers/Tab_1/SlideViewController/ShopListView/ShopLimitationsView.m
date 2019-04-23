@@ -29,7 +29,7 @@
 @implementation ShopLimitationsView
 
 -(ShopLimitationsView*)initWithTitle:(NSString *)title  itemArray:(NSArray *)items origin_Y:(CGFloat)origin_Y
-                  columnOneCount:(int)columnOneCount  columnTwoCount:(int)columnTwoCount
+                  columnOneCount:(int)columnOneCount  columnTwoCount:(int)columnTwoCount totoalCount:(int) iTotalCount
 {
     self =  [super initWithFrame:CGRectMake(0, origin_Y, SCREEN_WIDTH, 100)];
     
@@ -38,7 +38,7 @@
     _origin_Y = origin_Y;
     _columnOneCount = columnOneCount; // 第一行的元素个数
     _columnTwoCount = columnTwoCount; // 第二行之后的 每行的元素个数
-    _totalShopCount = (int)[items count];
+    _totalShopCount = iTotalCount;
     
     arrTime = [[NSMutableArray alloc] init];
     arrTimeLable = [[NSMutableArray alloc] init];
@@ -83,6 +83,8 @@
     
     fTopY +=labelTitle.height;
     
+    float fOneRowHeight = 0;// 一列的高度
+    
     
     float fImgTopY = fTopY;
     if(_items &&
@@ -95,9 +97,8 @@
         float fImgHeight = (SCREEN_WIDTH - 2*fLeftX - (3 -1)* fImgBettewn) / 3 + 20;
         float fImgWidth = fImgHeight;
         
-        int iShopCount = (int)[_items count];
         float fImgLeftX = fLeftX;
-        for (int i = 0;  i < iShopCount; i++)
+        for (int i = 0;  i < _totalShopCount; i++)
          {
             
             // 左边的图片
@@ -217,7 +218,7 @@
             fImgLeftX = fLeftX;
             
             // 分割线
-            if (i < (iShopCount -1))
+            if (i < (_totalShopCount -1))
              {
                 UIView *viewFG = [[UIView alloc] initWithFrame:CGRectMake(fImgBettewn, fImgTopY-12, SCREEN_WIDTH - 2*fImgBettewn, 1)];
                 [self addSubview:viewFG];
@@ -230,7 +231,7 @@
              [_items count])
      {
         
-        int iShopCount = (int)[_items count];
+        
         // 画第一行
         float fImgBettewn = 5 *ScaleSize;
         float fImgHeight = (SCREEN_WIDTH - 2*fLeftX - (_columnOneCount -1)* fImgBettewn) / _columnOneCount;
@@ -367,7 +368,7 @@
         
         
         // 如果只有一排
-        if (_columnOneCount == iShopCount ||
+        if (_columnOneCount == _totalShopCount ||
             _columnTwoCount == 0)
          {
             fImgTopY += fImgHeight + fImgBettewn + fLabelBottomHeight;
@@ -397,7 +398,7 @@
         
         fImgLeftX = fLeftX;
         
-        for (int i = _columnOneCount; i < iShopCount; i++)
+        for (int i = _columnOneCount; i < _totalShopCount; i++)
          {
             UIImageView *imgViewTemp = [[UIImageView alloc] initWithFrame:CGRectMake(fImgLeftX, fImgTopY, fImgWidth, fImgHeight)];
             [self  addSubview:imgViewTemp];
@@ -524,11 +525,20 @@
                 fImgLeftX += fImgBettewn + fImgWidth;
              }
             
+            
+            fOneRowHeight = fImgHeight + fImgBettewn + fLabelBottomHeight +100;
+            
          }
         
      }
     
     self.height = fImgTopY;
+    
+    if  (_totalShopCount%_columnOneCount != 0 &&
+         _columnOneCount !=1)
+     {
+        self.height = fImgTopY + fOneRowHeight;
+     }
     
     if ([arrTimeLable count] >0)
      {
@@ -588,7 +598,7 @@
 
 -(void) showCountDown
 {
-    
+    return;
     for (int i = 0; i < _totalShopCount; i++)
      {
         UILabel *labelTemp = arrTimeLable[i];

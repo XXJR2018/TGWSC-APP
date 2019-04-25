@@ -40,6 +40,7 @@
     _columnTwoCount = columnTwoCount; // 第二行之后的 每行的元素个数
     _totalShopCount = iTotalCount;
     
+    
     arrTime = [[NSMutableArray alloc] init];
     arrTimeLable = [[NSMutableArray alloc] init];
     
@@ -62,9 +63,9 @@
     float fTopY = 0;
     float fLeftX = 15*ScaleSize;
     int iTitleHeight = 50;
-    UIImageView *imgTiltle = [[UIImageView alloc] initWithFrame:CGRectMake(fLeftX, fTopY + (iTitleHeight-20)/2, 15, 20)];
+    UIImageView *imgTiltle = [[UIImageView alloc] initWithFrame:CGRectMake(fLeftX, fTopY + (iTitleHeight-18)/2, 18, 18)];
     [self addSubview:imgTiltle];
-    imgTiltle.image = [UIImage imageNamed:@"ac_miaosha"];
+    imgTiltle.image = [UIImage imageNamed:@"ac_xianshou"];
     
     UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(fLeftX + imgTiltle.width + 5, fTopY, SCREEN_WIDTH - fLeftX - 100, iTitleHeight)];
     [self addSubview:labelTitle];
@@ -90,8 +91,7 @@
     float fImgTopY = fTopY;
     if(_items &&
        [_items count] &&
-       _columnOneCount == 1  &&
-       _columnTwoCount == 1)
+       _columnOneCount == 1 )
      {
         // 一排一个时， 图片占位1/3屏幕宽
         float fImgBettewn = 5 *ScaleSize;
@@ -185,8 +185,36 @@
             labelSubName.textColor = [ResourceManager midGrayColor];
             labelSubName.text = sModel.strGoodsSubName;
             
+            // 进度条
+            fLabTopY += labelSubName.height + 10;
+            UILabel *lableYQCount =[[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY , fLabWidth-5, 15)];
+            [self  addSubview:lableYQCount];
+            lableYQCount.font = [UIFont systemFontOfSize:10];
+            lableYQCount.textColor = [ResourceManager lightGrayColor];
+            lableYQCount.textAlignment = NSTextAlignmentRight;
+            NSString *strYQCount = [NSString stringWithFormat:@"已抢%d件", sModel.iSaleNum];
+            lableYQCount.text = [NSString stringWithFormat:@"已抢%d件", sModel.iSaleNum];
             
-            fLabTopY += labelSubName.height + 40;
+            int iWidth =  [ToolsUtlis getSizeWithString:strYQCount withFrame:lableYQCount.frame withFontSize:10].width + 10;
+            float fTotalWidth = fLabWidth - iWidth -5;
+            UIView *viewTotalCount = [[UIView alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY+5, fTotalWidth, 5)];
+            [self addSubview:viewTotalCount];
+            viewTotalCount.backgroundColor = UIColorFromRGB(0xe0e0e0);
+            
+            int iSaleNum = sModel.iSaleNum;
+            int iSeckillStock = sModel.iSeckillStock;
+            if (iSaleNum > 0 &&
+                iSeckillStock >0 &&
+                iSaleNum <= iSeckillStock)
+             {
+                UIView *viewSaleNum = [[UIView alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY+5, fTotalWidth * ((float)iSaleNum/iSeckillStock), 5)];
+                [self addSubview:viewSaleNum];
+                viewSaleNum.backgroundColor = UIColorFromRGB(0xa9454f);
+             }
+            
+            
+            
+            fLabTopY += lableYQCount.height + 10;
             UILabel *labelSeckillPricee = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY, fLabWidth, 40)];
             [self  addSubview:labelSeckillPricee];
             labelSeckillPricee.font = [UIFont systemFontOfSize:18];

@@ -317,6 +317,8 @@
             sModel.seckillPrice = [ToolsUtlis getnumber:dicObject[@"seckillPrice"]]; // 秒杀价
             sModel.reducePrice = [ToolsUtlis getnumber:dicObject[@"reducePrice"]]; //价差（减xx元）
             
+            sModel.iActivityFlag = [dicObject[@"activityFlag"] intValue]; // // 1 - 秒杀活动  2 - 限时抢购
+            sModel.iSaleNum = [dicObject[@"saleNum"] intValue]; // // 已经售卖数
             
             [tempArr addObject:sModel];
          }

@@ -84,6 +84,7 @@
     fTopY +=labelTitle.height;
     
     float fOneRowHeight = 0;// 一列的高度
+    float fOneRowOtherHeigt = 115;  // 一列的其他高度（除开图片的高度）
     
     
     float fImgTopY = fTopY;
@@ -96,6 +97,7 @@
         float fImgBettewn = 5 *ScaleSize;
         float fImgHeight = (SCREEN_WIDTH - 2*fLeftX - (3 -1)* fImgBettewn) / 3 + 20;
         float fImgWidth = fImgHeight;
+        
         
         float fImgLeftX = fLeftX;
         for (int i = 0;  i < _totalShopCount; i++)
@@ -325,6 +327,34 @@
             labelSubName.text = sModel.strGoodsSubName;
             
             fLabTopY += labelSubName.height;
+            UILabel *lableYQCount =[[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY , fLabWidth, 15)];
+            [self  addSubview:lableYQCount];
+            lableYQCount.font = [UIFont systemFontOfSize:10];
+            lableYQCount.textColor = [ResourceManager lightGrayColor];
+            lableYQCount.textAlignment = NSTextAlignmentRight;
+            NSString *strYQCount = [NSString stringWithFormat:@"已抢%d件", sModel.iSaleNum];
+            lableYQCount.text = [NSString stringWithFormat:@"已抢%d件", sModel.iSaleNum];
+            
+            int iWidth =  [ToolsUtlis getSizeWithString:strYQCount withFrame:lableYQCount.frame withFontSize:10].width + 5;
+            float fTotalWidth = fLabWidth - iWidth;
+            UIView *viewTotalCount = [[UIView alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY+5, fTotalWidth, 5)];
+            [self addSubview:viewTotalCount];
+            viewTotalCount.backgroundColor = UIColorFromRGB(0xe0e0e0);
+            
+            int iSaleNum = sModel.iSaleNum;
+            int iSeckillStock = sModel.iSeckillStock;
+            if (iSaleNum > 0 &&
+                iSeckillStock >0 &&
+                iSaleNum <= iSeckillStock)
+             {
+                UIView *viewSaleNum = [[UIView alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY+5, fTotalWidth * ((float)iSaleNum/iSeckillStock), 5)];
+                [self addSubview:viewSaleNum];
+                viewSaleNum.backgroundColor = UIColorFromRGB(0xa9454f);
+             }
+                
+            
+            
+            fLabTopY += lableYQCount.height + 2;
             UILabel *labelCount = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY , fLabWidth, 15)];
             [self  addSubview:labelCount];
             labelCount.font = [UIFont systemFontOfSize:10];
@@ -332,7 +362,7 @@
             labelCount.text = [NSString stringWithFormat:@"仅剩%d件", sModel.iSeckillStock];
             
             
-            fLabTopY += labelCount.height+10;
+            fLabTopY += labelCount.height+ 8;
             UILabel *labelSeckillPricee = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY, fLabWidth, 40)];
             [self  addSubview:labelSeckillPricee];
             labelSeckillPricee.font = [UIFont systemFontOfSize:18];
@@ -372,7 +402,7 @@
             _columnTwoCount == 0)
          {
             fImgTopY += fImgHeight + fImgBettewn + fLabelBottomHeight;
-            self.height = fImgTopY  + 100;
+            self.height = fImgTopY  + fOneRowOtherHeigt;
             
             if ([arrTimeLable count] >0)
              {
@@ -386,7 +416,7 @@
         fImgHeight = (SCREEN_WIDTH - 2*fLeftX - (_columnTwoCount -1)* fImgBettewn) / _columnTwoCount;
         fImgWidth = fImgHeight;
         //fImgTopY = fTopY;
-        fImgTopY += fImgHeight + fImgBettewn + fLabelBottomHeight +100;
+        fImgTopY += fImgHeight + fImgBettewn + fLabelBottomHeight +fOneRowOtherHeigt;
         fImgBettewn = 5 *ScaleSize;
         fLeftX = (SCREEN_WIDTH  - _columnTwoCount *fImgWidth - (_columnTwoCount - 1)*fImgBettewn)/2;
         
@@ -479,6 +509,34 @@
             labelSubName.text = sModel.strGoodsSubName;
             
             fLabTopY += labelSubName.height;
+            UILabel *lableYQCount =[[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY , fLabWidth, 15)];
+            [self  addSubview:lableYQCount];
+            lableYQCount.font = [UIFont systemFontOfSize:10];
+            lableYQCount.textColor = [ResourceManager lightGrayColor];
+            lableYQCount.textAlignment = NSTextAlignmentRight;
+            NSString *strYQCount = [NSString stringWithFormat:@"已抢%d件", sModel.iSaleNum];
+            lableYQCount.text = [NSString stringWithFormat:@"已抢%d件", sModel.iSaleNum];
+            
+            int iWidth =  [ToolsUtlis getSizeWithString:strYQCount withFrame:lableYQCount.frame withFontSize:10].width + 5;
+            float fTotalWidth = fLabWidth - iWidth;
+            UIView *viewTotalCount = [[UIView alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY+5, fTotalWidth, 5)];
+            [self addSubview:viewTotalCount];
+            viewTotalCount.backgroundColor = UIColorFromRGB(0xe0e0e0);
+            
+            int iSaleNum = sModel.iSaleNum;
+            int iSeckillStock = sModel.iSeckillStock;
+            if (iSaleNum > 0 &&
+                iSeckillStock >0 &&
+                iSaleNum <= iSeckillStock)
+             {
+                UIView *viewSaleNum = [[UIView alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY+5, fTotalWidth * ((float)iSaleNum/iSeckillStock), 5)];
+                [self addSubview:viewSaleNum];
+                viewSaleNum.backgroundColor = UIColorFromRGB(0xa9454f);
+             }
+            
+            
+            
+            fLabTopY += lableYQCount.height + 2;
             UILabel *labelCount = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY , fLabWidth, 15)];
             [self  addSubview:labelCount];
             labelCount.font = [UIFont systemFontOfSize:10];
@@ -486,7 +544,7 @@
             labelCount.text = [NSString stringWithFormat:@"仅剩%d件", sModel.iSeckillStock];
             
             
-            fLabTopY += labelCount.height+10;
+            fLabTopY += labelCount.height+8;
             UILabel *labelSeckillPricee = [[UILabel alloc] initWithFrame:CGRectMake(fLabLeftX, fLabTopY, fLabWidth, 40)];
             [self  addSubview:labelSeckillPricee];
             labelSeckillPricee.font = [UIFont systemFontOfSize:18];
@@ -517,7 +575,7 @@
             
             if ((i +1 - _columnOneCount) %_columnTwoCount == 0)
              {
-                fImgTopY += fImgHeight + fImgBettewn + fLabelBottomHeight +100;
+                fImgTopY += fImgHeight + fImgBettewn + fLabelBottomHeight +fOneRowOtherHeigt;
                 fImgLeftX = fLeftX;
              }
             else
@@ -526,7 +584,7 @@
              }
             
             
-            fOneRowHeight = fImgHeight + fImgBettewn + fLabelBottomHeight +100;
+            fOneRowHeight = fImgHeight + fImgBettewn + fLabelBottomHeight +fOneRowOtherHeigt;
             
          }
         

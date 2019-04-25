@@ -598,7 +598,6 @@
 
 -(void) showCountDown
 {
-    return;
     for (int i = 0; i < _totalShopCount; i++)
      {
         UILabel *labelTemp = arrTimeLable[i];

@@ -45,6 +45,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *reducePrice;  // 价差（减xx元）
 
 
+@property (nonatomic, assign) int  iActivityFlag; // 1 - 秒杀活动  2 - 限时抢购
+@property (nonatomic, assign) int  iSaleNum;  //已售件数
+
+
 @end
 
 NS_ASSUME_NONNULL_END

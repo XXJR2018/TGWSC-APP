@@ -744,6 +744,7 @@
      {
         // 是秒杀活动
         params[@"activityFlag"] = @"1";
+        params[@"seckillId"] = @(_shopModel.iSeckillId);
      }
     
     DDGAFHTTPRequestOperation *operation = [[DDGAFHTTPRequestOperation alloc] initWithURL:strUrl
@@ -806,6 +807,7 @@
      {
         // 是秒杀活动
         params[@"activityFlag"] = @"1";
+        params[@"seckillId"] = @(_shopModel.iSeckillId);
      }
     
     

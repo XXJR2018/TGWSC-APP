@@ -1139,6 +1139,7 @@
      {
         // 是秒杀活动
         params[@"activityFlag"] = @"1";
+        params[@"seckillId"] = @(_shopModel.iSeckillId);
      }
     
     // 是限购活动
@@ -1170,6 +1171,7 @@
      {
         // 是秒杀活动
         params[@"activityFlag"] = @"1";
+        params[@"seckillId"] = @(_shopModel.iSeckillId);
      }
     
     NSString *strUrl = [NSString stringWithFormat:@"%@%@", [PDAPI getBusiUrlString],kURLquerySkuList];

@@ -61,7 +61,6 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
 //服务器地址
 + (NSString *)getBaseUrlString{
 #if DEBUG
-    return @"https://www.tiangouwo.com/";     //生产环境
 //    return @"http://192.168.10.182/";        //测试环境
 //    return  @"http://192.168.10.132:9991/";        //方然青服务器
 //    return  @"http://192.168.10.130/";     // 邹全洪
@@ -75,7 +74,6 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
 
 + (NSString *)getBusiUrlString{
 #if DEBUG
-    return @"https://www.tiangouwo.com/";     //生产环境
 //    return @"http://192.168.10.182/";        //测试环境
 //    return  @"http://192.168.10.130/";     // 邹全洪
     return kBaseURL;

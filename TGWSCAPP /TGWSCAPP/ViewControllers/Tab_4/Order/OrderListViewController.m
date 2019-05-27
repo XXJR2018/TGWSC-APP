@@ -258,18 +258,19 @@
         cell = [[OrderListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    __weak typeof(self) weakSelf = self;
     cell.orderLeftBlock = ^(UIButton *sender){
-        [self orderLeftTouch:self.dataArray[indexPath.row] leftBtn:sender];
+        [weakSelf orderLeftTouch:self.dataArray[indexPath.row] leftBtn:sender];
     };
     cell.orderCentreBlock = ^{
-        [self orderCentreTouch:self.dataArray[indexPath.row]];
+        [weakSelf orderCentreTouch:self.dataArray[indexPath.row]];
     };
     cell.orderRightBlock = ^{
-        [self orderRightTouch:self.dataArray[indexPath.row]];
+        [weakSelf orderRightTouch:self.dataArray[indexPath.row]];
     };
     cell.orderTimeBlock = ^{
         NSString *orderNo = [NSString stringWithFormat:@"%@",[(NSDictionary *)self.dataArray[indexPath.row] objectForKey:@"orderNo"]];
-        [self cancelOrderUrl:orderNo];
+        [weakSelf cancelOrderUrl:orderNo];
     };
     cell.dataDicionary = self.dataArray[indexPath.row];
     return cell;

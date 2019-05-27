@@ -197,20 +197,21 @@
 
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             if (!_timer) {
+                __weak typeof(self) weakSelf = self;
                 _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
                 dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
                 dispatch_source_set_event_handler(_timer, ^{
                     if(timeout == 0){ //倒计时结束，关闭
-                        dispatch_source_cancel(self.timer);
+                        dispatch_source_cancel(weakSelf.timer);
                         dispatch_async(dispatch_get_main_queue(), ^{
                             //倒计时结束，刷新数据，改变订单状态
-                            [self.orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];
-                            self.orderTimeBlock();
+                            [weakSelf.orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];
+                            weakSelf.orderTimeBlock();
                         });
                     }else{
                         dispatch_async(dispatch_get_main_queue(), ^{
                             //设置界面的按钮显示 根据自己需求设置
-                            [self.orderRightBtn  setTitle:[NSString stringWithFormat:@"付款 %@",[self getMMSSFromSS:timeout]] forState:UIControlStateNormal];
+                            [weakSelf.orderRightBtn  setTitle:[NSString stringWithFormat:@"付款 %@",[weakSelf getMMSSFromSS:timeout]] forState:UIControlStateNormal];
                         });
                         timeout--;
                     }

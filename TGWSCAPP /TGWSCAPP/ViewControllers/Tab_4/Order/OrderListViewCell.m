@@ -37,6 +37,7 @@
 
 @property(nonatomic,strong)dispatch_source_t timer;       //创建GCD定时器
 
+@property(nonatomic,strong)NSString *countDownTime;       //从数据源中获取总的倒计时
 @end
 
 @implementation OrderListViewCell
@@ -55,6 +56,9 @@
     UIColor *color_2 = [ResourceManager color_6];
     UIFont *font_1 = [UIFont systemFontOfSize:13];
     UIFont *font_2 = [UIFont systemFontOfSize:12];
+    
+    // 从数据源中获取总的倒计时
+    _countDownTime = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"countDownTime"]];
     
     _timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 200, 45)];
     [self.contentView addSubview:_timeLabel];
@@ -274,11 +278,10 @@
 
 #pragma mark - 倒计时通知回调
 - (void)countDownNotification {
-    // 从数据源中获取总的倒计时
-    NSString *countDownTime = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"countDownTime"]];
+   
     /// 判断是否需要倒计时 -- 可能有的cell不需要倒计时,根据真实需求来进行判断
-    if (countDownTime.length > 0) {
-        NSArray *timeArr = [countDownTime componentsSeparatedByString:@":"];
+    if (_countDownTime.length > 0) {
+        NSArray *timeArr = [_countDownTime componentsSeparatedByString:@":"];
         NSInteger timeout = 0; //倒计时时间
         timeout = [timeArr[0] intValue] * 60 +  [timeArr[1] intValue] ;
         

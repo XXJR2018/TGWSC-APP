@@ -7,7 +7,7 @@
 //
 
 #import "OrderListViewCell.h"
-
+#import "OYCountDownManager.h"
 
 #define orderCellHeight  100
 
@@ -188,42 +188,6 @@
         _orderRightBtn.backgroundColor = color_4;
         [_orderRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];
-        
-        NSString *countDownTime = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"countDownTime"]];
-        if (countDownTime.length > 0) {
-            NSArray *timeArr = [countDownTime componentsSeparatedByString:@":"];
-            __block int timeout = 0; //倒计时时间
-            timeout = [timeArr[0] intValue] * 60 +  [timeArr[1] intValue] ;
-
-            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            if (!_timer) {
-                __weak typeof(self) weakSelf = self;
-                _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
-                dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
-                dispatch_source_set_event_handler(_timer, ^{
-                    if(timeout == 0){ //倒计时结束，关闭
-                        dispatch_source_cancel(weakSelf.timer);
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            //倒计时结束，刷新数据，改变订单状态
-                            [weakSelf.orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];
-                            weakSelf.orderTimeBlock();
-                        });
-                    }else{
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            //设置界面的按钮显示 根据自己需求设置
-                            [weakSelf.orderRightBtn  setTitle:[NSString stringWithFormat:@"付款 %@",[weakSelf getMMSSFromSS:timeout]] forState:UIControlStateNormal];
-                        });
-                        timeout--;
-                    }
-                });
-                dispatch_resume(_timer);
-            }
-        }
-       
-    }else {
-        if (_timer) {
-            dispatch_source_cancel(self.timer);
-        }
     }
     
     if (status == 1|| status == 3) {
@@ -299,7 +263,38 @@
     }
 }
 
+#pragma mark - 添加倒计时通知事件
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier]) {
+        // 监听通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(countDownNotification) name:OYCountDownNotification object:nil];
+    }
+    return self;
+}
 
+#pragma mark - 倒计时通知回调
+- (void)countDownNotification {
+    // 从数据源中获取总的倒计时
+    NSString *countDownTime = [NSString stringWithFormat:@"%@",[_dataDicionary objectForKey:@"countDownTime"]];
+    /// 判断是否需要倒计时 -- 可能有的cell不需要倒计时,根据真实需求来进行判断
+    if (countDownTime.length > 0) {
+        NSArray *timeArr = [countDownTime componentsSeparatedByString:@":"];
+        NSInteger timeout = 0; //倒计时时间
+        timeout = [timeArr[0] intValue] * 60 +  [timeArr[1] intValue] ;
+        
+        //倒计时剩余时间
+        NSInteger countDown = timeout - kCountDownManager.timeInterval;
+        ///当剩余时间为0时进行相关操作
+        if (countDown > 0) {
+            // 重新赋值
+            [self.orderRightBtn  setTitle:[NSString stringWithFormat:@"付款 %@",[self getMMSSFromSS:countDown]] forState:UIControlStateNormal];
+        }else{
+            [self.orderRightBtn setTitle:@"付款" forState:UIControlStateNormal];
+            return;
+        }
+    }
+    
+}
 
 //传入 秒  得到  xx分钟xx秒
 -(NSString *)getMMSSFromSS:(NSInteger)totalTime{
@@ -313,7 +308,6 @@
 }
 
 
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
@@ -321,8 +315,13 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
+}
+
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 @end

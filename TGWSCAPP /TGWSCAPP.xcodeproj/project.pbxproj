@@ -149,6 +149,7 @@
 		C0CCC85621C390F7009352E0 /* ShopListView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC85521C390F7009352E0 /* ShopListView.m */; };
 		C0CCC85921C391C2009352E0 /* AdvertingShopListView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC85821C391C2009352E0 /* AdvertingShopListView.m */; };
 		C0CCC85C21C391F1009352E0 /* ShopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CCC85B21C391F1009352E0 /* ShopModel.m */; };
+		C202EF77229BD4730022D063 /* OYCountDownManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C202EF75229BD4730022D063 /* OYCountDownManager.m */; };
 		C20525DE21BE6E1D00E13893 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525DD21BE6E1D00E13893 /* TabBarViewController.m */; };
 		C20525F021BE6E5C00E13893 /* TabViewController_4.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20525E221BE6E5C00E13893 /* TabViewController_4.xib */; };
 		C20525F121BE6E5C00E13893 /* TabViewController_4.m in Sources */ = {isa = PBXBuildFile; fileRef = C20525E321BE6E5C00E13893 /* TabViewController_4.m */; };
@@ -684,6 +685,8 @@
 		C0CCC85821C391C2009352E0 /* AdvertingShopListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdvertingShopListView.m; sourceTree = "<group>"; };
 		C0CCC85A21C391F1009352E0 /* ShopModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopModel.h; sourceTree = "<group>"; };
 		C0CCC85B21C391F1009352E0 /* ShopModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopModel.m; sourceTree = "<group>"; };
+		C202EF75229BD4730022D063 /* OYCountDownManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OYCountDownManager.m; sourceTree = "<group>"; };
+		C202EF76229BD4730022D063 /* OYCountDownManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OYCountDownManager.h; sourceTree = "<group>"; };
 		C20525DC21BE6E1D00E13893 /* TabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		C20525DD21BE6E1D00E13893 /* TabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		C20525E121BE6E5C00E13893 /* TabViewController_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController_4.h; sourceTree = "<group>"; };
@@ -1951,6 +1954,15 @@
 			path = ShopListView;
 			sourceTree = "<group>";
 		};
+		C202EF74229BD4730022D063 /* OYCountDownManager */ = {
+			isa = PBXGroup;
+			children = (
+				C202EF76229BD4730022D063 /* OYCountDownManager.h */,
+				C202EF75229BD4730022D063 /* OYCountDownManager.m */,
+			);
+			path = OYCountDownManager;
+			sourceTree = "<group>";
+		};
 		C20525DB21BE6A6E00E13893 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2341,6 +2353,7 @@
 		C250459F21BA711E00DA9C72 /* CommonView */ = {
 			isa = PBXGroup;
 			children = (
+				C202EF74229BD4730022D063 /* OYCountDownManager */,
 				C2A7001222155E0100AB277C /* XHStarRateView */,
 				C24975CD2214221100949662 /* YCMenuViewCompont */,
 				C0A48B4221DE3397002AF226 /* CDWAlertView */,
@@ -3504,6 +3517,7 @@
 				C2A70011221558E400AB277C /* IssueAppraiseViewController.m in Sources */,
 				C250475B21BA715500DA9C72 /* DDGJsonParseManager.m in Sources */,
 				C25047B721BA715500DA9C72 /* UIImageView+AFNetworking.m in Sources */,
+				C202EF77229BD4730022D063 /* OYCountDownManager.m in Sources */,
 				C2AEB46221BE3CB00078E788 /* CSAnimationView.m in Sources */,
 				C0CCC85921C391C2009352E0 /* AdvertingShopListView.m in Sources */,
 				C250461321BA711E00DA9C72 /* TAAbstractDotView.m in Sources */,

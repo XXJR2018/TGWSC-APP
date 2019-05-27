@@ -21,6 +21,8 @@
 #import "RefundInfoVC.h"
 #import "YCMenuView.h"
 
+#import "OYCountDownManager.h"
+
 #define orderCellHeight  100
 
 @interface OrderListViewController ()
@@ -137,7 +139,8 @@
             if ([self.orderStatus isEqualToString:@"6"]) {
                 [_tableView setTableHeaderView:_headerView];
             }
-            
+            // 调用reload
+            [kCountDownManager reload];
             [self reloadTableViewWithArray:operation.jsonResult.rows];
         }else{
             if (self.pageIndex == 1) {
@@ -220,6 +223,8 @@
     LWLabel.textColor = UIColorFromRGB(0xCC5F40);
     LWLabel.text = @"评价送积分，多评多得不限次数~~";
     
+    // 启动倒计时管理
+    [kCountDownManager start];
 }
 
 - (CGRect)tableViewFrame{
@@ -273,6 +278,7 @@
         [weakSelf cancelOrderUrl:orderNo];
     };
     cell.dataDicionary = self.dataArray[indexPath.row];
+    
     return cell;
 }
 
@@ -511,5 +517,12 @@
     NSArray *titleArr = @[@"我不想买了",@"信息填写错误，重新拍",@"卖家缺货",@"其他原因"];
     _closeRemark = titleArr[sender.tag];
 }
+
+
+- (void)dealloc {
+    [kCountDownManager removeAllSource];
+    [kCountDownManager invalidate];
+}
+
 
 @end

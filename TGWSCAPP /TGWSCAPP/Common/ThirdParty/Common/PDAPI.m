@@ -51,7 +51,6 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
 + (NSString *)WXSysRouteAPI{
 #if DEBUG
     return @"https://app.tgwmall.cn/";           //生产环境
-//    return @"http://xxjiaotong.f3322.net:5000/";  // 测试环境外网地址
 //    return @"http://192.168.10.182/";   // 测试环境
     
 #else
@@ -62,32 +61,26 @@ static NSString *const kDDGUserWXLoginAPIString= @"appMall/login/wxLogin";
 //服务器地址
 + (NSString *)getBaseUrlString{
 #if DEBUG
-//    return @"https://www.tiangouwo.com/";     //生产环境
-    return @"http://xxjiaotong.f3322.net:5000/";  // 测试环境外网地址
+    return @"https://www.tiangouwo.com/";     //生产环境
 //    return @"http://192.168.10.182/";        //测试环境
 //    return  @"http://192.168.10.132:9991/";        //方然青服务器
-//    return @"http://192.168.10.129:82/";        //刘利伟服务器
 //    return  @"http://192.168.10.130/";     // 邹全洪
-//    return  @"http://192.168.10.167:6401/";     // 曾红卫
     return kBaseURL;
     
 #else
-    return @"http://xxjiaotong.f3322.net:5000/";  // 测试环境外网地址
+
     return kBaseURL;
 #endif
 }
 
 + (NSString *)getBusiUrlString{
 #if DEBUG
-//    return @"https://www.tiangouwo.com/";     //生产环境
-    return @"http://xxjiaotong.f3322.net:5000/";  // 测试环境外网地址
+    return @"https://www.tiangouwo.com/";     //生产环境
 //    return @"http://192.168.10.182/";        //测试环境
-//    return @"http://192.168.10.129:82/";        //刘利伟服务器
 //    return  @"http://192.168.10.130/";     // 邹全洪
     return kBaseURL;
     
 #else
-    return @"http://xxjiaotong.f3322.net:5000/";  // 测试环境外网地址
     return kBaseURL;
 #endif
 }
